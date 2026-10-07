@@ -1,0 +1,27 @@
+name: Update Around the League
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 10 * * 0"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build latest Division One South round-up
+        run: python3 scripts/build_around_league.py
+
+      - name: Commit updated round-up
+        run: |
+          git config user.name "Tivvy Control Centre"
+          git config user.email "actions@users.noreply.github.com"
+          git add around-the-league.html data/around-the-league.json
+          git diff --cached --quiet || git commit -m "Update Around the League"
+          git push

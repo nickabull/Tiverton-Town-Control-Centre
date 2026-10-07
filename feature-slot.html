@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feature Slot | Tivvy Control Centre</title>
+<style>
+:root{--yellow:#f2c400;--bg:#f3f3f1;--line:#ddd}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#161616}
+header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--yellow)}
+.head{max-width:1180px;margin:auto;padding:18px 22px;display:grid;grid-template-columns:90px 1fr 150px;gap:18px;align-items:center}
+.logo{height:78px;max-width:110px;object-fit:contain}.league{width:145px;height:70px;object-fit:cover;border:2px solid rgba(255,255,255,.6);border-radius:6px}
+.eyebrow{color:var(--yellow);font-size:12px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}.title{font-size:clamp(26px,4vw,42px);font-weight:900;margin:3px 0}.sub{color:#ddd;font-size:14px}
+nav{max-width:1180px;margin:auto;padding:0 22px 14px}nav a{color:#fff;text-decoration:none;border:1px solid #444;padding:8px 11px;border-radius:7px}
+main{max-width:1180px;margin:auto;padding:26px 22px 50px}.intro,.chooser{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}.intro{border-top:5px solid var(--yellow)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.card h3{margin:0 0 8px}.card p{margin:0;color:#555;line-height:1.45;font-size:14px}.auto{display:inline-block;margin-top:12px;padding:5px 8px;border-radius:999px;background:#111;color:#fff;font-size:11px;font-weight:800}.semi{background:var(--yellow);color:#111}.chooser select{padding:10px;font:inherit;min-width:260px}.chooser button{padding:10px 14px;margin-left:8px;background:var(--yellow);border:1px solid #222;font-weight:800}.status{margin-top:12px;color:#666}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.head{grid-template-columns:70px 1fr}.league{display:none}}@media(max-width:600px){.grid{grid-template-columns:1fr}.chooser button{margin:10px 0 0 0}}
+</style></head><body>
+<header><div class="head">
+<img class="logo" src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town FC">
+<div><div class="eyebrow">Tiverton Town • Programme Builder</div><div class="title">Feature Slot</div><div class="sub">Choose one rotating A5 feature for the next programme</div></div>
+<img class="league" src="https://www.voicenewspapers.co.uk/tindle-static/image/2024/08/30/12/41/Untitled-design-119.jpeg?crop=752%3A500&amp;height=500&amp;width=752" alt="Pitching In Southern League">
+</div><nav><a href="index.html">← Control Centre</a></nav></header>
+<main>
+<section class="intro"><h2>One slot, different feature every issue</h2><p>Pick the feature that suits the next programme. The Control Centre will prepare the copy/data; Canva will handle the final A5 design and your editorial pass.</p></section>
+<section class="chooser"><strong>Next programme feature:</strong>
+<select id="pick"><option>Around the League</option><option>Meet the Player</option><option>Tivvy Quiz</option><option>On This Day</option><option>Stat Attack</option><option>Spot the Ball</option><option>Who Am I?</option><option>Tivvy Teammates</option><option>Away Day Guide</option><option>From the Archive</option></select>
+<button onclick="choose()">Select feature</button><div class="status" id="status">No feature selected yet.</div></section>
+<section class="grid">
+<article class="card"><h3>Around the League</h3><p>Latest Division One South results, scorers, late goals, signings and notable stories.</p><span class="auto">Mostly automatic</span></article>
+<article class="card"><h3>Meet the Player</h3><p>Quick-fire player profile with career, favourites, teammates and football memories.</p><span class="auto semi">Needs player answers</span></article>
+<article class="card"><h3>Tivvy Quiz</h3><p>A mix of Tiverton, Southern League and wider football questions, with answers later in the issue.</p><span class="auto">Automatic</span></article>
+<article class="card"><h3>On This Day</h3><p>Historic Tivvy result, scorers and context from the archive around the match date.</p><span class="auto">Automatic</span></article>
+<article class="card"><h3>Stat Attack</h3><p>Form, scorers, minutes, streaks, records and unusual numbers generated from current data.</p><span class="auto">Automatic</span></article>
+<article class="card"><h3>Spot the Ball</h3><p>Use one of Viv Curtis's action shots and remove the ball for a simple supporter competition.</p><span class="auto semi">Photo choice needed</span></article>
+<article class="card"><h3>Who Am I?</h3><p>Clues about a current or former Tivvy player, with the answer elsewhere in the programme.</p><span class="auto">Mostly automatic</span></article>
+<article class="card"><h3>Tivvy Teammates</h3><p>Fun dressing-room questions: best trainer, funniest, worst dresser, future manager and more.</p><span class="auto semi">Needs player answers</span></article>
+<article class="card"><h3>Away Day Guide</h3><p>Next away venue, travel, ground information, recent record and practical supporter notes.</p><span class="auto">Mostly automatic</span></article>
+</section>
+</main>
+<script>
+function choose(){const v=document.getElementById('pick').value;localStorage.setItem('tivvyFeature',v);document.getElementById('status').textContent='Selected for next programme: '+v+' (local preview only for now)';}
+const saved=localStorage.getItem('tivvyFeature');if(saved){document.getElementById('pick').value=saved;document.getElementById('status').textContent='Selected for next programme: '+saved+' (local preview only for now)';}
+</script>
+</body></html>

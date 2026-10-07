@@ -2,40 +2,66 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feature Slot | Tivvy Control Centre</title>
 <style>
-:root{--yellow:#f2c400;--bg:#f3f3f1;--line:#ddd}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#161616}
+:root{--yellow:#f2c400;--bg:#f3f3f1;--line:#ddd;--ink:#161616}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--yellow)}
 .head{max-width:1180px;margin:auto;padding:18px 22px;display:grid;grid-template-columns:90px 1fr 150px;gap:18px;align-items:center}
 .logo{height:78px;max-width:110px;object-fit:contain}.league{width:145px;height:70px;object-fit:cover;border:2px solid rgba(255,255,255,.6);border-radius:6px}
 .eyebrow{color:var(--yellow);font-size:12px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}.title{font-size:clamp(26px,4vw,42px);font-weight:900;margin:3px 0}.sub{color:#ddd;font-size:14px}
-nav{max-width:1180px;margin:auto;padding:0 22px 14px}nav a{color:#fff;text-decoration:none;border:1px solid #444;padding:8px 11px;border-radius:7px}
+nav{max-width:1180px;margin:auto;padding:0 22px 14px}nav a{color:#fff;text-decoration:none;border:1px solid #444;padding:8px 11px;border-radius:7px;margin-right:6px}
 main{max-width:1180px;margin:auto;padding:26px 22px 50px}.intro,.chooser{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}.intro{border-top:5px solid var(--yellow)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px}.card h3{margin:0 0 8px}.card p{margin:0;color:#555;line-height:1.45;font-size:14px}.auto{display:inline-block;margin-top:12px;padding:5px 8px;border-radius:999px;background:#111;color:#fff;font-size:11px;font-weight:800}.semi{background:var(--yellow);color:#111}.chooser select{padding:10px;font:inherit;min-width:260px}.chooser button{padding:10px 14px;margin-left:8px;background:var(--yellow);border:1px solid #222;font-weight:800}.status{margin-top:12px;color:#666}
-@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.head{grid-template-columns:70px 1fr}.league{display:none}}@media(max-width:600px){.grid{grid-template-columns:1fr}.chooser button{margin:10px 0 0 0}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}.card h3{margin:0 0 8px;font-size:22px}.card p{margin:0 0 10px;color:#555;line-height:1.45;font-size:14px}.auto{display:inline-block;margin-top:4px;padding:5px 8px;border-radius:999px;background:#111;color:#fff;font-size:11px;font-weight:800}.semi{background:var(--yellow);color:#111}
+.sample{margin-top:15px;background:#f7f7f5;border-left:4px solid var(--yellow);padding:13px 14px;border-radius:6px}.sample h4{margin:0 0 8px;font-size:15px;text-transform:uppercase;letter-spacing:.03em}.sample p{margin:5px 0;color:#333}.sample ul{margin:6px 0 0;padding-left:20px;color:#333;font-size:14px;line-height:1.45}.answer{font-size:12px;color:#777;margin-top:7px}.chooser select{padding:10px;font:inherit;min-width:260px}.chooser button{padding:10px 14px;margin-left:8px;background:var(--yellow);border:1px solid #222;font-weight:800}.status{margin-top:12px;color:#666}.ready{color:#18783c;font-weight:800}.waiting{color:#996900;font-weight:800}
+.full{grid-column:1/-1}.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.fact{background:#111;color:#fff;padding:12px;border-radius:8px;text-align:center}.fact b{display:block;font-size:24px;color:var(--yellow)}.fact span{font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.head{grid-template-columns:70px 1fr}.league{display:none}.facts{grid-template-columns:1fr 1fr}.full{grid-column:auto}}@media(max-width:600px){.chooser button{margin:10px 0 0 0}}
 </style></head><body>
 <header><div class="head">
 <img class="logo" src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town FC">
-<div><div class="eyebrow">Tiverton Town • Programme Builder</div><div class="title">Feature Slot</div><div class="sub">Choose one rotating A5 feature for the next programme</div></div>
+<div><div class="eyebrow">Tiverton Town • Programme Builder</div><div class="title">Feature Slot</div><div class="sub">Live examples of rotating A5 programme features</div></div>
 <img class="league" src="https://www.voicenewspapers.co.uk/tindle-static/image/2024/08/30/12/41/Untitled-design-119.jpeg?crop=752%3A500&amp;height=500&amp;width=752" alt="Pitching In Southern League">
-</div><nav><a href="index.html">← Control Centre</a></nav></header>
+</div><nav><a href="index.html">← Control Centre</a><a href="around-the-league.html">Around the League</a></nav></header>
+
 <main>
-<section class="intro"><h2>One slot, different feature every issue</h2><p>Pick the feature that suits the next programme. The Control Centre will prepare the copy/data; Canva will handle the final A5 design and your editorial pass.</p></section>
+<section class="intro"><h2>Now populated with real examples</h2><p>These are working content previews, not final Canva designs. They show what the Control Centre could prepare automatically or semi-automatically before the chosen feature is poured into an A5 template.</p></section>
+
 <section class="chooser"><strong>Next programme feature:</strong>
 <select id="pick"><option>Around the League</option><option>Meet the Player</option><option>Tivvy Quiz</option><option>On This Day</option><option>Stat Attack</option><option>Spot the Ball</option><option>Who Am I?</option><option>Tivvy Teammates</option><option>Away Day Guide</option><option>From the Archive</option></select>
 <button onclick="choose()">Select feature</button><div class="status" id="status">No feature selected yet.</div></section>
+
 <section class="grid">
-<article class="card"><h3>Around the League</h3><p>Latest Division One South results, scorers, late goals, signings and notable stories.</p><span class="auto">Mostly automatic</span></article>
-<article class="card"><h3>Meet the Player</h3><p>Quick-fire player profile with career, favourites, teammates and football memories.</p><span class="auto semi">Needs player answers</span></article>
-<article class="card"><h3>Tivvy Quiz</h3><p>A mix of Tiverton, Southern League and wider football questions, with answers later in the issue.</p><span class="auto">Automatic</span></article>
-<article class="card"><h3>On This Day</h3><p>Historic Tivvy result, scorers and context from the archive around the match date.</p><span class="auto">Automatic</span></article>
-<article class="card"><h3>Stat Attack</h3><p>Form, scorers, minutes, streaks, records and unusual numbers generated from current data.</p><span class="auto">Automatic</span></article>
-<article class="card"><h3>Spot the Ball</h3><p>Use one of Viv Curtis's action shots and remove the ball for a simple supporter competition.</p><span class="auto semi">Photo choice needed</span></article>
-<article class="card"><h3>Who Am I?</h3><p>Clues about a current or former Tivvy player, with the answer elsewhere in the programme.</p><span class="auto">Mostly automatic</span></article>
-<article class="card"><h3>Tivvy Teammates</h3><p>Fun dressing-room questions: best trainer, funniest, worst dresser, future manager and more.</p><span class="auto semi">Needs player answers</span></article>
-<article class="card"><h3>Away Day Guide</h3><p>Next away venue, travel, ground information, recent record and practical supporter notes.</p><span class="auto">Mostly automatic</span></article>
+<article class="card full"><h3>Around the League</h3><p>Division One South results plus the stories behind them.</p><span class="auto ready">WORKING NOW</span>
+<div class="sample"><h4>Example: Saturday 3 October</h4><p><b>Dorchester went top</b> with a 1–0 win at Swindon Supermarine, while Bishops Cleeve made it five straight wins by beating Melksham 3–0. Tivvy drew 2–2 with Worcester Raiders and Portland snatched a 93rd-minute winner at Bideford.</p><p><a href="around-the-league.html">Open the full prototype →</a></p></div></article>
+
+<article class="card"><h3>Stat Attack</h3><p>Current Tivvy numbers turned into quick programme-friendly facts.</p><span class="auto ready">CAN BE AUTOMATED</span>
+<div class="sample"><h4>Current sample</h4><div class="facts"><div class="fact"><b>15th</b><span>League position</span></div><div class="fact"><b>9</b><span>Points</span></div><div class="fact"><b>8</b><span>League games</span></div><div class="fact"><b>3–1</b><span>Latest result</span></div></div><p class="answer">Recent league form: L · L · D · D · W</p></div></article>
+
+<article class="card"><h3>On This Day</h3><p>A genuine historical Tivvy match from the archive near the programme date.</p><span class="auto ready">CAN BE AUTOMATED</span>
+<div class="sample"><h4>7 October 2006</h4><p><b>Tiverton Town 1–1 Rugby Town</b> in the Southern League Premier Division. The crowd was 434 and Mike Booth was named man of the match.</p><p class="answer">For a programme dated 17 October, the builder would automatically search around 17 October instead.</p></div></article>
+
+<article class="card"><h3>Tivvy Quiz</h3><p>Fresh questions generated from verified current and historic Tivvy data.</p><span class="auto ready">CAN BE AUTOMATED</span>
+<div class="sample"><h4>Sample five</h4><ul><li>Who did Tivvy beat 3–1 on Tuesday 6 October?</li><li>What position are Tivvy currently in Division One South?</li><li>Who are Tivvy away to on Saturday 10 October?</li><li>Which current player returned to Tivvy in summer 2026 after first making his senior debut for the club at 16?</li><li>What was the score when Tivvy hosted Rugby Town on 7 October 2006?</li></ul><p class="answer"><b>Answers:</b> Hartpury · 15th · Shaftesbury · Owen Howe · 1–1</p></div></article>
+
+<article class="card"><h3>Meet the Player</h3><p>A factual intro can be auto-filled; the fun answers should come from the player.</p><span class="auto semi">PLAYER ANSWERS NEEDED</span>
+<div class="sample"><h4>Example: Owen Howe</h4><p>Homegrown forward Owen Howe returned to Tivvy for 2026/27. He originally made his senior debut for the club at just 16 and later scored 16 league goals in the 2016/17 promotion campaign.</p><ul><li>Best player you have played with?</li><li>Best ground you have played at?</li><li>Funniest teammate?</li><li>Favourite away day?</li><li>Pre-match meal?</li><li>One song on the dressing-room playlist?</li></ul></div></article>
+
+<article class="card"><h3>Who Am I?</h3><p>A clue trail using a current or former Tivvy player.</p><span class="auto ready">MOSTLY AUTOMATIC</span>
+<div class="sample"><h4>Can you name this Tivvy?</h4><ul><li>I made my senior Tiverton debut aged 16.</li><li>I later had spells with Bideford and Willand.</li><li>I scored 16 league goals in Tivvy's 2016/17 promotion campaign.</li><li>I returned home for the 2026/27 season.</li></ul><p class="answer"><b>Answer:</b> Owen Howe</p></div></article>
+
+<article class="card"><h3>Away Day Guide</h3><p>Next away fixture plus useful supporter information from official club sources.</p><span class="auto ready">MOSTLY AUTOMATIC</span>
+<div class="sample"><h4>Next away: Shaftesbury</h4><p><b>Saturday 10 October · 3pm</b></p><p>The Rockies play at Cockrams, Coppice Street, Shaftesbury, Dorset, SP7 8PF. Shaftesbury were immediately above Tivvy in the table before this week's fixtures.</p><p class="answer">Future version: travel time, parking, food/drink, admission and Tivvy's previous visits.</p></div></article>
+
+<article class="card"><h3>From the Archive</h3><p>One old result, photograph or programme cover with a short story.</p><span class="auto ready">MOSTLY AUTOMATIC</span>
+<div class="sample"><h4>Archive sample: 16 October 2010</h4><p><b>Bideford 4–2 Tiverton Town</b> in the FA Trophy. Ian Sampson and Jamie Densham scored for Tivvy in front of 268.</p><p class="answer">This works particularly well if we pair it with a historic image or old programme cover.</p></div></article>
+
+<article class="card"><h3>Tivvy Teammates</h3><p>The factual player panel is easy; the dressing-room answers need collecting once.</p><span class="auto semi">PLAYER ANSWERS NEEDED</span>
+<div class="sample"><h4>Question bank</h4><ul><li>Best trainer?</li><li>Worst dresser?</li><li>Funniest teammate?</li><li>Most likely to become a manager?</li><li>Last off the team bus?</li><li>Most annoying music taste?</li></ul><p class="answer">Once each player answers these, we store them and can rotate the feature all season.</p></div></article>
+
+<article class="card"><h3>Spot the Ball</h3><p>Built from a Viv Curtis action photograph selected for the issue.</p><span class="auto semi">PHOTO NEEDED</span>
+<div class="sample"><h4>Workflow</h4><p>Choose one strong action image → remove the ball → add an A–F / 1–6 grid → publish the answer in the next programme or on social media.</p><p class="answer">This one becomes properly useful when we have the Viv photo library connected.</p></div></article>
 </section>
 </main>
 <script>
-function choose(){const v=document.getElementById('pick').value;localStorage.setItem('tivvyFeature',v);document.getElementById('status').textContent='Selected for next programme: '+v+' (local preview only for now)';}
-const saved=localStorage.getItem('tivvyFeature');if(saved){document.getElementById('pick').value=saved;document.getElementById('status').textContent='Selected for next programme: '+saved+' (local preview only for now)';}
+function choose(){const v=document.getElementById('pick').value;localStorage.setItem('tivvyFeature',v);document.getElementById('status').innerHTML='<b>Selected for next programme:</b> '+v+' <span class="waiting">· local preview for now</span>';}
+const saved=localStorage.getItem('tivvyFeature');if(saved){document.getElementById('pick').value=saved;document.getElementById('status').innerHTML='<b>Selected for next programme:</b> '+saved+' <span class="waiting">· local preview for now</span>';}
 </script>
 </body></html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Around the League | Tivvy Control Centre</title>
+<style>
+:root{--yellow:#f2c400;--black:#111;--bg:#f3f3f1;--panel:#fff;--line:#ddd;--muted:#666}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#161616}
+header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--yellow)}
+.head{max-width:1180px;margin:auto;padding:18px 22px;display:grid;grid-template-columns:90px 1fr 150px;gap:18px;align-items:center}
+.logo{height:78px;max-width:110px;object-fit:contain;filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
+.league{width:145px;height:70px;object-fit:cover;border:2px solid rgba(255,255,255,.6);border-radius:6px}
+.eyebrow{color:var(--yellow);font-size:12px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}.title{font-size:clamp(26px,4vw,42px);font-weight:900;margin:3px 0}.sub{color:#ddd;font-size:14px}
+nav{max-width:1180px;margin:auto;padding:0 22px 14px}nav a{display:inline-block;color:#fff;text-decoration:none;border:1px solid #444;padding:8px 11px;border-radius:7px;margin-right:6px}
+main{max-width:1180px;margin:auto;padding:26px 22px 50px}.intro{background:#fff;border:1px solid var(--line);border-top:5px solid var(--yellow);padding:20px;border-radius:12px;margin-bottom:18px}.intro h2{margin:0 0 8px;font-size:28px}.intro p{margin:0;color:#555;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px}.score{font-size:22px;font-weight:900;margin-bottom:8px}.card p{margin:0;color:#555;line-height:1.45;font-size:14px}.tag{display:inline-block;margin-top:12px;padding:5px 8px;background:#111;color:#fff;border-radius:999px;font-size:11px;font-weight:800;text-transform:uppercase}.lead{border-top:5px solid var(--yellow)}
+.results{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}.results h3{margin-top:0}.results-grid{columns:2;column-gap:30px}.results-grid div{padding:6px 0;border-bottom:1px solid #eee;break-inside:avoid}
+.note{margin-top:18px;color:#777;font-size:13px}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.head{grid-template-columns:70px 1fr}.league{display:none}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.results-grid{columns:1}}
+</style>
+</head>
+<body>
+<header>
+<div class="head">
+<img class="logo" src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town FC">
+<div><div class="eyebrow">Tiverton Town • Programme Intelligence</div><div class="title">Around the League</div><div class="sub">Division One South · Saturday 3 October 2026</div></div>
+<img class="league" src="https://www.voicenewspapers.co.uk/tindle-static/image/2024/08/30/12/41/Untitled-design-119.jpeg?crop=752%3A500&amp;height=500&amp;width=752" alt="Pitching In Southern League">
+</div>
+<nav><a href="index.html">← Control Centre</a></nav>
+</header>
+
+<main>
+<section class="intro">
+<h2>A weekend of comebacks — and a new leader</h2>
+<p>Dorchester climbed to the top while a string of sides recovered from going behind. This page is a first proof-of-concept for an automatically generated programme round-up using Pitching In Southern League match and news data.</p>
+</section>
+
+<section class="grid">
+<article class="card lead"><div class="score">Swindon Supermarine 0–1 Dorchester Town</div><p>Dorchester took over at the top after Ilya Ihnatenko struck in the 77th minute, moments after coming on. Supermarine slipped to fourth.</p><span class="tag">New leaders</span></article>
+<article class="card"><div class="score">Bishops Cleeve 3–0 Melksham Town</div><p>Aaron Evans-Harriott, Jamal Lawrence and Adulai Sambu were on target as Cleeve made it five straight wins. Both teams finished with ten men.</p><span class="tag">Five wins running</span></article>
+<article class="card"><div class="score">Sporting Club Inkberrow 3–1 Shaftesbury</div><p>Shaftesbury led through Cameron Murray, but Connor Stanley levelled before Gregor Guy and Joshua Hurdman completed Inkberrow's comeback.</p><span class="tag">Comeback</span></article>
+<article class="card"><div class="score">Falmouth Town 2–1 Larkhall Athletic</div><p>Milo Murgatroyd put Larkhall ahead, Jack Webber equalised before half-time and Oscar Massey won it for Falmouth in the 86th minute.</p><span class="tag">Late winner</span></article>
+<article class="card"><div class="score">Westbury United 2–1 Exmouth Town</div><p>Matthew Wright gave Exmouth the lead, but Leighton Thomas scored twice after the break to turn the game around for Westbury.</p><span class="tag">Comeback</span></article>
+<article class="card"><div class="score">Tiverton Town 2–2 Worcester Raiders</div><p>All four goals arrived in the first half. Worcester led twice through Prince Henry and Stan Asomugha, with Aiden Horne and Finn Roberts replying for Tivvy.</p><span class="tag">Tivvy</span></article>
+<article class="card"><div class="score">Bideford 1–2 Portland United</div><p>Jordan Ewing put Bideford in front, before Jacob Coombs levelled and Harley Brook grabbed a 93rd-minute winner for Portland.</p><span class="tag">93rd minute</span></article>
+<article class="card"><div class="score">Hartpury 2–1 Barnstaple Town</div><p>Oscar Knight gave Barnstaple an early lead, Louis Manning equalised and Billy Osbourn won it in the 91st minute. Barnstaple later saw Brodie Montague dismissed.</p><span class="tag">91st minute</span></article>
+<article class="card"><div class="score">Slimbridge 1–2 Bristol Manor Farm</div><p>Mikey Morgan and Joe Beardwell put Manor Farm two up and they held on for their first league win of the season despite a late Joseph Stokes goal.</p><span class="tag">First league win</span></article>
+</section>
+
+<section class="results">
+<h3>Full Division One South results</h3>
+<div class="results-grid">
+<div>Bideford 1–2 Portland United</div><div>Bishops Cleeve 3–0 Melksham Town</div><div>Falmouth Town 2–1 Larkhall Athletic</div><div>Hartpury 2–1 Barnstaple Town</div><div>Slimbridge 1–2 Bristol Manor Farm</div><div>Sporting Club Inkberrow 3–1 Shaftesbury</div><div>Swindon Supermarine 0–1 Dorchester Town</div><div>Tiverton Town 2–2 Worcester Raiders</div><div>Westbury United 2–1 Exmouth Town</div>
+</div>
+</section>
+<p class="note">Prototype editorial summary generated from official Pitching In Southern League data. Future versions will be built automatically from structured source data and checked before programme publication.</p>
+</main>
+</body></html>

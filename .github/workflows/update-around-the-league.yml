@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "15 10 * * 0"
+  push:
+    paths:
+      - ".github/triggers/around-the-league.txt"
 
 permissions:
   contents: write

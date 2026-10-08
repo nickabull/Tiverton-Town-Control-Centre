@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Programme Planner</title>
+<style>
+:root{--yellow:#f2c400;--black:#111;--ink:#171717;--muted:#6b6b6b;--panel:#fff;--bg:#f3f3f1;--line:#deded8;--green:#2f855a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--yellow)}
+.header-inner{max-width:1400px;margin:0 auto;padding:18px 22px}.eyebrow{color:var(--yellow);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:5px 0 4px;font-size:34px}.sub{color:#ccc}
+.wrap{max-width:1400px;margin:auto;padding:22px}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.notice{border-left:6px solid var(--yellow);background:#fff9d6;padding:14px 16px;margin-bottom:18px}.notice strong{display:block;margin-bottom:5px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}.btn{border:1px solid #222;background:#fff;padding:9px 12px;border-radius:7px;font-weight:700;cursor:pointer}.btn.yellow{background:var(--yellow)}.btn.dark{background:#111;color:#fff}
+.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px;margin-bottom:18px}.field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.field textarea{min-height:66px;resize:vertical}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;min-width:1700px;background:#fff}th,td{border-bottom:1px solid #e6e6e0;border-right:1px solid #efefe9;padding:6px;vertical-align:top}th{position:sticky;top:0;background:#111;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.04em;z-index:2}td.page{font-weight:900;text-align:center;background:#fff7c7;width:54px}
+td input,td textarea,td select{width:100%;border:1px solid #cfcfc8;border-radius:4px;padding:6px;font:inherit;font-size:13px;background:#fff}td textarea{min-height:62px;resize:vertical}
+.status{font-size:12px;color:#555;margin-left:auto;align-self:center}.saved{color:var(--green);font-weight:700}
+.help{font-size:13px;color:#666;line-height:1.45;margin:8px 0 16px}
+@media(max-width:850px){.meta-grid{grid-template-columns:1fr 1fr}.wrap{padding:12px}}@media(max-width:560px){.meta-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="header-inner"><div class="eyebrow">Tiverton Town · Programme Production</div><h1>Programme Page Planner</h1><div class="sub">Map what changes, what stays fixed, where each asset comes from, and what can be automated.</div></div></header>
+<main class="wrap">
+<div class="notice"><strong>Golden rule: never edit the previous issue in place.</strong>Tuesday's programme is the locked reference/master. Each new match starts from a copied working issue, then only the mapped changes below are applied.</div>
+<section class="panel">
+<div class="meta-grid">
+  <div class="field"><label>Reference / locked issue</label><input id="refIssue" placeholder="e.g. Tuesday v Hartpury"></div>
+  <div class="field"><label>New working issue</label><input id="newIssue" placeholder="e.g. Saturday v Shaftesbury"></div>
+  <div class="field"><label>Issue number</label><input id="issueNo" placeholder="e.g. 7"></div>
+  <div class="field"><label>Match date</label><input id="matchDate" placeholder="e.g. 10/10/2026"></div>
+</div>
+<div class="toolbar">
+  <button class="btn yellow" onclick="saveAll()">Save planner in this browser</button>
+  <button class="btn" onclick="downloadJSON()">Download planner JSON</button>
+  <button class="btn" onclick="downloadCSV()">Download planner CSV</button>
+  <button class="btn dark" onclick="clearPlanner()">Clear working entries</button>
+  <span id="status" class="status"></span>
+</div>
+<p class="help">Use rough wording if you like: “same”, “ad stays”, “change opponent”, “Nick chooses photo”, “pull from Player Info”, “pull from Get Results”. The important thing is identifying what changes on every page and where it comes from.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Page</th><th>Page purpose</th><th>Keep exactly as-is?</th><th>What changes each issue?</th><th>Source of new content</th><th>Who chooses it?</th><th>Automatic / manual</th><th>Carry forward?</th><th>Assets needed</th><th>Notes</th></tr></thead>
+<tbody id="plannerRows"></tbody>
+</table></div>
+</section>
+</main>
+<script>
+const rowDefaults={
+  1:{purpose:'Cover',keep:'No',changes:'Issue number; opponent logo; date; kick-off time; hero photo; featured player name/number',source:'Fixture data + Viv Flickr + Nick choice',chooser:'Nick chooses player/photo',mode:'Partly automatic',carry:'No',assets:'Opponent logo; selected player photo',notes:'Example: Ed Palmer #4'},
+  13:{purpose:'SL Division One South results matrix',keep:'No',changes:'Current league results matrix',source:'Get Results project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'League results data',notes:'Programme page 13'},
+  25:{purpose:'Player appearances / fixtures',keep:'No',changes:'Result; starting XI; captain; goals; substitution information',source:'Player Info project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'Player Info data',notes:'Programme page 25'},
+  26:{purpose:'Player appearances continuation',keep:'No',changes:'Goals; substitution times; substitutes',source:'Player Info project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'Player Info data',notes:'Programme page 26'}
+};
+function makeRow(n){
+ const d=rowDefaults[n]||{};
+ return '<tr data-page="'+n+'"><td class="page">'+n+'</td>'+
+ '<td><input data-k="purpose" value="'+escAttr(d.purpose||'')+'" placeholder="e.g. advert, cover, manager notes"></td>'+
+ '<td><select data-k="keep"><option></option><option'+sel(d.keep,'Yes')+'>Yes</option><option'+sel(d.keep,'No')+'>No</option><option'+sel(d.keep,'Mostly')+'>Mostly</option></select></td>'+
+ '<td><textarea data-k="changes" placeholder="What changes for each match?">'+escText(d.changes||'')+'</textarea></td>'+
+ '<td><textarea data-k="source" placeholder="Website, Player Info, Get Results, Viv Flickr, Nick, existing artwork...">'+escText(d.source||'')+'</textarea></td>'+
+ '<td><input data-k="chooser" value="'+escAttr(d.chooser||'')+'" placeholder="Nick / automatic / editor"></td>'+
+ '<td><select data-k="mode"><option></option><option'+sel(d.mode,'Static')+'>Static</option><option'+sel(d.mode,'Fully automatic')+'>Fully automatic</option><option'+sel(d.mode,'Partly automatic')+'>Partly automatic</option><option'+sel(d.mode,'Manual')+'>Manual</option></select></td>'+
+ '<td><select data-k="carry"><option></option><option'+sel(d.carry,'Yes')+'>Yes</option><option'+sel(d.carry,'No')+'>No</option><option'+sel(d.carry,'Usually')+'>Usually</option></select></td>'+
+ '<td><textarea data-k="assets" placeholder="Photos, logos, copy, sponsor art, stats...">'+escText(d.assets||'')+'</textarea></td>'+
+ '<td><textarea data-k="notes">'+escText(d.notes||'')+'</textarea></td></tr>';
+}
+function sel(a,b){return a===b?' selected':''}function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}function escText(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+document.getElementById('plannerRows').innerHTML=Array.from({length:44},(_,i)=>makeRow(i+1)).join('');
+const metaIds=['refIssue','newIssue','issueNo','matchDate'];
+function collect(){const rows=[];document.querySelectorAll('#plannerRows tr').forEach(tr=>{const r={page:Number(tr.dataset.page)};tr.querySelectorAll('[data-k]').forEach(el=>r[el.dataset.k]=el.value);rows.push(r)});const meta={};metaIds.forEach(id=>meta[id]=document.getElementById(id).value);return {meta,rows,saved:new Date().toISOString()}}
+function populate(d){if(!d)return;metaIds.forEach(id=>document.getElementById(id).value=d.meta?.[id]||'');(d.rows||[]).forEach(r=>{const tr=document.querySelector('tr[data-page="'+r.page+'"]');if(!tr)return;tr.querySelectorAll('[data-k]').forEach(el=>{if(r[el.dataset.k]!==undefined)el.value=r[el.dataset.k]})})}
+function saveAll(){localStorage.setItem('tivvyProgrammePlanner',JSON.stringify(collect()));const s=document.getElementById('status');s.textContent='Saved';s.className='status saved';setTimeout(()=>s.textContent='',1800)}
+function loadSaved(){try{const d=JSON.parse(localStorage.getItem('tivvyProgrammePlanner')||'null');if(d)populate(d)}catch(e){}}
+function downloadBlob(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function downloadJSON(){downloadBlob('tivvy-programme-page-plan.json',JSON.stringify(collect(),null,2),'application/json')}
+function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function downloadCSV(){const d=collect();const head=['Page','Page purpose','Keep exactly as-is?','What changes each issue?','Source of new content','Who chooses it?','Automatic / manual','Carry forward?','Assets needed','Notes'];const lines=[head.map(csv).join(',')];d.rows.forEach(r=>lines.push([r.page,r.purpose,r.keep,r.changes,r.source,r.chooser,r.mode,r.carry,r.assets,r.notes].map(csv).join(',')));downloadBlob('tivvy-programme-page-plan.csv',lines.join('\r\n'),'text/csv')}
+function clearPlanner(){if(!confirm('Clear the working planner from this browser?'))return;localStorage.removeItem('tivvyProgrammePlanner');location.reload()}
+document.addEventListener('input',()=>{document.getElementById('status').textContent='Unsaved changes';document.getElementById('status').className='status'});
+loadSaved();
+</script>
+</body></html>

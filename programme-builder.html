@@ -12,12 +12,13 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1280px;margin:auto;padding:22px}
 .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
 .meta{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
-.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer}
+.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}.action-card h3{margin:0 0 5px;font-size:15px}.action-card p{margin:0 0 9px;color:#666;font-size:13px;line-height:1.35}.action-card .mini{display:flex;align-items:center;justify-content:space-between;gap:10px}.action-card.done{background:#f0fff4;border-color:#b7dfbf}.action-card.done p{color:#47704f}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
 table{width:100%;border-collapse:collapse}th,td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:top;font-size:13px}th{background:#111;color:#fff;text-align:left;position:sticky;top:0}
 .p{font-weight:900}.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.confirm{background:#fde2e2;color:#8b1e1e}
 .ready{color:var(--g);font-weight:800}.need{color:var(--a);font-weight:800}.unknown{color:var(--r);font-weight:800}
 input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
-@media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary{grid-template-columns:1fr}}
+@media(max-width:850px){.meta,.summary,.action-grid{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
 <header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator v0.1</h1><div class="sub">42-page master · readiness check · Portland working issue</div></div></header>
@@ -28,11 +29,17 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 <div class="f"><label>Opponent</label><input id="opponent" value="Portland United"></div>
 <div class="f"><label>Match date</label><input id="date" value="17/10/2026"></div>
 <div class="f"><label>Kick-off</label><input id="ko" placeholder="e.g. 15:00"></div>
-<div class="f"><label>Issue number</label><input id="issue" placeholder="Confirm issue no."></div>
+<div class="f"><label>Issue number</label><input id="issue" value="10"><div style="margin-top:7px;font-size:12px;color:#666"><label style="display:flex;align-items:center;gap:7px;text-transform:none;font-weight:700"><input id="issueConfirm" type="checkbox" style="width:auto"> Confirm Issue 10</label></div></div>
 <div class="f"><label>Cover player</label><input id="cover" placeholder="Choose from Viv"></div>
 </div>
 </section>
 <section class="summary" id="summary"></section>
+<section class="panel">
+  <div class="ey" style="color:#555">Actions needed from Nick</div>
+  <h2 style="margin:5px 0 8px">Things I need you to confirm or supply</h2>
+  <p class="small" style="margin:0 0 14px">Only pages requiring a human decision appear here. Tick them off as you supply each item.</p>
+  <div id="actionGrid" class="action-grid"></div>
+</section>
 <section class="panel"><div class="controls">
 <button class="btn yellow" onclick="markAuto()">Mark automatic pages ready</button>
 <button class="btn" onclick="save()">Save in browser</button>
@@ -94,15 +101,23 @@ function draw(){
  const tb=document.getElementById('rows');tb.innerHTML='';
  pages.forEach(p=>{const key='p'+p[0];const done=localStorage.getItem('tivvy-'+key)==='1'||defaultReady(p)&&localStorage.getItem('tivvy-'+key)!=='0';
  const tr=document.createElement('tr');tr.innerHTML='<td class="p">'+p[0]+'</td><td><strong>'+p[1]+'</strong></td><td><span class="tag '+typeClass[p[2]]+'">'+p[2]+'</span></td><td>'+p[3]+'</td><td>'+ (p[4]||'—') +'</td><td class="'+(done?'ready':'need')+'">'+(done?'READY':'NEEDS INPUT')+'</td><td><input type="checkbox" '+(done?'checked':'')+' onchange="toggle('+p[0]+',this.checked)"></td>';tb.appendChild(tr)});
- updateSummary()
+ updateSummary(); drawActions()
 }
 function toggle(n,v){localStorage.setItem('tivvy-p'+n,v?'1':'0');draw()}
+function drawActions(){
+ const g=document.getElementById('actionGrid'); if(!g)return;
+ const human=pages.filter(p=>p[2]!=='AUTO'&&p[2]!=='FIXED');
+ g.innerHTML=human.map(p=>{
+   const done=localStorage.getItem('tivvy-p'+p[0])==='1';
+   return '<div class="action-card '+(done?'done':'')+'"><h3>Page '+p[0]+' · '+p[1]+'</h3><p>'+p[4]+'</p><div class="mini"><span class="'+(done?'ready':'need')+'">'+(done?'READY':'ACTION NEEDED')+'</span><label style="font-size:12px;font-weight:800"><input type="checkbox" '+(done?'checked':'')+' onchange="toggle('+p[0]+',this.checked)"> Done</label></div></div>'
+ }).join('');
+}
 function markAuto(){pages.forEach(p=>{if(p[2]==='AUTO'||p[2]==='FIXED')localStorage.setItem('tivvy-p'+p[0],'1')});draw()}
 function updateSummary(){let ready=0;pages.forEach(p=>{if(localStorage.getItem('tivvy-p'+p[0])==='1'||defaultReady(p)&&localStorage.getItem('tivvy-p'+p[0])!=='0')ready++});const needs=42-ready;
  document.getElementById('summary').innerHTML='<div class="box"><div class="small">Pages ready</div><div class="n">'+ready+'/42</div></div><div class="box"><div class="small">Need input</div><div class="n">'+needs+'</div></div><div class="box"><div class="small">Automatic/fixed</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'||p[2]==='FIXED').length+'</div></div><div class="box"><div class="small">Human/editorial</div><div class="n">'+pages.filter(p=>p[2]!=='AUTO'&&p[2]!=='FIXED').length+'</div></div>'}
-function save(){['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));alert('Programme run saved in this browser.')}
-function load(){['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v})}
-function downloadJSON(){const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);const status={};pages.forEach(p=>status[p[0]]=document.querySelector('tr:nth-child('+p[0]+') input').checked);const blob=new Blob([JSON.stringify({meta,pages,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click()}
+function save(){['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));localStorage.setItem('tivvy-meta-issueConfirm',document.getElementById('issueConfirm').checked?'1':'0');alert('Programme run saved in this browser.')}
+function load(){['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v});document.getElementById('issueConfirm').checked=localStorage.getItem('tivvy-meta-issueConfirm')==='1'}
+function downloadJSON(){const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);meta.issueConfirmed=document.getElementById('issueConfirm').checked;const status={};pages.forEach(p=>status[p[0]]=document.querySelector('tr:nth-child('+p[0]+') input').checked);const blob=new Blob([JSON.stringify({meta,pages,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click()}
 function resetRun(){if(!confirm('Reset this working programme run?'))return;Object.keys(localStorage).filter(k=>k.startsWith('tivvy-p')||k.startsWith('tivvy-meta-')).forEach(k=>localStorage.removeItem(k));location.reload()}
 load();draw();
 </script></body></html>

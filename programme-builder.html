@@ -21,7 +21,7 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 @media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.action-grid{grid-template-columns:1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V11</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 11</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V12</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 12</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
 <section class="summary" id="summary"></section>
@@ -249,7 +249,7 @@ function draw(){
 function toggleReady(n,v){localStorage.setItem('tivvy-confirm-p'+n,v?'1':'0');draw()}
 function renderField(page,s){
  const val=fieldValue(page,s.k,s.default||'');
- if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea style="'+((/Body|body|Report|Preview|Closing/.test(s.label))?'min-height:180px;':'')+'"  data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" '+(s.readonly?'readonly style="background:#f5f5f5;color:#444;min-height:360px"':'oninput="saveField(this)"')+'>'+esc(val)+'</textarea></div>';
+ if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea style="'+((/Body|body|Report|Preview|Closing/.test(s.label))?'min-height:180px;':'')+'"  data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" '+(s.readonly?'readonly style="background:#f5f5f5;color:#444;min-height:520px"':'oninput="saveField(this)"')+'>'+esc(val)+'</textarea></div>';
  if(s.type==='text'||s.type==='url') return '<div class="action-field"><label>'+s.label+'</label><input type="'+s.type+'" data-page="'+page+'" data-key="'+s.k+'" value="'+esc(val)+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)"></div>';
  if(s.type==='select'){
    const opts=(s.options||[]).map(o=>'<option '+(val===o?'selected':'')+'>'+esc(o)+'</option>').join('');

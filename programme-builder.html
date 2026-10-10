@@ -21,7 +21,7 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 @media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.action-grid{grid-template-columns:1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V14</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 14</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V15</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 15</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
 <section class="summary" id="summary"></section>
@@ -92,7 +92,8 @@ const actionSpecs={
 1:[
  {k:'opponent',label:'Opponent',type:'text',ph:'Opponent',default:'Portland United'},
  {k:'matchDate',label:'Match date',type:'text',ph:'DD/MM/YYYY',default:'17/10/2026'},
- {k:'kickoff',label:'Kick-off time',type:'text',ph:'e.g. 15:00'},
+ {k:'kickoff',label:'Kick-off time',type:'text',ph:'Auto-filled from match date',default:'15:00'},
+ {k:'kickoffOk',label:'Kick-off time',type:'confirm',text:'Confirm 15:00 kick-off'},
  {k:'issueNumber',label:'Issue number',type:'text',ph:'Issue number',default:'10'},
  {k:'issueOk',label:'Issue number',type:'confirm',text:'Confirm Issue 10'},
  {k:'coverPlayer',label:'Cover player',type:'text',ph:'Player name'},
@@ -221,6 +222,33 @@ const automatorDoes={
 39:'I will finish the opposition preview, flow the closing copy into the remaining text area and place the final selected image into the existing Canva frame.',
 42:'I will carry forward Tiverton’s squad list, update it for any known changes, inherit the opponent name and crest from page 1, and populate the opposition squad plus match officials from the details you provide.'
 };
+function suggestedKickoff(dateValue){
+  if(!dateValue) return '';
+  const parts=dateValue.split('/');
+  if(parts.length!==3) return '';
+  const d=new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0])));
+  const day=d.getUTCDay();
+  if(day===6) return '15:00';
+  if(day>=1&&day<=5) return '19:30';
+  return '';
+}
+function syncKickoffSuggestion(){
+  const dateEl=document.querySelector('[data-page="1"][data-key="matchDate"]');
+  const koEl=document.querySelector('[data-page="1"][data-key="kickoff"]');
+  const okEl=document.querySelector('[data-page="1"][data-key="kickoffOk"]');
+  if(!dateEl||!koEl) return;
+  const suggested=suggestedKickoff(dateEl.value);
+  if(suggested && (!koEl.value || koEl.dataset.auto==='1')){
+    koEl.value=suggested;
+    koEl.dataset.auto='1';
+    saveField(koEl);
+  }
+  if(okEl){
+    const lab=okEl.closest('label');
+    const span=lab&&lab.querySelector('span');
+    if(span) span.textContent='Confirm '+(koEl.value||suggested||'kick-off');
+  }
+}
 const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial'};
 const hasAction=p=>!!actionSpecs[p[0]];
 function isConfirmed(n){return localStorage.getItem('tivvy-confirm-p'+n)==='1'}
@@ -245,6 +273,13 @@ function draw(){
    tb.appendChild(tr);
  });
  updateSummary(); drawActions();
+setTimeout(()=>{
+  syncKickoffSuggestion();
+  const dateEl=document.querySelector('[data-page="1"][data-key="matchDate"]');
+  const koEl=document.querySelector('[data-page="1"][data-key="kickoff"]');
+  if(dateEl) dateEl.addEventListener('change',()=>{ if(koEl) koEl.dataset.auto='1'; syncKickoffSuggestion(); });
+  if(koEl) koEl.addEventListener('input',()=>{ koEl.dataset.auto='0'; syncKickoffSuggestion(); });
+},0);
 }
 function toggleReady(n,v){localStorage.setItem('tivvy-confirm-p'+n,v?'1':'0');draw()}
 function renderField(page,s){

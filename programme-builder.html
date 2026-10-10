@@ -21,7 +21,7 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 @media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.action-grid{grid-template-columns:1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V18</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 18</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V19</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 19</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
 <section class="summary" id="summary"></section>
@@ -145,7 +145,10 @@ First Team Kit Manager — Will Buttle`},
 13:[
  {k:'leagueTableMode',label:'Dynamic league table',type:'textarea',readonly:true,default:'AUTO: Build Page 13 from the same live league-table source used by Get Player Info. Include club logos and columns for position, played, won, drawn, lost, goal difference and points. Highlight automatic promotion, play-off places and relegation positions, with Tiverton Town given its own unmistakable yellow/black row treatment.'},
  {k:'leagueTableOk',label:'League table',type:'confirm',text:'Confirm Page 13 dynamic table styling / positions'},{k:'seasonProof',label:'Review',type:'confirm',text:'Table, fixtures and highlighting checked'}],
-14:[{k:'gridProof',label:'Review',type:'confirm',text:'Results grid checked'}],
+14:[
+ {k:'tivvyGlanceMode',label:'Tivvy at a Glance',type:'textarea',readonly:true,default:'AUTO: Build Page 14 as a Tiverton Town stats dashboard from the live results and Get Player Info data. Include current league position, points, goal difference, home record, away record, last five form, top scorer, appearances leader and next three league fixtures. Add a small league-context strip at the bottom with best attack, best defence and Tiverton\'s rank where the source data supports it.'},
+ {k:'tivvyGlanceOk',label:'Stats page',type:'confirm',text:'Confirm Page 14 Tivvy at a Glance content / styling'}
+],
 15:[
  {k:'lastOutStatus',label:'Darren report monitor',type:'textarea',readonly:true,default:'AUTO: Check the Tiverton Town website for Darren Holmes\' latest match report. Alert Nick when a new report is detected, then import the article text and source link.'},
  {k:'lastOutSource',label:'Detected report source',type:'url',ph:'Auto-filled when Darren publishes'},
@@ -212,7 +215,7 @@ const automatorDoes={
 9:'I will continue the Executive Update from page 7 using the existing style and continuation treatment, adjusting the flow/page break to fit the supplied copy.',
 11:'I will scrape the latest Division One South round-up/news, build the page copy, suggest relevant league images, preserve the page style and place your chosen image automatically.',
 13:'I will generate Page 13 as a proper A5 league table from the same live data source as Get Player Info, including every club logo, P/W/D/L/GD/Pts, coloured promotion/play-off/relegation bands, and a separate Tiverton Town yellow/black highlight so Tivvy is instantly visible regardless of league position.',
-14:'I will rebuild the Division One South results matrix from the live results data and keep the existing programme styling.',
+14:'I will generate a dynamic Tivvy at a Glance stats page from the live results and Get Player Info data: current position, points, goal difference, home/away record, last-five form, top scorer, appearances leader and next three fixtures, plus a compact league-context strip where reliable source data is available.',
 15:'I will pull the latest Darren Holmes match report, identify the correct home/away title and scorers, populate the title/byline/body fields, and place the Viv Curtis image(s) you choose.',
 17:'I will continue the Last Time Out report automatically from page 15, keeping the existing credits, styling and text flow. I will use an extra Viv image only if the copy/layout benefits from one.',
 18:'I will continue the Last Time Out report automatically, preserving the page design and fitting the text to the available space. I will only use an additional image if needed.',

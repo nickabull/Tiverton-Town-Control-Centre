@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Programme Automator</title>
+<style>
+:root{--y:#f2c400;--b:#111;--bg:#f3f3f1;--line:#ddd;--g:#238636;--a:#b7791f;--r:#c53030}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#171717}
+header{background:linear-gradient(115deg,#111,#242424 45%,#111);color:#fff;border-bottom:5px solid var(--y)}
+.h{max-width:1280px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1280px;margin:auto;padding:22px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.meta{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
+table{width:100%;border-collapse:collapse}th,td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:top;font-size:13px}th{background:#111;color:#fff;text-align:left;position:sticky;top:0}
+.p{font-weight:900}.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.confirm{background:#fde2e2;color:#8b1e1e}
+.ready{color:var(--g);font-weight:800}.need{color:var(--a);font-weight:800}.unknown{color:var(--r);font-weight:800}
+input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
+@media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator v0.1</h1><div class="sub">42-page master · readiness check · Portland working issue</div></div></header>
+<main class="wrap">
+<div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
+<section class="panel">
+<div class="meta">
+<div class="f"><label>Opponent</label><input id="opponent" value="Portland United"></div>
+<div class="f"><label>Match date</label><input id="date" value="17/10/2026"></div>
+<div class="f"><label>Kick-off</label><input id="ko" placeholder="e.g. 15:00"></div>
+<div class="f"><label>Issue number</label><input id="issue" placeholder="Confirm issue no."></div>
+<div class="f"><label>Cover player</label><input id="cover" placeholder="Choose from Viv"></div>
+</div>
+</section>
+<section class="summary" id="summary"></section>
+<section class="panel"><div class="controls">
+<button class="btn yellow" onclick="markAuto()">Mark automatic pages ready</button>
+<button class="btn" onclick="save()">Save in browser</button>
+<button class="btn" onclick="downloadJSON()">Download run JSON</button>
+<button class="btn dark" onclick="resetRun()">Reset</button>
+</div></section>
+<section class="panel" style="overflow:auto"><table>
+<thead><tr><th>Pg</th><th>Module</th><th>Type</th><th>What automator does</th><th>Needs from Nick</th><th>Status</th><th>Done</th></tr></thead>
+<tbody id="rows"></tbody></table></section>
+</main>
+<script>
+const pages=[
+[1,'Cover','GUIDED','Update opponent, logo, issue, date/time, player side-name and final-PDF QR','Cover photo/player; kick-off; confirm issue number'],
+[2,'Pitching In advert','FIXED','Carry unchanged',''],
+[3,'Slee Blackwell advert','FIXED','Carry unchanged',''],
+[4,'Latest News','GUIDED','Apply Executive Update styling with Latest News title','Article text + image'],
+[5,'Club officials / honours','GUIDED','Carry straps/honours; allow middle names/roles to change','Confirm any staff changes'],
+[6,'PST Sport advert','FIXED','Carry unchanged',''],
+[7,'Executive Update 1','EDITORIAL','Flow Mark Farrell copy into house style','Mark copy / Nick ghostwritten copy'],
+[8,'Diamond Estate Agents advert','FIXED','Carry unchanged',''],
+[9,'Executive Update 2','EDITORIAL','Continue page 7 copy','Same copy as page 7'],
+[10,'VX3 advert','FIXED','Carry unchanged',''],
+[11,'Around the League','AUTO','Build weekly Division One South round-up from league sources','Choose image(s) from suggestions'],
+[12,'Pitching In Volunteering advert','FIXED','Carry unchanged',''],
+[13,'Season / league view','AUTO','Refresh played games, fixtures, table, logos and highlight Tivvy/promotion/play-offs','Final proof only'],
+[14,'Results grid','AUTO','Refresh Southern League Division One South results matrix','Final proof only'],
+[15,'Last Time Out 1','EDITORIAL','Pull latest Darren report; set home/away title and scorers','Choose Viv image(s)'],
+[16,'Ellie Sports Massage advert','FIXED','Carry unchanged',''],
+[17,'Last Time Out 2','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
+[18,'Last Time Out 3','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
+[19,'Last Time Out 4','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
+[20,'Man Down advert','FIXED','Carry unchanged',''],
+[21,'Event poster 1','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Replacement artwork when expired'],
+[22,'Event poster 2','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Replacement artwork when expired'],
+[23,'Your Tivvy players 1','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
+[24,'Your Tivvy players 2','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
+[25,'Your Tivvy players 3','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
+[26,'Your Tivvy players 4','CONFIRM','Likely same behaviour as pages 23-25; source notes do not explicitly specify page 26','Confirm page 26 rule'],
+[27,'Photo + Van Man advert','GUIDED','Keep Van Man advert fixed','Choose top image'],
+[28,'The League So Far 1','AUTO','Build first half of two-page player/fixture grid from Player Info data','Final proof only'],
+[29,'The League So Far 2','AUTO','Continue dynamic player/fixture grid; verify reschedules/unplayed fixtures','Final proof only'],
+[30,'Commercial Opportunities','FIXED','Carry unchanged unless requested',''],
+[31,'Sponsors','FIXED','Carry unchanged',''],
+[32,'Local Independents','FIXED','Carry unchanged and correct Independants → Independents in heading/text where appropriate',''],
+[33,'Fixed top + photo','GUIDED','Keep top section; replace lower image','Choose bottom image'],
+[34,'Meet the Opposition 1','EDITORIAL','Flow Darren preview into house style','Darren copy'],
+[35,'Meet the Opposition 2','EDITORIAL','Continue preview','Darren copy'],
+[36,'Meet the Opposition 3','EDITORIAL','Continue preview','Darren copy'],
+[37,'Dyno-Rod / adverts','FIXED','Carry unchanged',''],
+[38,'Culmex / adverts','FIXED','Carry unchanged',''],
+[39,'Meet the Opposition 4','EDITORIAL','Finish preview; image handling based on copy length','Choose image'],
+[40,'Market Carpets advert','FIXED','Carry unchanged',''],
+[41,'James Pryce Tractors advert','FIXED','Carry unchanged',''],
+[42,'Teams / officials','GUIDED','Carry Tivvy list with editable squad; inherit opponent/logo from cover','Away squad; referee; two assistants; Dan Koita squad number when known']
+];
+const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial',CONFIRM:'confirm'};
+function defaultReady(p){return p[2]==='FIXED'||p[2]==='AUTO'}
+function draw(){
+ const tb=document.getElementById('rows');tb.innerHTML='';
+ pages.forEach(p=>{const key='p'+p[0];const done=localStorage.getItem('tivvy-'+key)==='1'||defaultReady(p)&&localStorage.getItem('tivvy-'+key)!=='0';
+ const tr=document.createElement('tr');tr.innerHTML='<td class="p">'+p[0]+'</td><td><strong>'+p[1]+'</strong></td><td><span class="tag '+typeClass[p[2]]+'">'+p[2]+'</span></td><td>'+p[3]+'</td><td>'+ (p[4]||'—') +'</td><td class="'+(done?'ready':'need')+'">'+(done?'READY':'NEEDS INPUT')+'</td><td><input type="checkbox" '+(done?'checked':'')+' onchange="toggle('+p[0]+',this.checked)"></td>';tb.appendChild(tr)});
+ updateSummary()
+}
+function toggle(n,v){localStorage.setItem('tivvy-p'+n,v?'1':'0');draw()}
+function markAuto(){pages.forEach(p=>{if(p[2]==='AUTO'||p[2]==='FIXED')localStorage.setItem('tivvy-p'+p[0],'1')});draw()}
+function updateSummary(){let ready=0;pages.forEach(p=>{if(localStorage.getItem('tivvy-p'+p[0])==='1'||defaultReady(p)&&localStorage.getItem('tivvy-p'+p[0])!=='0')ready++});const needs=42-ready;
+ document.getElementById('summary').innerHTML='<div class="box"><div class="small">Pages ready</div><div class="n">'+ready+'/42</div></div><div class="box"><div class="small">Need input</div><div class="n">'+needs+'</div></div><div class="box"><div class="small">Automatic/fixed</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'||p[2]==='FIXED').length+'</div></div><div class="box"><div class="small">Human/editorial</div><div class="n">'+pages.filter(p=>p[2]!=='AUTO'&&p[2]!=='FIXED').length+'</div></div>'}
+function save(){['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));alert('Programme run saved in this browser.')}
+function load(){['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v})}
+function downloadJSON(){const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);const status={};pages.forEach(p=>status[p[0]]=document.querySelector('tr:nth-child('+p[0]+') input').checked);const blob=new Blob([JSON.stringify({meta,pages,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click()}
+function resetRun(){if(!confirm('Reset this working programme run?'))return;Object.keys(localStorage).filter(k=>k.startsWith('tivvy-p')||k.startsWith('tivvy-meta-')).forEach(k=>localStorage.removeItem(k));location.reload()}
+load();draw();
+</script></body></html>

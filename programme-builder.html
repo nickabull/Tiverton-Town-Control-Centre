@@ -13,7 +13,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1280px;margin:auto;padding:22px}
 .meta{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
 .controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer}
-.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action-card{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}.action-card h3{margin:0 0 5px;font-size:15px}.action-card p{margin:0 0 9px;color:#666;font-size:13px;line-height:1.35}.action-card .mini{display:flex;align-items:center;justify-content:space-between;gap:10px}.action-card.done{background:#f0fff4;border-color:#b7dfbf}.action-card.done p{color:#47704f}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
+.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.action-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}.action-card h3{margin:0 0 5px;font-size:16px}.action-card p{margin:0 0 10px;color:#666;font-size:13px;line-height:1.35}.action-card .mini{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}.action-card.done{background:#f0fff4;border-color:#89c999}.action-card.done p{color:#47704f}.action-fields{display:grid;gap:9px}.action-field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:#666;margin-bottom:4px}.action-field input[type=text],.action-field input[type=url],.action-field textarea,.action-field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.action-field textarea{min-height:82px;resize:vertical}.action-field input[type=file]{width:100%;font-size:12px}.confirm-btn{border:0;border-radius:6px;padding:8px 10px;font-weight:800;cursor:pointer;background:#111;color:#fff}.action-card.done .confirm-btn{background:var(--g)}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
 table{width:100%;border-collapse:collapse}th,td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:top;font-size:13px}th{background:#111;color:#fff;text-align:left;position:sticky;top:0}
 .p{font-weight:900}.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.confirm{background:#fde2e2;color:#8b1e1e}
 .ready{color:var(--g);font-weight:800}.need{color:var(--a);font-weight:800}.unknown{color:var(--r);font-weight:800}
@@ -37,7 +37,7 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 <section class="panel">
   <div class="ey" style="color:#555">Actions needed from Nick</div>
   <h2 style="margin:5px 0 8px">Things I need you to confirm or supply</h2>
-  <p class="small" style="margin:0 0 14px">Only pages requiring a human decision appear here. Tick them off as you supply each item.</p>
+  <p class="small" style="margin:0 0 14px">Each card asks for the actual thing that page needs. Fill it in, then confirm the page when you are happy. Confirmed pages turn green.</p>
   <div id="actionGrid" class="action-grid"></div>
 </section>
 <section class="panel"><div class="controls">
@@ -60,64 +60,169 @@ const pages=[
 [6,'PST Sport advert','FIXED','Carry unchanged',''],
 [7,'Executive Update 1','EDITORIAL','Flow Mark Farrell copy into house style','Mark copy / Nick ghostwritten copy'],
 [8,'Diamond Estate Agents advert','FIXED','Carry unchanged',''],
-[9,'Executive Update 2','EDITORIAL','Continue page 7 copy','Same copy as page 7'],
+[9,'Executive Update 2','EDITORIAL','Continue page 7 copy','Confirm continuation/layout from page 7'],
 [10,'VX3 advert','FIXED','Carry unchanged',''],
 [11,'Around the League','AUTO','Build weekly Division One South round-up from league sources','Choose image(s) from suggestions'],
 [12,'Pitching In Volunteering advert','FIXED','Carry unchanged',''],
-[13,'Season / league view','AUTO','Refresh played games, fixtures, table, logos and highlight Tivvy/promotion/play-offs','Final proof only'],
-[14,'Results grid','AUTO','Refresh Southern League Division One South results matrix','Final proof only'],
+[13,'Season / league view','AUTO','Refresh played games, fixtures, table, logos and highlight Tivvy/promotion/play-offs','Final proof'],
+[14,'Results grid','AUTO','Refresh Southern League Division One South results matrix','Final proof'],
 [15,'Last Time Out 1','EDITORIAL','Pull latest Darren report; set home/away title and scorers','Choose Viv image(s)'],
 [16,'Ellie Sports Massage advert','FIXED','Carry unchanged',''],
 [17,'Last Time Out 2','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
 [18,'Last Time Out 3','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
 [19,'Last Time Out 4','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
 [20,'Man Down advert','FIXED','Carry unchanged',''],
-[21,'Event poster 1','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Replacement artwork when expired'],
-[22,'Event poster 2','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Replacement artwork when expired'],
-[23,'Your Tivvy players 1','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
-[24,'Your Tivvy players 2','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
-[25,'Your Tivvy players 3','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
-[26,'Your Tivvy players 4','GUIDED','Carry player profiles; flag signings/departures','Approve roster changes'],
-[27,'Photo + Van Man advert','GUIDED','Keep Van Man advert fixed','Choose top image'],
-[28,'The League So Far 1','AUTO','Build first half of two-page player/fixture grid from Player Info data','Final proof only'],
-[29,'The League So Far 2','AUTO','Continue dynamic player/fixture grid; verify reschedules/unplayed fixtures','Final proof only'],
+[21,'Event poster 1','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Confirm current poster or insert replacement artwork'],
+[22,'Event poster 2','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Confirm current poster or insert replacement artwork'],
+[23,'Your Tivvy players 1','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
+[24,'Your Tivvy players 2','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
+[25,'Your Tivvy players 3','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
+[26,'Your Tivvy players 4','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
+[27,'Photo + Van Man advert','GUIDED','Keep Van Man advert fixed','Insert top image'],
+[28,'The League So Far 1','AUTO','Build first half of two-page player/fixture grid from Player Info data','Final proof'],
+[29,'The League So Far 2','AUTO','Continue dynamic player/fixture grid; verify reschedules/unplayed fixtures','Final proof'],
 [30,'Commercial Opportunities','FIXED','Carry unchanged unless requested',''],
 [31,'Sponsors','FIXED','Carry unchanged',''],
 [32,'Local Independents','FIXED','Carry unchanged and correct Independants → Independents in heading/text where appropriate',''],
-[33,'Fixed top + photo','GUIDED','Keep top section; replace lower image','Choose bottom image'],
-[34,'Meet the Opposition 1','EDITORIAL','Flow Darren preview into house style','Darren copy'],
-[35,'Meet the Opposition 2','EDITORIAL','Continue preview','Darren copy'],
-[36,'Meet the Opposition 3','EDITORIAL','Continue preview','Darren copy'],
+[33,'Fixed top + photo','GUIDED','Keep top section; replace lower image','Insert bottom image'],
+[34,'Meet the Opposition 1','EDITORIAL','Flow Darren preview into house style','Insert Darren preview text'],
+[35,'Meet the Opposition 2','EDITORIAL','Continue preview','Confirm continuation/layout'],
+[36,'Meet the Opposition 3','EDITORIAL','Continue preview','Confirm continuation/layout'],
 [37,'Dyno-Rod / adverts','FIXED','Carry unchanged',''],
 [38,'Culmex / adverts','FIXED','Carry unchanged',''],
-[39,'Meet the Opposition 4','EDITORIAL','Finish preview; image handling based on copy length','Choose image'],
+[39,'Meet the Opposition 4','EDITORIAL','Finish preview; image handling based on copy length','Insert/choose final image'],
 [40,'Market Carpets advert','FIXED','Carry unchanged',''],
 [41,'James Pryce Tractors advert','FIXED','Carry unchanged',''],
 [42,'Teams / officials','GUIDED','Carry Tivvy list with editable squad; inherit opponent/logo from cover','Away squad; referee; two assistants; Dan Koita squad number when known']
 ];
-const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial',CONFIRM:'confirm'};
-function defaultReady(p){return p[2]==='FIXED'||p[2]==='AUTO'}
+
+const actionSpecs={
+1:[
+ {k:'kickoff',label:'Kick-off time',type:'text',ph:'e.g. 15:00'},
+ {k:'coverPlayer',label:'Cover player',type:'text',ph:'Player name'},
+ {k:'coverImage',label:'Cover image',type:'file',accept:'image/*'},
+ {k:'issueOk',label:'Issue number',type:'confirm',text:'Confirm Issue 10'}
+],
+4:[
+ {k:'latestNewsText',label:'Latest News text',type:'textarea',ph:'Paste article text here'},
+ {k:'latestNewsImage',label:'Latest News image',type:'file',accept:'image/*'}
+],
+5:[{k:'staffChanges',label:'Staff / role changes',type:'textarea',ph:'Enter changes, or type None'}],
+7:[{k:'execText',label:'Executive Update text',type:'textarea',ph:'Paste Mark\'s copy or Nick\'s draft here'}],
+9:[{k:'execContinue',label:'Page 9',type:'confirm',text:'Confirm Executive Update continues onto this page'}],
+11:[{k:'leagueImage',label:'Around the League image',type:'file',accept:'image/*'},{k:'leagueProof',label:'Review',type:'confirm',text:'I am happy with the generated round-up'}],
+13:[{k:'seasonProof',label:'Review',type:'confirm',text:'Table, fixtures and highlighting checked'}],
+14:[{k:'gridProof',label:'Review',type:'confirm',text:'Results grid checked'}],
+15:[{k:'lastOutImages',label:'Last Time Out image(s)',type:'file',accept:'image/*',multiple:true}],
+17:[{k:'lastOut17',label:'Additional image',type:'file',accept:'image/*',optional:true},{k:'lastOut17ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
+18:[{k:'lastOut18',label:'Additional image',type:'file',accept:'image/*',optional:true},{k:'lastOut18ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
+19:[{k:'lastOut19',label:'Additional image',type:'file',accept:'image/*',optional:true},{k:'lastOut19ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
+21:[{k:'poster21choice',label:'Poster status',type:'select',options:['Keep current poster','Replace poster']},{k:'poster21file',label:'Replacement artwork',type:'file',accept:'image/*,.pdf',optional:true}],
+22:[{k:'poster22choice',label:'Poster status',type:'select',options:['Keep current poster','Replace poster']},{k:'poster22file',label:'Replacement artwork',type:'file',accept:'image/*,.pdf',optional:true}],
+23:[{k:'players23',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
+24:[{k:'players24',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
+25:[{k:'players25',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
+26:[{k:'players26',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
+27:[{k:'photo27',label:'Top image',type:'file',accept:'image/*'}],
+28:[{k:'leagueSoFar28',label:'Review',type:'confirm',text:'First half of The League So Far checked'}],
+29:[{k:'leagueSoFar29',label:'Review',type:'confirm',text:'Second half, future fixtures and reschedules checked'}],
+33:[{k:'photo33',label:'Bottom image',type:'file',accept:'image/*'}],
+34:[{k:'oppPreview',label:'Darren opposition preview',type:'textarea',ph:'Paste Darren\'s preview here'}],
+35:[{k:'opp35',label:'Page 35',type:'confirm',text:'Continuation/layout checked'}],
+36:[{k:'opp36',label:'Page 36',type:'confirm',text:'Continuation/layout checked'}],
+39:[{k:'opp39image',label:'Final preview image',type:'file',accept:'image/*'},{k:'opp39ok',label:'Layout',type:'confirm',text:'Final preview page checked'}],
+42:[
+ {k:'awaySquad',label:'Away squad',type:'textarea',ph:'Paste opposition squad list'},
+ {k:'referee',label:'Referee',type:'text',ph:'Referee name'},
+ {k:'assistant1',label:'Assistant 1',type:'text',ph:'Assistant name'},
+ {k:'assistant2',label:'Assistant 2',type:'text',ph:'Assistant name'},
+ {k:'koitaNumber',label:'Dan Koita squad number',type:'text',ph:'Leave blank until known',optional:true}
+]
+};
+
+const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial'};
+const hasAction=p=>!!actionSpecs[p[0]];
+function isConfirmed(n){return localStorage.getItem('tivvy-confirm-p'+n)==='1'}
+function isAutoBuilt(n){return localStorage.getItem('tivvy-auto-p'+n)==='1'}
+function pageReady(p){
+ if(p[2]==='FIXED') return true;
+ if(hasAction(p)) return isConfirmed(p[0]);
+ if(p[2]==='AUTO') return isAutoBuilt(p[0]);
+ return localStorage.getItem('tivvy-p'+p[0])==='1';
+}
+function fieldKey(p,k){return 'tivvy-action-p'+p+'-'+k}
+function fieldValue(p,k){return localStorage.getItem(fieldKey(p,k))||''}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function draw(){
  const tb=document.getElementById('rows');tb.innerHTML='';
- pages.forEach(p=>{const key='p'+p[0];const done=localStorage.getItem('tivvy-'+key)==='1'||defaultReady(p)&&localStorage.getItem('tivvy-'+key)!=='0';
- const tr=document.createElement('tr');tr.innerHTML='<td class="p">'+p[0]+'</td><td><strong>'+p[1]+'</strong></td><td><span class="tag '+typeClass[p[2]]+'">'+p[2]+'</span></td><td>'+p[3]+'</td><td>'+ (p[4]||'—') +'</td><td class="'+(done?'ready':'need')+'">'+(done?'READY':'NEEDS INPUT')+'</td><td><input type="checkbox" '+(done?'checked':'')+' onchange="toggle('+p[0]+',this.checked)"></td>';tb.appendChild(tr)});
- updateSummary(); drawActions()
+ pages.forEach(p=>{
+   const done=pageReady(p);
+   let status=done?'READY':(p[2]==='AUTO'&&isAutoBuilt(p[0])?'BUILT - REVIEW':'NEEDS INPUT');
+   let cls=done?'ready':'need';
+   const tr=document.createElement('tr');
+   tr.innerHTML='<td class="p">'+p[0]+'</td><td><strong>'+p[1]+'</strong></td><td><span class="tag '+typeClass[p[2]]+'">'+p[2]+'</span></td><td>'+p[3]+'</td><td>'+(p[4]||'—')+'</td><td class="'+cls+'">'+status+'</td><td><input type="checkbox" '+(done?'checked':'')+' onchange="toggleReady('+p[0]+',this.checked)"></td>';
+   tb.appendChild(tr);
+ });
+ updateSummary(); drawActions();
 }
-function toggle(n,v){localStorage.setItem('tivvy-p'+n,v?'1':'0');draw()}
+function toggleReady(n,v){localStorage.setItem('tivvy-confirm-p'+n,v?'1':'0');draw()}
+function renderField(page,s){
+ const val=fieldValue(page,s.k);
+ if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)">'+esc(val)+'</textarea></div>';
+ if(s.type==='text'||s.type==='url') return '<div class="action-field"><label>'+s.label+'</label><input type="'+s.type+'" data-page="'+page+'" data-key="'+s.k+'" value="'+esc(val)+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)"></div>';
+ if(s.type==='select'){
+   const opts=(s.options||[]).map(o=>'<option '+(val===o?'selected':'')+'>'+esc(o)+'</option>').join('');
+   return '<div class="action-field"><label>'+s.label+'</label><select data-page="'+page+'" data-key="'+s.k+'" onchange="saveField(this)"><option value="">Choose…</option>'+opts+'</select></div>';
+ }
+ if(s.type==='file'){
+   const saved=val?'<div class="small" style="margin-top:4px">Selected: '+esc(val)+'</div>':'';
+   return '<div class="action-field"><label>'+s.label+(s.optional?' (optional)':'')+'</label><input type="file" '+(s.accept?'accept="'+s.accept+'"':'')+' '+(s.multiple?'multiple':'')+' data-page="'+page+'" data-key="'+s.k+'" onchange="saveFileName(this)">'+saved+'</div>';
+ }
+ if(s.type==='confirm'){
+   const checked=val==='1'?'checked':'';
+   return '<div class="action-field"><label style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:12px"><input type="checkbox" data-page="'+page+'" data-key="'+s.k+'" '+checked+' onchange="saveConfirm(this)"> '+esc(s.text)+'</label></div>';
+ }
+ return '';
+}
 function drawActions(){
  const g=document.getElementById('actionGrid'); if(!g)return;
- const human=pages.filter(p=>p[2]!=='AUTO'&&p[2]!=='FIXED');
- g.innerHTML=human.map(p=>{
-   const done=localStorage.getItem('tivvy-p'+p[0])==='1';
-   return '<div class="action-card '+(done?'done':'')+'"><h3>Page '+p[0]+' · '+p[1]+'</h3><p>'+p[4]+'</p><div class="mini"><span class="'+(done?'ready':'need')+'">'+(done?'READY':'ACTION NEEDED')+'</span><label style="font-size:12px;font-weight:800"><input type="checkbox" '+(done?'checked':'')+' onchange="toggle('+p[0]+',this.checked)"> Done</label></div></div>'
+ const actionPages=pages.filter(p=>hasAction(p));
+ g.innerHTML=actionPages.map(p=>{
+   const done=isConfirmed(p[0]);
+   const built=p[2]==='AUTO'&&isAutoBuilt(p[0]);
+   const status=done?'READY':(built?'AUTO BUILT - PLEASE REVIEW':'ACTION NEEDED');
+   return '<div class="action-card '+(done?'done':'')+'"><h3>Page '+p[0]+' · '+p[1]+'</h3><p>'+p[3]+'</p><div class="action-fields">'+actionSpecs[p[0]].map(s=>renderField(p[0],s)).join('')+'</div><div class="mini"><span class="'+(done?'ready':'need')+'">'+status+'</span><button class="confirm-btn" onclick="confirmPage('+p[0]+')">'+(done?'Confirmed ✓':'Confirm page')+'</button></div></div>';
  }).join('');
 }
-function markAuto(){pages.forEach(p=>{if(p[2]==='AUTO'||p[2]==='FIXED')localStorage.setItem('tivvy-p'+p[0],'1')});draw()}
-function updateSummary(){let ready=0;pages.forEach(p=>{if(localStorage.getItem('tivvy-p'+p[0])==='1'||defaultReady(p)&&localStorage.getItem('tivvy-p'+p[0])!=='0')ready++});const needs=42-ready;
- document.getElementById('summary').innerHTML='<div class="box"><div class="small">Pages ready</div><div class="n">'+ready+'/42</div></div><div class="box"><div class="small">Need input</div><div class="n">'+needs+'</div></div><div class="box"><div class="small">Automatic/fixed</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'||p[2]==='FIXED').length+'</div></div><div class="box"><div class="small">Human/editorial</div><div class="n">'+pages.filter(p=>p[2]!=='AUTO'&&p[2]!=='FIXED').length+'</div></div>'}
-function save(){['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));localStorage.setItem('tivvy-meta-issueConfirm',document.getElementById('issueConfirm').checked?'1':'0');alert('Programme run saved in this browser.')}
-function load(){['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v});document.getElementById('issueConfirm').checked=localStorage.getItem('tivvy-meta-issueConfirm')==='1'}
-function downloadJSON(){const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);meta.issueConfirmed=document.getElementById('issueConfirm').checked;const status={};pages.forEach(p=>status[p[0]]=document.querySelector('tr:nth-child('+p[0]+') input').checked);const blob=new Blob([JSON.stringify({meta,pages,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click()}
-function resetRun(){if(!confirm('Reset this working programme run?'))return;Object.keys(localStorage).filter(k=>k.startsWith('tivvy-p')||k.startsWith('tivvy-meta-')).forEach(k=>localStorage.removeItem(k));location.reload()}
+function saveField(el){localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),el.value)}
+function saveFileName(el){const names=[...el.files].map(f=>f.name).join(', ');localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),names);drawActions()}
+function saveConfirm(el){localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),el.checked?'1':'0')}
+function confirmPage(n){localStorage.setItem('tivvy-confirm-p'+n,isConfirmed(n)?'0':'1');draw()}
+function markAuto(){pages.forEach(p=>{if(p[2]==='AUTO')localStorage.setItem('tivvy-auto-p'+p[0],'1')});draw()}
+function updateSummary(){
+ let ready=pages.filter(pageReady).length;
+ let actions=pages.filter(p=>hasAction(p)&&!isConfirmed(p[0])).length;
+ document.getElementById('summary').innerHTML=
+ '<div class="box"><div class="small">Pages ready</div><div class="n">'+ready+'/42</div></div>'+
+ '<div class="box"><div class="small">Actions remaining</div><div class="n">'+actions+'</div></div>'+
+ '<div class="box"><div class="small">Automatic pages built</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'&&isAutoBuilt(p[0])).length+'/'+pages.filter(p=>p[2]==='AUTO').length+'</div></div>'+
+ '<div class="box"><div class="small">Fixed pages</div><div class="n">'+pages.filter(p=>p[2]==='FIXED').length+'</div></div>';
+}
+function save(){
+ ['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));
+ localStorage.setItem('tivvy-meta-issueConfirm',document.getElementById('issueConfirm').checked?'1':'0');
+ alert('Programme run saved in this browser.');
+}
+function load(){
+ ['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v});
+ document.getElementById('issueConfirm').checked=localStorage.getItem('tivvy-meta-issueConfirm')==='1';
+}
+function downloadJSON(){
+ const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);meta.issueConfirmed=document.getElementById('issueConfirm').checked;
+ const actions={};Object.keys(actionSpecs).forEach(p=>{actions[p]={confirmed:isConfirmed(p),fields:{}};actionSpecs[p].forEach(s=>actions[p].fields[s.k]=fieldValue(p,s.k))});
+ const status={};pages.forEach(p=>status[p[0]]={ready:pageReady(p),autoBuilt:isAutoBuilt(p[0])});
+ const blob=new Blob([JSON.stringify({meta,actions,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click();
+}
+function resetRun(){if(!confirm('Reset this working programme run?'))return;Object.keys(localStorage).filter(k=>k.startsWith('tivvy-')).forEach(k=>localStorage.removeItem(k));location.reload()}
 load();draw();
 </script></body></html>

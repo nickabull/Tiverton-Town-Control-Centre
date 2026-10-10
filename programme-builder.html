@@ -21,7 +21,7 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 @media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.action-grid{grid-template-columns:1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V17</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 17</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V18</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 18</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
 <section class="summary" id="summary"></section>
@@ -167,7 +167,10 @@ First Team Kit Manager — Will Buttle`},
 25:[{k:'players25',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
 26:[{k:'players26',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
 27:[{k:'photo27',label:'Top image',type:'flickr',ph:'Paste selected Flickr photo link'}],
-28:[{k:'leagueSoFar28',label:'Review',type:'confirm',text:'First half of The League So Far checked'}],
+28:[
+ {k:'leagueSoFarMode',label:'Dynamic League So Far spread',type:'textarea',readonly:true,default:'AUTO: Build Pages 28–29 as a two-page dynamic table from Get Player Info. Keep the existing yellow/white row style, ordered starting XI and match details. In every score, highlight Tiverton Town\'s number in red regardless of whether Tivvy were home or away. Split the season across Page 28 and the new Page 29 automatically so the second half renders onto Page 29 rather than being squeezed onto one page.'},
+ {k:'leagueSoFarOk',label:'League So Far',type:'confirm',text:'Confirm Pages 28–29 dynamic table styling / split'}
+],
 29:[{k:'leagueSoFar29',label:'Review',type:'confirm',text:'Second half, future fixtures and reschedules checked'}],
 33:[{k:'photo33',label:'Bottom image',type:'flickr',ph:'Paste selected Flickr photo link'}],
 34:[
@@ -221,8 +224,8 @@ const automatorDoes={
 25:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
 26:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
 27:'I will keep the Van Man advert untouched and replace only the top photo area with the Viv Flickr image you choose.',
-28:'I will generate the first half of The League So Far from the Player Info data and fit it into the two-page programme spread, including player appearances/goals and fixture information.',
-29:'I will generate the second half of The League So Far, reflecting rescheduled fixtures and keeping played/unplayed matches correct before flowing the data into Canva.',
+28:'I will generate Pages 28–29 as one linked dynamic League So Far spread from Get Player Info. The table will preserve the alternating yellow/white rows, show the ordered player/position data, colour Tiverton\'s score in red whether home or away, and automatically split the fixture list across Page 28 and the new Page 29.',
+29:'I will render the second half of the dynamic League So Far table here automatically, continuing the exact same column widths, row styling, score highlighting and player layout from Page 28.',
 33:'I will preserve the fixed top section and replace only the lower photo with the Viv Flickr image you choose.',
 34:'I will pull/accept Darren Holmes’s opposition preview, preserve the Meet the Opposition styling, and flow the headline/byline/body into the correct Canva text elements.',
 35:'I will continue Darren’s opposition preview from page 34, preserving the page styling and handling the text break automatically.',

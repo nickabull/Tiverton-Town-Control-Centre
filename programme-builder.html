@@ -21,18 +21,9 @@ input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:
 @media(max-width:850px){.meta,.summary,.action-grid{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
 </style></head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V2</h1><div class="sub">42-page master · readiness check · Portland working issue · Version 2</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V3</h1><div class="sub">42-page master · readiness check · Portland working issue · Version 3</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
-<section class="panel">
-<div class="meta">
-<div class="f"><label>Opponent</label><input id="opponent" value="Portland United"></div>
-<div class="f"><label>Match date</label><input id="date" value="17/10/2026"></div>
-<div class="f"><label>Kick-off</label><input id="ko" placeholder="e.g. 15:00"></div>
-<div class="f"><label>Issue number</label><input id="issue" value="10"><div style="margin-top:7px;font-size:12px;color:#666"><label style="display:flex;align-items:center;gap:7px;text-transform:none;font-weight:700"><input id="issueConfirm" type="checkbox" style="width:auto"> Confirm Issue 10</label></div></div>
-<div class="f"><label>Cover player</label><input id="cover" placeholder="Choose from Viv"></div>
-</div>
-</section>
 <section class="summary" id="summary"></section>
 <section class="panel">
   <div class="ey" style="color:#555">Actions needed from Nick</div>
@@ -98,16 +89,38 @@ const pages=[
 
 const actionSpecs={
 1:[
+ {k:'opponent',label:'Opponent',type:'text',ph:'Opponent',default:'Portland United'},
+ {k:'matchDate',label:'Match date',type:'text',ph:'DD/MM/YYYY',default:'17/10/2026'},
  {k:'kickoff',label:'Kick-off time',type:'text',ph:'e.g. 15:00'},
+ {k:'issueNumber',label:'Issue number',type:'text',ph:'Issue number',default:'10'},
+ {k:'issueOk',label:'Issue number',type:'confirm',text:'Confirm Issue 10'},
  {k:'coverPlayer',label:'Cover player',type:'text',ph:'Player name'},
- {k:'coverImage',label:'Cover image',type:'file',accept:'image/*'},
- {k:'issueOk',label:'Issue number',type:'confirm',text:'Confirm Issue 10'}
+ {k:'coverImage',label:'Cover image',type:'file',accept:'image/*'}
 ],
 4:[
  {k:'latestNewsText',label:'Latest News text',type:'textarea',ph:'Paste article text here'},
  {k:'latestNewsImage',label:'Latest News image',type:'file',accept:'image/*'}
 ],
-5:[{k:'staffChanges',label:'Staff / role changes',type:'textarea',ph:'Enter changes, or type None'}],
+5:[
+ {k:'staffRoster',label:'Current names / roles',type:'textarea',readonly:true,default:`President — Wally Burk
+Chairman — Mark Farrell
+Vice Chairman — Vacant
+Club Secretary — Viv Curtis
+Treasurer — David Morgan
+Fixtures Secretary — Anthony Dodd
+Ground Safety Officer — Marian Pile
+Director of Football — Lee Lashenko
+Head of Football Development — Mike Ebdon
+Head of Media — Ryan Downer
+Programme Editor — Nick Bull
+Club Photographer — Viv Curtis
+First Team Manager — Asa Hall
+First Team Assistant — Steven Orchard
+First Team Coach — David Steele
+First Team Medic — Ellie Jones
+First Team Kit Manager — Will Buttle`},
+ {k:'staffChanges',label:'Changes for this issue',type:'textarea',ph:'Enter any changes, or type None'}
+],
 7:[{k:'execText',label:'Executive Update text',type:'textarea',ph:'Paste Mark\'s copy or Nick\'s draft here'}],
 9:[{k:'execContinue',label:'Page 9',type:'confirm',text:'Confirm Executive Update continues onto this page'}],
 11:[{k:'leagueImage',label:'Around the League image',type:'file',accept:'image/*'},{k:'leagueProof',label:'Review',type:'confirm',text:'I am happy with the generated round-up'}],
@@ -151,7 +164,7 @@ function pageReady(p){
  return localStorage.getItem('tivvy-p'+p[0])==='1';
 }
 function fieldKey(p,k){return 'tivvy-action-p'+p+'-'+k}
-function fieldValue(p,k){return localStorage.getItem(fieldKey(p,k))||''}
+function fieldValue(p,k,def=''){const v=localStorage.getItem(fieldKey(p,k));return v===null?def:v}
 function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function draw(){
  const tb=document.getElementById('rows');tb.innerHTML='';
@@ -167,8 +180,8 @@ function draw(){
 }
 function toggleReady(n,v){localStorage.setItem('tivvy-confirm-p'+n,v?'1':'0');draw()}
 function renderField(page,s){
- const val=fieldValue(page,s.k);
- if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)">'+esc(val)+'</textarea></div>';
+ const val=fieldValue(page,s.k,s.default||'');
+ if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" '+(s.readonly?'readonly style="background:#f5f5f5;color:#444"':'oninput="saveField(this)"')+'>'+esc(val)+'</textarea></div>';
  if(s.type==='text'||s.type==='url') return '<div class="action-field"><label>'+s.label+'</label><input type="'+s.type+'" data-page="'+page+'" data-key="'+s.k+'" value="'+esc(val)+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)"></div>';
  if(s.type==='select'){
    const opts=(s.options||[]).map(o=>'<option '+(val===o?'selected':'')+'>'+esc(o)+'</option>').join('');
@@ -208,17 +221,10 @@ function updateSummary(){
  '<div class="box"><div class="small">Automatic pages built</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'&&isAutoBuilt(p[0])).length+'/'+pages.filter(p=>p[2]==='AUTO').length+'</div></div>'+
  '<div class="box"><div class="small">Fixed pages</div><div class="n">'+pages.filter(p=>p[2]==='FIXED').length+'</div></div>';
 }
-function save(){
- ['opponent','date','ko','issue','cover'].forEach(id=>localStorage.setItem('tivvy-meta-'+id,document.getElementById(id).value));
- localStorage.setItem('tivvy-meta-issueConfirm',document.getElementById('issueConfirm').checked?'1':'0');
- alert('Programme run saved in this browser.');
-}
-function load(){
- ['opponent','date','ko','issue','cover'].forEach(id=>{const v=localStorage.getItem('tivvy-meta-'+id);if(v!==null)document.getElementById(id).value=v});
- document.getElementById('issueConfirm').checked=localStorage.getItem('tivvy-meta-issueConfirm')==='1';
-}
+function save(){alert('Programme run saved automatically as you work.')}
+function load(){}
 function downloadJSON(){
- const meta={};['opponent','date','ko','issue','cover'].forEach(id=>meta[id]=document.getElementById(id).value);meta.issueConfirmed=document.getElementById('issueConfirm').checked;
+ const meta={}; actionSpecs[1].forEach(s=>meta[s.k]=fieldValue(1,s.k,s.default||''));
  const actions={};Object.keys(actionSpecs).forEach(p=>{actions[p]={confirmed:isConfirmed(p),fields:{}};actionSpecs[p].forEach(s=>actions[p].fields[s.k]=fieldValue(p,s.k))});
  const status={};pages.forEach(p=>status[p[0]]={ready:pageReady(p),autoBuilt:isAutoBuilt(p[0])});
  const blob=new Blob([JSON.stringify({meta,actions,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click();

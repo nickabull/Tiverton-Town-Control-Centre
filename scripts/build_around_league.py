@@ -111,16 +111,20 @@ def make_page(date_label, source_url, results, updated):
 
 def main():
     last = None
+    final_url = body = None
+    round_date = results = None
     for url in URLS:
         try:
-            final_url, body = fetch(url)
+            candidate_url, candidate_body = fetch(url)
+            candidate_lines = clean_text(candidate_body)
+            candidate_date, candidate_results = parse_latest_completed_round(candidate_lines)
+            final_url, body = candidate_url, candidate_body
+            round_date, results = candidate_date, candidate_results
             break
         except Exception as e:
             last = e
-    else:
-        raise last or RuntimeError("Could not fetch Division One South overview")
-    lines = clean_text(body)
-    round_date, results = parse_latest_completed_round(lines)
+    if final_url is None or not results:
+        raise last or RuntimeError("Could not fetch completed Division One South results")
     date_label = round_date.strftime("%A %-d %B %Y")
     updated = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
     snapshot = {

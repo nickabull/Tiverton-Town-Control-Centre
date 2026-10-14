@@ -1,1 +1,1 @@
-Refresh requested 2026-10-14 after midweek results
+Refresh requested 2026-10-14 parser fallback fix

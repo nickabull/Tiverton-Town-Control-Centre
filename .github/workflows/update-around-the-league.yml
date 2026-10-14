@@ -3,7 +3,7 @@ name: Update Around the League
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 10 * * 0"
+    - cron: "15 8,11,22 * * *"
   push:
     paths:
       - ".github/triggers/around-the-league.txt"

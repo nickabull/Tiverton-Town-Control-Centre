@@ -52,16 +52,16 @@ footer{padding:28px 0;color:#777;font-size:13px}
       <a href="#players">Players</a>
       <a href="#league">League</a>
       <a href="around-the-league.html">Around the League</a>
-      <a href="#programme">Programme</a><a href="programme-builder.html">Programme Automator</a><a href="photo-library.html">Photo Library</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a>
+      <a href="#programme">Programme</a><a href="programme-builder-v21.html">Programme Automator</a><a href="photo-library.html">Photo Library</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a>
     </nav>
   </div>
 </header>
 <main class="wrap" id="dashboard">
   <section class="hero">
     <div class="panel">
-      <div class="eyebrow">Programme Centre v0.2</div>
-      <div class="big">The new Tiverton Town programme engine starts here.</div>
-      <p class="muted">This first version gives us one home for the existing results and player tools, the new Pitching In data feed, league-wide stories, and the future Canva programme builder.</p>
+      <div class="eyebrow">Programme Centre v0.3</div>
+      <div class="big">The Tiverton Town programme engine is now live.</div>
+      <p class="muted">The Control Centre now brings together live league data, programme-ready tables, player information, editorial collectors, image workflows and the section-based Canva automator.</p>
       <a class="btn yellow" href="#programme">Programme status</a>
     </div>
     <div class="panel">
@@ -69,7 +69,7 @@ footer{padding:28px 0;color:#777;font-size:13px}
       <div class="status"><span class="dot ok"></span><strong>Pitching In</strong>&nbsp; primary</div>
       <div class="status"><span class="dot ok"></span><strong>Tiverton Town site</strong>&nbsp; reports & news</div>
       <div class="status"><span class="dot warn"></span><strong>Tivvy Archive</strong>&nbsp; history / fallback</div>
-      <div class="status"><span class="dot"></span><strong>Canva</strong>&nbsp; awaiting assets</div>
+      <div class="status"><span class="dot ok"></span><strong>Canva</strong>&nbsp; 49-page master + crest library connected</div>
     </div>
   </section>
 
@@ -87,27 +87,35 @@ footer{padding:28px 0;color:#777;font-size:13px}
     </article>
 
     <article class="panel card" id="league">
-      <h2>League</h2>
-      <p>Current-season fixtures, results, tables and player data will prefer the Pitching In Southern League source.</p>
-      <span class="btn yellow">Wiring live data next</span>
+      <h2>League Data</h2>
+      <p>Live programme-ready outputs built from the Division One South results feed, with the Southern League treated as the primary competition source.</p>
+      <div class="controls" style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn yellow" href="league-table.html">League Table</a>
+        <a class="btn" href="results-matrix.html">Results Matrix</a>
+        <a class="btn" href="league-so-far.html">League So Far</a>
+      </div>
     </article>
 
     <article class="panel card" id="around">
       <h2>Around the League</h2>
-      <p>Automatic weekly digest of Division One South results, scorers, signings, milestones and club news — ready for the programme.</p>
-      <a class="btn yellow" href="around-the-league.html">View prototype</a>
+      <p>Editorial collector for recent Division One South stories and images, excluding Tiverton-led copy and presenting programme-ready candidates for approval.</p>
+      <a class="btn yellow" href="around-the-league.html">Open editorial collector</a>
     </article>
 
     <article class="panel card" id="programme">
       <h2>Programme</h2>
-      <p>The future production area will check every component before generating the next issue for final editorial review.</p>
-      <p><a class="btn yellow" href="programme-builder.html">Open Programme Automator</a> <a class="btn" href="programme-plan.html">Planner</a></p>
+      <p>The production area is now section-based: it combines V19-style guided workflow with V20 stable Canva IDs and live data modules.</p>
+      <p><a class="btn yellow" href="programme-builder-v21.html">Open Programme Automator V21</a> <a class="btn" href="programme-plan.html">Planner</a></p>
       <table>
         <tr><th>Item</th><th>Status</th></tr>
-        <tr><td>Fixtures / results</td><td>Ready to connect</td></tr>
-        <tr><td>Player data</td><td>Ready to connect</td></tr>
-        <tr><td>League round-up</td><td>In build</td></tr>
-        <tr><td>Canva template</td><td>49-page master connected</td></tr><tr><td>Viv photo library</td><td>Indexing layer ready</td></tr>
+        <tr><td>League Table</td><td>Live renderer</td></tr>
+        <tr><td>Results Matrix</td><td>Live renderer</td></tr>
+        <tr><td>League So Far</td><td>Live renderer</td></tr>
+        <tr><td>Around the League</td><td>Editorial collector live</td></tr>
+        <tr><td>Club Officials & Honours</td><td>Dashboard-managed data</td></tr>
+        <tr><td>Canva template</td><td>49-page master connected</td></tr>
+        <tr><td>Southern League crests</td><td>Approved Canva crest mapping connected</td></tr>
+        <tr><td>Viv photo library</td><td>Indexing layer ready</td></tr>
       </table>
     </article>
 

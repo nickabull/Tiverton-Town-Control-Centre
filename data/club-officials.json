@@ -1,0 +1,132 @@
+{
+  "source": "CHATGPT TEMPLATE",
+  "source_design_id": "DAHYKUo9Tzo",
+  "source_logical_key": "club_officials",
+  "synced_at_utc": "2026-10-16T11:58:41Z",
+  "contact": {
+    "address": "Slee Blackwell Solicitors Stadium, Bolham Road, Tiverton, EX16 6SG",
+    "telephone": "01884 693989",
+    "email": "Contact@TivertonTownFC.uk",
+    "club_type": "Unincorporated Members Club"
+  },
+  "officials": [
+    [
+      "President",
+      "Wally Burk"
+    ],
+    [
+      "Chairman",
+      "Mark Farrell"
+    ],
+    [
+      "Vice Chairman",
+      "Vacant"
+    ],
+    [
+      "Club Secretary",
+      "Viv Curtis"
+    ],
+    [
+      "Treasurer",
+      "Jon Line"
+    ],
+    [
+      "Fixtures Secretary",
+      "Anthony Dodd"
+    ],
+    [
+      "Ground Safety Officer",
+      "Marian Pile"
+    ],
+    [
+      "Director Of Football",
+      "Lee Lashenko"
+    ],
+    [
+      "Head of Football Development",
+      "Mike Ebdon"
+    ],
+    [
+      "Head of Media",
+      "Ryan Downer"
+    ],
+    [
+      "Commercial Manager",
+      "Craig Bryce"
+    ],
+    [
+      "Programme Editor",
+      "Nick Bull"
+    ],
+    [
+      "Club Photographer",
+      "Viv Curtis"
+    ],
+    [
+      "First Team Manager",
+      "Asa Hall"
+    ],
+    [
+      "First Team Assistant",
+      "Steven Orchard"
+    ],
+    [
+      "First Team Coach",
+      "David Steele"
+    ],
+    [
+      "First Team Medic",
+      "Ellie Jones"
+    ],
+    [
+      "First Team Kit Manager",
+      "Will Buttle"
+    ]
+  ],
+  "honours": [
+    [
+      "FA VASE",
+      "Winners: 1998 & 1999; Runners Up: 1993"
+    ],
+    [
+      "SL DIV 1 PLAY OFFS",
+      "Winners: 2017"
+    ],
+    [
+      "DEVON ST LUKES CUP",
+      "Winners: 1991, 1992, 1993, 1994, 1995, 1997, 2000, 2003, 2006, 2017, 2023"
+    ],
+    [
+      "SL CUP",
+      "Winners: 2007"
+    ],
+    [
+      "WESTERN LEAGUE",
+      "Winners: 1994, 1995, 1997, 1998"
+    ],
+    [
+      "WESTERN LEAGUE CUP",
+      "Winners: 1993, 1994, 1995, 1997, 1998"
+    ],
+    [
+      "EXETER LEAGUE",
+      "Winners: 1934, 1965, 1966"
+    ],
+    [
+      "NORTH DEVON LEAGUE",
+      "Winners: 1932"
+    ],
+    [
+      "EAST DEVON LEAGUE",
+      "Winners: 1925, 1926, 1927, 1928"
+    ],
+    [
+      "EAST DEVON SENIOR CUP",
+      "1929, 1936, 1938, 1953, 1961, 1963, 1967"
+    ],
+    [
+      "HIGHEST ATTENDANCE",
+      "3500 v Leyton Orient (FA Cup First Round), 12 November 1994"
+    ]
+  ]
+}

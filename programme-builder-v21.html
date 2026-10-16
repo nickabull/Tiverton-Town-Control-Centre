@@ -20,7 +20,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 .action-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field{border:1px solid #eee;border-radius:8px;padding:9px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;color:#666;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.field textarea{min-height:70px;resize:vertical}
 .ai-do{margin-top:11px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}
 .links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.links a{background:#111;color:#fff;text-decoration:none;border-radius:6px;padding:7px 9px;font-size:11px;font-weight:800}.links a.live{background:var(--g)}
-.tech{margin-top:10px;border-top:1px dashed #ddd;padding-top:9px}.tech summary{cursor:pointer;font-size:11px;font-weight:800;color:#666}.tech-list{font-size:11px;color:#666;line-height:1.55;margin-top:7px}.tech code{font-size:10px}
+.tech{margin-top:10px;border-top:1px dashed #ddd;padding-top:9px}.tech summary{cursor:pointer;font-size:11px;font-weight:800;color:#666}.tech-list{font-size:11px;color:#666;line-height:1.55;margin-top:7px}.tech code{font-size:10px}.tech-grid{display:grid;grid-template-columns:1.2fr 1fr .7fr;gap:8px;margin-top:7px}.tech-item{border:1px solid #eee;border-radius:7px;padding:8px;background:#fafafa}.tech-item .lbl{font-size:9px;font-weight:900;text-transform:uppercase;color:#888;letter-spacing:.04em}.tech-item .val{margin-top:2px;font-size:11px;color:#333;overflow-wrap:anywhere}@media(max-width:700px){.tech-grid{grid-template-columns:1fr}}
 .check{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;font-weight:800}.check input{width:auto;transform:scale(1.15)}.cover-fixture{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:10px}.crest-preview{border:1px solid #ddd;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;background:#fafafa}.crest-preview img{width:92px;height:92px;object-fit:contain;background:#fff;border-radius:8px}.crest-meta{font-size:11px;color:#666;line-height:1.45}.autofill-note{background:#eef8ee;border-left:4px solid #38a169;padding:8px 10px;border-radius:5px;font-size:12px;margin-bottom:9px}
 @media(max-width:850px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:560px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr}.section-head{display:block}}
 </style>
@@ -218,7 +218,7 @@ function draw(){
  sections.forEach(s=>{
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
-   const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
+   const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
    const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
@@ -226,7 +226,7 @@ function draw(){
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
      (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
-     '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
+     '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
    grid.appendChild(card);
  });

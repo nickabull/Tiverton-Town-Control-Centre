@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Photo Library</title>
+<style>
+:root{--y:#f2c400;--bg:#f3f3f1;--line:#ddd;--ink:#171717;--muted:#666}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111;color:#fff;border-bottom:5px solid var(--y)}.h{max-width:1200px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}h1{margin:5px 0}
+.wrap{max-width:1200px;margin:auto;padding:22px}.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f select,.f input{width:100%;padding:10px;border:1px solid #bbb;border-radius:7px;background:#fff}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:27px;font-weight:900}.small{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}.ph{aspect-ratio:4/3;background:#eee;display:grid;place-items:center;color:#888}.body{padding:10px}.tag{display:inline-block;background:#eee;border-radius:999px;padding:3px 6px;font-size:10px;margin-right:4px}.warn{color:#a15c00;font-weight:800}.ok{color:#238636;font-weight:800}
+.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;border-radius:6px}.btn{display:inline-block;background:#111;color:#fff;text-decoration:none;padding:9px 12px;border-radius:7px;font-weight:800}
+@media(max-width:850px){.filters,.summary,.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.filters,.summary,.grid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Media Library</div><h1>Player Photo Finder</h1><div>Viv Curtis Flickr album index · usage-aware shortlist</div></div></header>
+<main class="wrap">
+<div class="note"><strong>Phase 1:</strong> this is the index and usage-tracking layer. Player identity is supplied by tags/metadata or Nick's confirmation — no automatic face recognition.</div>
+<section class="panel">
+  <div class="filters">
+    <div class="f"><label>Player</label><select id="player"></select></div>
+    <div class="f"><label>Usage</label><select id="usage"><option value="all">All photos</option><option value="unused">Unused only</option><option value="used">Previously used</option></select></div>
+    <div class="f"><label>Type</label><select id="kind"><option value="all">Any type</option><option value="action">Action</option><option value="portrait">Portrait</option><option value="celebration">Celebration</option><option value="team">Team / group</option></select></div>
+  </div>
+</section>
+<section class="summary" id="summary"></section>
+<section class="panel">
+  <h2 id="title" style="margin-top:0">Photo pool</h2>
+  <div id="grid" class="grid"></div>
+</section>
+<section class="panel">
+  <h2>Indexing workflow</h2>
+  <p class="small">When the Flickr collector is connected, new match albums will arrive here as candidate thumbnails. A photo can be tagged to one or more players, given a type, and then marked as used automatically when selected for a programme issue.</p>
+  <a class="btn" href="programme-builder.html">Back to Programme Automator</a>
+</section>
+</main>
+<script>
+let db=null;
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function allPhotos(){return db.players.flatMap(p=>(p.photos||[]).map(x=>({...x,player:p.name})))}
+function render(){
+ const name=document.getElementById('player').value;
+ const usage=document.getElementById('usage').value;
+ const kind=document.getElementById('kind').value;
+ const player=db.players.find(p=>p.name===name)||db.players[0];
+ let photos=(player.photos||[]).slice();
+ if(usage==='unused') photos=photos.filter(x=>!x.used_count);
+ if(usage==='used') photos=photos.filter(x=>x.used_count>0);
+ if(kind!=='all') photos=photos.filter(x=>x.kind===kind);
+ const unused=(player.photos||[]).filter(x=>!x.used_count).length;
+ const used=(player.photos||[]).filter(x=>x.used_count>0).length;
+ document.getElementById('summary').innerHTML=
+   box((player.photos||[]).length,'Indexed','for '+player.name)+
+   box(unused,'Unused','preferred for new issues')+
+   box(used,'Previously used','available if needed')+
+   box(unused<db.rules.low_stock_threshold?'LOW':'OK','Fresh pool',unused<db.rules.low_stock_threshold?'Needs more tagged photos':'Enough fresh options');
+ document.getElementById('title').textContent=player.name+' — photo pool';
+ const g=document.getElementById('grid');
+ if(!photos.length){g.innerHTML='<div class="small">No tagged photos yet. Once the Flickr collector is connected, candidate images will appear here for tagging and approval.</div>';return}
+ g.innerHTML=photos.map(p=>'<article class="card"><div class="ph">'+(p.thumbnail_url?'<img src="'+esc(p.thumbnail_url)+'" alt="" style="width:100%;height:100%;object-fit:cover">':'Photo')+'</div><div class="body"><strong>'+esc(p.album_title||'Viv Curtis Flickr')+'</strong><div class="small">'+esc(p.kind||'unclassified')+'</div><div style="margin-top:6px"><span class="tag">'+(p.used_count||0)+' uses</span></div></div></article>').join('');
+}
+function box(n,l,s){return '<div class="box"><div class="n">'+n+'</div><strong>'+l+'</strong><div class="small">'+s+'</div></div>'}
+async function boot(){
+ db=await fetch('data/player-photo-index.json?v='+Date.now()).then(r=>r.json());
+ const sel=document.getElementById('player');
+ sel.innerHTML=db.players.map(p=>'<option>'+esc(p.name)+'</option>').join('');
+ ['player','usage','kind'].forEach(id=>document.getElementById(id).addEventListener('change',render));
+ render();
+}
+boot();
+</script>
+</body></html>

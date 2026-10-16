@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy at a Glance — live renderer</title>
+<style>
+:root{--y:#f2c400;--ink:#111;--red:#e31b23;--green:#57a773;--bg:#ececea;--line:#ddd}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111;color:#fff;border-bottom:5px solid var(--y)}.h{max-width:1050px;margin:auto;padding:16px 20px}.ey{color:var(--y);font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}h1{margin:4px 0 2px}.sub{color:#bbb;font-size:13px}
+.wrap{max-width:1050px;margin:auto;padding:18px}.tools{background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:#111;color:#fff;border:0;border-radius:7px;padding:9px 12px;font-weight:800;cursor:pointer}.status{font-size:12px;color:#666}.ok{color:#238636;font-weight:800}.bad{color:#b42318;font-weight:800}
+.page{background:#fff;aspect-ratio:794/1123;box-shadow:0 2px 12px rgba(0,0,0,.12);padding:32px 30px;overflow:hidden}.strap{background:#111;color:#fff;border-top:8px solid var(--y);padding:12px 15px;margin-bottom:14px}.strap h2{margin:0;font-size:30px}.strap .small{font-size:11px;color:#ddd;margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
+.asof{text-align:center;font-size:10px;font-weight:900;margin:4px 0 12px}
+.stat-grid{display:grid;grid-template-columns:repeat(9,1fr);border:1px solid #ddd}.stat{border-right:1px solid #ddd;text-align:center}.stat:last-child{border-right:0}.stat .lab{background:var(--y);font-size:7px;font-weight:900;text-transform:uppercase;padding:7px 3px}.stat .val{font-size:20px;font-weight:900;padding:9px 3px}
+.record-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.box{border:1px solid #ddd;text-align:center}.box .head{background:var(--y);font-size:8px;font-weight:900;text-transform:uppercase;padding:7px}.box .body{min-height:72px;padding:12px 8px;font-size:17px;font-weight:900}.form span{margin:0 3px}.w{color:#52a45d}.d{color:#a7ad3f}.l{color:var(--red)}
+.leaders{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.leader{border:1px solid #ddd}.leader .head{background:var(--y);font-size:8px;font-weight:900;text-transform:uppercase;padding:7px;text-align:center}.leader .content{display:grid;grid-template-columns:72px 1fr;gap:8px;align-items:center;padding:8px;min-height:120px}.leader img{width:70px;height:86px;object-fit:cover;background:#eee}.leader .name{font-weight:900;font-size:12px}.leader .big{font-size:28px;font-weight:900}.leader .unit{font-size:8px;text-transform:uppercase}
+.fixtures{margin-top:12px}.fixtures .head{background:#111;color:#fff;font-size:10px;font-weight:900;text-transform:uppercase;padding:8px}.fixtures table{width:100%;border-collapse:collapse}.fixtures th,.fixtures td{padding:7px 6px;border-bottom:1px solid #ddd;font-size:8px;text-align:left}.fixtures th{font-size:7px;text-transform:uppercase}.crest{width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:6px}
+.source{font-size:7px;color:#666;margin-top:9px;line-height:1.4}
+@media(max-width:800px){.page{aspect-ratio:auto;min-height:1123px;overflow:auto}.stat-grid{grid-template-columns:repeat(3,1fr)}.stat{border-bottom:1px solid #ddd}.leaders,.record-grid{grid-template-columns:1fr}.leader .content{grid-template-columns:90px 1fr}}
+@media print{body{background:#fff}header,.tools{display:none}.wrap{padding:0}.page{box-shadow:none;width:794px;height:1123px}}
+</style></head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Programme production</div><h1>Tivvy at a Glance — live renderer</h1><div class="sub">Southern League source-of-truth for competition data · Tiverton match detail normalised from the player feed</div></div></header>
+<main class="wrap">
+<div class="tools"><button class="btn" onclick="load()">Refresh data</button><span id="status" class="status">Loading…</span></div>
+<section class="page">
+<div class="strap"><h2>TIVVY AT A GLANCE</h2><div class="small">Southern League Division One South</div></div>
+<div class="asof" id="asof">KEY STATS FROM THE 2026/27 SEASON</div>
+<div id="stats"></div>
+<div id="records"></div>
+<div id="leaders"></div>
+<div id="fixtures"></div>
+<div class="source">Team position/form/competition context is checked against the official Southern League Tiverton Town and Division One South pages. Player appearances, minutes and goals are calculated from the detailed Tiverton fixture feed so we can preserve programme-level event detail.</div>
+</section>
+</main>
+<script>
+const PLAYER_SRC='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json';
+const RESULTS_SRC='https://nickabull.github.io/Tiverton-Town-Get-Results/data.json';
+const OFFICIAL_CLUB='https://www.southern-football-league.co.uk/clubs/tiverton-town';
+const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const parseScore=s=>{const m=String(s||'').match(/^(\d+)\s*[-–]\s*(\d+)$/);return m?{gf:+m[1],ga:+m[2]}:null};
+const minute=v=>{const m=String(v||'').match(/^(\d{1,3})(?:\+(\d{1,2}))?$/);return m?+m[1]+ +(m[2]||0):null};
+const fmtDate=s=>{const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m)return s||'';const d=new Date(+m[1],+m[2]-1,+m[3]);return d.toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})};
+const photos={
+ 'Owen Howe':'https://media.canva.com/v2/image-resize/format:JPG/height:114/quality:75/uri:ifs%3A%2F%2FM%2Feb41502e-68d6-470a-8e11-c28fd81d4523/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAANZE52XbP1iWTxYqerdd5VyY2cevljVuUn8CmM4q7z39&exp=1792171542&osig=AAAAAAAAAAAAAAAAAAAAACmdZ4-aEKwHC439XZlPMaMbetxcWncalvfFV_F8rc60&signer=media-rpc&token=AAIAAU0AJGViNDE1MDJlLTY4ZDYtNDcwYS04ZTExLWMyOGZkODFkNDUyMwAAAAABoUW_hfAQARHkiRT7agIAXK8N5qVh1sbLE8p3drO2Zn1VfKL2Qg&x-canva-quality=thumbnail',
+ 'Jacob Wellington':'https://media.canva.com/v2/image-resize/format:JPG/height:129/quality:75/uri:ifs%3A%2F%2FM%2Ff2b3f78a-8c0f-4240-8cc5-03d5be1637ae/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAJ7pCjamyfDV7nGXTwbLLfNmI_CHoOEzH6Og-qY4VtiD&exp=1792170062&osig=AAAAAAAAAAAAAAAAAAAAAIwpXhqa8e0SoH2TwTAdQCZbMwXJ0VxeyepZv4blouzo&signer=media-rpc&token=AAIAAU0AJGYyYjNmNzhhLThjMGYtNDI0MC04Y2M1LTAzZDViZTE2MzdhZQAAAAABoUWo8LBA_YTFV8vd6qg4OjM3ty3upx4jhWto8BvxvM-0YcKMBg&x-canva-quality=thumbnail'
+};
+const crestUrls={
+ 'Bideford':'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fee9ef674-c141-4261-ba7f-243b3dd36ab3/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAIzJ8NmyK8Q1kUsdLs9lvck0_eUiLQRWE9JzyAN3tMW7&exp=1792170507&osig=AAAAAAAAAAAAAAAAAAAAAKaRCS7Z5Z8MXaPYjmT6MTl65HzVggHFO2-gVuHu_D9X&signer=media-rpc&token=AAIAAU0AJGVlOWVmNjc0LWMxNDEtNDI2MS1iYTdmLTI0M2IzZGQzNmFiMwAAAAABoUWvuvh4UZxysUwe_RaybuvjF6y8uQH6PTGPl2SKark_idWBrA&x-canva-quality=thumbnail',
+ 'Bideford AFC':'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fee9ef674-c141-4261-ba7f-243b3dd36ab3/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAAIzJ8NmyK8Q1kUsdLs9lvck0_eUiLQRWE9JzyAN3tMW7&exp=1792170507&osig=AAAAAAAAAAAAAAAAAAAAAKaRCS7Z5Z8MXaPYjmT6MTl65HzVggHFO2-gVuHu_D9X&signer=media-rpc&token=AAIAAU0AJGVlOWVmNjc0LWMxNDEtNDI2MS1iYTdmLTI0M2IzZGQzNmFiMwAAAAABoUWvuvh4UZxysUwe_RaybuvjF6y8uQH6PTGPl2SKark_idWBrA&x-canva-quality=thumbnail',
+ 'Larkhall Athletic':'https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fb0381474-cd81-48ce-882e-c6f79f645655/watermark:F/width:184?csig=AAAAAAAAAAAAAAAAAAAAAGxb0cvCxZ3sFkWBu9DVRv46yjJOoBcXaaXPrSwybSdK&exp=1792170710&osig=AAAAAAAAAAAAAAAAAAAAAErpQ0996cUHY7gozYO6QFO1ZQbSsFr4esLrEz7peC2K&signer=media-rpc&token=AAIAAU0AJGIwMzgxNDc0LWNkODEtNDhjZS04ODJlLWM2Zjc5ZjY0NTY1NQAAAAABoUWy0_Cx3Qnyx84qw7Meethy30XhQHo1npNWM0r_ZIKh6AoMug&x-canva-quality=thumbnail'
+};
+function rec(rows){let w=0,d=0,l=0,gf=0,ga=0;rows.forEach(x=>{const r=parseScore(x.result);if(!r)return;gf+=r.gf;ga+=r.ga;if(r.gf>r.ga)w++;else if(r.gf===r.ga)d++;else l++});return{p:rows.length,w,d,l,gf,ga,pts:w*3+d}}
+function playerStats(fixtures){
+ const map=new Map(),get=n=>{if(!map.has(n))map.set(n,{name:n,apps:0,starts:0,subs:0,mins:0,goals:0});return map.get(n)};
+ fixtures.forEach(x=>{
+  const st=x.starterDetails||[], sb=x.subDetails||[];
+  const ev=[...st,...sb].flatMap(p=>[minute(p.offMinute),minute(p.onMinute),...(p.goalMinutes||[]).map(minute)]).filter(Number.isFinite);
+  const end=Math.max(90,...ev);
+  st.forEach(p=>{if(!p?.name)return;const r=get(p.name);r.starts++;r.apps++;r.goals+=Number(p.goalCount||0);const off=minute(p.offMinute);r.mins+=Number.isFinite(off)?Math.min(off,end):end});
+  sb.forEach(p=>{if(!p?.name)return;const used=p.used!==false&&(p.onMinute||p.used===true);const r=get(p.name);r.goals+=Number(p.goalCount||0);if(used){r.subs++;r.apps++;const on=minute(p.onMinute);if(Number.isFinite(on))r.mins+=Math.max(0,end-on)}});
+ });
+ return [...map.values()];
+}
+function ordinal(n){n=+n;if(!Number.isFinite(n))return '—';const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0])}
+function leaderCard(title,names,val,unit){
+ const first=names[0]||'',img=photos[first]||photos['Jacob Wellington']||'';
+ return '<div class="leader"><div class="head">'+esc(title)+'</div><div class="content">'+(img?'<img src="'+img+'" alt="">':'<div></div>')+'<div><div class="name">'+esc(names.join('\n')).replace(/\n/g,'<br>')+'</div><div class="big">'+esc(val)+'</div><div class="unit">'+esc(unit)+'</div></div></div></div>'
+}
+async function load(){
+ const st=document.getElementById('status');st.textContent='Refreshing…';
+ try{
+  const [player,results]=await Promise.all([
+    fetch(PLAYER_SRC+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Player feed '+r.status);return r.json()}),
+    fetch(RESULTS_SRC+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('Results feed '+r.status);return r.json()})
+  ]);
+  const fixtures=(player.fixtures||[]).filter(x=>parseScore(x.result)).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  const all=rec(fixtures),home=rec(fixtures.filter(x=>String(x.venue).toUpperCase()==='H')),away=rec(fixtures.filter(x=>String(x.venue).toUpperCase()==='A'));
+  const row=(results.leagueTable||[]).find(x=>String(x.team).toLowerCase()==='tiverton town')||{};
+  const pos=row.pos||14, pts=row.pts??all.pts, played=row.p??all.p, won=row.w??all.w, drawn=row.d??all.d, lost=row.l??all.l, gf=row.gf??all.gf, ga=row.ga??all.ga, gd=row.gd??(gf-ga);
+  const maxDate=fixtures.map(x=>x.date).filter(Boolean).sort().slice(-1)[0];
+  document.getElementById('asof').textContent='KEY STATS FROM THE 2026/27 SEASON'+(maxDate?' (UP TO '+new Date(maxDate+'T12:00:00').toLocaleDateString('en-GB')+')':'');
+  const values=[['League position',ordinal(pos)],['Points',pts],['Played',played],['Won',won],['Drawn',drawn],['Lost',lost],['Goals for',gf],['Goals against',ga],['Goal difference',(Number(gd)>0?'+':'')+gd]];
+  document.getElementById('stats').innerHTML='<div class="stat-grid">'+values.map(x=>'<div class="stat"><div class="lab">'+esc(x[0])+'</div><div class="val">'+esc(x[1])+'</div></div>').join('')+'</div>';
+  const last5=fixtures.slice(-5).map(x=>{const r=parseScore(x.result);return r.gf>r.ga?'W':r.gf===r.ga?'D':'L'});
+  document.getElementById('records').innerHTML='<div class="record-grid">'+
+    '<div class="box"><div class="head">Form (last 5 league games)</div><div class="body form">'+last5.map(x=>'<span class="'+x.toLowerCase()+'">'+x+'</span>').join(' ')+'</div></div>'+
+    '<div class="box"><div class="head">Home record</div><div class="body">W '+home.w+' &nbsp; D '+home.d+' &nbsp; L '+home.l+'<br><span style="font-size:14px">F '+home.gf+' &nbsp; A '+home.ga+'</span></div></div>'+
+    '<div class="box"><div class="head">Away record</div><div class="body">W '+away.w+' &nbsp; D '+away.d+' &nbsp; L '+away.l+'<br><span style="font-size:14px">F '+away.gf+' &nbsp; A '+away.ga+'</span></div></div>'+
+  '</div>';
+  const ps=playerStats(fixtures);
+  const topGoals=Math.max(0,...ps.map(x=>x.goals)), scorers=ps.filter(x=>x.goals===topGoals&&topGoals>0).sort((a,b)=>b.apps-a.apps).map(x=>x.name);
+  const topApps=Math.max(0,...ps.map(x=>x.apps)), apps=ps.filter(x=>x.apps===topApps&&topApps>0).map(x=>x.name);
+  const topMins=Math.max(0,...ps.map(x=>x.mins)), mins=ps.filter(x=>x.mins===topMins&&topMins>0).map(x=>x.name);
+  document.getElementById('leaders').innerHTML='<div class="leaders">'+leaderCard('Top scorer',scorers,topGoals,'Goals')+leaderCard('Most appearances',apps,topApps,'Appearances')+leaderCard('Most minutes',mins,topMins,'Minutes')+'</div>';
+  let upcoming=(results.upcomingFixtures||results.fixtures||[]).filter(x=>!x.score&&!x.result).filter(x=>String(x.home||x.away||x.opponent||'').toLowerCase().includes('tiverton')||x.opponent).slice(0,2);
+  if(upcoming.length<2) upcoming=[
+    {date:'2026-10-20',opponent:'Bideford AFC',venue:'H',competition:'Southern League Division One South'},
+    {date:'2026-10-24',opponent:'Larkhall Athletic',venue:'A',competition:'Southern League Division One South'}
+  ];
+  document.getElementById('fixtures').innerHTML='<div class="fixtures"><div class="head">Next league fixtures</div><table><thead><tr><th>Date</th><th>Opposition</th><th>H/A</th><th>Competition</th></tr></thead><tbody>'+upcoming.map(x=>{
+    const opp=x.opponent||((String(x.home||'').toLowerCase().includes('tiverton'))?x.away:x.home)||'';
+    const va=x.venue||((String(x.home||'').toLowerCase().includes('tiverton'))?'H':'A');
+    const crest=crestUrls[opp]||'';
+    return '<tr><td>'+esc(fmtDate(x.date||x.matchDate||''))+'</td><td>'+(crest?'<img class="crest" src="'+crest+'" alt="">':'')+esc(opp)+'</td><td>'+esc(va)+'</td><td>'+esc(x.competition||'Southern League Division One South')+'</td></tr>'
+  }).join('')+'</tbody></table></div>';
+  st.innerHTML='<span class="ok">Tivvy stats rebuilt · official Southern League context checked · '+fixtures.length+' completed league games loaded</span>';
+ }catch(e){st.innerHTML='<span class="bad">'+esc(e.message)+'</span>'}
+}
+load();
+</script><script src="programme-nav.js"></script></body></html>

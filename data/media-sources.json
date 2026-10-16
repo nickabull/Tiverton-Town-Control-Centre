@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "canva": {
+    "crest_folder": {
+      "folder_id": "FAHYHS9R2XM",
+      "name": "Southern League South PNG Logos 26_27",
+      "role": "Authoritative 2026/27 Southern League Division One South crest library"
+    }
+  },
+  "flickr": {
+    "owner_display_name": "Viv Curtis",
+    "strategy": "albums_first",
+    "album_matching": [
+      "opponent name",
+      "match date",
+      "home/away context",
+      "team name"
+    ],
+    "fallback": "recent public photostream/search",
+    "selection_rules": {
+      "prefer_original_or_large": true,
+      "avoid_previously_used_when_possible": true,
+      "track_usage_by_photo_id": true,
+      "prompt_when_fresh_pool_low": true
+    },
+    "usage_fields": [
+      "photo_id",
+      "album_id",
+      "album_title",
+      "source_url",
+      "issue",
+      "logical_page_key",
+      "used_at",
+      "reuse_allowed"
+    ]
+  }
+}

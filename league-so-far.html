@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town — The League So Far</title>
+<style>
+:root{--y:#f2c400;--ink:#111;--red:#d71920;--line:#b9b9b2;--paper:#fff;--bg:#ececea}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111;color:#fff;border-bottom:5px solid var(--y)}.h{max-width:1180px;margin:auto;padding:16px 20px}.ey{color:var(--y);font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}h1{margin:4px 0 2px}.sub{color:#bbb;font-size:13px}
+.wrap{max-width:1180px;margin:auto;padding:18px}.tools{background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{background:#111;color:#fff;border:0;border-radius:7px;padding:9px 12px;font-weight:800;cursor:pointer}.status{font-size:12px;color:#666}.bad{color:#b42318;font-weight:800}.ok{color:#238636;font-weight:800}
+.spread{display:grid;grid-template-columns:1fr 1fr;gap:16px}.page{background:var(--paper);width:100%;aspect-ratio:794/1123;box-shadow:0 2px 12px rgba(0,0,0,.12);padding:30px 28px;overflow:hidden}.strap{background:#111;color:#fff;border-top:8px solid var(--y);padding:12px 15px;margin-bottom:12px}.strap h2{margin:0;font-size:28px;letter-spacing:.02em}.strap .small{font-size:11px;color:#ddd;margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
+table{width:100%;border-collapse:collapse;table-layout:fixed}th{background:#111;color:#fff;font-size:8px;padding:5px 4px;text-align:left;text-transform:uppercase}td{border-bottom:1px solid #ddd;padding:5px 4px;vertical-align:top;font-size:7.6px;line-height:1.25}.date{width:9%}.opp{width:19%}.score{width:10%;font-weight:900;white-space:nowrap}.details{width:62%}.row:nth-child(even) td{background:#fff8cf}.ha{font-weight:900}.tivvy{color:var(--red);font-weight:900}.line{display:block}.label{font-weight:900}.muted{color:#666}.unused{color:#777;font-style:italic}.warnrow td{outline:1px solid #d66;outline-offset:-1px}.footer{font-size:7px;color:#666;margin-top:7px;display:flex;justify-content:space-between}
+@media(max-width:900px){.spread{grid-template-columns:1fr}.page{aspect-ratio:auto;min-height:1123px}}@media print{body{background:#fff}.tools,header{display:none}.wrap{padding:0}.spread{display:block}.page{box-shadow:none;page-break-after:always;width:794px;height:1123px}}
+</style></head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Programme production</div><h1>The League So Far — live renderer</h1><div class="sub">Generated directly from Get Player Info · no manual table editing</div></div></header>
+<main class="wrap">
+<div class="tools"><button class="btn" onclick="load()">Refresh data</button><span id="status" class="status">Loading…</span></div>
+<div class="spread"><section class="page" id="p1"></section><section class="page" id="p2"></section></div>
+</main>
+<script>
+const SRC='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json';
+const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const fmtDate=s=>{const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?m[3]+'/'+m[2]:s||''};
+const parseResult=s=>{const m=String(s||'').match(/(\d+)\s*[-–]\s*(\d+)/);return m?[+m[1],+m[2]]:null};
+function conventionalScore(f){
+ const r=parseResult(f.result); if(!r)return '';
+ const [tf,ta]=r; return String(f.venue).toUpperCase()==='A' ? [ta,tf] : [tf,ta];
+}
+function resultLetter(f){const r=parseResult(f.result);if(!r)return '';return r[0]>r[1]?'W':r[0]===r[1]?'D':'L'}
+function scoreHTML(f){
+ const s=conventionalScore(f); if(!s)return '—';
+ const h=String(f.venue).toUpperCase()==='H';
+ return h?'<span class="tivvy">'+s[0]+'</span>–'+s[1]+' '+resultLetter(f):s[0]+'–<span class="tivvy">'+s[1]+'</span> '+resultLetter(f);
+}
+function person(p,starter=true){
+ let s=esc(p.name||'');
+ if(p.captain)s+=' (C)';
+ const goals=(p.goalMinutes||[]).filter(Boolean);
+ if(goals.length)s+=' <span class="tivvy">⚽ '+goals.map(x=>esc(x)+"'").join(', ')+'</span>';
+ if(starter&&p.offMinute)s+=' <span class="muted">off '+esc(p.offMinute)+"'</span>";
+ if(!starter&&p.used!==false&&p.onMinute)s+=' <span class="muted">on '+esc(p.onMinute)+"'</span>";
+ return s;
+}
+function validate(f){
+ const offs=(f.starterDetails||[]).map(p=>String(p.offMinute||'').trim()).filter(Boolean).sort();
+ const ons=(f.subDetails||[]).filter(p=>p.used!==false).map(p=>String(p.onMinute||'').trim()).filter(Boolean).sort();
+ return {ok:offs.join('|')===ons.join('|'),offs,ons};
+}
+function row(f){
+ const st=(f.starterDetails||[]).map(p=>person(p,true)).join(' · ');
+ const used=(f.subDetails||[]).filter(p=>p.used!==false && p.onMinute).map(p=>person(p,false));
+ const unused=(f.subDetails||[]).filter(p=>p.used===false || !p.onMinute).map(p=>esc(p.name||''));
+ const v=validate(f);
+ return '<tr class="row '+(v.ok?'':'warnrow')+'"><td class="date">'+esc(fmtDate(f.date))+'</td><td class="opp"><span class="ha">'+esc(String(f.venue||'').toUpperCase())+'</span> '+esc(f.opponent||'')+'</td><td class="score">'+scoreHTML(f)+'</td><td class="details"><span class="line"><span class="label">XI:</span> '+st+'</span>'+(used.length?'<span class="line"><span class="label">SUBS:</span> '+used.join(' · ')+'</span>':'')+(unused.length?'<span class="line unused"><span class="label">Unused:</span> '+unused.join(' · ')+'</span>':'')+(!v.ok?'<span class="line bad">SUB CHECK: OFF ['+v.offs.join(', ')+'] / ON ['+v.ons.join(', ')+']</span>':'')+'</td></tr>';
+}
+function page(rows,part,data){
+ return '<div class="strap"><h2>THE LEAGUE SO FAR</h2><div class="small">Southern League Division One South · 2026/27 · part '+part+'</div></div><table><thead><tr><th class="date">Date</th><th class="opp">Opponent</th><th class="score">Score</th><th class="details">Match details</th></tr></thead><tbody>'+rows.map(row).join('')+'</tbody></table><div class="footer"><span>Generated from Get Player Info</span><span>Updated '+esc(data.updated||'')+'</span></div>';
+}
+async function load(){
+ const st=document.getElementById('status');st.textContent='Refreshing…';
+ try{
+  const data=await fetch(SRC+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+  const games=(data.fixtures||[]).filter(f=>f.result&&parseResult(f.result)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const split=Math.ceil(games.length/2);
+  document.getElementById('p1').innerHTML=page(games.slice(0,split),1,data);
+  document.getElementById('p2').innerHTML=page(games.slice(split),2,data);
+  const bad=games.filter(f=>!validate(f).ok);
+  st.innerHTML='<span class="'+(bad.length?'bad':'ok')+'">'+games.length+' league games loaded · '+(bad.length?bad.length+' substitution checks need review':'all substitution timings reconcile')+'</span>';
+ }catch(e){st.innerHTML='<span class="bad">Could not load live Player Info data: '+esc(e.message)+'</span>'}
+}
+load();
+</script></body></html>

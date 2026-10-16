@@ -62,7 +62,7 @@ let registry=null;
 const sections=[
  {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Cover player / photo','Confirm kick-off if unusual'],does:'Populate opponent, crest, date, issue number, kick-off and known cover details. Preserve the approved master styling.',fields:[['coverPlayer','Cover player','text'],['coverImage','Cover image / Viv link','text']]},
  {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Headline / story','Image choice'],does:'Flow the selected news item into the approved Latest News design and keep the title/byline/image treatment consistent.',fields:[['newsHeadline','Headline','text'],['newsBody','Story / source notes','textarea']]},
- {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Only staff changes'],does:'Carry the section unchanged unless a role/name has changed. Preserve honours and house styling.',fields:[['staffChanges','Changes for this issue','textarea']]},
+ {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Edit only what has changed'],does:'Load the current Club Officials & Honours content into the dashboard, let you edit it here, and use the approved values when the fixture copy is written to Canva.',custom:'clubOfficials'},
  {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Mark Farrell copy / approved draft'],does:'Flow the executive copy across the linked spread, handling the continuation automatically without rebuilding the design.',fields:[['execHeadline','Headline / subheading','text'],['execBody','Copy','textarea']]},
  {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
  {key:'results_matrix',name:'Results Matrix',type:'AUTO',pages:['results_matrix'],needs:['Final proof only'],does:'Rebuild the full Division One South home/away matrix from the refreshed results feed. Tiverton score numeral remains red.',links:[['Live renderer','results-matrix.html']]},
@@ -99,12 +99,12 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
    const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
-   const fields=(s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?'<div class="action-fields" style="margin-top:10px">'+fields+'</div>':'')+
+     (fields?(s.custom==='clubOfficials'?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');

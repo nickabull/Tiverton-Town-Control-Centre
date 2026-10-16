@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Programme Automator V21</title>
+<style>
+:root{--y:#f2c400;--b:#111;--bg:#f3f3f1;--line:#ddd;--g:#238636;--a:#b7791f;--r:#c53030;--blue:#174ea6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#171717}
+header{background:linear-gradient(115deg,#111,#242424 45%,#111);color:#fff;border-bottom:5px solid var(--y)}
+.h{max-width:1320px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.meta,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
+.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}.yellow{background:var(--y);color:#111}.dark{background:#111;color:#fff}.ghost{background:#eee;color:#111}
+.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
+.section-grid{display:grid;grid-template-columns:1fr;gap:12px}.section-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}.section-card.done{background:#f0fff4;border-color:#89c999}
+.section-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.section-card h3{margin:0 0 5px;font-size:17px}.section-card p{margin:0 0 10px;color:#666;font-size:13px;line-height:1.4}
+.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.mixed{background:#efe4ff;color:#6333a3}
+.action-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field{border:1px solid #eee;border-radius:8px;padding:9px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;color:#666;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.field textarea{min-height:70px;resize:vertical}
+.ai-do{margin-top:11px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}
+.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.links a{background:#111;color:#fff;text-decoration:none;border-radius:6px;padding:7px 9px;font-size:11px;font-weight:800}.links a.live{background:var(--g)}
+.tech{margin-top:10px;border-top:1px dashed #ddd;padding-top:9px}.tech summary{cursor:pointer;font-size:11px;font-weight:800;color:#666}.tech-list{font-size:11px;color:#666;line-height:1.55;margin-top:7px}.tech code{font-size:10px}
+.check{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;font-weight:800}.check input{width:auto;transform:scale(1.15)}
+@media(max-width:850px){.meta,.summary,.action-fields{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:560px){.meta,.summary,.action-fields{grid-template-columns:1fr}.section-head{display:block}}
+</style>
+</head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V21</h1><div class="sub">V19 workflow feel + V20 stable Canva IDs + live automation modules · organised by section, not page</div></div></header>
+<main class="wrap">
+<div class="note"><strong>Hybrid build:</strong> this deliberately brings back the richer V19 action-card workflow, but the engine underneath uses the 49-page CHATGPT TEMPLATE registry, stable logical keys and Canva page IDs. You can now refine what you want to see for each <strong>section</strong>.</div>
+
+<section class="panel">
+  <div class="ey" style="color:#555">Issue setup</div>
+  <h2 style="margin:5px 0 12px">Fixture metadata</h2>
+  <div class="meta">
+    <div class="f"><label>Opponent</label><input id="opponent" placeholder="e.g. Bideford"></div>
+    <div class="f"><label>Match date</label><input id="matchDate" placeholder="DD/MM/YYYY"></div>
+    <div class="f"><label>Kick-off</label><input id="kickoff" placeholder="15:00 / 19:30"></div>
+    <div class="f"><label>Issue number</label><input id="issue" placeholder="Next issue"></div>
+  </div>
+  <div class="controls" style="margin-top:12px">
+    <button class="btn yellow" onclick="saveMeta()">Save issue setup</button>
+    <button class="btn ghost" onclick="resetChecks()">Reset section approvals</button>
+    <a class="btn dark" href="https://www.canva.com/d/o02Q-EWL7rVEsms" target="_blank" rel="noopener">Open CHATGPT TEMPLATE</a>
+  </div>
+</section>
+
+<section class="summary" id="summary"></section>
+
+<section class="panel">
+  <div class="ey" style="color:#555">Sections</div>
+  <h2 style="margin:5px 0 8px">What the automator needs, does and produces</h2>
+  <p class="small" style="margin:0 0 14px">The technical Canva IDs are still available, but tucked away. The main view is now about the programme section and the decisions you actually need to make.</p>
+  <div id="sectionGrid" class="section-grid"></div>
+</section>
+</main>
+<script>
+const REGISTRY_URL='data/programme-page-registry.json';
+let registry=null;
+
+const sections=[
+ {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Cover player / photo','Confirm kick-off if unusual'],does:'Populate opponent, crest, date, issue number, kick-off and known cover details. Preserve the approved master styling.',fields:[['coverPlayer','Cover player','text'],['coverImage','Cover image / Viv link','text']]},
+ {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Headline / story','Image choice'],does:'Flow the selected news item into the approved Latest News design and keep the title/byline/image treatment consistent.',fields:[['newsHeadline','Headline','text'],['newsBody','Story / source notes','textarea']]},
+ {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Only staff changes'],does:'Carry the section unchanged unless a role/name has changed. Preserve honours and house styling.',fields:[['staffChanges','Changes for this issue','textarea']]},
+ {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Mark Farrell copy / approved draft'],does:'Flow the executive copy across the linked spread, handling the continuation automatically without rebuilding the design.',fields:[['execHeadline','Headline / subheading','text'],['execBody','Copy','textarea']]},
+ {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
+ {key:'results_matrix',name:'Results Matrix',type:'AUTO',pages:['results_matrix'],needs:['Final proof only'],does:'Rebuild the full Division One South home/away matrix from the refreshed results feed. Tiverton score numeral remains red.',links:[['Live renderer','results-matrix.html']]},
+ {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],needs:['Approve selected stories / images'],does:'Scan Southern League Division One South editorial, exclude Tiverton-led stories, rank the strongest items and suggest source imagery/credits.',links:[['Editorial collector','around-the-league.html']]},
+ {key:'league_table',name:'League Table',type:'AUTO',pages:['league_table'],needs:['Final proof only'],does:'Refresh the league table, approved crest mapping, promotion/play-off/relegation bands and highlight the entire Tiverton row in yellow.',links:[['Live renderer','league-table.html']]},
+ {key:'tivvy_glance',name:'Tivvy at a Glance',type:'AUTO',pages:['tivvy_glance'],needs:['Final proof only'],does:'Build the Tiverton stats dashboard from verified live results and player data: position, form, records, leaders and upcoming fixtures.'},
+ {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Darren report','Approve Viv images'],does:'Detect/import Darren Holmes’s latest match report, cross-reference the correct fixture, then flow copy and selected Viv images across the approved spread.',fields:[['lastOutSource','Darren report URL','text'],['lastOutImages','Selected Viv image notes / links','textarea']]},
+ {key:'your_tivvy',name:'Your Tivvy',type:'GUIDED',pages:['your_tivvy_1','your_tivvy_2','your_tivvy_3','your_tivvy_4','your_tivvy_5'],needs:['Only squad/profile changes'],does:'Carry the player-profile section forward and flag only genuine signings, departures or profile changes for approval.',fields:[['playerChanges','Player/profile changes','textarea']]},
+ {key:'commercial',name:'Commercial & Sponsors',type:'FIXED',pages:['commercial','sponsors','local_independents'],needs:['Nothing unless requested'],does:'Carry approved commercial, sponsor and local-independent sections unchanged.'},
+ {key:'opposition',name:'Meet the Opposition',type:'EDITORIAL',pages:['opposition_1','opposition_2','opposition_3','opposition_4','opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4'],needs:['Darren preview','Final editorial proof'],does:'Combine verified opposition facts/squad data with Darren’s preview and flow it through the full approved opposition section.',fields:[['oppSource','Darren preview URL','text'],['oppNotes','Opposition notes / corrections','textarea']]},
+ {key:'teams_officials',name:'Teams & Officials',type:'GUIDED',pages:['teams_officials'],needs:['Away squad','Match officials'],does:'Carry Tiverton’s squad forward, inherit opponent/crest from the cover and populate the opposition squad plus officials.',fields:[['awaySquad','Away squad','textarea'],['officials','Officials','textarea']]},
+ {key:'player_stats',name:'Player Stats',type:'AUTO',pages:['player_stats'],needs:['Final proof only'],does:'Build the player stats section dynamically from Get Player Info, preserving the approved table layout and player ordering.'}
+];
+
+const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial'};
+
+function pageInfo(keys){
+ if(!registry) return [];
+ return keys.map(k=>registry.pages.find(p=>p.key===k)).filter(Boolean);
+}
+function saveField(id,val){localStorage.setItem('tivvy-v21-'+id,val)}
+function fieldValue(id){return localStorage.getItem('tivvy-v21-'+id)||''}
+function approved(s){return localStorage.getItem('tivvy-v21-approved-'+s.key)==='1'}
+function setApproved(k,v){localStorage.setItem('tivvy-v21-approved-'+k,v?'1':'0');draw()}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function renderField(f){
+ const [id,label,type]=f, val=fieldValue(id);
+ if(type==='textarea') return '<div class="field"><label>'+esc(label)+'</label><textarea oninput="saveField(\''+id+'\',this.value)">'+esc(val)+'</textarea></div>';
+ return '<div class="field"><label>'+esc(label)+'</label><input value="'+esc(val)+'" oninput="saveField(\''+id+'\',this.value)"></div>';
+}
+function draw(){
+ const grid=document.getElementById('sectionGrid'); grid.innerHTML='';
+ sections.forEach(s=>{
+   const infos=pageInfo(s.pages);
+   const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
+   const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
+   const fields=(s.fields||[]).map(renderField).join('');
+   const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
+   card.innerHTML=
+     '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
+     '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
+     (fields?'<div class="action-fields" style="margin-top:10px">'+fields+'</div>':'')+
+     (links?'<div class="links">'+links+'</div>':'')+
+     '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
+     (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
+   grid.appendChild(card);
+ });
+ const counts={AUTO:0,GUIDED:0,EDITORIAL:0,FIXED:0}; sections.forEach(s=>counts[s.type]++);
+ document.getElementById('summary').innerHTML=
+   box(sections.length,'Programme sections','V21 working view')+
+   box(counts.AUTO,'Automatic','Live data/content')+
+   box(counts.GUIDED,'Guided','Quick confirmations')+
+   box(counts.EDITORIAL,'Editorial','Copy/image flow');
+}
+function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><strong>'+label+'</strong><div class="small">'+small+'</div></div>'}
+function saveMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.setItem('tivvy-v21-meta-'+id,document.getElementById(id).value))}
+function loadMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>document.getElementById(id).value=localStorage.getItem('tivvy-v21-meta-'+id)||'')}
+function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
+async function boot(){loadMeta();try{registry=await fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json())}catch(e){}draw()}
+boot();
+</script>
+<script src="programme-nav.js"></script>
+</body></html>

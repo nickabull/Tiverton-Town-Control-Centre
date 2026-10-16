@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "source": "Viv Curtis Flickr albums",
+  "rules": {
+    "identification": "manual_tagging_and_metadata_only",
+    "face_recognition": false,
+    "prefer_unused": true,
+    "low_stock_threshold": 5
+  },
+  "players": [
+    {
+      "name": "Louis Smith",
+      "photos": []
+    },
+    {
+      "name": "Mason Winter",
+      "photos": []
+    },
+    {
+      "name": "Corey Koerner",
+      "photos": []
+    },
+    {
+      "name": "Louis Slough",
+      "photos": []
+    },
+    {
+      "name": "Matt Wood",
+      "photos": []
+    },
+    {
+      "name": "Ed Palmer",
+      "photos": []
+    },
+    {
+      "name": "Josh Bissett",
+      "photos": []
+    },
+    {
+      "name": "Asa Hall",
+      "photos": []
+    },
+    {
+      "name": "Owen Howe",
+      "photos": []
+    },
+    {
+      "name": "Ryan Keates",
+      "photos": []
+    },
+    {
+      "name": "Jacob Wellington",
+      "photos": []
+    },
+    {
+      "name": "Jack Kennell",
+      "photos": []
+    },
+    {
+      "name": "Aiden Horne",
+      "photos": []
+    },
+    {
+      "name": "Aaron Wellington",
+      "photos": []
+    },
+    {
+      "name": "Finn Roberts",
+      "photos": []
+    },
+    {
+      "name": "Billy Tucker",
+      "photos": []
+    },
+    {
+      "name": "Karim Coulibaly",
+      "photos": []
+    },
+    {
+      "name": "Louis Jagger-Cane",
+      "photos": []
+    },
+    {
+      "name": "Dan Koita",
+      "photos": []
+    },
+    {
+      "name": "Toby Stephens",
+      "photos": []
+    }
+  ]
+}

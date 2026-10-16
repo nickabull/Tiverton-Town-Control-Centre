@@ -18,6 +18,26 @@ header:after{content:'';position:absolute;inset:0;background:linear-gradient(120
 nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{color:#fff;text-decoration:none;padding:8px 11px;border:1px solid #444;border-radius:8px;font-size:14px;background:rgba(0,0,0,.12)}nav a:hover{border-color:var(--gold);color:var(--gold)}
 
 nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-weight:800}nav button#sign-out{padding:8px 11px;border-radius:8px;font-weight:700}.header-inner{max-width:1180px}.topstrap{grid-template-columns:110px 1fr 170px}.hero-copy h1{font-size:clamp(25px,3vw,38px)}@media(max-width:700px){.topstrap{grid-template-columns:70px 1fr}.hero-league{display:none}.hero-logo{height:64px}.header-inner{padding:12px 10px}}
+
+/* Approved black-and-gold Ladysmead design. Place the exact user photographs in assets/. */
+body{background:#d5d0a9;}
+#private-app{min-height:100vh;background:linear-gradient(180deg,rgba(247,245,216,.24),rgba(255,255,255,.38)),url("assets/tiverton-grass.jpg") center top / cover fixed no-repeat;}
+header{background:#10100d url("assets/ladysmead-stand.jpg") center 55% / cover no-repeat;border-bottom:0;isolation:isolate;position:relative;min-height:182px;}
+header:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.96) 0%,rgba(0,0,0,.78) 34%,rgba(0,0,0,.25) 69%,rgba(0,0,0,.30) 100%);z-index:-1;}
+header:after{display:none}
+.header-inner{max-width:1200px; margin:0 auto;padding:14px 20px 0}
+.topstrap{min-height:130px;align-items:start}
+.hero-logo{height:105px;max-width:120px}
+.hero-copy h1{font-size:clamp(25px,3.4vw,43px);color:#f2c400;letter-spacing:.025em}
+.strap-eyebrow{color:#f2c400}
+.hero-copy .subtitle{font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+nav{margin:10px -20px 0; padding:0 18px; display:flex; background:rgba(5,5,5,.94); border-top:1px solid #bfa02f;gap:0;align-items:center;flex-wrap:wrap;}
+nav a{border:0;border-radius:0;padding:13px 12px;background:transparent;font-size:13px;font-weight:700;white-space:nowrap}
+nav a:hover,nav a.active,nav a[aria-current="page"]{background:#efc13a;color:#171717}
+nav button#sign-out{margin:5px 8px 5px 0}
+.panel{background:rgba(255,255,255,.94);box-shadow:0 4px 24px rgba(0,0,0,.09)}
+main{position:relative}
+@media(max-width:760px){header{min-height:0}.topstrap{min-height:95px;grid-template-columns:70px 1fr}.hero-logo{height:75px}nav{overflow-x:auto;flex-wrap:nowrap}.hero-league{display:none}nav a{font-size:12px;padding:12px 9px}.hero-copy .subtitle{font-size:12px}}
 </style></head><body>
 <section id="auth-gate"><form id="login-form"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section>
 <div id="private-app"><header>
@@ -53,7 +73,7 @@ nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-wei
 <label for="credit">Image byline / credit</label><input type="text" id="credit" placeholder="Photo: Viv Curtis">
 <label for="body">Article body</label><textarea id="body" placeholder="Paste Darren's preview here..."></textarea>
 <div class="actions"><button id="save" class="secondary">Save draft</button><button id="view" class="primary">View draft</button><button id="arm">Publish</button></div><p class="help" id="saved" role="status" aria-live="polite">Unsaved changes.</p></section>
-<section class="panel"><h2>Article preview</h2><div class="preview" id="preview"><div class="flag">Draft preview</div><h2 id="preview-title">Your headline will appear here</h2><img id="preview-image" alt="Article featured image" hidden><p class="credit" id="preview-credit"></p><div class="story" id="preview-body">Write an article and click View draft.</div></div>
+<section class="panel"><h2>What happens next?</h2><p class="help"><strong>1.</strong> Prepare article with title, photo, credit and copy.<br><strong>2.</strong> Review and click Publish.<br><strong>3.</strong> Press the separate flashing red confirmation button.</p><h2 style="margin-top:20px">Article preview</h2><div class="preview" id="preview"><div class="flag">Draft preview</div><h2 id="preview-title">Your headline will appear here</h2><img id="preview-image" alt="Article featured image" hidden><p class="credit" id="preview-credit"></p><div class="story" id="preview-body">Write an article and click View draft.</div></div>
 <div id="armed" class="danger" hidden><h2>⚠ Final confirmation required</h2><p>Confirm the article shown above. This step will be the final safeguard when Wix publishing is connected.</p><button id="confirm" class="confirm">● CONFIRM — PUBLISH NOW</button><div class="actions" style="justify-content:center"><button id="cancel" class="secondary">Cancel — keep as draft</button></div></div>
 <p id="publish-status" class="help" role="status" aria-live="polite"></p></section></div></main></div>
 <script type="module" src="auth.js"></script><script>

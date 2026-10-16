@@ -1,1 +1,1 @@
-Refresh requested 2026-10-14 parser fallback fix
+Trigger editorial collector test: 2026-10-16 11:40 UTC

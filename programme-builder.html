@@ -2,359 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tiverton Town Programme Automator</title>
+<title>Tiverton Town Programme Automator V20</title>
 <style>
-:root{--y:#f2c400;--b:#111;--bg:#f3f3f1;--line:#ddd;--g:#238636;--a:#b7791f;--r:#c53030}
+:root{--y:#f2c400;--b:#111;--bg:#f3f3f1;--line:#ddd;--g:#238636;--a:#b7791f;--r:#c53030;--blue:#174ea6}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#171717}
 header{background:linear-gradient(115deg,#111,#242424 45%,#111);color:#fff;border-bottom:5px solid var(--y)}
-.h{max-width:1280px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
-h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1280px;margin:auto;padding:22px}
+.h{max-width:1400px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1400px;margin:auto;padding:22px}
 .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
-.meta{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
-.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
-.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer}
-.action-grid{display:grid;grid-template-columns:1fr;gap:12px}.action-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}.action-card h3{margin:0 0 5px;font-size:16px}.action-card p{margin:0 0 10px;color:#666;font-size:13px;line-height:1.35}.action-card .mini{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}.action-card.done{background:#f0fff4;border-color:#89c999}.action-card.done p{color:#47704f}.action-fields{display:grid;gap:9px}.action-field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:#666;margin-bottom:4px}.action-field input[type=text],.action-field input[type=url],.action-field textarea,.action-field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.action-field textarea{min-height:82px;resize:vertical}.field-hint{font-size:10px;color:#777;margin-top:3px}.editorial-note{background:#f7f7f7;border-left:4px solid var(--y);padding:8px 10px;border-radius:4px;font-size:12px;color:#555}.ai-do{margin-top:12px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}.action-field input[type=file]{width:100%;font-size:12px}.asset-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.asset-link{display:inline-block;text-decoration:none;background:#111;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;font-weight:800}.asset-link:hover{background:#333}.asset-note{font-size:11px;color:#666}.image-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.image-option{border:1px solid #ccc;border-radius:8px;padding:7px;cursor:pointer;background:#fff}.image-option.selected{border:2px solid var(--y);background:#fffbea}.image-option img{width:100%;height:190px;object-fit:contain;border-radius:5px;background:#eee}.image-option .img-title{font-weight:800;font-size:12px;margin-top:5px}.image-option .img-cap{font-size:10px;color:#666;margin-top:3px;line-height:1.3}.confirm-btn{border:0;border-radius:6px;padding:8px 10px;font-weight:800;cursor:pointer;background:#111;color:#fff}.action-card.done .confirm-btn{background:var(--g)}.yellow{background:var(--y)}.dark{background:#111;color:#fff}
-table{width:100%;border-collapse:collapse}th,td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:top;font-size:13px}th{background:#111;color:#fff;text-align:left;position:sticky;top:0}
-.p{font-weight:900}.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.confirm{background:#fde2e2;color:#8b1e1e}
-.ready{color:var(--g);font-weight:800}.need{color:var(--a);font-weight:800}.unknown{color:var(--r);font-weight:800}
-input[type=checkbox]{transform:scale(1.15)}.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
-@media(max-width:850px){.meta,.summary{grid-template-columns:1fr 1fr}.action-grid{grid-template-columns:1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary,.action-grid{grid-template-columns:1fr}}
-</style></head>
+.meta,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
+.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.yellow{background:var(--y);color:#111}.dark{background:#111;color:#fff}.ghost{background:#eee;color:#111}
+input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}
+table{width:100%;border-collapse:collapse}th,td{padding:9px 8px;border-bottom:1px solid #eee;vertical-align:top;font-size:13px}
+th{background:#111;color:#fff;text-align:left;position:sticky;top:0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px}
+.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}
+.ready{color:var(--g);font-weight:800}.wait{color:var(--a);font-weight:800}.locked{color:#666;font-weight:800}.todo{color:var(--blue);font-weight:800}
+.module{font-weight:900}.muted{color:#777}.idcell{max-width:190px;overflow-wrap:anywhere}
+@media(max-width:900px){.meta,.summary{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:520px){.meta,.summary{grid-template-columns:1fr}}
+</style>
+</head>
 <body>
-<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V19</h1><div class="sub">42-page master · Portland United · 17/10/2026 · Version 19</div></div></header>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V20</h1><div class="sub">49-page CHATGPT TEMPLATE · logical page names + stable Canva page IDs · page order may change safely</div></div></header>
 <main class="wrap">
-<div class="note"><strong>Prototype run:</strong> this follows Nick's 42-page specification. It does not generate Canva yet; it proves the workflow, dependencies and prompts before we connect the template.</div>
-<section class="summary" id="summary"></section>
+<div class="note"><strong>Production model:</strong> duplicate <strong>CHATGPT TEMPLATE</strong>, bind the copied pages to their logical keys, then update by Canva page ID. Page numbers are display-only and may change without breaking automation.</div>
+
 <section class="panel">
-  <div class="ey" style="color:#555">Actions needed from Nick</div>
-  <h2 style="margin:5px 0 8px">Things I need you to confirm or supply</h2>
-  <p class="small" style="margin:0 0 14px">Each card asks for the actual thing that page needs. Fill it in, then confirm the page when you are happy. Confirmed pages turn green.</p>
-  <div id="actionGrid" class="action-grid"></div>
+  <div class="ey" style="color:#555">Next issue setup</div>
+  <h2 style="margin:5px 0 12px">Fixture metadata</h2>
+  <div class="meta">
+    <div class="f"><label>Opponent</label><input id="opponent" placeholder="e.g. Bideford AFC"></div>
+    <div class="f"><label>Match date</label><input id="matchDate" placeholder="DD/MM/YYYY"></div>
+    <div class="f"><label>Kick-off</label><input id="kickoff" placeholder="15:00 / 19:30"></div>
+    <div class="f"><label>Issue number</label><input id="issue" placeholder="Next issue"></div>
+  </div>
+  <div class="controls" style="margin-top:12px">
+    <button class="btn yellow" onclick="saveMeta()">Save issue setup</button>
+    <button class="btn ghost" onclick="resetIssue()">Reset issue status</button>
+    <a class="btn dark" href="https://www.canva.com/d/o02Q-EWL7rVEsms" target="_blank" rel="noopener">Open CHATGPT TEMPLATE in Canva</a>
+  </div>
 </section>
-<section class="panel"><div class="controls">
-<button class="btn yellow" onclick="markAuto()">Mark automatic pages ready</button>
-<button class="btn" onclick="save()">Save in browser</button>
-<button class="btn" onclick="downloadJSON()">Download run JSON</button>
-<button class="btn dark" onclick="resetRun()">Reset</button>
-</div></section>
-<section class="panel" style="overflow:auto"><table>
-<thead><tr><th>Pg</th><th>Module</th><th>Type</th><th>What automator does</th><th>Needs from Nick</th><th>Status</th><th>Done</th></tr></thead>
-<tbody id="rows"></tbody></table></section>
+
+<section class="summary" id="summary"></section>
+
+<section class="panel">
+  <div class="ey" style="color:#555">49-page master registry</div>
+  <h2 style="margin:5px 0 8px">Named pages and stable Canva IDs</h2>
+  <p class="small">The <strong>Current pos.</strong> column is informational only. The automator targets <strong>Logical key + Canva Page ID</strong>.</p>
+  <div style="overflow:auto;max-height:680px">
+    <table>
+      <thead><tr><th>Current pos.</th><th>Nice name</th><th>Logical key</th><th>Canva Page ID</th><th>Type</th><th>Automation state</th><th>Ready</th></tr></thead>
+      <tbody id="registryRows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="ey" style="color:#555">Automation sources</div>
+  <h2 style="margin:5px 0 8px">What can be built before Saturday</h2>
+  <p class="small">Development does not wait for the next result. The Saturday match mainly affects the live-data modules after the final whistle.</p>
+  <table>
+    <thead><tr><th>Module</th><th>Source / rule</th><th>Pre-Saturday state</th></tr></thead>
+    <tbody>
+      <tr><td class="module">Master duplication + page binding</td><td>CHATGPT TEMPLATE + page registry</td><td class="ready">BUILD NOW</td></tr>
+      <tr><td class="module">League Table / Results Matrix / Tivvy at a Glance</td><td>Verified Southern League + Tivvy data</td><td class="wait">CODE NOW · REFRESH AFTER MATCH</td></tr>
+      <tr><td class="module">Player Stats</td><td>Get Player Info</td><td class="wait">CODE NOW · REFRESH WHEN DATA CHANGES</td></tr>
+      <tr><td class="module">League So Far</td><td>Get Player Info + Darren cross-check</td><td class="wait">CODE NOW · APPEND SATURDAY MATCH LATER</td></tr>
+      <tr><td class="module">Around the League</td><td>Southern League round-up sources</td><td class="ready">BUILD / REFRESH NOW</td></tr>
+      <tr><td class="module">Last Time Out</td><td>Darren Holmes report + Viv Curtis images</td><td class="wait">MONITOR / PREPARE FLOW</td></tr>
+      <tr><td class="module">Meet the Opposition</td><td>Darren preview + verified opponent info</td><td class="ready">BUILD AHEAD OF TUESDAY</td></tr>
+      <tr><td class="module">Cover / Teams / Officials</td><td>Fixture metadata + confirmed editorial inputs</td><td class="todo">GUIDED INPUTS</td></tr>
+    </tbody>
+  </table>
+</section>
 </main>
 <script>
-const pages=[
-[1,'Cover','GUIDED','Update opponent, logo, issue, date/time, player side-name and final-PDF QR','Cover photo/player; kick-off; confirm issue number'],
-[2,'Pitching In advert','FIXED','Carry unchanged',''],
-[3,'Slee Blackwell advert','FIXED','Carry unchanged',''],
-[4,'Latest News','GUIDED','Apply Executive Update styling with Latest News title','Article text + image'],
-[5,'Club officials / honours','GUIDED','Carry straps/honours; allow middle names/roles to change','Confirm any staff changes'],
-[6,'PST Sport advert','FIXED','Carry unchanged',''],
-[7,'Executive Update 1','EDITORIAL','Flow Mark Farrell copy into house style','Mark copy / Nick ghostwritten copy'],
-[8,'Diamond Estate Agents advert','FIXED','Carry unchanged',''],
-[9,'Executive Update 2','EDITORIAL','Continue page 7 copy','Confirm continuation/layout from page 7'],
-[10,'VX3 advert','FIXED','Carry unchanged',''],
-[11,'Around the League','AUTO','Build weekly Division One South round-up from league sources','Choose image(s) from suggestions'],
-[12,'Pitching In Volunteering advert','FIXED','Carry unchanged',''],
-[13,'Season / league view','AUTO','Refresh played games, fixtures, table, logos and highlight Tivvy/promotion/play-offs','Final proof'],
-[14,'Results grid','AUTO','Refresh Southern League Division One South results matrix','Final proof'],
-[15,'Last Time Out 1','EDITORIAL','Pull latest Darren report; set home/away title and scorers','Choose Viv image(s)'],
-[16,'Ellie Sports Massage advert','FIXED','Carry unchanged',''],
-[17,'Last Time Out 2','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
-[18,'Last Time Out 3','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
-[19,'Last Time Out 4','EDITORIAL','Continue report flow','Choose extra image if copy length needs it'],
-[20,'Man Down advert','FIXED','Carry unchanged',''],
-[21,'Event poster 1','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Confirm current poster or insert replacement artwork'],
-[22,'Event poster 2','GUIDED','Carry poster until expiry; warn before 14 Nov 2026','Confirm current poster or insert replacement artwork'],
-[23,'Your Tivvy players 1','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
-[24,'Your Tivvy players 2','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
-[25,'Your Tivvy players 3','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
-[26,'Your Tivvy players 4','GUIDED','Carry player profiles; flag signings/departures','Confirm roster/profile changes'],
-[27,'Photo + Van Man advert','GUIDED','Keep Van Man advert fixed','Insert top image'],
-[28,'The League So Far 1','AUTO','Build first half of two-page player/fixture grid from Player Info data','Final proof'],
-[29,'The League So Far 2','AUTO','Continue dynamic player/fixture grid; verify reschedules/unplayed fixtures','Final proof'],
-[30,'Commercial Opportunities','FIXED','Carry unchanged unless requested',''],
-[31,'Sponsors','FIXED','Carry unchanged',''],
-[32,'Local Independents','FIXED','Carry unchanged and correct Independants → Independents in heading/text where appropriate',''],
-[33,'Fixed top + photo','GUIDED','Keep top section; replace lower image','Insert bottom image'],
-[34,'Meet the Opposition 1','EDITORIAL','Flow Darren preview into house style','Insert Darren preview text'],
-[35,'Meet the Opposition 2','EDITORIAL','Continue preview','Confirm continuation/layout'],
-[36,'Meet the Opposition 3','EDITORIAL','Continue preview','Confirm continuation/layout'],
-[37,'Dyno-Rod / adverts','FIXED','Carry unchanged',''],
-[38,'Culmex / adverts','FIXED','Carry unchanged',''],
-[39,'Meet the Opposition 4','EDITORIAL','Finish preview; image handling based on copy length','Insert/choose final image'],
-[40,'Market Carpets advert','FIXED','Carry unchanged',''],
-[41,'James Pryce Tractors advert','FIXED','Carry unchanged',''],
-[42,'Teams / officials','GUIDED','Carry Tivvy list with editable squad; inherit opponent/logo from cover','Away squad; referee; two assistants; Dan Koita squad number when known']
-];
-
-const VIV_FLICKR='https://www.flickr.com/photos/125694921@N06/with/50713505616';
-const actionSpecs={
-1:[
- {k:'opponent',label:'Opponent',type:'text',ph:'Opponent',default:'Portland United'},
- {k:'matchDate',label:'Match date',type:'text',ph:'DD/MM/YYYY',default:'17/10/2026'},
- {k:'kickoff',label:'Kick-off time',type:'text',ph:'Auto-filled from match date',default:'15:00'},
- {k:'kickoffOk',label:'Kick-off time',type:'confirm',text:'Confirm 15:00 kick-off'},
- {k:'issueNumber',label:'Issue number',type:'text',ph:'Issue number',default:'10'},
- {k:'issueOk',label:'Issue number',type:'confirm',text:'Confirm Issue 10'},
- {k:'coverPlayer',label:'Cover player',type:'text',ph:'Player name'},
- {k:'coverImage',label:'Cover image',type:'flickr',ph:'Paste selected Flickr photo link'}
-],
-4:[
- {k:'latestNewsHeadline',label:'Headline / story title',type:'text',ph:'e.g. Koita comes home to Tiverton'},
- {k:'latestNewsByline',label:'Byline',type:'text',ph:'e.g. Tiverton Town FC / Nick Bull'},
- {k:'latestNewsBody',label:'Body text',type:'textarea',ph:'Paste the article body here'},
- {k:'latestNewsImage',label:'Story image',type:'file',accept:'image/*'}
-],
-5:[
- {k:'staffRoster',label:'Current names / roles',type:'textarea',readonly:true,default:`President — Wally Burk
-Chairman — Mark Farrell
-Vice Chairman — Vacant
-Club Secretary — Viv Curtis
-Treasurer — David Morgan
-Fixtures Secretary — Anthony Dodd
-Ground Safety Officer — Marian Pile
-Director of Football — Lee Lashenko
-Head of Football Development — Mike Ebdon
-Head of Media — Ryan Downer
-Programme Editor — Nick Bull
-Club Photographer — Viv Curtis
-First Team Manager — Asa Hall
-First Team Assistant — Steven Orchard
-First Team Coach — David Steele
-First Team Medic — Ellie Jones
-First Team Kit Manager — Will Buttle`},
- {k:'staffChanges',label:'Changes for this issue',type:'textarea',ph:'Enter any changes, or type None'}
-],
-7:[
- {k:'execHeadline',label:'Headline / subheading',type:'text',ph:'e.g. A Club Moving Forward'},
- {k:'execByline',label:'Byline',type:'text',ph:'e.g. Chairman\'s Update — Mark Farrell',default:'Chairman\'s Update — Mark Farrell'},
- {k:'execBody',label:'Body text',type:'textarea',ph:'Paste Mark\'s copy or Nick\'s draft here'}
-],
-9:[
- {k:'execContinue',label:'Continuation',type:'confirm',text:'Confirm Executive Update continues onto this page'},
- {k:'execPage9Note',label:'Optional note',type:'text',ph:'Anything special about the page break / continuation?'}
-],
-11:[
- {k:'leagueImageChoice',label:'Suggested images from the latest league scrape',type:'images',options:[
-   {value:'roundup-08oct',label:'Midweek Round-Up hero image',caption:'Southern League round-up · 8 Oct · photo credit Alex White',src:'https://www.southern-football-league.co.uk/img/images/articles/round-up-image-8-374deb69-a937-4d20-bc72-57c5158a83d5.png?fit=contain&variant=detail_s'},
-   {value:'weymouth-award',label:'Weymouth Club of the Month',caption:'League news image · 6 Oct · useful if the story is included',src:'https://www.southern-football-league.co.uk/img/images/articles/club-of-the-month-36c62036-891b-40e1-a766-0df9531332da.jpeg?fit=contain&variant=detail_s'},
-   {value:'none',label:'No image from scrape',caption:'Leave the page image-free or choose something manually later',src:''}
- ]},
- {k:'leagueProof',label:'Review',type:'confirm',text:'I am happy with the generated round-up and image choice'}
-],
-13:[
- {k:'leagueTableMode',label:'Dynamic league table',type:'textarea',readonly:true,default:'AUTO: Build Page 13 from the same live league-table source used by Get Player Info. Include club logos and columns for position, played, won, drawn, lost, goal difference and points. Highlight automatic promotion, play-off places and relegation positions, with Tiverton Town given its own unmistakable yellow/black row treatment.'},
- {k:'leagueTableOk',label:'League table',type:'confirm',text:'Confirm Page 13 dynamic table styling / positions'},{k:'seasonProof',label:'Review',type:'confirm',text:'Table, fixtures and highlighting checked'}],
-14:[
- {k:'tivvyGlanceMode',label:'Tivvy at a Glance',type:'textarea',readonly:true,default:'AUTO: Build Page 14 as a Tiverton Town stats dashboard from the live results and Get Player Info data. Include current league position, points, goal difference, home record, away record, last five form, top scorer, appearances leader and next three league fixtures. Add a small league-context strip at the bottom with best attack, best defence and Tiverton\'s rank where the source data supports it.'},
- {k:'tivvyGlanceOk',label:'Stats page',type:'confirm',text:'Confirm Page 14 Tivvy at a Glance content / styling'}
-],
-15:[
- {k:'lastOutStatus',label:'Darren report monitor',type:'textarea',readonly:true,default:'AUTO: Check the Tiverton Town website for Darren Holmes\' latest match report. Alert Nick when a new report is detected, then import the article text and source link.'},
- {k:'lastOutSource',label:'Detected report source',type:'url',ph:'Auto-filled when Darren publishes'},
- {k:'lastOutVivMatches',label:'Suggested high-res Viv matches',type:'textarea',readonly:true,default:'AUTO: Cross-reference the match date/opponent against Viv Curtis\' Flickr and suggest the matching high-resolution photos for approval.'},
- {k:'lastOutTitle',label:'Match title',type:'text',ph:'e.g. Tiverton Town 2–2 Worcester Raiders'},
- {k:'lastOutScorers',label:'Score / scorers strap',type:'text',ph:'e.g. Horne 26, Roberts (pen) 40'},
- {k:'lastOutByline',label:'Words credit',type:'text',default:'Darren Holmes',ph:'Darren Holmes'},
- {k:'lastOutPictures',label:'Pictures credit',type:'text',default:'Viv Curtis',ph:'Viv Curtis'},
- {k:'lastOutBody',label:'Report body',type:'textarea',ph:'Auto-filled from Darren report — edit only if needed'},
- {k:'lastOutImages',label:'Last Time Out image(s)',type:'flickr',ph:'Paste selected Flickr photo link(s)'}
-],
-17:[{k:'lastOut17',label:'Additional image',type:'flickr',ph:'Paste Flickr photo link',optional:true},{k:'lastOut17ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
-18:[{k:'lastOut18',label:'Additional image',type:'flickr',ph:'Paste Flickr photo link',optional:true},{k:'lastOut18ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
-19:[{k:'lastOut19',label:'Additional image',type:'flickr',ph:'Paste Flickr photo link',optional:true},{k:'lastOut19ok',label:'Layout',type:'confirm',text:'No extra image needed / layout checked'}],
-21:[{k:'poster21choice',label:'Poster status',type:'select',options:['Keep current poster','Replace poster']},{k:'poster21file',label:'Replacement artwork',type:'file',accept:'image/*,.pdf',optional:true}],
-22:[{k:'poster22choice',label:'Poster status',type:'select',options:['Keep current poster','Replace poster']},{k:'poster22file',label:'Replacement artwork',type:'file',accept:'image/*,.pdf',optional:true}],
-23:[{k:'players23',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
-24:[{k:'players24',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
-25:[{k:'players25',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
-26:[{k:'players26',label:'Player changes',type:'textarea',ph:'Enter changes, or type None'}],
-27:[{k:'photo27',label:'Top image',type:'flickr',ph:'Paste selected Flickr photo link'}],
-28:[
- {k:'leagueSoFarMode',label:'Dynamic League So Far spread',type:'textarea',readonly:true,default:'AUTO: Build Pages 28–29 as a two-page dynamic table from Get Player Info. Keep the existing yellow/white row style, ordered starting XI and match details. In every score, highlight Tiverton Town\'s number in red regardless of whether Tivvy were home or away. Split the season across Page 28 and the new Page 29 automatically so the second half renders onto Page 29 rather than being squeezed onto one page.'},
- {k:'leagueSoFarOk',label:'League So Far',type:'confirm',text:'Confirm Pages 28–29 dynamic table styling / split'}
-],
-29:[{k:'leagueSoFar29',label:'Review',type:'confirm',text:'Second half, future fixtures and reschedules checked'}],
-33:[{k:'photo33',label:'Bottom image',type:'flickr',ph:'Paste selected Flickr photo link'}],
-34:[
- {k:'oppStatus',label:'Darren preview monitor',type:'textarea',readonly:true,default:'AUTO: Check the Tiverton Town website for Darren Holmes\' opposition preview. Alert Nick when it appears, then import the article text and source link.'},
- {k:'oppSource',label:'Detected preview source',type:'url',ph:'Auto-filled when Darren publishes'},
- {k:'oppVivMatches',label:'Suggested high-res Viv matches',type:'textarea',readonly:true,default:'AUTO: Cross-reference the opposition, recent fixtures and article imagery against Viv Curtis\' Flickr and suggest the best matching high-resolution photos for approval.'},
- {k:'oppHeadline',label:'Preview headline / subheading',type:'text',ph:'Optional headline beneath MEET THE OPPOSITION'},
- {k:'oppByline',label:'Words credit',type:'text',default:'Darren Holmes',ph:'Darren Holmes'},
- {k:'oppPictures',label:'Pictures credit',type:'text',default:'Viv Curtis',ph:'Viv Curtis'},
- {k:'oppPreviewBody',label:'Preview body',type:'textarea',ph:'Paste Darren\'s preview here'}
-],
-35:[
- {k:'opp35',label:'Continuation',type:'confirm',text:'Meet the Opposition continues correctly onto this page'},
- {k:'opp35Note',label:'Optional note',type:'text',ph:'Anything special about this page break?'}
-],
-36:[
- {k:'opp36',label:'Continuation',type:'confirm',text:'Meet the Opposition continues correctly onto this page'},
- {k:'opp36Note',label:'Optional note',type:'text',ph:'Anything special about this page break?'}
-],
-39:[
- {k:'opp39Finish',label:'Closing / final paragraph',type:'textarea',ph:'Auto-filled from remaining Darren copy — edit only if needed'},
- {k:'opp39image',label:'Final preview image',type:'flickr',ph:'Paste selected Flickr photo link'},
- {k:'opp39ok',label:'Layout',type:'confirm',text:'Final preview page checked'}
-],
-42:[
- {k:'awaySquad',label:'Away squad',type:'textarea',ph:'Paste opposition squad list'},
- {k:'referee',label:'Referee',type:'text',ph:'Referee name'},
- {k:'assistant1',label:'Assistant 1',type:'text',ph:'Assistant name'},
- {k:'assistant2',label:'Assistant 2',type:'text',ph:'Assistant name'},
- {k:'koitaNumber',label:'Dan Koita squad number',type:'text',ph:'Leave blank until known',optional:true}
-]
-};
-
-const automatorDoes={
-1:'I will populate the opponent name, opponent crest, match date, issue number and other known cover details automatically. I will also place the final programme QR when the finished PDF/link exists; you only choose the cover player/photo and confirm anything I cannot know.',
-4:'I will keep the existing Canva Latest News layout and section styling, flow your headline/byline/body into the correct text boxes, and place the selected image into the existing image frame.',
-5:'I will retain the current club details, honours and page layout. I will only change the individual staff/official names or roles you tell me have changed, including keeping Nick Bull as Programme Editor.',
-7:'I will preserve the Executive Update design, place the headline/byline/body into their existing Canva elements, and manage the text flow into the continuation page where required.',
-9:'I will continue the Executive Update from page 7 using the existing style and continuation treatment, adjusting the flow/page break to fit the supplied copy.',
-11:'I will scrape the latest Division One South round-up/news, build the page copy, suggest relevant league images, preserve the page style and place your chosen image automatically.',
-13:'I will generate Page 13 as a proper A5 league table from the same live data source as Get Player Info, including every club logo, P/W/D/L/GD/Pts, coloured promotion/play-off/relegation bands, and a separate Tiverton Town yellow/black highlight so Tivvy is instantly visible regardless of league position.',
-14:'I will generate a dynamic Tivvy at a Glance stats page from the live results and Get Player Info data: current position, points, goal difference, home/away record, last-five form, top scorer, appearances leader and next three fixtures, plus a compact league-context strip where reliable source data is available.',
-15:'I will pull the latest Darren Holmes match report, identify the correct home/away title and scorers, populate the title/byline/body fields, and place the Viv Curtis image(s) you choose.',
-17:'I will continue the Last Time Out report automatically from page 15, keeping the existing credits, styling and text flow. I will use an extra Viv image only if the copy/layout benefits from one.',
-18:'I will continue the Last Time Out report automatically, preserving the page design and fitting the text to the available space. I will only use an additional image if needed.',
-19:'I will finish the Last Time Out spread, preserve the existing credits/continuation treatment and fit the remaining report copy into the Canva layout.',
-21:'I will keep the existing event poster in place until its expiry rule says it needs attention. If you choose Replace, I will swap the artwork in the existing frame.',
-22:'I will keep the existing event poster in place until its expiry rule says it needs attention. If you choose Replace, I will swap the artwork in the existing frame.',
-23:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
-24:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
-25:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
-26:'I will carry the existing player-profile layout forward, compare the squad list for signings/departures and update only the affected player content once you approve the changes.',
-27:'I will keep the Van Man advert untouched and replace only the top photo area with the Viv Flickr image you choose.',
-28:'I will generate Pages 28–29 as one linked dynamic League So Far spread from Get Player Info. The table will preserve the alternating yellow/white rows, show the ordered player/position data, colour Tiverton\'s score in red whether home or away, and automatically split the fixture list across Page 28 and the new Page 29.',
-29:'I will render the second half of the dynamic League So Far table here automatically, continuing the exact same column widths, row styling, score highlighting and player layout from Page 28.',
-33:'I will preserve the fixed top section and replace only the lower photo with the Viv Flickr image you choose.',
-34:'I will pull/accept Darren Holmes’s opposition preview, preserve the Meet the Opposition styling, and flow the headline/byline/body into the correct Canva text elements.',
-35:'I will continue Darren’s opposition preview from page 34, preserving the page styling and handling the text break automatically.',
-36:'I will continue Darren’s opposition preview, preserving the page styling and handling the text break automatically.',
-39:'I will finish the opposition preview, flow the closing copy into the remaining text area and place the final selected image into the existing Canva frame.',
-42:'I will carry forward Tiverton’s squad list, update it for any known changes, inherit the opponent name and crest from page 1, and populate the opposition squad plus match officials from the details you provide.'
-};
-function suggestedKickoff(dateValue){
-  if(!dateValue) return '';
-  const parts=dateValue.split('/');
-  if(parts.length!==3) return '';
-  const d=new Date(Date.UTC(Number(parts[2]),Number(parts[1])-1,Number(parts[0])));
-  const day=d.getUTCDay();
-  if(day===6) return '15:00';
-  if(day>=1&&day<=5) return '19:30';
-  return '';
-}
-function syncKickoffSuggestion(){
-  const dateEl=document.querySelector('[data-page="1"][data-key="matchDate"]');
-  const koEl=document.querySelector('[data-page="1"][data-key="kickoff"]');
-  const okEl=document.querySelector('[data-page="1"][data-key="kickoffOk"]');
-  if(!dateEl||!koEl) return;
-  const suggested=suggestedKickoff(dateEl.value);
-  if(suggested && (!koEl.value || koEl.dataset.auto==='1')){
-    koEl.value=suggested;
-    koEl.dataset.auto='1';
-    saveField(koEl);
-  }
-  if(okEl){
-    const lab=okEl.closest('label');
-    const span=lab&&lab.querySelector('span');
-    if(span) span.textContent='Confirm '+(koEl.value||suggested||'kick-off');
-  }
-}
+const REGISTRY_URL='data/programme-page-registry.json';
+let registry=null;
 const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial'};
-const hasAction=p=>!!actionSpecs[p[0]];
-function isConfirmed(n){return localStorage.getItem('tivvy-confirm-p'+n)==='1'}
-function isAutoBuilt(n){return localStorage.getItem('tivvy-auto-p'+n)==='1'}
-function pageReady(p){
- if(p[2]==='FIXED') return true;
- if(hasAction(p)) return isConfirmed(p[0]);
- if(p[2]==='AUTO') return isAutoBuilt(p[0]);
- return localStorage.getItem('tivvy-p'+p[0])==='1';
+
+function keyFor(p){return 'tivvy-v20-ready-'+p.key}
+function stateFor(p){
+  if(p.type==='FIXED') return ['LOCKED','locked'];
+  if(localStorage.getItem(keyFor(p))==='1') return ['READY','ready'];
+  if(p.type==='AUTO') return ['READY TO REFRESH','wait'];
+  if(p.type==='EDITORIAL') return ['AWAIT / FLOW CONTENT','todo'];
+  return ['NEEDS CONFIRMATION','todo'];
 }
-function fieldKey(p,k){return 'tivvy-action-p'+p+'-'+k}
-function fieldValue(p,k,def=''){const v=localStorage.getItem(fieldKey(p,k));return v===null?def:v}
-function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function draw(){
- const tb=document.getElementById('rows');tb.innerHTML='';
- pages.forEach(p=>{
-   const done=pageReady(p);
-   let status=done?'READY':(p[2]==='AUTO'&&isAutoBuilt(p[0])?'BUILT - REVIEW':'NEEDS INPUT');
-   let cls=done?'ready':'need';
-   const tr=document.createElement('tr');
-   tr.innerHTML='<td class="p">'+p[0]+'</td><td><strong>'+p[1]+'</strong></td><td><span class="tag '+typeClass[p[2]]+'">'+p[2]+'</span></td><td>'+p[3]+'</td><td>'+(p[4]||'—')+'</td><td class="'+cls+'">'+status+'</td><td><input type="checkbox" '+(done?'checked':'')+' onchange="toggleReady('+p[0]+',this.checked)"></td>';
-   tb.appendChild(tr);
- });
- updateSummary(); drawActions();
-setTimeout(()=>{
-  syncKickoffSuggestion();
-  const dateEl=document.querySelector('[data-page="1"][data-key="matchDate"]');
-  const koEl=document.querySelector('[data-page="1"][data-key="kickoff"]');
-  if(dateEl) dateEl.addEventListener('change',()=>{ if(koEl) koEl.dataset.auto='1'; syncKickoffSuggestion(); });
-  if(koEl) koEl.addEventListener('input',()=>{ koEl.dataset.auto='0'; syncKickoffSuggestion(); });
-},0);
+  if(!registry) return;
+  const tb=document.getElementById('registryRows'); tb.innerHTML='';
+  registry.pages.forEach(p=>{
+    const [label,cls]=stateFor(p);
+    const tr=document.createElement('tr');
+    tr.innerHTML=
+      '<td><strong>'+p.position+'</strong></td>'+
+      '<td class="module">'+esc(p.name)+'</td>'+
+      '<td class="mono">'+esc(p.key)+'</td>'+
+      '<td class="mono idcell">'+esc(p.master_page_id)+'</td>'+
+      '<td><span class="tag '+typeClass[p.type]+'">'+p.type+'</span></td>'+
+      '<td class="'+cls+'">'+label+'</td>'+
+      '<td>'+(p.type==='FIXED'?'—':'<input style="width:auto" type="checkbox" '+(localStorage.getItem(keyFor(p))==='1'?'checked':'')+' onchange="setReady(\''+p.key+'\',this.checked)">')+'</td>';
+    tb.appendChild(tr);
+  });
+  const counts={FIXED:0,AUTO:0,GUIDED:0,EDITORIAL:0};
+  registry.pages.forEach(p=>counts[p.type]++);
+  document.getElementById('summary').innerHTML=
+    box(registry.pages.length,'Master pages','CHATGPT TEMPLATE')+
+    box(counts.AUTO,'Automatic','Live-data/content refresh')+
+    box(counts.GUIDED,'Guided','Nick confirms selected inputs')+
+    box(counts.EDITORIAL,'Editorial','Copy/image flow + proof');
 }
-function toggleReady(n,v){localStorage.setItem('tivvy-confirm-p'+n,v?'1':'0');draw()}
-function renderField(page,s){
- const val=fieldValue(page,s.k,s.default||'');
- if(s.type==='textarea') return '<div class="action-field"><label>'+s.label+'</label><textarea style="'+((/Body|body|Report|Preview|Closing/.test(s.label))?'min-height:180px;':'')+'"  data-page="'+page+'" data-key="'+s.k+'" placeholder="'+esc(s.ph||'')+'" '+(s.readonly?'readonly style="background:#f5f5f5;color:#444;min-height:520px"':'oninput="saveField(this)"')+'>'+esc(val)+'</textarea></div>';
- if(s.type==='text'||s.type==='url') return '<div class="action-field"><label>'+s.label+'</label><input type="'+s.type+'" data-page="'+page+'" data-key="'+s.k+'" value="'+esc(val)+'" placeholder="'+esc(s.ph||'')+'" oninput="saveField(this)"></div>';
- if(s.type==='select'){
-   const opts=(s.options||[]).map(o=>'<option '+(val===o?'selected':'')+'>'+esc(o)+'</option>').join('');
-   return '<div class="action-field"><label>'+s.label+'</label><select data-page="'+page+'" data-key="'+s.k+'" onchange="saveField(this)"><option value="">Choose…</option>'+opts+'</select></div>';
- }
- if(s.type==='file'){
-   const saved=val?'<div class="small" style="margin-top:4px">Selected: '+esc(val)+'</div>':'';
-   return '<div class="action-field"><label>'+s.label+(s.optional?' (optional)':'')+'</label><input type="file" '+(s.accept?'accept="'+s.accept+'"':'')+' '+(s.multiple?'multiple':'')+' data-page="'+page+'" data-key="'+s.k+'" onchange="saveFileName(this)">'+saved+'</div>';
- }
- if(s.type==='flickr'){
-   return '<div class="action-field"><label>'+s.label+(s.optional?' (optional)':'')+'</label><div class="asset-tools"><a class="asset-link" href="'+VIV_FLICKR+'" target="_blank" rel="noopener">Open Viv\'s latest Flickr photos</a><span class="asset-note">Pick the photo, copy its Flickr link, then paste it below.</span></div><input style="margin-top:7px" type="url" data-page="'+page+'" data-key="'+s.k+'" value="'+esc(val)+'" placeholder="'+esc(s.ph||'Paste Flickr photo link')+'" oninput="saveField(this)"></div>';
- }
- if(s.type==='images'){
-   return '<div class="action-field"><label>'+s.label+'</label><div class="image-options">'+(s.options||[]).map(o=>'<div class="image-option '+(val===o.value?'selected':'')+'" onclick="chooseImageOption('+page+',\''+s.k+'\',\''+o.value+'\')">'+(o.src?'<img src="'+o.src+'" alt="'+esc(o.label)+'" onerror="this.style.display=\'none\'">':'<div style="height:105px;display:grid;place-items:center;background:#eee;border-radius:5px;font-weight:800;color:#666">NO IMAGE</div>')+'<div class="img-title">'+esc(o.label)+'</div><div class="img-cap">'+esc(o.caption||'')+'</div></div>').join('')+'</div></div>';
- }
- if(s.type==='confirm'){
-   const checked=val==='1'?'checked':'';
-   return '<div class="action-field"><label style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:12px"><input type="checkbox" data-page="'+page+'" data-key="'+s.k+'" '+checked+' onchange="saveConfirm(this)"> '+esc(s.text)+'</label></div>';
- }
- return '';
+function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><strong>'+label+'</strong><div class="small">'+small+'</div></div>'}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function setReady(key,v){localStorage.setItem('tivvy-v20-ready-'+key,v?'1':'0');draw()}
+function saveMeta(){
+  ['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.setItem('tivvy-v20-'+id,document.getElementById(id).value));
 }
-function drawActions(){
- const g=document.getElementById('actionGrid'); if(!g)return;
- const actionPages=pages.filter(p=>hasAction(p));
- g.innerHTML=actionPages.map(p=>{
-   const done=isConfirmed(p[0]);
-   const built=p[2]==='AUTO'&&isAutoBuilt(p[0]);
-   const status=done?'READY':(built?'AUTO BUILT - PLEASE REVIEW':'ACTION NEEDED');
-   const structured=[4,7,15,34,39].includes(p[0])?'<div class="editorial-note">Canva keeps the section title, headline/byline and body as separate editable elements. These fields now mirror that structure.</div>':'';
-   const aiBox=automatorDoes[p[0]]?'<div class="ai-do"><strong>What I will do automatically</strong><span>'+automatorDoes[p[0]]+'</span></div>':'';
-   return '<div class="action-card '+(done?'done':'')+'"><h3>Page '+p[0]+' · '+p[1]+'</h3><p>'+p[3]+'</p>'+structured+'<div class="action-fields">'+actionSpecs[p[0]].map(s=>renderField(p[0],s)).join('')+'</div>'+aiBox+'<div class="mini"><span class="'+(done?'ready':'need')+'">'+status+'</span><button class="confirm-btn" onclick="confirmPage('+p[0]+')">'+(done?'Confirmed ✓':'Confirm page')+'</button></div></div>';
- }).join('');
+function loadMeta(){
+  ['opponent','matchDate','kickoff','issue'].forEach(id=>document.getElementById(id).value=localStorage.getItem('tivvy-v20-'+id)||'');
 }
-function saveField(el){localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),el.value)}
-function saveFileName(el){const names=[...el.files].map(f=>f.name).join(', ');localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),names);drawActions()}
-function saveConfirm(el){localStorage.setItem(fieldKey(el.dataset.page,el.dataset.key),el.checked?'1':'0')}
-function chooseImageOption(page,key,value){localStorage.setItem(fieldKey(page,key),value);drawActions()}
-function confirmPage(n){localStorage.setItem('tivvy-confirm-p'+n,isConfirmed(n)?'0':'1');draw()}
-function markAuto(){pages.forEach(p=>{if(p[2]==='AUTO')localStorage.setItem('tivvy-auto-p'+p[0],'1')});draw()}
-function updateSummary(){
- let ready=pages.filter(pageReady).length;
- let actions=pages.filter(p=>hasAction(p)&&!isConfirmed(p[0])).length;
- document.getElementById('summary').innerHTML=
- '<div class="box"><div class="small">Pages ready</div><div class="n">'+ready+'/42</div></div>'+
- '<div class="box"><div class="small">Actions remaining</div><div class="n">'+actions+'</div></div>'+
- '<div class="box"><div class="small">Automatic pages built</div><div class="n">'+pages.filter(p=>p[2]==='AUTO'&&isAutoBuilt(p[0])).length+'/'+pages.filter(p=>p[2]==='AUTO').length+'</div></div>'+
- '<div class="box"><div class="small">Fixed pages</div><div class="n">'+pages.filter(p=>p[2]==='FIXED').length+'</div></div>';
+function resetIssue(){
+  if(!registry) return;
+  registry.pages.forEach(p=>localStorage.removeItem(keyFor(p)));
+  draw();
 }
-function save(){alert('Programme run saved automatically as you work.')}
-function load(){}
-function downloadJSON(){
- const meta={}; actionSpecs[1].forEach(s=>meta[s.k]=fieldValue(1,s.k,s.default||''));
- const actions={};Object.keys(actionSpecs).forEach(p=>{actions[p]={confirmed:isConfirmed(p),fields:{}};actionSpecs[p].forEach(s=>actions[p].fields[s.k]=fieldValue(p,s.k))});
- const status={};pages.forEach(p=>status[p[0]]={ready:pageReady(p),autoBuilt:isAutoBuilt(p[0])});
- const blob=new Blob([JSON.stringify({meta,actions,status},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tivvy-programme-run.json';a.click();
+async function boot(){
+  loadMeta();
+  try{
+    const r=await fetch(REGISTRY_URL+'?v='+Date.now());
+    registry=await r.json();
+    draw();
+  }catch(e){
+    document.getElementById('registryRows').innerHTML='<tr><td colspan="7">Could not load page registry: '+esc(e.message)+'</td></tr>';
+  }
 }
-function resetRun(){if(!confirm('Reset this working programme run?'))return;Object.keys(localStorage).filter(k=>k.startsWith('tivvy-')).forEach(k=>localStorage.removeItem(k));location.reload()}
-load();draw();
-</script></body></html>
+boot();
+</script>
+</body>
+</html>

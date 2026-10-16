@@ -5,6 +5,7 @@
     ["League Table","league-table.html"],
     ["Results Matrix","results-matrix.html"],
     ["League So Far","league-so-far.html"],
+    ["Tivvy at a Glance","tivvy-at-a-glance.html"],
     ["Photo Library","photo-library.html"],
     ["Around the League","around-the-league.html"],
     ["Planner","programme-plan.html"],

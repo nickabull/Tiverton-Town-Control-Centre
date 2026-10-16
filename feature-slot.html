@@ -160,4 +160,4 @@ function renderFeature(){
 function chooseForIssue(){const name=document.getElementById('pick').value;localStorage.setItem('tivvyChosenFeature',name);document.getElementById('chosen').textContent=name;updateReadiness(name);document.getElementById('status').textContent=name+' chosen for next issue';}
 const saved=localStorage.getItem('tivvyFeature');if(saved&&features[saved])document.getElementById('pick').value=saved;const chosen=localStorage.getItem('tivvyChosenFeature');if(chosen)document.getElementById('chosen').textContent=chosen;renderFeature();
 </script>
-</body></html>
+<script src="programme-nav.js"></script></body></html>

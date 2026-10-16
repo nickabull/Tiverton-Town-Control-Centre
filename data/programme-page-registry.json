@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "master": {
+    "canva_design_id": "DAHYKUo9Tzo",
+    "title": "CHATGPT TEMPLATE",
+    "page_count": 49,
+    "rule": "Duplicate this master for each issue. Immediately bind each copied page to the logical page key below, then target the copied page ID rather than its page number."
+  },
+  "pages": [
+    {
+      "key": "cover",
+      "name": "Cover",
+      "master_page_id": "PBhyHbWFGDpyhNgG",
+      "position": 1,
+      "type": "GUIDED"
+    },
+    {
+      "key": "advert_02",
+      "name": "Advert / fixed page 02",
+      "master_page_id": "PBTlYHHWk3kpdTHY",
+      "position": 2,
+      "type": "FIXED"
+    },
+    {
+      "key": "advert_03",
+      "name": "Advert / fixed page 03",
+      "master_page_id": "PBZXJC7Kb8cD5cKY",
+      "position": 3,
+      "type": "FIXED"
+    },
+    {
+      "key": "latest_news",
+      "name": "Latest News",
+      "master_page_id": "PBW9N6K2cPtcbzzR",
+      "position": 4,
+      "type": "GUIDED"
+    },
+    {
+      "key": "club_officials",
+      "name": "Club Officials / Honours",
+      "master_page_id": "PB5DVYd1D16crJNs",
+      "position": 5,
+      "type": "GUIDED"
+    },
+    {
+      "key": "advert_06",
+      "name": "Advert / fixed page 06",
+      "master_page_id": "PBw36CPKmg0fR6X2",
+      "position": 6,
+      "type": "FIXED"
+    },
+    {
+      "key": "executive_update_1",
+      "name": "Executive Update 1",
+      "master_page_id": "PBjhtDSQYpmm8gzY",
+      "position": 7,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "advert_08",
+      "name": "Advert / fixed page 08",
+      "master_page_id": "PBdjYgfCvSvNnbMc",
+      "position": 8,
+      "type": "FIXED"
+    },
+    {
+      "key": "executive_update_2",
+      "name": "Executive Update 2",
+      "master_page_id": "PBfhxfCjlCmXpgCt",
+      "position": 9,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "league_so_far_1",
+      "name": "The League So Far — Results 1",
+      "master_page_id": "PByXfpH81SgLLt7W",
+      "position": 10,
+      "type": "AUTO"
+    },
+    {
+      "key": "fixed_11",
+      "name": "Fixed page 11",
+      "master_page_id": "PBgW387cV9dpdl9s",
+      "position": 11,
+      "type": "FIXED"
+    },
+    {
+      "key": "results_matrix",
+      "name": "Results Matrix",
+      "master_page_id": "PB98MG6GqY0KbHhR",
+      "position": 12,
+      "type": "AUTO"
+    },
+    {
+      "key": "fixed_13",
+      "name": "Fixed page 13",
+      "master_page_id": "PBdM99qNtSng423v",
+      "position": 13,
+      "type": "FIXED"
+    },
+    {
+      "key": "around_league",
+      "name": "Around the League",
+      "master_page_id": "PBtHJC2fqTlx9ZPC",
+      "position": 14,
+      "type": "AUTO"
+    },
+    {
+      "key": "league_table",
+      "name": "League Table",
+      "master_page_id": "PBmPqH3l8hyRtXRV",
+      "position": 15,
+      "type": "AUTO"
+    },
+    {
+      "key": "tivvy_glance",
+      "name": "Tivvy at a Glance",
+      "master_page_id": "PBNDTwV3s7Xt6767",
+      "position": 16,
+      "type": "AUTO"
+    },
+    {
+      "key": "last_time_out_1",
+      "name": "Last Time Out 1",
+      "master_page_id": "PBHH3Zlv14XNch75",
+      "position": 17,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_18",
+      "name": "Fixed / advert page 18",
+      "master_page_id": "PBdq5MRVwv6XW0sH",
+      "position": 18,
+      "type": "FIXED"
+    },
+    {
+      "key": "last_time_out_2",
+      "name": "Last Time Out 2",
+      "master_page_id": "PBwdF8d5b3D9pR9W",
+      "position": 19,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_20",
+      "name": "Fixed / advert page 20",
+      "master_page_id": "PBfNTQGN86nTD40V",
+      "position": 20,
+      "type": "FIXED"
+    },
+    {
+      "key": "last_time_out_3",
+      "name": "Last Time Out 3",
+      "master_page_id": "PB2Yt1BrcsY0plj2",
+      "position": 21,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "last_time_out_4",
+      "name": "Last Time Out 4",
+      "master_page_id": "PB8nb7Xx234H4Gyr",
+      "position": 22,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_23",
+      "name": "Fixed page 23",
+      "master_page_id": "PB6Jy0xrpZmyDQKY",
+      "position": 23,
+      "type": "FIXED"
+    },
+    {
+      "key": "fixed_24",
+      "name": "Fixed page 24",
+      "master_page_id": "PB8XZ4kNVPRLCvKX",
+      "position": 24,
+      "type": "FIXED"
+    },
+    {
+      "key": "your_tivvy_1",
+      "name": "Your Tivvy 1",
+      "master_page_id": "PBj7xfFMmzhpjW02",
+      "position": 25,
+      "type": "GUIDED"
+    },
+    {
+      "key": "your_tivvy_2",
+      "name": "Your Tivvy 2",
+      "master_page_id": "PBqJ64fPBwPY82hS",
+      "position": 26,
+      "type": "GUIDED"
+    },
+    {
+      "key": "fixed_27",
+      "name": "Fixed page 27",
+      "master_page_id": "PBb4gbN21Mtj097v",
+      "position": 27,
+      "type": "FIXED"
+    },
+    {
+      "key": "your_tivvy_3",
+      "name": "Your Tivvy 3",
+      "master_page_id": "PBNNnQtytRm3VTj5",
+      "position": 28,
+      "type": "GUIDED"
+    },
+    {
+      "key": "your_tivvy_4",
+      "name": "Your Tivvy 4",
+      "master_page_id": "PBHjKqcMBvypcYlp",
+      "position": 29,
+      "type": "GUIDED"
+    },
+    {
+      "key": "commercial",
+      "name": "Commercial Opportunities",
+      "master_page_id": "PBWZ9jncK5327lgB",
+      "position": 30,
+      "type": "FIXED"
+    },
+    {
+      "key": "sponsors",
+      "name": "Sponsors",
+      "master_page_id": "PBTFDxq5Qgf1BY8C",
+      "position": 31,
+      "type": "FIXED"
+    },
+    {
+      "key": "local_independents",
+      "name": "Local Independents",
+      "master_page_id": "PB4m8glh2KpD5MGn",
+      "position": 32,
+      "type": "FIXED"
+    },
+    {
+      "key": "opposition_1",
+      "name": "Meet the Opposition — Club Facts",
+      "master_page_id": "PBSDVf1WFQVspwnG",
+      "position": 33,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_34",
+      "name": "Fixed / advert page 34",
+      "master_page_id": "PBdnf90xMgPtCpd2",
+      "position": 34,
+      "type": "FIXED"
+    },
+    {
+      "key": "opposition_2",
+      "name": "Meet the Opposition — Staff / Squad 1",
+      "master_page_id": "PBCTSSx9PCzMLPwl",
+      "position": 35,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "opposition_3",
+      "name": "Meet the Opposition — Squad 2",
+      "master_page_id": "PBdB7vybHkP7cqs4",
+      "position": 36,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_37",
+      "name": "Fixed / advert page 37",
+      "master_page_id": "PBtY6kxbY4LTkY3t",
+      "position": 37,
+      "type": "FIXED"
+    },
+    {
+      "key": "opposition_4",
+      "name": "Meet the Opposition — Squad / Honours",
+      "master_page_id": "PB2vzrk6STGX6tJy",
+      "position": 38,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "opposition_preview_1",
+      "name": "Meet the Opposition — Preview 1",
+      "master_page_id": "PBZSqpK6zDmQ0QFx",
+      "position": 39,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "opposition_preview_2",
+      "name": "Meet the Opposition — Preview 2",
+      "master_page_id": "PBK1BmGCvcfVKJp8",
+      "position": 40,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "opposition_preview_3",
+      "name": "Meet the Opposition — Preview 3",
+      "master_page_id": "PBL6VcK5N0s8zQxp",
+      "position": 41,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "opposition_preview_4",
+      "name": "Meet the Opposition — Preview 4",
+      "master_page_id": "PB4bTBnx0TvRP1wN",
+      "position": 42,
+      "type": "EDITORIAL"
+    },
+    {
+      "key": "fixed_43",
+      "name": "Fixed page 43",
+      "master_page_id": "PBJbVyD7TyhMPcPH",
+      "position": 43,
+      "type": "FIXED"
+    },
+    {
+      "key": "fixed_44",
+      "name": "Fixed page 44",
+      "master_page_id": "PBN6vmfhZ9cZ1NWK",
+      "position": 44,
+      "type": "FIXED"
+    },
+    {
+      "key": "fixed_45",
+      "name": "Fixed page 45",
+      "master_page_id": "PBdzZNgyWnVDqL5G",
+      "position": 45,
+      "type": "FIXED"
+    },
+    {
+      "key": "teams_officials",
+      "name": "Teams / Officials",
+      "master_page_id": "PBKS5yNrmQ2tF2MD",
+      "position": 46,
+      "type": "GUIDED"
+    },
+    {
+      "key": "player_stats",
+      "name": "Player Stats",
+      "master_page_id": "PB1SQB08TLKnRK0C",
+      "position": 47,
+      "type": "AUTO"
+    },
+    {
+      "key": "your_tivvy_5",
+      "name": "Your Tivvy / League Context",
+      "master_page_id": "PBW1gnsmVvc6xbl9",
+      "position": 48,
+      "type": "GUIDED"
+    },
+    {
+      "key": "league_so_far_2",
+      "name": "The League So Far — Results 2",
+      "master_page_id": "PBLlN3DlGSTzc9zG",
+      "position": 49,
+      "type": "AUTO"
+    }
+  ]
+}

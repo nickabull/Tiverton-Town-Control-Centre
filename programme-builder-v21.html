@@ -57,7 +57,9 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 </main>
 <script>
 const REGISTRY_URL='data/programme-page-registry.json';
+const CLUB_OFFICIALS_URL='data/club-officials.json';
 let registry=null;
+let clubOfficialsData=null;
 
 const sections=[
  {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Cover player / photo','Confirm kick-off if unusual'],does:'Populate opponent, crest, date, issue number, kick-off and known cover details. Preserve the approved master styling.',fields:[['coverPlayer','Cover player','text'],['coverImage','Cover image / Viv link','text']]},
@@ -121,7 +123,7 @@ function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><
 function saveMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.setItem('tivvy-v21-meta-'+id,document.getElementById(id).value))}
 function loadMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>document.getElementById(id).value=localStorage.getItem('tivvy-v21-meta-'+id)||'')}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{registry=await fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json())}catch(e){}draw()}
+async function boot(){loadMeta();try{const [r,c]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c}catch(e){}draw()}
 boot();
 </script>
 <script src="programme-nav.js"></script>

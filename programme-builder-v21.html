@@ -95,6 +95,40 @@ function renderField(f){
  if(type==='textarea') return '<div class="field"><label>'+esc(label)+'</label><textarea oninput="saveField(\''+id+'\',this.value)">'+esc(val)+'</textarea></div>';
  return '<div class="field"><label>'+esc(label)+'</label><input value="'+esc(val)+'" oninput="saveField(\''+id+'\',this.value)"></div>';
 }
+
+const fallbackClubOfficials=[
+ ['President','Wally Burk'],['Chairman','Mark Farrell'],['Vice Chairman','Vacant'],['Club Secretary','Viv Curtis'],['Treasurer','Jon Line'],['Fixtures Secretary','Anthony Dodd'],
+ ['Ground Safety Officer','Marian Pile'],['Director Of Football','Lee Lashenko'],['Head of Football Development','Mike Ebdon'],['Head of Media','Ryan Downer'],['Commercial Manager','Craig Bryce'],['Programme Editor','Nick Bull'],['Club Photographer','Viv Curtis'],
+ ['First Team Manager','Asa Hall'],['First Team Assistant','Steven Orchard'],['First Team Coach','David Steele'],['First Team Medic','Ellie Jones'],['First Team Kit Manager','Will Buttle']
+];
+function clubOfficialKey(role){return 'clubofficial-'+role.toLowerCase().replace(/[^a-z0-9]+/g,'-')}
+function officialVal(role,def){const v=fieldValue(clubOfficialKey(role)); return v||def}
+function renderClubOfficials(){
+ const officials=(clubOfficialsData&&clubOfficialsData.officials)||fallbackClubOfficials;
+ const rows=officials.map(([role,def])=>{
+   const id=clubOfficialKey(role);
+   return '<div class="field"><label>'+esc(role)+'</label><input value="'+esc(officialVal(role,def))+'" oninput="saveField(\''+id+'\',this.value)"></div>';
+ }).join('');
+ const honoursDefault=(clubOfficialsData&&clubOfficialsData.honours)
+   ? clubOfficialsData.honours.map(x=>x[0]+' — '+x[1]).join('\n')
+   : 'FA VASE — Winners: 1998 & 1999; Runners Up: 1993';
+ const honours=fieldValue('club-honours')||honoursDefault;
+ const c=(clubOfficialsData&&clubOfficialsData.contact)||{};
+ const contactDefault=[
+   c.address||'Slee Blackwell Solicitors Stadium, Bolham Road, Tiverton, EX16 6SG',
+   'Telephone: '+(c.telephone||'01884 693989'),
+   'Email: '+(c.email||'Contact@TivertonTownFC.uk'),
+   c.club_type||'Unincorporated Members Club'
+ ].join('\n');
+ const synced=(clubOfficialsData&&clubOfficialsData.synced_at_utc)
+   ? '<div class="small" style="grid-column:1/-1;margin-top:-2px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(clubOfficialsData.synced_at_utc)+'</div>'
+   : '';
+ return '<div class="action-fields" style="margin-top:10px">'+synced+rows+
+   '<div class="field" style="grid-column:1/-1"><label>Club honours</label><textarea style="min-height:150px" oninput="saveField(\'club-honours\',this.value)">'+esc(honours)+'</textarea></div>'+
+   '<div class="field" style="grid-column:1/-1"><label>Club contact / address block</label><textarea style="min-height:95px" oninput="saveField(\'club-contact\',this.value)">'+esc(fieldValue('club-contact')||contactDefault)+'</textarea></div>'+
+   '</div>';
+}
+
 function draw(){
  const grid=document.getElementById('sectionGrid'); grid.innerHTML='';
  sections.forEach(s=>{

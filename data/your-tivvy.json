@@ -1,0 +1,93 @@
+{
+  "source_design_id": "DAHYKUo9Tzo",
+  "source_section": "Your Tivvy",
+  "synced_at_utc": "2026-10-16T12:16:13Z",
+  "profiles": [
+    {
+      "name": "Louis Smith",
+      "position": "Goalkeeper",
+      "page_key": "your_tivvy_1",
+      "paragraph": "Smith joined the Yellows ahead of the 2026/27 season following an impressive spell with Bridgwater United. A commanding goalkeeper with excellent shot-stopping ability, he is comfortable with the ball at his feet and brings confidence, leadership and composure to Tiverton's defence.",
+      "image_asset_id": "MAHRn2S9LvI"
+    },
+    {
+      "name": "Toby Stephens",
+      "position": "Midfielder",
+      "page_key": "your_tivvy_1",
+      "paragraph": "Starting his career in the Southampton and Yeovil Town Academies, Toby then plyed his trade at the likes of Plymouth Parkway and AFC Totton before joining Tivvy. After a stint in Australia he’s back in Devon! Toby says “I like to get on the ball, I like to create attacks and really help support the offence with creativity from deep\".",
+      "image_asset_id": "MAHXx6AR1io",
+      "image_preview_url": "https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:ifs%3A%2F%2FM%2F0cd7e70f-c26a-4b7a-96bc-8576f5cebc58/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAAG2ucHwin1ETC-Nt_FabeZh8OdLuwOXi349rYbXTRnFt&exp=1792170346&osig=AAAAAAAAAAAAAAAAAAAAAHVEPFZkuoAfaP-AkHVDIPPowfEUBug30dZKhYhHERq4&signer=media-rpc&token=AAIAAU0AJDBjZDdlNzBmLWMyNmEtNGI3YS05NmJjLTg1NzZmNWNlYmM1OAAAAAABoUWtRhCfv4OrD95CT3zbZE0imVl6a9gTm0q8ZMKfN6I1S0rkKQ&x-canva-quality=thumbnail"
+    },
+    {
+      "name": "Corey Koerner",
+      "position": "Defender",
+      "page_key": "your_tivvy_1",
+      "paragraph": "Koerner stayed with the Yellows ahead of the 2026/27 campaign after impressing in his first year at left back, having previously captained Yovil Town’s youth sides. A versatile defender capable of filling a number of positions across the back line, he combines determination with composure in possession and has quickly become a reliable option within Asa Hall's squad.",
+      "image_asset_id": "MAHRn-_erQE"
+    },
+    {
+      "name": "Louis Slough",
+      "position": "Defender",
+      "page_key": "your_tivvy_2",
+      "paragraph": "Having impressed at Bideford and developed in Torquay United’s youth team, Slough arrived at Tiverton as one of Asa Hall's long-term transfer targets. Strong in the tackle and composed in possession, he has quickly adapted to Southern League football and is regarded as one of the club's most promising young defenders.",
+      "image_asset_id": "MAHRn7SwtyI"
+    },
+    {
+      "name": "Ed Palmer",
+      "position": "Defender",
+      "page_key": "your_tivvy_2",
+      "paragraph": "Palmer joined the Yellows from Torquay United, bringing valuable experience from the National League environment. Comfortable playing out from the back and dominant in the air, the commanding centre-half combines composure with physicality and adds quality and leadership to Tiverton's defence.",
+      "image_asset_id": "MAHRn8DZbZo"
+    },
+    {
+      "name": "Dan Koita",
+      "position": "Attacker",
+      "page_key": "your_tivvy_2",
+      "paragraph": "Dan brings energy, quality and a hunger to make an impact back in the Yellow and Black. Coming through across town at neighbouring Elmore, Dan, affectionately known as \"Koits\" or \"D.K\", had spells at the likes of Crediton United, Tavistock and Okehampton Argyle before scoring plenty of goals for Tivvy, including an incredible bicycle kick winner in the M5 Derby.",
+      "image_asset_id": "MAHXx6heI5c",
+      "image_preview_url": "https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:ifs%3A%2F%2FM%2F6bb741d1-b758-45f0-abe5-f4c5f25dc6da/watermark:F/width:160?csig=AAAAAAAAAAAAAAAAAAAAAO7jzfcKIUuO_QxNVblfI1lg8T7bT4g6FrmkpBgvfQnM&exp=1792168466&osig=AAAAAAAAAAAAAAAAAAAAAEccRxMvYXNtMQ3-quWCtZ2KH6UFSxco9Gax-6TaalN7&signer=media-rpc&token=AAIAAU0AJDZiYjc0MWQxLWI3NTgtNDVmMC1hYmU1LWY0YzVmMjVkYzZkYQAAAAABoUWQllBz-178TReC02uOEP8UdhmNj13lKzwUVEKzq5Z7DxfKQg&x-canva-quality=thumbnail"
+    },
+    {
+      "name": "Aaron Wellington",
+      "position": "Midfielder",
+      "page_key": "your_tivvy_3",
+      "paragraph": "Wellington continued with the Yellows for the 2026/27 season after a successful previous season with the club, winning Young Player of the Year in 25/26. A hardworking and energetic midfielder, he is renowned for his determination, intelligent movement and ability to contribute at both ends of the pitch, making him an important part of Asa Hall's squad.",
+      "image_asset_id": "MAHRnx_OrEk"
+    },
+    {
+      "name": "Billy Tucker",
+      "position": "Midfielder",
+      "page_key": "your_tivvy_3",
+      "paragraph": "One of the South West's most experienced midfielders, Tucker returned for another season after an impressive career that has included spells with Bideford and Helston. Calm in possession and an intelligent reader of the game, his leadership, versatility and quality make him a key figure in the Yellows' midfield.",
+      "image_asset_id": "MAHRn5ss0vE"
+    },
+    {
+      "name": "Jack Kennell",
+      "position": "Midfielder",
+      "page_key": "your_tivvy_3",
+      "paragraph": "Kennell extended his stay with the Yellows after establishing himself as an important member of the squad. A dependable and intelligent midfielder, he combines excellent work rate with tactical awareness and consistently provides balance and stability in the centre of the park.",
+      "image_asset_id": "MAHRn0DFwE0"
+    },
+    {
+      "name": "Finn Roberts",
+      "position": "Midfielder",
+      "page_key": "your_tivvy_4",
+      "paragraph": "Roberts joined the Yellows from Bideford ahead of the 2026/27 campaign. A talented young midfielder with plenty of potential, he combines energy and composure with a willingness to work hard for the team and continues to develop into an exciting prospect at Southern League level, having scored over 12 goals in each of the last seasons for Bideford from the left wing.",
+      "image_asset_id": "MAHTe981-x4"
+    },
+    {
+      "name": "Owen Howe",
+      "position": "Forward",
+      "page_key": "your_tivvy_4",
+      "paragraph": "Howe returned to his hometown club ahead of the 2026/27 campaign, bringing goals, experience and a strong connection with the Yellows. A proven striker at Southern League level, he combines intelligent movement with clinical finishing and aerial ability, making him a constant danger inside the penalty area and a focal point for Tiverton's attack.",
+      "image_asset_id": "MAHRn73_-4k"
+    },
+    {
+      "name": "Aiden Horne",
+      "position": "Forward",
+      "page_key": "your_tivvy_4",
+      "paragraph": "Horne remains with the Yellows for the 2026/27 season after continuing to establish himself as one of the club's brightest attacking talents. Loved by fans who named him Supporters Player of the Year last seasons, he joined Tiverton from nearby Cullompton. Blessed with pace, direct running and a tireless work ethic, he is capable of playing anywhere across the front line and is always a threat to opposition defences with his movement and energy.",
+      "image_asset_id": "MAHTe8x8kT4"
+    }
+  ]
+}

@@ -44,16 +44,18 @@ const REGISTRY_URL='data/programme-page-registry.json';
 const CLUB_OFFICIALS_URL='data/club-officials.json';
 const NEXT_HOME_URL='data/next-home-fixture.json';
 const YOUR_TIVVY_URL='data/your-tivvy.json';
+const EXEC_UPDATE_URL='data/executive-update.json';
 let registry=null;
 let clubOfficialsData=null;
 let nextHomeData=null;
 let yourTivvyData=null;
+let executiveUpdateData=null;
 
 const sections=[
  {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Confirm fixture / crest','Cover player / photo'],does:'Detect the next Tiverton home fixture, prefill opponent/date/kick-off/issue, select the approved opponent PNG from the Canva crest folder, and use your confirmed choices when the copied programme is built.',custom:'cover'},
  {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Two stories','One image + photo byline for each'],does:'Build the Latest News section as two stories in the approved house style. Each story gets its own headline, body copy, one image and a small editable photo byline beneath the image.',custom:'latestNews'},
  {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Edit only what has changed'],does:'Load the current Club Officials & Honours content into the dashboard, let you edit it here, and use the approved values when the fixture copy is written to Canva.',custom:'clubOfficials'},
- {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Mark Farrell copy / approved draft'],does:'Flow the executive copy across the linked spread, handling the continuation automatically without rebuilding the design.',fields:[['execHeadline','Headline / subheading','text'],['execBody','Copy','textarea']]},
+ {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Four stories','Confirm / replace Mark Farrell photo'],does:'Load the current Chairman photo and four Executive Update stories into the dashboard, let you edit or replace them here, then flow the approved content across the linked spread.',custom:'executiveUpdate'},
  {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
  {key:'results_matrix',name:'Results Matrix',type:'AUTO',pages:['results_matrix'],needs:['Final proof only'],does:'Rebuild the full Division One South home/away matrix from the refreshed results feed. Tiverton score numeral remains red.',links:[['Live renderer','results-matrix.html']]},
  {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],needs:['Approve selected stories / images'],does:'Scan Southern League Division One South editorial, exclude Tiverton-led stories, rank the strongest items and suggest source imagery/credits.',links:[['Editorial collector','around-the-league.html']]},
@@ -180,6 +182,30 @@ function renderLatestNews(){
     '<div class="action-fields">'+latestNewsStory(1)+latestNewsStory(2)+'</div>';
 }
 
+
+function execStoryKey(n,suffix){return 'exec-story-'+n+'-'+suffix}
+function renderExecutiveUpdate(){
+  const d=executiveUpdateData||{};
+  const chair=d.chairman||{name:'Mark Farrell',role:'TTFC Chairman',photo_asset_id:''};
+  const stories=(d.stories||[]).slice(0,4);
+  const photoReplacement=fieldValue('exec-photo-replacement');
+  const photoBlock='<div class="field" style="grid-column:1/-1"><div style="display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:start">'+
+    '<div style="width:128px;height:112px;border-radius:8px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:10px;color:#666">Current Mark Farrell photo linked<br><code>'+esc(chair.photo_asset_id||'')+'</code></div>'+
+    '<div><label>Chairman photo</label><div class="small"><strong>'+esc(chair.name||'Mark Farrell')+'</strong><br>'+esc(chair.role||'TTFC Chairman')+'</div>'+
+      '<label style="margin-top:8px">Replacement photo / Viv or Canva link</label><input value="'+esc(photoReplacement)+'" oninput="saveField(\'exec-photo-replacement\',this.value)" placeholder="Leave blank to keep current photo"></div>'+
+    '</div></div>';
+  const storyCards=[1,2,3,4].map(n=>{
+    const src=stories[n-1]||{};
+    const heading=fieldValue(execStoryKey(n,'heading'))||src.heading||'';
+    const body=fieldValue(execStoryKey(n,'body'))||src.body||'';
+    return '<div class="field" style="grid-column:1/-1"><div style="font-size:13px;font-weight:900;margin-bottom:8px">Story '+n+'</div>'+
+      '<label>Heading</label><input value="'+esc(heading)+'" oninput="saveField(\''+execStoryKey(n,'heading')+'\',this.value)">'+
+      '<label style="margin-top:8px">Story copy</label><textarea style="min-height:170px" oninput="saveField(\''+execStoryKey(n,'body')+'\',this.value)">'+esc(body)+'</textarea></div>';
+  }).join('');
+  const synced=d.synced_at_utc?'<div class="small" style="margin-bottom:8px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(d.synced_at_utc)+'</div>':'';
+  return synced+'<div class="action-fields">'+photoBlock+storyCards+'</div>';
+}
+
 const fallbackClubOfficials=[
  ['President','Wally Burk'],['Chairman','Mark Farrell'],['Vice Chairman','Vacant'],['Club Secretary','Viv Curtis'],['Treasurer','Jon Line'],['Fixtures Secretary','Anthony Dodd'],
  ['Ground Safety Officer','Marian Pile'],['Director Of Football','Lee Lashenko'],['Head of Football Development','Mike Ebdon'],['Head of Media','Ryan Downer'],['Commercial Manager','Craig Bryce'],['Programme Editor','Nick Bull'],['Club Photographer','Viv Curtis'],
@@ -219,12 +245,12 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
    const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
-   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : (s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
@@ -241,7 +267,7 @@ function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><
 function saveMeta(){}
 function loadMeta(){}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{const [r,c,n,y]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y}catch(e){}draw()}
+async function boot(){loadMeta();try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
 boot();
 </script>
 <script src="programme-nav.js"></script>

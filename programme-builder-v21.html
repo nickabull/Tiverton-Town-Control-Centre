@@ -43,9 +43,11 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 const REGISTRY_URL='data/programme-page-registry.json';
 const CLUB_OFFICIALS_URL='data/club-officials.json';
 const NEXT_HOME_URL='data/next-home-fixture.json';
+const YOUR_TIVVY_URL='data/your-tivvy.json';
 let registry=null;
 let clubOfficialsData=null;
 let nextHomeData=null;
+let yourTivvyData=null;
 
 const sections=[
  {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Confirm fixture / crest','Cover player / photo'],does:'Detect the next Tiverton home fixture, prefill opponent/date/kick-off/issue, select the approved opponent PNG from the Canva crest folder, and use your confirmed choices when the copied programme is built.',custom:'cover'},
@@ -58,7 +60,7 @@ const sections=[
  {key:'league_table',name:'League Table',type:'AUTO',pages:['league_table'],needs:['Final proof only'],does:'Refresh the league table, approved crest mapping, promotion/play-off/relegation bands and highlight the entire Tiverton row in yellow.',links:[['Live renderer','league-table.html']]},
  {key:'tivvy_glance',name:'Tivvy at a Glance',type:'AUTO',pages:['tivvy_glance'],needs:['Final proof only'],does:'Build the Tiverton stats dashboard from verified live results and player data: position, form, records, leaders and upcoming fixtures.'},
  {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Darren report','Approve Viv images'],does:'Detect/import Darren Holmes’s latest match report, cross-reference the correct fixture, then flow copy and selected Viv images across the approved spread.',fields:[['lastOutSource','Darren report URL','text'],['lastOutImages','Selected Viv image notes / links','textarea']]},
- {key:'your_tivvy',name:'Your Tivvy',type:'GUIDED',pages:['your_tivvy_1','your_tivvy_2','your_tivvy_3','your_tivvy_4','your_tivvy_5'],needs:['Only squad/profile changes'],does:'Carry the player-profile section forward and flag only genuine signings, departures or profile changes for approval.',fields:[['playerChanges','Player/profile changes','textarea']]},
+ {key:'your_tivvy',name:'Your Tivvy',type:'GUIDED',pages:['your_tivvy_1','your_tivvy_2','your_tivvy_3','your_tivvy_4'],needs:['Edit only changed profiles / photos'],does:'Load the current player paragraphs and linked Canva photos into the dashboard, let you edit them here, and carry the approved content into the fixture copy.',custom:'yourTivvy'},
  {key:'commercial',name:'Commercial & Sponsors',type:'FIXED',pages:['commercial','sponsors','local_independents'],needs:['Nothing unless requested'],does:'Carry approved commercial, sponsor and local-independent sections unchanged.'},
  {key:'opposition',name:'Meet the Opposition',type:'EDITORIAL',pages:['opposition_1','opposition_2','opposition_3','opposition_4','opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4'],needs:['Darren preview','Final editorial proof'],does:'Combine verified opposition facts/squad data with Darren’s preview and flow it through the full approved opposition section.',fields:[['oppSource','Darren preview URL','text'],['oppNotes','Opposition notes / corrections','textarea']]},
  {key:'teams_officials',name:'Teams & Officials',type:'GUIDED',pages:['teams_officials'],needs:['Away squad','Match officials'],does:'Carry Tiverton’s squad forward, inherit opponent/crest from the cover and populate the opposition squad plus officials.',fields:[['awaySquad','Away squad','textarea'],['officials','Officials','textarea']]},
@@ -124,6 +126,31 @@ function renderCover(){
   '</div>';
 }
 
+
+function playerKey(name,suffix){return 'yourtivvy-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+suffix}
+function renderYourTivvy(){
+ const profiles=(yourTivvyData&&yourTivvyData.profiles)||[];
+ const synced=(yourTivvyData&&yourTivvyData.synced_at_utc)?'<div class="small" style="margin-bottom:8px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(yourTivvyData.synced_at_utc)+'</div>':'';
+ if(!profiles.length)return '<div class="small">No Your Tivvy profiles loaded.</div>';
+ const cards=profiles.map(p=>{
+   const txtKey=playerKey(p.name,'paragraph');
+   const imgKey=playerKey(p.name,'replacement-photo');
+   const paragraph=fieldValue(txtKey)||p.paragraph||'';
+   const replacement=fieldValue(imgKey)||'';
+   const preview=p.image_preview_url
+     ? '<img src="'+p.image_preview_url+'" alt="'+esc(p.name)+'" style="width:105px;height:132px;object-fit:cover;border-radius:7px;background:#eee">'
+     : '<div style="width:105px;height:132px;border-radius:7px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:10px;color:#666">Current Canva photo linked<br><code>'+esc(p.image_asset_id||'')+'</code></div>';
+   return '<div class="field" style="grid-column:1/-1">'+
+      '<div style="display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start">'+
+        '<div>'+preview+'<div class="small" style="margin-top:5px"><strong>'+esc(p.name)+'</strong><br>'+esc(p.position||'')+'</div></div>'+
+        '<div><label>'+esc(p.name)+' profile paragraph</label><textarea style="min-height:115px" oninput="saveField(\''+txtKey+'\',this.value)">'+esc(paragraph)+'</textarea>'+
+        '<label style="margin-top:8px">Replacement photo / Viv link (optional)</label><input value="'+esc(replacement)+'" oninput="saveField(\''+imgKey+'\',this.value)" placeholder="Leave blank to keep current Canva photo">'+
+        '<div class="small" style="margin-top:5px">Current Canva asset: <code>'+esc(p.image_asset_id||'')+'</code> · '+esc(p.page_key||'')+'</div></div>'+
+      '</div></div>';
+ }).join('');
+ return synced+'<div class="action-fields">'+cards+'</div>';
+}
+
 const fallbackClubOfficials=[
  ['President','Wally Burk'],['Chairman','Mark Farrell'],['Vice Chairman','Vacant'],['Club Secretary','Viv Curtis'],['Treasurer','Jon Line'],['Fixtures Secretary','Anthony Dodd'],
  ['Ground Safety Officer','Marian Pile'],['Director Of Football','Lee Lashenko'],['Head of Football Development','Mike Ebdon'],['Head of Media','Ryan Downer'],['Commercial Manager','Craig Bryce'],['Programme Editor','Nick Bull'],['Club Photographer','Viv Curtis'],
@@ -163,12 +190,12 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
    const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
-   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : (s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?((s.custom==='clubOfficials'||s.custom==='cover')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
@@ -185,7 +212,7 @@ function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><
 function saveMeta(){}
 function loadMeta(){}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{const [r,c,n]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n}catch(e){}draw()}
+async function boot(){loadMeta();try{const [r,c,n,y]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y}catch(e){}draw()}
 boot();
 </script>
 <script src="programme-nav.js"></script>

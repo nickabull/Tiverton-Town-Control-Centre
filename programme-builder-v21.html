@@ -51,7 +51,7 @@ let yourTivvyData=null;
 
 const sections=[
  {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Confirm fixture / crest','Cover player / photo'],does:'Detect the next Tiverton home fixture, prefill opponent/date/kick-off/issue, select the approved opponent PNG from the Canva crest folder, and use your confirmed choices when the copied programme is built.',custom:'cover'},
- {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Headline / story','Image choice'],does:'Flow the selected news item into the approved Latest News design and keep the title/byline/image treatment consistent.',fields:[['newsHeadline','Headline','text'],['newsBody','Story / source notes','textarea']]},
+ {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Two stories','One image + photo byline for each'],does:'Build the Latest News section as two stories in the approved house style. Each story gets its own headline, body copy, one image and a small editable photo byline beneath the image.',custom:'latestNews'},
  {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Edit only what has changed'],does:'Load the current Club Officials & Honours content into the dashboard, let you edit it here, and use the approved values when the fixture copy is written to Canva.',custom:'clubOfficials'},
  {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Mark Farrell copy / approved draft'],does:'Flow the executive copy across the linked spread, handling the continuation automatically without rebuilding the design.',fields:[['execHeadline','Headline / subheading','text'],['execBody','Copy','textarea']]},
  {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
@@ -151,6 +151,35 @@ function renderYourTivvy(){
  return synced+'<div class="action-fields">'+cards+'</div>';
 }
 
+
+function latestNewsStory(n){
+  const headline=fieldValue('latest-news-'+n+'-headline');
+  const body=fieldValue('latest-news-'+n+'-body');
+  const imageUrl=fieldValue('latest-news-'+n+'-image');
+  const byline=fieldValue('latest-news-'+n+'-byline');
+  const preview=imageUrl
+    ? '<img src="'+esc(imageUrl)+'" alt="Story '+n+' preview" style="width:100%;max-width:240px;height:150px;object-fit:cover;border-radius:7px;background:#eee" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="small" style="display:none">Image preview unavailable — link still saved.</div>'
+    : '<div style="width:100%;max-width:240px;height:150px;border-radius:7px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:11px;color:#666">Image preview</div>';
+  return '<div class="field" style="grid-column:1/-1">'+
+    '<div style="font-size:13px;font-weight:900;margin-bottom:8px">Story '+n+'</div>'+
+    '<div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,.8fr);gap:12px;align-items:start">'+
+      '<div>'+
+        '<label>Headline</label><input value="'+esc(headline)+'" oninput="saveField(\'latest-news-'+n+'-headline\',this.value)">'+
+        '<label style="margin-top:8px">Story copy</label><textarea style="min-height:150px" oninput="saveField(\'latest-news-'+n+'-body\',this.value)">'+esc(body)+'</textarea>'+
+      '</div>'+
+      '<div>'+
+        preview+
+        '<label style="margin-top:8px">Image / Viv or source link</label><input value="'+esc(imageUrl)+'" oninput="saveField(\'latest-news-'+n+'-image\',this.value);draw()" placeholder="Paste image link">'+
+        '<label style="margin-top:8px">Photo byline</label><input value="'+esc(byline)+'" oninput="saveField(\'latest-news-'+n+'-byline\',this.value)" placeholder="e.g. Photo: Viv Curtis">'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+function renderLatestNews(){
+  return '<div class="autofill-note"><strong>Latest News layout:</strong> exactly two stories. Each story uses one image with a small byline directly underneath it.</div>'+
+    '<div class="action-fields">'+latestNewsStory(1)+latestNewsStory(2)+'</div>';
+}
+
 const fallbackClubOfficials=[
  ['President','Wally Burk'],['Chairman','Mark Farrell'],['Vice Chairman','Vacant'],['Club Secretary','Viv Curtis'],['Treasurer','Jon Line'],['Fixtures Secretary','Anthony Dodd'],
  ['Ground Safety Officer','Marian Pile'],['Director Of Football','Lee Lashenko'],['Head of Football Development','Mike Ebdon'],['Head of Media','Ryan Downer'],['Commercial Manager','Craig Bryce'],['Programme Editor','Nick Bull'],['Club Photographer','Viv Curtis'],
@@ -190,12 +219,12 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
    const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
-   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : (s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');

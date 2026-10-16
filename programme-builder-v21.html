@@ -21,30 +21,14 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 .ai-do{margin-top:11px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}
 .links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.links a{background:#111;color:#fff;text-decoration:none;border-radius:6px;padding:7px 9px;font-size:11px;font-weight:800}.links a.live{background:var(--g)}
 .tech{margin-top:10px;border-top:1px dashed #ddd;padding-top:9px}.tech summary{cursor:pointer;font-size:11px;font-weight:800;color:#666}.tech-list{font-size:11px;color:#666;line-height:1.55;margin-top:7px}.tech code{font-size:10px}
-.check{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;font-weight:800}.check input{width:auto;transform:scale(1.15)}
-@media(max-width:850px){.meta,.summary,.action-fields{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:560px){.meta,.summary,.action-fields{grid-template-columns:1fr}.section-head{display:block}}
+.check{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;font-weight:800}.check input{width:auto;transform:scale(1.15)}.cover-fixture{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:10px}.crest-preview{border:1px solid #ddd;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;background:#fafafa}.crest-preview img{width:92px;height:92px;object-fit:contain;background:#fff;border-radius:8px}.crest-meta{font-size:11px;color:#666;line-height:1.45}.autofill-note{background:#eef8ee;border-left:4px solid #38a169;padding:8px 10px;border-radius:5px;font-size:12px;margin-bottom:9px}
+@media(max-width:850px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:560px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr}.section-head{display:block}}
 </style>
 </head>
 <body>
 <header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V21</h1><div class="sub">V19 workflow feel + V20 stable Canva IDs + live automation modules · organised by section, not page</div></div></header>
 <main class="wrap">
 <div class="note"><strong>Hybrid build:</strong> this deliberately brings back the richer V19 action-card workflow, but the engine underneath uses the 49-page CHATGPT TEMPLATE registry, stable logical keys and Canva page IDs. You can now refine what you want to see for each <strong>section</strong>.</div>
-
-<section class="panel">
-  <div class="ey" style="color:#555">Issue setup</div>
-  <h2 style="margin:5px 0 12px">Fixture metadata</h2>
-  <div class="meta">
-    <div class="f"><label>Opponent</label><input id="opponent" placeholder="e.g. Bideford"></div>
-    <div class="f"><label>Match date</label><input id="matchDate" placeholder="DD/MM/YYYY"></div>
-    <div class="f"><label>Kick-off</label><input id="kickoff" placeholder="15:00 / 19:30"></div>
-    <div class="f"><label>Issue number</label><input id="issue" placeholder="Next issue"></div>
-  </div>
-  <div class="controls" style="margin-top:12px">
-    <button class="btn yellow" onclick="saveMeta()">Save issue setup</button>
-    <button class="btn ghost" onclick="resetChecks()">Reset section approvals</button>
-    <a class="btn dark" href="https://www.canva.com/d/o02Q-EWL7rVEsms" target="_blank" rel="noopener">Open CHATGPT TEMPLATE</a>
-  </div>
-</section>
 
 <section class="summary" id="summary"></section>
 
@@ -58,11 +42,13 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 <script>
 const REGISTRY_URL='data/programme-page-registry.json';
 const CLUB_OFFICIALS_URL='data/club-officials.json';
+const NEXT_HOME_URL='data/next-home-fixture.json';
 let registry=null;
 let clubOfficialsData=null;
+let nextHomeData=null;
 
 const sections=[
- {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Cover player / photo','Confirm kick-off if unusual'],does:'Populate opponent, crest, date, issue number, kick-off and known cover details. Preserve the approved master styling.',fields:[['coverPlayer','Cover player','text'],['coverImage','Cover image / Viv link','text']]},
+ {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Confirm fixture / crest','Cover player / photo'],does:'Detect the next Tiverton home fixture, prefill opponent/date/kick-off/issue, select the approved opponent PNG from the Canva crest folder, and use your confirmed choices when the copied programme is built.',custom:'cover'},
  {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Headline / story','Image choice'],does:'Flow the selected news item into the approved Latest News design and keep the title/byline/image treatment consistent.',fields:[['newsHeadline','Headline','text'],['newsBody','Story / source notes','textarea']]},
  {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Edit only what has changed'],does:'Load the current Club Officials & Honours content into the dashboard, let you edit it here, and use the approved values when the fixture copy is written to Canva.',custom:'clubOfficials'},
  {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Mark Farrell copy / approved draft'],does:'Flow the executive copy across the linked spread, handling the continuation automatically without rebuilding the design.',fields:[['execHeadline','Headline / subheading','text'],['execBody','Copy','textarea']]},
@@ -94,6 +80,48 @@ function renderField(f){
  const [id,label,type]=f, val=fieldValue(id);
  if(type==='textarea') return '<div class="field"><label>'+esc(label)+'</label><textarea oninput="saveField(\''+id+'\',this.value)">'+esc(val)+'</textarea></div>';
  return '<div class="field"><label>'+esc(label)+'</label><input value="'+esc(val)+'" oninput="saveField(\''+id+'\',this.value)"></div>';
+}
+
+
+function metaVal(id,def=''){const v=localStorage.getItem('tivvy-v21-meta-'+id);return v!==null?v:def}
+function saveMetaField(id,val){localStorage.setItem('tivvy-v21-meta-'+id,val)}
+function kickoffForDate(value,current){
+  const m=String(value||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/); if(!m)return current||'';
+  const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));
+  const day=d.getDay();
+  if(day===6)return '15:00';
+  if(day===2)return '19:30';
+  return current||'';
+}
+function coverCrestConfirmed(){return localStorage.getItem('tivvy-v21-cover-crest-confirmed')==='1'}
+function setCoverCrestConfirmed(v){localStorage.setItem('tivvy-v21-cover-crest-confirmed',v?'1':'0')}
+function renderCover(){
+  const f=nextHomeData||{};
+  const opp=metaVal('opponent',f.opponent||'');
+  const date=metaVal('matchDate',f.match_date||'');
+  const ko=metaVal('kickoff',f.kickoff||kickoffForDate(date,''));
+  const issue=metaVal('issue',f.issue_number||'');
+  const crest=f.crest||{};
+  const player=fieldValue('coverPlayer');
+  const photo=fieldValue('coverImage');
+  return '<div class="cover-fixture">'+
+    '<div>'+
+      '<div class="autofill-note"><strong>Auto-detected next home programme fixture:</strong> '+esc(f.opponent||'')+' · '+esc(f.match_date||'')+' · '+esc(f.kickoff||'')+(f.issue_number?' · Issue '+esc(f.issue_number):'')+'</div>'+
+      '<div class="action-fields">'+
+        '<div class="field"><label>Opponent</label><input id="coverOpponent" value="'+esc(opp)+'" oninput="saveMetaField(\'opponent\',this.value)"></div>'+
+        '<div class="field"><label>Match date</label><input id="coverDate" value="'+esc(date)+'" onchange="saveMetaField(\'matchDate\',this.value);const k=kickoffForDate(this.value,document.getElementById(\'coverKickoff\').value);document.getElementById(\'coverKickoff\').value=k;saveMetaField(\'kickoff\',k)"></div>'+
+        '<div class="field"><label>Kick-off</label><input id="coverKickoff" value="'+esc(ko)+'" oninput="saveMetaField(\'kickoff\',this.value)"><div class="small">Rule: Saturday 15:00 · Tuesday 19:30</div></div>'+
+        '<div class="field"><label>Issue number</label><input value="'+esc(issue)+'" oninput="saveMetaField(\'issue\',this.value)"></div>'+
+        '<div class="field"><label>Cover player</label><input value="'+esc(player)+'" oninput="saveField(\'coverPlayer\',this.value)"></div>'+
+        '<div class="field"><label>Cover image / Viv link</label><input value="'+esc(photo)+'" oninput="saveField(\'coverImage\',this.value)"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="crest-preview">'+
+      (crest.thumbnail_url?'<img src="'+crest.thumbnail_url+'" alt="'+esc((f.opponent||'Opponent')+' crest')+'">':'')+
+      '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+
+      '<label class="check"><input type="checkbox" '+(coverCrestConfirmed()?'checked':'')+' onchange="setCoverCrestConfirmed(this.checked)"> Confirm this is the correct away crest</label></div>'+
+    '</div>'+
+  '</div>';
 }
 
 const fallbackClubOfficials=[
@@ -135,12 +163,12 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('article'); card.className='section-card'+(approved(s)?' done':'');
    const tech=infos.map(p=>'<div><strong>'+esc(p.name)+'</strong> · <code>'+esc(p.key)+'</code> · Canva <code>'+esc(p.master_page_id)+'</code> · current position '+p.position+'</div>').join('');
-   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : (s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?(s.custom==='clubOfficials'?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='clubOfficials'||s.custom==='cover')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical mapping ('+infos.length+' template '+(infos.length===1?'item':'items')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
@@ -154,10 +182,10 @@ function draw(){
    box(counts.EDITORIAL,'Editorial','Copy/image flow');
 }
 function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><strong>'+label+'</strong><div class="small">'+small+'</div></div>'}
-function saveMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.setItem('tivvy-v21-meta-'+id,document.getElementById(id).value))}
-function loadMeta(){['opponent','matchDate','kickoff','issue'].forEach(id=>document.getElementById(id).value=localStorage.getItem('tivvy-v21-meta-'+id)||'')}
+function saveMeta(){}
+function loadMeta(){}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{const [r,c]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c}catch(e){}draw()}
+async function boot(){loadMeta();try{const [r,c,n]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n}catch(e){}draw()}
 boot();
 </script>
 <script src="programme-nav.js"></script>

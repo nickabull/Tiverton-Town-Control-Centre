@@ -6,9 +6,46 @@
 #auth-gate{min-height:100vh;display:grid;place-items:center;background:#171717;color:white;padding:20px}#auth-gate form{background:#292929;border-top:5px solid var(--gold);border-radius:12px;padding:30px;max-width:430px;width:100%}#auth-gate input{width:100%;padding:12px;margin:8px 0 16px}#auth-gate button,#sign-out{background:var(--gold);border:0;padding:10px 16px;cursor:pointer}#auth-error{color:#ffb4b4}#private-app{display:none}
 header{background:#151515;color:white;border-bottom:5px solid var(--gold);padding:22px max(20px,calc((100vw - 1120px)/2));}header h1{margin:5px 0;font-size:32px}header a{color:var(--gold);text-decoration:none}.eyebrow{letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:800;font-size:12px}
 main{max-width:1120px;padding:24px 20px 80px;margin:auto}.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}.panel{background:white;border:1px solid #ddd;border-radius:14px;padding:24px;box-shadow:0 2px 10px #0000000c}.panel h2{margin:0 0 16px}label{display:block;font-weight:700;margin:14px 0 7px}input[type=text],textarea{width:100%;border:1px solid #aaa;border-radius:8px;padding:12px;font:inherit}textarea{min-height:260px;resize:vertical;line-height:1.5}input[type=file]{width:100%;padding:12px;background:#f4f4f4;border-radius:8px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}button{border:0;border-radius:8px;padding:12px 17px;font-weight:800;cursor:pointer;background:#1c1c1c;color:white}button.secondary{background:#e8e8e8;color:#111}button.primary{background:var(--gold);color:#141414}button:disabled{opacity:.42;cursor:not-allowed}.help{font-size:13px;color:#626262;line-height:1.5}.status{border-left:4px solid var(--gold);background:#fff8d7;padding:12px;margin:16px 0;font-size:14px}.preview{background:white;border:1px solid #dedede;border-radius:12px;padding:24px;min-height:280px;overflow-wrap:anywhere}.preview h2{font-size:30px;line-height:1.18;margin:8px 0 18px}.preview img{width:100%;max-height:330px;object-fit:cover;border-radius:6px}.credit{color:#777;font-style:italic;font-size:13px;margin:8px 0 22px}.story{line-height:1.6;white-space:pre-wrap}.flag{font-size:12px;font-weight:bold;text-transform:uppercase;color:#6d5a00}.danger{border:2px solid #b50000;background:#fff1f1;border-radius:14px;margin-top:20px;padding:18px;text-align:center}.danger h2{color:#a10000}.confirm{display:block;width:100%;background:#d00000;color:white;font-size:19px;padding:18px;border:3px solid #820000;animation:flashRed .85s infinite alternate;box-shadow:0 0 0 5px #ffb3b3}.confirm:focus-visible{outline:4px solid #222;outline-offset:6px}@keyframes flashRed{from{background:#ff1515;box-shadow:0 0 0 5px #ffd2d2}to{background:#890000;box-shadow:0 0 0 5px #ff6262}}@media(prefers-reduced-motion:reduce){.confirm{animation:none}}[hidden]{display:none!important}@media(max-width:820px){.grid{grid-template-columns:1fr}header h1{font-size:26px}}
+header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--gold);position:relative;overflow:hidden}
+header:after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 0 58%,rgba(242,196,0,.12) 58% 72%,transparent 72%);pointer-events:none}
+.header-inner{max-width:1180px;margin:0 auto;padding:18px 22px 14px;position:relative;z-index:1}
+.topstrap{display:grid;grid-template-columns:110px 1fr 170px;align-items:center;gap:22px}
+.hero-logo{height:92px;max-width:160px;object-fit:contain;display:block;margin:auto;filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
+.hero-league{width:160px;height:78px;object-fit:cover;object-position:center;background:#ed1c24;border:2px solid rgba(255,255,255,.65);border-radius:6px}
+.hero-copy{text-align:left}.strap-eyebrow{color:var(--gold);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.hero-copy h1{margin:0;font-size:clamp(25px,3vw,38px);line-height:1.05}.hero-copy .subtitle{margin-top:6px;color:#ddd;font-size:14px}
+.logo-fallback{display:none;font-weight:900;color:var(--gold);text-align:center}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{color:#fff;text-decoration:none;padding:8px 11px;border:1px solid #444;border-radius:8px;font-size:14px;background:rgba(0,0,0,.12)}nav a:hover{border-color:var(--gold);color:var(--gold)}
+
+nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-weight:800}nav button#sign-out{padding:8px 11px;border-radius:8px;font-weight:700}.header-inner{max-width:1180px}.topstrap{grid-template-columns:110px 1fr 170px}.hero-copy h1{font-size:clamp(25px,3vw,38px)}@media(max-width:700px){.topstrap{grid-template-columns:70px 1fr}.hero-league{display:none}.hero-logo{height:64px}.header-inner{padding:12px 10px}}
 </style></head><body>
 <section id="auth-gate"><form id="login-form"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section>
-<div id="private-app"><header><div class="eyebrow">Programme Centre / Editorial</div><h1>News Publisher</h1><a href="index.html">← Back to Control Centre</a><button id="sign-out" style="float:right">Sign out</button></header>
+<div id="private-app"><header>
+  <div class="header-inner">
+    <div class="topstrap">
+      <div>
+        <img class="hero-logo" src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town FC crest" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="logo-fallback">TIVERTON<br>TOWN FC</div>
+      </div>
+      <div class="hero-copy">
+        <div class="strap-eyebrow">Tiverton Town • 2026/27</div>
+        <h1>Tiverton Town Programme Centre</h1>
+        <div class="subtitle">Football data · programme production · matchday intelligence</div>
+      </div>
+      <div>
+        <img class="hero-league" src="https://www.voicenewspapers.co.uk/tindle-static/image/2024/08/30/12/41/Untitled-design-119.jpeg?crop=752%3A500&amp;height=500&amp;width=752" alt="Pitching In Southern League" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <nav><button id="sign-out" type="button">Sign out</button>
+      <a href="index.html#dashboard">Dashboard</a>
+      <a href="index.html#results">Results</a>
+      <a href="index.html#players">Players</a>
+      <a href="index.html#league">League</a>
+      <a href="around-the-league.html">Around the League</a>
+      <a class="active" aria-current="page" href="news-publisher.html">News Publisher</a><a href="index.html#programme">Programme</a><a href="programme-builder-v21.html">Programme Automator</a><a href="photo-library.html">Photo Library</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a>
+    </nav>
+  </div>
+</header>
 <main><div class="status"><strong>Safe draft mode.</strong> Articles are saved on this browser only. Live Wix publishing is not yet connected; the red-button sequence is ready for integration.</div>
 <div class="grid"><section class="panel"><h2>Write article</h2>
 <label for="title">Title</label><input type="text" id="title" maxlength="180" placeholder="Match Preview: Tiverton Town v …">

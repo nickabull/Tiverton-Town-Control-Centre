@@ -148,6 +148,27 @@ async function showCoverUpload(){
   }else{img.style.display='none';status.textContent='No manually uploaded cover photo yet.'}
  }catch(e){status.textContent='Photo preview unavailable: '+e.message}
 }
+async function saveCrestPreviewUpload(input){
+ const file=input.files&&input.files[0];if(!file)return;
+ if(!file.type.startsWith('image/'))return;
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).put(file,'crest-preview');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+  db.close();await showCrestPreviewUpload();
+ }catch(e){const el=document.getElementById('crestPreviewStatus');if(el)el.textContent='Could not save preview: '+e.message}
+}
+async function showCrestPreviewUpload(){
+ const img=document.getElementById('crestPreviewImage'),el=document.getElementById('crestPreviewStatus');
+ if(!img||!el)return;
+ try{
+  const db=await coverPhotoDb();
+  const file=await new Promise((resolve,reject)=>{const q=db.transaction(coverPhotoStore,'readonly').objectStore(coverPhotoStore).get('crest-preview');q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});
+  db.close();if(!file)return;
+  if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);
+  img.dataset.url=URL.createObjectURL(file);img.src=img.dataset.url;img.style.display='block';
+  el.textContent='Preview: '+file.name+' (Canva asset unchanged)';
+ }catch(e){el.textContent='Preview unavailable: '+e.message}
+}
 function coverLinkChanged(v){
  saveField('coverImage',v);
  if(v.trim())localStorage.setItem('tivvy-v21-cover-image-source','link');
@@ -161,7 +182,7 @@ function renderCover(){
   const crest=f.crest||{};
   const player=fieldValue('coverPlayer');
   const photo=fieldValue('coverImage');
-  setTimeout(showCoverUpload,0);
+  setTimeout(showCoverUpload,0);setTimeout(showCrestPreviewUpload,0);
    return '<div class="cover-fixture">'+
     '<div>'+
       '<div class="autofill-note"><strong>Auto-detected next home programme fixture:</strong> '+esc(f.opponent||'')+' · '+esc(f.match_date||'')+' · '+esc(f.kickoff||'')+(f.issue_number?' · Issue '+esc(f.issue_number):'')+'</div>'+
@@ -175,8 +196,9 @@ function renderCover(){
       '</div>'+
     '</div>'+
     '<div class="crest-preview">'+
-      (crest.thumbnail_url?'<img src="'+esc(crest.thumbnail_url)+'" alt="'+esc((f.opponent||'Opponent')+' crest')+'" onerror="if(!this.dataset.fallback){this.dataset.fallback=\'1\';this.src=\'https://commons.wikimedia.org/wiki/Special:FilePath/Bideford_crest.png?width=200\'}else{this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'}"><span class="small" style="display:none">Crest preview unavailable — check the asset in Canva before confirming.</span>':'')+
+      '<div style="min-width:110px"><img id="crestPreviewImage" src="'+esc(crest.thumbnail_url||'')+'" alt="Opponent crest preview" onerror="this.style.display=\'none\';document.getElementById(\'crestPreviewStatus\').textContent=\'Canva preview expired — select a local crest PNG.\'"><div id="crestPreviewStatus" class="small">Canva image preview</div></div>'+
       '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+
+      '<label style="display:block;font-size:12px;margin-top:10px">Upload crest PNG for preview</label><input type="file" accept="image/*" onchange="saveCrestPreviewUpload(this)" style="max-width:200px;width:100%;font-size:12px">'+
       '<label class="check"><input type="checkbox" '+(coverCrestConfirmed()?'checked':'')+' onchange="setCoverCrestConfirmed(this.checked)"> Confirm this is the correct away crest</label></div>'+
     '</div>'+
   '</div>';

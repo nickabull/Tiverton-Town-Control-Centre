@@ -105,6 +105,53 @@ function kickoffForDate(value,current){
 }
 function coverCrestConfirmed(){return localStorage.getItem('tivvy-v21-cover-crest-confirmed')==='1'}
 function setCoverCrestConfirmed(v){localStorage.setItem('tivvy-v21-cover-crest-confirmed',v?'1':'0')}
+// Cover uploads are stored in this browser's IndexedDB, not squeezed into localStorage.
+const coverPhotoDbName='tivvy-cover-photos', coverPhotoStore='photos';
+function coverPhotoDb(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(coverPhotoDbName,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(coverPhotoStore))req.result.createObjectStore(coverPhotoStore)};
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>reject(req.error);
+ });
+}
+async function saveCoverUpload(input){
+ const file=input.files&&input.files[0];if(!file)return;
+ const status=document.getElementById('coverUploadStatus');
+ if(!file.type.startsWith('image/')){if(status)status.textContent='Please select a JPG, PNG or other image.';return}
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{
+   const tx=db.transaction(coverPhotoStore,'readwrite');
+   tx.objectStore(coverPhotoStore).put(file,'current');
+   tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+  });db.close();
+  localStorage.setItem('tivvy-v21-cover-upload-name',file.name);
+  localStorage.setItem('tivvy-v21-cover-image-source','upload');
+  await showCoverUpload();
+ }catch(e){if(status)status.textContent='Upload could not be saved in this browser: '+e.message}
+}
+async function showCoverUpload(){
+ const img=document.getElementById('coverUploadPreview'),status=document.getElementById('coverUploadStatus');
+ if(!img||!status)return;
+ try{
+  const db=await coverPhotoDb();
+  const file=await new Promise((resolve,reject)=>{
+   const tx=db.transaction(coverPhotoStore,'readonly');
+   const req=tx.objectStore(coverPhotoStore).get('current');
+   req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+  });db.close();
+  if(file){
+   if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);
+   const url=URL.createObjectURL(file);img.src=url;img.dataset.url=url;img.style.display='block';
+   status.textContent='Selected: '+file.name+' (saved on this browser; upload to Canva before rendering)';
+  }else{img.style.display='none';status.textContent='No manually uploaded cover photo yet.'}
+ }catch(e){status.textContent='Photo preview unavailable: '+e.message}
+}
+function coverLinkChanged(v){
+ saveField('coverImage',v);
+ if(v.trim())localStorage.setItem('tivvy-v21-cover-image-source','link');
+}
 function renderCover(){
   const f=nextHomeData||{};
   const opp=metaVal('opponent',f.opponent||'');
@@ -114,7 +161,8 @@ function renderCover(){
   const crest=f.crest||{};
   const player=fieldValue('coverPlayer');
   const photo=fieldValue('coverImage');
-  return '<div class="cover-fixture">'+
+  setTimeout(showCoverUpload,0);
+   return '<div class="cover-fixture">'+
     '<div>'+
       '<div class="autofill-note"><strong>Auto-detected next home programme fixture:</strong> '+esc(f.opponent||'')+' · '+esc(f.match_date||'')+' · '+esc(f.kickoff||'')+(f.issue_number?' · Issue '+esc(f.issue_number):'')+'</div>'+
       '<div class="action-fields">'+
@@ -123,7 +171,7 @@ function renderCover(){
         '<div class="field"><label>Kick-off</label><input id="coverKickoff" value="'+esc(ko)+'" oninput="saveMetaField(\'kickoff\',this.value)"><div class="small">Rule: Saturday 15:00 · Tuesday 19:30</div></div>'+
         '<div class="field"><label>Issue number</label><input value="'+esc(issue)+'" oninput="saveMetaField(\'issue\',this.value)"></div>'+
         '<div class="field"><label>Cover player</label><input value="'+esc(player)+'" oninput="saveField(\'coverPlayer\',this.value)"></div>'+
-        '<div class="field"><label>Cover image / Viv link</label><input value="'+esc(photo)+'" oninput="saveField(\'coverImage\',this.value)"></div>'+
+        '<div class="field"><label>Viv photo link</label><input value="'+esc(photo)+'" oninput="coverLinkChanged(this.value)" placeholder="Paste Viv Flickr or direct image link"></div>'+         '<div class="field"><label>Or upload Viv photo</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
       '</div>'+
     '</div>'+
     '<div class="crest-preview">'+

@@ -16,6 +16,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 .f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
 .section-grid{display:grid;grid-template-columns:1fr;gap:12px}.section-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}.section-card.done{background:#f0fff4;border-color:#89c999}
 .section-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.section-card h3{margin:0 0 5px;font-size:17px}.section-card p{margin:0 0 10px;color:#666;font-size:13px;line-height:1.4}
+.section-toggle{display:block;position:relative;cursor:pointer;list-style:none;padding-right:30px}.section-toggle::-webkit-details-marker{display:none}.section-toggle::after{content:'+';position:absolute;right:0;top:0;font-size:23px;line-height:1;font-weight:700;color:#666}.section-card[open]>.section-toggle::after{content:'−'}.section-toggle:focus-visible{outline:3px solid #174ea6;outline-offset:6px;border-radius:3px}.section-body{padding-top:1px}
 .tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.mixed{background:#efe4ff;color:#6333a3}
 .action-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field{border:1px solid #eee;border-radius:8px;padding:9px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;color:#666;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.field textarea{min-height:70px;resize:vertical}
 .ai-do{margin-top:11px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}
@@ -37,7 +38,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 <section class="panel">
   <div class="ey" style="color:#555">Sections</div>
   <h2 style="margin:5px 0 8px">What the automator needs, does and produces</h2>
-  <p class="small" style="margin:0 0 14px">The technical Canva IDs are still available, but tucked away. The main view is now about the programme section and the decisions you actually need to make.</p>
+  <p class="small" style="margin:0 0 14px">Click a section heading to expand or collapse it. All sections start collapsed when the page loads or refreshes. Your saved content and approval checks are kept.</p>
   <div id="sectionGrid" class="section-grid"></div>
 </section>
 </main>
@@ -285,20 +286,22 @@ function renderClubOfficials(){
 }
 
 function draw(){
- const grid=document.getElementById('sectionGrid'); grid.innerHTML='';
+ const grid=document.getElementById('sectionGrid');
+ const expanded=new Set([...grid.querySelectorAll(':scope > details[open]')].map(card=>card.id));
+ grid.innerHTML='';
  sections.forEach(s=>{
    const infos=pageInfo(s.pages);
-   const card=document.createElement('article'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':'');
+   const card=document.createElement('details'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':''); card.open=expanded.has(card.id);
    const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
    const fields=s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
-     '<div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div>'+
+     '<summary class="section-toggle"><div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div></summary><div class="section-body">'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
      (fields?((s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
-     (s.type==='FIXED'?'':'<label class="check"><input data-section-approval type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>');
+     (s.type==='FIXED'?'':'<label class="check"><input data-section-approval type="checkbox" '+(approved(s)?'checked':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>')+'</div>';
    grid.appendChild(card);
  });
  const counts={AUTO:0,GUIDED:0,EDITORIAL:0,FIXED:0}; sections.forEach(s=>counts[s.type]++);

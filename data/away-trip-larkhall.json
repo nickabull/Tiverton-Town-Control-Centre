@@ -1,0 +1,809 @@
+{
+  "schema_version": 1,
+  "id": "larkhall-2026-10-24",
+  "reviewed_on": "2026-10-17",
+  "opponent": "Larkhall Athletic",
+  "fixture": {
+    "date": "2026-10-24",
+    "kickoff": "15:00",
+    "kickoff_iso": "2026-10-24T15:00:00+01:00",
+    "competition": "Southern League Division One South",
+    "venue": "Camella Stadium · Plain Ham",
+    "address": "Plain Ham, Charlcombe Lane, Bath, BA1 8DJ",
+    "tickets": "https://www.larkhallathletic.com/event-details/larkhall-athletic-vs-tiverton",
+    "official_fixture": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f4401"
+  },
+  "ticket_prices": {
+    "adult": 12,
+    "concession": 8,
+    "student": 7,
+    "child": 4,
+    "infant": 0
+  },
+  "football": {
+    "updated": "2026-10-17 09:42:41 UTC",
+    "source": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/match-grid",
+    "teams": [
+      "Barnstaple Town",
+      "Bideford",
+      "Bishops Cleeve",
+      "Bristol Manor Farm",
+      "Dorchester",
+      "Exmouth Town",
+      "Falmouth Town",
+      "Hartpury",
+      "Hungerford",
+      "Larkhall Athletic",
+      "Melksham Town",
+      "Paulton Rovers",
+      "Portland Utd",
+      "Shaftesbury",
+      "Slimbridge AFC",
+      "Sporting Club Inkberrow",
+      "Swindon SM",
+      "Tiverton Town",
+      "Westbury",
+      "Weymouth FC",
+      "Willand Rovers",
+      "Worcester Raiders"
+    ],
+    "results": [
+      {
+        "date": "2026-10-14",
+        "home": "Larkhall Athletic",
+        "away": "Swindon SM",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-14",
+        "home": "Willand Rovers",
+        "away": "Barnstaple Town",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Dorchester",
+        "away": "Melksham Town",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Falmouth Town",
+        "away": "Tiverton Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Hungerford",
+        "away": "Bishops Cleeve",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Portland Utd",
+        "away": "Exmouth Town",
+        "score": "3-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Shaftesbury",
+        "away": "Slimbridge AFC",
+        "score": "5-4"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Sporting Club Inkberrow",
+        "away": "Hartpury",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Weymouth FC",
+        "away": "Westbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Worcester Raiders",
+        "away": "Bristol Manor Farm",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Barnstaple Town",
+        "away": "Paulton Rovers",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Bristol Manor Farm",
+        "away": "Westbury",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Dorchester",
+        "away": "Hartpury",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Exmouth Town",
+        "away": "Slimbridge AFC",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Hungerford",
+        "away": "Falmouth Town",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Larkhall Athletic",
+        "away": "Bishops Cleeve",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Portland Utd",
+        "away": "Sporting Club Inkberrow",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Shaftesbury",
+        "away": "Tiverton Town",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Willand Rovers",
+        "away": "Swindon SM",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Worcester Raiders",
+        "away": "Weymouth FC",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-10-07",
+        "home": "Slimbridge AFC",
+        "away": "Portland Utd",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Bideford",
+        "away": "Swindon SM",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Bishops Cleeve",
+        "away": "Worcester Raiders",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Tiverton Town",
+        "away": "Hartpury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Bideford",
+        "away": "Portland Utd",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Bishops Cleeve",
+        "away": "Melksham Town",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Falmouth Town",
+        "away": "Larkhall Athletic",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Hartpury",
+        "away": "Barnstaple Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Slimbridge AFC",
+        "away": "Bristol Manor Farm",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Sporting Club Inkberrow",
+        "away": "Shaftesbury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Swindon SM",
+        "away": "Dorchester",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Tiverton Town",
+        "away": "Worcester Raiders",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Westbury",
+        "away": "Exmouth Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-30",
+        "home": "Exmouth Town",
+        "away": "Weymouth FC",
+        "score": "2-5"
+      },
+      {
+        "date": "2026-09-30",
+        "home": "Slimbridge AFC",
+        "away": "Larkhall Athletic",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Bideford",
+        "away": "Dorchester",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Bishops Cleeve",
+        "away": "Hartpury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Melksham Town",
+        "away": "Worcester Raiders",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Portland Utd",
+        "away": "Falmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Shaftesbury",
+        "away": "Willand Rovers",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Tiverton Town",
+        "away": "Paulton Rovers",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Westbury",
+        "away": "Swindon SM",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Barnstaple Town",
+        "away": "Hungerford",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Bideford",
+        "away": "Hartpury",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Dorchester",
+        "away": "Exmouth Town",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Falmouth Town",
+        "away": "Slimbridge AFC",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Larkhall Athletic",
+        "away": "Shaftesbury",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Paulton Rovers",
+        "away": "Bristol Manor Farm",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Sporting Club Inkberrow",
+        "away": "Melksham Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Worcester Raiders",
+        "away": "Westbury",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Barnstaple Town",
+        "away": "Swindon SM",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Hartpury",
+        "away": "Worcester Raiders",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Hungerford",
+        "away": "Weymouth FC",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Bideford",
+        "away": "Paulton Rovers",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Bristol Manor Farm",
+        "away": "Falmouth Town",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Hartpury",
+        "away": "Willand Rovers",
+        "score": "3-2"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Melksham Town",
+        "away": "Barnstaple Town",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Portland Utd",
+        "away": "Larkhall Athletic",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Shaftesbury",
+        "away": "Worcester Raiders",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Westbury",
+        "away": "Sporting Club Inkberrow",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Larkhall Athletic",
+        "away": "Hungerford",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Paulton Rovers",
+        "away": "Portland Utd",
+        "score": "3-3"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Willand Rovers",
+        "away": "Westbury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Barnstaple Town",
+        "away": "Exmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Dorchester",
+        "away": "Tiverton Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Falmouth Town",
+        "away": "Bideford",
+        "score": "4-3"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Hartpury",
+        "away": "Melksham Town",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Sporting Club Inkberrow",
+        "away": "Bishops Cleeve",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Weymouth FC",
+        "away": "Shaftesbury",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Worcester Raiders",
+        "away": "Slimbridge AFC",
+        "score": "4-0"
+      },
+      {
+        "date": "2026-09-14",
+        "home": "Swindon SM",
+        "away": "Bristol Manor Farm",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Barnstaple Town",
+        "away": "Bishops Cleeve",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Exmouth Town",
+        "away": "Shaftesbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Falmouth Town",
+        "away": "Worcester Raiders",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Paulton Rovers",
+        "away": "Sporting Club Inkberrow",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Barnstaple Town",
+        "away": "Worcester Raiders",
+        "score": "4-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Melksham Town",
+        "away": "Bideford",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Paulton Rovers",
+        "away": "Hartpury",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Westbury",
+        "away": "Bideford",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Willand Rovers",
+        "away": "Larkhall Athletic",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Bideford",
+        "away": "Willand Rovers",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Bishops Cleeve",
+        "away": "Bristol Manor Farm",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Dorchester",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Falmouth Town",
+        "away": "Barnstaple Town",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Larkhall Athletic",
+        "away": "Westbury",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Melksham Town",
+        "away": "Weymouth FC",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Portland Utd",
+        "away": "Shaftesbury",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Sporting Club Inkberrow",
+        "away": "Slimbridge AFC",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Swindon SM",
+        "away": "Paulton Rovers",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Tiverton Town",
+        "away": "Exmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-19",
+        "home": "Slimbridge AFC",
+        "away": "Swindon SM",
+        "score": "2-7"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Bristol Manor Farm",
+        "away": "Melksham Town",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Bristol Manor Farm",
+        "away": "Portland Utd",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Hungerford",
+        "away": "Hartpury",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Shaftesbury",
+        "away": "Bideford",
+        "score": "7-2"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Westbury",
+        "away": "Tiverton Town",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Weymouth FC",
+        "away": "Falmouth Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Willand Rovers",
+        "away": "Dorchester",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Worcester Raiders",
+        "away": "Larkhall Athletic",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-14",
+        "home": "Bishops Cleeve",
+        "away": "Swindon SM",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-08-12",
+        "home": "Larkhall Athletic",
+        "away": "Weymouth FC",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Bideford",
+        "away": "Exmouth Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Bristol Manor Farm",
+        "away": "Barnstaple Town",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Dorchester",
+        "away": "Paulton Rovers",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Falmouth Town",
+        "away": "Willand Rovers",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Hungerford",
+        "away": "Sporting Club Inkberrow",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Melksham Town",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Portland Utd",
+        "away": "Westbury",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Sporting Club Inkberrow",
+        "away": "Bristol Manor Farm",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Tiverton Town",
+        "away": "Barnstaple Town",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-10",
+        "home": "Swindon SM",
+        "away": "Shaftesbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Hungerford",
+        "away": "Tiverton Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Shaftesbury",
+        "away": "Bishops Cleeve",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Weymouth FC",
+        "away": "Dorchester",
+        "score": "5-1"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "label": "Fixture & ticket prices · official match page",
+      "url": "https://www.larkhallathletic.com/event-details/larkhall-athletic-vs-tiverton",
+      "status": "Official · checked 17 Oct 2026"
+    },
+    {
+      "label": "Fixture confirmation · Southern League",
+      "url": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f4401",
+      "status": "Official league"
+    },
+    {
+      "label": "Address, stadium photo & crest · Larkhall Athletic",
+      "url": "https://www.larkhallathletic.com/",
+      "status": "Official club · image credit"
+    },
+    {
+      "label": "League table · independent cross-check",
+      "url": "https://www.footballwebpages.co.uk/larkhall-athletic/league-table",
+      "status": "Snapshot through 14 Oct 2026"
+    },
+    {
+      "label": "Completed league results · existing Tivvy feed",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+      "status": "Refreshable · sourced from Football Web Pages"
+    },
+    {
+      "label": "Parking, bar & food · nearfield venue guide",
+      "url": "https://www.thenearfield.com/venue/securitas-stadium",
+      "status": "Visitor guide · older stadium name · match-day confirmation needed"
+    },
+    {
+      "label": "Burger and steep walk · groundhopper visit",
+      "url": "https://wanderingtractor.uk/larkhall-athletic-v-bideford/",
+      "status": "Visitor report · not a current price list"
+    },
+    {
+      "label": "Bath buses · current First Bus timetables",
+      "url": "https://www.firstbus.co.uk/bristol-bath-and-west/plan-journey/timetables?page=1&search=bath",
+      "status": "Operator · routes 6a / 7 toward Larkhall"
+    },
+    {
+      "label": "Train times & fares · National Rail",
+      "url": "https://www.nationalrail.co.uk/journey-planner/",
+      "status": "Search 24 October 2026 before booking"
+    },
+    {
+      "label": "Bath Spa station & accessibility · National Rail",
+      "url": "https://www.nationalrail.co.uk/stations/bath-spa/",
+      "status": "Official station information"
+    },
+    {
+      "label": "Rail engineering notice · National Rail",
+      "url": "https://www.nationalrail.co.uk/engineering-works/bristol-temple-meads-bath-spa-20261026/",
+      "status": "26–28 October notice · starts after this match"
+    },
+    {
+      "label": "Trains to Bath · GWR",
+      "url": "https://www.gwr.com/stations-and-destinations/destinations/trains-to-bath",
+      "status": "Operator · Bristol Temple Meads connection"
+    },
+    {
+      "label": "Local approach · Wiltshire Senior League directory",
+      "url": "https://www.wiltshireseniorleague.co.uk/larkhall-athletic-dev",
+      "status": "Club directory · same Plain Ham ground"
+    },
+    {
+      "label": "Rail disruption checks · GWR",
+      "url": "https://www.gwr.com/travel-information/travel-updates/planned-engineering",
+      "status": "Check the exact journey date"
+    }
+  ]
+}

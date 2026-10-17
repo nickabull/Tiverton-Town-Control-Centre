@@ -32,6 +32,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 <div class="note"><strong>Hybrid build:</strong> this deliberately brings back the richer V19 action-card workflow, but the engine underneath uses the 49-page CHATGPT TEMPLATE registry, stable logical keys and Canva page IDs. You can now refine what you want to see for each <strong>section</strong>.</div>
 
 <section class="summary" id="summary"></section>
+<section class="panel"><div class="ey" style="color:#555">New · Away day guide</div><h2>Plan Your Next Away Trip</h2><p>Try the active Larkhall demo for Saturday 24 October: road and rail, parking, tickets, catering and the latest league form.</p><a class="btn yellow" href="away-day.html">Open Away Trip tab →</a></section>
 
 <section class="panel">
   <div class="ey" style="color:#555">Sections</div>
@@ -67,7 +68,7 @@ const sections=[
  {key:'commercial',name:'Commercial & Sponsors',type:'FIXED',pages:['commercial','sponsors','local_independents'],needs:['Review locked advert artwork and expiry warnings'],does:'Show each current-template advert as a protected content block with a staged replacement and two-step unlock confirmation.',custom:'adverts'},
  {key:'opposition',name:'Meet the Opposition',type:'EDITORIAL',pages:['opposition_1','opposition_2','opposition_3','opposition_4','opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4'],needs:['Darren preview','Final editorial proof'],does:'Combine verified opposition facts/squad data with Darren’s preview and flow it through the full approved opposition section.',fields:[['oppSource','Darren preview URL','text'],['oppNotes','Opposition notes / corrections','textarea']]},
  {key:'teams_officials',name:'Teams & Officials',type:'GUIDED',pages:['teams_officials'],needs:['Away squad','Match officials'],does:'Carry Tiverton’s squad forward, inherit opponent/crest from the cover and populate the opposition squad plus officials.',fields:[['awaySquad','Away squad','textarea'],['officials','Officials','textarea']]},
- {key:'feature_slot',name:'Feature Slot',type:'GUIDED',pages:['feature_slot'],needs:['Choose a feature','Decide whether to publish it'],does:'Use the Feature Slot chooser to select one optional feature for this issue. You can preview it, publish it, or leave the slot unpublished for the issue.',custom:'featureSlot',links:[['Open Feature Slot preview','feature-slot.html']]},
+ {key:'feature_slot',name:'Feature Slot',type:'GUIDED',pages:['feature_slot'],needs:['Choose a feature','Decide whether to publish it'],does:'Use the Feature Slot chooser to select one optional feature for this issue. You can preview it, publish it, or leave the slot unpublished for the issue.',custom:'featureSlot',links:[['Open Feature Slot preview','feature-slot.html'],['Plan Your Next Away Trip','away-day.html']]},
  {key:'player_stats',name:'Player Stats',type:'AUTO',pages:['player_stats'],needs:['Final proof only'],does:'Build the player stats section dynamically from Get Player Info, preserving the approved table layout and player ordering.'}
 ];
 
@@ -291,5 +292,5 @@ function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-ap
 async function boot(){loadMeta();try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
 boot();
 </script>
-<script src="programme-nav.js"></script>
+<script src="programme-nav.js?v=20261017-away-1"></script>
 </body></html>

@@ -3,7 +3,7 @@
   "master": {
     "canva_design_id": "DAHYKUo9Tzo",
     "title": "CHATGPT TEMPLATE",
-    "page_count": 50,
+    "page_count": 51,
     "rule": "Duplicate this master for each issue. Immediately bind each copied page to the logical page key below, then target the copied page ID rather than its page number."
   },
   "pages": [
@@ -72,7 +72,7 @@
     },
     {
       "key": "league_so_far_1",
-      "name": "The League So Far — Results 1",
+      "name": "The League So Far \u2014 Results 1",
       "master_page_id": "PByXfpH81SgLLt7W",
       "position": 10,
       "type": "AUTO"
@@ -233,7 +233,7 @@
     },
     {
       "key": "opposition_1",
-      "name": "Meet the Opposition — Club Facts",
+      "name": "Meet the Opposition \u2014 Club Facts",
       "master_page_id": "PBSDVf1WFQVspwnG",
       "position": 33,
       "type": "EDITORIAL"
@@ -247,14 +247,14 @@
     },
     {
       "key": "opposition_2",
-      "name": "Meet the Opposition — Staff / Squad 1",
+      "name": "Meet the Opposition \u2014 Staff / Squad 1",
       "master_page_id": "PBCTSSx9PCzMLPwl",
       "position": 35,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_3",
-      "name": "Meet the Opposition — Squad 2",
+      "name": "Meet the Opposition \u2014 Squad 2",
       "master_page_id": "PBdB7vybHkP7cqs4",
       "position": 36,
       "type": "EDITORIAL"
@@ -268,35 +268,35 @@
     },
     {
       "key": "opposition_4",
-      "name": "Meet the Opposition — Squad / Honours",
+      "name": "Meet the Opposition \u2014 Squad / Honours",
       "master_page_id": "PB2vzrk6STGX6tJy",
       "position": 38,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_1",
-      "name": "Meet the Opposition — Preview 1",
+      "name": "Meet the Opposition \u2014 Preview 1",
       "master_page_id": "PBZSqpK6zDmQ0QFx",
       "position": 39,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_2",
-      "name": "Meet the Opposition — Preview 2",
+      "name": "Meet the Opposition \u2014 Preview 2",
       "master_page_id": "PBK1BmGCvcfVKJp8",
       "position": 40,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_3",
-      "name": "Meet the Opposition — Preview 3",
+      "name": "Meet the Opposition \u2014 Preview 3",
       "master_page_id": "PBL6VcK5N0s8zQxp",
       "position": 41,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_4",
-      "name": "Meet the Opposition — Preview 4",
+      "name": "Meet the Opposition \u2014 Preview 4",
       "master_page_id": "PB4bTBnx0TvRP1wN",
       "position": 42,
       "type": "EDITORIAL"
@@ -323,38 +323,45 @@
       "type": "FIXED"
     },
     {
+      "key": "next_away_trip",
+      "name": "Next Away Trip",
+      "master_page_id": "PBsWKDLhgzS3q33V",
+      "position": 46,
+      "type": "GUIDED"
+    },
+    {
       "key": "teams_officials",
       "name": "Teams / Officials",
       "master_page_id": "PBKS5yNrmQ2tF2MD",
-      "position": 46,
+      "position": 47,
       "type": "GUIDED"
     },
     {
       "key": "feature_slot",
       "name": "Feature Slot",
       "master_page_id": "PBTGvLtr4HbQ4G8z",
-      "position": 47,
+      "position": 48,
       "type": "GUIDED"
     },
     {
       "key": "player_stats",
       "name": "Player Stats",
       "master_page_id": "PB1SQB08TLKnRK0C",
-      "position": 48,
+      "position": 49,
       "type": "AUTO"
     },
     {
       "key": "your_tivvy_5",
       "name": "Your Tivvy / League Context",
       "master_page_id": "PBW1gnsmVvc6xbl9",
-      "position": 49,
+      "position": 50,
       "type": "GUIDED"
     },
     {
       "key": "league_so_far_2",
-      "name": "The League So Far — Results 2",
+      "name": "The League So Far \u2014 Results 2",
       "master_page_id": "PBLlN3DlGSTzc9zG",
-      "position": 50,
+      "position": 51,
       "type": "AUTO"
     }
   ]

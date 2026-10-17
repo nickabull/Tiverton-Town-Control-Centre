@@ -3,7 +3,7 @@
   "master": {
     "canva_design_id": "DAHYKUo9Tzo",
     "title": "CHATGPT TEMPLATE",
-    "page_count": 51,
+    "page_count": 52,
     "rule": "Duplicate this master for each issue. Immediately bind each copied page to the logical page key below, then target the copied page ID rather than its page number."
   },
   "pages": [
@@ -330,38 +330,45 @@
       "type": "GUIDED"
     },
     {
+      "key": "today_in_60",
+      "name": "Today In 60 Secs",
+      "master_page_id": "PBqjR72mVFBFgmh7",
+      "position": 47,
+      "type": "GUIDED"
+    },
+    {
       "key": "teams_officials",
       "name": "Teams / Officials",
       "master_page_id": "PBKS5yNrmQ2tF2MD",
-      "position": 47,
+      "position": 48,
       "type": "GUIDED"
     },
     {
       "key": "feature_slot",
       "name": "Feature Slot",
       "master_page_id": "PBTGvLtr4HbQ4G8z",
-      "position": 48,
+      "position": 49,
       "type": "GUIDED"
     },
     {
       "key": "player_stats",
       "name": "Player Stats",
       "master_page_id": "PB1SQB08TLKnRK0C",
-      "position": 49,
+      "position": 50,
       "type": "AUTO"
     },
     {
       "key": "your_tivvy_5",
       "name": "Your Tivvy / League Context",
       "master_page_id": "PBW1gnsmVvc6xbl9",
-      "position": 50,
+      "position": 51,
       "type": "GUIDED"
     },
     {
       "key": "league_so_far_2",
       "name": "The League So Far \u2014 Results 2",
       "master_page_id": "PBLlN3DlGSTzc9zG",
-      "position": 51,
+      "position": 52,
       "type": "AUTO"
     }
   ]

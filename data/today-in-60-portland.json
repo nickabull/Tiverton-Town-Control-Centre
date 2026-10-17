@@ -1,0 +1,158 @@
+{
+  "id": "portland-2026-10-17",
+  "title": "Today in 60 Seconds",
+  "fixture": "Tiverton Town v Portland United",
+  "date": "17 October 2026",
+  "kickoff": "15:00 BST",
+  "scope": "2026–27 Southern League Division One South; completed games before 17 October",
+  "home": {
+    "team": "Tiverton Town",
+    "p": 10,
+    "w": 3,
+    "d": 3,
+    "l": 4,
+    "gf": 16,
+    "ga": 14,
+    "pts": 12,
+    "gd": 2,
+    "position": 14,
+    "totalTeams": 22,
+    "home": {
+      "p": 5,
+      "w": 2,
+      "d": 2,
+      "l": 1
+    },
+    "lastFive": [
+      {
+        "date": "2026-09-29",
+        "opponent": "Paulton Rovers",
+        "venue": "H",
+        "gf": 2,
+        "ga": 2,
+        "outcome": "D"
+      },
+      {
+        "date": "2026-10-03",
+        "opponent": "Worcester Raiders",
+        "venue": "H",
+        "gf": 2,
+        "ga": 2,
+        "outcome": "D"
+      },
+      {
+        "date": "2026-10-06",
+        "opponent": "Hartpury",
+        "venue": "H",
+        "gf": 3,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-10",
+        "opponent": "Shaftesbury",
+        "venue": "A",
+        "gf": 4,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-13",
+        "opponent": "Falmouth Town",
+        "venue": "A",
+        "gf": 1,
+        "ga": 2,
+        "outcome": "L"
+      }
+    ],
+    "latest": "2026-10-13",
+    "divisionLatest": "2026-10-14",
+    "resultCount": 114,
+    "updated": "2026-10-17 09:42:41 UTC"
+  },
+  "away": {
+    "team": "Portland Utd",
+    "p": 10,
+    "w": 4,
+    "d": 2,
+    "l": 4,
+    "gf": 16,
+    "ga": 16,
+    "pts": 14,
+    "gd": 0,
+    "position": 10,
+    "totalTeams": 22,
+    "home": {
+      "p": 6,
+      "w": 3,
+      "d": 0,
+      "l": 3
+    },
+    "lastFive": [
+      {
+        "date": "2026-09-29",
+        "opponent": "Falmouth Town",
+        "venue": "H",
+        "gf": 1,
+        "ga": 2,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-03",
+        "opponent": "Bideford",
+        "venue": "A",
+        "gf": 2,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-07",
+        "opponent": "Slimbridge AFC",
+        "venue": "A",
+        "gf": 0,
+        "ga": 1,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-10",
+        "opponent": "Sporting Club Inkberrow",
+        "venue": "H",
+        "gf": 0,
+        "ga": 4,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-13",
+        "opponent": "Exmouth Town",
+        "venue": "H",
+        "gf": 3,
+        "ga": 2,
+        "outcome": "W"
+      }
+    ],
+    "latest": "2026-10-13",
+    "divisionLatest": "2026-10-14",
+    "resultCount": 114,
+    "updated": "2026-10-17 09:42:41 UTC"
+  },
+  "copy": {
+    "story": "Tivvy return home looking to respond to Tuesday’s defeat at Falmouth, while Portland arrive lifted by their midweek win over Exmouth.",
+    "ourForm": "Two wins, two draws and one defeat in our last five league games. The 4–1 win at Shaftesbury was followed by a 2–1 loss at Falmouth. Season so far: P10 W3 D3 L4, 12 points.",
+    "visitors": "Portland beat Exmouth 3–2 on Tuesday. Their last five league games brought two wins and three defeats. Season so far: P10 W4 D2 L4, 14 points.",
+    "watchFor": "Can Tivvy turn another positive attacking performance into a home win? The response after Falmouth is the afternoon’s talking point."
+  },
+  "sources": [
+    {
+      "label": "Darren Holmes’s match preview",
+      "url": "https://www.tivertontownfc.uk/post/match-preview-tiverton-town-v-portland-united-fc"
+    },
+    {
+      "label": "League results feed · snapshot 17 October 2026",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json"
+    },
+    {
+      "label": "Official fixture",
+      "url": "https://www.southern-football-league.co.uk/match/6a5a1b79ce9ef452b61f43c3"
+    }
+  ]
+}

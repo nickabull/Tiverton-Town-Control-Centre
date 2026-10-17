@@ -3,6 +3,7 @@
     ["Programme Centre","index.html"],
     ["Automator","programme-builder-v21.html"],
     ["Away Trip","away-day.html"],
+    ["Today in 60 Seconds","today-in-60.html"],
     ["League Table","league-table.html"],
     ["Results Matrix","results-matrix.html"],
     ["League So Far","league-so-far.html"],

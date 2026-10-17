@@ -175,7 +175,7 @@ function renderCover(){
       '</div>'+
     '</div>'+
     '<div class="crest-preview">'+
-      (crest.thumbnail_url?'<img src="'+crest.thumbnail_url+'" alt="'+esc((f.opponent||'Opponent')+' crest')+'">':'')+
+      (crest.thumbnail_url?'<img src="'+esc(crest.thumbnail_url)+'" alt="'+esc((f.opponent||'Opponent')+' crest')+'" onerror="if(!this.dataset.fallback){this.dataset.fallback=\'1\';this.src=\'https://commons.wikimedia.org/wiki/Special:FilePath/Bideford_crest.png?width=200\'}else{this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'}"><span class="small" style="display:none">Crest preview unavailable — check the asset in Canva before confirming.</span>':'')+
       '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+
       '<label class="check"><input type="checkbox" '+(coverCrestConfirmed()?'checked':'')+' onchange="setCoverCrestConfirmed(this.checked)"> Confirm this is the correct away crest</label></div>'+
     '</div>'+

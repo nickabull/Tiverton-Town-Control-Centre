@@ -18,26 +18,26 @@
   "pages": [
     {
       "key": {
-        "element_id": "PByXfpH81SgLLt7W-LB1KhJ81WpMXSqV1",
-        "text": "GOAL = goal   PEN = penalty   CAPT = captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
+        "element_id": "PByXfpH81SgLLt7W-LBGKBfZ93q8Lm9GC",
+        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
         "geometry": {
           "type": "TEXT",
           "position": {
-            "top": 990,
-            "left": 32
+            "top": 1062.1365335526116,
+            "left": 32.01259842519687
           },
           "dimension": {
-            "width": 793.7007874015746,
-            "height": 16
+            "width": 730.0157480314958,
+            "height": 20
           }
         },
         "mode": "native_editable_text",
         "font": "Antonio",
-        "font_size_px": 14,
+        "font_size_px": null,
         "event_colours": {
-          "GOAL = goal": "#005BBB",
-          "PEN = penalty": "#C2185B",
-          "CAPT = captain": "#7B1FA2"
+          "GOAL = Goal Scored": "#005BBB",
+          "PEN = Penalty Scored": "#C2185B",
+          "CAPT = Captain": "#7B1FA2"
         }
       },
       "page_id": "PByXfpH81SgLLt7W",
@@ -47,12 +47,12 @@
       "geometry": {
         "type": "TABLE",
         "position": {
-          "top": 198.9921259842522,
-          "left": 32.01259842519687
+          "top": 198.99212598425214,
+          "left": 32.01259842519693
         },
         "dimension": {
           "width": 730.0157480314958,
-          "height": 785.1444075683594
+          "height": 785.2479483693879
         }
       },
       "baseline_cells": {
@@ -186,26 +186,26 @@
     },
     {
       "key": {
-        "element_id": "PBLQPvrQwZj8zTLS-LBPjPYYgG2gwKtV3",
-        "text": "GOAL = goal   PEN = penalty   CAPT = captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
+        "element_id": "PBLQPvrQwZj8zTLS-LBhz5RPPKbKCpY2M",
+        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
         "geometry": {
           "type": "TEXT",
           "position": {
-            "top": 990,
-            "left": 32
+            "top": 1062.1365335526116,
+            "left": 32.01259842519687
           },
           "dimension": {
-            "width": 793.7007874015746,
-            "height": 16.521625026694117
+            "width": 730.0157480314958,
+            "height": 20
           }
         },
         "mode": "native_editable_text",
         "font": "Antonio",
-        "font_size_px": 14,
+        "font_size_px": null,
         "event_colours": {
-          "GOAL = goal": "#005BBB",
-          "PEN = penalty": "#C2185B",
-          "CAPT = captain": "#7B1FA2"
+          "GOAL = Goal Scored": "#005BBB",
+          "PEN = Penalty Scored": "#C2185B",
+          "CAPT = Captain": "#7B1FA2"
         }
       },
       "page_id": "PBLQPvrQwZj8zTLS",
@@ -215,11 +215,11 @@
       "geometry": {
         "type": "TABLE",
         "position": {
-          "top": 198.99212598425197,
-          "left": 32.01259842519687
+          "top": 198.99212598425186,
+          "left": 32.01259842519693
         },
         "dimension": {
-          "width": 730.0157480314958,
+          "width": 730.015748031496,
           "height": 720
         }
       },
@@ -367,6 +367,11 @@
       "goal": "#005BBB",
       "penalty": "#C2185B",
       "scope": "Apply to every native CAPT label, GOAL plus minute, PEN plus minute, and corresponding complete key entries on both pages. Preserve surrounding text and existing substitution/card colours. Use range formatting, never palette Change all."
+    },
+    "cell_spacing": {
+      "canva_value": 2,
+      "preserve_live_padding": true,
+      "purpose": "Keep match-details player text inset from the score-column boundary. Preserve table width and white-body bounds; do not reset spacing to zero."
     }
   }
 }

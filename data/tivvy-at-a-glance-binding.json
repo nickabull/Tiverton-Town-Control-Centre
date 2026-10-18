@@ -407,47 +407,47 @@
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBv6YDQnzWD34V8S",
+      "element_id": "PBNDTwV3s7Xt6767-LBf7MgQbVmYHN1t8",
       "text": "D  W  W  L  L",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 446.8162563648043,
+          "top": 407.03673119928334,
           "left": 90.93006554233361
         },
         "dimension": {
           "width": 103.86405511811023,
-          "height": 25.6
+          "height": 26.264660330707343
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBVHLqZH609rRHFx",
+      "element_id": "PBNDTwV3s7Xt6767-LB8z18nlh7N9np7w",
       "text": "W 2    D 2    L 2\nF 10    A 11",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 435.8379848804293,
+          "top": 396.05845971490834,
           "left": 282.6689842466776
         },
         "dimension": {
           "width": 227.37145066683834,
-          "height": 55.6
+          "height": 56.929317767281425
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBXhXFTFqxYZW5rg",
+      "element_id": "PBNDTwV3s7Xt6767-LBx1TJQP2RMG0n9H",
       "text": "W 1    D 1    L 3\nF 7    A 7",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 435.8379848804293,
+          "top": 396.05845971490834,
           "left": 540.4212707182321
         },
         "dimension": {
           "width": 227.37145066683846,
-          "height": 55.6
+          "height": 56.929317767281425
         }
       }
     },
@@ -1626,7 +1626,19 @@
     "league_only_statistics": true,
     "minutes": "Approximate from dashboard event timings; never present as official exact minutes.",
     "upcoming_competitions": "Show actual competition for each fixture; exclude the programme match date and earlier dates; chronological next 12 confirmed fixtures.",
-    "player_photos": "Use only verified matching player assets; club crest if a correct photo is unavailable."
+    "player_photos": "Use only verified matching player assets; club crest if a correct photo is unavailable.",
+    "form_letter_colours": {
+      "W": "#00843D",
+      "L": "#D71920",
+      "D": "#FF751F",
+      "numbers_and_other_text": "#111111",
+      "applies_to": [
+        "last_five_form",
+        "home_record",
+        "away_record"
+      ],
+      "implementation": "Native editable coloured text runs; preserve character colours when updating letters and records."
+    }
   },
   "upcoming_table": {
     "table_id": "LB8wYVCz3sPhvQbt",
@@ -1895,7 +1907,29 @@
       "crest_max_px": 16,
       "three_em_spaces_before_opponent": true,
       "home_names_uppercase": true,
-      "preserve_manual_edits": true
+      "preserve_manual_edits": true,
+      "row_fills": {
+        "header": "#FFF2BB",
+        "white": "#FFFFFF",
+        "yellow": "#FFD400",
+        "yellow_rows_including_header": [
+          3,
+          5,
+          7,
+          9,
+          11,
+          13
+        ],
+        "white_rows_including_header": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        "yellow_reference": "Exact fill from existing top statistic panels."
+      }
     }
   }
 }

@@ -63,7 +63,7 @@ function playerStats(fixtures){
 }
 function ordinal(n){n=+n;if(!Number.isFinite(n))return '—';const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0])}
 function leaderCard(title,names,val,unit){
- const first=names[0]||'',img=photos[first]||photos['Jacob Wellington']||'';
+ const first=names[0]||'',img=photos[first]||'';
  return '<div class="leader"><div class="head">'+esc(title)+'</div><div class="content">'+(img?'<img src="'+img+'" alt="">':'<div></div>')+'<div><div class="name">'+esc(names.join('\n')).replace(/\n/g,'<br>')+'</div><div class="big">'+esc(val)+'</div><div class="unit">'+esc(unit)+'</div></div></div></div>'
 }
 async function load(){
@@ -94,10 +94,10 @@ async function load(){
   document.getElementById('leaders').innerHTML='<div class="leaders">'+leaderCard('Top scorer',scorers,topGoals,'Goals')+leaderCard('Most appearances',apps,topApps,'Appearances')+leaderCard('Most minutes',mins,topMins,'Minutes')+'</div>';
   let upcoming=(results.upcomingFixtures||results.fixtures||[]).filter(x=>!x.score&&!x.result).filter(x=>String(x.home||x.away||x.opponent||'').toLowerCase().includes('tiverton')||x.opponent).slice(0,2);
   if(upcoming.length<2) upcoming=[
-    {date:'2026-10-20',opponent:'Bideford AFC',venue:'H',competition:'Southern League Division One South'},
+    {date:'2026-10-20',opponent:'Bideford AFC',venue:'H',competition:'Devon St Luke’s Bowl'},
     {date:'2026-10-24',opponent:'Larkhall Athletic',venue:'A',competition:'Southern League Division One South'}
   ];
-  document.getElementById('fixtures').innerHTML='<div class="fixtures"><div class="head">Next league fixtures</div><table><thead><tr><th>Date</th><th>Opposition</th><th>H/A</th><th>Competition</th></tr></thead><tbody>'+upcoming.map(x=>{
+  document.getElementById('fixtures').innerHTML='<div class="fixtures"><div class="head">Next fixtures</div><table><thead><tr><th>Date</th><th>Opposition</th><th>H/A</th><th>Competition</th></tr></thead><tbody>'+upcoming.map(x=>{
     const opp=x.opponent||((String(x.home||'').toLowerCase().includes('tiverton'))?x.away:x.home)||'';
     const va=x.venue||((String(x.home||'').toLowerCase().includes('tiverton'))?'H':'A');
     const crest=crestUrls[opp]||'';

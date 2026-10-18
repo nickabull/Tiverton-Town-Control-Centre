@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "larkhall-2026-10-24",
-  "reviewed_on": "2026-10-17",
+  "reviewed_on": "2026-10-18",
   "opponent": "Larkhall Athletic",
   "fixture": {
     "date": "2026-10-24",
@@ -21,8 +21,6 @@
     "infant": 0
   },
   "football": {
-    "updated": "2026-10-17 09:42:41 UTC",
-    "source": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/match-grid",
     "teams": [
       "Barnstaple Town",
       "Bideford",
@@ -47,7 +45,91 @@
       "Willand Rovers",
       "Worcester Raiders"
     ],
+    "codes": {
+      "Barnstaple Town": "BAR",
+      "Bideford": "BID",
+      "Bishops Cleeve": "BIS",
+      "Bristol Manor Farm": "BRI",
+      "Dorchester": "DOR",
+      "Exmouth Town": "EXM",
+      "Falmouth Town": "FAL",
+      "Hartpury": "HAR",
+      "Hungerford": "HUN",
+      "Larkhall Athletic": "LAR",
+      "Melksham Town": "MEL",
+      "Paulton Rovers": "PAU",
+      "Portland Utd": "POR",
+      "Shaftesbury": "SHA",
+      "Slimbridge AFC": "SLI",
+      "Sporting Club Inkberrow": "SPO",
+      "Swindon SM": "SWI",
+      "Tiverton Town": "TIV",
+      "Westbury": "WES",
+      "Weymouth FC": "WEY",
+      "Willand Rovers": "WIL",
+      "Worcester Raiders": "WOR"
+    },
     "results": [
+      {
+        "date": "2026-10-17",
+        "home": "Barnstaple Town",
+        "away": "Weymouth FC",
+        "score": "0-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Bishops Cleeve",
+        "away": "Bideford",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Bristol Manor Farm",
+        "away": "Shaftesbury",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Melksham Town",
+        "away": "Larkhall Athletic",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Paulton Rovers",
+        "away": "Worcester Raiders",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Slimbridge AFC",
+        "away": "Willand Rovers",
+        "score": "3-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Sporting Club Inkberrow",
+        "away": "Dorchester",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Swindon SM",
+        "away": "Falmouth Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Tiverton Town",
+        "away": "Portland Utd",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Westbury",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
       {
         "date": "2026-10-14",
         "home": "Larkhall Athletic",
@@ -608,6 +690,12 @@
       },
       {
         "date": "2026-08-15",
+        "home": "Exmouth Town",
+        "away": "Hartpury",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-15",
         "home": "Hungerford",
         "away": "Hartpury",
         "score": "4-1"
@@ -732,13 +820,172 @@
         "away": "Dorchester",
         "score": "5-1"
       }
-    ]
+    ],
+    "leagueTable": [
+      {
+        "pos": 1,
+        "p": 11,
+        "gd": 13,
+        "pts": 30,
+        "team": "Dorchester Town"
+      },
+      {
+        "pos": 2,
+        "p": 10,
+        "gd": 19,
+        "pts": 28,
+        "team": "Weymouth"
+      },
+      {
+        "pos": 3,
+        "p": 12,
+        "gd": 13,
+        "pts": 28,
+        "team": "Swindon Supermarine"
+      },
+      {
+        "pos": 4,
+        "p": 11,
+        "gd": 8,
+        "pts": 20,
+        "team": "Hungerford Town"
+      },
+      {
+        "pos": 5,
+        "p": 12,
+        "gd": 2,
+        "pts": 20,
+        "team": "Westbury United"
+      },
+      {
+        "pos": 6,
+        "p": 11,
+        "gd": 10,
+        "pts": 19,
+        "team": "Bishops Cleeve"
+      },
+      {
+        "pos": 7,
+        "p": 12,
+        "gd": 1,
+        "pts": 18,
+        "team": "Falmouth Town"
+      },
+      {
+        "pos": 8,
+        "p": 13,
+        "gd": 0,
+        "pts": 18,
+        "team": "Worcester Raiders"
+      },
+      {
+        "pos": 9,
+        "p": 11,
+        "gd": 3,
+        "pts": 17,
+        "team": "Portland United"
+      },
+      {
+        "pos": 10,
+        "p": 11,
+        "gd": 3,
+        "pts": 17,
+        "team": "SC Inkberrow"
+      },
+      {
+        "pos": 11,
+        "p": 13,
+        "gd": -1,
+        "pts": 16,
+        "team": "Shaftesbury"
+      },
+      {
+        "pos": 12,
+        "p": 12,
+        "gd": -2,
+        "pts": 15,
+        "team": "Hartpury"
+      },
+      {
+        "pos": 13,
+        "p": 10,
+        "gd": -3,
+        "pts": 14,
+        "team": "Exmouth Town"
+      },
+      {
+        "pos": 14,
+        "p": 10,
+        "gd": 0,
+        "pts": 12,
+        "team": "Willand Rovers"
+      },
+      {
+        "pos": 15,
+        "p": 11,
+        "gd": -1,
+        "pts": 12,
+        "team": "Tiverton Town"
+      },
+      {
+        "pos": 16,
+        "p": 10,
+        "gd": -4,
+        "pts": 11,
+        "team": "Paulton Rovers"
+      },
+      {
+        "pos": 17,
+        "p": 12,
+        "gd": -9,
+        "pts": 11,
+        "team": "Bideford"
+      },
+      {
+        "pos": 18,
+        "p": 13,
+        "gd": -6,
+        "pts": 10,
+        "team": "Barnstaple Town"
+      },
+      {
+        "pos": 19,
+        "p": 12,
+        "gd": -7,
+        "pts": 10,
+        "team": "Larkhall Athletic"
+      },
+      {
+        "pos": 20,
+        "p": 12,
+        "gd": -10,
+        "pts": 9,
+        "team": "Bristol Manor Farm"
+      },
+      {
+        "pos": 21,
+        "p": 10,
+        "gd": -14,
+        "pts": 7,
+        "team": "Slimbridge"
+      },
+      {
+        "pos": 22,
+        "p": 11,
+        "gd": -15,
+        "pts": 6,
+        "team": "Melksham Town"
+      }
+    ],
+    "updated": "2026-10-18 18:43:59 UTC",
+    "source": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/match-grid",
+    "leagueSource": "https://www.tivvyarchive.co.uk/season.php?year=2026"
   },
   "sources": [
     {
       "label": "Fixture & ticket prices · official match page",
       "url": "https://www.larkhallathletic.com/event-details/larkhall-athletic-vs-tiverton",
-      "status": "Official · checked 17 Oct 2026"
+      "status": "Official · rechecked 18 Oct 2026"
     },
     {
       "label": "Fixture confirmation · Southern League",
@@ -805,5 +1052,10 @@
       "url": "https://www.gwr.com/travel-information/travel-updates/planned-engineering",
       "status": "Check the exact journey date"
     }
-  ]
+  ],
+  "ticket_price_categories": {
+    "student": "Bath Spa student",
+    "child": "Age 5–15",
+    "infant": "Under 5"
+  }
 }

@@ -72,7 +72,7 @@
     },
     {
       "key": "league_so_far_1",
-      "name": "The League So Far \u2014 Results 1",
+      "name": "The League So Far — Results 1",
       "master_page_id": "PByXfpH81SgLLt7W",
       "position": 12,
       "type": "AUTO",
@@ -122,8 +122,10 @@
       "key": "tivvy_glance",
       "name": "Tivvy at a Glance",
       "master_page_id": "PBNDTwV3s7Xt6767",
-      "position": 16,
-      "type": "AUTO"
+      "position": 19,
+      "type": "AUTO",
+      "update_binding": "data/tivvy-at-a-glance-binding.json",
+      "render_mode": "native_editable_text_and_shapes"
     },
     {
       "key": "last_time_out_1",
@@ -239,7 +241,7 @@
     },
     {
       "key": "opposition_1",
-      "name": "Meet the Opposition \u2014 Club Facts",
+      "name": "Meet the Opposition — Club Facts",
       "master_page_id": "PBSDVf1WFQVspwnG",
       "position": 33,
       "type": "EDITORIAL"
@@ -253,14 +255,14 @@
     },
     {
       "key": "opposition_2",
-      "name": "Meet the Opposition \u2014 Staff / Squad 1",
+      "name": "Meet the Opposition — Staff / Squad 1",
       "master_page_id": "PBCTSSx9PCzMLPwl",
       "position": 35,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_3",
-      "name": "Meet the Opposition \u2014 Squad 2",
+      "name": "Meet the Opposition — Squad 2",
       "master_page_id": "PBdB7vybHkP7cqs4",
       "position": 36,
       "type": "EDITORIAL"
@@ -274,35 +276,35 @@
     },
     {
       "key": "opposition_4",
-      "name": "Meet the Opposition \u2014 Squad / Honours",
+      "name": "Meet the Opposition — Squad / Honours",
       "master_page_id": "PB2vzrk6STGX6tJy",
       "position": 38,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_1",
-      "name": "Meet the Opposition \u2014 Preview 1",
+      "name": "Meet the Opposition — Preview 1",
       "master_page_id": "PBZSqpK6zDmQ0QFx",
       "position": 39,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_2",
-      "name": "Meet the Opposition \u2014 Preview 2",
+      "name": "Meet the Opposition — Preview 2",
       "master_page_id": "PBK1BmGCvcfVKJp8",
       "position": 40,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_3",
-      "name": "Meet the Opposition \u2014 Preview 3",
+      "name": "Meet the Opposition — Preview 3",
       "master_page_id": "PBL6VcK5N0s8zQxp",
       "position": 41,
       "type": "EDITORIAL"
     },
     {
       "key": "opposition_preview_4",
-      "name": "Meet the Opposition \u2014 Preview 4",
+      "name": "Meet the Opposition — Preview 4",
       "master_page_id": "PB4bTBnx0TvRP1wN",
       "position": 42,
       "type": "EDITORIAL"
@@ -332,15 +334,19 @@
       "key": "next_away_trip",
       "name": "Next Away Trip",
       "master_page_id": "PBsWKDLhgzS3q33V",
-      "position": 46,
-      "type": "GUIDED"
+      "position": 49,
+      "type": "GUIDED",
+      "update_binding": "data/away-trip-binding.json",
+      "render_mode": "native_editable_table"
     },
     {
       "key": "today_in_60",
       "name": "Today In 60 Secs",
       "master_page_id": "PBqjR72mVFBFgmh7",
-      "position": 47,
-      "type": "GUIDED"
+      "position": 50,
+      "type": "GUIDED",
+      "update_binding": "data/today-in-60-binding.json",
+      "render_mode": "native_editable_text_and_shapes"
     },
     {
       "key": "teams_officials",
@@ -372,7 +378,7 @@
     },
     {
       "key": "league_so_far_2",
-      "name": "The League So Far \u2014 Results 2",
+      "name": "The League So Far — Results 2",
       "master_page_id": "PBLQPvrQwZj8zTLS",
       "position": 13,
       "type": "AUTO",

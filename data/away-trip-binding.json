@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "key": "next_away_trip",
+  "design_id": "DAHYKUo9Tzo",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "page_id": "PBsWKDLhgzS3q33V",
+  "position": 49,
+  "render_mode": "native_editable_table",
+  "font": "Antonio",
+  "execution_mode": "chatgpt_assisted_connected_run",
+  "standalone_canva_write_supported": false,
+  "source_scraped_at": "2026-10-18 18:43:59 UTC",
+  "player_source_scraped_at": "2026-10-18 18:04:22 UTC",
+  "source_urls": [
+    "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+    "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json",
+    "https://www.larkhallathletic.com/event-details/larkhall-athletic-vs-tiverton",
+    "https://www.larkhallathletic.com/faq"
+  ],
+  "editable_fields": [
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A1",
+      "text": "  LARKHALL\n  ATHLETIC",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B1",
+      "text": "Saturday 24 October 2026 · 15:00\nSouthern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A2",
+      "text": "THE GROUND",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B2",
+      "text": "Camella Stadium · Plain Ham\nCharlcombe Lane, Bath, BA1 8DJ",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A3",
+      "text": "ADMISSION",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B3",
+      "text": "Adults £12 · Concessions £8 · Bath Spa students £7\nChildren aged 5–15 £4 · Under 5s free\nBuy through Larkhall’s official website or at the ground.",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A4",
+      "text": "BY ROAD",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B4",
+      "text": "Head for Plain Ham, Bath, BA1 8DJ. The local approach is via Larkhall and Charlcombe Lane. Allow time for the narrow final approach and parking.",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A5",
+      "text": "BY RAIL",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B5",
+      "text": "Arrive at Bath Spa, then arrange the final leg to Plain Ham. Check outward and return trains before travelling, and allow time for the uphill approach.",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A6",
+      "text": "THE LARKS",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B6",
+      "text": "19th · P12 W3 D1 L8 · 10 points\nLast five league games: W L D L W (oldest first).\nThey won 2–0 at Melksham on 17 October.",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A7",
+      "text": "BEFORE YOU GO",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B7",
+      "text": "Recheck kick-off and travel arrangements. Contact the club about parking, access or dietary requirements. Tickets: larkhallathletic.com",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A8",
+      "text": "CHECKED 18/10/26",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B8",
+      "text": "Travel and tickets: Larkhall Athletic · Football: Tivvy dashboard\nGround photograph below: Larkhall Athletic",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 200.0125984251968,
+          "left": 37.98425196850394
+        },
+        "dimension": {
+          "width": 718.1102362204723,
+          "height": 567.2346050649599
+        }
+      }
+    }
+  ],
+  "protected_elements": [
+    "PBsWKDLhgzS3q33V-LB5fYLJKGgpb5K9D",
+    "PBsWKDLhgzS3q33V-LBV2J2ZPj9yy4Zvl",
+    "PBsWKDLhgzS3q33V-LB4wl6W87BDGRwm5"
+  ],
+  "media": [
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LB5RkqsRpGmS3yms",
+      "asset_id": "MAHNec_oLAE",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 59.46708072739017,
+          "left": -211.13599804999268
+        },
+        "dimension": {
+          "width": 1215.9727835015601,
+          "height": 942.5658385452197
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LBRmxM1V3XkLvBZx",
+      "asset_id": "MAHYZP90-W4",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 785,
+          "left": 217
+        },
+        "dimension": {
+          "width": 360,
+          "height": 202.63000000000002
+        }
+      }
+    },
+    {
+      "element_id": "PBsWKDLhgzS3q33V-LB4mBXGB3cBCl03P",
+      "asset_id": "MAHYHbexwLc",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 220,
+          "left": 47
+        },
+        "dimension": {
+          "width": 28,
+          "height": 28
+        }
+      }
+    }
+  ],
+  "rules": {
+    "body_only": true,
+    "white_area_only": true,
+    "keep_native_editability": true,
+    "preserve_header_footer_artwork": true,
+    "match_by_stable_page_id": true,
+    "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
+    "font": "Antonio",
+    "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
+    "ticket_prices": "Match-specific: £12 adult, £8 concession, £7 Bath Spa student, £4 age 5–15, under 5 free; recheck before each issue.",
+    "no_unverified_journey_times": true
+  },
+  "trip_source": "data/away-trip-larkhall.json",
+  "table_id": "LBfnJy3FRWrQHh0M"
+}

@@ -1,0 +1,155 @@
+{
+  "id": "bideford-2026-10-20",
+  "title": "Today in 60 Seconds",
+  "fixture": "Tiverton Town v Bideford AFC",
+  "date": "20 October 2026",
+  "kickoff": "19:30 BST",
+  "competition": "Devon St Luke’s Bowl",
+  "scope": "League form through 17 October 2026; cup results separate",
+  "home": {
+    "team": "Tiverton Town",
+    "p": 11,
+    "w": 3,
+    "d": 3,
+    "l": 5,
+    "gf": 17,
+    "ga": 18,
+    "pts": 12,
+    "gd": -1,
+    "position": 15,
+    "totalTeams": 22,
+    "home": {
+      "p": 6,
+      "w": 2,
+      "d": 2,
+      "l": 2
+    },
+    "lastFive": [
+      {
+        "date": "2026-10-03",
+        "opponent": "Worcester Raiders",
+        "venue": "H",
+        "gf": 2,
+        "ga": 2,
+        "outcome": "D"
+      },
+      {
+        "date": "2026-10-06",
+        "opponent": "Hartpury",
+        "venue": "H",
+        "gf": 3,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-10",
+        "opponent": "Shaftesbury",
+        "venue": "A",
+        "gf": 4,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-13",
+        "opponent": "Falmouth Town",
+        "venue": "A",
+        "gf": 1,
+        "ga": 2,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-17",
+        "opponent": "Portland Utd",
+        "venue": "H",
+        "gf": 1,
+        "ga": 4,
+        "outcome": "L"
+      }
+    ],
+    "latest": "2026-10-17",
+    "divisionLatest": "2026-10-17",
+    "resultCount": 125,
+    "updated": "2026-10-18 18:43:59 UTC"
+  },
+  "away": {
+    "team": "Bideford",
+    "p": 12,
+    "w": 2,
+    "d": 5,
+    "l": 5,
+    "gf": 16,
+    "ga": 25,
+    "pts": 11,
+    "gd": -9,
+    "position": 17,
+    "totalTeams": 22,
+    "home": {
+      "p": 7,
+      "w": 1,
+      "d": 3,
+      "l": 3
+    },
+    "lastFive": [
+      {
+        "date": "2026-09-26",
+        "opponent": "Hartpury",
+        "venue": "H",
+        "gf": 2,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-09-29",
+        "opponent": "Dorchester",
+        "venue": "H",
+        "gf": 1,
+        "ga": 3,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-03",
+        "opponent": "Portland Utd",
+        "venue": "H",
+        "gf": 1,
+        "ga": 2,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-06",
+        "opponent": "Swindon SM",
+        "venue": "H",
+        "gf": 0,
+        "ga": 2,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-17",
+        "opponent": "Bishops Cleeve",
+        "venue": "A",
+        "gf": 3,
+        "ga": 2,
+        "outcome": "W"
+      }
+    ],
+    "latest": "2026-10-17",
+    "divisionLatest": "2026-10-17",
+    "resultCount": 125,
+    "updated": "2026-10-18 18:43:59 UTC"
+  },
+  "copy": {
+    "story": "Tuesday brings a Devon cup night at home to Bideford. Tivvy return to action after Saturday’s 4–1 defeat by Portland, with a place in the next round at stake.",
+    "ourForm": "Tivvy’s last five league games: D W W L L. The two wins came against Hartpury and Shaftesbury. Owen Howe leads our league scoring with three goals.",
+    "visitors": "Bideford won 3–2 on Saturday. Their last five league results read W L L L W. They have 11 points from 12 games; Tivvy have 12 from 11.",
+    "watchFor": "This is the Devon St Luke’s Bowl, so league points are set aside for the evening. Tivvy began their cup campaign with a 5–1 win over Ilfracombe Town."
+  },
+  "sources": [
+    {
+      "label": "Checked league results feed · 18 October 2026",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json"
+    },
+    {
+      "label": "Darren Holmes’s Ilfracombe cup report",
+      "url": "https://www.tivertontownfc.uk/post/yellows-cruise-past-blues-in-st-luke-s-bowl"
+    }
+  ]
+}

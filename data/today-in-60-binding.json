@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "key": "today_in_60",
+  "design_id": "DAHYKUo9Tzo",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "page_id": "PBqjR72mVFBFgmh7",
+  "position": 50,
+  "render_mode": "native_editable_text_and_shapes",
+  "font": "Antonio",
+  "execution_mode": "chatgpt_assisted_connected_run",
+  "standalone_canva_write_supported": false,
+  "source_scraped_at": "2026-10-18 18:43:59 UTC",
+  "player_source_scraped_at": "2026-10-18 18:04:22 UTC",
+  "source_urls": [
+    "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+    "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json"
+  ],
+  "editable_fields": [
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBXz9jnCDmgYZNlt",
+      "text": "THE STORY\nTuesday brings a Devon cup night at home to Bideford. Tivvy return to action after Saturday’s 4–1 defeat by Portland, with a place in the next round at stake.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 200,
+          "left": 38
+        },
+        "dimension": {
+          "width": 718.1102362204724,
+          "height": 62.8
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LB5GlKmyBNT2xgf7",
+      "text": "OUR FORM\nTivvy’s last five league games: D W W L L. The two wins came against Hartpury and Shaftesbury. Owen Howe leads our league scoring with three goals.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 285,
+          "left": 38
+        },
+        "dimension": {
+          "width": 718.1102362204724,
+          "height": 62.8
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBFGVdRmRPbNzYqJ",
+      "text": "THE VISITORS\nBideford won 3–2 on Saturday. Their last five league results read W L L L W. They have 11 points from 12 games; Tivvy have 12 from 11.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 370,
+          "left": 38
+        },
+        "dimension": {
+          "width": 718,
+          "height": 62.8
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBwk7LBhkZZmbhS9",
+      "text": "THE CUP ANGLE\nThis is the Devon St Luke’s Bowl, so league points are set aside for the evening. Tivvy began their cup campaign with a 5–1 win over Ilfracombe Town.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 455,
+          "left": 38
+        },
+        "dimension": {
+          "width": 718,
+          "height": 62.8
+        }
+      }
+    }
+  ],
+  "protected_elements": [
+    "PBqjR72mVFBFgmh7-LB5vghfQhwf5VKdX",
+    "PBqjR72mVFBFgmh7-LB8sx2cflNjV31hs",
+    "PBqjR72mVFBFgmh7-LB091zhZZdk14RpP",
+    "PBqjR72mVFBFgmh7-LB5z4Hfc4my551ds"
+  ],
+  "media": [
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBrqszVN8D79bvQM",
+      "asset_id": "MAHNec_oLAE",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 59.46708072739017,
+          "left": -211.13599804999268
+        },
+        "dimension": {
+          "width": 1215.9727835015601,
+          "height": 942.5658385452197
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LB5z4Hfc4my551ds",
+      "asset_id": "MAHYB9hhoCc",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 588.9739546790204,
+          "left": 1.1368683772161603e-13
+        },
+        "dimension": {
+          "width": 793.7007874015746,
+          "height": 431.7803688739834
+        }
+      }
+    }
+  ],
+  "rules": {
+    "body_only": true,
+    "white_area_only": true,
+    "keep_native_editability": true,
+    "preserve_header_footer_artwork": true,
+    "match_by_stable_page_id": true,
+    "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
+    "font": "Antonio",
+    "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
+    "body_limit_bottom": 570,
+    "word_limit": 180
+  },
+  "copy_source": "data/today-in-60-bideford.json",
+  "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl"
+}

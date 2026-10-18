@@ -1,0 +1,881 @@
+{
+  "schema_version": 1,
+  "key": "tivvy_glance",
+  "design_id": "DAHYKUo9Tzo",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "page_id": "PBNDTwV3s7Xt6767",
+  "position": 19,
+  "render_mode": "native_editable_text_and_shapes",
+  "font": "Antonio",
+  "execution_mode": "chatgpt_assisted_connected_run",
+  "standalone_canva_write_supported": false,
+  "source_scraped_at": "2026-10-18 18:43:59 UTC",
+  "player_source_scraped_at": "2026-10-18 18:04:22 UTC",
+  "source_urls": [
+    "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+    "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json"
+  ],
+  "editable_fields": [
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBWdsSc8mqrXNrjB",
+      "text": "POINTS",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 111.8148324576304
+        },
+        "dimension": {
+          "width": 79.72899381252799,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB0VJ1HxN4mH6Vjx",
+      "text": "PLAYED",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 193.58815944483845
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBm7nXyZF97fRVGD",
+      "text": "WON",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 275.3614864320467
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBwN4fPVvYVpcm0C",
+      "text": "DRAWN",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 357.134813419255
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBFYFXGrvLRT9HlR",
+      "text": "LOST",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 438.9081404064632
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBDRmjbKgL4XSN2z",
+      "text": "GOALS FOR",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 313.8162563648043,
+          "left": 520.6814673936717
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 28
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBh9cj3rdP0pWb7r",
+      "text": "FORM (LAST 5 LEAGUE GAMES)",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 395.4379848804293,
+          "left": 29.019338883082042
+        },
+        "dimension": {
+          "width": 227.68550843661336,
+          "height": 30.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB3xPykhwPRKkRRw",
+      "text": "HOME RECORD",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 395.4379848804293,
+          "left": 283.6676048977154
+        },
+        "dimension": {
+          "width": 227.68550843661333,
+          "height": 30.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBLh1fwjLJ8D59W6",
+      "text": "AWAY RECORD",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 395.4379848804293,
+          "left": 538.3158709123488
+        },
+        "dimension": {
+          "width": 227.68550843661345,
+          "height": 30.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBsk8VlVBDBlwsH5",
+      "text": "TOP SCORER",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 515.4379848804293,
+          "left": 28.020718232044203
+        },
+        "dimension": {
+          "width": 232.72375690607737,
+          "height": 28.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBcy1cglDlKpbQYQ",
+      "text": "MOST APPEARANCES",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 515.4379848804293,
+          "left": 280.1381215469614
+        },
+        "dimension": {
+          "width": 232.72375690607737,
+          "height": 28.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8flqrpBLcTXGgq",
+      "text": "MOST MINUTES",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 515.4379848804293,
+          "left": 532.2555248618785
+        },
+        "dimension": {
+          "width": 232.72375690607737,
+          "height": 28.756542968749997
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBhxJT4q7kqRTjlk",
+      "text": "NEXT FIXTURES",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 673.8162563648054,
+          "left": 28
+        },
+        "dimension": {
+          "width": 738,
+          "height": 34.09804687499998
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBjfVhTm2FZfd84d",
+      "text": "DATE",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 716.9343666010259,
+          "left": 36.00000000000003
+        },
+        "dimension": {
+          "width": 140,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBt7QtByLGGfypVT",
+      "text": "Tue 20 Oct 2026",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 743.8162563648048,
+          "left": 36.00000000000003
+        },
+        "dimension": {
+          "width": 140,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBH2d3jK0pxHyZZc",
+      "text": "Sat 24 Oct 2026",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 771.8162563648048,
+          "left": 36.00000000000003
+        },
+        "dimension": {
+          "width": 140,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBQfZz9SC3mNxMVn",
+      "text": "KEY STATS FROM THE 2026/27 SEASON (UP TO 18/10/26)",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 221.21625875833848,
+          "left": 242.7078051181103
+        },
+        "dimension": {
+          "width": 332.3125,
+          "height": 18.6
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBywd1m9PXDDZrBm",
+      "text": "LEAGUE POSITION",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 320.61625636480437,
+          "left": 30.06367205776227
+        },
+        "dimension": {
+          "width": 79.728993812528,
+          "height": 10.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBlLb7ysRthvPKs4",
+      "text": "15th",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 30.041505470422216
+        },
+        "dimension": {
+          "width": 79.728993812528,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBCtxtRnQjWfdm0z",
+      "text": "12",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 111.8148324576304
+        },
+        "dimension": {
+          "width": 79.72899381252799,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB6K0ypxYGcPmfCz",
+      "text": "11",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 193.58815944483845
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB6qMfyD66N7Z2ym",
+      "text": "3",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 275.3614864320467
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBl25LXzMFRnXpZn",
+      "text": "3",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 357.134813419255
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB0bw2fP5gThb6rt",
+      "text": "5",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 438.9081404064632
+        },
+        "dimension": {
+          "width": 79.72899381252802,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBm06J3XttXkpqQN",
+      "text": "17",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 520.6814673936717
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBjJRN5G8Ccg9HHD",
+      "text": "GOALS AGAINST",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 320.61625636480437,
+          "left": 602.4547943808798
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 10.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBxYjZPh5tp42rMc",
+      "text": "18",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 602.4547943808798
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBHwZyvgBgrxRvSZ",
+      "text": "GOAL DIFFERENCE",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 320.61625636480437,
+          "left": 684.2281213680878
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 10.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBVm1ndsQT9lWLXj",
+      "text": "−1",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 348.8162563648044,
+          "left": 684.2281213680878
+        },
+        "dimension": {
+          "width": 79.72899381252807,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBv6YDQnzWD34V8S",
+      "text": "D  W  W  L  L",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 446.8162563648043,
+          "left": 90.93006554233361
+        },
+        "dimension": {
+          "width": 103.86405511811023,
+          "height": 25.6
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBVHLqZH609rRHFx",
+      "text": "W 2    D 2    L 2\nF 10    A 11",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 435.8379848804293,
+          "left": 282.6689842466776
+        },
+        "dimension": {
+          "width": 227.37145066683834,
+          "height": 55.6
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBXhXFTFqxYZW5rg",
+      "text": "W 1    D 1    L 3\nF 7    A 7",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 435.8379848804293,
+          "left": 540.4212707182321
+        },
+        "dimension": {
+          "width": 227.37145066683846,
+          "height": 55.6
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBRKqMdsJC78fn6t",
+      "text": "Owen Howe",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 553.8162563648048,
+          "left": 107.63674033149172
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 18
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8ZT1Mqyc7VFKXJ",
+      "text": "3",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 582.816256364805,
+          "left": 107.63674033149172
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 40.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBnk7559GNgRPyN5",
+      "text": "GOALS",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 621.8162563648054,
+          "left": 107.63674033149172
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 12
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBYks24SNz0LRnvF",
+      "text": "L. Smith\nE. Palmer\nA. Wellington\nJ. Wellington",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 550,
+          "left": 372.5
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 57.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBt89YqZlhKnxZlh",
+      "text": "11",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 612,
+          "left": 372.5
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 28.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBVL41mBwDsv1P8w",
+      "text": "APPEARANCES",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 646,
+          "left": 372.5
+        },
+        "dimension": {
+          "width": 153.10773480662982,
+          "height": 12
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBm8htnlpGbtVNfN",
+      "text": "Louis Smith",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 553.8162563648048,
+          "left": 611.871546961326
+        },
+        "dimension": {
+          "width": 153.10773480662988,
+          "height": 18
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBMxvsFFsN15q6nN",
+      "text": "992",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 582.816256364805,
+          "left": 611.871546961326
+        },
+        "dimension": {
+          "width": 153.10773480662988,
+          "height": 40.2
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBhtxQYMWSw7YXh7",
+      "text": "MINUTES (APPROX.)",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 621.8162563648054,
+          "left": 611.871546961326
+        },
+        "dimension": {
+          "width": 153.10773480662988,
+          "height": 12
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBzyVJmccYjpd77Q",
+      "text": "OPPOSITION",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 716.9343666010259,
+          "left": 176
+        },
+        "dimension": {
+          "width": 308,
+          "height": 24
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBS9lMZnwRBKclzn",
+      "text": "H/A",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 716.9343666010259,
+          "left": 476
+        },
+        "dimension": {
+          "width": 60,
+          "height": 24
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBG3JgcSYsB1PvwQ",
+      "text": "COMPETITION",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 716.9343666010259,
+          "left": 536
+        },
+        "dimension": {
+          "width": 230,
+          "height": 24
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBtMGdgbY1Jt4rc8",
+      "text": "Bideford AFC",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 743.8162563648048,
+          "left": 176
+        },
+        "dimension": {
+          "width": 308,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBjW2Zb0tVs0wpKZ",
+      "text": "H",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 743.8162563648048,
+          "left": 476
+        },
+        "dimension": {
+          "width": 60,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBnktRCml8wkpC4Y",
+      "text": "Devon St Luke’s Bowl",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 743.8162563648048,
+          "left": 536
+        },
+        "dimension": {
+          "width": 230,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBRMy5dk5cbv2kV3",
+      "text": "Larkhall Athletic",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 771.8162563648048,
+          "left": 176
+        },
+        "dimension": {
+          "width": 308,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBv3DzNy6LNXCVqP",
+      "text": "A",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 771.8162563648048,
+          "left": 476
+        },
+        "dimension": {
+          "width": 60,
+          "height": 12.8
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBK8273zjYS4K5Yt",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 771.8162563648048,
+          "left": 536
+        },
+        "dimension": {
+          "width": 230,
+          "height": 28
+        }
+      }
+    }
+  ],
+  "protected_elements": [
+    "PBNDTwV3s7Xt6767-LBks9zlLP7DcB3rZ",
+    "PBNDTwV3s7Xt6767-LBVnR4X0sBfgPHJc",
+    "PBNDTwV3s7Xt6767-LBYW59YyDxQrVDhB"
+  ],
+  "media": [
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBZGT007gcbWZN2K",
+      "asset_id": "MAHNec_oLAE",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": -16.7661881380601,
+          "left": -251.69448535101986
+        },
+        "dimension": {
+          "width": 1224.4714690259987,
+          "height": 1156.0520613154902
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBsTLyHQSj6C6z65",
+      "asset_id": "MAHYBcTZuxg",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 551.8162563648048,
+          "left": 36.1864640883978
+        },
+        "dimension": {
+          "width": 69.40883977900552,
+          "height": 88
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBg1KtFPddpM1QXk",
+      "asset_id": "MAHYBbnwy-8",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 551.8162563648048,
+          "left": 288.30386740331494
+        },
+        "dimension": {
+          "width": 69.40883977900552,
+          "height": 88
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBdbN8fMtzDslp4s",
+      "asset_id": "MAHYHeVtaFY",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 551.8162563648048,
+          "left": 540.4212707182321
+        },
+        "dimension": {
+          "width": 69.40883977900558,
+          "height": 88
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBh28ntlV8f9SFm9",
+      "asset_id": "MAHYEYQEa0E",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 738.7343666010258,
+          "left": 148.6516473346724
+        },
+        "dimension": {
+          "width": 22.49093717652125,
+          "height": 22.49093717652125
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBWcY1hdXqZwmJxT",
+      "asset_id": "MAHYEftvyEc",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 770.225303777547,
+          "left": 150.28223042174807
+        },
+        "dimension": {
+          "width": 20.860354089445558,
+          "height": 22.585646532933538
+        }
+      }
+    }
+  ],
+  "rules": {
+    "body_only": true,
+    "white_area_only": true,
+    "keep_native_editability": true,
+    "preserve_header_footer_artwork": true,
+    "match_by_stable_page_id": true,
+    "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
+    "font": "Antonio",
+    "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
+    "league_only_statistics": true,
+    "minutes": "Approximate from dashboard event timings; never present as official exact minutes.",
+    "upcoming_competitions": "Cup fixtures must use their actual cup competition; heading NEXT FIXTURES if mixed competitions.",
+    "player_photos": "Use only verified matching player assets; club crest if a correct photo is unavailable."
+  }
+}

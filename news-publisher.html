@@ -50,10 +50,10 @@ nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-wei
     </nav>
   </div>
 </header>
-<main><div class="status"><strong>Safe draft mode.</strong> Articles are saved on this browser only. Live Wix publishing is not yet connected; the red-button sequence is ready for integration.</div>
+<main><div class="status"><strong id="connection-status" role="status">Checking the News publishing connection…</strong><p class="help">Your article stays saved in this browser. Live publication requires Publish and the separate red confirmation button.</p><button id="check-connection" class="secondary" type="button">Check connection</button> <a href="publisher-setup.html">Connection setup</a></div>
 <div class="grid"><section class="panel"><h2>Write article</h2>
 <label for="title">Title</label><input type="text" id="title" maxlength="180" placeholder="Match Preview: Tiverton Town v …">
-<label for="image">Featured image</label><input type="file" id="image" accept="image/png,image/jpeg,image/webp"><p class="help">The selected image is shown in preview. It is not uploaded to Wix.</p>
+<label for="image">Featured image</label><input type="file" id="image" accept="image/png,image/jpeg,image/webp"><p class="help">The selected image appears in the preview and uploads to Wix when you confirm publication.</p>
 <label for="credit">Image byline / credit</label><input type="text" id="credit" placeholder="Photo: Viv Curtis">
 <label id="body-label">Article body</label>
 <div class="editor-toolbar" role="toolbar" aria-label="Article formatting">
@@ -68,14 +68,29 @@ nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-wei
 </div>
 <div id="body" class="article-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="body-label" aria-describedby="format-help" data-placeholder="Paste Darren’s preview here…" spellcheck="true"></div>
 <p class="help" id="format-help">Select text, then choose a format. You can also use Ctrl/Cmd+B, I or U. Pasted articles start as plain text, ready for formatting.</p>
-<div class="actions"><button id="save" class="secondary">Save draft</button><button id="view" class="primary">View draft</button><button id="arm">Publish</button></div><p class="help" id="saved" role="status" aria-live="polite">Unsaved changes.</p></section>
+<div class="actions"><button id="save" class="secondary">Save draft</button><button id="view" class="primary">View draft</button><button id="arm" disabled>Publish</button></div><p class="help" id="saved" role="status" aria-live="polite">Unsaved changes.</p></section>
 <section class="panel"><h2>What happens next?</h2><p class="help"><strong>1.</strong> Prepare article with title, photo, credit and copy.<br><strong>2.</strong> Review and click Publish.<br><strong>3.</strong> Press the separate flashing red confirmation button.</p><h2 style="margin-top:20px">Article preview</h2><div class="preview" id="preview"><div class="flag">Draft preview</div><h2 id="preview-title">Your headline will appear here</h2><img id="preview-image" alt="Article featured image" hidden><p class="credit" id="preview-credit"></p><div class="story" id="preview-body">Write an article and click View draft.</div></div>
-<div id="armed" class="danger" hidden><h2>⚠ Final confirmation required</h2><p>Confirm the article shown above. This step will be the final safeguard when Wix publishing is connected.</p><button id="confirm" class="confirm">● CONFIRM — PUBLISH NOW</button><div class="actions" style="justify-content:center"><button id="cancel" class="secondary">Cancel — keep as draft</button></div></div>
+<div id="armed" class="danger" hidden><h2>⚠ Final confirmation required</h2><p>This will publish the article shown above, with the selected photograph, on Tiverton Town’s News page.</p><button id="confirm" class="confirm">● CONFIRM — PUBLISH NOW</button><div class="actions" style="justify-content:center"><button id="cancel" class="secondary">Cancel — keep as draft</button></div></div>
 <p id="publish-status" class="help" role="status" aria-live="polite"></p></section></div></main></div>
-<script type="module" src="auth.js"></script><script>
+<script type="module">
+import { getPublisherToken } from './auth.js?v=20261018-publish-1';
+import { articleToRicos, connectionReady, photoPayload, publishArticle } from './news-publisher-wix.js?v=20261018-publish-1';
 (()=>{'use strict';
 const ids=['title','credit'];const el=id=>document.getElementById(id);let imageUrl='';let lastPreview='';let armedSnapshot='';
 const key='ttfc-news-publisher-draft-v1';
+let connected=false,busy=false;
+async function checkConnection(){
+ el('check-connection').disabled=true;el('connection-status').textContent='Checking the News publishing connection…';
+ connected=await connectionReady();el('arm').disabled=!connected||busy;
+ el('connection-status').textContent=connected?'Connected to Tiverton Town News.':'Wix connection setup is still needed. Your draft is safe and you can keep editing.';
+ el('check-connection').disabled=false;
+}
+el('check-connection').addEventListener('click',checkConnection);
+function publishingState(value){
+ busy=value;el('body').contentEditable=value?'false':'true';
+ document.querySelectorAll('#title,#credit,#image,#save,#view,#arm,#confirm,#cancel,[data-command]').forEach(control=>control.disabled=value);
+ el('arm').disabled=value||!connected;
+}
 function cleanHtml(html){
  const source=document.createElement('template');source.innerHTML=html;
  const allowed=new Set(['P','DIV','BR','B','STRONG','I','EM','U','UL','OL','LI']);
@@ -111,9 +126,22 @@ el('image').addEventListener('change',()=>{const file=el('image').files[0];if(im
 function preview(){el('preview-title').textContent=el('title').value.trim()||'Untitled article';el('preview-credit').textContent=el('credit').value.trim();el('preview-body').innerHTML=bodyText()?bodyHtml():'No article text yet.';el('preview-image').hidden=!imageUrl;if(imageUrl)el('preview-image').src=imageUrl;lastPreview=fingerprint();}
 el('view').addEventListener('click',()=>{disarm();preview();el('publish-status').textContent='Draft refreshed; nothing published.';});
 el('save').addEventListener('click',()=>{try{localStorage.setItem(key,JSON.stringify({title:el('title').value,credit:el('credit').value,body:bodyText(),bodyHtml:bodyHtml(),savedAt:new Date().toISOString()}));el('saved').textContent='Formatted draft saved on this browser at '+new Date().toLocaleTimeString()+'.';}catch(e){el('saved').textContent='Unable to save locally; copy your text before leaving.';}});
-el('arm').addEventListener('click',()=>{if(!el('title').value.trim()||!bodyText()){el('publish-status').textContent='Add a title and body before proceeding.';return;}preview();armedSnapshot=lastPreview;el('armed').hidden=false;el('publish-status').textContent='Awaiting separate red-button confirmation. No publication has occurred.';el('confirm').focus();});
+el('arm').addEventListener('click',()=>{if(!connected||busy)return;if(!el('title').value.trim()||!bodyText()){el('publish-status').textContent='Add a title and body before proceeding.';return;}preview();armedSnapshot=lastPreview;el('armed').hidden=false;el('publish-status').textContent='Awaiting separate red-button confirmation. No publication has occurred.';el('confirm').focus();});
 el('cancel').addEventListener('click',()=>{disarm();el('publish-status').textContent='Publishing cancelled. Draft retained.';});
-el('confirm').addEventListener('click',()=>{if(!armedSnapshot||armedSnapshot!==fingerprint()){disarm();el('publish-status').textContent='Article changed. Review and arm Publish again.';return;}disarm();el('publish-status').textContent='Confirmation received. Live Wix publishing is not connected, so the article remains a draft. Nothing was sent to the club website.';});
+el('confirm').addEventListener('click',async()=>{
+ if(busy||!connected)return;
+ if(!armedSnapshot||armedSnapshot!==fingerprint()){disarm();el('publish-status').textContent='Article changed. Review and arm Publish again.';return;}
+ el('save').click();publishingState(true);
+ try{
+  const root=document.createElement('div');root.innerHTML=bodyHtml();
+  el('publish-status').textContent='Preparing the photograph…';
+  const result=await publishArticle({title:el('title').value.trim(),credit:el('credit').value.trim(),bodyHtml:bodyHtml(),richContent:articleToRicos(root),image:await photoPayload(el('image').files[0])},getPublisherToken,message=>el('publish-status').textContent=message);
+  disarm();el('publish-status').textContent='Published successfully on Tiverton Town News.';
+  if(result.url){try{const url=new URL(result.url);if(url.origin==='https://www.tivertontownfc.uk'){const link=document.createElement('a');link.href=url.href;link.textContent=' View live article';link.target='_blank';link.rel='noopener';el('publish-status').appendChild(link);}}catch{}}
+ }catch(error){disarm();el('publish-status').textContent=error.message||'Publication was not confirmed. Your draft is retained.';}
+ finally{publishingState(false);}
+});
 try{const d=JSON.parse(localStorage.getItem(key)||'null');if(d){ids.forEach(id=>el(id).value=d[id]||'');el('body').innerHTML=typeof d.bodyHtml==='string'?cleanHtml(d.bodyHtml):plainHtml(d.body);el('saved').textContent='Restored browser draft from '+new Date(d.savedAt).toLocaleString()+'.';}}catch(e){}
+checkConnection();
 })();
 </script></body></html>

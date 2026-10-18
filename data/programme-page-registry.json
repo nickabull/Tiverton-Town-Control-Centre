@@ -111,8 +111,10 @@
       "key": "league_table",
       "name": "League Table",
       "master_page_id": "PBmPqH3l8hyRtXRV",
-      "position": 15,
-      "type": "AUTO"
+      "position": 18,
+      "type": "AUTO",
+      "update_binding": "data/league-table-binding.json",
+      "render_mode": "native_editable_table"
     },
     {
       "key": "tivvy_glance",

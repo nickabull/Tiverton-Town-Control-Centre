@@ -33,7 +33,7 @@
   },
   "baseline_cells": {
     "A1": "POS",
-    "B1": "TEAM",
+    "B1": " TEAM",
     "C1": "P",
     "D1": "W",
     "E1": "D",
@@ -43,7 +43,7 @@
     "I1": "GD",
     "J1": "PTS",
     "A2": "1",
-    "B2": "Dorchester Town",
+    "B2": "   Dorchester Town",
     "C2": "11",
     "D2": "10",
     "E2": "0",
@@ -53,7 +53,7 @@
     "I2": "+13",
     "J2": "30",
     "A3": "2",
-    "B3": "Weymouth",
+    "B3": "   Weymouth",
     "C3": "10",
     "D3": "9",
     "E3": "1",
@@ -63,7 +63,7 @@
     "I3": "+19",
     "J3": "28",
     "A4": "3",
-    "B4": "Swindon Supermarine",
+    "B4": "   Swindon Supermarine",
     "C4": "12",
     "D4": "9",
     "E4": "1",
@@ -73,7 +73,7 @@
     "I4": "+13",
     "J4": "28",
     "A5": "4",
-    "B5": "Hungerford Town",
+    "B5": "   Hungerford Town",
     "C5": "11",
     "D5": "6",
     "E5": "2",
@@ -83,7 +83,7 @@
     "I5": "+8",
     "J5": "20",
     "A6": "5",
-    "B6": "Westbury United",
+    "B6": "   Westbury United",
     "C6": "12",
     "D6": "6",
     "E6": "2",
@@ -93,7 +93,7 @@
     "I6": "+2",
     "J6": "20",
     "A7": "6",
-    "B7": "Bishops Cleeve",
+    "B7": "   Bishops Cleeve",
     "C7": "11",
     "D7": "6",
     "E7": "1",
@@ -103,7 +103,7 @@
     "I7": "+10",
     "J7": "19",
     "A8": "7",
-    "B8": "Falmouth Town",
+    "B8": "   Falmouth Town",
     "C8": "12",
     "D8": "5",
     "E8": "3",
@@ -113,7 +113,7 @@
     "I8": "+1",
     "J8": "18",
     "A9": "8",
-    "B9": "Worcester Raiders",
+    "B9": "   Worcester Raiders",
     "C9": "13",
     "D9": "4",
     "E9": "6",
@@ -123,7 +123,7 @@
     "I9": "0",
     "J9": "18",
     "A10": "9",
-    "B10": "Portland United",
+    "B10": "   Portland United",
     "C10": "11",
     "D10": "5",
     "E10": "2",
@@ -133,7 +133,7 @@
     "I10": "+3",
     "J10": "17",
     "A11": "10",
-    "B11": "SC Inkberrow",
+    "B11": "   SC Inkberrow",
     "C11": "11",
     "D11": "5",
     "E11": "2",
@@ -143,7 +143,7 @@
     "I11": "+3",
     "J11": "17",
     "A12": "11",
-    "B12": "Shaftesbury",
+    "B12": "   Shaftesbury",
     "C12": "13",
     "D12": "5",
     "E12": "1",
@@ -153,7 +153,7 @@
     "I12": "-1",
     "J12": "16",
     "A13": "12",
-    "B13": "Hartpury",
+    "B13": "   Hartpury",
     "C13": "12",
     "D13": "4",
     "E13": "3",
@@ -163,7 +163,7 @@
     "I13": "-2",
     "J13": "15",
     "A14": "13",
-    "B14": "Exmouth Town",
+    "B14": "   Exmouth Town",
     "C14": "10",
     "D14": "4",
     "E14": "2",
@@ -173,7 +173,7 @@
     "I14": "-3",
     "J14": "14",
     "A15": "14",
-    "B15": "Willand Rovers",
+    "B15": "   Willand Rovers",
     "C15": "10",
     "D15": "3",
     "E15": "3",
@@ -183,7 +183,7 @@
     "I15": "0",
     "J15": "12",
     "A16": "15",
-    "B16": "Tiverton Town",
+    "B16": "   Tiverton Town",
     "C16": "11",
     "D16": "3",
     "E16": "3",
@@ -193,7 +193,7 @@
     "I16": "-1",
     "J16": "12",
     "A17": "16",
-    "B17": "Paulton Rovers",
+    "B17": "   Paulton Rovers",
     "C17": "10",
     "D17": "2",
     "E17": "5",
@@ -203,7 +203,7 @@
     "I17": "-4",
     "J17": "11",
     "A18": "17",
-    "B18": "Bideford",
+    "B18": "   Bideford",
     "C18": "12",
     "D18": "2",
     "E18": "5",
@@ -213,7 +213,7 @@
     "I18": "-9",
     "J18": "11",
     "A19": "18",
-    "B19": "Barnstaple Town",
+    "B19": "   Barnstaple Town",
     "C19": "13",
     "D19": "3",
     "E19": "1",
@@ -223,7 +223,7 @@
     "I19": "-6",
     "J19": "10",
     "A20": "19",
-    "B20": "Larkhall Athletic",
+    "B20": "   Larkhall Athletic",
     "C20": "12",
     "D20": "3",
     "E20": "1",
@@ -233,7 +233,7 @@
     "I20": "-7",
     "J20": "10",
     "A21": "20",
-    "B21": "Bristol Manor Farm",
+    "B21": "   Bristol Manor Farm",
     "C21": "12",
     "D21": "1",
     "E21": "6",
@@ -243,7 +243,7 @@
     "I21": "-10",
     "J21": "9",
     "A22": "21",
-    "B22": "Slimbridge",
+    "B22": "   Slimbridge",
     "C22": "10",
     "D22": "2",
     "E22": "1",
@@ -253,7 +253,7 @@
     "I22": "-14",
     "J22": "7",
     "A23": "22",
-    "B23": "Melksham Town",
+    "B23": "   Melksham Town",
     "C23": "11",
     "D23": "1",
     "E23": "3",
@@ -279,10 +279,369 @@
     "Derive subtitle date from the feed's scrape timestamp in Europe/London, not the current run date.",
     "When standings reorder, highlight the entire Tiverton row wherever Tiverton now sits. Other bands follow positions in the approved reference.",
     "Preserve the page title, background, footer, legend, table geometry, Antonio and cell editability.",
-    "Flag manual cell disagreements before overwriting. Bind new IDs for issue copies; never update archived programmes."
+    "Flag manual cell disagreements before overwriting. Bind new IDs for issue copies; never update archived programmes.",
+    "Trim leading spacing when matching team names. Preserve the approved name indentation and crest gutter.",
+    "When standings reorder, move or reassign each crest to its club's new row; crests must never follow a previous club's rank."
   ],
   "execution": {
     "mode": "assisted_canva_connector",
     "dashboard_can_write_to_canva": false
-  }
+  },
+  "team_name_prefix": "   ",
+  "team_header_prefix": " ",
+  "crest_max_size": 22,
+  "crest_elements": [
+    {
+      "team": "Dorchester Town",
+      "asset_id": "MAHYHUR2TPw",
+      "element_id": "PBmPqH3l8hyRtXRV-LBJLp1xLgQvTc4Gh",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 259.3086908605011,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Weymouth",
+      "asset_id": "MAHYHTJLF7U",
+      "element_id": "PBmPqH3l8hyRtXRV-LBM5QwB6Qdm4D9h8",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 291.50818555490343,
+          "left": 99.82356285748335
+        },
+        "dimension": {
+          "width": 16.39,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Swindon Supermarine",
+      "asset_id": "MAHYHRRUg74",
+      "element_id": "PBmPqH3l8hyRtXRV-LBKnXsZ7kpk4vmb5",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 323.7076802493058,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Hungerford Town",
+      "asset_id": "MAHYHeCA8S4",
+      "element_id": "PBmPqH3l8hyRtXRV-LBLRj6rqMgwDYDvx",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 355.9071749437081,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Westbury United",
+      "asset_id": "MAHYHdbXqMk",
+      "element_id": "PBmPqH3l8hyRtXRV-LBMFJvBpf90m3GNd",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 388.1616696381105,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 21.89
+        }
+      }
+    },
+    {
+      "team": "Bishops Cleeve",
+      "asset_id": "MAHYHdBn6UI",
+      "element_id": "PBmPqH3l8hyRtXRV-LBPGdWpq19zv2mQQ",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 420.30616433251276,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Falmouth Town",
+      "asset_id": "MAHYHREbmu8",
+      "element_id": "PBmPqH3l8hyRtXRV-LB45zhB67Gm5XpD4",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 452.5056590269151,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Worcester Raiders",
+      "asset_id": "MAHYHQ8xEiQ",
+      "element_id": "PBmPqH3l8hyRtXRV-LBwLY2YSF22jQ7Mx",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 484.70515372131746,
+          "left": 97.67856285748334
+        },
+        "dimension": {
+          "width": 20.68,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Portland United",
+      "asset_id": "MAHYHY5tbW4",
+      "element_id": "PBmPqH3l8hyRtXRV-LBffSZGNYN2Qgzsv",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 516.9046484157197,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "SC Inkberrow",
+      "asset_id": "MAHYHc0FmQ0",
+      "element_id": "PBmPqH3l8hyRtXRV-LBWmQ6JNzmXNB9yp",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 549.1041431101221,
+          "left": 101.36356285748334
+        },
+        "dimension": {
+          "width": 13.309999999999999,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Shaftesbury",
+      "asset_id": "MAHYHU-Qdmc",
+      "element_id": "PBmPqH3l8hyRtXRV-LBlDDhmSSTs2MB8Q",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 581.3036378045244,
+          "left": 99.54856285748335
+        },
+        "dimension": {
+          "width": 16.94,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Hartpury",
+      "asset_id": "MAHYHWBxrh0",
+      "element_id": "PBmPqH3l8hyRtXRV-LBJ71DjtN3yRXGJl",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 613.5031324989268,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Exmouth Town",
+      "asset_id": "MAHYHcnAPeM",
+      "element_id": "PBmPqH3l8hyRtXRV-LB3lhrZVsCY54gPc",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 645.7026271933291,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Willand Rovers",
+      "asset_id": "MAHYHcX0c5Q",
+      "element_id": "PBmPqH3l8hyRtXRV-LBShQ2pGv2sG41nY",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 677.9021218877315,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Tiverton Town",
+      "asset_id": "MAHYHeVtaFY",
+      "element_id": "PBmPqH3l8hyRtXRV-LBHKZBxqQfTZ6NC4",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 710.1016165821338,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Paulton Rovers",
+      "asset_id": "MAHYHTDtw54",
+      "element_id": "PBmPqH3l8hyRtXRV-LB8g5xsryhSmD3KX",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 742.3011112765362,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Bideford",
+      "asset_id": "MAHYHb1K61I",
+      "element_id": "PBmPqH3l8hyRtXRV-LBFPxQY7MZyGf1RB",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 774.5006059709385,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Barnstaple Town",
+      "asset_id": "MAHYHbJGCrA",
+      "element_id": "PBmPqH3l8hyRtXRV-LBx84Nq34f3j17NG",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 806.7001006653409,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Larkhall Athletic",
+      "asset_id": "MAHYHbexwLc",
+      "element_id": "PBmPqH3l8hyRtXRV-LBx58CYm97DCN73x",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 838.8995953597432,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Bristol Manor Farm",
+      "asset_id": "MAHYHerJcko",
+      "element_id": "PBmPqH3l8hyRtXRV-LBqhVTj1h0qBXNcC",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 871.0990900541456,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Slimbridge",
+      "asset_id": "MAHYHb8saGc",
+      "element_id": "PBmPqH3l8hyRtXRV-LBrrsPKVvdrbK25c",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 903.2985847485479,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    },
+    {
+      "team": "Melksham Town",
+      "asset_id": "MAHYHWtMIxI",
+      "element_id": "PBmPqH3l8hyRtXRV-LBlzmhwSV6Gw24LV",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 935.4980794429503,
+          "left": 97.01856285748335
+        },
+        "dimension": {
+          "width": 22,
+          "height": 22
+        }
+      }
+    }
+  ]
 }

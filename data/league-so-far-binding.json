@@ -47,12 +47,12 @@
       "geometry": {
         "type": "TABLE",
         "position": {
-          "top": 198.99212598425214,
-          "left": 32.01259842519693
+          "top": 198.99212598425203,
+          "left": 32.01259842519704
         },
         "dimension": {
           "width": 730.0157480314958,
-          "height": 785.2479483693879
+          "height": 813.2697157907686
         }
       },
       "baseline_cells": {
@@ -93,7 +93,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 292.0298016887067,
+              "top": 302.126841984252,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -109,7 +109,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 436.08050544049604,
+              "top": 444.12684198425205,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -125,7 +125,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 570.6978641531049,
+              "top": 577.696841984252,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -141,7 +141,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 686.1685327873525,
+              "top": 702.626841984252,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -157,7 +157,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 792.2058563824197,
+              "top": 819.126841984252,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -173,7 +173,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 898.2431799774869,
+              "top": 935.626841984252,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -215,12 +215,12 @@
       "geometry": {
         "type": "TABLE",
         "position": {
-          "top": 198.99212598425186,
-          "left": 32.01259842519693
+          "top": 198.99212598425163,
+          "left": 32.01259842519704
         },
         "dimension": {
-          "width": 730.015748031496,
-          "height": 720
+          "width": 730.0157480314958,
+          "height": 726.2697157907685
         }
       },
       "baseline_cells": {
@@ -257,7 +257,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 289.6503473089968,
+              "top": 299.1268419842516,
               "left": 102.95151936026647
             },
             "dimension": {
@@ -273,7 +273,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 425.2895140471582,
+              "top": 435.12684198425166,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -289,7 +289,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 569.3127514928103,
+              "top": 580.6268419842517,
               "left": 105.33151936026647
             },
             "dimension": {
@@ -305,7 +305,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 704.6321553006878,
+              "top": 716.6268419842517,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -321,7 +321,7 @@
           "geometry": {
             "type": "RECT",
             "position": {
-              "top": 835.919405219962,
+              "top": 843.1268419842518,
               "left": 102.11151936026647
             },
             "dimension": {
@@ -369,9 +369,13 @@
       "scope": "Apply to every native CAPT label, GOAL plus minute, PEN plus minute, and corresponding complete key entries on both pages. Preserve surrounding text and existing substitution/card colours. Use range formatting, never palette Change all."
     },
     "cell_spacing": {
-      "canva_value": 2,
+      "canva_value": 6,
       "preserve_live_padding": true,
-      "purpose": "Keep match-details player text inset from the score-column boundary. Preserve table width and white-body bounds; do not reset spacing to zero."
+      "purpose": "Clearly visible six-point cell inset, keeping match-details text away from the score boundary. Preserve live spacing, table width, coloured event runs and user keys. Keep dates on one line; keep crests centred with their fixture rows.",
+      "date_font_size_px": 21,
+      "match_details_line_height_by_page": {
+        "PByXfpH81SgLLt7W": 1.1
+      }
     }
   }
 }

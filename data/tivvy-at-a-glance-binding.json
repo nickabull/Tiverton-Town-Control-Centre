@@ -212,51 +212,6 @@
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBjfVhTm2FZfd84d",
-      "text": "DATE",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 716.9343666010259,
-          "left": 36.00000000000003
-        },
-        "dimension": {
-          "width": 140,
-          "height": 12.8
-        }
-      }
-    },
-    {
-      "element_id": "PBNDTwV3s7Xt6767-LBt7QtByLGGfypVT",
-      "text": "Tue 20 Oct 2026",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 743.8162563648048,
-          "left": 36.00000000000003
-        },
-        "dimension": {
-          "width": 140,
-          "height": 12.8
-        }
-      }
-    },
-    {
-      "element_id": "PBNDTwV3s7Xt6767-LBH2d3jK0pxHyZZc",
-      "text": "Sat 24 Oct 2026",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 771.8162563648048,
-          "left": 36.00000000000003
-        },
-        "dimension": {
-          "width": 140,
-          "height": 12.8
-        }
-      }
-    },
-    {
       "element_id": "PBNDTwV3s7Xt6767-LBQfZz9SC3mNxMVn",
       "text": "KEY STATS FROM THE 2026/27 SEASON (UP TO 18/10/26)",
       "geometry": {
@@ -632,137 +587,782 @@
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBzyVJmccYjpd77Q",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A1",
+      "text": "DATE",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B1",
       "text": "OPPOSITION",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 716.9343666010259,
-          "left": 176
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 308,
-          "height": 24
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBS9lMZnwRBKclzn",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C1",
       "text": "H/A",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 716.9343666010259,
-          "left": 476
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 60,
-          "height": 24
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBG3JgcSYsB1PvwQ",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D1",
       "text": "COMPETITION",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 716.9343666010259,
-          "left": 536
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 230,
-          "height": 24
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBtMGdgbY1Jt4rc8",
-      "text": "Bideford AFC",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A2",
+      "text": "Sat, 24 Oct 2026",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 743.8162563648048,
-          "left": 176
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 308,
-          "height": 12.8
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBjW2Zb0tVs0wpKZ",
-      "text": "H",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B2",
+      "text": "   Larkhall Athletic",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 743.8162563648048,
-          "left": 476
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 60,
-          "height": 12.8
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBnktRCml8wkpC4Y",
-      "text": "Devon St Luke’s Bowl",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 743.8162563648048,
-          "left": 536
-        },
-        "dimension": {
-          "width": 230,
-          "height": 12.8
-        }
-      }
-    },
-    {
-      "element_id": "PBNDTwV3s7Xt6767-LBRMy5dk5cbv2kV3",
-      "text": "Larkhall Athletic",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 771.8162563648048,
-          "left": 176
-        },
-        "dimension": {
-          "width": 308,
-          "height": 12.8
-        }
-      }
-    },
-    {
-      "element_id": "PBNDTwV3s7Xt6767-LBv3DzNy6LNXCVqP",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C2",
       "text": "A",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 771.8162563648048,
-          "left": 476
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 60,
-          "height": 12.8
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBK8273zjYS4K5Yt",
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D2",
       "text": "Southern League Division One South",
       "geometry": {
-        "type": "TEXT",
+        "type": "TABLE",
         "position": {
-          "top": 771.8162563648048,
-          "left": 536
+          "top": 713.007874015748,
+          "left": 28.00629921259838
         },
         "dimension": {
-          "width": 230,
-          "height": 28
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A3",
+      "text": "Tue, 27 Oct 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B3",
+      "text": "   DORCHESTER TOWN",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C3",
+      "text": "H",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D3",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A4",
+      "text": "Sat, 31 Oct 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B4",
+      "text": "   Weymouth",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C4",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D4",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A5",
+      "text": "Sat, 07 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B5",
+      "text": "   SPORTING CLUB INKBERROW",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C5",
+      "text": "H",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D5",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A6",
+      "text": "Wed, 11 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B6",
+      "text": "   Paulton Rovers",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C6",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D6",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A7",
+      "text": "Sat, 14 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B7",
+      "text": "   BISHOPS CLEEVE",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C7",
+      "text": "H",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D7",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A8",
+      "text": "Sat, 21 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B8",
+      "text": "   Melksham Town",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C8",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D8",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A9",
+      "text": "Mon, 23 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B9",
+      "text": "   Swindon Supermarine",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C9",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D9",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A10",
+      "text": "Sat, 28 Nov 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B10",
+      "text": "   Hartpury",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C10",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D10",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A11",
+      "text": "Sat, 05 Dec 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B11",
+      "text": "   SWINDON SUPERMARINE",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C11",
+      "text": "H",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D11",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A12",
+      "text": "Sat, 12 Dec 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B12",
+      "text": "   SLIMBRIDGE",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C12",
+      "text": "H",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D12",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-A13",
+      "text": "Sat, 19 Dec 2026",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-B13",
+      "text": "   Bristol Manor Farm",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-C13",
+      "text": "A",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB8wYVCz3sPhvQbt-D13",
+      "text": "Southern League Division One South",
+      "geometry": {
+        "type": "TABLE",
+        "position": {
+          "top": 713.007874015748,
+          "left": 28.00629921259838
+        },
+        "dimension": {
+          "width": 737.9905511811023,
+          "height": 299.1902211816337
         }
       }
     }
@@ -834,32 +1434,182 @@
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBh28ntlV8f9SFm9",
-      "asset_id": "MAHYEYQEa0E",
+      "element_id": "PBNDTwV3s7Xt6767-LBjBdYwDyrsBt0Mr",
+      "asset_id": "MAHYHbexwLc",
       "geometry": {
         "type": "RECT",
         "position": {
-          "top": 738.7343666010258,
-          "left": 148.6516473346724
+          "top": 739.5298226136289,
+          "left": 177.00629921259838
         },
         "dimension": {
-          "width": 22.49093717652125,
-          "height": 22.49093717652125
+          "width": 16,
+          "height": 16
         }
       }
     },
     {
-      "element_id": "PBNDTwV3s7Xt6767-LBWcY1hdXqZwmJxT",
-      "asset_id": "MAHYEftvyEc",
+      "element_id": "PBNDTwV3s7Xt6767-LBN2gjtHvMl9HjMV",
+      "asset_id": "MAHYHUR2TPw",
       "geometry": {
         "type": "RECT",
         "position": {
-          "top": 770.225303777547,
-          "left": 150.28223042174807
+          "top": 762.5444550122161,
+          "left": 177.00629921259838
         },
         "dimension": {
-          "width": 20.860354089445558,
-          "height": 22.585646532933538
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBt71wXmrWV9WrDp",
+      "asset_id": "MAHYHTJLF7U",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 785.5590874108033,
+          "left": 179.04629921259837
+        },
+        "dimension": {
+          "width": 11.92,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB9RxTQWGYJ212fR",
+      "asset_id": "MAHYHc0FmQ0",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 808.5737198093905,
+          "left": 180.16629921259837
+        },
+        "dimension": {
+          "width": 9.68,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBvxrkywxz7jp1qb",
+      "asset_id": "MAHYHTDtw54",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 831.5883522079777,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBpDLL5vfSPS4RgW",
+      "asset_id": "MAHYHdBn6UI",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 854.6029846065649,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBQllB70fQFWsw9c",
+      "asset_id": "MAHYHWtMIxI",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 877.6176170051522,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB7z0yDfQNrv3xcm",
+      "asset_id": "MAHYHRRUg74",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 900.6322494037393,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBNyTwFW4KJ0Mlh7",
+      "asset_id": "MAHYHWBxrh0",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 923.6468818023266,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB1XQl5gnTzZPxzN",
+      "asset_id": "MAHYHRRUg74",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 946.6615142009138,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LBy1zwHvFsxsL69G",
+      "asset_id": "MAHYHb8saGc",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 969.676146599501,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "element_id": "PBNDTwV3s7Xt6767-LB1Z43SnvJsNCg74",
+      "asset_id": "MAHYHerJcko",
+      "geometry": {
+        "type": "RECT",
+        "position": {
+          "top": 992.6907789980881,
+          "left": 177.00629921259838
+        },
+        "dimension": {
+          "width": 16,
+          "height": 16
         }
       }
     }
@@ -875,7 +1625,277 @@
     "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
     "league_only_statistics": true,
     "minutes": "Approximate from dashboard event timings; never present as official exact minutes.",
-    "upcoming_competitions": "Cup fixtures must use their actual cup competition; heading NEXT FIXTURES if mixed competitions.",
+    "upcoming_competitions": "Show actual competition for each fixture; exclude the programme match date and earlier dates; chronological next 12 confirmed fixtures.",
     "player_photos": "Use only verified matching player assets; club crest if a correct photo is unavailable."
+  },
+  "upcoming_table": {
+    "table_id": "LB8wYVCz3sPhvQbt",
+    "geometry": {
+      "type": "TABLE",
+      "position": {
+        "top": 713.007874015748,
+        "left": 28.00629921259838
+      },
+      "dimension": {
+        "width": 737.9905511811023,
+        "height": 299.1902211816337
+      }
+    },
+    "font": "Antonio",
+    "font_size_in_canva": 9.5,
+    "rows": 13,
+    "columns": [
+      "DATE",
+      "OPPOSITION",
+      "H/A",
+      "COMPETITION"
+    ],
+    "baseline_cells": {
+      "A1": "DATE",
+      "B1": "OPPOSITION",
+      "C1": "H/A",
+      "D1": "COMPETITION",
+      "A2": "Sat, 24 Oct 2026",
+      "B2": "   Larkhall Athletic",
+      "C2": "A",
+      "D2": "Southern League Division One South",
+      "A3": "Tue, 27 Oct 2026",
+      "B3": "   DORCHESTER TOWN",
+      "C3": "H",
+      "D3": "Southern League Division One South",
+      "A4": "Sat, 31 Oct 2026",
+      "B4": "   Weymouth",
+      "C4": "A",
+      "D4": "Southern League Division One South",
+      "A5": "Sat, 07 Nov 2026",
+      "B5": "   SPORTING CLUB INKBERROW",
+      "C5": "H",
+      "D5": "Southern League Division One South",
+      "A6": "Wed, 11 Nov 2026",
+      "B6": "   Paulton Rovers",
+      "C6": "A",
+      "D6": "Southern League Division One South",
+      "A7": "Sat, 14 Nov 2026",
+      "B7": "   BISHOPS CLEEVE",
+      "C7": "H",
+      "D7": "Southern League Division One South",
+      "A8": "Sat, 21 Nov 2026",
+      "B8": "   Melksham Town",
+      "C8": "A",
+      "D8": "Southern League Division One South",
+      "A9": "Mon, 23 Nov 2026",
+      "B9": "   Swindon Supermarine",
+      "C9": "A",
+      "D9": "Southern League Division One South",
+      "A10": "Sat, 28 Nov 2026",
+      "B10": "   Hartpury",
+      "C10": "A",
+      "D10": "Southern League Division One South",
+      "A11": "Sat, 05 Dec 2026",
+      "B11": "   SWINDON SUPERMARINE",
+      "C11": "H",
+      "D11": "Southern League Division One South",
+      "A12": "Sat, 12 Dec 2026",
+      "B12": "   SLIMBRIDGE",
+      "C12": "H",
+      "D12": "Southern League Division One South",
+      "A13": "Sat, 19 Dec 2026",
+      "B13": "   Bristol Manor Farm",
+      "C13": "A",
+      "D13": "Southern League Division One South"
+    },
+    "crests": [
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBjBdYwDyrsBt0Mr",
+        "asset_id": "MAHYHbexwLc",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 739.5298226136289,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBN2gjtHvMl9HjMV",
+        "asset_id": "MAHYHUR2TPw",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 762.5444550122161,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBt71wXmrWV9WrDp",
+        "asset_id": "MAHYHTJLF7U",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 785.5590874108033,
+            "left": 179.04629921259837
+          },
+          "dimension": {
+            "width": 11.92,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LB9RxTQWGYJ212fR",
+        "asset_id": "MAHYHc0FmQ0",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 808.5737198093905,
+            "left": 180.16629921259837
+          },
+          "dimension": {
+            "width": 9.68,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBvxrkywxz7jp1qb",
+        "asset_id": "MAHYHTDtw54",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 831.5883522079777,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBpDLL5vfSPS4RgW",
+        "asset_id": "MAHYHdBn6UI",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 854.6029846065649,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBQllB70fQFWsw9c",
+        "asset_id": "MAHYHWtMIxI",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 877.6176170051522,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LB7z0yDfQNrv3xcm",
+        "asset_id": "MAHYHRRUg74",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 900.6322494037393,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBNyTwFW4KJ0Mlh7",
+        "asset_id": "MAHYHWBxrh0",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 923.6468818023266,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LB1XQl5gnTzZPxzN",
+        "asset_id": "MAHYHRRUg74",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 946.6615142009138,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LBy1zwHvFsxsL69G",
+        "asset_id": "MAHYHb8saGc",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 969.676146599501,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      },
+      {
+        "element_id": "PBNDTwV3s7Xt6767-LB1Z43SnvJsNCg74",
+        "asset_id": "MAHYHerJcko",
+        "geometry": {
+          "type": "RECT",
+          "position": {
+            "top": 992.6907789980881,
+            "left": 177.00629921259838
+          },
+          "dimension": {
+            "width": 16,
+            "height": 16
+          }
+        }
+      }
+    ],
+    "rules": {
+      "exclude_programme_match_date": true,
+      "cutoff_context": "programme match date, not today",
+      "programme_match_date": "2026-10-20",
+      "limit": 12,
+      "bottom_limit": 1018.98,
+      "crest_max_px": 16,
+      "three_em_spaces_before_opponent": true,
+      "home_names_uppercase": true,
+      "preserve_manual_edits": true
+    }
   }
 }

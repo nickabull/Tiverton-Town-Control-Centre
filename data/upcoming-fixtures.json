@@ -1,0 +1,90 @@
+{
+  "programme_match_date": "2026-10-20",
+  "checked_on": "2026-10-18",
+  "fixtures": [
+    {
+      "date": "2026-10-24",
+      "opponent": "Larkhall Athletic",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f4401"
+    },
+    {
+      "date": "2026-10-27",
+      "opponent": "Dorchester Town",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f442d"
+    },
+    {
+      "date": "2026-10-31",
+      "opponent": "Weymouth",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f445c"
+    },
+    {
+      "date": "2026-11-07",
+      "opponent": "Sporting Club Inkberrow",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489"
+    },
+    {
+      "date": "2026-11-11",
+      "opponent": "Paulton Rovers",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44b6"
+    },
+    {
+      "date": "2026-11-14",
+      "opponent": "Bishops Cleeve",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44e0"
+    },
+    {
+      "date": "2026-11-21",
+      "opponent": "Melksham Town",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4508"
+    },
+    {
+      "date": "2026-11-23",
+      "opponent": "Swindon Supermarine",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1aacce9ef452b61f42e5"
+    },
+    {
+      "date": "2026-11-28",
+      "opponent": "Hartpury",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4533"
+    },
+    {
+      "date": "2026-12-05",
+      "opponent": "Swindon Supermarine",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1d2ace9ef452b61f4565"
+    },
+    {
+      "date": "2026-12-12",
+      "opponent": "Slimbridge",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1d2ace9ef452b61f4592"
+    },
+    {
+      "date": "2026-12-19",
+      "opponent": "Bristol Manor Farm",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://www.southern-football-league.co.uk/match/6a5a1da9ce9ef452b61f45b5"
+    }
+  ]
+}

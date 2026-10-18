@@ -39,30 +39,128 @@
         "C1": "SCORE",
         "D1": "MATCH DETAILS   G GOAL · P PENALTY",
         "A2": "08/08",
-        "B2": "HUNGERFORD TOWN (A)",
+        "B2": "  HUNGERFORD\n  TOWN (A)",
         "C2": "1–1 D",
         "D2": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough · Ed Palmer (C) · Asa Hall ▼69′ · Aaron Wellington · Jacob Wellington · Finn Roberts ▼76′ · Louis Jagger Cane G23′ ▼80′ · Aiden Horne ▼55′\nSUBS: Ryan Keates ▲55′ · Jack Kennell ▲69′ · Billy Tucker ▲76′ · Owen Howe ▲80′\nUNUSED: Caleb Pryce-Hall",
         "A3": "11/08",
-        "B3": "BARNSTAPLE TOWN (H)",
+        "B3": "  BARNSTAPLE\n  TOWN (H)",
         "C3": "1–0 W",
         "D3": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough G3′ · Ed Palmer (C) · Asa Hall ■42′ ▼80′ · Aaron Wellington · Jacob Wellington · Finn Roberts ▼85′ · Louis Jagger Cane ▼67′ · Owen Howe ▼80′\nSUBS: Jack Kennell ▲80′ · Aiden Horne ▲80′ · Ryan Keates ▲80′ · Billy Tucker ▲85′\nUNUSED: Caleb Pryce-Hall",
         "A4": "15/08",
-        "B4": "WESTBURY UNITED (A)",
+        "B4": "  WESTBURY\n  UNITED (A)",
         "C4": "1–0 L",
         "D4": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough · Ed Palmer (C) ▼63′ · Asa Hall ▼56′ · Aaron Wellington ▼63′ · Jacob Wellington ■3′ · Finn Roberts ▼56′ · Jack Kennell · Owen Howe ▼56′\nSUBS: Ryan Keates ▲56′ · Billy Tucker ▲56′ · Aiden Horne ▲56′ · Matt Wood ▲63′ · Caleb Pryce-Hall ▲63′",
         "A5": "31/08",
-        "B5": "EXMOUTH TOWN (H)",
+        "B5": "  EXMOUTH\n  TOWN (H)",
         "C5": "1–2 L",
         "D5": "Louis Smith · Mason Winter · Louis Slough ▼70′ · Matt Wood · Ed Palmer (C) ■67′ · Asa Hall ▼86′ · Jack Kennell · Jacob Wellington G45′ · Finn Roberts ■52′ · Billy Tucker ▼67′ · Owen Howe ▼86′\nSUBS: Aiden Horne ▲67′ · Corey Koerner ▲70′ · Aaron Wellington ▲86′ · Ryan Keates ▲86′",
         "A6": "15/09",
-        "B6": "DORCHESTER TOWN (A)",
+        "B6": "  DORCHESTER\n  TOWN (A)",
         "C6": "2–1 L",
         "D6": "Louis Smith · Mason Winter · Louis Slough · Matt Wood · Ed Palmer ■75′ · Asa Hall ■65′ · Billy Tucker · Aaron Wellington · Josh Bissett G80′ · Aiden Horne · Jacob Wellington\nUNUSED: Corey Koerner · Karim Coulibaly · Ryan Keates · Jack Kennell · Caleb Pryce-Hall",
         "A7": "29/09",
-        "B7": "PAULTON ROVERS (H)",
+        "B7": "  PAULTON\n  ROVERS (H)",
         "C7": "2–2 D",
         "D7": "Louis Smith · Mason Winter · Corey Koerner · Ed Palmer (C) · Louis Slough · Ryan Keates ■47′ ▼57′ · Finn Roberts P64′ · Aaron Wellington · Jacob Wellington · Josh Bissett ▼85′ · Owen Howe G36′\nSUBS: Billy Tucker ■89′ ▲57′ · Aiden Horne ▲85′\nUNUSED: Asa Hall · Matt Wood · Caleb Pryce-Hall"
-      }
+      },
+      "opponent_crests": [
+        {
+          "team": "Hungerford Town",
+          "asset_id": "MAHYHeCA8S4",
+          "element_id": "PByXfpH81SgLLt7W-LBJFLHcyG6d71n0Q",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 292.0298016887067,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Barnstaple Town",
+          "asset_id": "MAHYHbJGCrA",
+          "element_id": "PByXfpH81SgLLt7W-LB3YLkYsl4pqWXPZ",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 436.08050544049604,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Westbury United",
+          "asset_id": "MAHYHdbXqMk",
+          "element_id": "PByXfpH81SgLLt7W-LBXrr3h1vtJDMb3X",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 570.6978641531049,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 27.860000000000003
+            }
+          }
+        },
+        {
+          "team": "Exmouth Town",
+          "asset_id": "MAHYHcnAPeM",
+          "element_id": "PByXfpH81SgLLt7W-LBJGQJLcLyNlx5Y3",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 686.1685327873525,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Dorchester Town",
+          "asset_id": "MAHYHUR2TPw",
+          "element_id": "PByXfpH81SgLLt7W-LB4VdbQg5RnrD3CF",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 792.2058563824197,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Paulton Rovers",
+          "asset_id": "MAHYHTDtw54",
+          "element_id": "PByXfpH81SgLLt7W-LBhDWbH4VNZg0TQT",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 898.2431799774869,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        }
+      ]
     },
     {
       "key": "league_so_far_2",
@@ -87,26 +185,108 @@
         "C1": "SCORE",
         "D1": "MATCH DETAILS   G GOAL · P PENALTY",
         "A2": "03/10",
-        "B2": "WORCESTER RAIDERS (H)",
+        "B2": "  WORCESTER\n  RAIDERS (H)",
         "C2": "2–2 D",
         "D2": "Louis Smith · Mason Winter · Ed Palmer (C) · Louis Slough · Ryan Keates ▼54′ · Josh Bissett · Finn Roberts P38′ ■62′ ▼68′ · Aaron Wellington ▼71′ · Jacob Wellington · Owen Howe · Aiden Horne G25′\nSUBS: Asa Hall ▲54′ · Jack Kennell ▲71′ · Corey Koerner ▲68′\nUNUSED: Matt Wood",
         "A3": "06/10",
-        "B3": "HARTPURY (H)",
+        "B3": "  HARTPURY\n  (H)",
         "C3": "3–1 W",
         "D3": "Louis Smith · Mason Winter · Ed Palmer (C) · Matt Wood G71′ · Asa Hall ■32′ · Ryan Keates G47′ ▼52′ · Josh Bissett ▼87′ · Finn Roberts ▼57′ · Jacob Wellington · Owen Howe G41′ ▼90+1′ · Aiden Horne ▼66′\nSUBS: Corey Koerner ▲57′ · Aaron Wellington ▲66′ · Billy Tucker ▲87′ · Jack Kennell ▲52′ · Louis Slough ▲90+1′",
         "A4": "10/10",
-        "B4": "SHAFTESBURY (A)",
+        "B4": "  SHAFTESBURY\n  (A)",
         "C4": "1–4 W",
         "D4": "Louis Smith · Mason Winter · Ed Palmer (C) G5′ G76′ · Matt Wood · Aaron Wellington ▼89′ · Jack Kennell · Asa Hall ▼65′ · Corey Koerner · Josh Bissett G62′ ▼78′ · Jacob Wellington ▼85′ · Owen Howe G36′\nSUBS: Toby Stephens ▲65′ · Billy Tucker ▲78′ · Finn Roberts ▲85′ · Ryan Keates ▲89′\nUNUSED: Louis Slough",
         "A5": "13/10",
-        "B5": "FALMOUTH TOWN (A)",
+        "B5": "  FALMOUTH\n  TOWN (A)",
         "C5": "2–1 L",
         "D5": "Louis Smith · Jack Kennell · Ed Palmer (C) ■73′ · Matt Wood ■56′ ▼65′ · Aaron Wellington ■6′ ▼75′ · Asa Hall P11′ · Toby Stephens ▼65′ · Corey Koerner · Josh Bissett · Jacob Wellington · Owen Howe\nSUBS: Louis Slough ▲65′ · Finn Roberts ▲65′ · Aiden Horne ▲75′",
         "A6": "17/10",
-        "B6": "PORTLAND UNITED (H)",
+        "B6": "  PORTLAND\n  UNITED (H)",
         "C6": "1–4 L",
         "D6": "Louis Smith · Mason Winter · Ed Palmer (C) · Louis Slough · Jack Kennell ▼57′ · Finn Roberts ▼78′ · Aaron Wellington ■25′ ▼57′ · Asa Hall ▼87′ · Jacob Wellington · Josh Bissett · Owen Howe\nSUBS: Toby Stephens ▲57′ · Billy Tucker ▲57′ · Matt Wood ▲87′ · Aiden Horne G90+1′ ▲78′\nUNUSED: Ryan Keates"
-      }
+      },
+      "opponent_crests": [
+        {
+          "team": "Worcester Raiders",
+          "asset_id": "MAHYHQ8xEiQ",
+          "element_id": "PBLQPvrQwZj8zTLS-LBFgTFr75cKT3RvQ",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 289.6503473089968,
+              "left": 102.95151936026647
+            },
+            "dimension": {
+              "width": 26.320000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Hartpury",
+          "asset_id": "MAHYHWBxrh0",
+          "element_id": "PBLQPvrQwZj8zTLS-LBZffHbg2lfcZ4ZR",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 425.2895140471582,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Shaftesbury",
+          "asset_id": "MAHYHU-Qdmc",
+          "element_id": "PBLQPvrQwZj8zTLS-LBmBPv0HkBJ7MV5j",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 569.3127514928103,
+              "left": 105.33151936026647
+            },
+            "dimension": {
+              "width": 21.560000000000002,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Falmouth Town",
+          "asset_id": "MAHYHREbmu8",
+          "element_id": "PBLQPvrQwZj8zTLS-LBzb0XLqPBvk93Gb",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 704.6321553006878,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        },
+        {
+          "team": "Portland United",
+          "asset_id": "MAHYHY5tbW4",
+          "element_id": "PBLQPvrQwZj8zTLS-LBhTj2t8C02StsXY",
+          "geometry": {
+            "type": "RECT",
+            "position": {
+              "top": 835.919405219962,
+              "left": 102.11151936026647
+            },
+            "dimension": {
+              "width": 28.000000000000004,
+              "height": 28.000000000000004
+            }
+          }
+        }
+      ]
     }
   ],
   "rules": {
@@ -127,6 +307,13 @@
     "portland_correction": "17 Oct: Finn Roberts started; Koerner injured in warm-up and did not participate.",
     "last_minute_edits": "Read live Canva first; compare to baseline, preserve manual edits and flag disagreements; update baseline only after successful save.",
     "styling": "Alternating yellow/white rows, black header with white text, green on arrows, red off arrows, amber/red cards, Antonio.",
-    "subtitle": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO {source_scrape_date_DD/MM/YY})"
+    "subtitle": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO {source_scrape_date_DD/MM/YY})",
+    "opponent_column_spacing": {
+      "line_prefix": "  ",
+      "explicit_wrapped_lines": true,
+      "crest_max_size_px": 28,
+      "crest_placement": "Vertically centred in each match row, in left gutter of opponent column. Preserve aspect ratio; move crests with their matching fixture.",
+      "preserve_manual_edits": true
+    }
   }
 }

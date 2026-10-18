@@ -388,5 +388,5 @@ function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-ap
 async function boot(){loadMeta();try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
 boot();
 </script>
-<script src="programme-nav.js?v=20261017-sixty-1"></script>
+<script src="programme-nav.js?v=20261018-theme-1"></script>
 </body></html>

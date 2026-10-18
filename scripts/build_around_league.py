@@ -187,7 +187,7 @@ main{{max-width:1180px;margin:auto;padding:22px}}.note{{background:#fff8cf;borde
 <div class="note"><strong>Test collector:</strong> pulls recent Southern League articles, isolates Division One South material, removes Tiverton-led copy, and presents programme-ready story candidates with source images/credits for approval.</div>
 <section class="grid">{body}</section>
 <div class="foot">Collector updated {html.escape(updated)} · Images remain attributed to their source and are candidates for editorial approval before programme use.</div>
-</main><script src="programme-nav.js"></script></body></html>'''
+</main><script src="programme-nav.js?v=20261018-theme-1"></script></body></html>'''
 
 def main():
     _,home_doc=fetch(HOME)

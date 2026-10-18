@@ -14,11 +14,15 @@
     ["Feature Slot","feature-slot.html"]
   ];
   const css=`
-  .programme-global-nav{background:#111;border-bottom:3px solid #f2c400;position:sticky;top:0;z-index:1000;box-shadow:0 2px 7px rgba(0,0,0,.18)}
+  .programme-global-nav{display:block;margin:0;padding:0;background:#111;border-bottom:3px solid #f2c400;position:sticky;top:0;z-index:1000;box-shadow:0 2px 7px rgba(0,0,0,.18)}
   .programme-global-nav .pgn-inner{max-width:1400px;margin:auto;display:flex;gap:4px;overflow-x:auto;padding:8px 14px;scrollbar-width:thin}
   .programme-global-nav a{flex:0 0 auto;color:#eee;text-decoration:none;border:1px solid #444;border-radius:7px;padding:8px 11px;font:700 12px Arial,Helvetica,sans-serif;white-space:nowrap;background:#1b1b1b}
   .programme-global-nav a:hover{border-color:#f2c400;color:#f2c400}
   .programme-global-nav a.active{background:#f2c400;color:#111;border-color:#f2c400}
+  @media screen{
+    body.programme-theme{min-height:100vh}
+    body.programme-theme,body.programme-theme #private-app{background:linear-gradient(180deg,rgba(247,245,216,.24),rgba(255,255,255,.38)),url("Tiverton%20Grass%20.jpg") center top / cover fixed no-repeat}
+  }
   @media(max-width:650px){.programme-global-nav .pgn-inner{padding:7px 8px}.programme-global-nav a{padding:7px 9px;font-size:11px}}
   `;
   if(!document.getElementById("programme-global-nav-style")){
@@ -35,6 +39,7 @@
   nav.appendChild(inner);
 
   const app=document.getElementById("private-app");
+  document.body.classList.add("programme-theme");
   const scope=app||document.body;
   const header=scope.querySelector("header");
   if(header){

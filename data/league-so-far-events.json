@@ -1,0 +1,247 @@
+{
+  "2026-10-17": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1b79ce9ef452b61f43c3",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Aiden Lee Horne",
+        "minute": 92,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Aaron Wellington",
+        "minute": 25,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-10-13": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1b79ce9ef452b61f438e",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Asa Hall",
+        "minute": 11,
+        "goalType": "penalty"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Matthew Liam Wood",
+        "minute": 56,
+        "cardType": "first_yellow_card"
+      },
+      {
+        "personName": "Aaron Wellington",
+        "minute": 6,
+        "cardType": "first_yellow_card"
+      },
+      {
+        "personName": "Edward George Palmer",
+        "minute": 73,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-10-10": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1b78ce9ef452b61f436a",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Owen Howe",
+        "minute": 36,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Edward George Palmer",
+        "minute": 6,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Joshua William Bissett",
+        "minute": 63,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Edward George Palmer",
+        "minute": 76,
+        "goalType": "normal"
+      }
+    ],
+    "cards": []
+  },
+  "2026-10-06": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1aacce9ef452b61f42bb",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Owen Howe",
+        "minute": 41,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Ryan Richard Keates",
+        "minute": 48,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Matthew Liam Wood",
+        "minute": 72,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Asa Hall",
+        "minute": 32,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-10-03": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1b0ece9ef452b61f433e",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Aiden Lee Horne",
+        "minute": 25,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Finn Roberts",
+        "minute": 38,
+        "goalType": "penalty"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Finn Roberts",
+        "minute": 62,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-09-29": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1b0ece9ef452b61f430d",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Owen Howe",
+        "minute": 36,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Finn Roberts",
+        "minute": 66,
+        "goalType": "penalty"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Ryan Richard Keates",
+        "minute": 47,
+        "cardType": "first_yellow_card"
+      },
+      {
+        "personName": "Billy Tucker",
+        "minute": 89,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-09-15": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1a66ce9ef452b61f4240",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Joshua William Bissett",
+        "minute": 80,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Asa Hall",
+        "minute": 65,
+        "cardType": "first_yellow_card"
+      },
+      {
+        "personName": "Edward George Palmer",
+        "minute": 75,
+        "cardType": "first_yellow_card"
+      },
+      {
+        "personName": "Ryan Richard Keates",
+        "minute": 87,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-08-31": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a1a68ce9ef452b61f4286",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Jacob Robert Wellington",
+        "minute": 45,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Finn Roberts",
+        "minute": 52,
+        "cardType": "red_card"
+      },
+      {
+        "personName": "Edward George Palmer",
+        "minute": 67,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-08-15": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a19f6ce9ef452b61f41e5",
+    "retrieved_date": "2026-10-18",
+    "goals": [],
+    "cards": [
+      {
+        "personName": "Jacob Robert Wellington",
+        "minute": 3,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-08-11": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a19f5ce9ef452b61f41af",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Louie Slough",
+        "minute": 3,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Asa Hall",
+        "minute": 42,
+        "cardType": "first_yellow_card"
+      }
+    ]
+  },
+  "2026-08-08": {
+    "source_url": "https://www.southern-football-league.co.uk/match/6a5a19f6ce9ef452b61f41ed",
+    "retrieved_date": "2026-10-18",
+    "goals": [
+      {
+        "personName": "Louis Jagger Cane",
+        "minute": 22,
+        "goalType": "normal"
+      }
+    ],
+    "cards": []
+  }
+}

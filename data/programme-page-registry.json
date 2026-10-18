@@ -74,8 +74,10 @@
       "key": "league_so_far_1",
       "name": "The League So Far \u2014 Results 1",
       "master_page_id": "PByXfpH81SgLLt7W",
-      "position": 10,
-      "type": "AUTO"
+      "position": 12,
+      "type": "AUTO",
+      "update_binding": "data/league-so-far-binding.json",
+      "render_mode": "native_editable_table"
     },
     {
       "key": "fixed_11",
@@ -371,9 +373,11 @@
     {
       "key": "league_so_far_2",
       "name": "The League So Far \u2014 Results 2",
-      "master_page_id": "PBLlN3DlGSTzc9zG",
-      "position": 52,
-      "type": "AUTO"
+      "master_page_id": "PBLQPvrQwZj8zTLS",
+      "position": 13,
+      "type": "AUTO",
+      "update_binding": "data/league-so-far-binding.json",
+      "render_mode": "native_editable_table"
     }
   ]
 }

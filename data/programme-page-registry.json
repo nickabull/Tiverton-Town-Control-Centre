@@ -88,8 +88,10 @@
       "key": "results_matrix",
       "name": "Results Matrix",
       "master_page_id": "PB98MG6GqY0KbHhR",
-      "position": 12,
-      "type": "AUTO"
+      "position": 14,
+      "type": "AUTO",
+      "update_binding": "data/results-matrix-binding.json",
+      "render_mode": "native_table_incremental"
     },
     {
       "key": "fixed_13",

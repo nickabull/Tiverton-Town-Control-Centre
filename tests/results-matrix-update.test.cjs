@@ -1,0 +1,12 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {planUpdate,runDate}=require('../results-matrix-update.js');
+const b=require('../data/results-matrix-binding.json');
+const feed=require('./fixtures/results-matrix-feed.json');
+const when='2026-10-18T18:40:00Z';
+test('repeat run is score-idempotent and only advances the subtitle',()=>{const p=planUpdate(feed,b,null,when);assert.equal(p.operations.length,0);assert.equal(p.result_count,125);assert.equal(p.conflicts.length,0);assert.match(p.subtitle_operation.text,/18\/10\/26/);});
+test('one new result updates only its blank cell, including zero scores',()=>{const f=structuredClone(feed);f.results.push({home:f.teams[0],away:f.teams[1],score:'0-0'});const p=planUpdate(f,b,null,when);assert.deepEqual(p.operations,[{type:'replace_text',element_id:b.page_id+'-'+b.table_id+'-C2',text:'0-0'}]);});
+test('manual result changes are preserved and flagged',()=>{const cells={...b.baseline_cells,B19:'2-0'};const p=planUpdate(feed,b,cells,when);assert.equal(p.operations.length,0);assert.ok(p.conflicts.some(c=>c.cell==='B19'&&c.current==='2-0'));});
+test('partial feed and changed axes cannot overwrite the table',()=>{assert.throws(()=>planUpdate({...feed,results:feed.results.slice(1)},b,null,when),/missing/);assert.throws(()=>planUpdate(feed,b,{...b.baseline_cells,B1:'WRONG'},when),/headings/);});
+test('subtitle uses the London date across midnight and daylight saving',()=>{assert.equal(runDate('2026-10-18T23:30:00Z','Europe/London'),'19/10/26');assert.equal(runDate('2026-12-18T23:30:00Z','Europe/London'),'18/12/26');});
+test('Tivvy additions carry character-only red formatting instructions',()=>{const f=structuredClone(feed);f.results.push({home:'Tiverton Town',away:'Bideford',score:'10-2'});const p=planUpdate(f,b,null,when);assert.equal(p.character_formatting[0].red_start,0);assert.equal(p.character_formatting[0].red_length,2);assert.equal(p.operations[0].element_id.endsWith('-C19'),true);});

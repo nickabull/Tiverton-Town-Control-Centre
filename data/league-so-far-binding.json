@@ -37,7 +37,7 @@
         "A1": "DATE",
         "B1": "OPPONENT",
         "C1": "SCORE",
-        "D1": "MATCH DETAILS   G GOAL · P PENALTY",
+        "D1": "MATCH DETAILS",
         "A2": "08/08",
         "B2": "  HUNGERFORD\n  TOWN (A)",
         "C2": "1–1 D",
@@ -160,7 +160,8 @@
             }
           }
         }
-      ]
+      ],
+      "event_marker_group_id": "PByXfpH81SgLLt7W-LBTcKPhCTV6wsdH7"
     },
     {
       "key": "league_so_far_2",
@@ -183,7 +184,7 @@
         "A1": "DATE",
         "B1": "OPPONENT",
         "C1": "SCORE",
-        "D1": "MATCH DETAILS   G GOAL · P PENALTY",
+        "D1": "MATCH DETAILS",
         "A2": "03/10",
         "B2": "  WORCESTER\n  RAIDERS (H)",
         "C2": "2–2 D",
@@ -286,7 +287,8 @@
             }
           }
         }
-      ]
+      ],
+      "event_marker_group_id": "PBLQPvrQwZj8zTLS-LBZgxtp9PSBFj6s5"
     }
   ],
   "rules": {
@@ -314,6 +316,19 @@
       "crest_max_size_px": 28,
       "crest_placement": "Vertically centred in each match row, in left gutter of opponent column. Preserve aspect ratio; move crests with their matching fixture.",
       "preserve_manual_edits": true
+    },
+    "match_details_header": "MATCH DETAILS",
+    "event_marker_outline": {
+      "mode": "native_editable_shape_overlay",
+      "stroke_color": "#000000",
+      "stroke_width_px": 1.05,
+      "yellow_card_fill": "#FFDF00",
+      "red_card_and_off_fill": "#D71920",
+      "sub_on_fill": "#00843D",
+      "binding_file": "data/league-so-far-marker-overlay.json",
+      "preserve_text_editability": true,
+      "reflow_policy": "After updating or manually reflowing a match-details cell, remeasure current icon-run positions and reposition the associated native marker shapes. Never blindly reuse the stored coordinates after text changes. Markers can also be nudged manually in Canva.",
+      "preserve_key_header_footer": true
     }
   }
 }

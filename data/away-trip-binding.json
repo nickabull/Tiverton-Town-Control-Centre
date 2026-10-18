@@ -321,7 +321,24 @@
     "font": "Antonio",
     "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
     "ticket_prices": "Match-specific: £12 adult, £8 concession, £7 Bath Spa student, £4 age 5–15, under 5 free; recheck before each issue.",
-    "no_unverified_journey_times": true
+    "no_unverified_journey_times": true,
+    "row_fills": {
+      "gold": "#FFD400",
+      "white": "#FFFFFF",
+      "header": "#111111",
+      "gold_rows_including_header": [
+        3,
+        5,
+        7
+      ],
+      "white_rows_including_header": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "reference": "Match standard gold of existing top panels."
+    }
   },
   "trip_source": "data/away-trip-larkhall.json",
   "table_id": "LBfnJy3FRWrQHh0M"

@@ -33,7 +33,12 @@
         },
         "mode": "native_editable_text",
         "font": "Antonio",
-        "font_size_px": 14
+        "font_size_px": 14,
+        "event_colours": {
+          "GOAL = goal": "#005BBB",
+          "PEN = penalty": "#C2185B",
+          "CAPT = captain": "#7B1FA2"
+        }
       },
       "page_id": "PByXfpH81SgLLt7W",
       "position": 12,
@@ -196,7 +201,12 @@
         },
         "mode": "native_editable_text",
         "font": "Antonio",
-        "font_size_px": 14
+        "font_size_px": 14,
+        "event_colours": {
+          "GOAL = goal": "#005BBB",
+          "PEN = penalty": "#C2185B",
+          "CAPT = captain": "#7B1FA2"
+        }
       },
       "page_id": "PBLQPvrQwZj8zTLS",
       "position": 13,
@@ -351,6 +361,12 @@
     },
     "captain_marker": "CAPT",
     "match_details_header": "MATCH DETAILS",
-    "marker_readability": "Use explicit native CAPT, GOAL and PEN text labels. Keep goal and penalty labels attached to their minutes with nonbreaking spaces. Match the editable legend. Preserve existing card and sub colours."
+    "marker_readability": "Use explicit native CAPT, GOAL and PEN text labels. Keep goal and penalty labels attached to their minutes with nonbreaking spaces. Match the editable legend. Preserve existing card and sub colours. Captain references purple, ordinary goals blue, penalties pink, including both editable keys.",
+    "event_colours": {
+      "captain": "#7B1FA2",
+      "goal": "#005BBB",
+      "penalty": "#C2185B",
+      "scope": "Apply to every native CAPT label, GOAL plus minute, PEN plus minute, and corresponding complete key entries on both pages. Preserve surrounding text and existing substitution/card colours. Use range formatting, never palette Change all."
+    }
   }
 }

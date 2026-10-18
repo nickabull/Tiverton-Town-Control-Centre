@@ -4,7 +4,7 @@
   "fixture": "Tiverton Town v Bideford AFC",
   "date": "20 October 2026",
   "kickoff": "19:30 BST",
-  "competition": "Devon St Luke’s Bowl",
+  "competition": "Devon St Luke\u2019s Bowl",
   "scope": "League form through 17 October 2026; cup results separate",
   "home": {
     "team": "Tiverton Town",
@@ -137,18 +137,18 @@
     "updated": "2026-10-18 18:43:59 UTC"
   },
   "copy": {
-    "story": "Tuesday brings a Devon cup night at home to Bideford. Tivvy return to action after Saturday’s 4–1 defeat by Portland, with a place in the next round at stake.",
-    "ourForm": "Tivvy’s last five league games: D W W L L. The two wins came against Hartpury and Shaftesbury. Owen Howe leads our league scoring with three goals.",
-    "visitors": "Bideford won 3–2 on Saturday. Their last five league results read W L L L W. They have 11 points from 12 games; Tivvy have 12 from 11.",
-    "watchFor": "This is the Devon St Luke’s Bowl, so league points are set aside for the evening. Tivvy began their cup campaign with a 5–1 win over Ilfracombe Town."
+    "story": "Tivvy host Bideford on a Devon cup night, looking to bounce back from Saturday\u2019s defeat by Portland.",
+    "ourForm": "League form: two wins in five. Owen Howe is our leading league scorer with three goals.",
+    "visitors": "Bideford won 3\u20132 on Saturday. 11 points from 12 league games; Tivvy have 12 from 11.",
+    "watchFor": "Devon St Luke\u2019s Bowl tonight. Tivvy began their cup campaign with a 5\u20131 win over Ilfracombe Town."
   },
   "sources": [
     {
-      "label": "Checked league results feed · 18 October 2026",
+      "label": "Checked league results feed \u00b7 18 October 2026",
       "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json"
     },
     {
-      "label": "Darren Holmes’s Ilfracombe cup report",
+      "label": "Darren Holmes\u2019s Ilfracombe cup report",
       "url": "https://www.tivertontownfc.uk/post/yellows-cruise-past-blues-in-st-luke-s-bowl"
     }
   ]

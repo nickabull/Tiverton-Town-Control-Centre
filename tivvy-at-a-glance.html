@@ -98,7 +98,7 @@ async function load(){
   document.getElementById('fixtures').innerHTML='<div class="fixtures"><div class="head">Next fixtures</div><table><thead><tr><th>Date</th><th>Opposition</th><th>H/A</th><th>Competition</th></tr></thead><tbody>'+upcoming.map(x=>{
     const opp=x.opponent||((String(x.home||'').toLowerCase().includes('tiverton'))?x.away:x.home)||'';
     const va=x.venue||((String(x.home||'').toLowerCase().includes('tiverton'))?'H':'A');
-    const crest=crestUrls[opp]||'';
+    const crest=x.crest_url||crestUrls[opp]||'';
     return '<tr><td>'+esc(fmtDate(x.date||x.matchDate||''))+'</td><td>'+(crest?'<img class="crest" src="'+crest+'" alt="">':'')+esc(opp)+'</td><td>'+esc(va)+'</td><td>'+esc(x.competition||'Southern League Division One South')+'</td></tr>'
   }).join('')+'</tbody></table></div>';
   st.innerHTML='<span class="ok">Tivvy stats rebuilt · official Southern League context checked · '+fixtures.length+' completed league games loaded</span>';

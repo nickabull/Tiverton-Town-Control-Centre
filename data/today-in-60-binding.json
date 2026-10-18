@@ -5,7 +5,7 @@
   "design_title": "CHATGPT LEAGUE TEMPLATE",
   "page_id": "PBqjR72mVFBFgmh7",
   "position": 50,
-  "render_mode": "native_editable_text_and_shapes",
+  "render_mode": "native_grouped_editable_dashboard",
   "font": "Antonio",
   "execution_mode": "chatgpt_assisted_connected_run",
   "standalone_canva_write_supported": false,
@@ -17,62 +17,362 @@
   ],
   "editable_fields": [
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBXz9jnCDmgYZNlt",
-      "text": "THE STORY\nTuesday brings a Devon cup night at home to Bideford. Tivvy return to action after Saturday’s 4–1 defeat by Portland, with a place in the next round at stake.",
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBWNsvGkbVNmfwTY",
+      "text": "01 / THE BIG PICTURE",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 200,
-          "left": 38
+          "top": 208,
+          "left": 61
         },
         "dimension": {
-          "width": 718.1102362204724,
-          "height": 62.8
+          "width": 670.1180847424832,
+          "height": 12.891297620718493
         }
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LB5GlKmyBNT2xgf7",
-      "text": "OUR FORM\nTivvy’s last five league games: D W W L L. The two wins came against Hartpury and Shaftesbury. Owen Howe leads our league scoring with three goals.",
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBcH0QC1K1ldXlH5",
+      "text": "THE STORY",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 285,
-          "left": 38
+          "top": 227,
+          "left": 61
         },
         "dimension": {
-          "width": 718.1102362204724,
-          "height": 62.8
+          "width": 670.1479010080274,
+          "height": 23.82936832920691
         }
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBFGVdRmRPbNzYqJ",
-      "text": "THE VISITORS\nBideford won 3–2 on Saturday. Their last five league results read W L L L W. They have 11 points from 12 games; Tivvy have 12 from 11.",
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBRh7KYQzNnnBNHQ",
+      "text": "Tivvy host Bideford on a Devon cup night, looking to bounce back from Saturday’s defeat by Portland.",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 370,
-          "left": 38
+          "top": 259,
+          "left": 60.99999999999994
         },
         "dimension": {
-          "width": 718,
-          "height": 62.8
+          "width": 670.3306805299072,
+          "height": 52.346481247766
         }
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBwk7LBhkZZmbhS9",
-      "text": "THE CUP ANGLE\nThis is the Devon St Luke’s Bowl, so league points are set aside for the evening. Tivvy began their cup campaign with a 5–1 win over Ilfracombe Town.",
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBp98PSbs9WGhPF3",
+      "text": "League form and Darren Holmes’s St Luke’s Bowl report",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 455,
-          "left": 38
+          "top": 321.00000000000006,
+          "left": 61
         },
         "dimension": {
-          "width": 718,
-          "height": 62.8
+          "width": 670.1159645427325,
+          "height": 11.719361473380449
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBVs7SlZLhQZdTDz",
+      "text": "02 / THE YELLOWS",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 368.99999999999994,
+          "left": 58.000000000000014
+        },
+        "dimension": {
+          "width": 195.48253250885804,
+          "height": 12.891297620718493
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB7LKhfNQlL0KxL6",
+      "text": "OUR FORM",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 389.99999999999994,
+          "left": 58
+        },
+        "dimension": {
+          "width": 195.5833688727891,
+          "height": 23.82936832920691
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBg1q2sd4D1jvy0W",
+      "text": "D",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 58
+        },
+        "dimension": {
+          "width": 21.999999999999996,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBqVgy0Kbh2Pfmnr",
+      "text": "W",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 86
+        },
+        "dimension": {
+          "width": 21.999999999999996,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3Wlb5DnpfP5ph4",
+      "text": "W",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 114.00000000000001
+        },
+        "dimension": {
+          "width": 22.000000000000007,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBZkZXlMsJvFfmHC",
+      "text": "L",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 142
+        },
+        "dimension": {
+          "width": 22.00000000000003,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBNW1mnMmmGBHm9P",
+      "text": "L",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 170
+        },
+        "dimension": {
+          "width": 22.00000000000003,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBzRcJp5hvY2RhZF",
+      "text": "League form: two wins in five.\nOwen Howe is our leading league scorer with three goals.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 453.9999999999999,
+          "left": 58.000000000000014
+        },
+        "dimension": {
+          "width": 197.851498933412,
+          "height": 113.28716090934434
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LByPBTm5jZLBpwRJ",
+      "text": "03 / THE ROBINS",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 368.99999999999994,
+          "left": 299.3
+        },
+        "dimension": {
+          "width": 195.48253250885804,
+          "height": 12.891297620718493
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBwNPnFRTNXq2XSh",
+      "text": "THE VISITORS",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 389.99999999999994,
+          "left": 299.3
+        },
+        "dimension": {
+          "width": 195.58336887278912,
+          "height": 23.82936832920691
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBh4LjsMqWklnH4b",
+      "text": "W",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 299.3
+        },
+        "dimension": {
+          "width": 22.00000000000003,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBYS180hKCQl6lQv",
+      "text": "L",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 327.3
+        },
+        "dimension": {
+          "width": 22.00000000000003,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBNNKZ4H8TZsyvRK",
+      "text": "L",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 355.30000000000007
+        },
+        "dimension": {
+          "width": 22.00000000000003,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBb31sR7J7RxDnCn",
+      "text": "L",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 383.30000000000007
+        },
+        "dimension": {
+          "width": 22.000000000000032,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBQBdlBl99FT1T0G",
+      "text": "W",
+      "geometry": {
+        "type": "SHAPE",
+        "position": {
+          "top": 421.99999999999994,
+          "left": 411.29999999999995
+        },
+        "dimension": {
+          "width": 22.000000000000032,
+          "height": 27.503962846166747
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBh9WdvjSQPPB7rg",
+      "text": "Bideford won 3–2 on Saturday.\n11 points from 12 league games; Tivvy have 12 from 11.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 453.9999999999999,
+          "left": 299.3
+        },
+        "dimension": {
+          "width": 197.08122327617335,
+          "height": 113.28716090934434
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3qbdgr3DKH11R5",
+      "text": "04 / THE TALKING POINT",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 369.00000000000006,
+          "left": 540.6
+        },
+        "dimension": {
+          "width": 195.48253250885804,
+          "height": 12.891297620718493
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBhL82wxYDBQr5fh",
+      "text": "WATCH FOR",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 390.00000000000006,
+          "left": 540.6
+        },
+        "dimension": {
+          "width": 195.5833688727891,
+          "height": 23.82936832920691
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3xxmFmdFWsJ0l4",
+      "text": "The cup angle",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 424.9999999999999,
+          "left": 547.6000000000001
+        },
+        "dimension": {
+          "width": 90.17830215713066,
+          "height": 15.235169915394582
+        }
+      }
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBdMDk4dhQZcp80X",
+      "text": "Devon St Luke’s Bowl tonight.\nTivvy began their cup campaign with a 5–1 win over Ilfracombe Town.",
+      "geometry": {
+        "type": "TEXT",
+        "position": {
+          "top": 453.9999999999999,
+          "left": 540.6
+        },
+        "dimension": {
+          "width": 197.08122327617335,
+          "height": 113.28716090934434
         }
       }
     }
@@ -124,9 +424,14 @@
     "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
     "font": "Antonio",
     "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
-    "body_limit_bottom": 570,
-    "word_limit": 180
+    "body_limit_bottom": 588.97,
+    "word_limit": 180,
+    "body_limit_top": 190,
+    "design": "Dashboard-style story panel and three columns; individual editable Antonio headings, paragraphs, ten form badges, yellow cup-angle highlight and native panel backgrounds.",
+    "badges": "Update each badge letter and its fill/text colour together: W green, L red, D neutral; preserve fixture order.",
+    "editing": "Group only for placement; double-click individual headings, paragraphs and form letters to edit. Never flatten to an image."
   },
   "copy_source": "data/today-in-60-bideford.json",
-  "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl"
+  "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl",
+  "group_id": "LBjLr5XTP5TTxnlf"
 }

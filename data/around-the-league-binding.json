@@ -226,11 +226,14 @@
     "body_only": true,
     "preserve_header_footer_background": true,
     "preserve_manual_cosmetics": true,
-    "date_selection": "Use the requested completed Saturday, Europe/London. For this run: 17 October 2026.",
+    "date_selection": "Use the chosen completed Saturday in Europe/London. Default to the most recent Saturday before today; never reuse reference-edition copy as fresh news.",
     "scope": "Southern League Division One South clubs only. Exclude Tiverton-led stories. Verify completed scores and editorial details; do not infer missing scorers or goal types.",
     "copy": "Six concise original summaries in two existing native columns; uppercase 18pt headlines and regular 14pt Antonio bodies. Preserve live formatting via targeted replacement; verify the final paragraph does not inherit headline styling.",
     "fit": "Both story columns must end before the fixed photo row at y=737.322834645669. Tighten copy rather than moving the shell, photos, or reducing typography.",
     "photos": "Choose two relevant real photographs from verified sources. Replace existing fills only, preserve slot geometry, and include accurate photographer credits in the existing captions. Do not label archive or illustrative photos as match-specific.",
     "manual_review": "Read live Canva first, compare to baseline, preserve user changes, review typography, photo crops, credits and fit before completing."
-  }
+  },
+  "approved_layout_reference": "data/around-the-league-20261017.json",
+  "section_key": "around_league",
+  "run_request_module": "around-league-run.js"
 }

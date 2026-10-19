@@ -43,6 +43,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 </section>
 </main>
 <script src="results-matrix-update.js?v=20261018-1"></script>
+<script src="around-league-run.js?v=20261019-1"></script>
 <script>
 const REGISTRY_URL='data/programme-page-registry.json';
 const CLUB_OFFICIALS_URL='data/club-officials.json';
@@ -62,7 +63,7 @@ const sections=[
  {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Four stories','Confirm / replace Mark Farrell photo'],does:'Load the current Chairman photo and four Executive Update stories into the dashboard, let you edit or replace them here, then flow the approved content across the linked spread.',custom:'executiveUpdate'},
  {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
  {key:'results_matrix',name:'Results Matrix',type:'AUTO',pages:['results_matrix'],needs:['Final proof only'],does:'Update new scores in the approved editable Canva table. Keep Antonio, the yellow diagonal, grey Tiverton band, red Tiverton score numeral and existing layout. Update the subtitle to the successful run date. Existing score disagreements are flagged for review.',custom:'resultsMatrix',links:[['Live renderer','results-matrix.html']]},
- {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],needs:['Approve selected stories / images'],does:'Scan Southern League Division One South editorial, exclude Tiverton-led stories, rank the strongest items and suggest source imagery/credits.',links:[['Editorial collector','around-the-league.html']]},
+ {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],custom:'aroundLeague',needs:['Review six stories and two credited photos'],does:'Find six stories from the chosen Saturday involving Division One South clubs, excluding Tiverton-led stories. Populate the approved two-column Antonio layout with capitalised headlines, two photos and credited captions, using only the white content area.',links:[['Editorial collector','around-the-league.html']]},
  {key:'league_table',name:'League Table',type:'AUTO',pages:['league_table'],needs:['Final proof only'],does:'Refresh the league table, approved crest mapping, promotion/play-off/relegation bands and highlight the entire Tiverton row in yellow.',links:[['Live renderer','league-table.html']]},
  {key:'tivvy_glance',name:'Tivvy at a Glance',type:'AUTO',pages:['tivvy_glance'],needs:['Final proof only'],does:'Rebuild the Tiverton stats dashboard from Southern League competition data plus detailed Tiverton match/player events: position, points, form, home/away records, top scorer, appearances, minutes and upcoming fixtures.',links:[['Live renderer','tivvy-at-a-glance.html']]},
  {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Darren report','Approve Viv images'],does:'Detect/import Darren Holmes’s latest match report, cross-reference the correct fixture, then flow copy and selected Viv images across the approved spread.',fields:[['lastOutSource','Darren report URL','text'],['lastOutImages','Selected Viv image notes / links','textarea']]},
@@ -376,6 +377,27 @@ async function prepareResultsMatrix(button){
  }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
 }
 
+function renderAroundLeague(){
+ const date=fieldValue('around-league-saturday')||TivvyAroundLeague.saturdayBeforeToday();
+ return '<div class="autofill-note"><strong>Approved page layout:</strong> six stories · three per column · Antonio · capitalised headlines · two photos with credited captions. Everything remains editable; the header, footer and background stay fixed.</div>'+
+ '<div class="action-fields"><div class="field"><label for="around-league-saturday">Saturday to cover</label><input id="around-league-saturday" type="date" value="'+esc(date)+'" oninput="saveField(\'around-league-saturday\',this.value)"></div>'+
+ '<div class="field"><label for="around-league-notes">Editorial notes / preferred stories</label><textarea id="around-league-notes" oninput="saveField(\'around-league-notes\',this.value)" placeholder="Anything to include, avoid or correct…">'+esc(fieldValue('around-league-notes'))+'</textarea></div></div>'+
+ '<div class="controls"><button class="btn yellow" onclick="prepareAroundLeague(this)">Prepare Around the League run</button></div>'+
+ '<p class="small" id="aroundLeagueStatus" role="status">Prepares a request for a connected ChatGPT run to research and update the page. This button does not publish to Canva.</p><div id="aroundLeagueOutput"></div>';
+}
+async function prepareAroundLeague(button){
+ const status=document.getElementById('aroundLeagueStatus'),output=document.getElementById('aroundLeagueOutput');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/around-the-league-binding.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Could not load the approved Around the League layout.');
+  const binding=await response.json();
+  const plan=TivvyAroundLeague.prepare(binding,document.getElementById('around-league-saturday').value,document.getElementById('around-league-notes').value);
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'}));
+  const link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-around-the-league-'+plan.coverage_date+'.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready for '+plan.coverage_date+': six fresh stories, two photos and credited captions in the approved editable layout. Canva has not been changed.';
+ }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
+}
+
 function draw(){
  const grid=document.getElementById('sectionGrid');
  const expanded=new Set([...grid.querySelectorAll(':scope > details[open]')].map(card=>card.id));
@@ -384,13 +406,13 @@ function draw(){
    const infos=pageInfo(s.pages);
    const card=document.createElement('details'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':''); card.open=expanded.has(card.id);
    const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
-   const fields=s.custom==='resultsMatrix' ? renderResultsMatrix() : s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
+   const fields=s.custom==='aroundLeague' ? renderAroundLeague() : s.custom==='resultsMatrix' ? renderResultsMatrix() : s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
    const legacyOfficials=s.key==='teams_officials'&&fieldValue('officials') ? renderField(['officials','Previous officials entry / notes','textarea']) : '';
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<summary class="section-toggle"><div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div></summary><div class="section-body">'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?((s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='aroundLeague'||s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (legacyOfficials?'<div class="action-fields">'+legacyOfficials+'</div>':'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+

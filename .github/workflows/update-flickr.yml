@@ -1,6 +1,9 @@
 name: Update Viv Flickr catalogue
 
 on:
+  push:
+    paths:
+      - ".github/triggers/flickr.json"
   workflow_dispatch:
     inputs:
       album_id:
@@ -21,7 +24,11 @@ jobs:
         env:
           FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
           FLICKR_ALBUM_ID: ${{ inputs.album_id }}
-        run: python3 scripts/collect_flickr.py --album-id "$FLICKR_ALBUM_ID"
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            FLICKR_ALBUM_ID=$(python3 -c 'import json; print(json.load(open(".github/triggers/flickr.json")).get("album_id", ""))')
+          fi
+          python3 scripts/collect_flickr.py --album-id "$FLICKR_ALBUM_ID"
       - name: Save public catalogue
         run: |
           git config user.name "Tivvy Control Centre"

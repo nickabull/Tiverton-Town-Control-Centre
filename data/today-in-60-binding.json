@@ -17,28 +17,13 @@
   ],
   "editable_fields": [
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBWNsvGkbVNmfwTY",
-      "text": "01 / THE BIG PICTURE",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 208,
-          "left": 61
-        },
-        "dimension": {
-          "width": 670.1180847424832,
-          "height": 12.891297620718493
-        }
-      }
-    },
-    {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBcH0QC1K1ldXlH5",
       "text": "THE STORY",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 227,
-          "left": 61
+          "top": 208,
+          "left": 58
         },
         "dimension": {
           "width": 670.1479010080274,
@@ -52,42 +37,12 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 259,
-          "left": 60.99999999999994
+          "top": 239.99999999999997,
+          "left": 58
         },
         "dimension": {
           "width": 670.3306805299072,
           "height": 52.346481247766
-        }
-      }
-    },
-    {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBp98PSbs9WGhPF3",
-      "text": "League form and Darren Holmes’s St Luke’s Bowl report",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 321.00000000000006,
-          "left": 61
-        },
-        "dimension": {
-          "width": 670.1159645427325,
-          "height": 11.719361473380449
-        }
-      }
-    },
-    {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBVs7SlZLhQZdTDz",
-      "text": "02 / THE YELLOWS",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 368.99999999999994,
-          "left": 58.000000000000014
-        },
-        "dimension": {
-          "width": 195.48253250885804,
-          "height": 12.891297620718493
         }
       }
     },
@@ -97,7 +52,7 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 389.99999999999994,
+          "top": 369,
           "left": 58
         },
         "dimension": {
@@ -112,7 +67,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 402.99999999999994,
           "left": 58
         },
         "dimension": {
@@ -127,7 +82,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 403.00000000000006,
           "left": 86
         },
         "dimension": {
@@ -142,8 +97,8 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
-          "left": 114.00000000000001
+          "top": 402.99999999999994,
+          "left": 114.00000000000003
         },
         "dimension": {
           "width": 22.000000000000007,
@@ -157,7 +112,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 403.00000000000006,
           "left": 142
         },
         "dimension": {
@@ -172,7 +127,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 402.99999999999994,
           "left": 170
         },
         "dimension": {
@@ -187,27 +142,12 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 453.9999999999999,
-          "left": 58.000000000000014
+          "top": 434.99999999999994,
+          "left": 57.99999999999996
         },
         "dimension": {
           "width": 197.851498933412,
           "height": 113.28716090934434
-        }
-      }
-    },
-    {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LByPBTm5jZLBpwRJ",
-      "text": "03 / THE ROBINS",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 368.99999999999994,
-          "left": 299.3
-        },
-        "dimension": {
-          "width": 195.48253250885804,
-          "height": 12.891297620718493
         }
       }
     },
@@ -217,7 +157,7 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 389.99999999999994,
+          "top": 369,
           "left": 299.3
         },
         "dimension": {
@@ -232,7 +172,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 403.00000000000006,
           "left": 299.3
         },
         "dimension": {
@@ -247,7 +187,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 402.99999999999994,
           "left": 327.3
         },
         "dimension": {
@@ -262,7 +202,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 403.00000000000006,
           "left": 355.30000000000007
         },
         "dimension": {
@@ -277,7 +217,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 402.99999999999994,
           "left": 383.30000000000007
         },
         "dimension": {
@@ -292,7 +232,7 @@
       "geometry": {
         "type": "SHAPE",
         "position": {
-          "top": 421.99999999999994,
+          "top": 403.00000000000006,
           "left": 411.29999999999995
         },
         "dimension": {
@@ -307,7 +247,7 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 453.9999999999999,
+          "top": 435,
           "left": 299.3
         },
         "dimension": {
@@ -317,27 +257,12 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3qbdgr3DKH11R5",
-      "text": "04 / THE TALKING POINT",
-      "geometry": {
-        "type": "TEXT",
-        "position": {
-          "top": 369.00000000000006,
-          "left": 540.6
-        },
-        "dimension": {
-          "width": 195.48253250885804,
-          "height": 12.891297620718493
-        }
-      }
-    },
-    {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBhL82wxYDBQr5fh",
       "text": "WATCH FOR",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 390.00000000000006,
+          "top": 368.99999999999994,
           "left": 540.6
         },
         "dimension": {
@@ -348,12 +273,12 @@
     },
     {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3xxmFmdFWsJ0l4",
-      "text": "The cup angle",
+      "text": "Cup action",
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 424.9999999999999,
-          "left": 547.6000000000001
+          "top": 406,
+          "left": 547.6
         },
         "dimension": {
           "width": 90.17830215713066,
@@ -367,7 +292,7 @@
       "geometry": {
         "type": "TEXT",
         "position": {
-          "top": 453.9999999999999,
+          "top": 434.99999999999994,
           "left": 540.6
         },
         "dimension": {
@@ -405,8 +330,8 @@
       "geometry": {
         "type": "RECT",
         "position": {
-          "top": 588.9739546790204,
-          "left": 1.1368683772161603e-13
+          "top": 588.9739546790203,
+          "left": 0.14960629921279178
         },
         "dimension": {
           "width": 793.7007874015746,
@@ -427,11 +352,45 @@
     "body_limit_bottom": 588.97,
     "word_limit": 180,
     "body_limit_top": 190,
-    "design": "Dashboard-style story panel and three columns; individual editable Antonio headings, paragraphs, ten form badges, yellow cup-angle highlight and native panel backgrounds.",
+    "design": "Four native light-grey panels (#F1F2EF) with white gutters, consistent text insets and aligned headings. No small numbered subheadings or report/source tagline. Keep Antonio, the editable form badges and Cup action highlight.",
     "badges": "Update each badge letter and its fill/text colour together: W green, L red, D neutral; preserve fixture order.",
-    "editing": "Group only for placement; double-click individual headings, paragraphs and form letters to edit. Never flatten to an image."
+    "editing": "Group only for placement; double-click individual headings, paragraphs and form letters to edit. Never flatten to an image.",
+    "hide_numbered_sublines": true,
+    "show_report_tagline": false,
+    "cup_label": "Cup action",
+    "never_recreate_removed_elements": "Do not recreate 01 / THE BIG PICTURE, 02 / THE YELLOWS, 03 / THE ROBINS, 04 / THE TALKING POINT, or the Darren report tagline.",
+    "card_alignment": "All three lower panel titles at y=369; badges and yellow highlight at y=403; body paragraphs at y=435. Top story heading y=208 and body y=240. Preserve current panel shapes and equal lower card dimensions."
   },
   "copy_source": "data/today-in-60-bideford.json",
   "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl",
-  "group_id": "LBjLr5XTP5TTxnlf"
+  "group_id": "LBjLr5XTP5TTxnlf",
+  "removed_elements": [
+    "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBWNsvGkbVNmfwTY",
+    "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBp98PSbs9WGhPF3",
+    "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBVs7SlZLhQZdTDz",
+    "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LByPBTm5jZLBpwRJ",
+    "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3qbdgr3DKH11R5"
+  ],
+  "panel_styles": [
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBGJBngKMW8mRtMY",
+      "fill": "#ffffff"
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBxBHJnWQ9bnf0w8",
+      "fill": "#f1f2ef"
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBpqwsV6JNbkL9lB",
+      "fill": "#f1f2ef"
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBBpvy1flr1hqrZh",
+      "fill": "#f1f2ef"
+    },
+    {
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBJfLnvwyj318BMg",
+      "fill": "#f1f2ef"
+    }
+  ]
 }

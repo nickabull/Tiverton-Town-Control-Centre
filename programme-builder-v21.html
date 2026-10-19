@@ -44,6 +44,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 </main>
 <script src="results-matrix-update.js?v=20261018-1"></script>
 <script src="around-league-run.js?v=20261019-1"></script>
+<script src="last-time-out-run.js?v=20261019-1"></script>
 <script>
 const REGISTRY_URL='data/programme-page-registry.json';
 const CLUB_OFFICIALS_URL='data/club-officials.json';
@@ -66,7 +67,7 @@ const sections=[
  {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],custom:'aroundLeague',needs:['Review six stories and two credited photos'],does:'Find six stories from the chosen Saturday involving Division One South clubs, excluding Tiverton-led stories. Populate the approved two-column Antonio layout with capitalised headlines, two photos and credited captions, using only the white content area.',links:[['Editorial collector','around-the-league.html']]},
  {key:'league_table',name:'League Table',type:'AUTO',pages:['league_table'],needs:['Final proof only'],does:'Refresh the league table, approved crest mapping, promotion/play-off/relegation bands and highlight the entire Tiverton row in yellow.',links:[['Live renderer','league-table.html']]},
  {key:'tivvy_glance',name:'Tivvy at a Glance',type:'AUTO',pages:['tivvy_glance'],needs:['Final proof only'],does:'Rebuild the Tiverton stats dashboard from Southern League competition data plus detailed Tiverton match/player events: position, points, form, home/away records, top scorer, appearances, minutes and upcoming fixtures.',links:[['Live renderer','tivvy-at-a-glance.html']]},
- {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Darren report','Approve Viv images'],does:'Detect/import Darren Holmes’s latest match report, cross-reference the correct fixture, then flow copy and selected Viv images across the approved spread.',fields:[['lastOutSource','Darren report URL','text'],['lastOutImages','Selected Viv image notes / links','textarea']]},
+ {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Supply Darren report','Review copy, images and crest'],does:'Flow the supplied report through the existing four-page standard league spread. Preserve wording and editable Antonio text; allow optional headlines, score, match details, image, crest and credit changes. Preview every page before the connected save.',custom:'lastOut'},
  {key:'your_tivvy',name:'Your Tivvy',type:'GUIDED',pages:['your_tivvy_1','your_tivvy_2','your_tivvy_3','your_tivvy_4'],needs:['Edit only changed profiles / photos'],does:'Load the current player paragraphs and linked Canva photos into the dashboard, let you edit them here, and carry the approved content into the fixture copy.',custom:'yourTivvy'},
  {key:'commercial',name:'Commercial & Sponsors',type:'FIXED',pages:['commercial','sponsors','local_independents'],needs:['Review locked advert artwork and expiry warnings'],does:'Show each current-template advert as a protected content block with a staged replacement and two-step unlock confirmation.',custom:'adverts'},
  {key:'opposition',name:'Meet the Opposition',type:'EDITORIAL',pages:['opposition_1','opposition_2','opposition_3','opposition_4','opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4'],needs:['Darren preview','Final editorial proof'],does:'Combine verified opposition facts/squad data with Darren’s preview and flow it through the full approved opposition section.',fields:[['oppSource','Darren preview URL','text'],['oppNotes','Opposition notes / corrections','textarea']]},
@@ -416,6 +417,36 @@ async function prepareAroundLeague(button){
  }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
 }
 
+let lastOutBinding=null;
+function lastOutValue(key,baseline=''){const value=localStorage.getItem('tivvy-v21-lastOut-'+key);return value===null?baseline:value;}
+function saveLastOut(key,value){saveField('lastOut-'+key,value);localStorage.removeItem('tivvy-v21-approved-last_time_out');const check=document.querySelector('#section-last_time_out [data-section-approval]');if(check){check.checked=false;check.closest('.section-card').classList.remove('done');}}
+function lastOutControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="lastOut-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?'<textarea id="lastOut-'+esc(key)+'" style="min-height:120px" oninput="saveLastOut(\''+key+'\',this.value)">'+esc(lastOutValue(key,baseline))+'</textarea>':'<input id="lastOut-'+esc(key)+'" value="'+esc(lastOutValue(key,baseline))+'" oninput="saveLastOut(\''+key+'\',this.value)">')+'</div>';}
+function renderLastOut(){
+ if(!lastOutBinding)return '<p class="small">The Last Time Out layout could not be loaded. Refresh to try again.</p>';
+ const b=lastOutBinding;
+ let html='<div class="autofill-note"><strong>CHATGPT LEAGUE TEMPLATE only.</strong> Use Darren’s report in the existing four-page spread, with native editable Antonio text. Preserve the template artwork, page order and current images unless you request replacements.</div><div class="action-fields">';
+ html+=lastOutControl('source','Report URL',fieldValue('lastOutSource'))+lastOutControl('attachment','Report attachment / reference (supply the Word file in the connected chat)');
+ html+=lastOutControl('article_headline','Article headline — optional; inserted above the opening paragraph')+lastOutControl('notes','Editorial instructions / image notes',fieldValue('lastOutImages'),true);
+ html+=lastOutControl('report','Complete new report — paste the full wording, including teams and scorers','',true)+'</div><button class="btn dark" type="button" onclick="distributeLastOut()">Distribute report into the six text boxes</button><p class="small">Unedited fields keep the live Canva content. The connected run reads the current copy; these controls start blank. This prepares editable copy below. Paragraphs stay in order; no automatic rewriting or shortening. The connected run checks the new fixture and updates the score/match details from the report; your explicit overrides take precedence. Review the split and any corrections before preparing the Canva run.</p>';
+ html+='<details><summary>Images and crests — keep or replace</summary><div class="action-fields">'+b.media_slots.map(m=>lastOutControl('media-'+m.key,m.label+' — Flickr photo link, Canva asset ID/link or Canva location')).join('')+'</div><p class="small">Blank means keep the current item. Replacements keep the existing frame. Check the page photo credit below when changing an image.</p><a class="btn dark" href="photo-library.html" target="_blank" rel="noopener">Browse Viv’s Photo Library</a></details>';
+ b.pages.forEach((page,i)=>{const fields=b.fields.filter(f=>f.page_key===page.key);html+='<details style="margin-top:12px"><summary>Report page '+(i+1)+' — headlines, copy and credits</summary><div class="action-fields">'+fields.map(f=>lastOutControl(f.key,f.label,f.baseline,f.kind!=='heading')).join('')+'</div></details>';});
+ return html+'<div style="margin-top:16px"><button class="btn dark" type="button" onclick="prepareLastOut(this)">Prepare Last Time Out run</button></div><p id="lastOutStatus" class="small">Prepares a request for the connected Canva run. This button does not publish to Canva by itself.</p><div id="lastOutOutput"></div>';
+}
+function distributeLastOut(){
+ try{const fields=TivvyLastOut.flow(lastOutBinding,lastOutValue('report'));for(const [key,value] of Object.entries(fields))saveLastOut(key,value);draw();document.getElementById('lastOutStatus').textContent='Report distributed in paragraph order. Open the four page editors to check the copy; the Canva template has not been changed.';}catch(error){document.getElementById('lastOutStatus').textContent=error.message;}
+}
+async function prepareLastOut(button){
+ const status=document.getElementById('lastOutStatus'),output=document.getElementById('lastOutOutput');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Could not load the league report layout.');const binding=await response.json();
+  const overrides={};for(const f of binding.fields){const v=localStorage.getItem('tivvy-v21-lastOut-'+f.key);if(v!==null)overrides[f.key]=v;}
+  const media={};for(const m of binding.media_slots)media[m.key]=lastOutValue('media-'+m.key);
+  const plan=TivvyLastOut.prepare(binding,{report:lastOutValue('report'),source:lastOutValue('source',fieldValue('lastOutSource')),attachment:lastOutValue('attachment'),article_headline:lastOutValue('article_headline'),notes:lastOutValue('notes',fieldValue('lastOutImages')),overrides,media});
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'})),link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-last-time-out-run.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready for CHATGPT LEAGUE TEMPLATE: '+plan.text_updates.length+' text changes and '+plan.media_replacements.length+' image/crest replacements. '+(plan.status==='source_import_required'?'The connected run must import the referenced report first. ':'')+(plan.warnings.length?plan.warnings.join(' ')+' ':'')+'Canva has not been changed.';
+ }catch(error){status.textContent=error.message;}finally{button.disabled=false;}
+}
+
 function draw(){
  const grid=document.getElementById('sectionGrid');
  const expanded=new Set([...grid.querySelectorAll(':scope > details[open]')].map(card=>card.id));
@@ -423,14 +454,14 @@ function draw(){
  sections.forEach(s=>{
    const infos=pageInfo(s.pages);
    const card=document.createElement('details'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':''); card.open=expanded.has(card.id);
-   const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
-   const fields=s.custom==='aroundLeague' ? renderAroundLeague() : s.custom==='resultsMatrix' ? renderResultsMatrix() : s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
+   const tech=s.custom==='lastOut' ? '<div class="small">The connected run resolves the four report pages from the live CHATGPT LEAGUE TEMPLATE and existing registry. Page numbers may change when reordered.</div>' : infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+p.position+'</div></div></div>').join('');
+   const fields=s.custom==='lastOut' ? renderLastOut() : s.custom==='aroundLeague' ? renderAroundLeague() : s.custom==='resultsMatrix' ? renderResultsMatrix() : s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
    const legacyOfficials=s.key==='teams_officials'&&fieldValue('officials') ? renderField(['officials','Previous officials entry / notes','textarea']) : '';
    const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
    card.innerHTML=
      '<summary class="section-toggle"><div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div></summary><div class="section-body">'+
      '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
-     (fields?((s.custom==='aroundLeague'||s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (fields?((s.custom==='lastOut'||s.custom==='aroundLeague'||s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (legacyOfficials?'<div class="action-fields">'+legacyOfficials+'</div>':'')+
      (links?'<div class="links">'+links+'</div>':'')+
      '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
@@ -448,7 +479,7 @@ function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><
 function saveMeta(){}
 function loadMeta(){}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
+async function boot(){loadMeta();try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
 boot();
 </script>
 <script src="programme-nav.js?v=20261018-theme-1"></script>

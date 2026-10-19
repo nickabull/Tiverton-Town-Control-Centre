@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "key": "last_time_out",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "execution_mode": "chatgpt_assisted_connected_run",
+  "standalone_canva_write_supported": false,
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "pages": [
+    {
+      "key": "last_time_out_1",
+      "label": "Last Time Out 1"
+    },
+    {
+      "key": "last_time_out_2",
+      "label": "Last Time Out 2"
+    },
+    {
+      "key": "last_time_out_3",
+      "label": "Last Time Out 3"
+    },
+    {
+      "key": "last_time_out_4",
+      "label": "Last Time Out 4"
+    }
+  ],
+  "font": "Antonio",
+  "fields": [
+    {
+      "key": "heading_1",
+      "label": "Page 1 section headline",
+      "kind": "heading",
+      "page_key": "last_time_out_1",
+      "baseline": ""
+    },
+    {
+      "key": "heading_2",
+      "label": "Page 2 section headline",
+      "kind": "heading",
+      "page_key": "last_time_out_2",
+      "baseline": ""
+    },
+    {
+      "key": "heading_3",
+      "label": "Page 3 section headline",
+      "kind": "heading",
+      "page_key": "last_time_out_3",
+      "baseline": ""
+    },
+    {
+      "key": "heading_4",
+      "label": "Page 4 section headline",
+      "kind": "heading",
+      "page_key": "last_time_out_4",
+      "baseline": ""
+    },
+    {
+      "key": "body_1",
+      "label": "Opening page \u2014 main report",
+      "kind": "body",
+      "page_key": "last_time_out_1",
+      "baseline": "",
+      "estimated_capacity": 1800
+    },
+    {
+      "key": "body_2",
+      "label": "Opening page \u2014 beside crest",
+      "kind": "body",
+      "page_key": "last_time_out_1",
+      "baseline": "",
+      "estimated_capacity": 650
+    },
+    {
+      "key": "body_3",
+      "label": "Second page \u2014 beside photo",
+      "kind": "body",
+      "page_key": "last_time_out_2",
+      "baseline": "",
+      "estimated_capacity": 400
+    },
+    {
+      "key": "body_4",
+      "label": "Second page \u2014 main report",
+      "kind": "body",
+      "page_key": "last_time_out_2",
+      "baseline": "",
+      "estimated_capacity": 1800
+    },
+    {
+      "key": "body_5",
+      "label": "Third page \u2014 report",
+      "kind": "body",
+      "page_key": "last_time_out_3",
+      "baseline": "",
+      "estimated_capacity": 2800
+    },
+    {
+      "key": "body_6",
+      "label": "Fourth page \u2014 report and teams",
+      "kind": "body",
+      "page_key": "last_time_out_4",
+      "baseline": "",
+      "estimated_capacity": 2500
+    },
+    {
+      "key": "score",
+      "label": "Score and scorers",
+      "kind": "metadata",
+      "page_key": "last_time_out_1",
+      "baseline": ""
+    },
+    {
+      "key": "match_details",
+      "label": "Match date / venue / competition",
+      "kind": "metadata",
+      "page_key": "last_time_out_1",
+      "baseline": ""
+    },
+    {
+      "key": "credit_1",
+      "label": "Page 1 author / photo credit",
+      "kind": "credit",
+      "page_key": "last_time_out_1",
+      "baseline": ""
+    },
+    {
+      "key": "credit_2",
+      "label": "Page 2 author / photo credit",
+      "kind": "credit",
+      "page_key": "last_time_out_2",
+      "baseline": ""
+    },
+    {
+      "key": "credit_3",
+      "label": "Page 3 author / photo credit",
+      "kind": "credit",
+      "page_key": "last_time_out_3",
+      "baseline": ""
+    },
+    {
+      "key": "credit_4",
+      "label": "Page 4 author / photo credit",
+      "kind": "credit",
+      "page_key": "last_time_out_4",
+      "baseline": ""
+    }
+  ],
+  "media_slots": [
+    {
+      "key": "opponent_crest",
+      "label": "Opponent crest \u2014 opening page",
+      "page_key": "last_time_out_1",
+      "preserve_existing_frame": true
+    },
+    {
+      "key": "report_photo",
+      "label": "Report photo \u2014 second page",
+      "page_key": "last_time_out_2",
+      "preserve_existing_frame": true
+    }
+  ],
+  "rules": {
+    "target": "CHATGPT LEAGUE TEMPLATE only; never use the Devon County Cup template or an archived issue",
+    "resolve_live": "Use the existing page registry and the live named league design to resolve the four report pages and their native report text, headings, match metadata, credits and image frames. Read current content and geometry in the connected session; never publish it to this configuration.",
+    "report": "Preserve supplied wording, paragraph order, line-ups, substitutes and scorers. Never silently summarise or correct names/facts. Flag possible mistakes for Nick.",
+    "sources": "Accept pasted report, source URL or Word attachment supplied in the connected chat. Import referenced copy before editing.",
+    "defaults": "Unedited controls keep the live item. Explicit text edits, including clearing a text box, are applied; blank media references keep the current media. New report copy requires correct fixture metadata from the report or checked source, with explicit overrides taking precedence; never reuse a stale opponent or invent a date.",
+    "native_editability": "Keep native editable Antonio text and existing frame geometry. Never flatten the report or template to images.",
+    "media": "Resolve explicitly supplied public Flickr photo links, Canva asset IDs/links or Canva locations only during the connected run. Preserve existing frames and check photo credits. Blank replacement retains current image or crest.",
+    "manual_edits": "Reread the live league spread and preserve all unspecified manual changes. Never change page count/order or surrounding artwork. Only explicit headline/credit text overrides may touch their named text boxes.",
+    "fit": "Split at paragraph boundaries in order. Estimated capacities only guide the draft; inspect every page in Canva and flag overflow. Do not truncate wording, shrink type or move frames to force a fit.",
+    "privacy": "Report text and media references entered in the automator stay in this browser/local downloaded request. Do not commit them, live Canva content or native design metadata to the public repository."
+  }
+}

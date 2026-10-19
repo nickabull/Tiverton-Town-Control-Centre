@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "key": "opposition_preview",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "execution_mode": "chatgpt_assisted_connected_run",
+  "standalone_canva_write_supported": false,
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "pages": [
+    {
+      "key": "opposition_preview_1",
+      "label": "Opposition Preview 1"
+    },
+    {
+      "key": "opposition_preview_2",
+      "label": "Opposition Preview 2"
+    },
+    {
+      "key": "opposition_preview_3",
+      "label": "Opposition Preview 3"
+    },
+    {
+      "key": "opposition_preview_4",
+      "label": "Opposition Preview 4"
+    }
+  ],
+  "font": "Antonio",
+  "fields": [
+    {
+      "key": "heading_1",
+      "label": "Page 1 section headline",
+      "kind": "heading",
+      "page_key": "opposition_preview_1",
+      "baseline": ""
+    },
+    {
+      "key": "opponent_1",
+      "label": "Page 1 opponent heading",
+      "kind": "metadata",
+      "page_key": "opposition_preview_1",
+      "baseline": ""
+    },
+    {
+      "key": "preview_label_1",
+      "label": "Page 1 preview label",
+      "kind": "heading",
+      "page_key": "opposition_preview_1",
+      "baseline": ""
+    },
+    {
+      "key": "heading_2",
+      "label": "Page 2 section headline",
+      "kind": "heading",
+      "page_key": "opposition_preview_2",
+      "baseline": ""
+    },
+    {
+      "key": "opponent_2",
+      "label": "Page 2 opponent heading",
+      "kind": "metadata",
+      "page_key": "opposition_preview_2",
+      "baseline": ""
+    },
+    {
+      "key": "preview_label_2",
+      "label": "Page 2 preview label",
+      "kind": "heading",
+      "page_key": "opposition_preview_2",
+      "baseline": ""
+    },
+    {
+      "key": "heading_3",
+      "label": "Page 3 section headline",
+      "kind": "heading",
+      "page_key": "opposition_preview_3",
+      "baseline": ""
+    },
+    {
+      "key": "opponent_3",
+      "label": "Page 3 opponent heading",
+      "kind": "metadata",
+      "page_key": "opposition_preview_3",
+      "baseline": ""
+    },
+    {
+      "key": "preview_label_3",
+      "label": "Page 3 preview label",
+      "kind": "heading",
+      "page_key": "opposition_preview_3",
+      "baseline": ""
+    },
+    {
+      "key": "heading_4",
+      "label": "Page 4 section headline",
+      "kind": "heading",
+      "page_key": "opposition_preview_4",
+      "baseline": ""
+    },
+    {
+      "key": "opponent_4",
+      "label": "Page 4 opponent heading",
+      "kind": "metadata",
+      "page_key": "opposition_preview_4",
+      "baseline": ""
+    },
+    {
+      "key": "preview_label_4",
+      "label": "Page 4 preview label",
+      "kind": "heading",
+      "page_key": "opposition_preview_4",
+      "baseline": ""
+    },
+    {
+      "key": "body_1",
+      "label": "Opening page \u2014 introduction beside photo",
+      "kind": "body",
+      "page_key": "opposition_preview_1",
+      "baseline": "",
+      "estimated_capacity": 500
+    },
+    {
+      "key": "body_2",
+      "label": "Opening page \u2014 main preview",
+      "kind": "body",
+      "page_key": "opposition_preview_1",
+      "baseline": "",
+      "estimated_capacity": 1700
+    },
+    {
+      "key": "body_3",
+      "label": "Second page \u2014 main preview",
+      "kind": "body",
+      "page_key": "opposition_preview_2",
+      "baseline": "",
+      "estimated_capacity": 1800
+    },
+    {
+      "key": "body_4",
+      "label": "Second page \u2014 beside crest",
+      "kind": "body",
+      "page_key": "opposition_preview_2",
+      "baseline": "",
+      "estimated_capacity": 500
+    },
+    {
+      "key": "body_5",
+      "label": "Third page \u2014 preview",
+      "kind": "body",
+      "page_key": "opposition_preview_3",
+      "baseline": "",
+      "estimated_capacity": 2800
+    },
+    {
+      "key": "body_6",
+      "label": "Fourth page \u2014 above closing photo",
+      "kind": "body",
+      "page_key": "opposition_preview_4",
+      "baseline": "",
+      "estimated_capacity": 1000
+    },
+    {
+      "key": "match_details",
+      "label": "Match date / kick-off / venue / competition",
+      "kind": "metadata",
+      "page_key": "opposition_preview_1",
+      "baseline": ""
+    },
+    {
+      "key": "credit_1",
+      "label": "Page 1 author / photo credit",
+      "kind": "credit",
+      "page_key": "opposition_preview_1",
+      "baseline": ""
+    },
+    {
+      "key": "credit_2",
+      "label": "Page 2 author / photo credit",
+      "kind": "credit",
+      "page_key": "opposition_preview_2",
+      "baseline": ""
+    },
+    {
+      "key": "credit_3",
+      "label": "Page 3 author / photo credit",
+      "kind": "credit",
+      "page_key": "opposition_preview_3",
+      "baseline": ""
+    },
+    {
+      "key": "credit_4",
+      "label": "Page 4 author / photo credit",
+      "kind": "credit",
+      "page_key": "opposition_preview_4",
+      "baseline": ""
+    }
+  ],
+  "media_slots": [
+    {
+      "key": "opening_photo",
+      "label": "Opening preview photo",
+      "page_key": "opposition_preview_1",
+      "preserve_existing_frame": true
+    },
+    {
+      "key": "opponent_crest",
+      "label": "Opponent crest \u2014 second preview page",
+      "page_key": "opposition_preview_2",
+      "preserve_existing_frame": true
+    },
+    {
+      "key": "closing_photo",
+      "label": "Closing preview photo",
+      "page_key": "opposition_preview_4",
+      "preserve_existing_frame": true
+    },
+    {
+      "key": "watermark_crest",
+      "label": "Watermark crests \u2014 all four preview pages",
+      "page_keys": [
+        "opposition_preview_1",
+        "opposition_preview_2",
+        "opposition_preview_3",
+        "opposition_preview_4"
+      ],
+      "preserve_existing_frame": true,
+      "preserve_opacity": true
+    }
+  ],
+  "rules": {
+    "target": "CHATGPT LEAGUE TEMPLATE only; preview pages only. Never use the cup design, an archived issue or the club facts/squad/honours pages.",
+    "resolve_live": "Use the existing registry keys opposition_preview_1 through opposition_preview_4 to resolve the four preview pages in the live named league design. Read native text/media elements in the connected session; do not publish live copy, native IDs or geometry to this public configuration.",
+    "report": "Preserve Darren\u2019s supplied preview wording and paragraph order. Never silently summarise, rewrite names or correct facts; flag possible mistakes for Nick.",
+    "sources": "Accept pasted report, source URL or Word attachment supplied in the connected chat. Import referenced copy before editing.",
+    "defaults": "Unedited text controls keep live content. Blank media references retain current media. For a new preview, verify upcoming opponent, fixture date, kick-off, venue, competition and round from the source; explicit overrides take precedence. Do not carry stale opposition details into the new preview.",
+    "native_editability": "Keep native editable Antonio text and existing frame geometry. Never flatten the report or template to images.",
+    "media": "Resolve explicit Flickr links, Canva asset IDs/links or Canva locations in the connected run. Replace only the specified opening photo, closing photo, standalone crest or the four designated watermark crest fills. Preserve all frame geometry, opacity, layering and other background/template artwork. Check bylines.",
+    "manual_edits": "Reread the live league spread and preserve all unspecified manual changes. Never change page count/order or surrounding artwork. Only explicit headline/credit text overrides may touch their named text boxes.",
+    "fit": "Six existing native text boxes across four preview pages. Split paragraphs in their original order; estimates guide the draft only. Inspect all four pages for fit. Never truncate copy, shrink Antonio type or move images/template to force a fit.",
+    "privacy": "Report text and media references entered in the automator stay in this browser/local downloaded request. Do not commit them, live Canva content or native design metadata to the public repository.",
+    "scope": "Exactly the four logical opposition_preview pages. Exclude opposition_1 through opposition_4, Last Time Out and every other section."
+  }
+}

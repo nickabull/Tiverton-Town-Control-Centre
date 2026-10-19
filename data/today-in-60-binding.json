@@ -33,7 +33,7 @@
     },
     {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBRh7KYQzNnnBNHQ",
-      "text": "Tivvy host Bideford on a Devon cup night, looking to bounce back from Saturday’s defeat by Portland.",
+      "text": "Tivvy host Bideford on a Devon cup night, looking to bounce back from Saturday\u2019s defeat by Portland.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -243,7 +243,7 @@
     },
     {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBh9WdvjSQPPB7rg",
-      "text": "Bideford won 3–2 on Saturday.\n11 points from 12 league games; Tivvy have 12 from 11.",
+      "text": "Bideford won 3\u20132 on Saturday.\n11 points from 12 league games; Tivvy have 12 from 11.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -288,7 +288,7 @@
     },
     {
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBdMDk4dhQZcp80X",
-      "text": "Devon St Luke’s Bowl tonight.\nTivvy began their cup campaign with a 5–1 win over Ilfracombe Town.",
+      "text": "Devon St Luke\u2019s Bowl tonight.\nTivvy began their cup campaign with a 5\u20131 win over Ilfracombe Town.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -352,14 +352,20 @@
     "body_limit_bottom": 588.97,
     "word_limit": 180,
     "body_limit_top": 190,
-    "design": "Four native light-grey panels (#F1F2EF) with white gutters, consistent text insets and aligned headings. No small numbered subheadings or report/source tagline. Keep Antonio, the editable form badges and Cup action highlight.",
+    "design": "Four native light-grey panels (#F1F2EF) with white gutters, consistent text insets and aligned headings. No small numbered subheadings or report/source tagline. Keep Antonio, the editable form badges and story-led label highlight.",
     "badges": "Update each badge letter and its fill/text colour together: W green, L red, D neutral; preserve fixture order.",
     "editing": "Group only for placement; double-click individual headings, paragraphs and form letters to edit. Never flatten to an image.",
     "hide_numbered_sublines": true,
     "show_report_tagline": false,
-    "cup_label": "Cup action",
     "never_recreate_removed_elements": "Do not recreate 01 / THE BIG PICTURE, 02 / THE YELLOWS, 03 / THE ROBINS, 04 / THE TALKING POINT, or the Darren report tagline.",
-    "card_alignment": "All three lower panel titles at y=369; badges and yellow highlight at y=403; body paragraphs at y=435. Top story heading y=208 and body y=240. Preserve current panel shapes and equal lower card dimensions."
+    "card_alignment": "All three lower panel titles at y=369; badges and yellow highlight at y=403; body paragraphs at y=435. Top story heading y=208 and body y=240. Preserve current panel shapes and equal lower card dimensions.",
+    "watch_for_label": {
+      "source": "copy.watchForLabel",
+      "editable": true,
+      "fixed_wording": false,
+      "instruction": "Choose a short label to suit the current Watch For story. Cup action is only the Bideford edition wording. Preserve a user-edited label and resize its yellow highlight to fit; do not force cup wording on league stories.",
+      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3xxmFmdFWsJ0l4"
+    }
   },
   "copy_source": "data/today-in-60-bideford.json",
   "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl",

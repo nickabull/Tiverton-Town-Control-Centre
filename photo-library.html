@@ -100,9 +100,17 @@ function renderArchive(reset=true){
 }
 async function loadFlickrArchive(){
  try{
-  const catalogueUrl='https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/flickr-catalogue.json?v='+Date.now();
-  let response;try{response=await fetch(catalogueUrl,{cache:'no-store'});if(!response.ok)throw Error()}catch{response=await fetch('data/flickr-catalogue.json?v='+Date.now(),{cache:'no-store'})}if(!response.ok)throw Error();
+  const catalogueUrl='https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/flickr-gallery.json?v='+Date.now();
+  let response;try{response=await fetch(catalogueUrl,{cache:'no-store'});if(!response.ok)throw Error()}catch{response=await fetch('data/flickr-gallery.json?v='+Date.now(),{cache:'no-store'})}if(!response.ok)throw Error();
   flickrCatalogue=await response.json();
+  const albumNames=new Map(flickrCatalogue.albums.map(a=>[a.album_id,a.title]));
+  if(flickrCatalogue.rows){
+   flickrCatalogue.photos=flickrCatalogue.rows.map(row=>{
+    const p=Object.fromEntries(flickrCatalogue.photo_fields.map((key,i)=>[key,row[i]]));
+    return {...p,album_title:albumNames.get(p.album_id)||'',credit:flickrCatalogue.credit,source_url:'https://www.flickr.com/photos/'+flickrCatalogue.owner_id+'/'+p.photo_id+'/'};
+   });
+   delete flickrCatalogue.rows;
+  }
   document.getElementById('flickr-status').textContent=flickrCatalogue.status==='connected'?flickrCatalogue.albums.length+' Tiverton albums · '+(flickrCatalogue.indexed_album_count||new Set(flickrCatalogue.photos.map(p=>p.album_id)).size)+' indexed albums · '+flickrCatalogue.photos.length+' indexed photos · updated '+flickrCatalogue.updated_at:'Awaiting the encrypted API key and first collector run.';
   const indexed=new Set(flickrCatalogue.photos.map(p=>p.album_id));
   document.getElementById('archive-album').innerHTML='<option value="">All indexed photos</option>'+flickrCatalogue.albums.filter(a=>indexed.has(a.album_id)).map(a=>'<option value="'+esc(a.album_id)+'">'+esc(a.title)+'</option>').join('');

@@ -153,6 +153,16 @@ def main():
         json.dump(result, handle, ensure_ascii=False, separators=(',', ':'))
         handle.write('\n')
     os.replace(handle.name, path)
+    # A smaller public feed avoids sending repeated album names/credits to browsers.
+    fields = ['photo_id', 'album_id', 'title', 'date_taken', 'thumbnail_url', 'large_url', 'original_url']
+    gallery = {key: value for key, value in result.items() if key != 'photos'}
+    gallery['photo_fields'] = fields
+    gallery['rows'] = [[photo.get(field) for field in fields] for photo in result['photos']]
+    gallery_path = path.with_name('flickr-gallery.json')
+    with tempfile.NamedTemporaryFile('w', dir=path.parent, delete=False) as handle:
+        json.dump(gallery, handle, ensure_ascii=False, separators=(',', ':'))
+        handle.write('\n')
+    os.replace(handle.name, gallery_path)
     print(f"Indexed {len(result['albums'])} public Tiverton albums; {len(result['photos'])} catalogue photos. No player tags or usage records changed.")
 
 if __name__ == '__main__':

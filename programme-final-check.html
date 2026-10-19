@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Programme Final Check | Tiverton Town</title>
+<style>
+:root{--gold:#f2c400}*{box-sizing:border-box}body{margin:0;background:#f1f1ed;font:15px Arial,sans-serif;color:#151515}header{background:#171717;color:white;border-bottom:5px solid var(--gold);padding:22px max(20px,calc((100vw - 1000px)/2))}header small{color:var(--gold);font-weight:800;letter-spacing:1.5px}h1{margin:6px 0}main{max-width:1000px;margin:24px auto;padding:0 18px}.panel{background:white;border:1px solid #ddd;border-radius:12px;padding:20px;margin:15px 0}label{display:block;font-weight:700;margin:12px 0 5px}input,textarea{width:100%;padding:11px;border:1px solid #aaa;border-radius:7px;font:inherit}textarea{min-height:85px}button{background:var(--gold);color:#111;border:0;border-radius:7px;padding:13px 17px;font-weight:800;cursor:pointer;margin-top:14px}button:disabled{opacity:.5}a{color:inherit}.muted{color:#666;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.item{border-left:5px solid #b98000;padding:10px 14px;background:#fff9e7;margin:9px 0;border-radius:5px}.item.high{border-color:#b92727;background:#fff0f0}.item.good{border-color:#168348;background:#eefaf2}.item small{display:block;color:#555;margin-top:6px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#eee;border-radius:30px;padding:8px 11px;font-weight:bold}.hidden{display:none}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<header><small>TIVERTON TOWN · CONTROL CENTRE</small><h1>Programme Final Check</h1><p>Pre-publication editorial quality control</p><a href="index.html" style="color:#f2c400">← Back to Programme Centre</a></header>
+<main><section class="panel"><h2>1. Load the programme</h2><p class="muted">Select the final PDF. The file is read in your browser; it is not uploaded to a server by this tool. Scanned pages and artwork embedded as images may not be text-searchable.</p><input type="file" id="file" accept=".pdf,application/pdf"><div class="grid"><div><label for="opponent">Today's opponent</label><input id="opponent" placeholder="e.g. Bideford"></div><div><label for="date">Match date</label><input id="date" type="date"></div></div><label for="players">Names to verify (optional, one per line)</label><textarea id="players" placeholder="Paste the official team sheet or player names here"></textarea><button id="run">Run final check</button><p class="muted" id="progress" role="status"></p></section>
+<section class="panel hidden" id="results"><h2>2. Review findings</h2><div class="chips" id="summary"></div><p class="muted">All findings are prompts for editorial review, not confirmed errors. This tool never changes your PDF or Canva design.</p><div id="findings"></div><button id="copy">Copy findings</button></section>
+<section class="panel"><h2>What this first version checks</h2><p class="muted">Text extraction by PDF page; duplicate words; frequent spelling mistakes; inconsistent spellings of Barnstaple; advertised dates older than the selected match date (where detected); opponent and match-date mentions; potentially missing official player names; blank/textless pages; and page numbering. Names, scores, fixtures, source statistics, photographs and Canva overflow still require a visual/manual check.</p></section></main>
+<script type="module">
+import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+const $=id=>document.getElementById(id); let finalText='';
+function flag(list,level,title,detail,page){list.push({level,title,detail,page})}
+function clean(s){return(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()}
+function parseUKDate(str){let m=str.match(/\b(\d{1,2})[\/.-](\d{1,2})[\/.-](20\d{2})\b/);if(m)return new Date(+m[3],+m[2]-1,+m[1]);return null}
+$('run').onclick=async()=>{
+ const file=$('file').files[0];if(!file){$('progress').textContent='Choose a PDF first.';return}
+ $('run').disabled=true;$('progress').textContent='Reading PDF…';$('results').classList.add('hidden');
+ try{
+ const pdf=await pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+ const pages=[],list=[];for(let i=1;i<=pdf.numPages;i++){const pg=await pdf.getPage(i);const c=await pg.getTextContent();pages.push(c.items.map(x=>x.str).join(' '));$('progress').textContent='Reading page '+i+' of '+pdf.numPages}
+ const all=pages.join('\n'),lower=clean(all);flag(list,'good','PDF opened',pdf.numPages+' pages processed');
+ const opponent=$('opponent').value.trim();if(opponent&&!lower.includes(clean(opponent)))flag(list,'high','Opponent missing',opponent+' does not appear in extracted text');
+ const match=$('date').value;if(match){let date=new Date(match+'T12:00:00');let forms=[date.toLocaleDateString('en-GB'),date.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})];if(!forms.some(x=>all.toLowerCase().includes(x.toLowerCase())))flag(list,'warn','Match date not located','Check date on cover/fixture information: '+forms[1]);}
+ const typoPatterns=[[/\bteh\b/gi,'teh → the'],[/\brecieve\b/gi,'recieve → receive'],[/\bseperate\b/gi,'seperate → separate'],[/\bdefinately\b/gi,'definately → definitely'],[/\boccured\b/gi,'occured → occurred'],[/\bwich\b/gi,'wich → which'],[/\bBarnstable\b/gi,'Barnstable → Barnstaple (if referring to the football club)'],[/\bTiverton Towns\b/gi,'Tiverton Towns → possible missing apostrophe']];
+ pages.forEach((s,i)=>{if(s.trim().length<20)flag(list,'warn','Page has very little searchable text','Could be image-only, blank or intentionally graphical',i+1);
+ let m;const repeat=/\b([a-z]{3,})\s+\1\b/gi;while((m=repeat.exec(s)))flag(list,'warn','Repeated word','“'+m[0]+'”',i+1);
+ for(const [rx,label] of typoPatterns){rx.lastIndex=0;if(rx.test(s))flag(list,'warn','Possible spelling mistake',label,i+1);}
+ if(match){const dates=s.match(/\b\d{1,2}[\/.-]\d{1,2}[\/.-]20\d{2}\b/g)||[];for(const d of new Set(dates)){const dt=parseUKDate(d);if(dt&&dt<new Date(match+'T00:00:00'))flag(list,'warn','Earlier date found','“'+d+'” — check whether this is a past event advert or legitimate historical reference',i+1)}}
+ });
+ const names=$('players').value.split(/\n/).map(s=>s.trim()).filter(Boolean);for(const name of names){if(name.split(' ').length>=2&&!lower.includes(clean(name)))flag(list,'warn','Name not found in PDF',name+' — could be abbreviated or appear in an image');}
+ if(!list.some(x=>x.level!=='good'))flag(list,'good','No automatic flags','A manual proofread and visual review are still required.');
+ const n=list.filter(x=>x.level==='warn').length,h=list.filter(x=>x.level==='high').length;$('summary').textContent='';for(const s of [pdf.numPages+' pages',h+' priority flags',n+' review flags']){const el=document.createElement('span');el.className='chip';el.textContent=s;$('summary').append(el)}
+ $('findings').textContent='';for(const f of list){let el=document.createElement('div');el.className='item '+f.level;let strong=document.createElement('strong');strong.textContent=f.title;el.append(strong);let p=document.createElement('div');p.textContent=f.detail;el.append(p);if(f.page){let sm=document.createElement('small');sm.textContent='Page '+f.page;el.append(sm)}$('findings').append(el)}
+ finalText='TIVERTON TOWN PROGRAMME FINAL CHECK\n'+list.map(f=>((f.page?'Page '+f.page+': ':'')+f.title+' — '+f.detail)).join('\n');$('results').classList.remove('hidden');$('progress').textContent='Complete. Review the findings below.';
+ }catch(e){$('progress').textContent='Could not read this PDF: '+e.message}finally{$('run').disabled=false}
+};
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(finalText);$('copy').textContent='Copied'}catch(e){$('copy').textContent='Copy not available in this browser'}};
+</script></body></html>

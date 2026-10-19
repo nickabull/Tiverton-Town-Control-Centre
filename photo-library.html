@@ -19,6 +19,18 @@ header{background:#111;color:#fff;border-bottom:5px solid var(--y)}.h{max-width:
 <main class="wrap">
 <div class="note"><strong>Phase 1:</strong> this is the index and usage-tracking layer. Player identity is supplied by tags/metadata or Nick's confirmation — no automatic face recognition.</div>
 <section class="panel">
+<h2 style="margin-top:0">Viv’s Tiverton archive</h2>
+<p id="flickr-status" class="small">Loading Flickr catalogue…</p>
+<div class="filters">
+<div class="f"><label for="archive-search">Opponent, photo title or date</label><input id="archive-search" placeholder="e.g. Taunton, 2026-01-03"></div>
+<div class="f"><label for="archive-day">On this day (date taken)</label><input id="archive-day" type="date"></div>
+<div class="f"><label for="archive-album">Album</label><select id="archive-album"><option value="">All indexed photos</option></select></div>
+</div>
+<p class="small">Anniversary matches use the month and day across all years. Check the match date before using a story.</p>
+<div id="archive-grid" class="grid"></div>
+<details style="margin-top:16px"><summary>Browse Tiverton albums</summary><p class="small">Albums open on Flickr. Only albums collected so far have searchable photo thumbnails here.</p><div id="archive-albums"></div></details>
+</section>
+<section class="panel">
   <div class="filters">
     <div class="f"><label>Player</label><select id="player"></select></div>
     <div class="f"><label>Usage</label><select id="usage"><option value="all">All photos</option><option value="unused">Unused only</option><option value="used">Previously used</option></select></div>
@@ -33,7 +45,7 @@ header{background:#111;color:#fff;border-bottom:5px solid var(--y)}.h{max-width:
 <section class="panel">
   <h2>Indexing workflow</h2>
   <p class="small">When the Flickr collector is connected, new match albums will arrive here as candidate thumbnails. A photo can be tagged to one or more players, given a type, and then marked as used automatically when selected for a programme issue.</p>
-  <a class="btn" href="programme-builder.html">Back to Programme Automator</a>
+  <a class="btn" href="programme-builder-v21.html">Back to Programme Automator</a>
 </section>
 </main>
 <script>
@@ -70,5 +82,29 @@ async function boot(){
  render();
 }
 boot();
+loadFlickrArchive();
+let flickrCatalogue={albums:[],photos:[]};
+function safeFlickrUrl(url){try{const u=new URL(url);return u.protocol==='https:'&&(u.hostname==='www.flickr.com'||u.hostname==='live.staticflickr.com')?u.href:''}catch{return ''}}
+function renderArchive(){
+ const q=document.getElementById('archive-search').value.toLowerCase().trim(),day=document.getElementById('archive-day').value.slice(5),album=document.getElementById('archive-album').value;
+ const photos=flickrCatalogue.photos.filter(p=>(!album||p.album_id===album)&&(!q||[p.title,p.album_title,p.date_taken].join(' ').toLowerCase().includes(q))&&(!day||(p.date_taken||'').slice(5,10)===day));
+ document.getElementById('archive-grid').innerHTML=photos.slice(0,80).map(p=>{
+  const thumb=safeFlickrUrl(p.thumbnail_url),source=safeFlickrUrl(p.source_url),large=safeFlickrUrl(p.original_url||p.large_url);
+  return '<article class="card"><div class="ph">'+(thumb?'<img loading="lazy" src="'+esc(thumb)+'" alt="'+esc(p.title)+'" style="width:100%;height:100%;object-fit:cover">':'No preview')+'</div><div class="body"><strong>'+esc(p.album_title)+'</strong><p class="small">'+esc(p.title)+'<br>Date taken: '+esc(p.date_taken||'Unknown')+'<br>'+esc(p.credit)+'</p><a class="btn" href="'+esc(source)+'" target="_blank" rel="noopener">View on Flickr</a> '+(large?'<a href="'+esc(large)+'" target="_blank" rel="noopener">'+(p.original_url?'Original':'Large image')+'</a>':'')+'</div></article>';
+ }).join('')||'<p class="small">'+(flickrCatalogue.status==='awaiting_key'?'The collector is ready for its first connection. No Flickr photos have been imported yet.':'No indexed photos match these filters. Try the album list below.')+'</p>';
+ if(photos.length>80)document.getElementById('archive-grid').insertAdjacentHTML('beforeend','<p class="small">Showing the first 80 matches. Narrow the search or select an album.</p>');
+ const albums=flickrCatalogue.albums.filter(a=>!q||[a.title,a.description].join(' ').toLowerCase().includes(q));
+ document.getElementById('archive-albums').innerHTML=albums.map(a=>'<p><a href="'+esc(safeFlickrUrl(a.source_url))+'" target="_blank" rel="noopener">'+esc(a.title)+'</a> <span class="small">'+Number(a.photo_count||0)+' photos</span></p>').join('');
+}
+async function loadFlickrArchive(){
+ try{
+  const response=await fetch('data/flickr-catalogue.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error();
+  flickrCatalogue=await response.json();
+  document.getElementById('flickr-status').textContent=flickrCatalogue.status==='connected'?flickrCatalogue.albums.length+' Tiverton albums · '+flickrCatalogue.photos.length+' indexed photos · updated '+flickrCatalogue.updated_at:'Awaiting the encrypted API key and first collector run.';
+  const indexed=new Set(flickrCatalogue.photos.map(p=>p.album_id));
+  document.getElementById('archive-album').innerHTML='<option value="">All indexed photos</option>'+flickrCatalogue.albums.filter(a=>indexed.has(a.album_id)).map(a=>'<option value="'+esc(a.album_id)+'">'+esc(a.title)+'</option>').join('');
+  ['archive-search','archive-day','archive-album'].forEach(id=>document.getElementById(id).addEventListener('input',renderArchive));renderArchive();
+ }catch{document.getElementById('flickr-status').textContent='Flickr catalogue is currently unavailable. The player photo finder below is still available.'}
+}
 </script>
 <script src="programme-nav.js?v=20261018-theme-1"></script></body></html>

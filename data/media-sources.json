@@ -32,6 +32,13 @@
       "logical_page_key",
       "used_at",
       "reuse_allowed"
-    ]
+    ],
+    "owner_id": "90186291@N04",
+    "profile_url": "https://www.flickr.com/photos/90186291@N04/",
+    "collector": "scripts/collect_flickr.py",
+    "catalogue": "data/flickr-catalogue.json",
+    "key_storage": "GitHub Actions encrypted repository secret FLICKR_API_KEY",
+    "scope": "Public albums whose titles/descriptions mention Tiverton or Tivvy",
+    "archive_date": "Use date_taken when known; verify against fixture history, never substitute upload date."
   }
 }

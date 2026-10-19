@@ -98,7 +98,8 @@ function renderArchive(){
 }
 async function loadFlickrArchive(){
  try{
-  const response=await fetch('data/flickr-catalogue.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error();
+  const catalogueUrl='https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/flickr-catalogue.json?v='+Date.now();
+  let response;try{response=await fetch(catalogueUrl,{cache:'no-store'});if(!response.ok)throw Error()}catch{response=await fetch('data/flickr-catalogue.json?v='+Date.now(),{cache:'no-store'})}if(!response.ok)throw Error();
   flickrCatalogue=await response.json();
   document.getElementById('flickr-status').textContent=flickrCatalogue.status==='connected'?flickrCatalogue.albums.length+' Tiverton albums · '+flickrCatalogue.photos.length+' indexed photos · updated '+flickrCatalogue.updated_at:'Awaiting the encrypted API key and first collector run.';
   const indexed=new Set(flickrCatalogue.photos.map(p=>p.album_id));

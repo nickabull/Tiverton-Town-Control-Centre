@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-17",
+  "competition": "Southern League Division One South",
+  "stories": [
+    {
+      "column": "left",
+      "heading": "BIDEFORD FIGHT BACK AT CLEEVE",
+      "body": "Bideford twice came from behind to win 3–2 at Bishop’s Cleeve. Finn King-Smith cancelled out an own goal before Ross Langworthy restored the lead. Jordan Ewing’s penalty and Farren Simons’ late winner turned the contest.",
+      "source": "https://www.pitchero.com/clubs/bishopscleevefc/teams/55174/match-centre/1-19944705/report"
+    },
+    {
+      "column": "left",
+      "heading": "DORCHESTER MAKE IT TEN STRAIGHT",
+      "body": "Dorchester reclaimed top spot with a 3–1 win at Sporting Club Inkberrow. The Magpies recovered from falling behind to record their tenth successive league victory. Player-coach Will Spetch praised their determination and togetherness.",
+      "source": "https://www.dorchestertownfc.co.uk/news/reaction-sc-inkberrow-1-3-the-magpies-spetch"
+    },
+    {
+      "column": "left",
+      "heading": "KEMPSTER RESCUES WILLAND LATE",
+      "body": "Bailey Kempster’s stoppage-time strike earned Willand a 3–3 draw at Slimbridge. His second goal of the afternoon cancelled out Olly Sully’s late effort. Joel Jackson was also on target for Rovers.",
+      "source": "https://www.footballwebpages.co.uk/inverness-caledonian-thistle/slimbridge"
+    },
+    {
+      "column": "right",
+      "heading": "TERRAS KEEP UNBEATEN RUN GOING",
+      "body": "Weymouth made it ten league games unbeaten with a 3–0 win at Barnstaple. Toby Holmes and Sam Jackson struck early before Tor Swann added the third. The Terras remained second, two points behind Dorchester.",
+      "source": "https://uptheterras.co.uk/match-centre/a38c71b9da1f93b3/?team=men"
+    },
+    {
+      "column": "right",
+      "heading": "FALMOUTH HOLD SUPERMARINE",
+      "body": "Falmouth earned a 1–1 draw at Swindon Supermarine. Luke Barner put Town ahead before Partridge equalised after the break. Marine surrendered top spot and finished Saturday third, level on points with second-placed Weymouth.",
+      "source": "https://www.aylesburyunitedarchive.com/match/2026-10-17/swindon-supermarine/vs/falmouth-town"
+    },
+    {
+      "column": "right",
+      "heading": "WESTBURY WIN IT AT THE DEATH",
+      "body": "Westbury reached the play-off places with a dramatic 1–0 win over Hungerford. Eben Mortimer-Taylor struck deep into stoppage time. The visitors finished with eight players, while two further red cards went to their bench.",
+      "source": "https://westburyunited.co.uk/match-report/935422"
+    }
+  ],
+  "photos": [
+    {
+      "slot": "left",
+      "asset_id": "MAHYcO5XZs0",
+      "photographer": "Phillip Standfield",
+      "source": "https://www.dorchestertownfc.co.uk/news/reaction-sc-inkberrow-1-3-the-magpies-spetch",
+      "verification": "Photograph EXIF names Phillip Standfield and dates Inkberrow v Dorchester 17 October 2026."
+    },
+    {
+      "slot": "right",
+      "asset_id": "MAHYcItsoo8",
+      "photographer": "Ian Middlebrook",
+      "source": "https://uk.sports.yahoo.com/news/terras-maintain-unbeaten-run-commanding-185313476.html",
+      "verification": "Dorset Echo report identifies Sam Jackson and credits Ian Middlebrook. Caption does not claim the photograph itself was taken at Barnstaple."
+    }
+  ],
+  "supplementary_sources": [
+    "https://www.footballwebpages.co.uk/bishops-cleeve/league-table",
+    "https://www.footballwebpages.co.uk/dorchester-town/falmouth-town"
+  ]
+}

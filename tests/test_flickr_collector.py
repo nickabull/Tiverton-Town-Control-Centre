@@ -38,6 +38,34 @@ class CollectorTests(unittest.TestCase):
         self.assertIn('old',[p['photo_id'] for p in result['photos']])
         self.assertNotIn('stale',[p['photo_id'] for p in result['photos']])
         self.assertEqual(old['photos'][1]['photo_id'],'stale')
+    def test_full_index_and_incremental_refresh(self):
+        client=Fake()
+        first=m.collect(client,{},all_albums=True)
+        self.assertTrue(first['all_albums_indexed'])
+        self.assertEqual(first['indexed_album_count'],2)
+        self.assertEqual(len(first['photos']),4)
+        self.assertEqual(sum(method.endswith('getPhotos') for method,_ in client.calls),2)
+        next_client=Fake()
+        second=m.collect(next_client,first,all_albums=True)
+        self.assertEqual(first['photos'],second['photos'])
+        self.assertEqual(sum(method.endswith('getPhotos') for method,_ in next_client.calls),0)
+        first['albums'][0]['updated_at']='older'
+        changed_client=Fake()
+        m.collect(changed_client,first,all_albums=True)
+        self.assertEqual(sum(method.endswith('getPhotos') for method,_ in changed_client.calls),1)
+
+    def test_full_index_failure_keeps_previous_data(self):
+        from copy import deepcopy
+        first=m.collect(Fake(),{},all_albums=True)
+        snapshot=deepcopy(first)
+        client=Fake()
+        def fail(album):raise m.FlickrError('Temporary failure')
+        client.photos=fail
+        first['albums'][0]['updated_at']='older'
+        expected=deepcopy(first)
+        with self.assertRaises(m.FlickrError):m.collect(client,first,all_albums=True)
+        self.assertEqual(first,expected)
+
     def test_non_tiverton_album_rejected(self):
         with self.assertRaises(m.FlickrError):m.collect(Fake(),{},'9')
     def test_api_failure_has_no_key(self):

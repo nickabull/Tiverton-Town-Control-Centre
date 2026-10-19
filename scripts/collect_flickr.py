@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import tempfile
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -24,14 +25,24 @@ class Flickr:
     def call(self, method, **params):
         body = urllib.parse.urlencode(dict(method=method, api_key=self.key,
             user_id=self.owner, format='json', nojsoncallback=1, **params)).encode()
-        request = urllib.request.Request('https://api.flickr.com/services/rest/', data=body)
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                result = json.load(response)
-        except Exception:
-            # Never print request bodies, URLs or credentials in logs.
-            raise FlickrError('Flickr could not be reached or returned an unreadable response.') from None
-        if result.get('stat') != 'ok':
+        request = urllib.request.Request('https://api.flickr.com/services/rest/', data=body,
+            headers={'User-Agent': 'TivertonTownProgrammeCentre/1.0'})
+        for attempt in range(3):
+            try:
+                time.sleep(0.2)
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    result = json.load(response)
+            except Exception:
+                if attempt < 2:
+                    time.sleep(2 ** attempt)
+                    continue
+                # Never print request bodies, URLs or credentials in logs.
+                raise FlickrError('Flickr could not be reached or returned an unreadable response.') from None
+            if result.get('stat') == 'ok':
+                break
+            if result.get('code') == 105 and attempt < 2:
+                time.sleep(2 ** attempt)
+                continue
             raise FlickrError('Flickr rejected the request (code %s). Check the API key and album access.' % result.get('code', 'unknown'))
         return result
 
@@ -78,29 +89,55 @@ class Flickr:
         return photos
 
 
-def collect(client, previous, album_id=''):
+def collect(client, previous, album_id='', all_albums=False):
     albums = client.albums()
     if not albums:
         raise FlickrError('No public Tiverton albums found for this account. Existing catalogue left unchanged.')
-    selected = next((a for a in albums if a['album_id'] == album_id), None) if album_id else max(albums, key=lambda a: int(a.get('created_at') or 0))
-    if not selected:
-        raise FlickrError('The selected album is not in the public Tiverton album list.')
-    fresh = client.photos(selected)
-    if not fresh:
-        raise FlickrError('No public photos returned. Existing catalogue left unchanged.')
     valid_ids = {a['album_id'] for a in albums}
-    photos = [p for p in previous.get('photos', []) if p['album_id'] in valid_ids and p['album_id'] != selected['album_id']]
-    photos.extend(fresh)
+    old_albums = {a['album_id']: a for a in previous.get('albums', [])}
+    old_photos = {}
+    for photo in previous.get('photos', []):
+        if photo['album_id'] in valid_ids:
+            old_photos.setdefault(photo['album_id'], []).append(photo)
+    indexed = {key: value for key, value in previous.get('indexed_albums', {}).items() if key in valid_ids}
+    if all_albums:
+        selected = albums
+    else:
+        album = next((a for a in albums if a['album_id'] == album_id), None) if album_id else max(albums, key=lambda a: int(a.get('created_at') or 0))
+        if not album:
+            raise FlickrError('The selected album is not in the public Tiverton album list.')
+        selected = [album]
+    refreshed = 0
+    for number, album in enumerate(selected, 1):
+        aid = album['album_id']
+        old = old_albums.get(aid, {})
+        marker = indexed.get(aid)
+        unchanged = marker and old.get('updated_at') == album.get('updated_at') and old.get('photo_count') == album.get('photo_count') and marker.get('indexed_photo_count') == len(old_photos.get(aid, []))
+        if not (all_albums and unchanged):
+            try:
+                fresh = client.photos(album)
+            except FlickrError as error:
+                raise FlickrError(f"Album {aid} failed: {error} Existing catalogue left unchanged.") from None
+            if not fresh and not all_albums:
+                raise FlickrError('No public photos returned. Existing catalogue left unchanged.')
+            old_photos[aid] = fresh
+            indexed[aid] = dict(indexed_at=datetime.now(timezone.utc).isoformat(), indexed_photo_count=len(fresh))
+            refreshed += 1
+        if all_albums and (number % 10 == 0 or number == len(selected)):
+            print(f'Checked {number}/{len(selected)} Tiverton albums; refreshed {refreshed}.', flush=True)
+    photos = [photo for album in albums for photo in old_photos.get(album['album_id'], [])]
     return dict(schema_version=1, status='connected', owner_id=client.owner,
         owner_name='Viv Curtis', credit='Photo: Viv Curtis',
         updated_at=datetime.now(timezone.utc).isoformat(), albums=albums, photos=photos,
-        last_indexed_album_id=selected['album_id'],
+        last_indexed_album_id=selected[-1]['album_id'], indexed_albums=indexed,
+        indexed_album_count=len(indexed), all_albums_indexed=valid_ids.issubset(indexed),
         date_note='Date taken is camera metadata, not a verified fixture date. Unknown dates are left blank.')
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--album-id', default='')
+    parser.add_argument('--all-albums', action='store_true', help='Index all Tiverton albums, reusing unchanged indexed albums')
     parser.add_argument('--output', default='data/flickr-catalogue.json')
     args = parser.parse_args()
     key = os.environ.get('FLICKR_API_KEY', '').strip()
@@ -110,10 +147,10 @@ def main():
         raise FlickrError('Album ID must contain digits only.')
     path = Path(args.output)
     old = json.loads(path.read_text()) if path.exists() else {}
-    result = collect(Flickr(key), old, args.album_id)
+    result = collect(Flickr(key), old, args.album_id, args.all_albums)
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile('w', dir=path.parent, delete=False) as handle:
-        json.dump(result, handle, ensure_ascii=False, indent=2)
+        json.dump(result, handle, ensure_ascii=False, separators=(',', ':'))
         handle.write('\n')
     os.replace(handle.name, path)
     print(f"Indexed {len(result['albums'])} public Tiverton albums; {len(result['photos'])} catalogue photos. No player tags or usage records changed.")

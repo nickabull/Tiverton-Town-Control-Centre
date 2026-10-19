@@ -11,3 +11,9 @@ The first run lists all public albums whose title or description contains Tivert
 The Photo Library searches the catalogue by opponent, title and date taken; a month/day filter supports anniversary research. Available original/large links and Flickr bylines are retained. Photos are not automatically identified or approved, and the existing player tags and usage records are not changed. A public Flickr listing does not itself alter the club's permission to use Viv's images.
 
 Flickr API references: https://www.flickr.com/services/api/flickr.photosets.getList.html and https://www.flickr.com/services/api/flickr.photosets.getPhotos.html.
+
+## Full archive indexing
+
+Select **all_albums** when running the workflow to index all public Tiverton albums. This reads album photos in pages of up to 500, with a short pause between requests and bounded retries. After the first full run, unchanged indexed albums are reused; a changed album is refreshed. The saved catalogue has per-album completion markers and full-index status. A failed album leaves the previous catalogue untouched. No player tags or usage records are modified. The dashboard reads the latest public catalogue directly and offers Show more photos for long results.
+
+Connected runs can also update `.github/triggers/flickr.json` with `{"all_albums": true}` to request a full index; no key belongs in that file.

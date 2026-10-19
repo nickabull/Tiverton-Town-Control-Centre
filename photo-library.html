@@ -85,14 +85,16 @@ boot();
 loadFlickrArchive();
 let flickrCatalogue={albums:[],photos:[]};
 function safeFlickrUrl(url){try{const u=new URL(url);return u.protocol==='https:'&&(u.hostname==='www.flickr.com'||u.hostname==='live.staticflickr.com')?u.href:''}catch{return ''}}
-function renderArchive(){
+let archiveShown=80;
+function renderArchive(reset=true){
+ if(reset)archiveShown=80;
  const q=document.getElementById('archive-search').value.toLowerCase().trim(),day=document.getElementById('archive-day').value.slice(5),album=document.getElementById('archive-album').value;
  const photos=flickrCatalogue.photos.filter(p=>(!album||p.album_id===album)&&(!q||[p.title,p.album_title,p.date_taken].join(' ').toLowerCase().includes(q))&&(!day||(p.date_taken||'').slice(5,10)===day));
- document.getElementById('archive-grid').innerHTML=photos.slice(0,80).map(p=>{
+ document.getElementById('archive-grid').innerHTML=photos.slice(0,archiveShown).map(p=>{
   const thumb=safeFlickrUrl(p.thumbnail_url),source=safeFlickrUrl(p.source_url),large=safeFlickrUrl(p.original_url||p.large_url);
   return '<article class="card"><div class="ph">'+(thumb?'<img loading="lazy" src="'+esc(thumb)+'" alt="'+esc(p.title)+'" style="width:100%;height:100%;object-fit:cover">':'No preview')+'</div><div class="body"><strong>'+esc(p.album_title)+'</strong><p class="small">'+esc(p.title)+'<br>Date taken: '+esc(p.date_taken||'Unknown')+'<br>'+esc(p.credit)+'</p><a class="btn" href="'+esc(source)+'" target="_blank" rel="noopener">View on Flickr</a> '+(large?'<a href="'+esc(large)+'" target="_blank" rel="noopener">'+(p.original_url?'Original':'Large image')+'</a>':'')+'</div></article>';
  }).join('')||'<p class="small">'+(flickrCatalogue.status==='awaiting_key'?'The collector is ready for its first connection. No Flickr photos have been imported yet.':'No indexed photos match these filters. Try the album list below.')+'</p>';
- if(photos.length>80)document.getElementById('archive-grid').insertAdjacentHTML('beforeend','<p class="small">Showing the first 80 matches. Narrow the search or select an album.</p>');
+ if(photos.length>archiveShown)document.getElementById('archive-grid').insertAdjacentHTML('beforeend','<div><p class="small">Showing '+archiveShown+' of '+photos.length+' matches.</p><button class="btn" type="button" onclick="archiveShown+=80;renderArchive(false)">Show more photos</button></div>');
  const albums=flickrCatalogue.albums.filter(a=>!q||[a.title,a.description].join(' ').toLowerCase().includes(q));
  document.getElementById('archive-albums').innerHTML=albums.map(a=>'<p><a href="'+esc(safeFlickrUrl(a.source_url))+'" target="_blank" rel="noopener">'+esc(a.title)+'</a> <span class="small">'+Number(a.photo_count||0)+' photos</span></p>').join('');
 }
@@ -101,10 +103,10 @@ async function loadFlickrArchive(){
   const catalogueUrl='https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/flickr-catalogue.json?v='+Date.now();
   let response;try{response=await fetch(catalogueUrl,{cache:'no-store'});if(!response.ok)throw Error()}catch{response=await fetch('data/flickr-catalogue.json?v='+Date.now(),{cache:'no-store'})}if(!response.ok)throw Error();
   flickrCatalogue=await response.json();
-  document.getElementById('flickr-status').textContent=flickrCatalogue.status==='connected'?flickrCatalogue.albums.length+' Tiverton albums · '+flickrCatalogue.photos.length+' indexed photos · updated '+flickrCatalogue.updated_at:'Awaiting the encrypted API key and first collector run.';
+  document.getElementById('flickr-status').textContent=flickrCatalogue.status==='connected'?flickrCatalogue.albums.length+' Tiverton albums · '+(flickrCatalogue.indexed_album_count||new Set(flickrCatalogue.photos.map(p=>p.album_id)).size)+' indexed albums · '+flickrCatalogue.photos.length+' indexed photos · updated '+flickrCatalogue.updated_at:'Awaiting the encrypted API key and first collector run.';
   const indexed=new Set(flickrCatalogue.photos.map(p=>p.album_id));
   document.getElementById('archive-album').innerHTML='<option value="">All indexed photos</option>'+flickrCatalogue.albums.filter(a=>indexed.has(a.album_id)).map(a=>'<option value="'+esc(a.album_id)+'">'+esc(a.title)+'</option>').join('');
-  ['archive-search','archive-day','archive-album'].forEach(id=>document.getElementById(id).addEventListener('input',renderArchive));renderArchive();
+  ['archive-search','archive-day','archive-album'].forEach(id=>document.getElementById(id).addEventListener('input',()=>renderArchive()));renderArchive();
  }catch{document.getElementById('flickr-status').textContent='Flickr catalogue is currently unavailable. The player photo finder below is still available.'}
 }
 </script>

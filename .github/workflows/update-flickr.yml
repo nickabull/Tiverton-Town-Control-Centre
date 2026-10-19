@@ -10,6 +10,11 @@ on:
         description: 'Optional Tiverton album ID to index; leave blank for the newest album'
         required: false
         type: string
+      all_albums:
+        description: 'Index all public Tiverton albums (unchanged indexed albums are reused)'
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 concurrency:
@@ -18,17 +23,24 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - name: Read public Tiverton albums and selected photos
         env:
           FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
           FLICKR_ALBUM_ID: ${{ inputs.album_id }}
+          FLICKR_ALL_ALBUMS: ${{ inputs.all_albums }}
         run: |
           if [ "$GITHUB_EVENT_NAME" = "push" ]; then
             FLICKR_ALBUM_ID=$(python3 -c 'import json; print(json.load(open(".github/triggers/flickr.json")).get("album_id", ""))')
+            FLICKR_ALL_ALBUMS=$(python3 -c 'import json; print(str(json.load(open(".github/triggers/flickr.json")).get("all_albums", False)).lower())')
           fi
-          python3 scripts/collect_flickr.py --album-id "$FLICKR_ALBUM_ID"
+          if [ "$FLICKR_ALL_ALBUMS" = "true" ]; then
+            python3 scripts/collect_flickr.py --all-albums
+          else
+            python3 scripts/collect_flickr.py --album-id "$FLICKR_ALBUM_ID"
+          fi
       - name: Save public catalogue
         run: |
           git config user.name "Tivvy Control Centre"

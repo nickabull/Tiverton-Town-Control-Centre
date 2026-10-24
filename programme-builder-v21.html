@@ -256,7 +256,7 @@ function renderCover(){
         '<div class="field"><label>Cover player</label><input value="'+esc(player)+'" oninput="saveField(\'coverPlayer\',this.value)"></div>'+
         '<div class="field"><label>Viv photo link</label><input value="'+esc(photo)+'" oninput="coverLinkChanged(this.value)" placeholder="Paste Viv Flickr or direct image link"></div>'+
         '<div class="field" style="grid-column:1/-1"><button type="button" class="btn yellow" onclick="openVivCoverPicker()">Browse &amp; choose from Viv’s photographs</button><div class="small">Search the indexed Flickr albums and select an image for the cover. Original photos remain on Flickr.</div><div id="vivCoverPicker" style="display:none;margin-top:12px;padding:12px;border:1px solid #ddd;border-radius:8px"><input id="vivCoverSearch" placeholder="Search album, fixture or photo title" oninput="renderVivCoverPicker()"><div id="vivCoverStatus" class="small" style="margin:8px 0">Loading photos…</div><div id="vivCoverGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;max-height:420px;overflow:auto"></div><button class="btn ghost" type="button" style="margin-top:10px" onclick="document.getElementById(\'vivCoverPicker\').style.display=\'none\'">Close picker</button></div></div>'+
-        '<div class="field"><label>Or upload Viv photo</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
+        '<div class="field"><label>Or upload Viv photo (local staging until Canva is connected)</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
       '</div>'+
     '</div>'+
     '<div style="grid-column:1/-1;padding:12px;margin-top:12px;background:#fff8cf;border-radius:8px"><button class="btn yellow" type="button" onclick="prepareCoverRun()">Prepare Cover for Canva</button><div id="coverRunStatus" class="small" style="margin-top:8px">Download the run request, then share it here for the connected Canva step. The master is never changed by this button.</div></div>'+
@@ -295,6 +295,44 @@ function renderYourTivvy(){
 }
 
 
+
+const imageUploadState={};
+function imageUploadControl(key,label){
+ const saved=fieldValue('canva-asset-'+key);
+ return '<div style="margin-top:8px"><label>'+esc(label||'Select image')+'</label>'+
+ '<input type="file" accept="image/jpeg,image/png,image/webp" onchange="queueCanvaImage(this,\''+key+'\')" style="max-width:100%">'+
+ '<div id="image-upload-'+key+'" class="small" role="status">'+(saved?'Canva asset saved: '+esc(saved):'Select an image. File retained locally until a secure Canva upload connection is available.')+'</div>'+
+ '<img id="image-preview-'+key+'" alt="Selected image preview" style="display:none;max-width:240px;max-height:160px;object-fit:contain;margin-top:6px;border-radius:6px">'+
+ '</div>';
+}
+async function queueCanvaImage(input,key){
+ const file=input.files&&input.files[0],status=document.getElementById('image-upload-'+key),preview=document.getElementById('image-preview-'+key);
+ if(!file)return;
+ if(!/^image\/(jpeg|png|webp)$/.test(file.type)){status.textContent='Please select a JPEG, PNG or WebP.';return;}
+ if(file.size>30*1024*1024){status.textContent='File is larger than 30 MB. Please select a smaller image.';return;}
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).put(file,'image-'+key);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+  db.close();saveField('image-file-'+key,file.name);
+  const url=URL.createObjectURL(file);if(preview.dataset.url)URL.revokeObjectURL(preview.dataset.url);
+  preview.src=url;preview.dataset.url=url;preview.style.display='block';
+  status.textContent=file.name+' · saved locally. Canva upload not yet connected; do not mark this as uploaded.';
+  const endpoint=window.TIVVY_CANVA_UPLOAD_ENDPOINT;
+  if(endpoint && /^https:\/\//.test(endpoint)){
+   status.textContent='Uploading '+file.name+' to Canva…';
+   try{
+    const fd=new FormData();fd.append('file',file,file.name);fd.append('field',key);
+    const response=await fetch(endpoint,{method:'POST',body:fd,credentials:'include'});
+    if(!response.ok)throw Error('Upload service responded '+response.status);
+    const json=await response.json();
+    if(!/^[a-zA-Z0-9_-]{1,50}$/.test(json.asset_id||''))throw Error('No Canva asset ID returned');
+    saveField('canva-asset-'+key,json.asset_id);
+    status.textContent='Uploaded to Canva: '+file.name+' · asset '+json.asset_id;
+   }catch(e){status.textContent='Canva upload failed: '+e.message+'. Local copy retained.';}
+  }
+ }catch(e){status.textContent='Could not save file: '+e.message;}
+}
+
 function latestNewsStory(n){
   const headline=fieldValue('latest-news-'+n+'-headline');
   const body=fieldValue('latest-news-'+n+'-body');
@@ -313,6 +351,7 @@ function latestNewsStory(n){
       '<div>'+
         preview+
         '<label style="margin-top:8px">Image / Viv or source link</label><input value="'+esc(imageUrl)+'" oninput="saveField(\'latest-news-'+n+'-image\',this.value);draw()" placeholder="Paste image link">'+
+        imageUploadControl('latest-news-'+n+'-image','Or choose a full-size photo')+
         '<label style="margin-top:8px">Photo byline</label><input value="'+esc(byline)+'" oninput="saveField(\'latest-news-'+n+'-byline\',this.value)" placeholder="e.g. Photo: Viv Curtis">'+
       '</div>'+
     '</div>'+
@@ -334,6 +373,7 @@ function renderExecutiveUpdate(){
     '<div style="width:128px;height:112px;border-radius:8px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:10px;color:#666">Current Mark Farrell photo linked<br><code>'+esc(chair.photo_asset_id||'')+'</code></div>'+
     '<div><label>Chairman photo</label><div class="small"><strong>'+esc(chair.name||'Mark Farrell')+'</strong><br>'+esc(chair.role||'TTFC Chairman')+'</div>'+
       '<label style="margin-top:8px">Replacement photo / Viv or Canva link</label><input value="'+esc(photoReplacement)+'" oninput="saveField(\'exec-photo-replacement\',this.value)" placeholder="Leave blank to keep current photo"></div>'+
+      imageUploadControl('exec-photo-replacement','Or select chairman photo')+
     '</div></div>';
   const storyCards=[1,2,3,4].map(n=>{
     const src=stories[n-1]||{};
@@ -482,7 +522,7 @@ async function prepareAroundLeague(button){
 let lastOutBinding=null;
 function lastOutValue(key,baseline=''){const value=localStorage.getItem('tivvy-v21-lastOut-'+key);return value===null?baseline:value;}
 function saveLastOut(key,value){saveField('lastOut-'+key,value);localStorage.removeItem('tivvy-v21-approved-last_time_out');const check=document.querySelector('#section-last_time_out [data-section-approval]');if(check){check.checked=false;check.closest('.section-card').classList.remove('done');}}
-function lastOutControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="lastOut-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?'<textarea id="lastOut-'+esc(key)+'" style="min-height:120px" oninput="saveLastOut(\''+key+'\',this.value)">'+esc(lastOutValue(key,baseline))+'</textarea>':'<input id="lastOut-'+esc(key)+'" value="'+esc(lastOutValue(key,baseline))+'" oninput="saveLastOut(\''+key+'\',this.value)">')+'</div>';}
+function lastOutControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="lastOut-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?'<textarea id="lastOut-'+esc(key)+'" style="min-height:120px" oninput="saveLastOut(\''+key+'\',this.value)">'+esc(lastOutValue(key,baseline))+'</textarea>':'<input id="lastOut-'+esc(key)+'" value="'+esc(lastOutValue(key,baseline))+'" oninput="saveLastOut(\''+key+'\',this.value)">')+(key.startsWith('media-')?imageUploadControl('lastout-'+key,'Or select photo file'):'')+'</div>';}
 function renderLastOut(){
  if(!lastOutBinding)return '<p class="small">The Last Time Out layout could not be loaded. Refresh to try again.</p>';
  const b=lastOutBinding;
@@ -512,7 +552,7 @@ async function prepareLastOut(button){
 let oppPreviewBinding=null;
 function oppPreviewValue(key,baseline=''){const value=localStorage.getItem('tivvy-v21-oppPreview-'+key);return value===null?baseline:value;}
 function saveOppPreview(key,value){if(key==='report'&&value!==oppPreviewValue('report')){for(let i=1;i<=6;i++)localStorage.removeItem('tivvy-v21-oppPreview-body_'+i);}saveField('oppPreview-'+key,value);localStorage.removeItem('tivvy-v21-approved-opposition');const check=document.querySelector('#section-opposition [data-section-approval]');if(check){check.checked=false;check.closest('.section-card').classList.remove('done');}}
-function oppPreviewControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="oppPreview-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?'<textarea id="oppPreview-'+esc(key)+'" style="min-height:120px" oninput="saveOppPreview(\''+key+'\',this.value)">'+esc(oppPreviewValue(key,baseline))+'</textarea>':'<input id="oppPreview-'+esc(key)+'" value="'+esc(oppPreviewValue(key,baseline))+'" oninput="saveOppPreview(\''+key+'\',this.value)">')+'</div>';}
+function oppPreviewControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="oppPreview-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?'<textarea id="oppPreview-'+esc(key)+'" style="min-height:120px" oninput="saveOppPreview(\''+key+'\',this.value)">'+esc(oppPreviewValue(key,baseline))+'</textarea>':'<input id="oppPreview-'+esc(key)+'" value="'+esc(oppPreviewValue(key,baseline))+'" oninput="saveOppPreview(\''+key+'\',this.value)">')+(key.startsWith('media-')?imageUploadControl('opposition-'+key,'Or select photo file'):'')+'</div>';}
 function renderOppPreview(){
  if(!oppPreviewBinding)return '<p class="small">The Meet the Opposition Preview layout could not be loaded. Refresh to try again.</p>';
  const b=oppPreviewBinding;

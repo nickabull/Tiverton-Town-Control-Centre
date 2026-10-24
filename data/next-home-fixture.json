@@ -1,15 +1,15 @@
 {
-  "opponent": "Bideford",
-  "match_date": "20/10/2026",
+  "opponent": "Dorchester Town",
+  "match_date": "27/10/2026",
   "kickoff": "19:30",
-  "issue_number": "11",
+  "issue_number": "12",
   "venue": "H",
-  "detection_note": "Next known Tiverton Town home programme fixture",
+  "detection_note": "Confirmed Southern League home fixture on 27 October 2026. Issue number 12 provisional pending check.",
   "kickoff_rule": "Tuesday home fixtures 19:30; Saturday home fixtures 15:00",
   "crest": {
-    "asset_id": "MAHYHb1K61I",
-    "asset_name": "Bideford.png",
+    "asset_id": "",
+    "asset_name": "Dorchester Town crest — awaiting approved Canva PNG",
     "canva_folder_id": "FAHYHS9R2XM",
-    "thumbnail_url": "https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2Fe1604eb7-e08f-42a7-9db0-3af7ae8abcf0/watermark:F/width:200?csig=AAAAAAAAAAAAAAAAAAAAALqWVXbjyZLLidaTUzSAkLSF5ShdF5YazpUUSiiXE-eN&exp=1792167596&osig=AAAAAAAAAAAAAAAAAAAAADV6gvK1KYhK8vgSrucoutzQdVoT8PqXIT81QhnqqJzp&signer=media-rpc&token=AAIAAU0AJGUxNjA0ZWI3LWUwOGYtNDJhNy05ZGIwLTNhZjdhZThhYmNmMAAAAAABoUWDT-Dy8TMMVxKTnfAdlc5ehD6CRoWhytq4bdKQEKnfPT4OmQ&x-canva-quality=thumbnail"
+    "thumbnail_url": ""
   }
 }

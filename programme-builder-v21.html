@@ -33,7 +33,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 <div class="note"><strong>Hybrid build:</strong> this deliberately brings back the richer V19 action-card workflow, but the engine underneath uses the current CHATGPT TEMPLATE registry, stable logical keys and Canva page IDs. You can now refine what you want to see for each <strong>section</strong>.</div>
 
 <section class="summary" id="summary"></section>
-<section class="panel"><div class="ey" style="color:#555">New · Away day guide</div><h2>Plan Your Next Away Trip</h2><p>Try the active Larkhall demo for Saturday 24 October: road and rail, parking, tickets, catering and the latest league form.</p><a class="btn yellow" href="away-day.html">Open Away Trip tab →</a></section>
+
 
 <section class="panel">
   <div class="ey" style="color:#555">Sections</div>
@@ -177,6 +177,42 @@ function coverLinkChanged(v){
  saveField('coverImage',v);
  if(v.trim())localStorage.setItem('tivvy-v21-cover-image-source','link');
 }
+let vivCoverPhotos=[];
+async function openVivCoverPicker(){
+ const panel=document.getElementById('vivCoverPicker'); panel.style.display='block';
+ const status=document.getElementById('vivCoverStatus');
+ status.textContent='Loading Viv’s indexed photos…';
+ try{
+  const response=await fetch('data/flickr-gallery.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('Catalogue unavailable');
+  const data=await response.json();
+  const albumMap=new Map((data.albums||[]).map(a=>[String(a.album_id),a.title]));
+  vivCoverPhotos=(data.rows||[]).map(row=>{const p=Object.fromEntries(data.photo_fields.map((key,i)=>[key,row[i]]));return {...p,album_title:albumMap.get(String(p.album_id))||'',source_url:'https://www.flickr.com/photos/'+data.owner_id+'/'+p.photo_id+'/'};});
+  if(!vivCoverPhotos.length)vivCoverPhotos=data.photos||[];
+  renderVivCoverPicker();
+ }catch(e){status.textContent='Photo catalogue unavailable. Open Viv’s Photo Library to browse the existing albums.';document.getElementById('vivCoverGrid').innerHTML='<a class="btn dark" href="photo-library.html" target="_blank" rel="noopener">Open Viv’s Photo Library</a>';}
+}
+function renderVivCoverPicker(){
+ const q=(document.getElementById('vivCoverSearch')?.value||'').toLowerCase().trim();
+ const matches=vivCoverPhotos.filter(p=>[p.title,p.album_title,p.date_taken].join(' ').toLowerCase().includes(q));
+ document.getElementById('vivCoverStatus').textContent=matches.length+' matching photographs · select one for this cover';
+ document.getElementById('vivCoverGrid').innerHTML=matches.slice(0,120).map(p=>{
+   const thumb=String(p.thumbnail_url||'');
+   const safeThumb=/^https:\/\/(live\.staticflickr\.com|farm[0-9]+\.staticflickr\.com)\//.test(thumb)?thumb:'';
+   const source=String(p.source_url||'');
+   const url=/^https:\/\/www\.flickr\.com\/photos\//.test(source)?source:'';
+   if(!url)return '';
+   return '<div style="border:1px solid #ddd;border-radius:7px;padding:7px">'+(safeThumb?'<img src="'+esc(safeThumb)+'" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover">':'<div class="small">No preview</div>')+'<div class="small">'+esc(p.album_title||p.title||'Viv Curtis')+'</div><button class="btn yellow" style="margin-top:5px;width:100%" type="button" data-vivurl="'+esc(url)+'" onclick="chooseVivCoverPhoto(this.dataset.vivurl)">Use this photo</button></div>';
+ }).join('') || '<div class="small">No indexed photos match. <a href="photo-library.html" target="_blank">Browse Viv’s albums</a>.</div>';
+}
+function chooseVivCoverPhoto(url){
+ coverLinkChanged(url);
+ const cover=document.getElementById('section-cover');
+ const input=cover?.querySelector('input[placeholder="Paste Viv Flickr or direct image link"]');
+ if(input)input.value=url;
+ document.getElementById('vivCoverStatus').textContent='Selected photo saved for this issue: '+url;
+ document.getElementById('vivCoverPicker').style.display='none';
+}
 function renderCover(){
   const f=nextHomeData||{};
   const opp=metaVal('opponent',f.opponent||'');
@@ -196,7 +232,8 @@ function renderCover(){
         '<div class="field"><label>Kick-off</label><input id="coverKickoff" value="'+esc(ko)+'" oninput="saveMetaField(\'kickoff\',this.value)"><div class="small">Rule: Saturday 15:00 · Tuesday 19:30</div></div>'+
         '<div class="field"><label>Issue number</label><input value="'+esc(issue)+'" oninput="saveMetaField(\'issue\',this.value)"></div>'+
         '<div class="field"><label>Cover player</label><input value="'+esc(player)+'" oninput="saveField(\'coverPlayer\',this.value)"></div>'+
-        '<div class="field"><label>Viv photo link</label><input value="'+esc(photo)+'" oninput="coverLinkChanged(this.value)" placeholder="Paste Viv Flickr or direct image link"></div>'+         '<div class="field"><label>Or upload Viv photo</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
+        '<div class="field"><label>Viv photo link</label><input value="'+esc(photo)+'" oninput="coverLinkChanged(this.value)" placeholder="Paste Viv Flickr or direct image link"></div>'++
+        '<div class="field" style="grid-column:1/-1"><button type="button" class="btn yellow" onclick="openVivCoverPicker()">Browse &amp; choose from Viv’s photographs</button><div class="small">Search the indexed Flickr albums and select an image for the cover. Original photos remain on Flickr.</div><div id="vivCoverPicker" style="display:none;margin-top:12px;padding:12px;border:1px solid #ddd;border-radius:8px"><input id="vivCoverSearch" placeholder="Search album, fixture or photo title" oninput="renderVivCoverPicker()"><div id="vivCoverStatus" class="small" style="margin:8px 0">Loading photos…</div><div id="vivCoverGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;max-height:420px;overflow:auto"></div><button class="btn ghost" type="button" style="margin-top:10px" onclick="document.getElementById(\'vivCoverPicker\').style.display=\'none\'">Close picker</button></div></div>'         '<div class="field"><label>Or upload Viv photo</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
       '</div>'+
     '</div>'+
     '<div class="crest-preview">'+

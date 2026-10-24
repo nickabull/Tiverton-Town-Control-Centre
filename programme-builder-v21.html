@@ -213,6 +213,28 @@ function chooseVivCoverPhoto(url){
  document.getElementById('vivCoverStatus').textContent='Selected photo saved for this issue: '+url;
  document.getElementById('vivCoverPicker').style.display='none';
 }
+
+function prepareCoverRun(){
+ const f=nextHomeData||{};
+ const data={
+  schema:'tivvy-cover-run-v1',status:'awaiting_canva_execution',
+  fixture:{opponent:metaVal('opponent',f.opponent||''),date:metaVal('matchDate',f.match_date||''),kickoff:metaVal('kickoff',f.kickoff||''),issue:metaVal('issue',f.issue_number||'')},
+  cover_player:fieldValue('coverPlayer'),
+  image:{source:localStorage.getItem('tivvy-v21-cover-image-source')||'',flickr_url:fieldValue('coverImage'),local_upload_filename:localStorage.getItem('tivvy-v21-cover-upload-name')||''},
+  crest:{asset_id:f.crest?.asset_id||'',asset_name:f.crest?.asset_name||'',confirmed:coverCrestConfirmed()},
+  canva:{master_design_id:registry?.master?.canva_design_id||'DAHYKUo9Tzo',page_key:'cover',master_page_id:pageInfo(['cover'])[0]?.master_page_id||'',rule:'Copy master first; do not edit original'},
+  approval:'pending',notes:'Run request only: Canva is not yet changed.'
+ };
+ const status=document.getElementById('coverRunStatus');
+ if(!data.fixture.opponent||!data.fixture.date||!data.fixture.kickoff||!data.cover_player.trim()||!data.crest.confirmed||!(data.image.flickr_url||data.image.local_upload_filename)){
+  status.textContent='Complete the fixture, cover player, photo and crest confirmation before preparing a run.';return;
+ }
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='tivvy-cover-run.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),60000);
+ status.textContent='Run request downloaded. Canva has NOT been changed. Attach this JSON in our chat to populate a working copy.';
+}
+
 function renderCover(){
   const f=nextHomeData||{};
   const opp=metaVal('opponent',f.opponent||'');
@@ -237,6 +259,7 @@ function renderCover(){
         '<div class="field"><label>Or upload Viv photo</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
       '</div>'+
     '</div>'+
+    '<div style="grid-column:1/-1;padding:12px;margin-top:12px;background:#fff8cf;border-radius:8px"><button class="btn yellow" type="button" onclick="prepareCoverRun()">Prepare Cover for Canva</button><div id="coverRunStatus" class="small" style="margin-top:8px">Download the run request, then share it here for the connected Canva step. The master is never changed by this button.</div></div>'+
     '<div class="crest-preview">'+
       '<div style="min-width:110px"><img id="crestPreviewImage" src="'+esc(crest.thumbnail_url||crest.fallback_url||'')+'" data-fallback-url="'+esc(crest.fallback_url||'')+'" alt="Opponent crest preview" onerror="if(!this.dataset.fallback &amp;&amp; this.dataset.fallbackUrl){this.dataset.fallback=\'1\';this.src=this.dataset.fallbackUrl;document.getElementById(\'crestPreviewStatus\').textContent=\'Stable crest preview · Canva asset retained for programme\'}else{this.style.display=\'none\';document.getElementById(\'crestPreviewStatus\').textContent=\'Crest preview unavailable; Canva asset is still linked.\'}"><div id="crestPreviewStatus" class="small">Canva image preview</div></div>'+
       '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+

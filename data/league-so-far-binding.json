@@ -18,7 +18,7 @@
   "pages": [
     {
       "key": {
-        "element_id": "PByXfpH81SgLLt7W-LBGKBfZ93q8Lm9GC",
+        "element_id": "PB8fXDFxlQWDZgBY-LBGKBfZ93q8Lm9GC",
         "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
         "geometry": {
           "type": "TEXT",
@@ -40,10 +40,10 @@
           "CAPT = Captain": "#7B1FA2"
         }
       },
-      "page_id": "PByXfpH81SgLLt7W",
-      "position": 12,
+      "page_id": "PB8fXDFxlQWDZgBY",
+      "position": 13,
       "table_id": "LBqvYhrHQ6mZgX2b",
-      "subtitle_element_id": "PByXfpH81SgLLt7W-LBXFR3CHRyKdyCDG",
+      "subtitle_element_id": "PB8fXDFxlQWDZgBY-LBXFR3CHRyKdyCDG",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -89,7 +89,7 @@
         {
           "team": "Hungerford Town",
           "asset_id": "MAHYHeCA8S4",
-          "element_id": "PByXfpH81SgLLt7W-LBJFLHcyG6d71n0Q",
+          "element_id": "PB8fXDFxlQWDZgBY-LBJFLHcyG6d71n0Q",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -105,7 +105,7 @@
         {
           "team": "Barnstaple Town",
           "asset_id": "MAHYHbJGCrA",
-          "element_id": "PByXfpH81SgLLt7W-LB3YLkYsl4pqWXPZ",
+          "element_id": "PB8fXDFxlQWDZgBY-LB3YLkYsl4pqWXPZ",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -121,7 +121,7 @@
         {
           "team": "Westbury United",
           "asset_id": "MAHYHdbXqMk",
-          "element_id": "PByXfpH81SgLLt7W-LBXrr3h1vtJDMb3X",
+          "element_id": "PB8fXDFxlQWDZgBY-LBXrr3h1vtJDMb3X",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -137,7 +137,7 @@
         {
           "team": "Exmouth Town",
           "asset_id": "MAHYHcnAPeM",
-          "element_id": "PByXfpH81SgLLt7W-LBJGQJLcLyNlx5Y3",
+          "element_id": "PB8fXDFxlQWDZgBY-LBJGQJLcLyNlx5Y3",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -153,7 +153,7 @@
         {
           "team": "Dorchester Town",
           "asset_id": "MAHYHUR2TPw",
-          "element_id": "PByXfpH81SgLLt7W-LB4VdbQg5RnrD3CF",
+          "element_id": "PB8fXDFxlQWDZgBY-LB4VdbQg5RnrD3CF",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -169,7 +169,7 @@
         {
           "team": "Paulton Rovers",
           "asset_id": "MAHYHTDtw54",
-          "element_id": "PByXfpH81SgLLt7W-LBhDWbH4VNZg0TQT",
+          "element_id": "PB8fXDFxlQWDZgBY-LBhDWbH4VNZg0TQT",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -186,7 +186,7 @@
     },
     {
       "key": {
-        "element_id": "PBLQPvrQwZj8zTLS-LBhz5RPPKbKCpY2M",
+        "element_id": "PBXMTBDmtzjMvbPc-LBhz5RPPKbKCpY2M",
         "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
         "geometry": {
           "type": "TEXT",
@@ -208,10 +208,10 @@
           "CAPT = Captain": "#7B1FA2"
         }
       },
-      "page_id": "PBLQPvrQwZj8zTLS",
-      "position": 13,
+      "page_id": "PBXMTBDmtzjMvbPc",
+      "position": 14,
       "table_id": "LBJW2j9d3LLyQVR5",
-      "subtitle_element_id": "PBLQPvrQwZj8zTLS-LBtQVm9kDkq0bvY4",
+      "subtitle_element_id": "PBXMTBDmtzjMvbPc-LBtQVm9kDkq0bvY4",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -253,7 +253,7 @@
         {
           "team": "Worcester Raiders",
           "asset_id": "MAHYHQ8xEiQ",
-          "element_id": "PBLQPvrQwZj8zTLS-LBFgTFr75cKT3RvQ",
+          "element_id": "PBXMTBDmtzjMvbPc-LBFgTFr75cKT3RvQ",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -269,7 +269,7 @@
         {
           "team": "Hartpury",
           "asset_id": "MAHYHWBxrh0",
-          "element_id": "PBLQPvrQwZj8zTLS-LBZffHbg2lfcZ4ZR",
+          "element_id": "PBXMTBDmtzjMvbPc-LBZffHbg2lfcZ4ZR",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -285,7 +285,7 @@
         {
           "team": "Shaftesbury",
           "asset_id": "MAHYHU-Qdmc",
-          "element_id": "PBLQPvrQwZj8zTLS-LBmBPv0HkBJ7MV5j",
+          "element_id": "PBXMTBDmtzjMvbPc-LBmBPv0HkBJ7MV5j",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -301,7 +301,7 @@
         {
           "team": "Falmouth Town",
           "asset_id": "MAHYHREbmu8",
-          "element_id": "PBLQPvrQwZj8zTLS-LBzb0XLqPBvk93Gb",
+          "element_id": "PBXMTBDmtzjMvbPc-LBzb0XLqPBvk93Gb",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -317,7 +317,7 @@
         {
           "team": "Portland United",
           "asset_id": "MAHYHY5tbW4",
-          "element_id": "PBLQPvrQwZj8zTLS-LBhTj2t8C02StsXY",
+          "element_id": "PBXMTBDmtzjMvbPc-LBhTj2t8C02StsXY",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -376,6 +376,20 @@
       "match_details_line_height_by_page": {
         "PByXfpH81SgLLt7W": 1.1
       }
-    }
+    },
+    "pending_row_policy": "New matches must be appended using a native editable table row matching the existing table styling; never replace a completed fixture or rasterise. Larkhall remains pending until reliable source confirms outcome and lineup."
+  },
+  "pending_fixture": {
+    "date": "2026-10-24",
+    "display_date": "24/10",
+    "opponent": "Larkhall Athletic",
+    "venue": "A",
+    "competition": "Southern League Division One South",
+    "status": "awaiting_result",
+    "score": null,
+    "match_details": null,
+    "target_page_id": "PBXMTBDmtzjMvbPc",
+    "append_after_last_completed_match": true,
+    "render_note": "Add a matching editable native table row when result and match events are verified. Do not overwrite Portland or insert misleading score; no native empty row currently exists."
   }
 }

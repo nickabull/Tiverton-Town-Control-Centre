@@ -200,7 +200,7 @@ function renderCover(){
       '</div>'+
     '</div>'+
     '<div class="crest-preview">'+
-      '<div style="min-width:110px"><img id="crestPreviewImage" src="'+esc(crest.thumbnail_url||'')+'" alt="Opponent crest preview" onerror="this.style.display=\'none\';document.getElementById(\'crestPreviewStatus\').textContent=\'Canva preview expired — select a local crest PNG.\'"><div id="crestPreviewStatus" class="small">Canva image preview</div></div>'+
+      '<div style="min-width:110px"><img id="crestPreviewImage" src="'+esc(crest.thumbnail_url||crest.fallback_url||'')+'" data-fallback-url="'+esc(crest.fallback_url||'')+'" alt="Opponent crest preview" onerror="if(!this.dataset.fallback &amp;&amp; this.dataset.fallbackUrl){this.dataset.fallback=\'1\';this.src=this.dataset.fallbackUrl;document.getElementById(\'crestPreviewStatus\').textContent=\'Stable crest preview · Canva asset retained for programme\'}else{this.style.display=\'none\';document.getElementById(\'crestPreviewStatus\').textContent=\'Crest preview unavailable; Canva asset is still linked.\'}"><div id="crestPreviewStatus" class="small">Canva image preview</div></div>'+
       '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+
       '<label style="display:block;font-size:12px;margin-top:10px">Upload crest PNG for preview</label><input type="file" accept="image/*" onchange="saveCrestPreviewUpload(this)" style="max-width:200px;width:100%;font-size:12px">'+
       '<label class="check"><input type="checkbox" '+(coverCrestConfirmed()?'checked':'')+' onchange="setCoverCrestConfirmed(this.checked)"> Confirm this is the correct away crest</label></div>'+

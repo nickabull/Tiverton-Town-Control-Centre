@@ -527,7 +527,8 @@ function syncIssueFromFixture(){
   localStorage.removeItem('tivvy-v21-cover-upload-name');
   localStorage.setItem('tivvy-v21-active-fixture',newKey);
   // A previous local upload stays in the browser as an archive, but is not selected.
-  // Keep the previous issue's uploaded image in IndexedDB, but do not select it for this issue.
+  // New issue: clear previous cover photo and crest preview from browser storage.
+  coverPhotoDb().then(db=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).delete('current');tx.objectStore(coverPhotoStore).delete('crest-preview');tx.oncomplete=()=>db.close();tx.onerror=()=>db.close();}).catch(()=>{});
 }
 async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw()}
 boot();

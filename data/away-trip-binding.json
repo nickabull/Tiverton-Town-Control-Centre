@@ -3,8 +3,8 @@
   "key": "next_away_trip",
   "design_id": "DAHYKUo9Tzo",
   "design_title": "CHATGPT LEAGUE TEMPLATE",
-  "page_id": "PBsWKDLhgzS3q33V",
-  "position": 49,
+  "page_id": "PBlkQ5f6HvFTVtKQ",
+  "position": 50,
   "render_mode": "native_editable_table",
   "font": "Antonio",
   "execution_mode": "chatgpt_assisted_connected_run",
@@ -12,15 +12,15 @@
   "source_scraped_at": "2026-10-18 18:43:59 UTC",
   "player_source_scraped_at": "2026-10-18 18:04:22 UTC",
   "source_urls": [
-    "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
-    "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json",
-    "https://www.larkhallathletic.com/event-details/larkhall-athletic-vs-tiverton",
-    "https://www.larkhallathletic.com/faq"
+    "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f445c",
+    "https://uptheterras.co.uk/first-team-fixtures-results/",
+    "https://uptheterras.co.uk/club-info/admission-prices/",
+    "https://uptheterras.co.uk/"
   ],
   "editable_fields": [
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A1",
-      "text": "  LARKHALL\n  ATHLETIC",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A1",
+      "text": "  WEYMOUTH\n  FC",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -34,8 +34,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B1",
-      "text": "Saturday 24 October 2026 · 15:00\nSouthern League Division One South",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B1",
+      "text": "Saturday 31 October 2026 · 15:00\nSouthern League Division One South",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -49,7 +49,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A2",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A2",
       "text": "THE GROUND",
       "geometry": {
         "type": "TABLE",
@@ -64,8 +64,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B2",
-      "text": "Camella Stadium · Plain Ham\nCharlcombe Lane, Bath, BA1 8DJ",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B2",
+      "text": "Bob Lucas Stadium · Radipole Lane\nWeymouth, Dorset, DT4 9XJ",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -79,7 +79,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A3",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A3",
       "text": "ADMISSION",
       "geometry": {
         "type": "TABLE",
@@ -94,8 +94,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B3",
-      "text": "Adults £12 · Concessions £8 · Bath Spa students £7\nChildren aged 5–15 £4 · Under 5s free\nBuy through Larkhall’s official website or at the ground.",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B3",
+      "text": "Online: Adults £14 · Concessions £11 · 16–17s £6\nAt ticket office: £15 · £12 · £7 respectively\nUnder 16s £2. Check under-13 accompaniment policy.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -109,7 +109,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A4",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A4",
       "text": "BY ROAD",
       "geometry": {
         "type": "TABLE",
@@ -124,8 +124,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B4",
-      "text": "Head for Plain Ham, Bath, BA1 8DJ. The local approach is via Larkhall and Charlcombe Lane. Allow time for the narrow final approach and parking.",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B4",
+      "text": "From Tiverton, head towards Dorchester and Weymouth via the A35/A354; follow local signs for the Bob Lucas Stadium. Parking is limited, so check arrangements before setting off.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -139,7 +139,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A5",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A5",
       "text": "BY RAIL",
       "geometry": {
         "type": "TABLE",
@@ -154,8 +154,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B5",
-      "text": "Arrive at Bath Spa, then arrange the final leg to Plain Ham. Check outward and return trains before travelling, and allow time for the uphill approach.",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B5",
+      "text": "Weymouth railway station is approximately 2 miles from the stadium. Allow for an onward bus or taxi; check outward and return connections before travelling.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -169,8 +169,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A6",
-      "text": "THE LARKS",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A6",
+      "text": "THE TERRAS",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -184,8 +184,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B6",
-      "text": "19th · P12 W3 D1 L8 · 10 points\nLast five league games: W L D L W (oldest first).\nThey won 2–0 at Melksham on 17 October.",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B6",
+      "text": "League leaders at the last verified check: P11 W10 D1 L0 · 31 points.\nMost recent confirmed league result: Bristol Manor Farm 1–4 Weymouth (20 October). Recheck after 27 October.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -199,7 +199,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-A7",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A7",
       "text": "BEFORE YOU GO",
       "geometry": {
         "type": "TABLE",
@@ -214,8 +214,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBfnJy3FRWrQHh0M-B7",
-      "text": "Recheck kick-off and travel arrangements. Contact the club about parking, access or dietary requirements. Tickets: larkhallathletic.com",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B7",
+      "text": "Kick-off: 3pm, Saturday 31 October. Confirm ticket arrangements, parking and any segregation with Weymouth FC. Tickets and visitor information: uptheterras.co.uk.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -236,7 +236,7 @@
   ],
   "media": [
     {
-      "element_id": "PBsWKDLhgzS3q33V-LB5RkqsRpGmS3yms",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LB5RkqsRpGmS3yms",
       "asset_id": "MAHNec_oLAE",
       "geometry": {
         "type": "RECT",
@@ -251,7 +251,7 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LBRmxM1V3XkLvBZx",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LBRmxM1V3XkLvBZx",
       "asset_id": "MAHYZP90-W4",
       "geometry": {
         "type": "RECT",
@@ -266,8 +266,8 @@
       }
     },
     {
-      "element_id": "PBsWKDLhgzS3q33V-LB4mBXGB3cBCl03P",
-      "asset_id": "MAHYHbexwLc",
+      "element_id": "PBlkQ5f6HvFTVtKQ-LB4mBXGB3cBCl03P",
+      "asset_id": "MAHYHTJLF7U",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -290,7 +290,7 @@
     "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
     "font": "Antonio",
     "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
-    "ticket_prices": "Match-specific: £12 adult, £8 concession, £7 Bath Spa student, £4 age 5–15, under 5 free; recheck before each issue.",
+    "ticket_prices": "Weymouth FC 2026/27 match admission: online adult £14/concession £11/youth £6; ticket office £15/£12/£7; under 16 £2. Recheck before publication.",
     "no_unverified_journey_times": true,
     "row_fills": {
       "gold": "#FFD400",
@@ -308,8 +308,11 @@
       ],
       "reference": "Match standard gold of existing top panels."
     },
-    "source_check_display": "Keep source URLs and checking dates in dashboard metadata only. The user removed the checked/source row from the Canva table: do not recreate it."
+    "source_check_display": "Keep source URLs and checking dates in dashboard metadata only. The user removed the checked/source row from the Canva table: do not recreate it.",
+    "verified_fixture": "31 October 2026 at 15:00, Bob Lucas Stadium, Radipole Lane, Weymouth DT4 9XJ",
+    "stats_refresh": "Weymouth league stats last confirmed before 24 October cup fixture and 27 October league game; recheck later"
   },
-  "trip_source": "data/away-trip-larkhall.json",
-  "table_id": "LBfnJy3FRWrQHh0M"
+  "trip_source": "data/away-trip-weymouth.json",
+  "table_id": "LBT22yQ21LhGRZGf",
+  "fixture": "Weymouth FC v Tiverton Town, 31 October 2026, 15:00"
 }

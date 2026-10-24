@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "title": "Tiverton Town programme shared data and Canva update policy",
+  "adopted": "2026-10-24",
+  "primary_sources": {
+    "match_results": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+    "match_events_players": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json",
+    "league_standings": "Southern League authoritative standings feed, via existing league table binding"
+  },
+  "principle": "Match Centre and Programme consume the same verified football facts; do not independently recreate or manually re-key football match data. Canva stores design/layout and editable presentation, not football truth.",
+  "workflow": [
+    "Refresh and inspect the two common data feeds before each programme run.",
+    "Use latest confirmed completed fixtures, including midweek and cup matches in their correct competitions.",
+    "Use the existing programme binding and current live page ID for each relevant section.",
+    "Compare proposed values to live Canva and saved baseline; preserve known corrections and manual edits.",
+    "Update only allowed editable fields inside page's approved content area; retain Antonio, yellow/white alternating rows, opponent crests, red Tivvy score goals, cards/substitution indicators and all artwork.",
+    "Never invent scores, lineup events or unavailable data; mark scheduled/unverified games pending.",
+    "Review or flag conflicting feed results. Data refresh is distinct from Canva publish/commit.",
+    "For match-adding native table pages, retain editability and layout; if Canva connector cannot extend a table, report blocker rather than claiming completion."
+  ],
+  "sections": {
+    "league_so_far": {
+      "source": "match_events_players",
+      "rule": "populate league-only completed fixtures chronologically, with full match events; pending fixture can be staged but does not overwrite completed row"
+    },
+    "results_matrix": {
+      "source": "match_results",
+      "rule": "update verified league result cells and preserve existing native grid"
+    },
+    "league_table": {
+      "source": "league_standings",
+      "rule": "refresh standings, promotion bands and Tivvy highlight"
+    },
+    "tivvy_glance": {
+      "source": "match_results + match_events_players + league_standings",
+      "rule": "update verified match and player stats, form, league position"
+    },
+    "player_stats": {
+      "source": "match_events_players",
+      "rule": "refresh verified appearances, goals and minutes"
+    },
+    "today_in_60": {
+      "source": "match_results + match_events_players + league_standings",
+      "rule": "four approved boxes and badge styling; use current fixture data"
+    }
+  }
+}

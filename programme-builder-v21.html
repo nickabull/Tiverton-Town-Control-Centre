@@ -357,9 +357,15 @@ function latestNewsStory(n){
     '</div>'+
   '</div>';
 }
+function exportLatestNews(){
+ const data={schema:'tivvy-latest-news-v1',fixture:nextHomeData?.opponent||'',template:'CHATGPT LEAGUE TEMPLATE',stories:[1,2].map(n=>({number:n,headline:fieldValue('latest-news-'+n+'-headline'),body:fieldValue('latest-news-'+n+'-body'),image_url:fieldValue('latest-news-'+n+'-image'),image_filename:fieldValue('image-file-latest-news-'+n+'-image'),canva_asset_id:fieldValue('canva-asset-latest-news-'+n+'-image'),byline:fieldValue('latest-news-'+n+'-byline')})),note:'Source photos selected locally still need to be attached to the ChatGPT conversation. Only content within the white Canva box may change.'};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='tivvy-latest-news-run.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+ document.getElementById('latestNewsExportStatus').textContent='Latest News instructions downloaded. Attach the JSON here, plus any photos selected locally.';
+}
 function renderLatestNews(){
   return '<div class="autofill-note"><strong>Latest News layout:</strong> exactly two stories. Each story uses one image with a small byline directly underneath it.</div>'+
-    '<div class="action-fields">'+latestNewsStory(1)+latestNewsStory(2)+'</div>';
+    '<div class="action-fields">'+latestNewsStory(1)+latestNewsStory(2)+'</div><div class="controls"><button class="btn yellow" type="button" onclick="exportLatestNews()">Send Latest News to Canva (download instructions)</button></div><p class="small" id="latestNewsExportStatus">Creates a handoff file; Canva is unchanged until the connected run is completed.</p>';
 }
 
 

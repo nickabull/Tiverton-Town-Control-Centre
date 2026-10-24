@@ -39,7 +39,7 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
   <div class="ey" style="color:#555">Sections</div>
   <h2 style="margin:5px 0 8px">What the automator needs, does and produces</h2>
   <p class="small" style="margin:0 0 14px">Click a section heading to expand or collapse it. All sections start collapsed when the page loads or refreshes. Your saved content and approval checks are kept.</p>
-  <div id="sectionGrid" class="section-grid"></div>
+  <div class="controls" style="margin-bottom:10px"><button class="btn yellow" type="button" onclick="syncCanvaPages()">Sync Canva Pages</button><a class="btn ghost" href="https://www.canva.com/d/6Q-9ufMBftdAKIj" target="_blank" rel="noopener">Open Canva template</a></div><p id="canvaSyncStatus" class="small" role="status">Checks the latest connected Canva scan stored in the Automator. It does not edit Canva or contact Canva live.</p><div id="canvaSyncDetails" class="small" style="margin-bottom:12px"></div><div id="sectionGrid" class="section-grid"></div>
 </section>
 </main>
 <script src="results-matrix-update.js?v=20261018-1"></script>
@@ -584,6 +584,30 @@ async function prepareOppPreview(button){
   const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'})),link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-opposition-preview-run.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
   status.textContent='Request ready for CHATGPT LEAGUE TEMPLATE: '+plan.text_updates.length+' text changes and '+plan.media_replacements.length+' image/crest replacements. '+(plan.status==='source_import_required'?'The connected run must import the referenced report first. ':'')+(plan.warnings.length?plan.warnings.join(' ')+' ':'')+'Canva has not been changed.';
  }catch(error){status.textContent=error.message;}finally{button.disabled=false;}
+}
+
+async function syncCanvaPages(){
+ const status=document.getElementById('canvaSyncStatus'),details=document.getElementById('canvaSyncDetails');
+ status.textContent='Checking saved Canva page scan…';details.replaceChildren();
+ try{
+  const r=await fetch('data/canva-page-snapshot.json?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('Saved Canva scan unavailable ('+r.status+')');
+  const snapshot=await r.json();
+  if(snapshot.design_id!==registry?.master?.canva_design_id || !Array.isArray(snapshot.pages))throw Error('Canva design ID or page list does not match');
+  const positions=new Map(snapshot.pages.map(p=>[p.page_id,p.position]));
+  const ids=new Set();
+  let moved=0,missing=0,found=0,duplicated=0;
+  for(const item of registry.pages){
+   if(ids.has(item.master_page_id))duplicated++;else ids.add(item.master_page_id);
+   const live=positions.get(item.master_page_id);
+   if(!live){item.position=null;item.mapping_status='missing_from_snapshot';missing++;}
+   else{if(item.position!==live)moved++;item.position=live;item.mapping_status='verified_against_snapshot';found++;}
+  }
+  registry.master.page_count=snapshot.pages.length;
+  draw();
+  status.textContent='Saved scan '+snapshot.captured_at+' · '+snapshot.pages.length+' Canva pages · '+found+' mapped · '+moved+' positions refreshed · '+missing+' missing · '+duplicated+' duplicate registry IDs.';
+  details.textContent='This is a read-only check against the last connector scan, NOT a fresh live Canva API call. To refresh the source snapshot after reordering, ask me to scan Canva and update the Automator; it will then check positions automatically. Missing pages are flagged, never silently rebound.';
+ }catch(e){status.textContent='Sync check failed: '+e.message;}
 }
 
 function draw(){

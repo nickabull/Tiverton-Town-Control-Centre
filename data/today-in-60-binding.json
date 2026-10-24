@@ -3,8 +3,8 @@
   "key": "today_in_60",
   "design_id": "DAHYKUo9Tzo",
   "design_title": "CHATGPT LEAGUE TEMPLATE",
-  "page_id": "PBqjR72mVFBFgmh7",
-  "position": 50,
+  "page_id": "PBkj4y3XTWnmZGvp",
+  "position": 5,
   "render_mode": "native_grouped_editable_dashboard",
   "font": "Antonio",
   "execution_mode": "chatgpt_assisted_connected_run",
@@ -17,7 +17,7 @@
   ],
   "editable_fields": [
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBcH0QC1K1ldXlH5",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB1gsWl9R8HbvQ5P",
       "text": "THE STORY",
       "geometry": {
         "type": "TEXT",
@@ -32,8 +32,8 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBRh7KYQzNnnBNHQ",
-      "text": "Tivvy host Bideford on a Devon cup night, looking to bounce back from Saturday\u2019s defeat by Portland.",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBP0Wrs0CMldB4m0",
+      "text": "Tivvy welcome high-flying Dorchester Town on Tuesday night, with the visitors unbeaten in their last ten league matches. Both sides are in action on Saturday before this fixture.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -47,7 +47,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB7LKhfNQlL0KxL6",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBv82b0KgSZh7M5l",
       "text": "OUR FORM",
       "geometry": {
         "type": "TEXT",
@@ -62,7 +62,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBg1q2sd4D1jvy0W",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBXh3ZGwrchf1vC9",
       "text": "D",
       "geometry": {
         "type": "SHAPE",
@@ -77,7 +77,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBqVgy0Kbh2Pfmnr",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBxZXH4f2sFr0zGJ",
       "text": "W",
       "geometry": {
         "type": "SHAPE",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3Wlb5DnpfP5ph4",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBXmsdf7VD4l7YVH",
       "text": "W",
       "geometry": {
         "type": "SHAPE",
@@ -107,7 +107,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBZkZXlMsJvFfmHC",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBy3TpWKBGqH8Rm8",
       "text": "L",
       "geometry": {
         "type": "SHAPE",
@@ -122,7 +122,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBNW1mnMmmGBHm9P",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBKc6hbZMWGCyvk0",
       "text": "L",
       "geometry": {
         "type": "SHAPE",
@@ -137,8 +137,8 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBzRcJp5hvY2RhZF",
-      "text": "League form: two wins in five.\nOwen Howe is our leading league scorer with three goals.",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBG9sblD5WYPcHLW",
+      "text": "League form to 17 October: D W W L L.\nThree league wins, three draws and five defeats from 11 games; 12 points.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -152,7 +152,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBwNPnFRTNXq2XSh",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB9c4TQ0Wjj5g6K0",
       "text": "THE VISITORS",
       "geometry": {
         "type": "TEXT",
@@ -167,7 +167,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBh4LjsMqWklnH4b",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBtJhgDnJxW17mqn",
       "text": "W",
       "geometry": {
         "type": "SHAPE",
@@ -182,7 +182,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBYS180hKCQl6lQv",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBM256xg347RgWqJ",
       "text": "L",
       "geometry": {
         "type": "SHAPE",
@@ -197,7 +197,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBNNKZ4H8TZsyvRK",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB5mYz2p7nyt2GtC",
       "text": "L",
       "geometry": {
         "type": "SHAPE",
@@ -212,7 +212,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBb31sR7J7RxDnCn",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB1VJLnpLncqpq4Q",
       "text": "L",
       "geometry": {
         "type": "SHAPE",
@@ -227,7 +227,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBQBdlBl99FT1T0G",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB9TbfVtKyJHQtL2",
       "text": "W",
       "geometry": {
         "type": "SHAPE",
@@ -242,8 +242,8 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBh9WdvjSQPPB7rg",
-      "text": "Bideford won 3\u20132 on Saturday.\n11 points from 12 league games; Tivvy have 12 from 11.",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBnKPd9w6KGFF7Bg",
+      "text": "Dorchester have won ten league games in a row and taken 30 points from 11 matches. Their latest confirmed result was a 3–1 win at Sporting Club Inkberrow.",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -257,7 +257,7 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBhL82wxYDBQr5fh",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBS0Vjt9JrxBljGZ",
       "text": "WATCH FOR",
       "geometry": {
         "type": "TEXT",
@@ -272,8 +272,8 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3xxmFmdFWsJ0l4",
-      "text": "Cup action",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBQyp6VCygtFlJ4k",
+      "text": "Previous meeting",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -287,8 +287,8 @@
       }
     },
     {
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBdMDk4dhQZcp80X",
-      "text": "Devon St Luke\u2019s Bowl tonight.\nTivvy began their cup campaign with a 5\u20131 win over Ilfracombe Town.",
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB9l8XHY8HzKwXlr",
+      "text": "Dorchester won 2–1 when the sides met on 15 September. They visit Tiverton again on Tuesday 27 October (7:30pm).",
       "geometry": {
         "type": "TEXT",
         "position": {
@@ -364,12 +364,13 @@
       "editable": true,
       "fixed_wording": false,
       "instruction": "Choose a short label to suit the current Watch For story. Cup action is only the Bideford edition wording. Preserve a user-edited label and resize its yellow highlight to fit; do not force cup wording on league stories.",
-      "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LB3xxmFmdFWsJ0l4"
-    }
+      "element_id": "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBQyp6VCygtFlJ4k"
+    },
+    "test_note": "24 Oct trial: text updated to Dorchester preview using verified results through 17 Oct; form badges NOT updated, requires matching badge fill colours and latest matchday scores."
   },
   "copy_source": "data/today-in-60-bideford.json",
-  "fixture": "Tiverton Town v Bideford AFC, 20 October 2026, Devon St Luke's Bowl",
-  "group_id": "LBjLr5XTP5TTxnlf",
+  "fixture": "Tiverton Town v Dorchester Town, 27 October 2026, Southern League Division One South",
+  "group_id": "LB0fp3XbZ9CQv63b",
   "removed_elements": [
     "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBWNsvGkbVNmfwTY",
     "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBp98PSbs9WGhPF3",

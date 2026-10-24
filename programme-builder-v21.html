@@ -614,7 +614,10 @@ function draw(){
  const grid=document.getElementById('sectionGrid');
  const expanded=new Set([...grid.querySelectorAll(':scope > details[open]')].map(card=>card.id));
  grid.innerHTML='';
- sections.forEach(s=>{
+ [...sections].sort((a,b)=>{
+   const firstPosition=section=>Math.min(...section.pages.map(k=>registry?.pages.find(p=>p.key===k)?.position).filter(n=>Number.isInteger(n)&&n>0).concat(Infinity));
+   return firstPosition(a)-firstPosition(b);
+ }).forEach(s=>{
    const infos=pageInfo(s.custom==='oppositionPreview'?['opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4']:s.pages);
    const card=document.createElement('details'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':''); card.open=expanded.has(card.id);
    const tech=s.custom==='oppositionPreview' ? '<div class="small">The connected run resolves only the four opposition_preview pages from the existing registry and live CHATGPT LEAGUE TEMPLATE. Club facts and squad pages are outside this run.</div>' : s.custom==='lastOut' ? '<div class="small">The connected run resolves the four report pages from the live CHATGPT LEAGUE TEMPLATE and existing registry. Page numbers may change when reordered.</div>' : infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+(p.position||'NOT FOUND — CHECK CANVA')+'</div></div></div>').join('');

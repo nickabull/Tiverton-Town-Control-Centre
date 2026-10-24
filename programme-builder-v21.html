@@ -145,7 +145,7 @@ async function showCoverUpload(){
    const req=tx.objectStore(coverPhotoStore).get('current');
    req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
   });db.close();
-  if(file){
+  if(file && localStorage.getItem('tivvy-v21-cover-image-source')==='upload'){
    if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);
    const url=URL.createObjectURL(file);img.src=url;img.dataset.url=url;img.style.display='block';
    status.textContent='Selected: '+file.name+' (saved on this browser; upload to Canva before rendering)';
@@ -527,7 +527,7 @@ function syncIssueFromFixture(){
   localStorage.removeItem('tivvy-v21-cover-upload-name');
   localStorage.setItem('tivvy-v21-active-fixture',newKey);
   // A previous local upload stays in the browser as an archive, but is not selected.
-  try { coverPhotoDb().then(db=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).delete('current');tx.oncomplete=()=>db.close();tx.onerror=()=>db.close()}).catch(()=>{}); }catch(e){}
+  // Keep the previous issue's uploaded image in IndexedDB, but do not select it for this issue.
 }
 async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw()}
 boot();

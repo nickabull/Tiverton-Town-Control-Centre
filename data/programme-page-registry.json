@@ -42,10 +42,10 @@
     {
       "key": "club_officials",
       "name": "Club Officials / Honours",
-      "master_page_id": "PB5DVYd1D16crJNs",
-      "position": null,
+      "master_page_id": "PBVJLQy1YXbMn222",
+      "position": 8,
       "type": "GUIDED",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "advert_06",
@@ -82,12 +82,12 @@
     {
       "key": "league_so_far_1",
       "name": "The League So Far — Results 1",
-      "master_page_id": "PByXfpH81SgLLt7W",
-      "position": null,
+      "master_page_id": "PB8fXDFxlQWDZgBY",
+      "position": 13,
       "type": "AUTO",
       "update_binding": "data/league-so-far-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "fixed_11",
@@ -100,12 +100,12 @@
     {
       "key": "results_matrix",
       "name": "Results Matrix",
-      "master_page_id": "PB98MG6GqY0KbHhR",
-      "position": null,
+      "master_page_id": "PB9P9mXjTZSWtXpM",
+      "position": 15,
       "type": "AUTO",
       "update_binding": "data/results-matrix-binding.json",
       "render_mode": "native_table_incremental",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "fixed_13",
@@ -118,30 +118,30 @@
     {
       "key": "around_league",
       "name": "Around the League",
-      "master_page_id": "PBtHJC2fqTlx9ZPC",
-      "position": null,
+      "master_page_id": "PB7mSlQ245FM5gf3",
+      "position": 17,
       "type": "AUTO",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "league_table",
       "name": "League Table",
-      "master_page_id": "PBmPqH3l8hyRtXRV",
-      "position": null,
+      "master_page_id": "PBPGCTmRkfvCkcck",
+      "position": 18,
       "type": "AUTO",
       "update_binding": "data/league-table-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "tivvy_glance",
       "name": "Tivvy at a Glance",
-      "master_page_id": "PBNDTwV3s7Xt6767",
-      "position": null,
+      "master_page_id": "PBr63yHy7HjBnkDQ",
+      "position": 19,
       "type": "AUTO",
       "update_binding": "data/tivvy-at-a-glance-binding.json",
       "render_mode": "native_editable_text_and_shapes",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "last_time_out_1",
@@ -378,12 +378,12 @@
     {
       "key": "next_away_trip",
       "name": "Next Away Trip",
-      "master_page_id": "PBsWKDLhgzS3q33V",
-      "position": null,
+      "master_page_id": "PBlkQ5f6HvFTVtKQ",
+      "position": 50,
       "type": "GUIDED",
       "update_binding": "data/away-trip-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "today_in_60",
@@ -398,10 +398,10 @@
     {
       "key": "teams_officials",
       "name": "Teams / Officials",
-      "master_page_id": "PBKS5yNrmQ2tF2MD",
-      "position": null,
+      "master_page_id": "PB0bvN8L6cWkkjYY",
+      "position": 52,
       "type": "GUIDED",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "feature_slot",
@@ -430,12 +430,12 @@
     {
       "key": "league_so_far_2",
       "name": "The League So Far — Results 2",
-      "master_page_id": "PBLQPvrQwZj8zTLS",
-      "position": null,
+      "master_page_id": "PBXMTBDmtzjMvbPc",
+      "position": 14,
       "type": "AUTO",
       "update_binding": "data/league-so-far-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "verified_by_page_content"
     }
   ],
   "page_sync": {
@@ -443,17 +443,19 @@
     "design_id": "DAHYKUo9Tzo",
     "current_page_count": 55,
     "missing_keys": [
+      "fixed_11",
+      "player_stats"
+    ],
+    "verified_by_content": [
       "club_officials",
       "league_so_far_1",
-      "fixed_11",
+      "league_so_far_2",
       "results_matrix",
       "around_league",
       "league_table",
       "tivvy_glance",
       "next_away_trip",
-      "teams_officials",
-      "player_stats",
-      "league_so_far_2"
+      "teams_officials"
     ]
   }
 }

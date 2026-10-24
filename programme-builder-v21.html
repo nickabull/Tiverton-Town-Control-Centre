@@ -511,7 +511,25 @@ function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><
 function saveMeta(){}
 function loadMeta(){}
 function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
-async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}draw()}
+function syncIssueFromFixture(){
+  const f=nextHomeData||{};
+  if(!f.match_date||!f.opponent)return;
+  const newKey=[f.match_date,f.opponent].join('|');
+  const oldKey=localStorage.getItem('tivvy-v21-active-fixture');
+  if(oldKey===newKey)return;
+  // Changing issue invalidates all old approvals; do not delete source assets.
+  sections.forEach(section=>localStorage.removeItem('tivvy-v21-approved-'+section.key));
+  localStorage.removeItem('tivvy-v21-cover-crest-confirmed');
+  ['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.removeItem('tivvy-v21-meta-'+id));
+  // Never present an old Bideford cover player or Flickr link as a new selection.
+  ['coverPlayer','coverImage'].forEach(id=>localStorage.removeItem('tivvy-v21-'+id));
+  localStorage.removeItem('tivvy-v21-cover-image-source');
+  localStorage.removeItem('tivvy-v21-cover-upload-name');
+  localStorage.setItem('tivvy-v21-active-fixture',newKey);
+  // A previous local upload stays in the browser as an archive, but is not selected.
+  try { coverPhotoDb().then(db=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).delete('current');tx.oncomplete=()=>db.close();tx.onerror=()=>db.close()}).catch(()=>{}); }catch(e){}
+}
+async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw()}
 boot();
 </script>
 <script src="programme-nav.js?v=20261018-theme-1"></script>

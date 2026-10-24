@@ -388,12 +388,12 @@
     {
       "key": "today_in_60",
       "name": "Today In 60 Secs",
-      "master_page_id": "PBqjR72mVFBFgmh7",
-      "position": 51,
+      "master_page_id": "PBkj4y3XTWnmZGvp",
+      "position": 5,
       "type": "GUIDED",
       "update_binding": "data/today-in-60-binding.json",
       "render_mode": "native_editable_text_and_shapes",
-      "mapping_status": "verified"
+      "mapping_status": "verified_by_page_content"
     },
     {
       "key": "teams_officials",
@@ -455,7 +455,8 @@
       "league_table",
       "tivvy_glance",
       "next_away_trip",
-      "teams_officials"
+      "teams_officials",
+      "today_in_60"
     ]
   }
 }

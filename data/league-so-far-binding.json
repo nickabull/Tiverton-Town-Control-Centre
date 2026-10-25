@@ -391,5 +391,74 @@
     "target_page_id": "PBXMTBDmtzjMvbPc",
     "append_after_last_completed_match": true,
     "render_note": "Add a matching editable native table row when result and match events are verified. Do not overwrite Portland or insert misleading score; no native empty row currently exists."
+  },
+  "pending_next_match": {
+    "status": "NEEDS_NATIVE_TABLE_ROW_INSERTION",
+    "current_page_index": 9,
+    "page_id": "PBXMTBDmtzjMvbPc",
+    "existing_rows": 5,
+    "insert_after": "2026-10-17 Portland United",
+    "source": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json",
+    "fixture_date": "2026-10-24",
+    "opponent": "Larkhall Athletic",
+    "venue": "A",
+    "score_home_first": "1-3",
+    "tivvy_result": "W 3-1",
+    "attendance": 155,
+    "goals": [
+      {
+        "player": "Josh Bissett",
+        "minute": "2",
+        "type": "goal"
+      },
+      {
+        "player": "Josh Bissett",
+        "minute": "28",
+        "type": "goal"
+      },
+      {
+        "player": "Josh Bissett",
+        "minute": "64",
+        "type": "penalty"
+      }
+    ],
+    "captain": "Matt Wood",
+    "goalkeeper": "Louis Smith",
+    "starting_xi": [
+      "Louis Smith",
+      "Mason Winter",
+      "Louie Slough",
+      "Matt Wood",
+      "Josh Bissett",
+      "Asa Hall",
+      "Owen Howe",
+      "Jacob Wellington",
+      "Finn Roberts",
+      "Jack Kennell",
+      "Aaron Wellington"
+    ],
+    "substitutions": [
+      {
+        "off": "Jacob Wellington",
+        "on": "Toby Stephens",
+        "minute": "78"
+      },
+      {
+        "off": "Josh Bissett",
+        "on": "Louis Jagger Cane",
+        "minute": "81"
+      },
+      {
+        "off": "Finn Roberts",
+        "on": "Tobias Alsop",
+        "minute": "90"
+      }
+    ],
+    "unused_substitutes": [
+      "Aiden Horne",
+      "Ryan Keates"
+    ],
+    "format": "Clone exact styling of previous native editable table row; red Tivvy 3 in home-first score; goal blue; 64 PEN pink; captain purple; substitution on green and off red; preserve artwork; do not overwrite Portland",
+    "last_checked": "2026-10-25"
   }
 }

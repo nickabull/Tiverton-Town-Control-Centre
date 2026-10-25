@@ -10,6 +10,7 @@
   "principle": "Match Centre and Programme consume the same verified football facts; do not independently recreate or manually re-key football match data. Canva stores design/layout and editable presentation, not football truth.",
   "workflow": [
     "Refresh and inspect the two common data feeds before each programme run.",
+    "For every programme section, first read its existing authoritative shared Match Centre/Get Results/Get Player Info feed and compare the feed to the current Canva page; never independently re-research or manually recreate already-synchronised football results. If required records are missing or stale, correct or flag the shared feed first, then propagate downstream.",
     "Use latest confirmed completed fixtures, including midweek and cup matches in their correct competitions.",
     "Use the existing programme binding and current live page ID for each relevant section.",
     "Compare proposed values to live Canva and saved baseline; preserve known corrections and manual edits.",
@@ -25,7 +26,7 @@
     },
     "results_matrix": {
       "source": "match_results",
-      "rule": "update verified league result cells and preserve existing native grid"
+      "rule": "Read the existing live Get Results match matrix as source of truth; verify freshness, update matching native Canva cells, preserve existing grid and red Tiverton goal numerals; do not create a separate score list unless investigating gaps in the shared feed."
     },
     "league_table": {
       "source": "league_standings",
@@ -43,5 +44,10 @@
       "source": "match_results + match_events_players + league_standings",
       "rule": "four approved boxes and badge styling; use current fixture data"
     }
+  },
+  "canva_write_safety": {
+    "rule": "A Canva service-unavailable error on native table cell edits does not establish that other editable text elements or other pages fail. Probe a small reversible or unchanged text update on a separate section, without committing visual changes, before declaring scope.",
+    "on_failure": "Stop and preserve all approved page layouts; record unsaved work as staged, never claim saved; continue unaffected sections only after testing.",
+    "preserve": "Do not overwrite user's editorial edits or substitute images for native editable tables."
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "key": "today_in_60",
   "design_id": "DAHYKUo9Tzo",
   "design_title": "CHATGPT LEAGUE TEMPLATE",
@@ -399,5 +399,43 @@
       "element_id": "PBqjR72mVFBFgmh7-LBjLr5XTP5TTxnlf-LBJfLnvwyj318BMg",
       "fill": "#f1f2ef"
     }
-  ]
+  ],
+  "form_badges": {
+    "order": "oldest_to_newest",
+    "mapping": {
+      "W": {
+        "label": "W",
+        "background": "#D8EBD9",
+        "foreground": "#275B31"
+      },
+      "D": {
+        "label": "D",
+        "background": "#ECECEC",
+        "foreground": "#202020"
+      },
+      "L": {
+        "label": "L",
+        "background": "#F8D9D6",
+        "foreground": "#A32C28"
+      }
+    },
+    "home_element_ids": [
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBXh3ZGwrchf1vC9",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBxZXH4f2sFr0zGJ",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBXmsdf7VD4l7YVH",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBy3TpWKBGqH8Rm8",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBKc6hbZMWGCyvk0"
+    ],
+    "visitor_element_ids": [
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBtJhgDnJxW17mqn",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LBM256xg347RgWqJ",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB5mYz2p7nyt2GtC",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB1VJLnpLncqpq4Q",
+      "PBkj4y3XTWnmZGvp-LB0fp3XbZ9CQv63b-LB9TbfVtKyJHQtL2"
+    ],
+    "rule": "Always update letter and its native SHAPE fill together. If Canva connection exposes only text replacement and cannot change shape fills, mark update incomplete and do not claim full success. Preserve editability, size, positions and other artwork.",
+    "current_connector_limitation": "Canva perform_editing_operations exposes format_text (text colour) and image update_fill, but no native SHAPE background colour operation.",
+    "date_language": "Programme is read on matchday; use 'tonight', 'this evening' or match date, not 'this Tuesday' when matchday is Tuesday.",
+    "manual_copy": "Preserve user-edited editorial wording; do not overwrite during a form badge fix."
+  }
 }

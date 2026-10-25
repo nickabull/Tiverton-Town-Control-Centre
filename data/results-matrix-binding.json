@@ -2587,5 +2587,107 @@
       }
     ],
     "tiverton_colour": "#FFD400"
+  },
+  "pending_verified_update": {
+    "as_of": "2026-10-25",
+    "canva_page_current": 11,
+    "canva_page_id": "PB9P9mXjTZSWtXpM",
+    "canva_table_id": "LBjgkQgt23bDZHL4",
+    "status": "STAGED_NOT_APPLIED_CANVA_SERVICE_UNAVAILABLE",
+    "subtitle": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 25/10/26)",
+    "results": [
+      {
+        "home": "SWI",
+        "away": "WOR",
+        "score": "1-0",
+        "cell": "W18"
+      },
+      {
+        "home": "BRI",
+        "away": "WEY",
+        "score": "1-4",
+        "cell": "U5"
+      },
+      {
+        "home": "MEL",
+        "away": "POR",
+        "score": "6-0",
+        "cell": "N12"
+      },
+      {
+        "home": "SPO",
+        "away": "LAR",
+        "score": "2-2",
+        "cell": "K17"
+      },
+      {
+        "home": "WES",
+        "away": "HAR",
+        "score": "0-2",
+        "cell": "I20"
+      },
+      {
+        "home": "PAU",
+        "away": "FAL",
+        "score": "1-3",
+        "cell": "H13"
+      },
+      {
+        "home": "SLI",
+        "away": "HUN",
+        "score": "0-3",
+        "cell": "J16"
+      },
+      {
+        "home": "BID",
+        "away": "BRI",
+        "score": "3-0",
+        "cell": "E3"
+      },
+      {
+        "home": "DOR",
+        "away": "SLI",
+        "score": "0-2",
+        "cell": "P6"
+      },
+      {
+        "home": "HAR",
+        "away": "SWI",
+        "score": "4-1",
+        "cell": "R9"
+      },
+      {
+        "home": "HUN",
+        "away": "EXM",
+        "score": "5-1",
+        "cell": "G10"
+      },
+      {
+        "home": "LAR",
+        "away": "TIV",
+        "score": "1-3",
+        "cell": "S11"
+      },
+      {
+        "home": "SHA",
+        "away": "WES",
+        "score": "1-4",
+        "cell": "T15"
+      },
+      {
+        "home": "WIL",
+        "away": "MEL",
+        "score": "2-0",
+        "cell": "L22"
+      },
+      {
+        "home": "WOR",
+        "away": "BAR",
+        "score": "2-1",
+        "cell": "B23"
+      }
+    ],
+    "source_notes": "Verified official fixtures and Football Web Pages FT results. 24 October postponed games: FAL-SPO, POR-BIS, WEY-PAU; do not enter scores.",
+    "rules": "Preserve native table text editability, typography, crests, yellow diagonal, and highlight Tiverton's 3 red in away 1-3 at LAR v TIV. Do not modify blank postponement cells."
   }
 }

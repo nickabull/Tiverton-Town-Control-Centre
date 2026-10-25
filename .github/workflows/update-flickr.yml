@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - ".github/triggers/flickr.json"
+  schedule:
+    - cron: '7 * * * *' # Refresh new and changed albums automatically.
   workflow_dispatch:
     inputs:
       album_id:
@@ -36,7 +38,7 @@ jobs:
             FLICKR_ALBUM_ID=$(python3 -c 'import json; print(json.load(open(".github/triggers/flickr.json")).get("album_id", ""))')
             FLICKR_ALL_ALBUMS=$(python3 -c 'import json; print(str(json.load(open(".github/triggers/flickr.json")).get("all_albums", False)).lower())')
           fi
-          if [ "$FLICKR_ALL_ALBUMS" = "true" ]; then
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] || [ "$FLICKR_ALL_ALBUMS" = "true" ]; then
             python3 scripts/collect_flickr.py --all-albums
           else
             python3 scripts/collect_flickr.py --album-id "$FLICKR_ALBUM_ID"

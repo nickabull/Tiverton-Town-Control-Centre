@@ -2,7 +2,7 @@
 
 Nick approved the native editable matrix in CHATGPT LEAGUE TEMPLATE on 18 October 2026 and requested that future runs update that table rather than replace it.
 
-`data/results-matrix-binding.json` records the stable page/table/subtitle IDs, approved 22-team order and the 125-result baseline. Page 14 is informational; target the stable page ID. The editable table is 23 by 23 cells, with home teams down the left and away teams across the top.
+`data/results-matrix-binding.json` records the stable page/table/subtitle IDs, approved 22-team order and the 125-result baseline. Page 14 is informational; target the stable page ID. The editable table is 23 by 23 cells, with home teams across the top and away teams down the left, matching the Match Centre. Scores are always home-first. The saved binding was verified on 26 October 2026 with all 140 results, and resolves to current page 12 by its stable page ID.
 
 ## Connected execution
 

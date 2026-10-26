@@ -12,7 +12,8 @@ function planUpdate(feed,binding,current,at=new Date()){
  for(const result of feed.results||[]){
   const home=feed.codes[result.home],away=feed.codes[result.away];
   if(!order.includes(home)||!order.includes(away)||home===away||!/^\d+-\d+$/.test(result.score))throw Error('Invalid result in the feed.');
-  const cell=String.fromCharCode(66+order.indexOf(away))+(order.indexOf(home)+2);
+  const across=binding.orientation==='home_columns_away_rows';
+  const cell=String.fromCharCode(66+order.indexOf(across?home:away))+(order.indexOf(across?away:home)+2);
   if(seen.has(cell))throw Error('Duplicate fixture in the feed: '+home+' v '+away);
   seen.set(cell,result.score);
   const present=existing[cell],baseline=binding.baseline_cells[cell];

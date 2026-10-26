@@ -2,10 +2,10 @@
   "schema_version": 1,
   "design_id": "DAHYKUo9Tzo",
   "design_title": "CHATGPT LEAGUE TEMPLATE",
-  "page_id": "PB98MG6GqY0KbHhR",
-  "position": 15,
-  "table_id": "LB8pQM78pFGGCsCK",
-  "subtitle_element_id": "PB98MG6GqY0KbHhR-LBLRPdC6s0Rt4ByF",
+  "page_id": "PB9P9mXjTZSWtXpM",
+  "position": 12,
+  "table_id": "LBjgkQgt23bDZHL4",
+  "subtitle_element_id": "PB9P9mXjTZSWtXpM-LBZCnzxDMjvC4XMp",
   "subtitle_pattern": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO {run_date})",
   "timezone": "Europe/London",
   "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
@@ -64,507 +64,507 @@
     "A2": "BAR",
     "B2": "",
     "C2": "",
-    "D2": "0-4",
-    "E2": "",
+    "D2": "",
+    "E2": "0-0",
     "F2": "",
-    "G2": "1-2",
-    "H2": "",
-    "I2": "",
-    "J2": "1-2",
+    "G2": "",
+    "H2": "3-1",
+    "I2": "2-1",
+    "J2": "",
     "K2": "",
-    "L2": "",
-    "M2": "1-2",
+    "L2": "1-4",
+    "M2": "",
     "N2": "",
     "O2": "",
     "P2": "",
     "Q2": "",
-    "R2": "1-2",
-    "S2": "",
+    "R2": "",
+    "S2": "1-0",
     "T2": "",
-    "U2": "0-3",
-    "V2": "",
-    "W2": "4-0",
+    "U2": "",
+    "V2": "0-2",
+    "W2": "2-1",
     "A3": "BID",
     "B3": "",
     "C3": "",
-    "D3": "",
+    "D3": "2-3",
     "E3": "",
-    "F3": "1-3",
-    "G3": "1-1",
-    "H3": "",
-    "I3": "2-1",
+    "F3": "",
+    "G3": "",
+    "H3": "4-3",
+    "I3": "",
     "J3": "",
     "K3": "",
-    "L3": "",
-    "M3": "0-0",
-    "N3": "1-2",
-    "O3": "",
+    "L3": "0-0",
+    "M3": "",
+    "N3": "",
+    "O3": "7-2",
     "P3": "",
     "Q3": "",
-    "R3": "0-2",
+    "R3": "",
     "S3": "",
-    "T3": "",
+    "T3": "2-2",
     "U3": "",
-    "V3": "1-1",
+    "V3": "",
     "W3": "",
     "A4": "BIS",
-    "B4": "",
-    "C4": "2-3",
+    "B4": "0-4",
+    "C4": "",
     "D4": "",
-    "E4": "4-1",
+    "E4": "",
     "F4": "",
     "G4": "",
     "H4": "",
-    "I4": "1-0",
-    "J4": "",
-    "K4": "",
-    "L4": "3-0",
+    "I4": "",
+    "J4": "3-0",
+    "K4": "0-0",
+    "L4": "",
     "M4": "",
     "N4": "",
-    "O4": "",
+    "O4": "1-2",
     "P4": "",
-    "Q4": "",
-    "R4": "0-1",
+    "Q4": "0-4",
+    "R4": "",
     "S4": "",
     "T4": "",
     "U4": "",
     "V4": "",
-    "W4": "1-2",
+    "W4": "",
     "A5": "BRI",
-    "B5": "0-0",
-    "C5": "",
-    "D5": "",
+    "B5": "",
+    "C5": "3-0",
+    "D5": "4-1",
     "E5": "",
     "F5": "",
     "G5": "",
-    "H5": "2-2",
+    "H5": "",
     "I5": "",
     "J5": "",
     "K5": "",
-    "L5": "0-0",
-    "M5": "",
-    "N5": "0-0",
-    "O5": "0-2",
-    "P5": "",
-    "Q5": "",
-    "R5": "",
+    "L5": "",
+    "M5": "1-0",
+    "N5": "",
+    "O5": "",
+    "P5": "1-2",
+    "Q5": "1-1",
+    "R5": "3-1",
     "S5": "",
-    "T5": "1-4",
+    "T5": "",
     "U5": "",
     "V5": "",
-    "W5": "",
+    "W5": "0-0",
     "A6": "DOR",
     "B6": "",
-    "C6": "",
+    "C6": "1-3",
     "D6": "",
     "E6": "",
     "F6": "",
-    "G6": "4-1",
+    "G6": "",
     "H6": "",
-    "I6": "2-1",
-    "J6": "1-0",
+    "I6": "",
+    "J6": "",
     "K6": "",
-    "L6": "3-0",
-    "M6": "2-0",
+    "L6": "",
+    "M6": "",
     "N6": "",
     "O6": "",
     "P6": "",
-    "Q6": "",
-    "R6": "",
-    "S6": "2-1",
+    "Q6": "1-3",
+    "R6": "0-1",
+    "S6": "",
     "T6": "",
-    "U6": "",
-    "V6": "",
+    "U6": "5-1",
+    "V6": "2-3",
     "W6": "",
     "A7": "EXM",
-    "B7": "",
-    "C7": "",
+    "B7": "1-2",
+    "C7": "1-1",
     "D7": "",
     "E7": "",
-    "F7": "",
+    "F7": "4-1",
     "G7": "",
     "H7": "",
-    "I7": "1-1",
-    "J7": "",
+    "I7": "",
+    "J7": "5-1",
     "K7": "",
     "L7": "",
     "M7": "",
-    "N7": "",
-    "O7": "1-0",
-    "P7": "2-0",
+    "N7": "3-2",
+    "O7": "",
+    "P7": "",
     "Q7": "",
     "R7": "",
-    "S7": "",
-    "T7": "",
-    "U7": "2-5",
+    "S7": "1-2",
+    "T7": "2-1",
+    "U7": "",
     "V7": "",
     "W7": "",
     "A8": "FAL",
-    "B8": "3-1",
-    "C8": "4-3",
+    "B8": "",
+    "C8": "",
     "D8": "",
-    "E8": "",
+    "E8": "2-2",
     "F8": "",
     "G8": "",
     "H8": "",
     "I8": "",
-    "J8": "",
-    "K8": "2-1",
+    "J8": "2-0",
+    "K8": "",
     "L8": "",
-    "M8": "",
-    "N8": "",
+    "M8": "1-3",
+    "N8": "1-2",
     "O8": "",
-    "P8": "0-1",
+    "P8": "",
     "Q8": "",
-    "R8": "",
-    "S8": "2-1",
+    "R8": "1-1",
+    "S8": "",
     "T8": "",
-    "U8": "",
-    "V8": "0-1",
-    "W8": "1-1",
+    "U8": "2-1",
+    "V8": "",
+    "W8": "",
     "A9": "HAR",
-    "B9": "2-1",
-    "C9": "",
-    "D9": "",
+    "B9": "",
+    "C9": "2-1",
+    "D9": "1-0",
     "E9": "",
-    "F9": "",
-    "G9": "",
+    "F9": "2-1",
+    "G9": "1-1",
     "H9": "",
     "I9": "",
-    "J9": "",
+    "J9": "4-1",
     "K9": "",
-    "L9": "3-1",
-    "M9": "",
+    "L9": "",
+    "M9": "0-0",
     "N9": "",
     "O9": "",
     "P9": "",
-    "Q9": "",
+    "Q9": "0-2",
     "R9": "",
-    "S9": "",
-    "T9": "",
+    "S9": "3-1",
+    "T9": "0-2",
     "U9": "",
-    "V9": "3-2",
-    "W9": "1-1",
+    "V9": "",
+    "W9": "",
     "A10": "HUN",
-    "B10": "",
+    "B10": "1-2",
     "C10": "",
-    "D10": "3-0",
+    "D10": "",
     "E10": "",
-    "F10": "",
+    "F10": "1-0",
     "G10": "",
-    "H10": "2-0",
-    "I10": "4-1",
+    "H10": "",
+    "I10": "",
     "J10": "",
-    "K10": "",
-    "L10": "",
+    "K10": "1-2",
+    "L10": "1-0",
     "M10": "",
     "N10": "",
     "O10": "",
-    "P10": "",
-    "Q10": "2-1",
+    "P10": "0-3",
+    "Q10": "",
     "R10": "",
-    "S10": "1-1",
-    "T10": "",
-    "U10": "0-0",
+    "S10": "",
+    "T10": "1-0",
+    "U10": "",
     "V10": "",
     "W10": "",
     "A11": "LAR",
     "B11": "",
     "C11": "",
-    "D11": "0-0",
+    "D11": "",
     "E11": "",
     "F11": "",
     "G11": "",
-    "H11": "",
+    "H11": "2-1",
     "I11": "",
-    "J11": "1-2",
+    "J11": "",
     "K11": "",
-    "L11": "",
+    "L11": "0-2",
     "M11": "",
-    "N11": "",
-    "O11": "1-2",
-    "P11": "",
-    "Q11": "",
-    "R11": "1-2",
+    "N11": "4-1",
+    "O11": "",
+    "P11": "0-1",
+    "Q11": "2-2",
+    "R11": "",
     "S11": "",
-    "T11": "3-0",
-    "U11": "2-3",
-    "V11": "",
-    "W11": "",
+    "T11": "",
+    "U11": "",
+    "V11": "4-1",
+    "W11": "3-1",
     "A12": "MEL",
-    "B12": "1-4",
-    "C12": "0-0",
-    "D12": "",
-    "E12": "",
-    "F12": "",
+    "B12": "",
+    "C12": "",
+    "D12": "3-0",
+    "E12": "0-0",
+    "F12": "3-0",
     "G12": "",
     "H12": "",
-    "I12": "",
-    "J12": "1-0",
-    "K12": "0-2",
+    "I12": "3-1",
+    "J12": "",
+    "K12": "",
     "L12": "",
     "M12": "",
     "N12": "",
     "O12": "",
     "P12": "",
-    "Q12": "",
+    "Q12": "1-1",
     "R12": "",
     "S12": "",
     "T12": "",
-    "U12": "0-2",
-    "V12": "",
-    "W12": "1-2",
+    "U12": "",
+    "V12": "2-0",
+    "W12": "",
     "A13": "PAU",
-    "B13": "",
-    "C13": "",
+    "B13": "1-2",
+    "C13": "0-0",
     "D13": "",
-    "E13": "1-0",
-    "F13": "",
+    "E13": "",
+    "F13": "2-0",
     "G13": "",
     "H13": "",
-    "I13": "0-0",
+    "I13": "",
     "J13": "",
     "K13": "",
     "L13": "",
     "M13": "",
-    "N13": "3-3",
+    "N13": "",
     "O13": "",
     "P13": "",
-    "Q13": "1-3",
-    "R13": "",
-    "S13": "",
+    "Q13": "",
+    "R13": "3-1",
+    "S13": "2-2",
     "T13": "",
     "U13": "",
     "V13": "",
-    "W13": "0-0",
+    "W13": "",
     "A14": "POR",
     "B14": "",
-    "C14": "",
+    "C14": "1-2",
     "D14": "",
-    "E14": "",
+    "E14": "0-0",
     "F14": "",
-    "G14": "3-2",
-    "H14": "1-2",
+    "G14": "",
+    "H14": "",
     "I14": "",
     "J14": "",
-    "K14": "4-1",
-    "L14": "",
-    "M14": "",
+    "K14": "",
+    "L14": "6-0",
+    "M14": "3-3",
     "N14": "",
-    "O14": "2-0",
-    "P14": "",
-    "Q14": "0-4",
+    "O14": "",
+    "P14": "1-0",
+    "Q14": "",
     "R14": "",
-    "S14": "",
-    "T14": "1-2",
+    "S14": "1-4",
+    "T14": "",
     "U14": "",
     "V14": "",
     "W14": "",
     "A15": "SHA",
     "B15": "",
-    "C15": "7-2",
-    "D15": "1-2",
-    "E15": "",
+    "C15": "",
+    "D15": "",
+    "E15": "0-2",
     "F15": "",
-    "G15": "",
+    "G15": "1-0",
     "H15": "",
     "I15": "",
     "J15": "",
-    "K15": "",
+    "K15": "1-2",
     "L15": "",
     "M15": "",
-    "N15": "",
+    "N15": "2-0",
     "O15": "",
-    "P15": "5-4",
-    "Q15": "",
-    "R15": "",
-    "S15": "1-4",
+    "P15": "",
+    "Q15": "3-1",
+    "R15": "1-0",
+    "S15": "",
     "T15": "",
-    "U15": "",
-    "V15": "1-1",
-    "W15": "3-0",
+    "U15": "4-1",
+    "V15": "",
+    "W15": "",
     "A16": "SLI",
     "B16": "",
     "C16": "",
     "D16": "",
-    "E16": "1-2",
-    "F16": "",
-    "G16": "",
-    "H16": "",
+    "E16": "",
+    "F16": "0-2",
+    "G16": "2-0",
+    "H16": "0-1",
     "I16": "",
     "J16": "",
-    "K16": "0-1",
+    "K16": "",
     "L16": "",
     "M16": "",
-    "N16": "1-0",
-    "O16": "",
+    "N16": "",
+    "O16": "5-4",
     "P16": "",
-    "Q16": "",
-    "R16": "2-7",
+    "Q16": "2-0",
+    "R16": "",
     "S16": "",
     "T16": "",
     "U16": "",
-    "V16": "3-3",
-    "W16": "",
+    "V16": "",
+    "W16": "4-0",
     "A17": "SPO",
     "B17": "",
     "C17": "",
-    "D17": "0-4",
-    "E17": "1-1",
-    "F17": "1-3",
+    "D17": "",
+    "E17": "",
+    "F17": "",
     "G17": "",
     "H17": "",
-    "I17": "0-2",
-    "J17": "",
+    "I17": "",
+    "J17": "2-1",
     "K17": "",
-    "L17": "1-1",
-    "M17": "",
-    "N17": "",
-    "O17": "3-1",
-    "P17": "2-0",
+    "L17": "",
+    "M17": "1-3",
+    "N17": "0-4",
+    "O17": "",
+    "P17": "",
     "Q17": "",
     "R17": "",
     "S17": "",
-    "T17": "",
+    "T17": "1-3",
     "U17": "",
     "V17": "",
     "W17": "",
     "A18": "SWI",
-    "B18": "",
-    "C18": "",
-    "D18": "",
-    "E18": "3-1",
-    "F18": "0-1",
+    "B18": "1-2",
+    "C18": "0-2",
+    "D18": "0-1",
+    "E18": "",
+    "F18": "",
     "G18": "",
-    "H18": "1-1",
-    "I18": "",
+    "H18": "",
+    "I18": "4-1",
     "J18": "",
-    "K18": "",
+    "K18": "1-2",
     "L18": "",
-    "M18": "3-1",
+    "M18": "",
     "N18": "",
-    "O18": "1-0",
-    "P18": "",
+    "O18": "",
+    "P18": "2-7",
     "Q18": "",
     "R18": "",
     "S18": "",
-    "T18": "",
+    "T18": "3-0",
     "U18": "",
-    "V18": "",
+    "V18": "0-2",
     "W18": "",
     "A19": "TIV",
-    "B19": "1-0",
+    "B19": "",
     "C19": "",
     "D19": "",
     "E19": "",
-    "F19": "",
-    "G19": "1-2",
-    "H19": "",
-    "I19": "3-1",
-    "J19": "",
-    "K19": "",
+    "F19": "2-1",
+    "G19": "",
+    "H19": "2-1",
+    "I19": "",
+    "J19": "1-1",
+    "K19": "1-3",
     "L19": "",
-    "M19": "2-2",
-    "N19": "1-4",
-    "O19": "",
+    "M19": "",
+    "N19": "",
+    "O19": "1-4",
     "P19": "",
     "Q19": "",
     "R19": "",
     "S19": "",
-    "T19": "",
+    "T19": "1-0",
     "U19": "",
     "V19": "",
-    "W19": "2-2",
+    "W19": "",
     "A20": "WES",
     "B20": "",
-    "C20": "2-2",
+    "C20": "",
     "D20": "",
-    "E20": "",
+    "E20": "1-4",
     "F20": "",
-    "G20": "2-1",
+    "G20": "",
     "H20": "",
     "I20": "",
-    "J20": "1-0",
-    "K20": "",
+    "J20": "",
+    "K20": "3-0",
     "L20": "",
     "M20": "",
-    "N20": "",
-    "O20": "",
+    "N20": "1-2",
+    "O20": "1-4",
     "P20": "",
-    "Q20": "1-3",
-    "R20": "3-0",
-    "S20": "1-0",
+    "Q20": "",
+    "R20": "",
+    "S20": "",
     "T20": "",
-    "U20": "",
-    "V20": "",
-    "W20": "",
+    "U20": "1-0",
+    "V20": "3-1",
+    "W20": "0-0",
     "A21": "WEY",
-    "B21": "",
+    "B21": "0-3",
     "C21": "",
     "D21": "",
-    "E21": "",
-    "F21": "5-1",
-    "G21": "",
-    "H21": "2-1",
+    "E21": "1-4",
+    "F21": "",
+    "G21": "2-5",
+    "H21": "",
     "I21": "",
-    "J21": "",
-    "K21": "",
-    "L21": "",
+    "J21": "0-0",
+    "K21": "2-3",
+    "L21": "0-2",
     "M21": "",
     "N21": "",
-    "O21": "4-1",
+    "O21": "",
     "P21": "",
     "Q21": "",
     "R21": "",
     "S21": "",
-    "T21": "1-0",
+    "T21": "",
     "U21": "",
     "V21": "",
-    "W21": "",
+    "W21": "0-1",
     "A22": "WIL",
-    "B22": "0-2",
-    "C22": "",
+    "B22": "",
+    "C22": "1-1",
     "D22": "",
     "E22": "",
-    "F22": "2-3",
+    "F22": "",
     "G22": "",
-    "H22": "",
-    "I22": "",
+    "H22": "0-1",
+    "I22": "3-2",
     "J22": "",
-    "K22": "4-1",
+    "K22": "",
     "L22": "",
     "M22": "",
     "N22": "",
-    "O22": "",
-    "P22": "",
+    "O22": "1-1",
+    "P22": "3-3",
     "Q22": "",
-    "R22": "0-2",
+    "R22": "",
     "S22": "",
-    "T22": "3-1",
+    "T22": "",
     "U22": "",
     "V22": "",
     "W22": "",
     "A23": "WOR",
-    "B23": "",
+    "B23": "4-0",
     "C23": "",
-    "D23": "",
-    "E23": "0-0",
+    "D23": "1-2",
+    "E23": "",
     "F23": "",
     "G23": "",
-    "H23": "",
-    "I23": "",
+    "H23": "1-1",
+    "I23": "1-1",
     "J23": "",
-    "K23": "3-1",
-    "L23": "",
-    "M23": "",
+    "K23": "",
+    "L23": "1-2",
+    "M23": "0-0",
     "N23": "",
-    "O23": "",
-    "P23": "4-0",
+    "O23": "3-0",
+    "P23": "",
     "Q23": "",
-    "R23": "",
-    "S23": "",
-    "T23": "0-0",
-    "U23": "0-1",
+    "R23": "1-0",
+    "S23": "2-2",
+    "T23": "",
+    "U23": "",
     "V23": "",
     "W23": ""
   },
@@ -573,6 +573,7 @@
     "dashboard_can_write_to_canva": false
   },
   "rules": [
+    "Home teams run across columns; away teams run down rows, matching the Match Centre. Scores remain home-first.",
     "Read current table before planning any write.",
     "Resolve by stable page/table ID, never position.",
     "Append new scores to blank cells only; flag existing score disagreements for review.",
@@ -598,9 +599,9 @@
   },
   "crests": [
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBxdKX4ghzJcLWFk",
+      "element_id": "PB9P9mXjTZSWtXpM-LBkh1R5FHdRMrc9q",
       "asset_id": "MAHYHbJGCrA",
-      "label": "Barnstaple Town crest — matrix column",
+      "label": "Barnstaple Town crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -614,9 +615,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBC1d0CrVgJj4DPY",
+      "element_id": "PB9P9mXjTZSWtXpM-LBxyNvxmJzJtd0BH",
       "asset_id": "MAHYHbJGCrA",
-      "label": "Barnstaple Town crest — matrix row",
+      "label": "Barnstaple Town crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -630,9 +631,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB1vzpXKdxTFcL27",
+      "element_id": "PB9P9mXjTZSWtXpM-LBptxzFKhMxKLnhV",
       "asset_id": "MAHYHbJGCrA",
-      "label": "Barnstaple Town crest — matrix key",
+      "label": "Barnstaple Town crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -646,9 +647,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBx6yhjqgDR5rrRY",
+      "element_id": "PB9P9mXjTZSWtXpM-LBZL9rG6pV15Zssd",
       "asset_id": "MAHYHb1K61I",
-      "label": "Bideford crest — matrix column",
+      "label": "Bideford crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -662,9 +663,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB3Xtrf1rp8HnGym",
+      "element_id": "PB9P9mXjTZSWtXpM-LByHSCPsCjGCQsGX",
       "asset_id": "MAHYHb1K61I",
-      "label": "Bideford crest — matrix row",
+      "label": "Bideford crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -678,9 +679,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBCJFY7kR161D694",
+      "element_id": "PB9P9mXjTZSWtXpM-LBMlrxxxlkl2FZg3",
       "asset_id": "MAHYHb1K61I",
-      "label": "Bideford crest — matrix key",
+      "label": "Bideford crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -694,9 +695,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB1RZjYtGgc6LgMb",
+      "element_id": "PB9P9mXjTZSWtXpM-LBqgg3yzpT3tFFd1",
       "asset_id": "MAHYHdBn6UI",
-      "label": "Bishops Cleeve crest — matrix column",
+      "label": "Bishops Cleeve crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -710,9 +711,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBBjYylv6xzxTpqP",
+      "element_id": "PB9P9mXjTZSWtXpM-LBk78LfL23NT2TRP",
       "asset_id": "MAHYHdBn6UI",
-      "label": "Bishops Cleeve crest — matrix row",
+      "label": "Bishops Cleeve crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -726,9 +727,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBJBk44v4McxJHPG",
+      "element_id": "PB9P9mXjTZSWtXpM-LBfzMrcL2jdvH5d4",
       "asset_id": "MAHYHdBn6UI",
-      "label": "Bishops Cleeve crest — matrix key",
+      "label": "Bishops Cleeve crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -742,9 +743,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBynLwXh7jWyCKx2",
+      "element_id": "PB9P9mXjTZSWtXpM-LBQKC4Ml5cyvQMqq",
       "asset_id": "MAHYHerJcko",
-      "label": "Bristol Manor Farm crest — matrix column",
+      "label": "Bristol Manor Farm crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -758,9 +759,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBdng0WM5mfSDGgf",
+      "element_id": "PB9P9mXjTZSWtXpM-LBD11Yyq1JlLC9qx",
       "asset_id": "MAHYHerJcko",
-      "label": "Bristol Manor Farm crest — matrix row",
+      "label": "Bristol Manor Farm crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -774,9 +775,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBF3KgCFhXMd37Fp",
+      "element_id": "PB9P9mXjTZSWtXpM-LBjgCg0w5cDKj0WD",
       "asset_id": "MAHYHerJcko",
-      "label": "Bristol Manor Farm crest — matrix key",
+      "label": "Bristol Manor Farm crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -790,9 +791,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBKwJQR9kwnKyRLg",
+      "element_id": "PB9P9mXjTZSWtXpM-LBdNXBrxNk102hbs",
       "asset_id": "MAHYHUR2TPw",
-      "label": "Dorchester crest — matrix column",
+      "label": "Dorchester crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -806,9 +807,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBdsWczQjSnpvpJL",
+      "element_id": "PB9P9mXjTZSWtXpM-LBrGvWGlGtYLg2zP",
       "asset_id": "MAHYHUR2TPw",
-      "label": "Dorchester crest — matrix row",
+      "label": "Dorchester crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -822,9 +823,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB5c7BKQZvmQWjBK",
+      "element_id": "PB9P9mXjTZSWtXpM-LBX9TnRL9cWNXgr7",
       "asset_id": "MAHYHUR2TPw",
-      "label": "Dorchester crest — matrix key",
+      "label": "Dorchester crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -838,9 +839,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBz7fZgB566swNBN",
+      "element_id": "PB9P9mXjTZSWtXpM-LBKT4zdFbtl0r1pM",
       "asset_id": "MAHYHcnAPeM",
-      "label": "Exmouth Town crest — matrix column",
+      "label": "Exmouth Town crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -854,9 +855,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBCxkjDdP9B3yLpV",
+      "element_id": "PB9P9mXjTZSWtXpM-LBwjWnGP6JXXbjKz",
       "asset_id": "MAHYHcnAPeM",
-      "label": "Exmouth Town crest — matrix row",
+      "label": "Exmouth Town crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -870,9 +871,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB09KSzylyBZVR4N",
+      "element_id": "PB9P9mXjTZSWtXpM-LBn3Z0NKtfk4Qk8w",
       "asset_id": "MAHYHcnAPeM",
-      "label": "Exmouth Town crest — matrix key",
+      "label": "Exmouth Town crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -886,9 +887,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBKGLRc9GpWX3XkN",
+      "element_id": "PB9P9mXjTZSWtXpM-LBW6gM8DqMJJk6ZX",
       "asset_id": "MAHYHREbmu8",
-      "label": "Falmouth Town crest — matrix column",
+      "label": "Falmouth Town crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -902,9 +903,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBnnbbRcm6TDdwLl",
+      "element_id": "PB9P9mXjTZSWtXpM-LBJd62WRTrD4RTBd",
       "asset_id": "MAHYHREbmu8",
-      "label": "Falmouth Town crest — matrix row",
+      "label": "Falmouth Town crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -918,9 +919,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB73B1Pqcc4HSS0V",
+      "element_id": "PB9P9mXjTZSWtXpM-LB5YtTh0FTTLmTlV",
       "asset_id": "MAHYHREbmu8",
-      "label": "Falmouth Town crest — matrix key",
+      "label": "Falmouth Town crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -934,9 +935,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBydLmsTZM6P2wPW",
+      "element_id": "PB9P9mXjTZSWtXpM-LBqw3c4xWDnsFHML",
       "asset_id": "MAHYHWBxrh0",
-      "label": "Hartpury crest — matrix column",
+      "label": "Hartpury crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -950,9 +951,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB5sK4lBjH6DqY3K",
+      "element_id": "PB9P9mXjTZSWtXpM-LBtXssqPGZ0BzHXk",
       "asset_id": "MAHYHWBxrh0",
-      "label": "Hartpury crest — matrix row",
+      "label": "Hartpury crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -966,9 +967,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBRdT5BXv0TSM13V",
+      "element_id": "PB9P9mXjTZSWtXpM-LBGtQ3TTxbhRVg4B",
       "asset_id": "MAHYHWBxrh0",
-      "label": "Hartpury crest — matrix key",
+      "label": "Hartpury crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -982,9 +983,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBRG0lQPMwpJl04S",
+      "element_id": "PB9P9mXjTZSWtXpM-LBKDSDvlL6vs3SR8",
       "asset_id": "MAHYHeCA8S4",
-      "label": "Hungerford crest — matrix column",
+      "label": "Hungerford crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -998,9 +999,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBPlCHX4mrjWX7kS",
+      "element_id": "PB9P9mXjTZSWtXpM-LBBq7hkvm1t8D0NW",
       "asset_id": "MAHYHeCA8S4",
-      "label": "Hungerford crest — matrix row",
+      "label": "Hungerford crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1014,9 +1015,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBtdlM0b60NnNjF8",
+      "element_id": "PB9P9mXjTZSWtXpM-LBCzlyM4vf05BMCP",
       "asset_id": "MAHYHeCA8S4",
-      "label": "Hungerford crest — matrix key",
+      "label": "Hungerford crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1030,9 +1031,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBq4DBQLmfcp3tfJ",
+      "element_id": "PB9P9mXjTZSWtXpM-LBCrr206cgkYFXJg",
       "asset_id": "MAHYHbexwLc",
-      "label": "Larkhall Athletic crest — matrix column",
+      "label": "Larkhall Athletic crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1046,9 +1047,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB9Z6Ss2y79cvGHZ",
+      "element_id": "PB9P9mXjTZSWtXpM-LBNThd7W49rHvzyn",
       "asset_id": "MAHYHbexwLc",
-      "label": "Larkhall Athletic crest — matrix row",
+      "label": "Larkhall Athletic crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1062,9 +1063,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB5vVBtpvH8jR45d",
+      "element_id": "PB9P9mXjTZSWtXpM-LBzv9FDX1M7QxxBN",
       "asset_id": "MAHYHbexwLc",
-      "label": "Larkhall Athletic crest — matrix key",
+      "label": "Larkhall Athletic crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1078,9 +1079,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB4mymKbw30Nxvkg",
+      "element_id": "PB9P9mXjTZSWtXpM-LBRys5nLdvdc5jWb",
       "asset_id": "MAHYHWtMIxI",
-      "label": "Melksham Town crest — matrix column",
+      "label": "Melksham Town crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1094,9 +1095,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB3mzxL41GmcHHWx",
+      "element_id": "PB9P9mXjTZSWtXpM-LBThpvqhP11qsKvy",
       "asset_id": "MAHYHWtMIxI",
-      "label": "Melksham Town crest — matrix row",
+      "label": "Melksham Town crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1110,9 +1111,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBkFZh6DTtxFZrlk",
+      "element_id": "PB9P9mXjTZSWtXpM-LBmzGcgfqdP7SQK4",
       "asset_id": "MAHYHWtMIxI",
-      "label": "Melksham Town crest — matrix key",
+      "label": "Melksham Town crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1126,9 +1127,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB0l9M5qRdWqXNSY",
+      "element_id": "PB9P9mXjTZSWtXpM-LBYFdTSMwwJmcmFd",
       "asset_id": "MAHYHTDtw54",
-      "label": "Paulton Rovers crest — matrix column",
+      "label": "Paulton Rovers crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1142,9 +1143,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBcSlnpNwJRqSHWm",
+      "element_id": "PB9P9mXjTZSWtXpM-LB9yfpT3ZyXyp2qL",
       "asset_id": "MAHYHTDtw54",
-      "label": "Paulton Rovers crest — matrix row",
+      "label": "Paulton Rovers crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1158,9 +1159,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBzZtCd77wT2Y8r2",
+      "element_id": "PB9P9mXjTZSWtXpM-LBB4csx7tRz69LYg",
       "asset_id": "MAHYHTDtw54",
-      "label": "Paulton Rovers crest — matrix key",
+      "label": "Paulton Rovers crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1174,9 +1175,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBgkJDlmR9WhYH4B",
+      "element_id": "PB9P9mXjTZSWtXpM-LB56wN17pLKcnj04",
       "asset_id": "MAHYHY5tbW4",
-      "label": "Portland United crest — matrix column",
+      "label": "Portland United crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1190,9 +1191,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBFf1PS79gl1xXYY",
+      "element_id": "PB9P9mXjTZSWtXpM-LB7tFfbsqwZkxrdV",
       "asset_id": "MAHYHY5tbW4",
-      "label": "Portland United crest — matrix row",
+      "label": "Portland United crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1206,9 +1207,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBhbz1MZLcS96Cw6",
+      "element_id": "PB9P9mXjTZSWtXpM-LB6Fx5V7CM02SRWp",
       "asset_id": "MAHYHY5tbW4",
-      "label": "Portland United crest — matrix key",
+      "label": "Portland United crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1222,9 +1223,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBr4JH31SVqKp9qL",
+      "element_id": "PB9P9mXjTZSWtXpM-LBgKJf8zTsJLvxpX",
       "asset_id": "MAHYHU-Qdmc",
-      "label": "Shaftesbury crest — matrix column",
+      "label": "Shaftesbury crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1238,9 +1239,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBMtqqVxslqw9czm",
+      "element_id": "PB9P9mXjTZSWtXpM-LBrPnntYPL63BW5Q",
       "asset_id": "MAHYHU-Qdmc",
-      "label": "Shaftesbury crest — matrix row",
+      "label": "Shaftesbury crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1254,9 +1255,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB4pyd0mFGDrvzKp",
+      "element_id": "PB9P9mXjTZSWtXpM-LBC8c07RysFGRc4W",
       "asset_id": "MAHYHU-Qdmc",
-      "label": "Shaftesbury crest — matrix key",
+      "label": "Shaftesbury crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1270,9 +1271,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBs2FFdwSmjhjK9S",
+      "element_id": "PB9P9mXjTZSWtXpM-LB1M4nv1KRbnRWX9",
       "asset_id": "MAHYHb8saGc",
-      "label": "Slimbridge crest — matrix column",
+      "label": "Slimbridge crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1286,9 +1287,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBVdZngd4Y8jLj1S",
+      "element_id": "PB9P9mXjTZSWtXpM-LBRxxbkrkv0xdMgQ",
       "asset_id": "MAHYHb8saGc",
-      "label": "Slimbridge crest — matrix row",
+      "label": "Slimbridge crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1302,9 +1303,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBWhkR4qSZLCpHw1",
+      "element_id": "PB9P9mXjTZSWtXpM-LB3wJCbL91QBSYF4",
       "asset_id": "MAHYHb8saGc",
-      "label": "Slimbridge crest — matrix key",
+      "label": "Slimbridge crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1318,9 +1319,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBX10pj6CR27KCGl",
+      "element_id": "PB9P9mXjTZSWtXpM-LB5j4w8GBy8FH7WM",
       "asset_id": "MAHYHc0FmQ0",
-      "label": "Sporting Club Inkberrow crest — matrix column",
+      "label": "Sporting Club Inkberrow crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1334,9 +1335,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB33trN8xTmbQhFb",
+      "element_id": "PB9P9mXjTZSWtXpM-LBrY0HwtZSqNv8MB",
       "asset_id": "MAHYHc0FmQ0",
-      "label": "Sporting Club Inkberrow crest — matrix row",
+      "label": "Sporting Club Inkberrow crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1350,9 +1351,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBjZS4nqdbBrQkTM",
+      "element_id": "PB9P9mXjTZSWtXpM-LBTwgpsP7tx8n9fh",
       "asset_id": "MAHYHc0FmQ0",
-      "label": "Sporting Club Inkberrow crest — matrix key",
+      "label": "Sporting Club Inkberrow crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1366,9 +1367,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBDJWvfTxGlGswrj",
+      "element_id": "PB9P9mXjTZSWtXpM-LBGvT8l6RvNDpJkc",
       "asset_id": "MAHYHRRUg74",
-      "label": "Swindon Supermarine crest — matrix column",
+      "label": "Swindon Supermarine crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1382,9 +1383,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBNCkV8WjJM8tFB4",
+      "element_id": "PB9P9mXjTZSWtXpM-LBVmHNmcKlzX26rj",
       "asset_id": "MAHYHRRUg74",
-      "label": "Swindon Supermarine crest — matrix row",
+      "label": "Swindon Supermarine crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1398,9 +1399,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBwc0m1jhClwcDm1",
+      "element_id": "PB9P9mXjTZSWtXpM-LBb13C9sd1M7mMrP",
       "asset_id": "MAHYHRRUg74",
-      "label": "Swindon Supermarine crest — matrix key",
+      "label": "Swindon Supermarine crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1414,9 +1415,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBWpdL0S9rC4Xpbg",
+      "element_id": "PB9P9mXjTZSWtXpM-LBY67rqxnYrvZNfM",
       "asset_id": "MAHYHeVtaFY",
-      "label": "Tiverton Town crest — matrix column",
+      "label": "Tiverton Town crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1430,9 +1431,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB3fj4K3sgcfwkCY",
+      "element_id": "PB9P9mXjTZSWtXpM-LB1pgt7nX1N7MmGZ",
       "asset_id": "MAHYHeVtaFY",
-      "label": "Tiverton Town crest — matrix row",
+      "label": "Tiverton Town crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1446,9 +1447,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBFDqZv1bf4myFPl",
+      "element_id": "PB9P9mXjTZSWtXpM-LBxMnvPzCzxBDzXx",
       "asset_id": "MAHYHeVtaFY",
-      "label": "Tiverton Town crest — matrix key",
+      "label": "Tiverton Town crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1462,9 +1463,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBzshvq6vPH0TLxM",
+      "element_id": "PB9P9mXjTZSWtXpM-LBfXQjQmTqfTtZsF",
       "asset_id": "MAHYHdbXqMk",
-      "label": "Westbury United crest — matrix column",
+      "label": "Westbury United crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1478,9 +1479,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBjJDJq3SNyK7D66",
+      "element_id": "PB9P9mXjTZSWtXpM-LBb9H9HV9TSlrLQ6",
       "asset_id": "MAHYHdbXqMk",
-      "label": "Westbury United crest — matrix row",
+      "label": "Westbury United crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1494,9 +1495,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBWM99PxcQtjB7ws",
+      "element_id": "PB9P9mXjTZSWtXpM-LBKldX456W1lvdZ3",
       "asset_id": "MAHYHdbXqMk",
-      "label": "Westbury United crest — matrix key",
+      "label": "Westbury United crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1510,9 +1511,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBcC6hD25j1rtJkR",
+      "element_id": "PB9P9mXjTZSWtXpM-LBp1fdfc1g264MGT",
       "asset_id": "MAHYHTJLF7U",
-      "label": "Weymouth crest — matrix column",
+      "label": "Weymouth crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1526,9 +1527,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB1FrBDxPc4tzd7Y",
+      "element_id": "PB9P9mXjTZSWtXpM-LBDRfD2LZ1Dy71bK",
       "asset_id": "MAHYHTJLF7U",
-      "label": "Weymouth crest — matrix row",
+      "label": "Weymouth crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1542,9 +1543,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBtKln6qfh9d34mt",
+      "element_id": "PB9P9mXjTZSWtXpM-LBKZ7PZWtw0gTpMM",
       "asset_id": "MAHYHTJLF7U",
-      "label": "Weymouth crest — matrix key",
+      "label": "Weymouth crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1558,9 +1559,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB8rxJJ1g4Hrf4gX",
+      "element_id": "PB9P9mXjTZSWtXpM-LBmTwBdGVsNXvXjw",
       "asset_id": "MAHYHcX0c5Q",
-      "label": "Willand Rovers crest — matrix column",
+      "label": "Willand Rovers crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1574,9 +1575,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBYRQzgpxhtd2dLB",
+      "element_id": "PB9P9mXjTZSWtXpM-LBYnwNq3Lv3vG9cT",
       "asset_id": "MAHYHcX0c5Q",
-      "label": "Willand Rovers crest — matrix row",
+      "label": "Willand Rovers crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1590,9 +1591,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBWC8RkK8Nwc9JTh",
+      "element_id": "PB9P9mXjTZSWtXpM-LBq4NgFrKdLKcv7C",
       "asset_id": "MAHYHcX0c5Q",
-      "label": "Willand Rovers crest — matrix key",
+      "label": "Willand Rovers crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1606,9 +1607,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LB1X2F5sSgjrxCd3",
+      "element_id": "PB9P9mXjTZSWtXpM-LBHpxNPHxWnhfTSG",
       "asset_id": "MAHYHQ8xEiQ",
-      "label": "Worcester Raiders crest — matrix column",
+      "label": "Worcester Raiders crest \u2014 matrix column",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1622,9 +1623,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBBlkGTkT7rGZpqY",
+      "element_id": "PB9P9mXjTZSWtXpM-LBtR5ywqZFW6V96z",
       "asset_id": "MAHYHQ8xEiQ",
-      "label": "Worcester Raiders crest — matrix row",
+      "label": "Worcester Raiders crest \u2014 matrix row",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1638,9 +1639,9 @@
       }
     },
     {
-      "element_id": "PB98MG6GqY0KbHhR-LBzF4W0Wv3RNwC7j",
+      "element_id": "PB9P9mXjTZSWtXpM-LBDxWkYCRKsmnNfz",
       "asset_id": "MAHYHQ8xEiQ",
-      "label": "Worcester Raiders crest — matrix key",
+      "label": "Worcester Raiders crest \u2014 matrix key",
       "geometry": {
         "type": "RECT",
         "position": {
@@ -1656,13 +1657,13 @@
   ],
   "club_key": {
     "mode": "native_editable_text_and_crests",
-    "group_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8",
+    "group_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n",
     "columns": 7,
     "rows": 4,
     "font": "Antonio",
     "editable_fields": [
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1680,10 +1681,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB3M9PTBFxnwGHvD"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBYskTCbhdhMJSqD"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1701,10 +1702,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBQ7r721dsvXyQwP"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB4KHB6mvr3VTpRK"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1722,10 +1723,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBtZ2VT4YMgx0HjF"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBvS2qzbPwrWsNzd"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1743,10 +1744,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBhDVnRCv1S9r4Pj"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBnpHCqwXNbX2d1v"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1764,10 +1765,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB69bgpxNhjfR0TX"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBbyscB7mq3RTNVh"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1785,10 +1786,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBHy2JsG7rbK3q4t"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBYq2gtcGSw6YhTV"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1806,10 +1807,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB2ncHDhWpgRW0FD"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBK2SnFSTphYsTWM"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1827,10 +1828,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBQj7HzgHN3r1zDk"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBJD0gHghQmb5Yl1"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1848,10 +1849,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBppBVsycbq7QMcK"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB1Xmlf821wC641k"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1869,10 +1870,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBqTY9nH55mV6g7H"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBllTv8J3K4Jh5kD"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1890,10 +1891,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBz036WM64tBNzHF"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBdwBD4qvJVVXFfB"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1911,10 +1912,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBN5k89VkRb6f58j"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB7sl1dyGWJtSZqx"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1932,10 +1933,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBb6wTvSgVssfjCs"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBJdJJzl4gNFVvzk"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1953,10 +1954,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB6MQ0tKtSZcXBNG"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBbzpKZqMZVdv6lm"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1974,10 +1975,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB3mDtDtS1yhXp1p"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBtrlm2HjY2hpZdW"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -1995,10 +1996,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBkCYXzThCwhYvxz"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBQRLVR57PNWLq3b"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2016,10 +2017,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBnDCR4vjmFK6dRf"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBLgtF1VJ4Pf42c8"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2037,10 +2038,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBbgJdPl0D2SGRXd"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBR9LW4qjvmWhltJ"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2058,10 +2059,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBGrpNYWLD8f446h"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBQQqspgcxqgMFKx"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2079,10 +2080,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBG7Lc8NB475hxPN"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBSmdDWfbm0wg9j3"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2100,10 +2101,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBBvrZmncXQrtMB9"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB15g8Fz54N1ZQBg"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2121,10 +2122,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBpsSBbydySkrTFy"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB0cJf4RxgSlnl4w"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2142,10 +2143,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB1Lr9wDKxlPGmQL"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBhKqWwjykvScYFl"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2163,10 +2164,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBngVw8qQTlM3ChH"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBHwtBNm3qQ5LmwW"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2184,10 +2185,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBhLQTR0dHQZ0z0r"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBN6Sss4flt96xHX"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2205,10 +2206,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBy5VHkC7Wgc58xG"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBCrtP77kWWCQ0mG"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2226,10 +2227,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBryjRl5bLHLjCLT"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBlTLY84stYmPXWy"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2247,10 +2248,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBZqQ1vMPfj4KV26"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBSLr9bsrGbvXlVW"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2268,10 +2269,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBy0CpSbvH2H5Gd7"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBfM8yQZ9n0Tdkrf"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2289,10 +2290,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBHTtwGls5WFP08K"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBMSLzFnF77fNZ05"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2310,10 +2311,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBstc9SL0XVTXlTQ"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBJYDMhcXMWWc51j"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2331,10 +2332,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB3XFGPpxHgZTX7F"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBK7hgjWPGt1ckTX"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2352,10 +2353,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBbkmjD7Cznn4F4k"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBH673vv64Lqh6FP"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2373,10 +2374,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBMcCSpQrjL2nsFh"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBFHT7c9XvDb97HC"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2394,10 +2395,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB86x5WwbDCd2G2d"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB3tjngD9xllkrKS"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2415,10 +2416,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB6bwtc62Wp4N6Gl"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB5H4HmBSRDf4Drt"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2436,10 +2437,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LB6hnS1hr6l0tc8Y"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBbfsKRglGLjglf0"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2457,10 +2458,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBSpl2MDvHltgsD4"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LB9lrHqzNqwKtPPw"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2478,10 +2479,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBV37dDwJGQDlyxS"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBM251FgnY5qNKLs"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2499,10 +2500,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBVhWRSwT4lyGy6f"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBC5DQdQbYy2TsrH"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2520,10 +2521,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBtBSmvRTmfn4DnL"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBfz5hKzYSV0yX8s"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2541,10 +2542,10 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBVhWlcDDlvBlRBL"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBXHjLmwWgfWygSV"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2562,10 +2563,10 @@
             "height": 25.986645908090676
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBdBKpG07CWH9mmR"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBLbf9p1JCkn32lK"
       },
       {
-        "page_index": 15,
+        "page_index": 12,
         "regions": [
           {
             "type": "character",
@@ -2583,111 +2584,12 @@
             "height": 30.984132152600623
           }
         },
-        "element_id": "PB98MG6GqY0KbHhR-LB7c36VCx8ZjNtZ8-LBhJfF4jYyY06Xb1"
+        "element_id": "PB9P9mXjTZSWtXpM-LB48GysPllNlfX5n-LBKgczl7DMS2mntK"
       }
     ],
     "tiverton_colour": "#FFD400"
   },
-  "pending_verified_update": {
-    "as_of": "2026-10-25",
-    "canva_page_current": 11,
-    "canva_page_id": "PB9P9mXjTZSWtXpM",
-    "canva_table_id": "LBjgkQgt23bDZHL4",
-    "status": "STAGED_NOT_APPLIED_CANVA_SERVICE_UNAVAILABLE",
-    "subtitle": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 25/10/26)",
-    "results": [
-      {
-        "home": "SWI",
-        "away": "WOR",
-        "score": "1-0",
-        "cell": "W18"
-      },
-      {
-        "home": "BRI",
-        "away": "WEY",
-        "score": "1-4",
-        "cell": "U5"
-      },
-      {
-        "home": "MEL",
-        "away": "POR",
-        "score": "6-0",
-        "cell": "N12"
-      },
-      {
-        "home": "SPO",
-        "away": "LAR",
-        "score": "2-2",
-        "cell": "K17"
-      },
-      {
-        "home": "WES",
-        "away": "HAR",
-        "score": "0-2",
-        "cell": "I20"
-      },
-      {
-        "home": "PAU",
-        "away": "FAL",
-        "score": "1-3",
-        "cell": "H13"
-      },
-      {
-        "home": "SLI",
-        "away": "HUN",
-        "score": "0-3",
-        "cell": "J16"
-      },
-      {
-        "home": "BID",
-        "away": "BRI",
-        "score": "3-0",
-        "cell": "E3"
-      },
-      {
-        "home": "DOR",
-        "away": "SLI",
-        "score": "0-2",
-        "cell": "P6"
-      },
-      {
-        "home": "HAR",
-        "away": "SWI",
-        "score": "4-1",
-        "cell": "R9"
-      },
-      {
-        "home": "HUN",
-        "away": "EXM",
-        "score": "5-1",
-        "cell": "G10"
-      },
-      {
-        "home": "LAR",
-        "away": "TIV",
-        "score": "1-3",
-        "cell": "S11"
-      },
-      {
-        "home": "SHA",
-        "away": "WES",
-        "score": "1-4",
-        "cell": "T15"
-      },
-      {
-        "home": "WIL",
-        "away": "MEL",
-        "score": "2-0",
-        "cell": "L22"
-      },
-      {
-        "home": "WOR",
-        "away": "BAR",
-        "score": "2-1",
-        "cell": "B23"
-      }
-    ],
-    "source_notes": "Verified official fixtures and Football Web Pages FT results. 24 October postponed games: FAL-SPO, POR-BIS, WEY-PAU; do not enter scores.",
-    "rules": "Preserve native table text editability, typography, crests, yellow diagonal, and highlight Tiverton's 3 red in away 1-3 at LAR v TIV. Do not modify blank postponement cells."
-  }
+  "orientation": "home_columns_away_rows",
+  "verified_at": "2026-10-26",
+  "verified_result_count": 140
 }

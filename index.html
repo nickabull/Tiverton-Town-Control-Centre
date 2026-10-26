@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tiverton Town Programme Centre</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&display=swap">
+<link rel="stylesheet" href="dashboard-glance.css">
 <style>
 :root{--yellow:#f2c400;--black:#111;--ink:#171717;--muted:#6b6b6b;--panel:#fff;--bg:#f3f3f1;--line:#deded8}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
@@ -76,6 +78,11 @@ footer{padding:28px 0;color:#777;font-size:13px}
     </div>
   </section>
 
+  <section class="panel dashboard-glance" aria-labelledby="dashboard-glance-title">
+    <div class="dashboard-glance-heading"><div><h2 id="dashboard-glance-title">Tivvy at a Glance</h2><p>Latest five results · all competitions · newest first</p></div><a href="https://www.tivertontownfc.uk/match-centre" target="_blank" rel="noopener">Match Centre ↗</a></div>
+    <div id="dashboard-glance-results" aria-live="polite"><p class="muted">Loading latest results…</p></div>
+  </section>
+
   <section class="grid">
     <article class="panel card"><h2>Today in 60 Seconds</h2><p>The Portland match at a glance: the story, our form, the visitors and what to watch for.</p><a class="btn yellow" href="today-in-60.html">Open match briefing</a></article>
     <article class="panel card"><h2>Plan Your Next Away Trip</h2><p>Larkhall away · Saturday 24 October. A working guide with travel, parking, official tickets, food and current league form.</p><a class="btn yellow" href="away-day.html">Open Away Trip</a></article>
@@ -135,5 +142,5 @@ footer{padding:28px 0;color:#777;font-size:13px}
   <section class="panel" style="margin-top:18px"><div class="eyebrow">Rotating programme feature</div><h2 style="margin:6px 0 10px">Feature Slot</h2><p class="muted">Choose a different fan-facing A5 feature for each issue — quiz, player profile, archive piece, stats, Spot the Ball and more.</p><a class="btn yellow" href="feature-slot.html">Choose a feature</a></section>
 </main>
 <footer class="wrap">Tiverton Town Programme Centre · Built to support programme production, not replace the editor.</footer>
-</div><script type="module" src="auth.js"></script><script src="programme-nav.js?v=20261018-theme-1"></script></body>
+</div><script type="module" src="auth.js"></script><script src="programme-nav.js?v=20261018-theme-1"></script><script type="module" src="dashboard-glance.js"></script></body>
 </html>

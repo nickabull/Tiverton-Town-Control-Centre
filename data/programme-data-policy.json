@@ -49,5 +49,11 @@
     "rule": "A Canva service-unavailable error on native table cell edits does not establish that other editable text elements or other pages fail. Probe a small reversible or unchanged text update on a separate section, without committing visual changes, before declaring scope.",
     "on_failure": "Stop and preserve all approved page layouts; record unsaved work as staged, never claim saved; continue unaffected sections only after testing.",
     "preserve": "Do not overwrite user's editorial edits or substitute images for native editable tables."
+  },
+  "score_display_rule": {
+    "scope": "Universal: Match Centre, all dashboards, Wix embeds, Canva and every programme output.",
+    "order": "Always display HOME goals first, then AWAY goals.",
+    "highlight": "Always highlight only Tiverton Town's goals in red, whether home or away, including zeroes and drawn scores.",
+    "validation": "Resolve source score orientation before formatting. W/D/L is always Tiverton's outcome; never infer team ownership from the source number position alone."
   }
 }

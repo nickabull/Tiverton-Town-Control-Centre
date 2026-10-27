@@ -1,0 +1,169 @@
+{
+  "id": "dorchester-2026-10-27",
+  "title": "Today in 60 Seconds",
+  "fixture": "Tiverton Town v Dorchester Town",
+  "fixture_date": "2026-10-27",
+  "date": "27 October 2026",
+  "kickoff": "19:30 GMT",
+  "competition": "Southern League Division One South",
+  "form_cutoff": "2026-10-24",
+  "scope": "Pre-match league form through 24 October 2026; the 27 October match is excluded.",
+  "home": {
+    "team": "Tiverton Town",
+    "p": 12,
+    "w": 4,
+    "d": 3,
+    "l": 5,
+    "gf": 20,
+    "ga": 19,
+    "pts": 15,
+    "gd": 1,
+    "position": 14,
+    "totalTeams": 22,
+    "home": {
+      "p": 6,
+      "w": 2,
+      "d": 2,
+      "l": 2
+    },
+    "lastFive": [
+      {
+        "date": "2026-10-06",
+        "opponent": "Hartpury",
+        "venue": "H",
+        "gf": 3,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-10",
+        "opponent": "Shaftesbury",
+        "venue": "A",
+        "gf": 4,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-13",
+        "opponent": "Falmouth Town",
+        "venue": "A",
+        "gf": 1,
+        "ga": 2,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-17",
+        "opponent": "Portland Utd",
+        "venue": "H",
+        "gf": 1,
+        "ga": 4,
+        "outcome": "L"
+      },
+      {
+        "date": "2026-10-24",
+        "opponent": "Larkhall Athletic",
+        "venue": "A",
+        "gf": 3,
+        "ga": 1,
+        "outcome": "W"
+      }
+    ],
+    "latest": "2026-10-24",
+    "divisionLatest": "2026-10-24",
+    "resultCount": 140,
+    "updated": "2026-10-27 22:31:10 UTC"
+  },
+  "away": {
+    "team": "Dorchester",
+    "p": 12,
+    "w": 10,
+    "d": 0,
+    "l": 2,
+    "gf": 25,
+    "ga": 14,
+    "pts": 30,
+    "gd": 11,
+    "position": 3,
+    "totalTeams": 22,
+    "home": {
+      "p": 7,
+      "w": 6,
+      "d": 0,
+      "l": 1
+    },
+    "lastFive": [
+      {
+        "date": "2026-10-03",
+        "opponent": "Swindon SM",
+        "venue": "A",
+        "gf": 1,
+        "ga": 0,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-10",
+        "opponent": "Hartpury",
+        "venue": "H",
+        "gf": 2,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-13",
+        "opponent": "Melksham Town",
+        "venue": "H",
+        "gf": 3,
+        "ga": 0,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-17",
+        "opponent": "Sporting Club Inkberrow",
+        "venue": "A",
+        "gf": 3,
+        "ga": 1,
+        "outcome": "W"
+      },
+      {
+        "date": "2026-10-24",
+        "opponent": "Slimbridge AFC",
+        "venue": "H",
+        "gf": 0,
+        "ga": 2,
+        "outcome": "L"
+      }
+    ],
+    "latest": "2026-10-24",
+    "divisionLatest": "2026-10-24",
+    "resultCount": 140,
+    "updated": "2026-10-27 22:31:10 UTC"
+  },
+  "copy": {
+    "story": "Tivvy return to league action after a 3–1 win at Larkhall on Saturday. Dorchester arrive tonight following a surprise 2–0 home defeat to Slimbridge, ending their ten-game winning streak.",
+    "ourForm": "League form to 24 October: W W L L W. Four wins, three draws and five defeats from 12 league games; 15 points.",
+    "visitors": "Dorchester lost 2–0 at home to Slimbridge on Saturday, ending a run of ten straight league wins. They have 30 points from 12 league games and sit third.",
+    "watchFor": "Dorchester won 2–1 when the sides met on 15 September.",
+    "watchForLabel": "Previous meeting"
+  },
+  "approved_source": {
+    "design_id": "DAHYKUo9Tzo",
+    "page_id": "PBkj4y3XTWnmZGvp",
+    "page_number": 3,
+    "read_on": "2026-10-27",
+    "method": "Read final saved Canva text; no design edits"
+  },
+  "sources": [
+    {
+      "label": "Approved Dorchester programme copy",
+      "url": "https://www.canva.com/design/DAHYKUo9Tzo/edit"
+    },
+    {
+      "label": "Shared verified league results",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json"
+    },
+    {
+      "label": "Shared player and match details",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json"
+    }
+  ]
+}

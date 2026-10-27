@@ -1,19 +1,38 @@
 (function(){
 'use strict';
 const keys=['story','ourForm','visitors','watchFor'],labels=['THE STORY','OUR FORM','THE VISITORS','WATCH FOR'];
-const $=id=>document.getElementById(id);let data=null;const storageKey='tivvy-today-in-60-bideford-20261020-v1';
+const $=id=>document.getElementById(id);let data=null,storageKey='';
 function say(text){$('status').textContent=text;}
 function current(){return Object.fromEntries(keys.map(k=>[k,$(k).innerText.replace(/\r/g,'').trim()]));}
 function countWords(text){return (text.trim().match(/\S+/g)||[]).length;}
 function measure(){const count=countWords(Object.values(current()).join(' '));const seconds=Math.ceil(count/3);$('reading').textContent=`${count} words · about ${seconds} seconds at 180 words/min${seconds>60?' · trim the copy to fit 60 seconds':''}`;}
 function save(){measure();try{localStorage.setItem(storageKey,JSON.stringify(current()));localStorage.removeItem('tivvy-v21-approved-today_in_60');say('Edits saved in this browser.');}catch(e){say('Browser storage is unavailable. Copy your text to keep these edits.');}}
 function fill(copy){keys.forEach(k=>{$(k).textContent=typeof copy[k]==='string'?copy[k]:data.copy[k];});measure();}
-function badges(id,matches){$(id).replaceChildren(...matches.map(m=>{const b=document.createElement('span');b.className='badge '+m.outcome;b.textContent=m.outcome;b.title=`${m.date} · ${m.opponent} (${m.venue}) ${m.gf}–${m.ga}`;return b;}));}
-function plainText(){const c=current();return `${data.title.toUpperCase()}\n${data.fixture}\n${data.date} · ${data.kickoff}\n\n`+keys.map((k,i)=>labels[i]+'\n'+c[k]+(k==='ourForm'?'\nLast five: '+data.home.lastFive.map(r=>r.outcome).join(' '):k==='visitors'?'\nLast five: '+data.away.lastFive.map(r=>r.outcome).join(' '):'')).join('\n\n')+'\n\nLeague form through 17 October 2026; oldest first.\n\nSources\n'+data.sources.map(s=>s.label+': '+s.url).join('\n');}
+function badges(id,matches,team){$(id).replaceChildren(...matches.map(m=>{const b=document.createElement('span');b.className='badge '+m.outcome;b.textContent=m.outcome;const home=m.venue==='H';b.title=`${m.date} · ${home?team:m.opponent} ${home?m.gf:m.ga}–${home?m.ga:m.gf} ${home?m.opponent:team}`;return b;}));}
+function plainText(){const c=current();return `${data.title.toUpperCase()}\n${data.fixture}\n${data.date} · ${data.kickoff}\n\n`+keys.map((k,i)=>labels[i]+'\n'+(k==='watchFor'?data.copy.watchForLabel+'\n':'')+c[k]+(k==='ourForm'?'\nLast five: '+data.home.lastFive.map(r=>r.outcome).join(' '):k==='visitors'?'\nLast five: '+data.away.lastFive.map(r=>r.outcome).join(' '):'')).join('\n\n')+'\n\n'+data.scope+' Oldest first.\n\nSources\n'+data.sources.map(s=>s.label+': '+s.url).join('\n');}
+function renderEdition(){
+ const day=new Date(data.fixture_date+'T12:00:00Z').toLocaleDateString('en-GB',{timeZone:'Europe/London',weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ $('edition-label').textContent=data.away.team+' programme · '+day;
+ $('edition-intro').textContent='The approved pre-match briefing from the '+data.away.team+' programme. Edit any of the four boxes.';
+ $('fixture-meta').textContent=data.fixture+' · '+data.date+' · '+data.kickoff;
+ $('watch-for-label').textContent=data.copy.watchForLabel;
+ $('form-scope').textContent=data.scope+' Oldest → newest';
+ $('source-scope').textContent=data.scope;
+ $('their-badges').setAttribute('aria-label',data.away.team+' last five league results, oldest first');
+ $('source-links').replaceChildren(...data.sources.map(s=>{const li=document.createElement('li'),a=document.createElement('a');a.href=s.url;a.target='_blank';a.rel='noopener';a.textContent=s.label;li.append(a);return li;}));
+}
 $('copy').addEventListener('click',async()=>{if(!data)return;try{await navigator.clipboard.writeText(plainText());say('Programme text copied, with form dates and source links.');}catch(e){say('Clipboard is unavailable. Select the text in the preview to copy it, or use Print / save PDF.');}});
 $('print').addEventListener('click',()=>window.print());
 $('reset').addEventListener('click',()=>{if(!data||!window.confirm('Replace your edited paragraphs with the original match copy?'))return;fill(data.copy);save();});
 keys.forEach(k=>$(k).addEventListener('input',save));
-async function boot(){try{const r=await fetch('data/today-in-60-bideford.json?v=1');if(!r.ok)throw Error('Snapshot unavailable');data=await r.json();let saved=null;try{saved=JSON.parse(localStorage.getItem(storageKey)||'null');}catch(e){}fill(saved&&typeof saved==='object'?saved:data.copy);badges('our-badges',data.home.lastFive);badges('their-badges',data.away.lastFive);say(saved?'Your saved match edits are loaded.':'Bideford cup preview ready. Click a paragraph to edit it.');}catch(e){say('The demo snapshot could not load. Reload the page to try again.');$('copy').disabled=true;$('reset').disabled=true;}}
+async function boot(){try{
+ const get=async path=>{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Snapshot unavailable');return r.json();};
+ const binding=await get('data/today-in-60-binding.json');
+ if(!/^data\/today-in-60-[a-z0-9-]+\.json$/.test(binding.copy_source||''))throw Error('No approved briefing selected');
+ data=await get(binding.copy_source);storageKey='tivvy-today-in-60-'+data.id+'-v1';renderEdition();
+ let saved=null;try{saved=JSON.parse(localStorage.getItem(storageKey)||'null');}catch(e){}
+ fill(saved&&typeof saved==='object'?saved:data.copy);badges('our-badges',data.home.lastFive,data.home.team);badges('their-badges',data.away.lastFive,data.away.team);
+ say(saved?'Your saved match edits are loaded.':data.away.team+' programme briefing ready. Click a paragraph to edit it.');
+}catch(e){say('The approved briefing could not load. Reload the page to try again.');$('copy').disabled=true;$('reset').disabled=true;}}
 boot();
 })();

@@ -53,7 +53,9 @@
     const start = new Date(fixture.kickoff_iso), end = new Date(start.getTime() + 120 * 60000);
     const iso = date => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     const esc = str => String(str).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
-    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Tiverton Town//Away Day Guide//EN', 'BEGIN:VEVENT', 'UID:larkhall-tiverton-20261024@tivvy-programme', 'DTSTAMP:' + iso(new Date()), 'DTSTART:' + iso(start), 'DTEND:' + iso(end), 'SUMMARY:Larkhall Athletic v Tiverton Town', 'LOCATION:' + esc(fixture.address), 'DESCRIPTION:' + esc('Kick-off 15:00 UK time. Recheck fixture and travel before leaving. ' + fixture.tickets), 'URL:' + fixture.tickets, 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
+    const opponent = fixture.opponent || 'Away hosts';
+    const uid = opponent.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-tiverton-' + fixture.date.replace(/-/g, '');
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Tiverton Town//Away Day Guide//EN', 'BEGIN:VEVENT', 'UID:' + uid + '@tivvy-programme', 'DTSTAMP:' + iso(new Date()), 'DTSTART:' + iso(start), 'DTEND:' + iso(end), 'SUMMARY:' + esc(opponent + ' v Tiverton Town'), 'LOCATION:' + esc(fixture.address), 'DESCRIPTION:' + esc('Kick-off ' + fixture.kickoff + ' UK time. Recheck fixture and travel before leaving. ' + fixture.tickets), 'URL:' + fixture.tickets, 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
   }
   return { summarise, ticketTotal, count, drivingUrl, departure, calendar };
 });

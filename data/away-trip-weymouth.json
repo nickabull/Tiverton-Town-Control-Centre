@@ -1,0 +1,1284 @@
+{
+  "schema_version": 2,
+  "id": "weymouth-2026-10-31",
+  "reviewed_on": "2026-10-27",
+  "opponent": "Weymouth FC",
+  "display_name": "Weymouth FC",
+  "nickname": "The Terras",
+  "fixture": {
+    "date": "2026-10-31",
+    "kickoff": "15:00",
+    "kickoff_iso": "2026-10-31T15:00:00+00:00",
+    "opponent": "Weymouth FC",
+    "competition": "Southern League Division One South",
+    "venue": "Bob Lucas Stadium",
+    "address": "Bob Lucas Stadium, Radipole Lane, Weymouth, Dorset DT4 9XJ",
+    "tickets": "https://uptheterras.co.uk/tickets/?ticket_category=away-tickets&ticket_product=50261",
+    "official_fixture": "https://www.southern-football-league.co.uk/match/6a5a1bf6ce9ef452b61f445c"
+  },
+  "ticket_prices": {
+    "adult": 14,
+    "concession": 11,
+    "youth": 6,
+    "child": 2,
+    "junior": 1
+  },
+  "football": {
+    "teams": [
+      "Barnstaple Town",
+      "Bideford",
+      "Bishops Cleeve",
+      "Bristol Manor Farm",
+      "Dorchester",
+      "Exmouth Town",
+      "Falmouth Town",
+      "Hartpury",
+      "Hungerford",
+      "Larkhall Athletic",
+      "Melksham Town",
+      "Paulton Rovers",
+      "Portland Utd",
+      "Shaftesbury",
+      "Slimbridge AFC",
+      "Sporting Club Inkberrow",
+      "Swindon SM",
+      "Tiverton Town",
+      "Westbury",
+      "Weymouth FC",
+      "Willand Rovers",
+      "Worcester Raiders"
+    ],
+    "codes": {
+      "Barnstaple Town": "BAR",
+      "Bideford": "BID",
+      "Bishops Cleeve": "BIS",
+      "Bristol Manor Farm": "BRI",
+      "Dorchester": "DOR",
+      "Exmouth Town": "EXM",
+      "Falmouth Town": "FAL",
+      "Hartpury": "HAR",
+      "Hungerford": "HUN",
+      "Larkhall Athletic": "LAR",
+      "Melksham Town": "MEL",
+      "Paulton Rovers": "PAU",
+      "Portland Utd": "POR",
+      "Shaftesbury": "SHA",
+      "Slimbridge AFC": "SLI",
+      "Sporting Club Inkberrow": "SPO",
+      "Swindon SM": "SWI",
+      "Tiverton Town": "TIV",
+      "Westbury": "WES",
+      "Weymouth FC": "WEY",
+      "Willand Rovers": "WIL",
+      "Worcester Raiders": "WOR"
+    },
+    "results": [
+      {
+        "date": "2026-10-27",
+        "home": "Bideford",
+        "away": "Falmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Bishops Cleeve",
+        "away": "Sporting Club Inkberrow",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Bristol Manor Farm",
+        "away": "Swindon SM",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Portland Utd",
+        "away": "Paulton Rovers",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Shaftesbury",
+        "away": "Weymouth FC",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Tiverton Town",
+        "away": "Dorchester",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-10-27",
+        "home": "Westbury",
+        "away": "Willand Rovers",
+        "score": "4-0"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Bideford",
+        "away": "Bristol Manor Farm",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Dorchester",
+        "away": "Slimbridge AFC",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Hartpury",
+        "away": "Swindon SM",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Hungerford",
+        "away": "Exmouth Town",
+        "score": "5-1"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Larkhall Athletic",
+        "away": "Tiverton Town",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Shaftesbury",
+        "away": "Westbury",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Willand Rovers",
+        "away": "Melksham Town",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-10-24",
+        "home": "Worcester Raiders",
+        "away": "Barnstaple Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-21",
+        "home": "Paulton Rovers",
+        "away": "Falmouth Town",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-10-21",
+        "home": "Slimbridge AFC",
+        "away": "Hungerford",
+        "score": "0-3"
+      },
+      {
+        "date": "2026-10-20",
+        "home": "Bristol Manor Farm",
+        "away": "Weymouth FC",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-20",
+        "home": "Melksham Town",
+        "away": "Portland Utd",
+        "score": "6-0"
+      },
+      {
+        "date": "2026-10-20",
+        "home": "Sporting Club Inkberrow",
+        "away": "Larkhall Athletic",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-10-20",
+        "home": "Westbury",
+        "away": "Hartpury",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Barnstaple Town",
+        "away": "Weymouth FC",
+        "score": "0-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Bishops Cleeve",
+        "away": "Bideford",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Bristol Manor Farm",
+        "away": "Shaftesbury",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Melksham Town",
+        "away": "Larkhall Athletic",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Paulton Rovers",
+        "away": "Worcester Raiders",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Slimbridge AFC",
+        "away": "Willand Rovers",
+        "score": "3-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Sporting Club Inkberrow",
+        "away": "Dorchester",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Swindon SM",
+        "away": "Falmouth Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Tiverton Town",
+        "away": "Portland Utd",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-17",
+        "home": "Westbury",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-10-14",
+        "home": "Larkhall Athletic",
+        "away": "Swindon SM",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-14",
+        "home": "Willand Rovers",
+        "away": "Barnstaple Town",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Dorchester",
+        "away": "Melksham Town",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Falmouth Town",
+        "away": "Tiverton Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Hungerford",
+        "away": "Bishops Cleeve",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Portland Utd",
+        "away": "Exmouth Town",
+        "score": "3-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Shaftesbury",
+        "away": "Slimbridge AFC",
+        "score": "5-4"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Sporting Club Inkberrow",
+        "away": "Hartpury",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Weymouth FC",
+        "away": "Westbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-10-13",
+        "home": "Worcester Raiders",
+        "away": "Bristol Manor Farm",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Barnstaple Town",
+        "away": "Paulton Rovers",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Bristol Manor Farm",
+        "away": "Westbury",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Dorchester",
+        "away": "Hartpury",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Exmouth Town",
+        "away": "Slimbridge AFC",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Hungerford",
+        "away": "Falmouth Town",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Larkhall Athletic",
+        "away": "Bishops Cleeve",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Portland Utd",
+        "away": "Sporting Club Inkberrow",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Shaftesbury",
+        "away": "Tiverton Town",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Willand Rovers",
+        "away": "Swindon SM",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-10",
+        "home": "Worcester Raiders",
+        "away": "Weymouth FC",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-10-07",
+        "home": "Slimbridge AFC",
+        "away": "Portland Utd",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Bideford",
+        "away": "Swindon SM",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Bishops Cleeve",
+        "away": "Worcester Raiders",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-06",
+        "home": "Tiverton Town",
+        "away": "Hartpury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Bideford",
+        "away": "Portland Utd",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Bishops Cleeve",
+        "away": "Melksham Town",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Falmouth Town",
+        "away": "Larkhall Athletic",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Hartpury",
+        "away": "Barnstaple Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Slimbridge AFC",
+        "away": "Bristol Manor Farm",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Sporting Club Inkberrow",
+        "away": "Shaftesbury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Swindon SM",
+        "away": "Dorchester",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Tiverton Town",
+        "away": "Worcester Raiders",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-10-03",
+        "home": "Westbury",
+        "away": "Exmouth Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-30",
+        "home": "Exmouth Town",
+        "away": "Weymouth FC",
+        "score": "2-5"
+      },
+      {
+        "date": "2026-09-30",
+        "home": "Slimbridge AFC",
+        "away": "Larkhall Athletic",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Bideford",
+        "away": "Dorchester",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Bishops Cleeve",
+        "away": "Hartpury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Melksham Town",
+        "away": "Worcester Raiders",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Portland Utd",
+        "away": "Falmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Shaftesbury",
+        "away": "Willand Rovers",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Tiverton Town",
+        "away": "Paulton Rovers",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-29",
+        "home": "Westbury",
+        "away": "Swindon SM",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Barnstaple Town",
+        "away": "Hungerford",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Bideford",
+        "away": "Hartpury",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Dorchester",
+        "away": "Exmouth Town",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Falmouth Town",
+        "away": "Slimbridge AFC",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Larkhall Athletic",
+        "away": "Shaftesbury",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Paulton Rovers",
+        "away": "Bristol Manor Farm",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Sporting Club Inkberrow",
+        "away": "Melksham Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-26",
+        "home": "Worcester Raiders",
+        "away": "Westbury",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Barnstaple Town",
+        "away": "Swindon SM",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Hartpury",
+        "away": "Worcester Raiders",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Hungerford",
+        "away": "Weymouth FC",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-22",
+        "home": "Swindon SM",
+        "away": "Worcester Raiders",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Bideford",
+        "away": "Paulton Rovers",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Bristol Manor Farm",
+        "away": "Falmouth Town",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Hartpury",
+        "away": "Willand Rovers",
+        "score": "3-2"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Melksham Town",
+        "away": "Barnstaple Town",
+        "score": "1-4"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Portland Utd",
+        "away": "Larkhall Athletic",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Shaftesbury",
+        "away": "Worcester Raiders",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-09-19",
+        "home": "Westbury",
+        "away": "Sporting Club Inkberrow",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Larkhall Athletic",
+        "away": "Hungerford",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Paulton Rovers",
+        "away": "Portland Utd",
+        "score": "3-3"
+      },
+      {
+        "date": "2026-09-16",
+        "home": "Willand Rovers",
+        "away": "Westbury",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Barnstaple Town",
+        "away": "Exmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Dorchester",
+        "away": "Tiverton Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Falmouth Town",
+        "away": "Bideford",
+        "score": "4-3"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Hartpury",
+        "away": "Melksham Town",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Sporting Club Inkberrow",
+        "away": "Bishops Cleeve",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Weymouth FC",
+        "away": "Shaftesbury",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-09-15",
+        "home": "Worcester Raiders",
+        "away": "Slimbridge AFC",
+        "score": "4-0"
+      },
+      {
+        "date": "2026-09-14",
+        "home": "Swindon SM",
+        "away": "Bristol Manor Farm",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Barnstaple Town",
+        "away": "Bishops Cleeve",
+        "score": "0-4"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Exmouth Town",
+        "away": "Shaftesbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Falmouth Town",
+        "away": "Worcester Raiders",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-09-12",
+        "home": "Paulton Rovers",
+        "away": "Sporting Club Inkberrow",
+        "score": "1-3"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Barnstaple Town",
+        "away": "Worcester Raiders",
+        "score": "4-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Melksham Town",
+        "away": "Bideford",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Paulton Rovers",
+        "away": "Hartpury",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Westbury",
+        "away": "Bideford",
+        "score": "2-2"
+      },
+      {
+        "date": "2026-09-05",
+        "home": "Willand Rovers",
+        "away": "Larkhall Athletic",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Bideford",
+        "away": "Willand Rovers",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Bishops Cleeve",
+        "away": "Bristol Manor Farm",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Dorchester",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Falmouth Town",
+        "away": "Barnstaple Town",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Larkhall Athletic",
+        "away": "Westbury",
+        "score": "3-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Melksham Town",
+        "away": "Weymouth FC",
+        "score": "0-2"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Portland Utd",
+        "away": "Shaftesbury",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Sporting Club Inkberrow",
+        "away": "Slimbridge AFC",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Swindon SM",
+        "away": "Paulton Rovers",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-31",
+        "home": "Tiverton Town",
+        "away": "Exmouth Town",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-19",
+        "home": "Slimbridge AFC",
+        "away": "Swindon SM",
+        "score": "2-7"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Bristol Manor Farm",
+        "away": "Melksham Town",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Bristol Manor Farm",
+        "away": "Portland Utd",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Exmouth Town",
+        "away": "Hartpury",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Hungerford",
+        "away": "Hartpury",
+        "score": "4-1"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Shaftesbury",
+        "away": "Bideford",
+        "score": "7-2"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Westbury",
+        "away": "Tiverton Town",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Weymouth FC",
+        "away": "Falmouth Town",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Willand Rovers",
+        "away": "Dorchester",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-08-15",
+        "home": "Worcester Raiders",
+        "away": "Larkhall Athletic",
+        "score": "3-1"
+      },
+      {
+        "date": "2026-08-14",
+        "home": "Bishops Cleeve",
+        "away": "Swindon SM",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-08-12",
+        "home": "Larkhall Athletic",
+        "away": "Weymouth FC",
+        "score": "2-3"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Bideford",
+        "away": "Exmouth Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Bristol Manor Farm",
+        "away": "Barnstaple Town",
+        "score": "0-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Dorchester",
+        "away": "Paulton Rovers",
+        "score": "2-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Falmouth Town",
+        "away": "Willand Rovers",
+        "score": "0-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Hungerford",
+        "away": "Sporting Club Inkberrow",
+        "score": "2-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Melksham Town",
+        "away": "Hungerford",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Portland Utd",
+        "away": "Westbury",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Sporting Club Inkberrow",
+        "away": "Bristol Manor Farm",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-11",
+        "home": "Tiverton Town",
+        "away": "Barnstaple Town",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-10",
+        "home": "Swindon SM",
+        "away": "Shaftesbury",
+        "score": "1-0"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Hungerford",
+        "away": "Tiverton Town",
+        "score": "1-1"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Shaftesbury",
+        "away": "Bishops Cleeve",
+        "score": "1-2"
+      },
+      {
+        "date": "2026-08-08",
+        "home": "Weymouth FC",
+        "away": "Dorchester",
+        "score": "5-1"
+      }
+    ],
+    "leagueTable": [
+      {
+        "pos": 1,
+        "p": 12,
+        "gd": 24,
+        "pts": 34,
+        "team": "Weymouth",
+        "w": 11,
+        "d": 1,
+        "l": 0,
+        "gf": 33,
+        "ga": 9
+      },
+      {
+        "pos": 2,
+        "p": 15,
+        "gd": 12,
+        "pts": 34,
+        "team": "Swindon Supermarine",
+        "w": 11,
+        "d": 1,
+        "l": 3,
+        "gf": 28,
+        "ga": 16
+      },
+      {
+        "pos": 3,
+        "p": 13,
+        "gd": 11,
+        "pts": 31,
+        "team": "Dorchester Town",
+        "w": 10,
+        "d": 1,
+        "l": 2,
+        "gf": 27,
+        "ga": 16
+      },
+      {
+        "pos": 4,
+        "p": 13,
+        "gd": 15,
+        "pts": 26,
+        "team": "Hungerford Town",
+        "w": 8,
+        "d": 2,
+        "l": 3,
+        "gf": 24,
+        "ga": 9
+      },
+      {
+        "pos": 5,
+        "p": 15,
+        "gd": 7,
+        "pts": 26,
+        "team": "Westbury United",
+        "w": 8,
+        "d": 2,
+        "l": 5,
+        "gf": 25,
+        "ga": 18
+      },
+      {
+        "pos": 6,
+        "p": 14,
+        "gd": 4,
+        "pts": 24,
+        "team": "Falmouth Town",
+        "w": 7,
+        "d": 3,
+        "l": 4,
+        "gf": 23,
+        "ga": 19
+      },
+      {
+        "pos": 7,
+        "p": 12,
+        "gd": 11,
+        "pts": 22,
+        "team": "Bishops Cleeve",
+        "w": 7,
+        "d": 1,
+        "l": 4,
+        "gf": 23,
+        "ga": 12
+      },
+      {
+        "pos": 8,
+        "p": 14,
+        "gd": 3,
+        "pts": 21,
+        "team": "Hartpury",
+        "w": 6,
+        "d": 3,
+        "l": 5,
+        "gf": 22,
+        "ga": 19
+      },
+      {
+        "pos": 9,
+        "p": 15,
+        "gd": 0,
+        "pts": 21,
+        "team": "Worcester Raiders",
+        "w": 5,
+        "d": 6,
+        "l": 4,
+        "gf": 17,
+        "ga": 17
+      },
+      {
+        "pos": 10,
+        "p": 13,
+        "gd": 2,
+        "pts": 18,
+        "team": "SC Inkberrow",
+        "w": 5,
+        "d": 3,
+        "l": 5,
+        "gf": 22,
+        "ga": 20
+      },
+      {
+        "pos": 11,
+        "p": 13,
+        "gd": -3,
+        "pts": 18,
+        "team": "Portland United",
+        "w": 5,
+        "d": 3,
+        "l": 5,
+        "gf": 20,
+        "ga": 23
+      },
+      {
+        "pos": 12,
+        "p": 13,
+        "gd": 1,
+        "pts": 16,
+        "team": "Tiverton Town",
+        "w": 4,
+        "d": 4,
+        "l": 5,
+        "gf": 22,
+        "ga": 21
+      },
+      {
+        "pos": 13,
+        "p": 15,
+        "gd": -6,
+        "pts": 16,
+        "team": "Shaftesbury",
+        "w": 5,
+        "d": 1,
+        "l": 9,
+        "gf": 26,
+        "ga": 32
+      },
+      {
+        "pos": 14,
+        "p": 12,
+        "gd": -2,
+        "pts": 15,
+        "team": "Willand Rovers",
+        "w": 4,
+        "d": 3,
+        "l": 5,
+        "gf": 19,
+        "ga": 21
+      },
+      {
+        "pos": 15,
+        "p": 14,
+        "gd": -7,
+        "pts": 14,
+        "team": "Bideford",
+        "w": 3,
+        "d": 5,
+        "l": 6,
+        "gf": 20,
+        "ga": 27
+      },
+      {
+        "pos": 16,
+        "p": 11,
+        "gd": -7,
+        "pts": 14,
+        "team": "Exmouth Town",
+        "w": 4,
+        "d": 2,
+        "l": 5,
+        "gf": 16,
+        "ga": 23
+      },
+      {
+        "pos": 17,
+        "p": 12,
+        "gd": -6,
+        "pts": 12,
+        "team": "Paulton Rovers",
+        "w": 2,
+        "d": 6,
+        "l": 4,
+        "gf": 11,
+        "ga": 17
+      },
+      {
+        "pos": 18,
+        "p": 14,
+        "gd": -9,
+        "pts": 11,
+        "team": "Larkhall Athletic",
+        "w": 3,
+        "d": 2,
+        "l": 9,
+        "gf": 18,
+        "ga": 27
+      },
+      {
+        "pos": 19,
+        "p": 14,
+        "gd": -7,
+        "pts": 10,
+        "team": "Barnstaple Town",
+        "w": 3,
+        "d": 1,
+        "l": 10,
+        "gf": 17,
+        "ga": 24
+      },
+      {
+        "pos": 20,
+        "p": 12,
+        "gd": -15,
+        "pts": 10,
+        "team": "Slimbridge",
+        "w": 3,
+        "d": 1,
+        "l": 8,
+        "gf": 14,
+        "ga": 29
+      },
+      {
+        "pos": 21,
+        "p": 13,
+        "gd": -11,
+        "pts": 9,
+        "team": "Melksham Town",
+        "w": 2,
+        "d": 3,
+        "l": 8,
+        "gf": 11,
+        "ga": 22
+      },
+      {
+        "pos": 22,
+        "p": 15,
+        "gd": -17,
+        "pts": 9,
+        "team": "Bristol Manor Farm",
+        "w": 1,
+        "d": 6,
+        "l": 8,
+        "gf": 10,
+        "ga": 27
+      }
+    ],
+    "updated": "2026-10-27 22:31:10 UTC",
+    "source": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/match-grid",
+    "leagueSource": "https://www.tivvyarchive.co.uk/season.php?year=2026"
+  },
+  "content": {
+    ".trip-hero": "\n<div class=\"hero-overlay\"><div class=\"hero-top\"><span class=\"pill gold\" id=\"demo-label\">Weymouth · next away trip</span><span class=\"pill glass\">Away day / 2026–27</span></div>\n<div class=\"matchup\"><img alt=\"Weymouth FC crest\" class=\"opponent-crest\" height=\"112\" src=\"assets/away-days/weymouth-crest.png\" width=\"112\"/><div><div class=\"hero-eyebrow\">Saturday 31 October 2026 · 15:00 GMT</div><h2 id=\"fixture-title\">Weymouth FC <span>v Tiverton Town</span></h2><p>Southern League Division One South</p></div></div>\n<div class=\"hero-bottom\"><div><strong>Bob Lucas Stadium</strong><span>Radipole Lane, Weymouth, Dorset, DT4 9XJ</span></div><div class=\"actions\"><a class=\"button yellow\" href=\"https://uptheterras.co.uk/tickets/?ticket_category=away-tickets&amp;ticket_product=50261\" rel=\"noopener\" target=\"_blank\">Buy match tickets ↗</a><button class=\"button light\" id=\"calendar\" type=\"button\">Add to calendar</button></div></div>\n</div><div class=\"photo-credit\">Ground photo &amp; crest: Weymouth FC · <a href=\"https://uptheterras.co.uk/club-info/bob-lucas-stadium/\" rel=\"noopener\" target=\"_blank\">Club website ↗</a></div>\n",
+    ".guide-toolbar": "<p>Fixture &amp; tickets checked <strong>27 October 2026</strong> · football figures refresh from our results feed.</p><div class=\"actions\"><button class=\"button dark\" disabled=\"\" id=\"copy-guide\" type=\"button\">Copy programme brief</button><button class=\"button white\" id=\"print\" type=\"button\">Print / save PDF</button></div>",
+    ".opposition": "\n<div class=\"section-top\"><div><span class=\"eyebrow\">Meet the hosts</span><h2 id=\"opposition-title\">The Terras, at a glance</h2></div><button class=\"button white\" disabled=\"\" id=\"refresh\" type=\"button\">Refresh football data</button></div>\n<div class=\"football-layout\"><div><div aria-live=\"polite\" class=\"stats\" id=\"stats\"><p>Loading the verified football snapshot…</p></div><div class=\"source-line\" id=\"football-status\" role=\"status\"></div></div><div class=\"form-box\"><h3>Last five league games</h3><div aria-label=\"Last five league results\" class=\"form\" id=\"form\"></div><div class=\"source-line\">Oldest → newest · W win / D draw / L loss</div><div class=\"home-record\" id=\"home-record\"></div></div></div>\n<details class=\"results-details\"><summary>See the five results &amp; data source</summary><div class=\"table-scroll\" id=\"recent-results\"></div><p class=\"source-line\">League games only. Scores are home first, away second; Tiverton’s score is red. League position uses the shared verified table. <a href=\"https://nickabull.github.io/Tiverton-Town-Control-Centre/league-table.html\" rel=\"noopener\" target=\"_blank\">Check full league table ↗</a></p></details>\n<p class=\"upcoming\">Latest league result: Shaftesbury 1–3 Weymouth, 27 October. The football figures below refresh from the same shared results feed as the Match Centre.</p>\n",
+    ".travel-section": "\n<div class=\"section-top\"><div><span class=\"eyebrow\">The journey</span><h2 id=\"travel-title\">Get there your way</h2></div><div aria-label=\"Travel mode\" class=\"mode-switch\" role=\"group\"><button aria-pressed=\"true\" data-mode=\"all\" type=\"button\">Compare both</button><button aria-pressed=\"false\" data-mode=\"road\" type=\"button\">By road</button><button aria-pressed=\"false\" data-mode=\"rail\" type=\"button\">By rail</button></div></div>\n<div class=\"travel-grid\">\n<article class=\"panel travel-card\" id=\"road-card\"><span class=\"number\">01 / ROAD</span><h3>A trip to the Dorset coast</h3><p class=\"lead\">Use <strong>DT4 9XJ</strong> for the Bob Lucas Stadium.</p><p>From Tiverton, head towards Dorchester and Weymouth via the A35/A354, then follow signs for the stadium. Let the live route planner check conditions on the day.</p><form id=\"road-form\"><label for=\"origin\">Starting town or postcode</label><div class=\"input-action\"><input autocomplete=\"off\" id=\"origin\" maxlength=\"120\" name=\"origin\" type=\"text\" value=\"Tiverton, Devon\"/><button class=\"button dark\" type=\"submit\">Update route</button></div></form><div class=\"actions\"><a class=\"button yellow\" href=\"https://www.google.com/maps/dir/?api=1&amp;origin=Tiverton%2C+Devon&amp;destination=Bob+Lucas+Stadium%2C+Weymouth+DT4+9XJ&amp;travelmode=driving\" id=\"drive-link\" rel=\"noopener\" target=\"_blank\">Open live directions ↗</a><a class=\"text-link\" href=\"https://uptheterras.co.uk/club-info/directions-to-the-bob-lucas-stadium/\" rel=\"noopener\" target=\"_blank\">Local approach ↗</a></div>\n<div class=\"mini-note\"><strong>The final approach</strong><p>Follow local signs for the Bob Lucas Stadium; some signs may still say Wessex Stadium. Check parking and arrival arrangements with Weymouth before setting off.</p></div>\n<details><summary>Work out a departure time</summary><p class=\"source-line\">Your own planning allowance, not a live traffic estimate. Read the journey time in Maps, then enter it here.</p><div class=\"planning-inputs\"><label>Arrive at ground<input id=\"arrive\" type=\"time\" value=\"14:00\"/></label><label>Journey minutes<input id=\"journey\" max=\"600\" min=\"15\" step=\"5\" type=\"number\" value=\"120\"/></label><label>Extra buffer<input id=\"buffer\" max=\"180\" min=\"0\" step=\"5\" type=\"number\" value=\"30\"/></label></div><p class=\"departure\">Plan to leave at <strong id=\"leave-time\">11:30</strong></p></details>\n</article>\n<article class=\"panel travel-card\" id=\"rail-card\"><span class=\"number\">02 / RAIL</span><h3>Weymouth, then the final leg</h3><p class=\"lead\">Search outward and return trains to <strong>Weymouth railway station</strong>, allowing time for a bus or taxi to the ground.</p><label for=\"rail-origin\">Start your rail journey at</label><select id=\"rail-origin\"><option value=\"Tiverton Parkway\">Tiverton Parkway (TVP)</option><option value=\"Exeter St Davids\">Exeter St Davids (EXD)</option><option value=\"Taunton\">Taunton (TAU)</option></select><ol class=\"rail-steps\"><li><span id=\"rail-start\">Tiverton Parkway</span> → Weymouth: check the available connections</li><li>Weymouth station → Bob Lucas Stadium, approximately two miles</li><li>Allow for an onward bus or taxi and the return connection</li></ol><div class=\"rail-target\"><strong>Search Saturday 31 October</strong><span>Choose an arrival that allows for the station-to-ground transfer before the 15:00 kick-off. Check return services and engineering work; no specific trains are assumed.</span></div><div class=\"actions\"><a class=\"button yellow\" href=\"https://www.nationalrail.co.uk/journey-planner/\" rel=\"noopener\" target=\"_blank\">Search trains &amp; fares ↗</a><button class=\"button white\" id=\"copy-rail\" type=\"button\">Copy search details</button></div><p class=\"source-line\">Exact trains, connections and fares for 31 October need checking in the planner. <a href=\"https://www.gwr.com/travel-information/travel-updates/planned-engineering\" rel=\"noopener\" target=\"_blank\">GWR engineering checks ↗</a></p>\n<div class=\"mini-note\"><strong>From the station</strong><p>Weymouth station is approximately two miles from the stadium. The club lists taxis from the station forecourt; check current local bus routes and stops if using the bus.</p><div class=\"actions\"><a class=\"text-link\" href=\"https://uptheterras.co.uk/club-info/directions-to-the-bob-lucas-stadium/\" rel=\"noopener\" target=\"_blank\">Club travel information ↗</a><a class=\"text-link\" href=\"https://www.google.com/maps/dir/?api=1&amp;origin=Weymouth+railway+station&amp;destination=Bob+Lucas+Stadium%2C+Weymouth+DT4+9XJ&amp;travelmode=walking\" rel=\"noopener\" target=\"_blank\">See the final walk ↗</a></div></div>\n<details><summary>Rail &amp; access notes</summary><p>Check station accessibility and the outward and return journeys before booking. Arrange accessible parking, drop-off or companion admission with Weymouth FC.</p><p>Check outward and return connections and any engineering work for Saturday 31 October.</p><a class=\"text-link\" href=\"https://www.nationalrail.co.uk/stations/weymouth/\" rel=\"noopener\" target=\"_blank\">Station information ↗</a> · <a class=\"text-link\" href=\"https://www.gwr.com/travel-information/travel-updates/planned-engineering\" rel=\"noopener\" target=\"_blank\">Engineering checks ↗</a></details>\n</article>\n</div>\n",
+    ".practical-grid": "\n<article class=\"panel\"><span class=\"eyebrow\">Arrival</span><h2>Where to park</h2><span class=\"tag reported\">Check matchday arrangements</span><p>Parking at the Bob Lucas Stadium is limited. Follow stewards and check availability, any charge and accessible parking with Weymouth FC.</p><p>Allow time to park and reach the turnstiles. Do not assume arrangements from an older fixture apply on 31 October.</p><a class=\"text-link\" href=\"https://www.google.com/maps/search/?api=1&amp;query=Bob+Lucas+Stadium+Weymouth+DT4+9XJ\" rel=\"noopener\" target=\"_blank\">Ground entrance on Maps ↗</a><p class=\"source-line\">Use the club’s current visitor guidance and avoid obstructing access.</p></article>\n<article class=\"panel\"><span class=\"eyebrow\">Food &amp; drink</span><h2>Something at the ground?</h2><span class=\"tag reported\">Check current matchday offer</span><p>The club’s visitor information describes bar and catering facilities at the stadium.</p><p>Check the matchday menu, prices, dietary options and away-supporter access directly with Weymouth FC.</p><a class=\"text-link\" href=\"https://uptheterras.co.uk/club-info/bob-lucas-stadium/\" rel=\"noopener\" target=\"_blank\">Ground facilities ↗</a><p class=\"source-line\">No menu or food prices have been assumed for this fixture.</p></article>\n<article class=\"panel\"><span class=\"eyebrow\">Good to know</span><h2>Make the day easier</h2><ul class=\"useful-list\"><li>Under-13s must be accompanied by a responsible adult; check the club’s junior ticket policy.</li><li>Save your ticket to your phone and use the designated away-supporter ticket link.</li><li>Confirm access requirements, companion admission and any segregation with Weymouth FC.</li><li>Check any supporter-coach arrangements and your return journey before travelling.</li></ul><a class=\"text-link\" href=\"https://uptheterras.co.uk/club-info/contact/\" rel=\"noopener\" target=\"_blank\">Club contact details ↗</a></article>\n",
+    ".lower-grid": "\n<article class=\"panel tickets\"><div class=\"section-top\"><div><span class=\"eyebrow\">Match-specific prices</span><h2>Who’s coming?</h2></div><span class=\"tag verified\">Official · 27 Oct</span></div><p>Online admission calculator for <strong>Weymouth v Tiverton, 31 October</strong>. Ticket-office rates: adult £15, concession £12, youth £7; under-16 £2.</p><div class=\"ticket-inputs\"><label>Adults (18–64) <span>£14 each</span><input id=\"adult\" inputmode=\"numeric\" max=\"30\" min=\"0\" type=\"number\" value=\"1\"/></label><label>Concessions <span>£11 each</span><input id=\"concession\" inputmode=\"numeric\" max=\"30\" min=\"0\" type=\"number\" value=\"0\"/></label><label>Youth (16–17) <span>£6 each</span><input id=\"youth\" inputmode=\"numeric\" max=\"30\" min=\"0\" type=\"number\" value=\"0\"/></label><label>Under 16s (13–15) <span>£2 each</span><input id=\"child\" inputmode=\"numeric\" max=\"30\" min=\"0\" type=\"number\" value=\"0\"/></label><label>Juniors (under 13) <span>£1 each</span><input id=\"junior\" inputmode=\"numeric\" max=\"30\" min=\"0\" type=\"number\" value=\"0\"/></label></div><div class=\"ticket-total\"><span>Estimated admission total<small>Travel, food and any booking fees extra</small></span><strong aria-live=\"polite\" id=\"ticket-total\">£14.00</strong></div><a class=\"button yellow\" href=\"https://uptheterras.co.uk/tickets/?ticket_category=away-tickets&amp;ticket_product=50261\" rel=\"noopener\" target=\"_blank\">Book away tickets with Weymouth ↗</a><p class=\"source-line\">Online match-specific prices shown. Junior ages use separate categories and must not be counted twice. Under-13s require an accompanying adult. Check eligibility and final checkout total; no tickets are reserved here.</p></article>\n<article class=\"panel\"><div class=\"section-top\"><div><span class=\"eyebrow\">Your matchday</span><h2>Ready for the trip?</h2></div><span class=\"check-progress\" id=\"check-progress\">0 / 5</span></div><div class=\"checklist\" id=\"checklist\"><label><input data-check=\"fixture\" type=\"checkbox\"/> Recheck fixture &amp; kick-off</label><label><input data-check=\"tickets\" type=\"checkbox\"/> Tickets saved to phone</label><label><input data-check=\"travel\" type=\"checkbox\"/> Road route / outward &amp; return trains checked</label><label><input data-check=\"arrival\" type=\"checkbox\"/> Parking or taxi / final leg sorted</label><label><input data-check=\"needs\" type=\"checkbox\"/> Access or dietary questions checked</label></div><label for=\"trip-notes\">My trip notes</label><textarea id=\"trip-notes\" maxlength=\"3000\" placeholder=\"Train to catch, parking plan, who’s driving…\" rows=\"4\"></textarea><p class=\"source-line\">Notes and checks stay in this browser on this device.</p></article>\n",
+    ".sources": "<summary>Sources, dates &amp; what still needs checking</summary><p>Weymouth fixture, venue and admission checked 27 October 2026, using the saved programme guide and current official away-ticket page. Football figures refresh from the shared results feed.</p><div id=\"sources-list\"></div><p>Confirm parking availability and charges, matchday food and dietary choices, accessibility, any supporter coach, segregation and outward / return train times before travelling.</p>",
+    ".footnote": "Plan ahead, then recheck the fixture and journey before leaving. Weymouth away guide · 31 October 2026"
+  },
+  "brief": {
+    "road": "Via the A35/A354 towards Dorchester and Weymouth, then follow local stadium signs. Check live directions.",
+    "rail": "Search outward and return services to Weymouth railway station. Allow for an onward bus or taxi to the Bob Lucas Stadium, approximately two miles away.",
+    "parking": "Parking is limited. Confirm fees, availability and accessible spaces with the club.",
+    "food": "Check the matchday catering offer, prices and dietary options with Weymouth FC."
+  },
+  "sources": [
+    {
+      "label": "Official fixture",
+      "url": "https://uptheterras.co.uk/first-team-fixtures-results/",
+      "status": "31 October, 15:00, Bob Lucas Stadium"
+    },
+    {
+      "label": "Away-supporter match tickets",
+      "url": "https://uptheterras.co.uk/tickets/?ticket_category=away-tickets&ticket_product=50261",
+      "status": "Match-specific online prices checked 27 October"
+    },
+    {
+      "label": "Admission and junior policy",
+      "url": "https://uptheterras.co.uk/club-info/admission-prices/",
+      "status": "Ticket-office rates and accompaniment rules"
+    },
+    {
+      "label": "Club directions",
+      "url": "https://uptheterras.co.uk/club-info/directions-to-the-bob-lucas-stadium/",
+      "status": "Road guidance and station transfer; recheck journeys"
+    },
+    {
+      "label": "Ground facilities and photograph",
+      "url": "https://uptheterras.co.uk/club-info/bob-lucas-stadium/",
+      "status": "Weymouth FC official stadium page"
+    },
+    {
+      "label": "Club contact",
+      "url": "https://uptheterras.co.uk/club-info/contact/",
+      "status": "Parking, accessibility and matchday queries"
+    },
+    {
+      "label": "Shared league results",
+      "url": "https://nickabull.github.io/Tiverton-Town-Get-Results/data.json",
+      "status": "Latest verified league results and standings"
+    }
+  ],
+  "hero_photo": "assets/away-days/bob-lucas-stadium.jpg",
+  "media_source": "https://uptheterras.co.uk/club-info/bob-lucas-stadium/"
+}

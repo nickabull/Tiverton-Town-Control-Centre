@@ -1,6 +1,7 @@
 (function () {
   'use strict';
-  const C = window.AwayDayCore, STORE = 'tivvy-away-larkhall-20261024-v1';
+  const C = window.AwayDayCore;
+  let STORE = '';
   let guide = null, football = null, snapshot = null;
   const $ = id => document.getElementById(id);
   const esc = text => String(text ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -21,9 +22,21 @@
     $('form').innerHTML = record.lastFive.map(r => `<span class="result-${r.outcome.toLowerCase()}" title="${esc(date(r.date) + ' · ' + r.opponent + ' (' + r.venue + ') ' + r.gf + '–' + r.ga)}" aria-label="${esc(r.outcome + ': ' + r.opponent + ', ' + date(r.date))}">${r.outcome}</span>`).join('');
     $('home-record').textContent = `At home: ${record.home.w}W · ${record.home.d}D · ${record.home.l}L   |   Goals ${record.gf} for / ${record.ga} against overall (GD ${record.gd > 0 ? '+' : ''}${record.gd})`;
     $('football-status').textContent = `${mode} · results through ${date(record.latest)} · feed updated ${record.updated || 'date unavailable'}`;
-    $('recent-results').innerHTML = `<table><caption class="source-line">Larkhall perspective; oldest first</caption><thead><tr><th>Date</th><th>Opponent</th><th>H/A</th><th>Score</th><th>Result</th></tr></thead><tbody>${record.lastFive.map(r => `<tr><td>${esc(date(r.date))}</td><td>${esc(r.opponent)}</td><td>${r.venue}</td><td>${r.gf}–${r.ga}</td><td>${r.outcome}</td></tr>`).join('')}</tbody></table>`;
-    const latestDate = record.latest;
-    if (latestDate >= '2026-10-20') document.querySelector('.upcoming').textContent = 'Pre-visit league games on 17 and 20 October are now within the displayed result cut-off. Check the match list and official fixture before travelling.';
+    $('recent-results').innerHTML = `<table><caption class="source-line">${esc(guide.display_name || guide.opponent)} results; oldest first; home score first</caption><thead><tr><th>Date</th><th>Opponent</th><th>H/A</th><th>Score</th><th>Result</th></tr></thead><tbody>${record.lastFive.map(r => `<tr><td>${esc(date(r.date))}</td><td>${esc(r.opponent)}</td><td>${r.venue}</td><td>${scoreHTML(r)}</td><td>${r.outcome}</td></tr>`).join('')}</tbody></table>`;
+    const latest = record.lastFive.at(-1);
+    if (latest) document.querySelector('.upcoming').textContent = `Latest league result: ${latest.venue === 'H' ? guide.display_name : latest.opponent} ${latest.venue === 'H' ? latest.gf : latest.ga}–${latest.venue === 'H' ? latest.ga : latest.gf} ${latest.venue === 'H' ? latest.opponent : guide.display_name}, ${date(latest.date)}. Football figures refresh from our shared results feed.`;
+  }
+  function scoreHTML(r) {
+    const ours = esc(r.gf), theirs = r.opponent === 'Tiverton Town' ? `<span style="color:#e31b23">${esc(r.ga)}</span>` : esc(r.ga);
+    return r.venue === 'H' ? `${ours}–${theirs}` : `${theirs}–${ours}`;
+  }
+  function renderGuide() {
+    for (const selector of ['.trip-hero','.guide-toolbar','.opposition','.travel-section','.practical-grid','.lower-grid','.sources','.footnote']) {
+      if (typeof guide.content?.[selector] !== 'string') throw new Error('Trip content is incomplete');
+      document.querySelector(selector).innerHTML = guide.content[selector];
+    }
+    if (/^assets\/away-days\/[a-z0-9-]+\.(jpg|png|webp)$/.test(guide.hero_photo || '')) document.querySelector('.trip-hero').style.backgroundImage = `url("${guide.hero_photo}")`;
+    document.querySelector('meta[name="description"]').content = `Tivvy away-day planner: ${guide.display_name}, ${date(guide.fixture.date)}. Tickets, travel and current league form.`;
   }
   async function fetchJson(url) {
     const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 12000);
@@ -45,7 +58,7 @@
   function updateRoute(event) {
     if (event) event.preventDefault();
     const origin = $('origin').value.trim() || 'Tiverton, Devon';
-    $('origin').value = origin; $('drive-link').href = C.drivingUrl(origin, 'Plain Ham, Charlcombe Lane, Bath BA1 8DJ');
+    $('origin').value = origin; $('drive-link').href = C.drivingUrl(origin, guide.fixture.address);
     save('origin', origin);
     if (event) message('Route ready from ' + origin + '. Open live directions for traffic, distance and journey time.');
   }
@@ -66,15 +79,16 @@
     $('check-progress').textContent = `${inputs.filter(i => i.checked).length} / ${inputs.length}`;
     save('checks', Object.fromEntries(inputs.map(i => [i.dataset.check, i.checked])));
   }
-  function railText() { return `Rail search for Larkhall Athletic v Tiverton Town: Saturday 24 October 2026. ${$('rail-origin').value} to Bath Spa, typically via Bristol Temple Meads. Search arrival at Bath Spa by 13:15 and return departures after 18:00. Allow for the final leg to/from Plain Ham, Charlcombe Lane, BA1 8DJ. Targets only; confirm actual trains, fares and engineering works in the official planner.`; }
+  function railText() { return `Rail search for ${guide.display_name} v Tiverton Town, ${date(guide.fixture.date)}, kick-off ${guide.fixture.kickoff} UK time. Start: ${$('rail-origin').value}. ${guide.brief.rail} Confirm actual trains, fares and engineering works in the official planner.`; }
   function programmeBrief() {
-    return `PLAN YOUR NEXT AWAY TRIP\nLarkhall Athletic v Tiverton Town\nSaturday 24 October 2026, 15:00 BST\nCamella Stadium (Plain Ham), Charlcombe Lane, Bath BA1 8DJ.\n\nTICKETS\nAdult £12; concession £8; Bath Spa student £7; children 5–15 £4; under 5s free. Checked 17 October. Final checkout/eligibility applies. Book: ${guide.fixture.tickets}\n\nROAD & PARKING\nPlan from ${$('origin').value}: ${$('drive-link').href}\nOn-site parking is reported by venue guides; the 24 October fee, availability and accessible arrangements need confirmation. Narrow uphill approach.\n\nRAIL\n${railText()}\nFirst Bus 6a/7 toward Larkhall: check current Bath stops and allow for the steep final walk; taxi is an alternative.\n\nFOOD\nVisitors report a bar, burgers, chips, hot dogs, pasties and filled rolls. Current menu, prices and dietary options need checking.\n\nLEAGUE SNAPSHOT\nThrough ${date(football.latest)}: ${ordinal(football.position)} (results-based rank); P${football.p} W${football.w} D${football.d} L${football.l}, ${football.pts} points. Last five oldest first: ${football.lastFive.map(r => r.outcome).join(' ')}. League games only.\n\nSOURCE LINKS\n${guide.sources.map(s => s.label + ': ' + s.url).join('\n')}\n\nRecheck the fixture and travel before leaving.`;
+    const admission = [...document.querySelectorAll('.ticket-inputs label')].map(el => el.textContent.trim()).join('; ');
+    return `PLAN YOUR NEXT AWAY TRIP\n${guide.display_name} v Tiverton Town\n${date(guide.fixture.date)}, ${guide.fixture.kickoff} UK time\n${guide.fixture.address}\n\nONLINE TICKETS\n${admission}. Checked ${date(guide.reviewed_on)}. Check eligibility and final checkout total. Book: ${guide.fixture.tickets}\n\nROAD & PARKING\n${guide.brief.road}\nPlan from ${$('origin').value}: ${$('drive-link').href}\n${guide.brief.parking}\n\nRAIL\n${railText()}\n\nFOOD\n${guide.brief.food}\n\nLEAGUE SNAPSHOT\nThrough ${date(football.latest)}: ${ordinal(football.position)}; P${football.p} W${football.w} D${football.d} L${football.l}, ${football.pts} points. Last five oldest first: ${football.lastFive.map(r => r.outcome).join(' ')}. League games only.\n\nSOURCE LINKS\n${guide.sources.map(s => s.label + ': ' + s.url).join('\n')}\n\nRecheck the fixture and travel before leaving.`;
   }
   function downloadCalendar() {
     if (!guide) return;
     const url = URL.createObjectURL(new Blob([C.calendar(guide.fixture)], { type: 'text/calendar;charset=utf-8' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'Larkhall-v-Tiverton-24-Oct-2026.ics'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-    message('Calendar file downloaded. Kick-off is 15:00 UK time on 24 October.');
+    const a = document.createElement('a'); a.href = url; a.download = guide.id + '.ics'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    message(`Calendar file downloaded. Kick-off is ${guide.fixture.kickoff} UK time on ${date(guide.fixture.date)}.`);
   }
   function restore() {
     const state = read();
@@ -82,9 +96,10 @@
     if (['Tiverton Parkway', 'Exeter St Davids', 'Taunton'].includes(state.railOrigin)) $('rail-origin').value = state.railOrigin;
     $('rail-start').textContent = $('rail-origin').value;
     for (const el of document.querySelectorAll('[data-check]')) el.checked = state.checks?.[el.dataset.check] === true;
-    for (const key of ['adult', 'concession', 'student', 'child', 'infant']) if (state.party && key in state.party) $(key).value = C.count(state.party[key]);
+    for (const key of Object.keys(guide.ticket_prices)) if (state.party && key in state.party) $(key).value = C.count(state.party[key]);
     updateRoute(); planDeparture(); checks();
   }
+  function wireEvents() {
   document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
     const mode = button.dataset.mode;
     document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
@@ -93,20 +108,24 @@
   $('road-form').addEventListener('submit', updateRoute);
   $('origin').addEventListener('change', () => updateRoute());
   for (const id of ['arrive', 'journey', 'buffer']) $(id).addEventListener('input', planDeparture);
-  for (const key of ['adult', 'concession', 'student', 'child', 'infant']) $(key).addEventListener('change', tickets);
+  for (const key of Object.keys(guide.ticket_prices)) $(key).addEventListener('change', tickets);
   $('rail-origin').addEventListener('change', () => { $('rail-start').textContent = $('rail-origin').value; save('railOrigin', $('rail-origin').value); });
   document.querySelectorAll('[data-check]').forEach(input => input.addEventListener('change', checks));
   $('trip-notes').addEventListener('input', () => save('trip-notes', $('trip-notes').value));
   $('copy-rail').addEventListener('click', () => copy(railText(), 'Rail search details copied. Paste them into your notes, then use the official planner.'));
   $('copy-guide').addEventListener('click', () => { if (guide && football) copy(programmeBrief(), 'Programme brief copied, including dates and source links.'); });
   $('calendar').addEventListener('click', downloadCalendar); $('print').addEventListener('click', () => window.print()); $('refresh').addEventListener('click', refreshFootball);
-  restore();
+  }
   (async () => {
     try {
-      guide = await fetchJson('data/away-trip-larkhall.json?v=20261017-1');
+      const binding = await fetchJson('data/away-trip-binding.json?v=' + Date.now());
+      if (!/^data\/away-trip-[a-z0-9-]+\.json$/.test(binding.trip_source || '')) throw new Error('No approved trip selected');
+      guide = await fetchJson(binding.trip_source + '?v=' + Date.now());
+      STORE = 'tivvy-away-' + guide.id + '-v2';
+      renderGuide(); wireEvents(); restore();
       snapshot = C.summarise(guide.football, guide.opponent, today()); renderFootball(snapshot, 'Saved verified snapshot');
       $('sources-list').innerHTML = guide.sources.map(s => `<div class="source-item"><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)} ↗</a><span>${esc(s.status)}</span></div>`).join('');
-      if (today() > guide.fixture.date) { $('demo-label').textContent = 'Larkhall · demo archive'; document.querySelector('.upcoming').textContent = 'This demonstration is for the fixture on 24 October 2026. Its tickets and travel research are retained as a dated guide, not advice for a new fixture.'; }
+      if (today() > guide.fixture.date) { $('demo-label').textContent = guide.display_name + ' · past trip'; document.querySelector('.upcoming').textContent = 'This guide is for ' + date(guide.fixture.date) + '. Its travel and ticket information is retained for that fixture.'; }
       $('refresh').disabled = false; $('copy-guide').disabled = false; tickets();
       await refreshFootball();
     } catch {

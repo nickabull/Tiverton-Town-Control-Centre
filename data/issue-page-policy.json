@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "design_id": "DAHYKUo9Tzo",
+  "audited_at": "2026-10-27T23:55:39.381Z",
+  "groups": [
+    {
+      "key": "last_time_out",
+      "name": "Darren’s match report",
+      "page_keys": [
+        "last_time_out_1",
+        "last_time_out_2",
+        "last_time_out_3",
+        "last_time_out_4"
+      ],
+      "default_count": 4,
+      "max_count": 4,
+      "kind": "editorial",
+      "fresh_content_required": true
+    },
+    {
+      "key": "opposition_preview",
+      "name": "Darren’s match preview",
+      "page_keys": [
+        "opposition_preview_1",
+        "opposition_preview_2",
+        "opposition_preview_3",
+        "opposition_preview_4"
+      ],
+      "default_count": 4,
+      "max_count": 4,
+      "kind": "editorial",
+      "fresh_content_required": true
+    },
+    {
+      "key": "opposition_pen_pics",
+      "name": "Opposition pen pictures",
+      "page_keys": [
+        "opposition_2",
+        "opposition_4",
+        "opposition_3",
+        "opposition_pen_pics_4",
+        "opposition_pen_pics_5",
+        "opposition_pen_pics_6"
+      ],
+      "default_count": 6,
+      "max_count": 7,
+      "kind": "editorial",
+      "fresh_content_required": true,
+      "extra_page_template_key": "opposition_pen_pics_6"
+    },
+    {
+      "key": "opposition_facts",
+      "name": "Opposition club facts",
+      "page_keys": [
+        "opposition_1"
+      ],
+      "default_count": 1,
+      "max_count": 1,
+      "kind": "editorial",
+      "fresh_content_required": true
+    },
+    {
+      "key": "feature_slot",
+      "name": "Feature slot",
+      "page_keys": [
+        "feature_slot"
+      ],
+      "default_count": 1,
+      "max_count": 1,
+      "kind": "editorial"
+    },
+    {
+      "key": "today_in_60",
+      "name": "Today in 60 Seconds",
+      "page_keys": [
+        "today_in_60"
+      ],
+      "default_count": 1,
+      "max_count": 1,
+      "kind": "guided"
+    },
+    {
+      "key": "next_away_trip",
+      "name": "Next Away Trip",
+      "page_keys": [
+        "next_away_trip"
+      ],
+      "default_count": 1,
+      "max_count": 1,
+      "kind": "guided"
+    },
+    {
+      "key": "opposition_photos",
+      "name": "Match-specific archive photos — review captions",
+      "page_keys": [
+        "fixed_20",
+        "fixed_34"
+      ],
+      "default_count": 2,
+      "max_count": 2,
+      "kind": "media",
+      "fresh_content_required": true
+    }
+  ],
+  "rules": {
+    "unused_pages": "Omit from the approved issue copy; never delete or hide master pages. Do not put old content in an appendix.",
+    "more_pages": "Request an explicitly approved insertion into the working copy using an existing approved layout. Resolve fresh IDs and reflow; never truncate, shrink fonts, or remove protected artwork to make room.",
+    "native_targets": "After copying or inserting, reread the working design. Source page IDs and element IDs are not assumed to survive copying.",
+    "print": "Report the final included count modulo four. Padding requires approved filler pages; never silently add blanks or remove adverts."
+  }
+}

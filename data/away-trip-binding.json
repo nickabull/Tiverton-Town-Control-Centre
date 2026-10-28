@@ -20,7 +20,7 @@
   "editable_fields": [
     {
       "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-A1",
-      "text": "  WEYMOUTH\n  FC",
+      "text": "\u2003\u2003WEYMOUTH\n\u2003\u2003FC",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -35,7 +35,7 @@
     },
     {
       "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B1",
-      "text": "Saturday 31 October 2026 · 15:00\nSouthern League Division One South",
+      "text": "Saturday 31 October 2026 \u00b7 15:00\nSouthern League Division One South",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -65,7 +65,7 @@
     },
     {
       "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B2",
-      "text": "Bob Lucas Stadium · Radipole Lane\nWeymouth, Dorset, DT4 9XJ",
+      "text": "Bob Lucas Stadium \u00b7 Radipole Lane\nWeymouth, Dorset, DT4 9XJ",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -95,7 +95,7 @@
     },
     {
       "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B3",
-      "text": "Online: Adults £14 · Concessions £11 · 16–17s £6\nAt ticket office: £15 · £12 · £7 respectively\nUnder 16s £2. Check under-13 accompaniment policy.",
+      "text": "Online: Adults \u00a314 \u00b7 Concessions \u00a311 \u00b7 16\u201317s \u00a36\nAt ticket office: \u00a315 \u00b7 \u00a312 \u00b7 \u00a37 respectively\nUnder 16s \u00a32. Check under-13 accompaniment policy.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -185,7 +185,7 @@
     },
     {
       "element_id": "PBlkQ5f6HvFTVtKQ-LBT22yQ21LhGRZGf-B6",
-      "text": "League leaders at the last verified check: P11 W10 D1 L0 · 31 points.\nMost recent confirmed league result: Bristol Manor Farm 1–4 Weymouth (20 October). Recheck after 27 October.",
+      "text": "League leaders at the last verified check: P11 W10 D1 L0 \u00b7 31 points.\nMost recent confirmed league result: Bristol Manor Farm 1\u20134 Weymouth (20 October). Recheck after 27 October.",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -236,7 +236,6 @@
   ],
   "media": [
     {
-      "element_id": "PBlkQ5f6HvFTVtKQ-LB5RkqsRpGmS3yms",
       "asset_id": "MAHNec_oLAE",
       "geometry": {
         "type": "RECT",
@@ -248,10 +247,10 @@
           "width": 1215.9727835015601,
           "height": 942.5658385452197
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PBlkQ5f6HvFTVtKQ-LBRmxM1V3XkLvBZx",
       "asset_id": "MAHYZP90-W4",
       "geometry": {
         "type": "RECT",
@@ -263,10 +262,10 @@
           "width": 360,
           "height": 202.63000000000002
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PBlkQ5f6HvFTVtKQ-LB4mBXGB3cBCl03P",
       "asset_id": "MAHYHTJLF7U",
       "geometry": {
         "type": "RECT",
@@ -278,7 +277,8 @@
           "width": 28,
           "height": 28
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     }
   ],
   "rules": {
@@ -290,7 +290,7 @@
     "manual_edits": "Reread Canva, compare with baseline and preserve manual changes; flag disagreements. Update binding only after saving.",
     "font": "Antonio",
     "subtitle_date": "Use source scrape date in Europe/London when a subtitle exists.",
-    "ticket_prices": "Weymouth FC 2026/27 match admission: online adult £14/concession £11/youth £6; ticket office £15/£12/£7; under 16 £2. Recheck before publication.",
+    "ticket_prices": "Weymouth FC 2026/27 match admission: online adult \u00a314/concession \u00a311/youth \u00a36; ticket office \u00a315/\u00a312/\u00a37; under 16 \u00a32. Recheck before publication.",
     "no_unverified_journey_times": true,
     "row_fills": {
       "gold": "#FFD400",
@@ -314,5 +314,10 @@
   },
   "trip_source": "data/away-trip-weymouth.json",
   "table_id": "LBT22yQ21LhGRZGf",
-  "fixture": "Weymouth FC v Tiverton Town, 31 October 2026, 15:00"
+  "fixture": "Weymouth FC v Tiverton Town, 31 October 2026, 15:00",
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "verified_at": "2026-10-27T23:55:39.381Z",
+  "copy_rule": "These are master locators only. Resolve the corresponding page and all native elements in the NEW issue copy before editing.",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

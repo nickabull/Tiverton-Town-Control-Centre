@@ -159,15 +159,18 @@
     }
   ],
   "rules": {
-    "target": "CHATGPT LEAGUE TEMPLATE only; never use the Devon County Cup template or an archived issue",
-    "resolve_live": "Use the existing page registry and the live named league design to resolve the four report pages and their native report text, headings, match metadata, credits and image frames. Read current content and geometry in the connected session; never publish it to this configuration.",
+    "target": "Use CHATGPT LEAGUE TEMPLATE as the source only. Edit a newly created issue copy derived from its approved pages; never edit the master, cup template or an archived issue.",
+    "resolve_live": "Use the audited registry to locate the source section by unique page ID. Re-read current source content, copy the selected issue pages, and resolve all native targets again inside that new issue copy. Never publish report/preview copy or fresh native element metadata to the public repository.",
     "report": "Preserve supplied wording, paragraph order, line-ups, substitutes and scorers. Never silently summarise or correct names/facts. Flag possible mistakes for Nick.",
     "sources": "Accept pasted report, source URL or Word attachment supplied in the connected chat. Import referenced copy before editing.",
     "defaults": "Unedited controls keep the live item. Explicit text edits, including clearing a text box, are applied; blank media references keep the current media. New report copy requires correct fixture metadata from the report or checked source, with explicit overrides taking precedence; never reuse a stale opponent or invent a date.",
     "native_editability": "Keep native editable Antonio text and existing frame geometry. Never flatten the report or template to images.",
     "media": "Resolve explicitly supplied public Flickr photo links, Canva asset IDs/links or Canva locations only during the connected run. Preserve existing frames and check photo credits. Blank replacement retains current image or crest.",
-    "manual_edits": "Reread the live league spread and preserve all unspecified manual changes. Never change page count/order or surrounding artwork. Only explicit headline/credit text overrides may touch their named text boxes.",
+    "manual_edits": "Reread the current master and preserve unspecified manual edits. Build a new issue copy using only approved selected pages. Do not change the master page count/order/artwork. Resolve new native IDs after copying. Named content changes are limited to the approved white content areas, headings, metadata and explicit media/credit overrides.",
     "fit": "Split at paragraph boundaries in order. Estimated capacities only guide the draft; inspect every page in Canva and flag overflow. Do not truncate wording, shrink type or move frames to force a fit.",
     "privacy": "Report text and media references entered in the automator stay in this browser/local downloaded request. Do not commit them, live Canva content or native design metadata to the public repository."
-  }
+  },
+  "issue_page_policy": "data/issue-page-policy.json",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "design_id": "DAHYKUo9Tzo",
+  "design_title": "CHATGPT LEAGUE TEMPLATE",
+  "audited_at": "2026-10-27T23:55:39.381Z",
+  "master_unchanged": true,
+  "live_page_count": 52,
+  "previous_recorded_page_count": 55,
+  "moved_page_count": 36,
+  "missing_old_keys": [
+    {
+      "key": "executive_update_1",
+      "name": "Executive Update 1",
+      "page_id": "PBjhtDSQYpmm8gzY"
+    },
+    {
+      "key": "executive_update_2",
+      "name": "Executive Update 2",
+      "page_id": "PBfhxfCjlCmXpgCt"
+    },
+    {
+      "key": "fixed_11",
+      "name": "Fixed page 11",
+      "page_id": "PBgW387cV9dpdl9s"
+    },
+    {
+      "key": "feature_slot",
+      "name": "Feature Slot",
+      "page_id": "PBTGvLtr4HbQ4G8z"
+    },
+    {
+      "key": "player_stats",
+      "name": "Player Stats",
+      "page_id": "PB1SQB08TLKnRK0C"
+    },
+    {
+      "key": "your_tivvy_5",
+      "name": "Your Tivvy / League Context",
+      "page_id": "PBW1gnsmVvc6xbl9"
+    }
+  ],
+  "new_live_page_count": 6,
+  "active_mapped_count": 52,
+  "missing_active_page_ids": [],
+  "binding_reconciliation": [
+    {
+      "key": "today_in_60",
+      "old_page_id": "PBkj4y3XTWnmZGvp",
+      "page_id": "PBkj4y3XTWnmZGvp",
+      "position": 3,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    },
+    {
+      "key": "around_league",
+      "old_page_id": "PBtHJC2fqTlx9ZPC",
+      "page_id": "PB7mSlQ245FM5gf3",
+      "position": 14,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    },
+    {
+      "key": "results_matrix",
+      "old_page_id": "PB9P9mXjTZSWtXpM",
+      "page_id": "PB9P9mXjTZSWtXpM",
+      "position": 12,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    },
+    {
+      "key": "league_table",
+      "old_page_id": "PBmPqH3l8hyRtXRV",
+      "page_id": "PBPGCTmRkfvCkcck",
+      "position": 15,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    },
+    {
+      "key": "tivvy_glance",
+      "old_page_id": "PBr63yHy7HjBnkDQ",
+      "page_id": "PBr63yHy7HjBnkDQ",
+      "position": 16,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    },
+    {
+      "key": "next_away_trip",
+      "old_page_id": "PBlkQ5f6HvFTVtKQ",
+      "page_id": "PBlkQ5f6HvFTVtKQ",
+      "position": 50,
+      "native_elements_must_be_resolved_in_issue_copy": true
+    }
+  ],
+  "findings": [
+    {
+      "severity": "fixed",
+      "title": "52 live pages now registered",
+      "detail": "Every live page has one active registry entry. Page order is refreshed by unique ID, not by remembered page number."
+    },
+    {
+      "severity": "fixed",
+      "title": "Variable sections are fully mapped",
+      "detail": "Four report layouts, four preview layouts, one club-facts page and six pen-picture layouts are registered. A seventh pen-pics page requires a reviewed insertion into the issue copy."
+    },
+    {
+      "severity": "review",
+      "title": "Executive Update and Player Stats are absent",
+      "detail": "Their old page IDs are not in this master. They are marked unavailable and cannot be written through stale bindings. Your Tivvy / League Context and an older fixed page are also absent."
+    },
+    {
+      "severity": "review",
+      "title": "Page 52 is protected artwork",
+      "detail": "Its live ID is registered, but the connector returns no editable text or image fills for it. Keep the artwork and review its purpose in the proof; do not treat it as spare overflow."
+    },
+    {
+      "severity": "action",
+      "title": "Next programme fixture needs confirmation",
+      "detail": "The saved fixture is still Dorchester on 27 October. Do not use that cover, crest or issue number for the next issue without confirming the new fixture."
+    },
+    {
+      "severity": "action",
+      "title": "Connected Canva execution is still required",
+      "detail": "The browser can assemble one reviewed issue request and local images. ChatGPT then uses the connected Canva tools to copy selected pages, populate native content, check fit and return the proof. No direct browser-to-Canva publishing connection is installed."
+    },
+    {
+      "severity": "action",
+      "title": "Read native targets again in the issue copy",
+      "detail": "Replaced native tables have new element IDs. The connected run must resolve every target afresh after copying; audited master locators are not transferable write targets."
+    },
+    {
+      "severity": "fixed",
+      "title": "Cached write locators retired",
+      "detail": "145 cached native locators that were not verified against this text scan have been removed from bindings. Asset IDs and layout rules remain. The connected run resolves fresh image/text targets before writing."
+    }
+  ],
+  "cached_native_locators_retired": 145
+}

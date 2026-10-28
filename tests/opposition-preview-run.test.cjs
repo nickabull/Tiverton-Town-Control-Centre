@@ -6,7 +6,7 @@ assert.equal(Object.values(split).reverse().filter(Boolean).join('\n\n'),report)
 const bodies=binding.fields.filter(f=>f.kind==='body');
 assert.equal(bodies.map(f=>split[f.key]).filter(Boolean).join('\n\n'),report);
 const plan=api.prepare(binding,{report,overrides:{heading_1:'OUR LAST MATCH'},media:{opponent_crest:'Canva asset MAexample'}});
-assert.equal(plan.target_design_title,'CHATGPT LEAGUE TEMPLATE');assert.equal(plan.standalone_canva_write_supported,false);
+assert.equal(plan.source_design_title,'CHATGPT LEAGUE TEMPLATE');assert.equal(plan.target_design_title,null);assert.equal(plan.target_policy,'new_issue_copy_only');assert.equal(plan.standalone_canva_write_supported,false);
 assert.equal(plan.text_updates.find(u=>u.key==='heading_1').text,'OUR LAST MATCH');
 assert.equal(plan.media_replacements.length,1);assert.equal(plan.media_replacements[0].preserve_existing_frame,true);
 assert.ok(plan.resolve_match_metadata);assert.ok(plan.metadata_targets.every(m=>m.explicit_override===null));

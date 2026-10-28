@@ -226,16 +226,19 @@
     }
   ],
   "rules": {
-    "target": "CHATGPT LEAGUE TEMPLATE only; preview pages only. Never use the cup design, an archived issue or the club facts/squad/honours pages.",
-    "resolve_live": "Use the existing registry keys opposition_preview_1 through opposition_preview_4 to resolve the four preview pages in the live named league design. Read native text/media elements in the connected session; do not publish live copy, native IDs or geometry to this public configuration.",
+    "target": "Use CHATGPT LEAGUE TEMPLATE as the source only. Edit a newly created issue copy derived from its approved pages; never edit the master, cup template or an archived issue.",
+    "resolve_live": "Use the audited registry to locate the source section by unique page ID. Re-read current source content, copy the selected issue pages, and resolve all native targets again inside that new issue copy. Never publish report/preview copy or fresh native element metadata to the public repository.",
     "report": "Preserve Darren\u2019s supplied preview wording and paragraph order. Never silently summarise, rewrite names or correct facts; flag possible mistakes for Nick.",
     "sources": "Accept pasted report, source URL or Word attachment supplied in the connected chat. Import referenced copy before editing.",
     "defaults": "Unedited text controls keep live content. Blank media references retain current media. For a new preview, verify upcoming opponent, fixture date, kick-off, venue, competition and round from the source; explicit overrides take precedence. Do not carry stale opposition details into the new preview.",
     "native_editability": "Keep native editable Antonio text and existing frame geometry. Never flatten the report or template to images.",
     "media": "Resolve explicit Flickr links, Canva asset IDs/links or Canva locations in the connected run. Replace only the specified opening photo, closing photo, standalone crest or the four designated watermark crest fills. Preserve all frame geometry, opacity, layering and other background/template artwork. Check bylines.",
-    "manual_edits": "Reread the live league spread and preserve all unspecified manual changes. Never change page count/order or surrounding artwork. Only explicit headline/credit text overrides may touch their named text boxes.",
+    "manual_edits": "Reread the current master and preserve unspecified manual edits. Build a new issue copy using only approved selected pages. Do not change the master page count/order/artwork. Resolve new native IDs after copying. Named content changes are limited to the approved white content areas, headings, metadata and explicit media/credit overrides.",
     "fit": "Six existing native text boxes across four preview pages. Split paragraphs in their original order; estimates guide the draft only. Inspect all four pages for fit. Never truncate copy, shrink Antonio type or move images/template to force a fit.",
     "privacy": "Report text and media references entered in the automator stay in this browser/local downloaded request. Do not commit them, live Canva content or native design metadata to the public repository.",
     "scope": "Exactly the four logical opposition_preview pages. Exclude opposition_1 through opposition_4, Last Time Out and every other section."
-  }
+  },
+  "issue_page_policy": "data/issue-page-policy.json",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

@@ -37,9 +37,10 @@ td input,td textarea,td select{width:100%;border:1px solid #cfcfc8;border-radius
   <button class="btn" onclick="downloadJSON()">Download planner JSON</button>
   <button class="btn" onclick="downloadCSV()">Download planner CSV</button>
   <button class="btn dark" onclick="clearPlanner()">Clear working entries</button>
+  <button class="btn" id="legacyPlannerExport" hidden onclick="downloadLegacyPlanner()">Download old number-only planner</button>
   <span id="status" class="status"></span>
 </div>
-<p class="help">Use rough wording if you like: “same”, “ad stays”, “change opponent”, “Nick chooses photo”, “pull from Player Info”, “pull from Get Results”. The important thing is identifying what changes on every page and where it comes from.</p>
+<p class="help"><strong>Current page IDs:</strong> this worksheet follows the audited live master. The Automator’s <a href="programme-builder-v21.html#issueBuilder">Build this issue</a> controls determine which pages enter each programme.</p><p class="help">Use rough wording if you like: “same”, “ad stays”, “change opponent”, “Nick chooses photo”, “pull from Player Info”, “pull from Get Results”. The important thing is identifying what changes on every page and where it comes from.</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Page</th><th>Page purpose</th><th>Keep exactly as-is?</th><th>What changes each issue?</th><th>Source of new content</th><th>Who chooses it?</th><th>Automatic / manual</th><th>Carry forward?</th><th>Assets needed</th><th>Notes</th></tr></thead>
 <tbody id="plannerRows"></tbody>
@@ -47,15 +48,9 @@ td input,td textarea,td select{width:100%;border:1px solid #cfcfc8;border-radius
 </section>
 </main>
 <script>
-const rowDefaults={
-  1:{purpose:'Cover',keep:'No',changes:'Issue number; opponent logo; date; kick-off time; hero photo; featured player name/number',source:'Fixture data + Viv Flickr + Nick choice',chooser:'Nick chooses player/photo',mode:'Partly automatic',carry:'No',assets:'Opponent logo; selected player photo',notes:'Example: Ed Palmer #4'},
-  13:{purpose:'SL Division One South results matrix',keep:'No',changes:'Current league results matrix',source:'Get Results project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'League results data',notes:'Programme page 13'},
-  25:{purpose:'Player appearances / fixtures',keep:'No',changes:'Result; starting XI; captain; goals; substitution information',source:'Player Info project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'Player Info data',notes:'Programme page 25'},
-  26:{purpose:'Player appearances continuation',keep:'No',changes:'Goals; substitution times; substitutes',source:'Player Info project',chooser:'Automatic',mode:'Fully automatic',carry:'No',assets:'Player Info data',notes:'Programme page 26'}
-};
-function makeRow(n){
- const d=rowDefaults[n]||{};
- return '<tr data-page="'+n+'"><td class="page">'+n+'</td>'+
+function makeRow(p){
+ const n=p.position,d={purpose:p.name,keep:p.type==='FIXED'?'Yes':'No',source:p.type==='AUTO'?'Shared Match Centre feeds':'Current issue inputs / approved master',mode:p.type==='FIXED'?'Static':p.type==='AUTO'?'Fully automatic':'Partly automatic',carry:p.type==='FIXED'?'Yes':'Review',notes:'Match by immutable page ID; current position may change.'};
+ return '<tr data-page="'+n+'" data-page-id="'+escAttr(p.master_page_id)+'" data-page-key="'+escAttr(p.key)+'"><td class="page">'+n+'<br><code style="font-size:9px;overflow-wrap:anywhere">'+escText(p.master_page_id)+'</code></td>'+
  '<td><input data-k="purpose" value="'+escAttr(d.purpose||'')+'" placeholder="e.g. advert, cover, manager notes"></td>'+
  '<td><select data-k="keep"><option></option><option'+sel(d.keep,'Yes')+'>Yes</option><option'+sel(d.keep,'No')+'>No</option><option'+sel(d.keep,'Mostly')+'>Mostly</option></select></td>'+
  '<td><textarea data-k="changes" placeholder="What changes for each match?">'+escText(d.changes||'')+'</textarea></td>'+
@@ -67,17 +62,28 @@ function makeRow(n){
  '<td><textarea data-k="notes">'+escText(d.notes||'')+'</textarea></td></tr>';
 }
 function sel(a,b){return a===b?' selected':''}function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}function escText(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-document.getElementById('plannerRows').innerHTML=Array.from({length:44},(_,i)=>makeRow(i+1)).join('');
+
 const metaIds=['refIssue','newIssue','issueNo','matchDate'];
-function collect(){const rows=[];document.querySelectorAll('#plannerRows tr').forEach(tr=>{const r={page:Number(tr.dataset.page)};tr.querySelectorAll('[data-k]').forEach(el=>r[el.dataset.k]=el.value);rows.push(r)});const meta={};metaIds.forEach(id=>meta[id]=document.getElementById(id).value);return {meta,rows,saved:new Date().toISOString()}}
-function populate(d){if(!d)return;metaIds.forEach(id=>document.getElementById(id).value=d.meta?.[id]||'');(d.rows||[]).forEach(r=>{const tr=document.querySelector('tr[data-page="'+r.page+'"]');if(!tr)return;tr.querySelectorAll('[data-k]').forEach(el=>{if(r[el.dataset.k]!==undefined)el.value=r[el.dataset.k]})})}
+function collect(){const rows=[];document.querySelectorAll('#plannerRows tr').forEach(tr=>{const r={page:Number(tr.dataset.page),master_page_id:tr.dataset.pageId,page_key:tr.dataset.pageKey};tr.querySelectorAll('[data-k]').forEach(el=>r[el.dataset.k]=el.value);rows.push(r)});const meta={};metaIds.forEach(id=>meta[id]=document.getElementById(id).value);return {schema_version:2,design_id:'DAHYKUo9Tzo',meta,rows,saved:new Date().toISOString()}}
+function populate(d){if(!d)return;metaIds.forEach(id=>document.getElementById(id).value=d.meta?.[id]||'');(d.rows||[]).forEach(r=>{const tr=r.master_page_id?document.querySelector('tr[data-page-id="'+r.master_page_id+'"]'):null;if(!tr)return;tr.querySelectorAll('[data-k]').forEach(el=>{if(r[el.dataset.k]!==undefined)el.value=r[el.dataset.k]})})}
 function saveAll(){localStorage.setItem('tivvyProgrammePlanner',JSON.stringify(collect()));const s=document.getElementById('status');s.textContent='Saved';s.className='status saved';setTimeout(()=>s.textContent='',1800)}
 function loadSaved(){try{const d=JSON.parse(localStorage.getItem('tivvyProgrammePlanner')||'null');if(d)populate(d)}catch(e){}}
 function downloadBlob(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function downloadJSON(){downloadBlob('tivvy-programme-page-plan.json',JSON.stringify(collect(),null,2),'application/json')}
-function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function downloadCSV(){const d=collect();const head=['Page','Page purpose','Keep exactly as-is?','What changes each issue?','Source of new content','Who chooses it?','Automatic / manual','Carry forward?','Assets needed','Notes'];const lines=[head.map(csv).join(',')];d.rows.forEach(r=>lines.push([r.page,r.purpose,r.keep,r.changes,r.source,r.chooser,r.mode,r.carry,r.assets,r.notes].map(csv).join(',')));downloadBlob('tivvy-programme-page-plan.csv',lines.join('\r\n'),'text/csv')}
+function csv(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function downloadCSV(){const d=collect();const head=['Page','Unique Canva Page ID','Logical key','Page purpose','Keep exactly as-is?','What changes each issue?','Source of new content','Who chooses it?','Automatic / manual','Carry forward?','Assets needed','Notes'];const lines=[head.map(csv).join(',')];d.rows.forEach(r=>lines.push([r.page,r.master_page_id,r.page_key,r.purpose,r.keep,r.changes,r.source,r.chooser,r.mode,r.carry,r.assets,r.notes].map(csv).join(',')));downloadBlob('tivvy-programme-page-plan.csv',lines.join('\r\n'),'text/csv')}
 function clearPlanner(){if(!confirm('Clear the working planner from this browser?'))return;localStorage.removeItem('tivvyProgrammePlanner');location.reload()}
 document.addEventListener('input',()=>{document.getElementById('status').textContent='Unsaved changes';document.getElementById('status').className='status'});
-loadSaved();
+async function loadCurrentPageMap(){
+ try{const response=await fetch('data/programme-page-registry.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Page map unavailable');const registry=await response.json();document.getElementById('plannerRows').innerHTML=registry.pages.filter(p=>p.active!==false).sort((a,b)=>a.position-b.position).map(makeRow).join('');
+ const raw=localStorage.getItem('tivvyProgrammePlanner');const saved=JSON.parse(raw||'null');
+ if(saved?.rows?.some(r=>!r.master_page_id)){
+  if(!localStorage.getItem('tivvyProgrammePlanner-numbered-backup'))localStorage.setItem('tivvyProgrammePlanner-numbered-backup',raw);
+  document.getElementById('status').textContent='52 current pages loaded. Old number-only notes are retained separately and have not been applied to different pages.';
+  document.getElementById('legacyPlannerExport').hidden=false;
+ }else loadSaved();
+ }catch(e){document.getElementById('status').textContent='Current page map unavailable: '+e.message;}
+}
+function downloadLegacyPlanner(){downloadBlob('tivvy-legacy-numbered-planner.json',localStorage.getItem('tivvyProgrammePlanner-numbered-backup')||localStorage.getItem('tivvyProgrammePlanner')||'{}','application/json');}
+loadCurrentPageMap();
 </script>
 <script src="programme-nav.js?v=20261018-theme-1"></script></body></html>

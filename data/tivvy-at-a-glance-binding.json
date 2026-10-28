@@ -400,7 +400,6 @@
   ],
   "media": [
     {
-      "element_id": "PBr63yHy7HjBnkDQ-LBDccdnP8ffZYqDy",
       "asset_id": "MAHNec_oLAE",
       "geometry": {
         "type": "RECT",
@@ -412,10 +411,10 @@
           "width": 1224.4714690259987,
           "height": 1156.0520613154902
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PBr63yHy7HjBnkDQ-LBFfcN59WDzhRL6q",
       "asset_id": "MAHYBcTZuxg",
       "geometry": {
         "type": "SHAPE",
@@ -427,10 +426,10 @@
           "width": 69.40883977900552,
           "height": 88
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PBr63yHy7HjBnkDQ-LBwbF9ftvFC0B3gx",
       "asset_id": "MAHYBbnwy-8",
       "geometry": {
         "type": "SHAPE",
@@ -442,10 +441,10 @@
           "width": 69.40883977900552,
           "height": 88
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PBr63yHy7HjBnkDQ-LBQ8Ks2qM1YM18YG",
       "asset_id": "MAHYc3ObWM0",
       "geometry": {
         "type": "SHAPE",
@@ -457,7 +456,8 @@
           "width": 69.40883977900558,
           "height": 88
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     }
   ],
   "rules": {
@@ -564,7 +564,6 @@
     },
     "crests": [
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBzD7rqNNfrSMsl0",
         "asset_id": "MAHYHTJLF7U",
         "alt_text": "Weymouth crest \u2014 fixture 2026-10-31",
         "geometry": {
@@ -577,10 +576,10 @@
             "width": 11.919999999999987,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBLV6m4k6BgcbLxV",
         "asset_id": "MAHYHc0FmQ0",
         "alt_text": "SPORTING CLUB INKBERROW crest \u2014 fixture 2026-11-07",
         "geometry": {
@@ -593,10 +592,10 @@
             "width": 9.680000000000007,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBghKsqwRK32KwVH",
         "asset_id": "MAHYHTDtw54",
         "alt_text": "Paulton Rovers crest \u2014 fixture 2026-11-11",
         "geometry": {
@@ -609,10 +608,10 @@
             "width": 16.000000000000018,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBL4zsBs1nv4Bgmc",
         "asset_id": "MAHYHdBn6UI",
         "alt_text": "BISHOPS CLEEVE crest \u2014 fixture 2026-11-14",
         "geometry": {
@@ -625,10 +624,10 @@
             "width": 15.999999999999988,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBpMFHnD4J8pdRxP",
         "asset_id": "MAHYHWtMIxI",
         "alt_text": "Melksham Town crest \u2014 fixture 2026-11-21",
         "geometry": {
@@ -641,10 +640,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBRqF8kcnqqvb09g",
         "asset_id": "MAHYHRRUg74",
         "alt_text": "Swindon Supermarine crest \u2014 fixture 2026-11-23",
         "geometry": {
@@ -657,10 +656,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBK0WDPwXwRbyJ2v",
         "asset_id": "MAHYHWBxrh0",
         "alt_text": "Hartpury crest \u2014 fixture 2026-11-28",
         "geometry": {
@@ -673,10 +672,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBByJc3Nj7bNTsLB",
         "asset_id": "MAHYHRRUg74",
         "alt_text": "SWINDON SUPERMARINE crest \u2014 fixture 2026-12-05",
         "geometry": {
@@ -689,10 +688,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBs4ttq5xZs0q5HM",
         "asset_id": "MAHYHb8saGc",
         "alt_text": "SLIMBRIDGE crest \u2014 fixture 2026-12-12",
         "geometry": {
@@ -705,10 +704,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBrQGB0HPJ2cY8CV",
         "asset_id": "MAHYHerJcko",
         "alt_text": "BRISTOL MANOR FARM crest \u2014 fixture 2026-12-19",
         "geometry": {
@@ -721,10 +720,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBh85rzwFhKK6lg3",
         "asset_id": "MAHYHcX0c5Q",
         "alt_text": "WILLAND ROVERS crest \u2014 fixture 2026-12-26",
         "geometry": {
@@ -737,10 +736,10 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       },
       {
-        "element_id": "PBr63yHy7HjBnkDQ-LBJ0F1hGPczPFj7t",
         "asset_id": "MAHYHcnAPeM",
         "alt_text": "Exmouth Town crest \u2014 fixture 2027-01-02",
         "geometry": {
@@ -753,7 +752,8 @@
             "width": 16,
             "height": 16
           }
-        }
+        },
+        "resolve_live_element_before_write": true
       }
     ],
     "rules": {
@@ -789,5 +789,10 @@
         "yellow_reference": "Exact fill from existing top statistic panels."
       }
     }
-  }
+  },
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "verified_at": "2026-10-27T23:55:39.381Z",
+  "copy_rule": "These are master locators only. Resolve the corresponding page and all native elements in the NEW issue copy before editing.",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

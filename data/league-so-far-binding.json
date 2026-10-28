@@ -18,8 +18,8 @@
   "pages": [
     {
       "key": {
-        "element_id": "PB8fXDFxlQWDZgBY-LBGKBfZ93q8Lm9GC",
-        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
+        "element_id": "PB8fXDFxlQWDZgBY-LB0j03ZFBg6STnYg",
+        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   \u25b2 Sub on   \u25bc Sub off   \u25a0 Yellow card   \u25a0 Red card",
         "geometry": {
           "type": "TEXT",
           "position": {
@@ -41,9 +41,9 @@
         }
       },
       "page_id": "PB8fXDFxlQWDZgBY",
-      "position": 13,
-      "table_id": "LBqvYhrHQ6mZgX2b",
-      "subtitle_element_id": "PB8fXDFxlQWDZgBY-LBXFR3CHRyKdyCDG",
+      "position": 8,
+      "table_id": "LBT7T2m98TSVhM5b",
+      "subtitle_element_id": "PB8fXDFxlQWDZgBY-LBcGyJrtnX7SnntM",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -61,35 +61,34 @@
         "C1": "SCORE",
         "D1": "MATCH DETAILS ",
         "A2": "08/08",
-        "B2": "  HUNGERFORD\n  TOWN (A)",
-        "C2": "1–1 D",
-        "D2": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough · Ed Palmer CAPT · Asa Hall ▼69′ · Aaron Wellington · Jacob Wellington · Finn Roberts ▼76′ · Louis Jagger Cane GOAL 23′ ▼80′ · Aiden Horne ▼55′\nSUBS: Ryan Keates ▲55′ · Jack Kennell ▲69′ · Billy Tucker ▲76′ · Owen Howe ▲80′\nUNUSED: Caleb Pryce-Hall",
+        "B2": "\u2003\u2003HUNGERFORD\n\u2003\u2003TOWN (A)",
+        "C2": "1\u20131 D",
+        "D2": "Louis Smith \u00b7 Mason Winter \u00b7 Corey Koerner \u00b7 Louis Slough \u00b7 Ed Palmer CAPT \u00b7 Asa Hall \u25bc69\u2032 \u00b7 Aaron Wellington \u00b7 Jacob Wellington \u00b7 Finn Roberts \u25bc76\u2032 \u00b7 Louis Jagger Cane GOAL\u00a023\u2032 \u25bc80\u2032 \u00b7 Aiden Horne \u25bc55\u2032\nSUBS: Ryan Keates \u25b255\u2032 \u00b7 Jack Kennell \u25b269\u2032 \u00b7 Billy Tucker \u25b276\u2032 \u00b7 Owen Howe \u25b280\u2032\nUNUSED: Caleb Pryce-Hall",
         "A3": "11/08",
-        "B3": "  BARNSTAPLE\n  TOWN (H)",
-        "C3": "1–0 W",
-        "D3": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough GOAL 3′ · Ed Palmer CAPT · Asa Hall ■42′ ▼80′ · Aaron Wellington · Jacob Wellington · Finn Roberts ▼85′ · Louis Jagger Cane ▼67′ · Owen Howe ▼80′\nSUBS: Jack Kennell ▲80′ · Aiden Horne ▲80′ · Ryan Keates ▲80′ · Billy Tucker ▲85′\nUNUSED: Caleb Pryce-Hall",
+        "B3": "\u2003\u2003BARNSTAPLE\n\u2003\u2003TOWN (H)",
+        "C3": "1\u20130 W",
+        "D3": "Louis Smith \u00b7 Mason Winter \u00b7 Corey Koerner \u00b7 Louis Slough GOAL\u00a03\u2032 \u00b7 Ed Palmer CAPT \u00b7 Asa Hall \u25a042\u2032 \u25bc80\u2032 \u00b7 Aaron Wellington \u00b7 Jacob Wellington \u00b7 Finn Roberts \u25bc85\u2032 \u00b7 Louis Jagger Cane \u25bc67\u2032 \u00b7 Owen Howe \u25bc80\u2032\nSUBS: Jack Kennell \u25b280\u2032 \u00b7 Aiden Horne \u25b280\u2032 \u00b7 Ryan Keates \u25b280\u2032 \u00b7 Billy Tucker \u25b285\u2032\nUNUSED: Caleb Pryce-Hall",
         "A4": "15/08",
-        "B4": "  WESTBURY\n  UNITED (A)",
-        "C4": "1–0 L",
-        "D4": "Louis Smith · Mason Winter · Corey Koerner · Louis Slough · Ed Palmer CAPT ▼63′ · Asa Hall ▼56′ · Aaron Wellington ▼63′ · Jacob Wellington ■3′ · Finn Roberts ▼56′ · Jack Kennell · Owen Howe ▼56′\nSUBS: Ryan Keates ▲56′ · Billy Tucker ▲56′ · Aiden Horne ▲56′ · Matt Wood ▲63′ · Caleb Pryce-Hall ▲63′",
+        "B4": "\u2003\u2003WESTBURY\n\u2003\u2003UNITED (A)",
+        "C4": "1\u20130 L",
+        "D4": "Louis Smith \u00b7 Mason Winter \u00b7 Corey Koerner \u00b7 Louis Slough \u00b7 Ed Palmer CAPT \u25bc63\u2032 \u00b7 Asa Hall \u25bc56\u2032 \u00b7 Aaron Wellington \u25bc63\u2032 \u00b7 Jacob Wellington \u25a03\u2032 \u00b7 Finn Roberts \u25bc56\u2032 \u00b7 Jack Kennell \u00b7 Owen Howe \u25bc56\u2032\nSUBS: Ryan Keates \u25b256\u2032 \u00b7 Billy Tucker \u25b256\u2032 \u00b7 Aiden Horne \u25b256\u2032 \u00b7 Matt Wood \u25b263\u2032 \u00b7 Caleb Pryce-Hall \u25b263\u2032",
         "A5": "31/08",
-        "B5": "  EXMOUTH\n  TOWN (H)",
-        "C5": "1–2 L",
-        "D5": "Louis Smith · Mason Winter · Louis Slough ▼70′ · Matt Wood · Ed Palmer CAPT ■67′ · Asa Hall ▼86′ · Jack Kennell · Jacob Wellington GOAL 45′ · Finn Roberts ■52′ · Billy Tucker ▼67′ · Owen Howe ▼86′\nSUBS: Aiden Horne ▲67′ · Corey Koerner ▲70′ · Aaron Wellington ▲86′ · Ryan Keates ▲86′",
+        "B5": "\u2003\u2003EXMOUTH\n\u2003\u2003TOWN (H)",
+        "C5": "1\u20132 L",
+        "D5": "Louis Smith \u00b7 Mason Winter \u00b7 Louis Slough \u25bc70\u2032 \u00b7 Matt Wood \u00b7 Ed Palmer CAPT \u25a067\u2032 \u00b7 Asa Hall \u25bc86\u2032 \u00b7 Jack Kennell \u00b7 Jacob Wellington GOAL\u00a045\u2032 \u00b7 Finn Roberts \u25a052\u2032 \u00b7 Billy Tucker \u25bc67\u2032 \u00b7 Owen Howe \u25bc86\u2032\nSUBS: Aiden Horne \u25b267\u2032 \u00b7 Corey Koerner \u25b270\u2032 \u00b7 Aaron Wellington \u25b286\u2032 \u00b7 Ryan Keates \u25b286\u2032",
         "A6": "15/09",
-        "B6": "  DORCHESTER\n  TOWN (A)",
-        "C6": "2–1 L",
-        "D6": "Louis Smith · Mason Winter · Louis Slough · Matt Wood · Ed Palmer ■75′ · Asa Hall ■65′ · Billy Tucker · Aaron Wellington · Josh Bissett GOAL 80′ · Aiden Horne · Jacob Wellington\nUNUSED: Corey Koerner · Karim Coulibaly · Ryan Keates · Jack Kennell · Caleb Pryce-Hall",
+        "B6": "\u2003\u2003DORCHESTER\n\u2003\u2003TOWN (A)",
+        "C6": "2\u20131 L",
+        "D6": "Louis Smith \u00b7 Mason Winter \u00b7 Louis Slough \u00b7 Matt Wood \u00b7 Ed Palmer \u25a075\u2032 \u00b7 Asa Hall \u25a065\u2032 \u00b7 Billy Tucker \u00b7 Aaron Wellington \u00b7 Josh Bissett GOAL\u00a080\u2032 \u00b7 Aiden Horne \u00b7 Jacob Wellington\nUNUSED: Corey Koerner \u00b7 Karim Coulibaly \u00b7 Ryan Keates \u00b7 Jack Kennell \u00b7 Caleb Pryce-Hall",
         "A7": "29/09",
-        "B7": "  PAULTON\n  ROVERS (H)",
-        "C7": "2–2 D",
-        "D7": "Louis Smith · Mason Winter · Corey Koerner · Ed Palmer CAPT · Louis Slough · Ryan Keates ■47′ ▼57′ · Finn Roberts PEN 64′ · Aaron Wellington · Jacob Wellington · Josh Bissett ▼85′ · Owen Howe GOAL 36′\nSUBS: Billy Tucker ■89′ ▲57′ · Aiden Horne ▲85′\nUNUSED: Asa Hall · Matt Wood · Caleb Pryce-Hall"
+        "B7": "\u2003\u2003PAULTON\n\u2003\u2003ROVERS (H)",
+        "C7": "2\u20132 D",
+        "D7": "Louis Smith \u00b7 Mason Winter \u00b7 Corey Koerner \u00b7 Ed Palmer CAPT \u00b7 Louis Slough \u00b7 Ryan Keates \u25a047\u2032 \u25bc57\u2032 \u00b7 Finn Roberts PEN\u00a064\u2032 \u00b7 Aaron Wellington \u00b7 Jacob Wellington \u00b7 Josh Bissett \u25bc85\u2032 \u00b7 Owen Howe GOAL\u00a036\u2032\nSUBS: Billy Tucker \u25a089\u2032 \u25b257\u2032 \u00b7 Aiden Horne \u25b285\u2032\nUNUSED: Asa Hall \u00b7 Matt Wood \u00b7 Caleb Pryce-Hall"
       },
       "opponent_crests": [
         {
           "team": "Hungerford Town",
           "asset_id": "MAHYHeCA8S4",
-          "element_id": "PB8fXDFxlQWDZgBY-LBJFLHcyG6d71n0Q",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -100,12 +99,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Barnstaple Town",
           "asset_id": "MAHYHbJGCrA",
-          "element_id": "PB8fXDFxlQWDZgBY-LB3YLkYsl4pqWXPZ",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -116,12 +115,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Westbury United",
           "asset_id": "MAHYHdbXqMk",
-          "element_id": "PB8fXDFxlQWDZgBY-LBXrr3h1vtJDMb3X",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -132,12 +131,12 @@
               "width": 28.000000000000004,
               "height": 27.860000000000003
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Exmouth Town",
           "asset_id": "MAHYHcnAPeM",
-          "element_id": "PB8fXDFxlQWDZgBY-LBJGQJLcLyNlx5Y3",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -148,12 +147,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Dorchester Town",
           "asset_id": "MAHYHUR2TPw",
-          "element_id": "PB8fXDFxlQWDZgBY-LB4VdbQg5RnrD3CF",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -164,12 +163,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Paulton Rovers",
           "asset_id": "MAHYHTDtw54",
-          "element_id": "PB8fXDFxlQWDZgBY-LBhDWbH4VNZg0TQT",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -180,14 +179,16 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         }
-      ]
+      ],
+      "page_key": "league_so_far_1"
     },
     {
       "key": {
-        "element_id": "PBXMTBDmtzjMvbPc-LBhz5RPPKbKCpY2M",
-        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   ▲ Sub on   ▼ Sub off   ■ Yellow card   ■ Red card",
+        "element_id": "PBXMTBDmtzjMvbPc-LBpfgWRnYtxTffJb",
+        "text": "GOAL = Goal Scored   PEN = Penalty Scored  CAPT = Captain   \u25b2 Sub on   \u25bc Sub off   \u25a0 Yellow card   \u25a0 Red card",
         "geometry": {
           "type": "TEXT",
           "position": {
@@ -209,9 +210,9 @@
         }
       },
       "page_id": "PBXMTBDmtzjMvbPc",
-      "position": 14,
-      "table_id": "LBJW2j9d3LLyQVR5",
-      "subtitle_element_id": "PBXMTBDmtzjMvbPc-LBtQVm9kDkq0bvY4",
+      "position": 9,
+      "table_id": "LBZmgNghC6wsjh5b",
+      "subtitle_element_id": "PBXMTBDmtzjMvbPc-LBfTwl8sCfb8x78r",
       "geometry": {
         "type": "TABLE",
         "position": {
@@ -229,31 +230,30 @@
         "C1": "SCORE",
         "D1": "MATCH DETAILS",
         "A2": "03/10",
-        "B2": "  WORCESTER\n  RAIDERS (H)",
-        "C2": "2–2 D",
-        "D2": "Louis Smith · Mason Winter · Ed Palmer CAPT · Louis Slough · Ryan Keates ▼54′ · Josh Bissett · Finn Roberts PEN 38′ ■62′ ▼68′ · Aaron Wellington ▼71′ · Jacob Wellington · Owen Howe · Aiden Horne GOAL 25′\nSUBS: Asa Hall ▲54′ · Jack Kennell ▲71′ · Corey Koerner ▲68′\nUNUSED: Matt Wood",
+        "B2": "\u2003\u2003WORCESTER\n\u2003\u2003RAIDERS (H)",
+        "C2": "2\u20132 D",
+        "D2": "Louis Smith \u00b7 Mason Winter \u00b7 Ed Palmer CAPT \u00b7 Louis Slough \u00b7 Ryan Keates \u25bc54\u2032 \u00b7 Josh Bissett \u00b7 Finn Roberts PEN\u00a038\u2032 \u25a062\u2032 \u25bc68\u2032 \u00b7 Aaron Wellington \u25bc71\u2032 \u00b7 Jacob Wellington \u00b7 Owen Howe \u00b7 Aiden Horne GOAL\u00a025\u2032\nSUBS: Asa Hall \u25b254\u2032 \u00b7 Jack Kennell \u25b271\u2032 \u00b7 Corey Koerner \u25b268\u2032\nUNUSED: Matt Wood",
         "A3": "06/10",
-        "B3": "  HARTPURY\n  (H)",
-        "C3": "3–1 W",
-        "D3": "Louis Smith · Mason Winter · Ed Palmer CAPT · Matt Wood GOAL 71′ · Asa Hall ■32′ · Ryan Keates GOAL 47′ ▼52′ · Josh Bissett ▼87′ · Finn Roberts ▼57′ · Jacob Wellington · Owen Howe GOAL 41′ ▼90+1′ · Aiden Horne ▼66′\nSUBS: Corey Koerner ▲57′ · Aaron Wellington ▲66′ · Billy Tucker ▲87′ · Jack Kennell ▲52′ · Louis Slough ▲90+1′",
+        "B3": "\u2003\u2003HARTPURY\n\u2003\u2003(H)",
+        "C3": "3\u20131 W",
+        "D3": "Louis Smith \u00b7 Mason Winter \u00b7 Ed Palmer CAPT \u00b7 Matt Wood GOAL\u00a071\u2032 \u00b7 Asa Hall \u25a032\u2032 \u00b7 Ryan Keates GOAL\u00a047\u2032 \u25bc52\u2032 \u00b7 Josh Bissett \u25bc87\u2032 \u00b7 Finn Roberts \u25bc57\u2032 \u00b7 Jacob Wellington \u00b7 Owen Howe GOAL\u00a041\u2032 \u25bc90+1\u2032 \u00b7 Aiden Horne \u25bc66\u2032\nSUBS: Corey Koerner \u25b257\u2032 \u00b7 Aaron Wellington \u25b266\u2032 \u00b7 Billy Tucker \u25b287\u2032 \u00b7 Jack Kennell \u25b252\u2032 \u00b7 Louis Slough \u25b290+1\u2032",
         "A4": "10/10",
-        "B4": "  SHAFTESBURY\n  (A)",
-        "C4": "1–4 W",
-        "D4": "Louis Smith · Mason Winter · Ed Palmer CAPT GOAL 5′ GOAL 76′ · Matt Wood · Aaron Wellington ▼89′ · Jack Kennell · Asa Hall ▼65′ · Corey Koerner · Josh Bissett GOAL 62′ ▼78′ · Jacob Wellington ▼85′ · Owen Howe GOAL 36′\nSUBS: Toby Stephens ▲65′ · Billy Tucker ▲78′ · Finn Roberts ▲85′ · Ryan Keates ▲89′\nUNUSED: Louis Slough",
+        "B4": "\u2003\u2003SHAFTESBURY\n\u2003\u2003(A)",
+        "C4": "1\u20134 W",
+        "D4": "Louis Smith \u00b7 Mason Winter \u00b7 Ed Palmer CAPT GOAL\u00a05\u2032 GOAL\u00a076\u2032 \u00b7 Matt Wood \u00b7 Aaron Wellington \u25bc89\u2032 \u00b7 Jack Kennell \u00b7 Asa Hall \u25bc65\u2032 \u00b7 Corey Koerner \u00b7 Josh Bissett GOAL\u00a062\u2032 \u25bc78\u2032 \u00b7 Jacob Wellington \u25bc85\u2032 \u00b7 Owen Howe GOAL\u00a036\u2032\nSUBS: Toby Stephens \u25b265\u2032 \u00b7 Billy Tucker \u25b278\u2032 \u00b7 Finn Roberts \u25b285\u2032 \u00b7 Ryan Keates \u25b289\u2032\nUNUSED: Louis Slough",
         "A5": "13/10",
-        "B5": "  FALMOUTH\n  TOWN (A)",
-        "C5": "2–1 L",
-        "D5": "Louis Smith · Jack Kennell · Ed Palmer CAPT ■73′ · Matt Wood ■56′ ▼65′ · Aaron Wellington ■6′ ▼75′ · Asa Hall PEN 11′ · Toby Stephens ▼65′ · Corey Koerner · Josh Bissett · Jacob Wellington · Owen Howe\nSUBS: Louis Slough ▲65′ · Finn Roberts ▲65′ · Aiden Horne ▲75′",
+        "B5": "\u2003\u2003FALMOUTH\n\u2003\u2003TOWN (A)",
+        "C5": "2\u20131 L",
+        "D5": "Louis Smith \u00b7 Jack Kennell \u00b7 Ed Palmer CAPT \u25a073\u2032 \u00b7 Matt Wood \u25a056\u2032 \u25bc65\u2032 \u00b7 Aaron Wellington \u25a06\u2032 \u25bc75\u2032 \u00b7 Asa Hall PEN\u00a011\u2032 \u00b7 Toby Stephens \u25bc65\u2032 \u00b7 Corey Koerner \u00b7 Josh Bissett \u00b7 Jacob Wellington \u00b7 Owen Howe\nSUBS: Louis Slough \u25b265\u2032 \u00b7 Finn Roberts \u25b265\u2032 \u00b7 Aiden Horne \u25b275\u2032",
         "A6": "17/10",
-        "B6": "  PORTLAND\n  UNITED (H)",
-        "C6": "1–4 L",
-        "D6": "Louis Smith · Mason Winter · Ed Palmer CAPT · Louis Slough · Jack Kennell ▼57′ · Finn Roberts ▼78′ · Aaron Wellington ■25′ ▼57′ · Asa Hall ▼87′ · Jacob Wellington · Josh Bissett · Owen Howe\nSUBS: Toby Stephens ▲57′ · Billy Tucker ▲57′ · Matt Wood ▲87′ · Aiden Horne GOAL 90+1′ ▲78′\nUNUSED: Ryan Keates"
+        "B6": "\u2003\u2003PORTLAND\n\u2003\u2003UNITED (H)",
+        "C6": "1\u20134 L",
+        "D6": "Louis Smith \u00b7 Mason Winter \u00b7 Ed Palmer CAPT \u00b7 Louis Slough \u00b7 Jack Kennell \u25bc57\u2032 \u00b7 Finn Roberts \u25bc78\u2032 \u00b7 Aaron Wellington \u25a025\u2032 \u25bc57\u2032 \u00b7 Asa Hall \u25bc87\u2032 \u00b7 Jacob Wellington \u00b7 Josh Bissett \u00b7 Owen Howe\nSUBS: Toby Stephens \u25b257\u2032 \u00b7 Billy Tucker \u25b257\u2032 \u00b7 Matt Wood \u25b287\u2032 \u00b7 Aiden Horne GOAL\u00a090+1\u2032 \u25b278\u2032\nUNUSED: Ryan Keates"
       },
       "opponent_crests": [
         {
           "team": "Worcester Raiders",
           "asset_id": "MAHYHQ8xEiQ",
-          "element_id": "PBXMTBDmtzjMvbPc-LBFgTFr75cKT3RvQ",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -264,12 +264,12 @@
               "width": 26.320000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Hartpury",
           "asset_id": "MAHYHWBxrh0",
-          "element_id": "PBXMTBDmtzjMvbPc-LBZffHbg2lfcZ4ZR",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -280,12 +280,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Shaftesbury",
           "asset_id": "MAHYHU-Qdmc",
-          "element_id": "PBXMTBDmtzjMvbPc-LBmBPv0HkBJ7MV5j",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -296,12 +296,12 @@
               "width": 21.560000000000002,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Falmouth Town",
           "asset_id": "MAHYHREbmu8",
-          "element_id": "PBXMTBDmtzjMvbPc-LBzb0XLqPBvk93Gb",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -312,12 +312,12 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         },
         {
           "team": "Portland United",
           "asset_id": "MAHYHY5tbW4",
-          "element_id": "PBXMTBDmtzjMvbPc-LBhTj2t8C02StsXY",
           "geometry": {
             "type": "RECT",
             "position": {
@@ -328,9 +328,19 @@
               "width": 28.000000000000004,
               "height": 28.000000000000004
             }
-          }
+          },
+          "resolve_live_element_before_write": true
         }
-      ]
+      ],
+      "page_key": "league_so_far_2"
+    },
+    {
+      "page_key": "league_so_far_3",
+      "page_id": "PBzy86j1hyvyjnmD",
+      "position": 10,
+      "binding_resolution": "read_live_canva_in_connected_session",
+      "table_id": "LBTQRS9Nx2HBf1sJ",
+      "subtitle_element_id": "PBzy86j1hyvyjnmD-LBy4gBmzbXwP2n1V"
     }
   ],
   "rules": {
@@ -343,8 +353,8 @@
     ],
     "reflow_policy": "Review split and font fit as fixtures grow; never overflow the white body or alter the shell.",
     "score_orientation": "Home goals first, away goals second; only Tiverton numeral red; W/D/L from Tiverton perspective.",
-    "goal_marker": "GOAL ",
-    "penalty_marker": "PEN ",
+    "goal_marker": "GOAL\u00a0",
+    "penalty_marker": "PEN\u00a0",
     "penalty_confirmation": "Southern League explicit goalType penalty; corroborate reports where available; never infer from minute alone.",
     "event_detail_source": "data/league-so-far-events.json",
     "timing_precedence": "Preserve checked dashboard timing and confirmed local corrections where official league timing differs; flag conflicts.",
@@ -353,7 +363,7 @@
     "styling": "Alternating yellow/white rows, black header with white text, green on arrows, red off arrows, amber/red cards, Antonio.",
     "subtitle": "SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO {source_scrape_date_DD/MM/YY})",
     "opponent_column_spacing": {
-      "line_prefix": "  ",
+      "line_prefix": "\u2003\u2003",
       "explicit_wrapped_lines": true,
       "crest_max_size_px": 28,
       "crest_placement": "Vertically centred in each match row, in left gutter of opponent column. Preserve aspect ratio; move crests with their matching fixture.",
@@ -460,5 +470,10 @@
     ],
     "format": "Clone exact styling of previous native editable table row; red Tivvy 3 in home-first score; goal blue; 64 PEN pink; captain purple; substitution on green and off red; preserve artwork; do not overwrite Portland",
     "last_checked": "2026-10-25"
-  }
+  },
+  "verified_at": "2026-10-27T23:55:39.381Z",
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "copy_rule": "Resolve all table, cell, crest and legend targets again in the new issue copy.",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

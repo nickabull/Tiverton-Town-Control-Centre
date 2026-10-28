@@ -2,8 +2,8 @@
   "schema_version": 1,
   "design_id": "DAHYKUo9Tzo",
   "design_title": "CHATGPT LEAGUE TEMPLATE",
-  "page_id": "PBtHJC2fqTlx9ZPC",
-  "position": 17,
+  "page_id": "PB7mSlQ245FM5gf3",
+  "position": 14,
   "font": "Antonio",
   "mode": "update_existing_native_text_and_image_fills",
   "execution_mode": "chatgpt_assisted_connected_run",
@@ -16,210 +16,40 @@
   "headline_case": "UPPERCASE",
   "text_fields": [
     {
-      "page_index": 17,
-      "regions": [
-        {
-          "type": "character",
-          "text": "TERRAS KEEP UNBEATEN RUN GOING"
-        },
-        {
-          "type": "character",
-          "text": "\n\n"
-        },
-        {
-          "type": "character",
-          "text": "Weymouth made it ten league games unbeaten with a 3–0 win at Barnstaple. Toby Holmes and Sam Jackson struck early before Tor Swann added the third. The Terras remained second, two points behind Dorchester. "
-        },
-        {
-          "type": "character",
-          "text": "\n"
-        },
-        {
-          "type": "character",
-          "text": "\n"
-        },
-        {
-          "type": "character",
-          "text": "FALMOUTH HOLD SUPERMARINE"
-        },
-        {
-          "type": "character",
-          "text": "\n\n"
-        },
-        {
-          "type": "character",
-          "text": "Falmouth earned a 1–1 draw at Swindon Supermarine. Luke Barner put Town ahead before Partridge equalised after the break. Marine surrendered top spot and finished Saturday third, level on points with second-placed Weymouth. \n\n"
-        },
-        {
-          "type": "character",
-          "text": "WESTBURY WIN IT AT THE DEATH"
-        },
-        {
-          "type": "character",
-          "text": "\n"
-        },
-        {
-          "type": "character",
-          "text": "\nWestbury reached the play-off places with a dramatic 1–0 win over Hungerford. Eben Mortimer-Taylor struck deep into stoppage time. The visitors finished with eight players, while two further red cards went to their bench."
-        }
-      ],
-      "containerElement": {
-        "type": "TEXT",
-        "position": {
-          "top": 213.77952755905483,
-          "left": 396.8503937007873
-        },
-        "dimension": {
-          "width": 385,
-          "height": 495.0666675
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LBlPfG1lSHvkK5Hs"
+      "page_index": 14,
+      "element_id": "PB7mSlQ245FM5gf3-LBDKsz3WH2sL0bQK",
+      "role": "story_column",
+      "resolve_live_before_write": true
     },
     {
-      "page_index": 17,
-      "regions": [
-        {
-          "type": "character",
-          "text": "BIDEFORD FIGHT BACK AT CLEEVE"
-        },
-        {
-          "type": "character",
-          "text": "\n\n"
-        },
-        {
-          "type": "character",
-          "text": "Bideford twice came from behind to win 3–2 at Bishop’s Cleeve. Finn King-Smith cancelled out an own goal before Ross Langworthy restored the lead. Jordan Ewing’s penalty and Farren Simons’ late winner turned the contest.\n\n"
-        },
-        {
-          "type": "character",
-          "text": "DORCHESTER MAKE IT TEN STRAIGHT"
-        },
-        {
-          "type": "character",
-          "text": "\n"
-        },
-        {
-          "type": "character",
-          "text": "\nDorchester reclaimed top spot with a 3–1 win at Sporting Club Inkberrow. The Magpies recovered from falling behind to record their tenth successive league victory. Player-coach Will Spetch praised their determination and togetherness.\n"
-        },
-        {
-          "type": "character",
-          "text": "\n"
-        },
-        {
-          "type": "character",
-          "text": "KEMPSTER RESCUES WILLAND LATE"
-        },
-        {
-          "type": "character",
-          "text": "\n\n"
-        },
-        {
-          "type": "character",
-          "text": "Bailey Kempster’s stoppage-time strike earned Willand a 3–3 draw at Slimbridge. His second goal of the afternoon cancelled out Olly Sully’s late effort. Joel Jackson was also on target for Rovers."
-        }
-      ],
-      "containerElement": {
-        "type": "TEXT",
-        "position": {
-          "top": 213.7795275590548,
-          "left": 12
-        },
-        "dimension": {
-          "width": 370,
-          "height": 493.06667
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LBz4FVQpgGRFmCBB"
+      "page_index": 14,
+      "element_id": "PB7mSlQ245FM5gf3-LBx1BnqnGcBY4Fwq",
+      "role": "story_column",
+      "resolve_live_before_write": true
     },
     {
-      "page_index": 17,
-      "regions": [
-        {
-          "type": "character",
-          "text": "Dorchester salute their fans. Photo: Phillip Standfield"
-        }
-      ],
-      "containerElement": {
-        "type": "TEXT",
-        "position": {
-          "top": 992.322834645669,
-          "left": 19.921259842519646
-        },
-        "dimension": {
-          "width": 370,
-          "height": 13.2
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LBbNJSqR1YLlZkf4"
+      "page_index": 14,
+      "element_id": "PB7mSlQ245FM5gf3-LBLVbm5T2sPt0mlw",
+      "role": "photo_credit",
+      "resolve_live_before_write": true
     },
     {
-      "page_index": 17,
-      "regions": [
-        {
-          "type": "character",
-          "text": "Sam Jackson helped Weymouth win 3–0. Photo: Ian Middlebrook"
-        }
-      ],
-      "containerElement": {
-        "type": "TEXT",
-        "position": {
-          "top": 992.322834645669,
-          "left": 404.9212598425197
-        },
-        "dimension": {
-          "width": 385,
-          "height": 13.200000000000001
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LB9Sc3M16dBVP1r3"
+      "page_index": 14,
+      "element_id": "PB7mSlQ245FM5gf3-LBKZzv6CRKsw73tk",
+      "role": "photo_credit",
+      "resolve_live_before_write": true
     }
   ],
   "photo_fields": [
     {
-      "type": "image",
-      "asset_id": "MAHYcO5XZs0",
-      "page_index": 17,
-      "alt_text": {
-        "text": "Dorchester Town players applaud travelling supporters after their 3–1 win at Sporting Club Inkberrow, 17 October 2026. Photograph: Phillip Standfield.",
-        "decorative": false
-      },
-      "editable": true,
-      "containerElement": {
-        "type": "RECT",
-        "position": {
-          "top": 737.3228346456691,
-          "left": 19.921259842519675
-        },
-        "dimension": {
-          "width": 369.99999999999994,
-          "height": 244.99999999999986
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LBZl43crtxycNTwJ"
+      "role": "photo_1",
+      "resolve_live_before_write": true,
+      "preserve_existing_frame": true
     },
     {
-      "type": "image",
-      "asset_id": "MAHYcItsoo8",
-      "page_index": 17,
-      "alt_text": {
-        "text": "Sam Jackson, a scorer in Weymouth’s 3–0 win at Barnstaple, pictured in the Dorset Echo match report. Photograph: Ian Middlebrook.",
-        "decorative": false
-      },
-      "editable": true,
-      "containerElement": {
-        "type": "RECT",
-        "position": {
-          "top": 737.322834645669,
-          "left": 404.771653543307
-        },
-        "dimension": {
-          "width": 365.269613306107,
-          "height": 244.99999999999991
-        }
-      },
-      "element_id": "PBtHJC2fqTlx9ZPC-LBZQgBdSbJX2LDRc"
+      "role": "photo_2",
+      "resolve_live_before_write": true,
+      "preserve_existing_frame": true
     }
   ],
   "rules": {
@@ -235,5 +65,10 @@
   },
   "approved_layout_reference": "data/around-the-league-20261017.json",
   "section_key": "around_league",
-  "run_request_module": "around-league-run.js"
+  "run_request_module": "around-league-run.js",
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "verified_at": "2026-10-27T23:55:39.381Z",
+  "copy_rule": "These are master locators only. Resolve the corresponding page and all native elements in the NEW issue copy before editing.",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

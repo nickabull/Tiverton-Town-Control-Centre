@@ -3,8 +3,8 @@
   "master": {
     "canva_design_id": "DAHYKUo9Tzo",
     "title": "CHATGPT LEAGUE TEMPLATE",
-    "page_count": 55,
-    "rule": "Live page order verified 24 October 2026. Match logical sections by immutable Canva page ID, not by page number. A null position means missing/unverified, never assume the former page number."
+    "page_count": 52,
+    "rule": "Page IDs and content audited against live Canva. Resolve fresh positions from IDs before every issue copy; resolve all native element IDs again after copying. Never target an old page number or edit the master during an issue build."
   },
   "pages": [
     {
@@ -13,55 +13,62 @@
       "master_page_id": "PBhyHbWFGDpyhNgG",
       "position": 1,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "advert_02",
       "name": "Advert / fixed page 02",
       "master_page_id": "PBTlYHHWk3kpdTHY",
-      "position": 4,
+      "position": 2,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "advert_03",
       "name": "Advert / fixed page 03",
       "master_page_id": "PBZXJC7Kb8cD5cKY",
-      "position": 6,
+      "position": 4,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "latest_news",
       "name": "Latest News",
       "master_page_id": "PBW9N6K2cPtcbzzR",
-      "position": 7,
+      "position": 5,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "club_officials",
       "name": "Club Officials / Honours",
       "master_page_id": "PBVJLQy1YXbMn222",
-      "position": 8,
+      "position": 6,
       "type": "GUIDED",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "advert_06",
       "name": "Advert / fixed page 06",
       "master_page_id": "PBw36CPKmg0fR6X2",
-      "position": 9,
+      "position": 7,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "executive_update_1",
       "name": "Executive Update 1",
       "master_page_id": "PBjhtDSQYpmm8gzY",
-      "position": 10,
+      "position": null,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "absent_from_current_master",
+      "active": false
     },
     {
       "key": "advert_08",
@@ -69,25 +76,28 @@
       "master_page_id": "PBdjYgfCvSvNnbMc",
       "position": 11,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "executive_update_2",
       "name": "Executive Update 2",
       "master_page_id": "PBfhxfCjlCmXpgCt",
-      "position": 12,
+      "position": null,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "absent_from_current_master",
+      "active": false
     },
     {
       "key": "league_so_far_1",
-      "name": "The League So Far — Results 1",
+      "name": "The League So Far \u2014 Results 1",
       "master_page_id": "PB8fXDFxlQWDZgBY",
-      "position": 13,
+      "position": 8,
       "type": "AUTO",
       "update_binding": "data/league-so-far-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_11",
@@ -95,261 +105,295 @@
       "master_page_id": "PBgW387cV9dpdl9s",
       "position": null,
       "type": "FIXED",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "absent_from_current_master",
+      "active": false
     },
     {
       "key": "results_matrix",
       "name": "Results Matrix",
       "master_page_id": "PB9P9mXjTZSWtXpM",
-      "position": 15,
+      "position": 12,
       "type": "AUTO",
       "update_binding": "data/results-matrix-binding.json",
       "render_mode": "native_table_incremental",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_13",
       "name": "Fixed page 13",
       "master_page_id": "PBdM99qNtSng423v",
-      "position": 16,
+      "position": 13,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "around_league",
       "name": "Around the League",
       "master_page_id": "PB7mSlQ245FM5gf3",
-      "position": 17,
+      "position": 14,
       "type": "AUTO",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "league_table",
       "name": "League Table",
       "master_page_id": "PBPGCTmRkfvCkcck",
-      "position": 18,
+      "position": 15,
       "type": "AUTO",
       "update_binding": "data/league-table-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "tivvy_glance",
       "name": "Tivvy at a Glance",
       "master_page_id": "PBr63yHy7HjBnkDQ",
-      "position": 19,
+      "position": 16,
       "type": "AUTO",
       "update_binding": "data/tivvy-at-a-glance-binding.json",
       "render_mode": "native_editable_text_and_shapes",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "last_time_out_1",
       "name": "Last Time Out 1",
       "master_page_id": "PBHH3Zlv14XNch75",
-      "position": 20,
+      "position": 17,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_18",
       "name": "Fixed / advert page 18",
       "master_page_id": "PBdq5MRVwv6XW0sH",
-      "position": 21,
+      "position": 18,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "last_time_out_2",
       "name": "Last Time Out 2",
       "master_page_id": "PBwdF8d5b3D9pR9W",
-      "position": 22,
+      "position": 19,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_20",
-      "name": "Fixed / advert page 20",
+      "name": "Opposition archive photograph 1",
       "master_page_id": "PBfNTQGN86nTD40V",
-      "position": 23,
-      "type": "FIXED",
-      "mapping_status": "verified"
+      "position": 20,
+      "type": "GUIDED",
+      "mapping_status": "verified_live_id",
+      "active": true,
+      "review_each_issue": true
     },
     {
       "key": "last_time_out_3",
       "name": "Last Time Out 3",
       "master_page_id": "PB2Yt1BrcsY0plj2",
-      "position": 24,
+      "position": 21,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "last_time_out_4",
       "name": "Last Time Out 4",
       "master_page_id": "PB8nb7Xx234H4Gyr",
-      "position": 25,
+      "position": 22,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_23",
       "name": "Fixed page 23",
       "master_page_id": "PB6Jy0xrpZmyDQKY",
-      "position": 26,
+      "position": 23,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_24",
       "name": "Fixed page 24",
       "master_page_id": "PB8XZ4kNVPRLCvKX",
-      "position": 27,
+      "position": 24,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "your_tivvy_1",
       "name": "Your Tivvy 1",
       "master_page_id": "PBj7xfFMmzhpjW02",
-      "position": 28,
+      "position": 25,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "your_tivvy_2",
       "name": "Your Tivvy 2",
       "master_page_id": "PBqJ64fPBwPY82hS",
-      "position": 29,
+      "position": 26,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_27",
       "name": "Fixed page 27",
       "master_page_id": "PBb4gbN21Mtj097v",
-      "position": 30,
+      "position": 27,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "your_tivvy_3",
       "name": "Your Tivvy 3",
       "master_page_id": "PBNNnQtytRm3VTj5",
-      "position": 31,
+      "position": 28,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "your_tivvy_4",
       "name": "Your Tivvy 4",
       "master_page_id": "PBHjKqcMBvypcYlp",
-      "position": 32,
+      "position": 29,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "commercial",
       "name": "Commercial Opportunities",
       "master_page_id": "PBWZ9jncK5327lgB",
-      "position": 33,
+      "position": 30,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "sponsors",
       "name": "Sponsors",
       "master_page_id": "PBTFDxq5Qgf1BY8C",
-      "position": 34,
+      "position": 31,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "local_independents",
       "name": "Local Independents",
       "master_page_id": "PB4m8glh2KpD5MGn",
-      "position": 36,
+      "position": 33,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_1",
-      "name": "Meet the Opposition — Club Facts",
+      "name": "Meet the Opposition \u2014 Club Facts",
       "master_page_id": "PBSDVf1WFQVspwnG",
-      "position": 37,
+      "position": 34,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_34",
-      "name": "Fixed / advert page 34",
+      "name": "Opposition archive photograph 2",
       "master_page_id": "PBdnf90xMgPtCpd2",
-      "position": 38,
-      "type": "FIXED",
-      "mapping_status": "verified"
+      "position": 35,
+      "type": "GUIDED",
+      "mapping_status": "verified_live_id",
+      "active": true,
+      "review_each_issue": true
     },
     {
       "key": "opposition_2",
-      "name": "Meet the Opposition — Staff / Squad 1",
+      "name": "Meet the Opposition \u2014 Pen Pics 1",
       "master_page_id": "PBCTSSx9PCzMLPwl",
-      "position": 39,
+      "position": 36,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_3",
-      "name": "Meet the Opposition — Squad 2",
+      "name": "Meet the Opposition \u2014 Pen Pics 3",
       "master_page_id": "PBdB7vybHkP7cqs4",
-      "position": 40,
+      "position": 38,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_37",
       "name": "Fixed / advert page 37",
       "master_page_id": "PBtY6kxbY4LTkY3t",
-      "position": 41,
+      "position": 42,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_4",
-      "name": "Meet the Opposition — Squad / Honours",
+      "name": "Meet the Opposition \u2014 Pen Pics 2",
       "master_page_id": "PB2vzrk6STGX6tJy",
-      "position": 42,
+      "position": 37,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_preview_1",
-      "name": "Meet the Opposition — Preview 1",
+      "name": "Meet the Opposition \u2014 Preview 1",
       "master_page_id": "PBZSqpK6zDmQ0QFx",
       "position": 43,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_preview_2",
-      "name": "Meet the Opposition — Preview 2",
+      "name": "Meet the Opposition \u2014 Preview 2",
       "master_page_id": "PBK1BmGCvcfVKJp8",
       "position": 44,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_preview_3",
-      "name": "Meet the Opposition — Preview 3",
+      "name": "Meet the Opposition \u2014 Preview 3",
       "master_page_id": "PBL6VcK5N0s8zQxp",
       "position": 45,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "opposition_preview_4",
-      "name": "Meet the Opposition — Preview 4",
+      "name": "Meet the Opposition \u2014 Preview 4",
       "master_page_id": "PB4bTBnx0TvRP1wN",
       "position": 46,
       "type": "EDITORIAL",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_43",
@@ -357,7 +401,8 @@
       "master_page_id": "PBJbVyD7TyhMPcPH",
       "position": 47,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_44",
@@ -365,7 +410,8 @@
       "master_page_id": "PBN6vmfhZ9cZ1NWK",
       "position": 48,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "fixed_45",
@@ -373,7 +419,8 @@
       "master_page_id": "PBdzZNgyWnVDqL5G",
       "position": 49,
       "type": "FIXED",
-      "mapping_status": "verified"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "next_away_trip",
@@ -383,33 +430,40 @@
       "type": "GUIDED",
       "update_binding": "data/away-trip-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "today_in_60",
       "name": "Today In 60 Secs",
       "master_page_id": "PBkj4y3XTWnmZGvp",
-      "position": 5,
+      "position": 3,
       "type": "GUIDED",
       "update_binding": "data/today-in-60-binding.json",
       "render_mode": "native_editable_text_and_shapes",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "teams_officials",
       "name": "Teams / Officials",
       "master_page_id": "PB0bvN8L6cWkkjYY",
-      "position": 52,
+      "position": 51,
       "type": "GUIDED",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
     },
     {
       "key": "feature_slot",
       "name": "Feature Slot",
-      "master_page_id": "PBTGvLtr4HbQ4G8z",
-      "position": 35,
+      "master_page_id": "PB4m6Dl8PjTCPRs4",
+      "position": 32,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "reidentified_by_unique_live_content",
+      "active": true,
+      "previous_master_page_ids": [
+        "PBTGvLtr4HbQ4G8z"
+      ]
     },
     {
       "key": "player_stats",
@@ -417,46 +471,91 @@
       "master_page_id": "PB1SQB08TLKnRK0C",
       "position": null,
       "type": "AUTO",
-      "mapping_status": "missing_from_live_template"
+      "mapping_status": "absent_from_current_master",
+      "active": false
     },
     {
       "key": "your_tivvy_5",
       "name": "Your Tivvy / League Context",
       "master_page_id": "PBW1gnsmVvc6xbl9",
-      "position": 53,
+      "position": null,
       "type": "GUIDED",
-      "mapping_status": "verified"
+      "mapping_status": "absent_from_current_master",
+      "active": false
     },
     {
       "key": "league_so_far_2",
-      "name": "The League So Far — Results 2",
+      "name": "The League So Far \u2014 Results 2",
       "master_page_id": "PBXMTBDmtzjMvbPc",
-      "position": 14,
+      "position": 9,
       "type": "AUTO",
       "update_binding": "data/league-so-far-binding.json",
       "render_mode": "native_editable_table",
-      "mapping_status": "verified_by_page_content"
+      "mapping_status": "verified_live_id",
+      "active": true
+    },
+    {
+      "key": "league_so_far_3",
+      "name": "The League So Far \u2014 Results 3",
+      "master_page_id": "PBzy86j1hyvyjnmD",
+      "position": 10,
+      "type": "AUTO",
+      "active": true,
+      "mapping_status": "verified_live_content"
+    },
+    {
+      "key": "opposition_pen_pics_4",
+      "name": "Meet the Opposition \u2014 Pen Pics 4",
+      "master_page_id": "PB0zfFKLjxPlYyWp",
+      "position": 39,
+      "type": "EDITORIAL",
+      "active": true,
+      "mapping_status": "verified_live_content"
+    },
+    {
+      "key": "opposition_pen_pics_5",
+      "name": "Meet the Opposition \u2014 Pen Pics 5",
+      "master_page_id": "PBQLmB2CrNFSgDp4",
+      "position": 40,
+      "type": "EDITORIAL",
+      "active": true,
+      "mapping_status": "verified_live_content"
+    },
+    {
+      "key": "opposition_pen_pics_6",
+      "name": "Meet the Opposition \u2014 Pen Pics 6",
+      "master_page_id": "PBLytSVS3rMbjPrv",
+      "position": 41,
+      "type": "EDITORIAL",
+      "active": true,
+      "mapping_status": "verified_live_content"
+    },
+    {
+      "key": "protected_artwork_52",
+      "name": "Protected image-only / non-text page",
+      "master_page_id": "PBnCgSrCfxfZvHSC",
+      "position": 52,
+      "type": "FIXED",
+      "active": true,
+      "mapping_status": "id_verified_artwork_review_required"
     }
   ],
   "page_sync": {
-    "verified_at": "2026-10-24",
+    "verified_at": "2026-10-27T23:55:39.381Z",
     "design_id": "DAHYKUo9Tzo",
-    "current_page_count": 55,
+    "current_page_count": 52,
+    "active_mapped_count": 52,
     "missing_keys": [
+      "executive_update_1",
+      "executive_update_2",
       "fixed_11",
-      "player_stats"
+      "player_stats",
+      "your_tivvy_5"
     ],
-    "verified_by_content": [
-      "club_officials",
-      "league_so_far_1",
-      "league_so_far_2",
-      "results_matrix",
-      "around_league",
-      "league_table",
-      "tivvy_glance",
-      "next_away_trip",
-      "teams_officials",
-      "today_in_60"
-    ]
+    "content_reidentified_keys": [
+      "feature_slot"
+    ],
+    "unregistered_count": 0,
+    "native_metadata_policy": "Fresh live read required before each connected run. Copying a design may change page and element IDs."
   }
 }

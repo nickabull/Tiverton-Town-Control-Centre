@@ -599,7 +599,6 @@
   },
   "crests": [
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBkh1R5FHdRMrc9q",
       "asset_id": "MAHYHbJGCrA",
       "label": "Barnstaple Town crest \u2014 matrix column",
       "geometry": {
@@ -612,10 +611,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBxyNvxmJzJtd0BH",
       "asset_id": "MAHYHbJGCrA",
       "label": "Barnstaple Town crest \u2014 matrix row",
       "geometry": {
@@ -628,10 +627,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBptxzFKhMxKLnhV",
       "asset_id": "MAHYHbJGCrA",
       "label": "Barnstaple Town crest \u2014 matrix key",
       "geometry": {
@@ -644,10 +643,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBZL9rG6pV15Zssd",
       "asset_id": "MAHYHb1K61I",
       "label": "Bideford crest \u2014 matrix column",
       "geometry": {
@@ -660,10 +659,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LByHSCPsCjGCQsGX",
       "asset_id": "MAHYHb1K61I",
       "label": "Bideford crest \u2014 matrix row",
       "geometry": {
@@ -676,10 +675,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBMlrxxxlkl2FZg3",
       "asset_id": "MAHYHb1K61I",
       "label": "Bideford crest \u2014 matrix key",
       "geometry": {
@@ -692,10 +691,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBqgg3yzpT3tFFd1",
       "asset_id": "MAHYHdBn6UI",
       "label": "Bishops Cleeve crest \u2014 matrix column",
       "geometry": {
@@ -708,10 +707,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBk78LfL23NT2TRP",
       "asset_id": "MAHYHdBn6UI",
       "label": "Bishops Cleeve crest \u2014 matrix row",
       "geometry": {
@@ -724,10 +723,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBfzMrcL2jdvH5d4",
       "asset_id": "MAHYHdBn6UI",
       "label": "Bishops Cleeve crest \u2014 matrix key",
       "geometry": {
@@ -740,10 +739,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBQKC4Ml5cyvQMqq",
       "asset_id": "MAHYHerJcko",
       "label": "Bristol Manor Farm crest \u2014 matrix column",
       "geometry": {
@@ -756,10 +755,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBD11Yyq1JlLC9qx",
       "asset_id": "MAHYHerJcko",
       "label": "Bristol Manor Farm crest \u2014 matrix row",
       "geometry": {
@@ -772,10 +771,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBjgCg0w5cDKj0WD",
       "asset_id": "MAHYHerJcko",
       "label": "Bristol Manor Farm crest \u2014 matrix key",
       "geometry": {
@@ -788,10 +787,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBdNXBrxNk102hbs",
       "asset_id": "MAHYHUR2TPw",
       "label": "Dorchester crest \u2014 matrix column",
       "geometry": {
@@ -804,10 +803,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBrGvWGlGtYLg2zP",
       "asset_id": "MAHYHUR2TPw",
       "label": "Dorchester crest \u2014 matrix row",
       "geometry": {
@@ -820,10 +819,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBX9TnRL9cWNXgr7",
       "asset_id": "MAHYHUR2TPw",
       "label": "Dorchester crest \u2014 matrix key",
       "geometry": {
@@ -836,10 +835,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBKT4zdFbtl0r1pM",
       "asset_id": "MAHYHcnAPeM",
       "label": "Exmouth Town crest \u2014 matrix column",
       "geometry": {
@@ -852,10 +851,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBwjWnGP6JXXbjKz",
       "asset_id": "MAHYHcnAPeM",
       "label": "Exmouth Town crest \u2014 matrix row",
       "geometry": {
@@ -868,10 +867,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBn3Z0NKtfk4Qk8w",
       "asset_id": "MAHYHcnAPeM",
       "label": "Exmouth Town crest \u2014 matrix key",
       "geometry": {
@@ -884,10 +883,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBW6gM8DqMJJk6ZX",
       "asset_id": "MAHYHREbmu8",
       "label": "Falmouth Town crest \u2014 matrix column",
       "geometry": {
@@ -900,10 +899,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBJd62WRTrD4RTBd",
       "asset_id": "MAHYHREbmu8",
       "label": "Falmouth Town crest \u2014 matrix row",
       "geometry": {
@@ -916,10 +915,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB5YtTh0FTTLmTlV",
       "asset_id": "MAHYHREbmu8",
       "label": "Falmouth Town crest \u2014 matrix key",
       "geometry": {
@@ -932,10 +931,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBqw3c4xWDnsFHML",
       "asset_id": "MAHYHWBxrh0",
       "label": "Hartpury crest \u2014 matrix column",
       "geometry": {
@@ -948,10 +947,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBtXssqPGZ0BzHXk",
       "asset_id": "MAHYHWBxrh0",
       "label": "Hartpury crest \u2014 matrix row",
       "geometry": {
@@ -964,10 +963,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBGtQ3TTxbhRVg4B",
       "asset_id": "MAHYHWBxrh0",
       "label": "Hartpury crest \u2014 matrix key",
       "geometry": {
@@ -980,10 +979,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBKDSDvlL6vs3SR8",
       "asset_id": "MAHYHeCA8S4",
       "label": "Hungerford crest \u2014 matrix column",
       "geometry": {
@@ -996,10 +995,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBBq7hkvm1t8D0NW",
       "asset_id": "MAHYHeCA8S4",
       "label": "Hungerford crest \u2014 matrix row",
       "geometry": {
@@ -1012,10 +1011,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBCzlyM4vf05BMCP",
       "asset_id": "MAHYHeCA8S4",
       "label": "Hungerford crest \u2014 matrix key",
       "geometry": {
@@ -1028,10 +1027,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBCrr206cgkYFXJg",
       "asset_id": "MAHYHbexwLc",
       "label": "Larkhall Athletic crest \u2014 matrix column",
       "geometry": {
@@ -1044,10 +1043,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBNThd7W49rHvzyn",
       "asset_id": "MAHYHbexwLc",
       "label": "Larkhall Athletic crest \u2014 matrix row",
       "geometry": {
@@ -1060,10 +1059,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBzv9FDX1M7QxxBN",
       "asset_id": "MAHYHbexwLc",
       "label": "Larkhall Athletic crest \u2014 matrix key",
       "geometry": {
@@ -1076,10 +1075,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBRys5nLdvdc5jWb",
       "asset_id": "MAHYHWtMIxI",
       "label": "Melksham Town crest \u2014 matrix column",
       "geometry": {
@@ -1092,10 +1091,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBThpvqhP11qsKvy",
       "asset_id": "MAHYHWtMIxI",
       "label": "Melksham Town crest \u2014 matrix row",
       "geometry": {
@@ -1108,10 +1107,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBmzGcgfqdP7SQK4",
       "asset_id": "MAHYHWtMIxI",
       "label": "Melksham Town crest \u2014 matrix key",
       "geometry": {
@@ -1124,10 +1123,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBYFdTSMwwJmcmFd",
       "asset_id": "MAHYHTDtw54",
       "label": "Paulton Rovers crest \u2014 matrix column",
       "geometry": {
@@ -1140,10 +1139,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB9yfpT3ZyXyp2qL",
       "asset_id": "MAHYHTDtw54",
       "label": "Paulton Rovers crest \u2014 matrix row",
       "geometry": {
@@ -1156,10 +1155,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBB4csx7tRz69LYg",
       "asset_id": "MAHYHTDtw54",
       "label": "Paulton Rovers crest \u2014 matrix key",
       "geometry": {
@@ -1172,10 +1171,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB56wN17pLKcnj04",
       "asset_id": "MAHYHY5tbW4",
       "label": "Portland United crest \u2014 matrix column",
       "geometry": {
@@ -1188,10 +1187,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB7tFfbsqwZkxrdV",
       "asset_id": "MAHYHY5tbW4",
       "label": "Portland United crest \u2014 matrix row",
       "geometry": {
@@ -1204,10 +1203,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB6Fx5V7CM02SRWp",
       "asset_id": "MAHYHY5tbW4",
       "label": "Portland United crest \u2014 matrix key",
       "geometry": {
@@ -1220,10 +1219,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBgKJf8zTsJLvxpX",
       "asset_id": "MAHYHU-Qdmc",
       "label": "Shaftesbury crest \u2014 matrix column",
       "geometry": {
@@ -1236,10 +1235,10 @@
           "width": 6.16,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBrPnntYPL63BW5Q",
       "asset_id": "MAHYHU-Qdmc",
       "label": "Shaftesbury crest \u2014 matrix row",
       "geometry": {
@@ -1252,10 +1251,10 @@
           "width": 6.16,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBC8c07RysFGRc4W",
       "asset_id": "MAHYHU-Qdmc",
       "label": "Shaftesbury crest \u2014 matrix key",
       "geometry": {
@@ -1268,10 +1267,10 @@
           "width": 13.86,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB1M4nv1KRbnRWX9",
       "asset_id": "MAHYHb8saGc",
       "label": "Slimbridge crest \u2014 matrix column",
       "geometry": {
@@ -1284,10 +1283,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBRxxbkrkv0xdMgQ",
       "asset_id": "MAHYHb8saGc",
       "label": "Slimbridge crest \u2014 matrix row",
       "geometry": {
@@ -1300,10 +1299,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB3wJCbL91QBSYF4",
       "asset_id": "MAHYHb8saGc",
       "label": "Slimbridge crest \u2014 matrix key",
       "geometry": {
@@ -1316,10 +1315,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB5j4w8GBy8FH7WM",
       "asset_id": "MAHYHc0FmQ0",
       "label": "Sporting Club Inkberrow crest \u2014 matrix column",
       "geometry": {
@@ -1332,10 +1331,10 @@
           "width": 4.84,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBrY0HwtZSqNv8MB",
       "asset_id": "MAHYHc0FmQ0",
       "label": "Sporting Club Inkberrow crest \u2014 matrix row",
       "geometry": {
@@ -1348,10 +1347,10 @@
           "width": 4.84,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBTwgpsP7tx8n9fh",
       "asset_id": "MAHYHc0FmQ0",
       "label": "Sporting Club Inkberrow crest \u2014 matrix key",
       "geometry": {
@@ -1364,10 +1363,10 @@
           "width": 10.89,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBGvT8l6RvNDpJkc",
       "asset_id": "MAHYHRRUg74",
       "label": "Swindon Supermarine crest \u2014 matrix column",
       "geometry": {
@@ -1380,10 +1379,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBVmHNmcKlzX26rj",
       "asset_id": "MAHYHRRUg74",
       "label": "Swindon Supermarine crest \u2014 matrix row",
       "geometry": {
@@ -1396,10 +1395,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBb13C9sd1M7mMrP",
       "asset_id": "MAHYHRRUg74",
       "label": "Swindon Supermarine crest \u2014 matrix key",
       "geometry": {
@@ -1412,10 +1411,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBY67rqxnYrvZNfM",
       "asset_id": "MAHYHeVtaFY",
       "label": "Tiverton Town crest \u2014 matrix column",
       "geometry": {
@@ -1428,10 +1427,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LB1pgt7nX1N7MmGZ",
       "asset_id": "MAHYHeVtaFY",
       "label": "Tiverton Town crest \u2014 matrix row",
       "geometry": {
@@ -1444,10 +1443,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBxMnvPzCzxBDzXx",
       "asset_id": "MAHYHeVtaFY",
       "label": "Tiverton Town crest \u2014 matrix key",
       "geometry": {
@@ -1460,10 +1459,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBfXQjQmTqfTtZsF",
       "asset_id": "MAHYHdbXqMk",
       "label": "Westbury United crest \u2014 matrix column",
       "geometry": {
@@ -1476,10 +1475,10 @@
           "width": 8,
           "height": 7.960000000000001
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBb9H9HV9TSlrLQ6",
       "asset_id": "MAHYHdbXqMk",
       "label": "Westbury United crest \u2014 matrix row",
       "geometry": {
@@ -1492,10 +1491,10 @@
           "width": 8,
           "height": 7.960000000000001
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBKldX456W1lvdZ3",
       "asset_id": "MAHYHdbXqMk",
       "label": "Westbury United crest \u2014 matrix key",
       "geometry": {
@@ -1508,10 +1507,10 @@
           "width": 18,
           "height": 17.91
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBp1fdfc1g264MGT",
       "asset_id": "MAHYHTJLF7U",
       "label": "Weymouth crest \u2014 matrix column",
       "geometry": {
@@ -1524,10 +1523,10 @@
           "width": 5.96,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBDRfD2LZ1Dy71bK",
       "asset_id": "MAHYHTJLF7U",
       "label": "Weymouth crest \u2014 matrix row",
       "geometry": {
@@ -1540,10 +1539,10 @@
           "width": 5.96,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBKZ7PZWtw0gTpMM",
       "asset_id": "MAHYHTJLF7U",
       "label": "Weymouth crest \u2014 matrix key",
       "geometry": {
@@ -1556,10 +1555,10 @@
           "width": 13.41,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBmTwBdGVsNXvXjw",
       "asset_id": "MAHYHcX0c5Q",
       "label": "Willand Rovers crest \u2014 matrix column",
       "geometry": {
@@ -1572,10 +1571,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBYnwNq3Lv3vG9cT",
       "asset_id": "MAHYHcX0c5Q",
       "label": "Willand Rovers crest \u2014 matrix row",
       "geometry": {
@@ -1588,10 +1587,10 @@
           "width": 8,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBq4NgFrKdLKcv7C",
       "asset_id": "MAHYHcX0c5Q",
       "label": "Willand Rovers crest \u2014 matrix key",
       "geometry": {
@@ -1604,10 +1603,10 @@
           "width": 18,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBHpxNPHxWnhfTSG",
       "asset_id": "MAHYHQ8xEiQ",
       "label": "Worcester Raiders crest \u2014 matrix column",
       "geometry": {
@@ -1620,10 +1619,10 @@
           "width": 7.52,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBtR5ywqZFW6V96z",
       "asset_id": "MAHYHQ8xEiQ",
       "label": "Worcester Raiders crest \u2014 matrix row",
       "geometry": {
@@ -1636,10 +1635,10 @@
           "width": 7.52,
           "height": 8
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     },
     {
-      "element_id": "PB9P9mXjTZSWtXpM-LBDxWkYCRKsmnNfz",
       "asset_id": "MAHYHQ8xEiQ",
       "label": "Worcester Raiders crest \u2014 matrix key",
       "geometry": {
@@ -1652,7 +1651,8 @@
           "width": 16.919999999999998,
           "height": 18
         }
-      }
+      },
+      "resolve_live_element_before_write": true
     }
   ],
   "club_key": {
@@ -2590,6 +2590,10 @@
     "tiverton_colour": "#FFD400"
   },
   "orientation": "home_columns_away_rows",
-  "verified_at": "2026-10-26",
-  "verified_result_count": 140
+  "verified_at": "2026-10-27T23:55:39.381Z",
+  "verified_result_count": 140,
+  "binding_resolution": "read_live_canva_in_connected_session",
+  "copy_rule": "These are master locators only. Resolve the corresponding page and all native elements in the NEW issue copy before editing.",
+  "target_policy": "new_issue_copy_only",
+  "native_targets_must_be_resolved_after_copy": true
 }

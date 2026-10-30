@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "season": "2026/27",
   "updatedAt": "2026-10-30",
-  "source": "Sponsor list supplied by Tiverton Town; public business information researched from the sources in each record.",
+  "source": "Sponsor list supplied by Tiverton Town; public business information researched from the sources in each record. Additional 19 entries transcribed from user-supplied Official Sponsors Directory PDF; contact details await sponsor review.",
   "sourceEntryCount": 73,
   "uniqueSponsorCount": 66,
   "sponsors": [
@@ -1883,7 +1883,601 @@
       "logo": "assets/sponsors/willow-tree-dance.png",
       "logoTheme": "light",
       "logoTransparency": "transparent"
+    },
+    {
+      "name": "All Heat Plumbing & Heating",
+      "website": "https://www.facebook.com/allheatplumbing/",
+      "summary": "Boiler installations, central heating, emergency repairs, and plumbing services.",
+      "categories": [
+        "Plumbing & Heating"
+      ],
+      "keywords": [
+        "plumbing",
+        "boilers",
+        "central heating",
+        "emergency repairs"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/allheatplumbing/"
+      ],
+      "confidence": "confirmed",
+      "id": "all-heat-plumbing-heating",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Axon Contracting",
+      "website": "",
+      "summary": "Professional contracting and commercial services.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "contracting",
+        "commercial services"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "Turley Down Bungalow, Ash Thomas, Tiverton, EX16 4NU",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [],
+      "confidence": "confirmed",
+      "id": "axon-contracting",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Briarswood",
+      "website": "https://www.facebook.com/briarswood/",
+      "summary": "Local bespoke construction, residential developments, and carpentry.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "construction",
+        "residential developments",
+        "carpentry"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/briarswood/"
+      ],
+      "confidence": "confirmed",
+      "id": "briarswood",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "C&R Removals & Storage",
+      "website": "http://www.crremovalsnstorage.co.uk",
+      "summary": "Home and office removals, professional packing, and secure storage.",
+      "categories": [
+        "Home & Property Services"
+      ],
+      "keywords": [
+        "removals",
+        "packing",
+        "storage",
+        "office moves"
+      ],
+      "phone": "+44 1507 343592",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "http://www.crremovalsnstorage.co.uk"
+      ],
+      "confidence": "confirmed",
+      "id": "c-r-removals-storage",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Cross Countryside Services",
+      "website": "https://www.facebook.com/p/Cross-Countryside-Services-100072447636413/",
+      "summary": "Countryside management, digger work, drainage, and landscaping.",
+      "categories": [
+        "Gardens & Outdoors"
+      ],
+      "keywords": [
+        "countryside management",
+        "digger work",
+        "drainage",
+        "landscaping"
+      ],
+      "phone": "+44 7751 736290",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/p/Cross-Countryside-Services-100072447636413/"
+      ],
+      "confidence": "confirmed",
+      "id": "cross-countryside-services",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "H2O Plumbing",
+      "website": "https://www.h20plumbing.co.uk/",
+      "summary": "Gas Safe registered boiler replacements, bathroom installs, and general plumbing.",
+      "categories": [
+        "Plumbing & Heating"
+      ],
+      "keywords": [
+        "boiler replacements",
+        "bathrooms",
+        "plumbing",
+        "Gas Safe"
+      ],
+      "phone": "+44 7984 449661",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.h20plumbing.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "h2o-plumbing",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "J Rainey General Building Contractor",
+      "website": "https://www.mybuilder.com/profile/j_rainey_building_contractor",
+      "summary": "Extensions, new builds, renovations, and project management.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "extensions",
+        "new builds",
+        "renovations",
+        "project management"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.mybuilder.com/profile/j_rainey_building_contractor"
+      ],
+      "confidence": "confirmed",
+      "id": "j-rainey-general-building-contractor",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Jeffs & Son Traditional Window Cleaners",
+      "website": "https://www.facebook.com/jeffsandsonwindowcleaning/",
+      "summary": "Traditional hand window cleaning, gutter clearance, and carpet cleaner hire.",
+      "categories": [
+        "Home & Property Services"
+      ],
+      "keywords": [
+        "window cleaning",
+        "gutter clearance",
+        "carpet cleaner hire"
+      ],
+      "phone": "+44 7926 969799",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/jeffsandsonwindowcleaning/"
+      ],
+      "confidence": "confirmed",
+      "id": "jeffs-son-traditional-window-cleaners",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "JG Webb Engineering",
+      "website": "https://www.facebook.com/JGWebbEngineering/",
+      "summary": "Steel fabrication, agricultural engineering, and custom metalwork.",
+      "categories": [
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "steel fabrication",
+        "agricultural engineering",
+        "metalwork"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/JGWebbEngineering/"
+      ],
+      "confidence": "confirmed",
+      "id": "jg-webb-engineering",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Kade’s Construction",
+      "website": "https://www.facebook.com/kadesconstruction/",
+      "summary": "Local building contractor specialising in domestic extensions and groundworks.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "building",
+        "extensions",
+        "groundworks"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/kadesconstruction/"
+      ],
+      "confidence": "confirmed",
+      "id": "kade-s-construction",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Landscapes R US",
+      "website": "https://www.facebook.com/LandscapesRUS/",
+      "summary": "Fencing, patios, turfing, and complete residential garden redesign.",
+      "categories": [
+        "Gardens & Outdoors"
+      ],
+      "keywords": [
+        "fencing",
+        "patios",
+        "turfing",
+        "garden redesign"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/LandscapesRUS/"
+      ],
+      "confidence": "confirmed",
+      "id": "landscapes-r-us",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "LIFT / Tony Wheeley",
+      "website": "https://www.localindependentsfortiverton.org.uk",
+      "summary": "Local Independents for Tiverton — community-focused business alliance.",
+      "categories": [
+        "Community & Organisations"
+      ],
+      "keywords": [
+        "local independent businesses",
+        "community",
+        "Tiverton"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.localindependentsfortiverton.org.uk"
+      ],
+      "confidence": "confirmed",
+      "id": "lift-tony-wheeley",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "MJ Scrap Metals",
+      "website": "https://www.facebook.com/mjscrapmetals/",
+      "summary": "Scrap metal recycling, site clearances, and vehicle recycling extraction.",
+      "categories": [
+        "Recycling & Waste"
+      ],
+      "keywords": [
+        "scrap metal",
+        "recycling",
+        "site clearances",
+        "vehicle recycling"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/mjscrapmetals/"
+      ],
+      "confidence": "confirmed",
+      "id": "mj-scrap-metals",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Paul Orchard",
+      "website": "https://www.facebook.com/paulorchardplastering/",
+      "summary": "Professional plastering, rendering, and home decoration specialist.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "plastering",
+        "rendering",
+        "decoration"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/paulorchardplastering/"
+      ],
+      "confidence": "confirmed",
+      "id": "paul-orchard",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "R & M Cars",
+      "website": "https://www.facebook.com/rmcarstiverton/",
+      "summary": "Used car dealership, vehicle sourcing, and automotive sales.",
+      "categories": [
+        "Motoring"
+      ],
+      "keywords": [
+        "used cars",
+        "vehicle sourcing",
+        "car sales"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/rmcarstiverton/"
+      ],
+      "confidence": "confirmed",
+      "id": "r-m-cars",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "R White & Son Ltd",
+      "website": "https://www.rwhiteandson.co.uk",
+      "summary": "Precision engineering, manufacturing, and CNC machining solutions.",
+      "categories": [
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "engineering",
+        "manufacturing",
+        "CNC machining"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.rwhiteandson.co.uk"
+      ],
+      "confidence": "confirmed",
+      "id": "r-white-son-ltd",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Rapid Scaffolding",
+      "website": "https://www.facebook.com/rapidscaffoldingsw/",
+      "summary": "Commercial and domestic scaffolding structures, safety netting, and temporary roofs.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "scaffolding",
+        "safety netting",
+        "temporary roofs"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/rapidscaffoldingsw/"
+      ],
+      "confidence": "confirmed",
+      "id": "rapid-scaffolding",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Rob Barton Farm Buildings and Maintenance",
+      "website": "https://www.facebook.com/robbartonfarmbuildings/",
+      "summary": "Agricultural steel-framed erections, barn repairs, and farm maintenance.",
+      "categories": [
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "farm buildings",
+        "steel frames",
+        "barn repairs",
+        "maintenance"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.facebook.com/robbartonfarmbuildings/"
+      ],
+      "confidence": "confirmed",
+      "id": "rob-barton-farm-buildings-and-maintenance",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Yeo PSA Testing",
+      "website": "https://www.yeopsatesting.co.uk",
+      "summary": "Community healthcare initiative raising awareness and offering prostate screening.",
+      "categories": [
+        "Community & Organisations"
+      ],
+      "keywords": [
+        "prostate screening",
+        "PSA testing",
+        "awareness"
+      ],
+      "phone": "",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.yeopsatesting.co.uk"
+      ],
+      "confidence": "confirmed",
+      "id": "yeo-psa-testing",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
     }
   ],
-  "publishedSponsorCount": 47
+  "publishedSponsorCount": 66
 }

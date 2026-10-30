@@ -1,0 +1,1885 @@
+{
+  "schemaVersion": 1,
+  "season": "2026/27",
+  "updatedAt": "2026-10-30",
+  "source": "Sponsor list supplied by Tiverton Town; public business information researched from the sources in each record.",
+  "sourceEntryCount": 73,
+  "uniqueSponsorCount": 66,
+  "sponsors": [
+    {
+      "name": "A & S Paving & Building Supplies",
+      "website": "https://www.aspaving.co.uk/",
+      "summary": "Building and landscaping supplies from Barnstaple Cross near Crediton. Products include paving, natural stone, sand, aggregates, timber and building materials.",
+      "categories": [
+        "Building & Trades",
+        "Gardens & Outdoors"
+      ],
+      "keywords": [
+        "paving",
+        "builders merchant",
+        "landscaping",
+        "aggregates",
+        "natural stone",
+        "timber"
+      ],
+      "phone": "01363 775017",
+      "email": "sales@aspaving.co.uk",
+      "address": "Barnstaple Cross, Crediton, Devon, EX17 2EP",
+      "serviceArea": "Devon",
+      "logoUrl": "https://static.wixstatic.com/media/9a7e17_e53d055618d043438dd854769d662809~mv2.png",
+      "sources": [
+        "https://www.aspaving.co.uk/",
+        "https://www.aspaving.co.uk/contact"
+      ],
+      "confidence": "confirmed",
+      "id": "a-s-paving",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction",
+        "garden",
+        "gardener",
+        "landscaping"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/a-s-paving.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Amicus Law",
+      "website": "https://www.amicuslaw.co.uk/office/tiverton/",
+      "summary": "Solicitors in Tiverton advising individuals, families and businesses. Services include conveyancing, wills, trusts and probate, family law, employment law and agricultural law.",
+      "categories": [
+        "Legal Services"
+      ],
+      "keywords": [
+        "solicitor",
+        "lawyer",
+        "conveyancing",
+        "wills",
+        "probate",
+        "family law",
+        "employment law",
+        "agricultural law"
+      ],
+      "phone": "01884 211800",
+      "email": "info@amicuslaw.co.uk",
+      "address": "Ground Floor, Raymond Penny House, Phoenix Lane, Tiverton, Devon, EX16 6LU",
+      "serviceArea": "Tiverton and Mid Devon",
+      "logoUrl": "https://www.amicuslaw.co.uk/wp-content/uploads/2025/10/amicus_law_full_logo_light.svg",
+      "sources": [
+        "https://www.amicuslaw.co.uk/office/tiverton/"
+      ],
+      "confidence": "confirmed",
+      "id": "amicus",
+      "searchAliases": [
+        "solicitor",
+        "solicitors",
+        "lawyer",
+        "legal"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/amicus.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Apsleys",
+      "website": "https://www.apsleys.com/",
+      "summary": "Chartered accountants based in Tiverton, supporting business and personal clients. Services include accounts, bookkeeping, VAT, taxation, payroll and business support.",
+      "categories": [
+        "Accountants & Finance"
+      ],
+      "keywords": [
+        "accountant",
+        "bookkeeping",
+        "tax",
+        "VAT",
+        "payroll",
+        "business advice"
+      ],
+      "phone": "01884 257725",
+      "email": "tiverton@apsleys.com",
+      "address": "21 Bampton Street, Tiverton, Devon, EX16 6AA",
+      "serviceArea": "South West England and UK-wide",
+      "logoUrl": "",
+      "sources": [
+        "https://www.apsleys.com/",
+        "https://www.apsleys.com/pdf/services-brochure.pdf"
+      ],
+      "confidence": "confirmed",
+      "id": "apsleys",
+      "searchAliases": [
+        "accountant",
+        "accountancy",
+        "accounts",
+        "tax"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Bard Electrical",
+      "website": "https://www.bardelectrical.com/",
+      "summary": "Mid Devon electrical contractor working on domestic and commercial projects. Services range from lighting and extractor installations to complete rewires and new-build electrical work.",
+      "categories": [
+        "Electrical"
+      ],
+      "keywords": [
+        "Electrical Services",
+        "lighting",
+        "rewires"
+      ],
+      "phone": "07779 328266",
+      "email": "info@bardelectrical.com",
+      "address": "Cullompton, Devon",
+      "serviceArea": "Mid Devon and surrounding areas",
+      "logoUrl": "https://impro.usercontent.one/appid/oneComWsb/domain/bardelectrical.com/media/bardelectrical.com/images/logo-2.jpg?etag=%2212757-5ae4b697%22&amp;sourceContentType=image%2Fjpeg&amp;ignoreAspectRatio&amp;resize=301%2B57&amp;extract=0%2B0%2B300%2B57&amp;quality=85",
+      "sources": [
+        "https://www.bardelectrical.com/"
+      ],
+      "confidence": "confirmed",
+      "id": "bard-electrical",
+      "searchAliases": [
+        "electrician",
+        "electrical"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/bard-electrical.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Bray Accountants",
+      "website": "https://brayaccounts.co.uk/",
+      "summary": "Tiverton accountancy practice supporting businesses and individuals. Services include annual accounts, self-assessment and tax returns, with advice tailored to each client.",
+      "categories": [
+        "Accountants & Finance"
+      ],
+      "keywords": [
+        "Accountancy & Financial Services",
+        "annual accounts",
+        "self-assessment",
+        "tax returns"
+      ],
+      "phone": "01884 256363",
+      "email": "mail@brayaccounts.co.uk",
+      "address": "21 Angel Hill, Tiverton, EX16 6PE",
+      "serviceArea": "Tiverton and surrounding areas",
+      "logoUrl": "",
+      "sources": [
+        "https://brayaccounts.co.uk/",
+        "https://brayaccounts.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "bray-accountants",
+      "searchAliases": [
+        "accountant",
+        "accountancy",
+        "accounts",
+        "tax"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Bridge Troll Boardgame Café",
+      "website": "https://www.facebook.com/bridgetrollhobbies/",
+      "summary": "Independent gaming café and shop in Tiverton, with board games, collectible card games and tabletop miniatures. The business provides gaming space, drinks and snacks, and hosts games events.",
+      "categories": [
+        "Food & Drink",
+        "Shopping & Supplies",
+        "Leisure & Entertainment"
+      ],
+      "keywords": [
+        "cafe",
+        "coffee",
+        "board games",
+        "Pokemon",
+        "Warhammer",
+        "gaming",
+        "Reuben",
+        "spa",
+        "events"
+      ],
+      "phone": "",
+      "email": "info@bridgetrollhobbies.com",
+      "address": "10 Angel Hill, Tiverton, Devon, EX16 6PE",
+      "serviceArea": "Tiverton",
+      "logoUrl": "",
+      "sources": [
+        "https://uk.linkedin.com/company/bridge-troll",
+        "https://www.bridgetrollhobbies.com/",
+        "https://visitmiddevon.co.uk/listing/bridge-troll-hobbies/"
+      ],
+      "confidence": "confirmed",
+      "id": "bridge-troll-reuben",
+      "searchAliases": [
+        "food",
+        "drink",
+        "eat",
+        "eating"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Bristol Sky Park",
+      "website": "https://bristolskypark.co.uk/",
+      "summary": "Airport parking provider near Bristol Airport offering park-and-ride shuttle and meet-and-greet services. Optional vehicle valeting and detailing are available, with the site located beside The Stoke Inn at Chew Stoke.",
+      "categories": [
+        "Travel & Transport",
+        "Motoring"
+      ],
+      "keywords": [
+        "airport parking",
+        "Bristol airport",
+        "park and ride",
+        "meet and greet",
+        "shuttle",
+        "valeting",
+        "holiday parking"
+      ],
+      "phone": "01275 332120",
+      "email": "bristolskypark@gmail.com",
+      "address": "The Stoke Inn, Bristol Road, Chew Stoke, Bristol, BS40 8XE",
+      "serviceArea": "Bristol Airport",
+      "logoUrl": "https://media.parkflow.io/tenants/a0dff6d9-dc81-420c-93db-01e9435009d3/logo/logo.png",
+      "sources": [
+        "https://bristolskypark.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "sky-park",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/sky-park.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "CAP Ceilings & Partitions",
+      "website": "https://cap-ceilings.co.uk/",
+      "summary": "Commercial interior specialists based in Exeter. Services include partitions, suspended ceilings, dry lining, plastering, SFS systems and acoustic solutions.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "ceilings",
+        "partitions",
+        "dry lining",
+        "plastering",
+        "office refurbishment",
+        "acoustics"
+      ],
+      "phone": "01392 464407",
+      "email": "",
+      "address": "Unit 7 Sandpiper Court, Harrington Lane, Pinhoe, Exeter, Devon, EX4 8NS",
+      "serviceArea": "Predominantly South West England",
+      "logoUrl": "",
+      "sources": [
+        "https://cap-ceilings.co.uk/",
+        "https://cap-ceilings.co.uk/contact",
+        "https://cap-ceilings.co.uk/services"
+      ],
+      "confidence": "confirmed",
+      "id": "cap-ceilings",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/cap-ceilings.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "CHAT Mid Devon",
+      "website": "https://www.chatmid.org/",
+      "summary": "Mid Devon charity providing free support with housing, debt and money. Practical help includes a foodbank, pantry and assistance with household items.",
+      "categories": [
+        "Community & Charity"
+      ],
+      "keywords": [
+        "Community & Charity",
+        "housing",
+        "debt",
+        "foodbank",
+        "pantry"
+      ],
+      "phone": "0800 059 0104",
+      "email": "theoffice@chatmid.co.uk",
+      "address": "Coggan’s Well House, Phoenix Lane, Tiverton, EX16 6LU",
+      "serviceArea": "Mid Devon",
+      "logoUrl": "https://static.wixstatic.com/media/7dd411_a918149347d4488a87f5171a63e84b7e~mv2.png",
+      "sources": [
+        "https://www.chatmid.org/",
+        "https://www.chatmid.org/contact"
+      ],
+      "confidence": "confirmed",
+      "id": "chat",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/chat.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Culmex Construction",
+      "website": "https://culmexconstruction.co.uk/",
+      "summary": "Tiverton-based building contractor carrying out new builds, extensions, barn conversions and refurbishments. Its team also undertakes commercial construction projects.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "Building & Construction",
+        "new builds",
+        "extensions",
+        "barn conversions",
+        "refurbishments"
+      ],
+      "phone": "01884 255587",
+      "email": "info@culmexconstruction.co.uk",
+      "address": "",
+      "serviceArea": "Tiverton and Mid Devon",
+      "logoUrl": "https://culmexconstruction.co.uk/wp-content/uploads/2024/11/Culmex-Logo-Strapline-06.01.26_Secondary-Logo-White.svg",
+      "sources": [
+        "https://culmexconstruction.co.uk/",
+        "https://www.fmb.org.uk/builder/culmex-construction-ltd.html"
+      ],
+      "confidence": "confirmed",
+      "id": "culmex-construction",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/culmex-construction.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "D.P. Goffin Roofing",
+      "website": "",
+      "summary": "Sheet metal, single ply and fibreglass roofing services.",
+      "categories": [
+        "Building & Construction"
+      ],
+      "keywords": [
+        "roofing",
+        "roofer",
+        "sheet metal",
+        "single ply",
+        "fibreglass",
+        "flat roofing"
+      ],
+      "phone": "07824 312311",
+      "email": "",
+      "address": "",
+      "serviceArea": "",
+      "logoUrl": "",
+      "sources": [
+        "https://www.tivertontownfc.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "dp-goffin-removals",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Diamond Estate Agents",
+      "website": "https://diamondagent.co.uk/",
+      "summary": "Independent estate and letting agents with offices in Tiverton and Exeter. The team helps with buying, selling, renting, lettings and property valuations.",
+      "categories": [
+        "Property & Estate Agents"
+      ],
+      "keywords": [
+        "estate agent",
+        "letting agent",
+        "houses",
+        "property",
+        "rent",
+        "valuation"
+      ],
+      "phone": "01884 253484",
+      "email": "hello@diamondagent.co.uk",
+      "address": "13 Fore Street, Tiverton, Devon, EX16 6LN",
+      "serviceArea": "Tiverton, Exeter and Mid Devon",
+      "logoUrl": "https://spectre-id-media-production.s3.eu-west-1.amazonaws.com/a1d36f1f-a820-426b-82dc-bb3ca6f1a537/29838-additionallogos/Diamond-Property---Logo---No-Background.png",
+      "sources": [
+        "https://diamondagent.co.uk/",
+        "https://diamondagent.co.uk/our-locations"
+      ],
+      "confidence": "confirmed",
+      "id": "diamond-estate-agents",
+      "searchAliases": [
+        "estate agent",
+        "letting agent",
+        "property"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/diamond-estate-agents.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Dunn & Baker Solicitors",
+      "website": "https://www.dunnandbaker.co.uk/",
+      "summary": "Solicitors serving individuals and businesses from Exeter and Cullompton. Services include residential and commercial property, family law, wills, trusts, probate and other personal and business legal matters.",
+      "categories": [
+        "Legal Services"
+      ],
+      "keywords": [
+        "solicitor",
+        "lawyer",
+        "conveyancing",
+        "wills",
+        "probate",
+        "family law",
+        "commercial property"
+      ],
+      "phone": "01884 33818",
+      "email": "mail@dunnandbaker.co.uk",
+      "address": "38 High Street, Cullompton, Devon, EX15 1AE",
+      "serviceArea": "Exeter, Cullompton and surrounding Devon",
+      "logoUrl": "https://www.dunnandbaker.co.uk/wp-content/uploads/2021/05/db.jpg",
+      "sources": [
+        "https://www.dunnandbaker.co.uk/",
+        "https://www.dunnandbaker.co.uk/contact/"
+      ],
+      "confidence": "confirmed",
+      "id": "dunn-baker-solicitors",
+      "searchAliases": [
+        "solicitor",
+        "solicitors",
+        "lawyer",
+        "legal"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/dunn-baker-solicitors.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Eagle Plant Tiverton",
+      "website": "https://www.eagleplant.co.uk/branch/tiverton",
+      "summary": "Plant and tool hire from the Tiverton branch on Howden Industrial Estate. The branch also offers event toilet hire, a retail shop and servicing and repairs for small tools and garden machinery.",
+      "categories": [
+        "Building & Trades",
+        "Hire & Storage"
+      ],
+      "keywords": [
+        "plant hire",
+        "tool hire",
+        "digger",
+        "excavator",
+        "dumper",
+        "toilet hire",
+        "power tools",
+        "lawnmower repairs",
+        "garden",
+        "servicing",
+        "tools"
+      ],
+      "phone": "01884 254601",
+      "email": "",
+      "address": "Woodward Road, Howden Industrial Estate, Tiverton, Devon, EX16 5GZ",
+      "serviceArea": "Tiverton and Mid Devon",
+      "logoUrl": "https://www.eagleplant.co.uk/wp-content/uploads/elementor/thumbs/Eagle-plant-blue-with-yellow-text-and-eagle-r5hv13pp18k0uijk83px3ciznp8kvbfa6hu8rwfdd4.jpg",
+      "sources": [
+        "https://www.eagleplant.co.uk/branch/tiverton"
+      ],
+      "confidence": "confirmed",
+      "id": "eagle-plant",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/eagle-plant.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Edwards Plumbing Services",
+      "website": "https://edwardsplumbingservices.co.uk/",
+      "summary": "Tiverton plumbing and heating business handling plumbing repairs, boiler work and central heating installations. Contact the team to discuss domestic installation and maintenance requirements.",
+      "categories": [
+        "Plumbing & Heating"
+      ],
+      "keywords": [
+        "Plumbing & Heating",
+        "plumbing repairs",
+        "boiler work",
+        "central heating"
+      ],
+      "phone": "01884 684041",
+      "email": "info@edwardsplumbingservices.co.uk",
+      "address": "",
+      "serviceArea": "Tiverton and surrounding areas",
+      "logoUrl": "https://edwardsplumbingservices.co.uk/wp-content/uploads/2019/10/logo.png",
+      "sources": [
+        "https://edwardsplumbingservices.co.uk/",
+        "https://edwardsplumbingservices.co.uk/contact/"
+      ],
+      "confidence": "confirmed",
+      "id": "edwards-plumbing",
+      "searchAliases": [
+        "plumber",
+        "plumbing",
+        "heating"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/edwards-plumbing.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Exeter Window Store",
+      "website": "https://exeterwindowstore.co.uk/",
+      "summary": "Supplier of windows, doors, conservatories and related building products for homeowners and trade customers. Its Exeter showroom offers displays and help with product selection.",
+      "categories": [
+        "Windows & Doors",
+        "Shopping & Supplies"
+      ],
+      "keywords": [
+        "Windows & Doors",
+        "Building Supplies",
+        "windows",
+        "doors",
+        "conservatories"
+      ],
+      "phone": "01392 444335",
+      "email": "exeterwindowstore@mac.com",
+      "address": "10–11 Apple Lane, Sidmouth Road, Exeter, EX2 5GL",
+      "serviceArea": "Exeter and surrounding areas",
+      "logoUrl": "https://exeterwindowstore.co.uk/wp-content/uploads/2023/06/exeterwindowstore.svg",
+      "sources": [
+        "https://exeterwindowstore.co.uk/",
+        "https://exeterwindowstore.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "exeter-window-store",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/exeter-window-store.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Fordmore Farm Shop",
+      "website": "https://www.fordmorefarmshop.co.uk/",
+      "summary": "Farm shop near Cullompton selling West Country food and drink, with a butcher, fishmonger, deli and fresh produce. Its café serves breakfast, lunch, cakes and coffee, with farm animals and a play area on site.",
+      "categories": [
+        "Food & Drink",
+        "Shopping & Supplies"
+      ],
+      "keywords": [
+        "farm shop",
+        "cafe",
+        "café",
+        "butcher",
+        "fishmonger",
+        "deli",
+        "coffee",
+        "lunch",
+        "local produce",
+        "farm"
+      ],
+      "phone": "01884 839742",
+      "email": "hello@fordmore.co.uk",
+      "address": "Newlands Park, Honiton Road, Cullompton, Devon, EX15 1WH",
+      "serviceArea": "Cullompton",
+      "logoUrl": "https://images.squarespace-cdn.com/content/v1/6305ed1cecc57117041b1770/61e526c6-ed6a-4e39-8c9a-bb304bc3225c/Fordmore-Farm-Shop-logo-2024.jpg?format=1500w",
+      "sources": [
+        "https://www.fordmorefarmshop.co.uk/",
+        "https://fordmore-farmshop.squarespace.com/contact-us"
+      ],
+      "confidence": "confirmed",
+      "id": "fordmore-farm",
+      "searchAliases": [
+        "food",
+        "drink",
+        "eat",
+        "eating"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/fordmore-farm.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "GD Matthews Chartered Certified Accountants",
+      "website": "https://gdmatthews.co.uk/",
+      "summary": "Chartered certified accountants supporting individuals, sole traders, partnerships and limited companies. Services include accounts, self-assessment, VAT, payroll, bookkeeping and management accounts.",
+      "categories": [
+        "Accountants & Finance"
+      ],
+      "keywords": [
+        "accountant",
+        "accountancy",
+        "accounts",
+        "self-assessment",
+        "VAT",
+        "payroll",
+        "bookkeeping",
+        "management accounts"
+      ],
+      "phone": "01179 115680",
+      "email": "office@gdmatthews.co.uk",
+      "address": "",
+      "serviceArea": "Bristol and clients across the UK",
+      "logoUrl": "https://gdmatthews.co.uk/wp-content/uploads/2020/09/LogoWhite.png",
+      "sources": [
+        "https://gdmatthews.co.uk/",
+        "https://gdmatthews.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "gd-matthews",
+      "searchAliases": [
+        "accountant",
+        "accountancy",
+        "tax",
+        "finance"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/gd-matthews.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Green Valley Pest Control",
+      "website": "https://greenvalleypestcontrol.co.uk/",
+      "summary": "Tiverton-based pest control for homes, businesses and rural properties. Services include rodent and insect control, bird proofing and mole management.",
+      "categories": [
+        "Home & Property Services"
+      ],
+      "keywords": [
+        "pest control",
+        "rodents",
+        "rats",
+        "mice",
+        "insects",
+        "wasps",
+        "hornets",
+        "birds",
+        "bird proofing",
+        "moles",
+        "rural pest management"
+      ],
+      "phone": "03337 723766",
+      "email": "paul@greenvalleypestcontrol.co.uk",
+      "address": "",
+      "serviceArea": "Devon and the South West",
+      "logoUrl": "",
+      "sources": [
+        "https://greenvalleypestcontrol.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "green-way-pest-control",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Ground Stabilisation Solutions",
+      "website": "https://www.gss-uk.co.uk/",
+      "summary": "Groundworks and civil engineering specialist working across the South West. Its soil stabilisation service uses lime and cement mixes to strengthen existing ground for construction projects.",
+      "categories": [
+        "Building & Trades"
+      ],
+      "keywords": [
+        "groundworks",
+        "civil engineering",
+        "soil stabilisation",
+        "ground stabilisation",
+        "foundations",
+        "construction"
+      ],
+      "phone": "01392 342513",
+      "email": "office@gss-uk.co.uk",
+      "address": "The Newton Centre, Thorverton Road, Marsh Barton, Exeter, EX2 8GN",
+      "serviceArea": "South West England",
+      "logoUrl": "https://cdn.prod.website-files.com/655524e7b286a0195c89da3f/656510fcb32bbf1b3c994f82_Ground%20Stabilisation%20Solutions%20Logo_White.svg",
+      "sources": [
+        "https://www.gss-uk.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "ground-stabilisation-solutions",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/ground-stabilisation-solutions.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Hartnoll Hotel",
+      "website": "https://hartnollhotel.uk/",
+      "summary": "Boutique country house hotel in Bolham offering accommodation, restaurant dining and afternoon teas. Facilities also include a spa and spaces for conferences, meetings and events.",
+      "categories": [
+        "Food & Drink",
+        "Hotels & Venues"
+      ],
+      "keywords": [
+        "Food & Drink",
+        "Hotels & Venues",
+        "accommodation",
+        "restaurant",
+        "afternoon teas",
+        "spa",
+        "meetings",
+        "events"
+      ],
+      "phone": "01884 252777",
+      "email": "frontdesk@hartnollhotel.co.uk",
+      "address": "Bolham, Tiverton, Devon, EX16 7RA",
+      "serviceArea": "Tiverton and Mid Devon",
+      "logoUrl": "https://hartnollhotel.uk/wp-content/uploads/2022/06/HH-logo.png",
+      "sources": [
+        "https://hartnollhotel.uk/",
+        "https://hartnollhotel.uk/contact/"
+      ],
+      "confidence": "confirmed",
+      "id": "hartnoll-hotel",
+      "searchAliases": [
+        "food",
+        "drink",
+        "eat",
+        "eating"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/hartnoll-hotel.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Heard & Sendell",
+      "website": "https://www.heardandsendell.co.uk/",
+      "summary": "Independent supplier of farm, garden, coal, pet and equine products. The Tiverton shop serves farmers, smallholders, gardeners and local households.",
+      "categories": [
+        "Agriculture & Engineering",
+        "Gardens & Outdoors",
+        "Pets & Animals"
+      ],
+      "keywords": [
+        "Agriculture & Rural",
+        "Gardens & Outdoors",
+        "Pets & Animals",
+        "farm",
+        "garden",
+        "pet",
+        "equine"
+      ],
+      "phone": "01884 258099",
+      "email": "peter@heardandsendell.co.uk",
+      "address": "The Old Sawmills, Leat Street, Tiverton, EX16 5LF",
+      "serviceArea": "Tiverton and surrounding areas",
+      "logoUrl": "https://www.heardandsendell.co.uk/wp-content/uploads/2015/06/HS-LOGO-LOSENGE.png",
+      "sources": [
+        "https://www.heardandsendell.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "heard-sendell",
+      "searchAliases": [
+        "garden",
+        "gardener",
+        "landscaping",
+        "dog",
+        "pet"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Homefinders Devon & Somerset",
+      "website": "https://homefindersdevon.co.uk/",
+      "summary": "Residential lettings and property management agents based in Cullompton. The team supports landlords and tenants across Devon and Somerset.",
+      "categories": [
+        "Property & Estate Agents"
+      ],
+      "keywords": [
+        "letting agent",
+        "property management",
+        "renting",
+        "landlords",
+        "tenants"
+      ],
+      "phone": "01884 33094",
+      "email": "lettings@homefindersdevon.co.uk",
+      "address": "4 High Street, Cullompton, Devon, EX15 1AA",
+      "serviceArea": "Devon and Somerset",
+      "logoUrl": "https://homefindersdevon.co.uk/wp-content/uploads/2023/07/homefinders-logo-square.svg",
+      "sources": [
+        "https://homefindersdevon.co.uk/",
+        "https://homefindersdevon.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "home-finders-devon",
+      "searchAliases": [
+        "estate agent",
+        "letting agent",
+        "property"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/home-finders-devon.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "James Pryce Tractors",
+      "website": "https://jprycetractors.co.uk/",
+      "summary": "Supplier of new and used tractors and agricultural machinery, with branches in Tiverton and South Molton. Parts departments and workshops provide servicing and support for farming businesses.",
+      "categories": [
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "Agriculture & Rural",
+        "farm",
+        "tractors",
+        "agricultural machinery",
+        "parts",
+        "servicing"
+      ],
+      "phone": "01884 257544",
+      "email": "andy@jamesprycetractors.com",
+      "address": "Heathcoat Garage, Westexe North, Tiverton, EX16 5LX",
+      "serviceArea": "Devon and Somerset",
+      "logoUrl": "https://jprycetractors.co.uk/images/Logo.png?format=webp",
+      "sources": [
+        "https://jprycetractors.co.uk/",
+        "https://jprycetractors.co.uk/contact"
+      ],
+      "confidence": "confirmed",
+      "id": "james-pryce",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/james-pryce.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Lloyd & Whyte Community Broking",
+      "website": "https://lloydwhytecommunity.com/about-us/locations/insurance-in-tiverton/",
+      "summary": "Insurance brokers with a local office in Tiverton. The team arranges farming and agricultural, commercial and personal insurance.",
+      "categories": [
+        "Insurance"
+      ],
+      "keywords": [
+        "insurance",
+        "insurance broker",
+        "farm insurance",
+        "business insurance",
+        "personal insurance",
+        "farm"
+      ],
+      "phone": "01884 256412",
+      "email": "Tiverton@lloydwhyte.com",
+      "address": "Gotham Chambers, Hammett Square, Phoenix Lane, Tiverton, Devon, EX16 6LR",
+      "serviceArea": "Tiverton and surrounding communities",
+      "logoUrl": "https://lloydwhytecommunity.com/wp-content/uploads/2023/11/Asset-1.svg",
+      "sources": [
+        "https://lloydwhytecommunity.com/about-us/locations/insurance-in-tiverton/"
+      ],
+      "confidence": "confirmed",
+      "id": "lloyd-whyte",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/lloyd-whyte.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Market Carpets",
+      "website": "https://www.marketcarpets.co.uk/",
+      "summary": "Carpet and vinyl flooring retailer with a Tiverton store and other Devon branches. The business offers flooring advice, measuring and fitting services.",
+      "categories": [
+        "Home Services",
+        "Shopping & Supplies"
+      ],
+      "keywords": [
+        "carpets",
+        "flooring",
+        "vinyl",
+        "carpet fitting",
+        "floor fitting",
+        "pet"
+      ],
+      "phone": "01884 242727",
+      "email": "",
+      "address": "",
+      "serviceArea": "Tiverton and Devon",
+      "logoUrl": "",
+      "sources": [
+        "https://www.marketcarpets.co.uk/about-us",
+        "https://www.marketcarpets.co.uk/free-fitting"
+      ],
+      "confidence": "confirmed",
+      "id": "market-carpets",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Mirror Finish Valeting",
+      "website": "https://www.mirrorfinishvaleting.com/",
+      "summary": "Vehicle valeting and detailing from a Tiverton centre, with mobile visits across Devon and Somerset. Services include paint correction, protection detailing, wet sanding and show preparation.",
+      "categories": [
+        "Motoring & Transport"
+      ],
+      "keywords": [
+        "car valeting",
+        "detailing",
+        "car cleaning",
+        "paint correction",
+        "mobile valet"
+      ],
+      "phone": "01884 257413",
+      "email": "",
+      "address": "Bolham Road, Tiverton, Devon, EX16 6SG",
+      "serviceArea": "Devon and Somerset",
+      "logoUrl": "https://www.mirrorfinishvaleting.com/images/logo.svg",
+      "sources": [
+        "https://www.mirrorfinishvaleting.com/"
+      ],
+      "confidence": "confirmed",
+      "id": "mirror-finishing",
+      "searchAliases": [
+        "car",
+        "garage",
+        "transport",
+        "vehicle"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/mirror-finishing.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Nation Radio Westcountry",
+      "website": "https://www.nationplayer.com/nation-radio-westcountry/",
+      "summary": "Radio station serving Cornwall, Devon and Somerset with music, local news, travel and weather. Businesses can enquire about radio advertising, sponsorship and promotional campaigns.",
+      "categories": [
+        "Media & Creative"
+      ],
+      "keywords": [
+        "radio",
+        "advertising",
+        "marketing",
+        "sponsorship",
+        "music",
+        "local news",
+        "DAB"
+      ],
+      "phone": "029 2141 4100",
+      "email": "enquiries@nationbroadcasting.com",
+      "address": "Nation Broadcasting, St Hilary Transmitter, St Hilary, Cowbridge, Vale of Glamorgan, CF71 7DP",
+      "serviceArea": "Cornwall, Devon and Somerset",
+      "logoUrl": "https://mmo.aiircdn.com/677/6995a3221c532.png",
+      "sources": [
+        "https://www.nationplayer.com/nation-radio-westcountry/",
+        "https://www.nationplayer.com/nation-radio-westcountry/contact-us/",
+        "https://www.nationplayer.com/nation-broadcasting/advertise-with-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "nation-radio-westcountry",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/nation-radio-westcountry.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "North Devon Tyres",
+      "website": "https://www.northdevontyresltd.co.uk/tiverton",
+      "summary": "Tyres and vehicle maintenance for cars, vans, agricultural machinery and commercial vehicles. The Tiverton branch also offers wheel alignment, brakes, servicing and puncture repairs.",
+      "categories": [
+        "Motoring & Transport"
+      ],
+      "keywords": [
+        "Motoring & Transport",
+        "agricultural machinery",
+        "servicing",
+        "wheel alignment",
+        "brakes",
+        "puncture repairs"
+      ],
+      "phone": "01884 243430",
+      "email": "tiverton.retail@northdevontyresltd.co.uk",
+      "address": "3–4 Ormidale Square, Tiverton Business Park, Tiverton, EX16 6TW",
+      "serviceArea": "Tiverton and the South West",
+      "logoUrl": "https://static.wixstatic.com/media/8e10b7_5ae822b18809421d97a5562fb9feb4a7~mv2.png/v1/fill/w_385,h_64,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/NDT%20Logo.png",
+      "sources": [
+        "https://www.northdevontyresltd.co.uk/tiverton"
+      ],
+      "confidence": "confirmed",
+      "id": "north-devon-tyres",
+      "searchAliases": [
+        "car",
+        "garage",
+        "transport",
+        "vehicle",
+        "tyre",
+        "tyres",
+        "tire",
+        "tires"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/north-devon-tyres.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Oaks Electrical",
+      "website": "https://www.oakselectrical.uk/",
+      "summary": "Electrical contractor offering domestic, commercial and industrial installations. Services include lighting, EV charging, CCTV, data cabling, fire alarms and safety inspections.",
+      "categories": [
+        "Electrical",
+        "Building & Trades"
+      ],
+      "keywords": [
+        "electrician",
+        "electrical",
+        "EV charging",
+        "lighting",
+        "CCTV",
+        "fire alarms",
+        "data cabling"
+      ],
+      "phone": "01884 763154",
+      "email": "info@oakselectrical.uk",
+      "address": "Unit J2, Langlands Business Park, Uffculme, Cullompton, EX15 3DA",
+      "serviceArea": "Mid Devon",
+      "logoUrl": "https://static.wixstatic.com/media/790327_fccf51596094480e9424ada74ab038b5~mv2.png",
+      "sources": [
+        "https://www.oakselectrical.uk/",
+        "https://www.oakselectrical.uk/contact"
+      ],
+      "confidence": "confirmed",
+      "id": "oak-electrical",
+      "searchAliases": [
+        "electrician",
+        "electrical",
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/oak-electrical.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Oxygen Agency",
+      "website": "https://oxygenagency.co.uk/",
+      "summary": "Tiverton marketing communications agency offering strategy, design, website development, video, public relations and copywriting. The team works with organisations across the UK and beyond.",
+      "categories": [
+        "Media & Creative"
+      ],
+      "keywords": [
+        "Marketing & Creative",
+        "strategy",
+        "design",
+        "website development",
+        "video",
+        "public relations",
+        "copywriting"
+      ],
+      "phone": "01884 255999",
+      "email": "enquiries@oxygenagency.co.uk",
+      "address": "Unit 6, Oaklands Court, Tiverton, EX16 6TG",
+      "serviceArea": "UK and beyond",
+      "logoUrl": "https://oxygenagency.co.uk/wp-content/uploads/elementor/thumbs/Oxygen-yellow-logo-800x263px-o3d648m9fdwhiykp6up0mecsosie0ct0jp5zjhhoao.png",
+      "sources": [
+        "https://oxygenagency.co.uk/",
+        "https://oxygenagency.co.uk/contact/"
+      ],
+      "confidence": "confirmed",
+      "id": "oxygen-creative",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/oxygen-creative.png",
+      "logoTheme": "dark",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Pump Supplies",
+      "website": "https://pumpsupplies.co.uk/",
+      "summary": "Pump hire, sales and engineering support for water and wastewater applications. Services include submersible pumps, pipework, installation, repairs and maintenance.",
+      "categories": [
+        "Building & Trades",
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "pump hire",
+        "pumps",
+        "water",
+        "drainage",
+        "sewage",
+        "pump repair",
+        "Luke Beattie"
+      ],
+      "phone": "01208 78440",
+      "email": "",
+      "address": "11 Normandy Way, Walker Lines Industrial Estate, Bodmin, Cornwall, PL31 1EU",
+      "serviceArea": "South West England and UK-wide depot network",
+      "logoUrl": "https://pumpsupplies.co.uk/wp-content/uploads/elementor/thumbs/pump-supllies.logo_-rebe330gyqm3tzec4d2puxxwxvn46tgwjfexguobuo.png",
+      "sources": [
+        "https://pumpsupplies.co.uk/about-us/",
+        "https://pumpsupplies.co.uk/staff/luke-beattie/",
+        "https://pumpsupplies.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "luke-beattie-pump-supplies",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/luke-beattie-pump-supplies.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Redwoods Travel",
+      "website": "https://www.redwoodstravel.co.uk/",
+      "summary": "Hemyock-based coach and bus operator providing private coach hire. Transport is available for group journeys, events and trips across the UK and Europe.",
+      "categories": [
+        "Motoring & Transport"
+      ],
+      "keywords": [
+        "Motoring & Transport",
+        "events",
+        "coach hire"
+      ],
+      "phone": "01823 680288",
+      "email": "general@redwoodstravel.com",
+      "address": "",
+      "serviceArea": "Devon, Somerset, UK and European travel",
+      "logoUrl": "https://www.redwoodstravel.co.uk/wp-content/uploads/2020/10/RedwoodsR.svg",
+      "sources": [
+        "https://www.redwoodstravel.co.uk/",
+        "https://www.redwoodstravel.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "redwoods-travel",
+      "searchAliases": [
+        "car",
+        "garage",
+        "transport",
+        "vehicle"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/redwoods-travel.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "RGB Building Supplies",
+      "website": "https://www.rgbltd.co.uk/branches/tiverton",
+      "summary": "Builders’ merchant supplying construction materials, timber, landscaping products and tools. Its Tiverton branch also supplies plumbing and heating products.",
+      "categories": [
+        "Building & Trades",
+        "Shopping & Supplies"
+      ],
+      "keywords": [
+        "Building & Construction",
+        "Building Supplies",
+        "timber",
+        "landscaping",
+        "tools"
+      ],
+      "phone": "01884 235999",
+      "email": "tiverton@rgbltd.co.uk",
+      "address": "5 Woodward Road, Howden Industrial Estate, Tiverton, EX16 5GZ",
+      "serviceArea": "Tiverton and Mid Devon",
+      "logoUrl": "https://www.rgbltd.co.uk/media/logo/stores/1/RGB_Building_Supplies.jpg",
+      "sources": [
+        "https://www.rgbltd.co.uk/branches/tiverton",
+        "https://www.nmbs.co.uk/merchant/rawle-gammon-baker-holdings-r012t007/"
+      ],
+      "confidence": "confirmed",
+      "id": "rgb",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/rgb.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Robert Norrish Carpets & Flooring",
+      "website": "https://www.robertnorrishflooring.co.uk/",
+      "summary": "Devon flooring business supplying and fitting carpets, vinyl, laminate, wood, LVT and safety flooring. The mobile service brings samples to customers for measuring, advice and quotations for homes and commercial premises.",
+      "categories": [
+        "Home Services"
+      ],
+      "keywords": [
+        "carpets",
+        "flooring",
+        "LVT",
+        "vinyl",
+        "laminate",
+        "carpet fitter",
+        "commercial flooring",
+        "pet"
+      ],
+      "phone": "07837 507005",
+      "email": "info@robertnorrishflooring.co.uk",
+      "address": "The Barn, Hayne Barton, Cullompton, Devon, EX15 1QW",
+      "serviceArea": "Devon",
+      "logoUrl": "",
+      "sources": [
+        "https://www.robertnorrishflooring.co.uk/",
+        "https://www.robertnorrishflooring.co.uk/about/"
+      ],
+      "confidence": "confirmed",
+      "id": "robert-norrish",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Scrub Daddy UK",
+      "website": "https://scrubdaddy.co.uk/",
+      "summary": "Tiverton-based UK supplier of Scrub Daddy cleaning products. Its range includes scrubbers, sponges, cleaning pastes, dusters, mops and cleaning accessories.",
+      "categories": [
+        "Shopping & Supplies",
+        "Cleaning & Maintenance"
+      ],
+      "keywords": [
+        "cleaning products",
+        "sponges",
+        "scrubbers",
+        "dusters",
+        "mops",
+        "household"
+      ],
+      "phone": "0330 2200671",
+      "email": "",
+      "address": "1 Ormidale Square, Lowman Way, Tiverton, EX16 6TW",
+      "serviceArea": "UK",
+      "logoUrl": "https://scrubdaddy.co.uk/wp-content/uploads/2025/02/Scrub_Daddy_Logo.png",
+      "sources": [
+        "https://scrubdaddy.co.uk/",
+        "https://scrubdaddy.co.uk/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "scrub-daddy-uk",
+      "searchAliases": [
+        "cleaner",
+        "cleaning"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/scrub-daddy-uk.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Seddons Estate Agents",
+      "website": "https://www.seddons.com/branches/tiverton",
+      "summary": "Estate and letting agents handling residential sales, lettings and property management. The Tiverton office also houses the commercial property department serving Mid Devon.",
+      "categories": [
+        "Property & Estate Agents"
+      ],
+      "keywords": [
+        "Property & Estate Agents"
+      ],
+      "phone": "01884 253500",
+      "email": "",
+      "address": "8 Fore Street, Tiverton, EX16 6LH",
+      "serviceArea": "Mid Devon",
+      "logoUrl": "https://mr0.homeflow-assets.co.uk/files/site_asset/image/6934/8363/384x_/seddons-logo-email.jpg",
+      "sources": [
+        "https://www.seddons.com/branches/tiverton",
+        "https://www.seddons.com/about-us"
+      ],
+      "confidence": "confirmed",
+      "id": "seddons-estate-agents",
+      "searchAliases": [
+        "estate agent",
+        "letting agent",
+        "property"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/seddons-estate-agents.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Slee Blackwell Solicitors",
+      "website": "https://www.sleeblackwell.co.uk/tiverton-solicitors/",
+      "summary": "Solicitors advising individuals and businesses from offices across Devon and Somerset. The Tiverton team offers services including conveyancing, wills, family law and litigation.",
+      "categories": [
+        "Legal Services"
+      ],
+      "keywords": [
+        "Legal Services",
+        "conveyancing",
+        "wills",
+        "family law",
+        "litigation"
+      ],
+      "phone": "01884 682010",
+      "email": "",
+      "address": "Unit 3a, Oaklands Court, Tiverton Way, Tiverton Business Park, Tiverton, EX16 6TG",
+      "serviceArea": "Devon and Somerset",
+      "logoUrl": "https://www.sleeblackwell.co.uk/wp-content/themes/slee-blackwell/assets/slee-blackwell-logo.png?v=0.35.71",
+      "sources": [
+        "https://www.sleeblackwell.co.uk/tiverton-solicitors/",
+        "https://www.sleeblackwell.co.uk/legal-articles/slee-blackwell-tiverton/"
+      ],
+      "confidence": "confirmed",
+      "id": "slee-blackwell",
+      "searchAliases": [
+        "solicitor",
+        "solicitors",
+        "lawyer",
+        "legal"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/slee-blackwell.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Stoneman Vehicle Repairs",
+      "website": "https://www.stonemanvehiclerepairs.co.uk/",
+      "summary": "Tiverton garage providing vehicle servicing, repairs, MOT testing and diagnostics. Other services include air-conditioning recharge, battery checks and performance remapping.",
+      "categories": [
+        "Motoring & Transport"
+      ],
+      "keywords": [
+        "garage",
+        "mechanic",
+        "car repairs",
+        "MOT",
+        "servicing",
+        "diagnostics",
+        "air conditioning"
+      ],
+      "phone": "01884 251007",
+      "email": "",
+      "address": "Unit 3, Castle Street Works, Tiverton, Devon, EX16 6RG",
+      "serviceArea": "Tiverton",
+      "logoUrl": "https://www.stonemanvehiclerepairs.co.uk/images/logos/logo-stoneman-vehicle-repairs-tiverton.png",
+      "sources": [
+        "https://www.stonemanvehiclerepairs.co.uk/",
+        "https://www.stonemanvehiclerepairs.co.uk/contact-us"
+      ],
+      "confidence": "confirmed",
+      "id": "stoneman-vehicle-repairs",
+      "searchAliases": [
+        "car",
+        "garage",
+        "transport",
+        "vehicle"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/stoneman-vehicle-repairs.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "The Old Well Garden Centre",
+      "website": "https://theoldwell.co.uk/contact/",
+      "summary": "Garden centre selling plants, garden supplies, pots, gifts and homeware. Visitors can also use its restaurant, tea room and Glasshouse Café at Waterloo Cross.",
+      "categories": [
+        "Gardens & Outdoors",
+        "Food & Drink"
+      ],
+      "keywords": [
+        "Gardens & Outdoors",
+        "Food & Drink",
+        "restaurant",
+        "garden",
+        "plants",
+        "pots",
+        "gifts",
+        "homeware"
+      ],
+      "phone": "01884 840873",
+      "email": "info@theoldwell.co.uk",
+      "address": "Waterloo Cross, Uffculme, Cullompton, EX15 3ES",
+      "serviceArea": "Mid Devon",
+      "logoUrl": "https://theoldwell.co.uk/wp-content/uploads/2024/09/the-old-well-logo-icon-3.png",
+      "sources": [
+        "https://theoldwell.co.uk/contact/",
+        "https://theoldwell.co.uk/garden-centre/"
+      ],
+      "confidence": "confirmed",
+      "id": "oldwell-garden-centre",
+      "searchAliases": [
+        "garden",
+        "gardener",
+        "landscaping",
+        "food",
+        "drink",
+        "eat",
+        "eating"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/oldwell-garden-centre.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Tiverton Dog Centre",
+      "website": "https://tivertondogcentre.co.uk/",
+      "summary": "Dog care and activity services based in Tiverton. The centre offers daycare, grooming and other play and care services for dogs.",
+      "categories": [
+        "Pets & Animals"
+      ],
+      "keywords": [
+        "dog daycare",
+        "dog grooming",
+        "dogs",
+        "pets",
+        "dog care"
+      ],
+      "phone": "01884 254884",
+      "email": "info@tivertondogcentre.co.uk",
+      "address": "30 Shillands, Tiverton, Devon, EX16 5AA",
+      "serviceArea": "Tiverton",
+      "logoUrl": "https://tivertondogcentre.co.uk/wp-content/uploads/2022/01/Best-Logo2.png",
+      "sources": [
+        "https://tivertondogcentre.co.uk/",
+        "https://tivertondogcentre.co.uk/contact/",
+        "https://tivertondogcentre.co.uk/grooming/"
+      ],
+      "confidence": "confirmed",
+      "id": "tiverton-dog-centre",
+      "searchAliases": [
+        "dog",
+        "pet"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/tiverton-dog-centre.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "TJ McCabe Ltd",
+      "website": "https://tjmccabe.co.uk/",
+      "summary": "Fencing contractor supplying and installing agricultural, equestrian, garden and security fencing. Services include post-and-rail fencing, gates, stiles and emergency fence repairs.",
+      "categories": [
+        "Gardens & Outdoors",
+        "Agriculture & Engineering"
+      ],
+      "keywords": [
+        "fencing",
+        "fence",
+        "agricultural",
+        "equestrian",
+        "gates",
+        "security fencing",
+        "garden fencing",
+        "post and rail",
+        "garden"
+      ],
+      "phone": "01823 672469",
+      "email": "tj_mccabefencing@btinternet.com",
+      "address": "Ford Farm, Holcombe Rogus, Wellington, Somerset, TA21 0QB",
+      "serviceArea": "Devon and Somerset",
+      "logoUrl": "",
+      "sources": [
+        "https://tjmccabe.co.uk/"
+      ],
+      "confidence": "confirmed",
+      "id": "tj-mccabe",
+      "searchAliases": [
+        "garden",
+        "gardener",
+        "landscaping"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "",
+      "logoTheme": "light"
+    },
+    {
+      "name": "Travis Perkins Tiverton",
+      "website": "https://www.travisperkins.co.uk/branch-locator/3036",
+      "summary": "Building supplies and tool hire from the Tiverton branch. Departments include timber, landscaping, plumbing and heating, decorating, kitchens, doors and joinery.",
+      "categories": [
+        "Building & Trades",
+        "Shopping & Supplies"
+      ],
+      "keywords": [
+        "Building & Construction",
+        "Building Supplies",
+        "doors",
+        "timber",
+        "landscaping"
+      ],
+      "phone": "01884 257025",
+      "email": "tiverton@travisperkins.co.uk",
+      "address": "Blundells Road, Tiverton, EX16 4BU",
+      "serviceArea": "Tiverton and surrounding areas",
+      "logoUrl": "https://www.travisperkinsplc.co.uk/media/u35cy5rd/2551392_travisperkins.png",
+      "sources": [
+        "https://www.travisperkins.co.uk/branch-locator/3036",
+        "https://www.travisperkinsplc.co.uk/news-and-media/travis-perkins-plc-media-centre/brand-library/"
+      ],
+      "confidence": "confirmed",
+      "id": "travis-perkins",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/travis-perkins.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "United Roofing Products",
+      "website": "https://www.unitedroofingproducts.com/",
+      "summary": "Devon manufacturer and supplier of roofing and cladding materials for industrial, agricultural and residential projects. Products include metal roofing sheets, insulated panels, gutters, flashings and fixings.",
+      "categories": [
+        "Building & Trades",
+        "Roofing"
+      ],
+      "keywords": [
+        "roofing supplies",
+        "roof sheets",
+        "cladding",
+        "gutters",
+        "flashings",
+        "insulation",
+        "agricultural buildings"
+      ],
+      "phone": "01884 839302",
+      "email": "",
+      "address": "Unit 4 Lucas Way, Hitchcocks Business Park, Uffculme, Cullompton, Devon, EX15 3FA",
+      "serviceArea": "South West England",
+      "logoUrl": "https://www.unitedroofingproducts.com/wp-content/uploads/2025/11/logo-black.svg",
+      "sources": [
+        "https://www.unitedroofingproducts.com/",
+        "https://www.unitedroofingproducts.com/about/",
+        "https://www.unitedroofingproducts.com/contact-us/"
+      ],
+      "confidence": "confirmed",
+      "id": "united-roofing",
+      "searchAliases": [
+        "builder",
+        "building",
+        "construction"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/united-roofing.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    },
+    {
+      "name": "Van Man Removals & Storage",
+      "website": "https://www.vanmanexeter.co.uk/",
+      "summary": "Removals and storage business based in Tiverton, serving Devon and destinations across the UK. Services include house and office moves, packing, secure storage and specialist piano moves.",
+      "categories": [
+        "Home Services",
+        "Motoring & Transport"
+      ],
+      "keywords": [
+        "removals",
+        "moving house",
+        "storage",
+        "packing",
+        "man and van",
+        "piano"
+      ],
+      "phone": "01392 956002",
+      "email": "info@vanmanexeter.co.uk",
+      "address": "8 Lowman Units, Tiverton, Devon, EX16 6SR",
+      "serviceArea": "Devon and nationwide",
+      "logoUrl": "https://www.vanmanexeter.co.uk/assets/images/logo.png?67c3b873504c2d48",
+      "sources": [
+        "https://www.vanmanexeter.co.uk/",
+        "https://www.vanmanexeter.co.uk/contact-us/",
+        "https://www.vanmanexeter.co.uk/removals-tiverton/"
+      ],
+      "confidence": "confirmed",
+      "id": "van-man-removals",
+      "searchAliases": [
+        "car",
+        "garage",
+        "transport",
+        "vehicle"
+      ],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/van-man-removals.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Walter H. Squires & Son",
+      "website": "https://www.whsquires.co.uk/",
+      "summary": "Family-run funeral directors with premises in Tiverton, Cullompton and Exeter. The business provides funeral arrangements and a year-round, 24-hour contact service.",
+      "categories": [
+        "Funeral Services"
+      ],
+      "keywords": [
+        "funeral directors",
+        "funeral arrangements",
+        "bereavement",
+        "funerals"
+      ],
+      "phone": "01884 252556",
+      "email": "tiverton@whsquires.co.uk",
+      "address": "11 Wellbrook Street, Tiverton, Devon, EX16 5JW",
+      "serviceArea": "Tiverton, Cullompton, Exeter and Devon",
+      "logoUrl": "https://www.whsquires.co.uk/images/graphic_header.gif",
+      "sources": [
+        "https://www.whsquires.co.uk/",
+        "https://www.whsquires.co.uk/contact.html"
+      ],
+      "confidence": "confirmed",
+      "id": "wh-squires",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/wh-squires.png",
+      "logoTheme": "light",
+      "logoTransparency": "opaque"
+    },
+    {
+      "name": "Willow Tree Dance & Theatre Arts",
+      "website": "https://willowtreedanceandtheatrearts.com/",
+      "summary": "Tiverton dance and theatre arts school offering classes from age two upwards. Classes include ballet, modern, jazz, hip-hop, tap, contemporary, musical theatre and drama, with regular stage performances.",
+      "categories": [
+        "Leisure & Entertainment"
+      ],
+      "keywords": [
+        "dance",
+        "ballet",
+        "tap",
+        "jazz",
+        "musical theatre",
+        "drama",
+        "children activities"
+      ],
+      "phone": "",
+      "email": "information@willowtreedanceandtheatrearts.com",
+      "address": "Bolham Road, Tiverton, Devon, EX16 6SQ",
+      "serviceArea": "Tiverton",
+      "logoUrl": "https://willowtreedanceandtheatrearts.com/wp-content/uploads/2021/11/cropped-willowtree-logo__background.png",
+      "sources": [
+        "https://willowtreedanceandtheatrearts.com/",
+        "https://willowtreedanceandtheatrearts.com/contact-us-2/"
+      ],
+      "confidence": "confirmed",
+      "id": "willow-tree-dance",
+      "searchAliases": [],
+      "status": "active",
+      "season": "2026/27",
+      "activeFrom": "",
+      "activeUntil": "",
+      "checkedAt": "2026-10-30",
+      "logo": "assets/sponsors/willow-tree-dance.png",
+      "logoTheme": "light",
+      "logoTransparency": "transparent"
+    }
+  ],
+  "publishedSponsorCount": 47
+}

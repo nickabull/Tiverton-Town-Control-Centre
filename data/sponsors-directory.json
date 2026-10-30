@@ -129,8 +129,10 @@
       "activeFrom": "",
       "activeUntil": "",
       "checkedAt": "2026-10-30",
-      "logo": "",
-      "logoTheme": "light"
+      "logo": "assets/sponsors/apsleys.png",
+      "logoTheme": "light",
+      "logoSource": "Supplied by Tiverton Town FC",
+      "logoTransparent": true
     },
     {
       "name": "Bard Electrical",
@@ -202,8 +204,10 @@
       "activeFrom": "",
       "activeUntil": "",
       "checkedAt": "2026-10-30",
-      "logo": "",
-      "logoTheme": "light"
+      "logo": "assets/sponsors/bray-accountants.png",
+      "logoTheme": "light",
+      "logoSource": "Supplied by Tiverton Town FC",
+      "logoTransparent": true
     },
     {
       "name": "Bridge Troll Boardgame Café",

@@ -48,3 +48,23 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-cards>.sponsor-inline .source-note{grid-column:1/4;margin:0;padding-top:7px}
 @media(max-width:800px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr 1fr;gap:12px}.sponsor-cards>.sponsor-inline .detail-columns{grid-column:2;display:block}.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1/-1}}
 @media(max-width:520px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr;padding:15px;gap:8px}.sponsor-cards>.sponsor-inline .detail-brand,.sponsor-cards>.sponsor-inline .detail-summary,.sponsor-cards>.sponsor-inline .detail-columns,.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1;grid-row:auto}.sponsor-cards>.sponsor-inline .detail-columns{display:grid;grid-template-columns:1fr}.sponsor-cards>.sponsor-inline .contact-actions{display:flex}}
+
+/* Mobile full-width sponsor drawer: compact, readable, no modal or horizontal overflow. */
+@media(max-width:520px){
+ .sponsor-cards{grid-template-columns:minmax(0,1fr)}
+ .sponsor-cards>.sponsor-inline{grid-column:1/-1;width:100%;min-width:0;margin:0;padding:14px 15px 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ .sponsor-cards>.sponsor-inline .detail-brand{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;min-width:0}
+ .sponsor-cards>.sponsor-inline .detail-brand .logo{width:72px;height:60px;min-width:72px;flex:none;padding:5px}
+ .sponsor-cards>.sponsor-inline .detail-brand>div:last-child{min-width:0}
+ .sponsor-cards>.sponsor-inline .detail-brand h2{font-size:22px;line-height:1.15}
+ .sponsor-cards>.sponsor-inline .detail-brand .category{margin:0 0 4px;font-size:12px}
+ .sponsor-cards>.sponsor-inline .detail-summary{font-size:14px;line-height:1.45;margin:0}
+ .sponsor-cards>.sponsor-inline .detail-columns{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+ .sponsor-cards>.sponsor-inline .detail-columns h3{font-size:18px;margin:0 0 6px}
+ .sponsor-cards>.sponsor-inline .service-tags{gap:5px}
+ .sponsor-cards>.sponsor-inline .service-tags li{font-size:12px;padding:3px 7px}
+ .sponsor-cards>.sponsor-inline .contact-list li{font-size:13px;line-height:1.45;margin:0 0 8px;overflow-wrap:anywhere}
+ .sponsor-cards>.sponsor-inline .contact-actions{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin:0}
+ .sponsor-cards>.sponsor-inline .contact-button{min-height:38px;font-size:14px;padding:7px 10px}
+ .sponsor-cards>.sponsor-inline .source-note{font-size:11px;line-height:1.45;margin:0;padding-top:9px}
+}

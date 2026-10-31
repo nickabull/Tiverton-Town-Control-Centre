@@ -19,3 +19,63 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-dialog-panel{background:var(--panel);color:#fff;border:2px solid #111;width:min(880px,100%);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:25px 28px}
 .sponsor-dialog-panel h3{color:var(--y)}
 @media(max-width:520px){.sponsor-modal{padding:10px}.sponsor-dialog-panel{width:100%;max-height:calc(100dvh - 20px);padding:17px 18px}}
+
+/* Expandable sponsor trial. Original pop-up version remains unchanged. */
+.sponsor-card.expanded{align-self:start}
+.sponsor-inline[hidden]{display:none!important}
+.sponsor-inline{margin:18px -20px -20px;padding:16px 20px 20px;background:#252323;color:#fff;overflow-wrap:anywhere}
+.sponsor-inline h3{color:#ffd800}
+.sponsor-inline .detail-brand{margin-top:0;gap:12px;flex-wrap:wrap}
+.sponsor-inline .detail-brand .logo{width:110px;height:75px;padding:8px}
+.sponsor-inline .detail-brand h2{font-size:26px}
+.sponsor-inline .detail-columns{grid-template-columns:1fr;gap:0}
+.sponsor-inline .detail-summary{font-size:15px;margin:14px 0}
+.sponsor-inline .contact-list a{color:#fff}
+.sponsor-inline .contact-actions{margin:16px 0}
+.sponsor-inline .contact-button{font-size:16px;padding:8px 10px}
+.sponsor-inline .source-note{margin-top:14px}
+@media(max-width:520px){.sponsor-inline{grid-column:1/-1;margin:14px -17px -17px;padding:14px 17px}.sponsor-inline .detail-brand .logo{width:90px;height:65px}.sponsor-inline .detail-brand h2{font-size:23px}}
+
+/* Full-width expansion below the selected card's grid row. */
+.sponsor-cards>.sponsor-inline{grid-column:1/-1;margin:0;padding:18px 24px 16px;border-right:2px solid #111;border-bottom:2px solid #111;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);column-gap:24px;row-gap:8px;align-items:start}
+.sponsor-cards>.sponsor-inline[hidden]{display:none!important}
+.sponsor-cards>.sponsor-inline .detail-brand{grid-column:1;grid-row:1;align-items:center}
+.sponsor-cards>.sponsor-inline .detail-summary{grid-column:1;grid-row:2;margin:4px 0}
+.sponsor-cards>.sponsor-inline .detail-columns{grid-column:2/4;grid-row:1/3;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sponsor-cards>.sponsor-inline .detail-columns h3{font-size:19px;margin:3px 0 8px}
+.sponsor-cards>.sponsor-inline .contact-list li{margin-bottom:8px;font-size:14px}
+.sponsor-cards>.sponsor-inline .contact-actions{grid-column:1/4;display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.sponsor-cards>.sponsor-inline .source-note{grid-column:1/4;margin:0;padding-top:7px}
+@media(max-width:800px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr 1fr;gap:12px}.sponsor-cards>.sponsor-inline .detail-columns{grid-column:2;display:block}.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1/-1}}
+@media(max-width:520px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr;padding:15px;gap:8px}.sponsor-cards>.sponsor-inline .detail-brand,.sponsor-cards>.sponsor-inline .detail-summary,.sponsor-cards>.sponsor-inline .detail-columns,.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1;grid-row:auto}.sponsor-cards>.sponsor-inline .detail-columns{display:grid;grid-template-columns:1fr}.sponsor-cards>.sponsor-inline .contact-actions{display:flex}}
+
+/* Mobile full-width sponsor drawer: compact, readable, no modal or horizontal overflow. */
+@media(max-width:520px){
+ .sponsor-cards{grid-template-columns:minmax(0,1fr)}
+ .sponsor-cards>.sponsor-inline{grid-column:1/-1;width:100%;min-width:0;margin:0;padding:14px 15px 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ .sponsor-cards>.sponsor-inline .detail-brand{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;min-width:0}
+ .sponsor-cards>.sponsor-inline .detail-brand .logo{width:72px;height:60px;min-width:72px;flex:none;padding:5px}
+ .sponsor-cards>.sponsor-inline .detail-brand>div:last-child{min-width:0}
+ .sponsor-cards>.sponsor-inline .detail-brand h2{font-size:22px;line-height:1.15}
+ .sponsor-cards>.sponsor-inline .detail-brand .category{margin:0 0 4px;font-size:12px}
+ .sponsor-cards>.sponsor-inline .detail-summary{font-size:14px;line-height:1.45;margin:0}
+ .sponsor-cards>.sponsor-inline .detail-columns{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+ .sponsor-cards>.sponsor-inline .detail-columns h3{font-size:18px;margin:0 0 6px}
+ .sponsor-cards>.sponsor-inline .service-tags{gap:5px}
+ .sponsor-cards>.sponsor-inline .service-tags li{font-size:12px;padding:3px 7px}
+ .sponsor-cards>.sponsor-inline .contact-list li{font-size:13px;line-height:1.45;margin:0 0 8px;overflow-wrap:anywhere}
+ .sponsor-cards>.sponsor-inline .contact-actions{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;margin:0}
+ .sponsor-cards>.sponsor-inline .contact-button{min-height:38px;font-size:14px;padding:7px 10px}
+ .sponsor-cards>.sponsor-inline .source-note{font-size:11px;line-height:1.45;margin:0;padding-top:9px}
+}
+
+/* Put close action inside the expanded dark panel, not the yellow/white card. */
+.sponsor-card.expanded>.view-details{display:none}
+.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-column:1/-1;grid-row:auto;display:flex;justify-content:flex-end;align-items:center;margin:0 0 2px}
+.sponsor-cards>.sponsor-inline .inline-hide-details{font-size:16px;min-height:38px;padding:7px 12px;background:#ffd800;color:#111;border:2px solid #ffd800}
+.sponsor-cards>.sponsor-inline .inline-hide-details:hover{background:#fff;color:#111}
+@media(max-width:520px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{justify-content:flex-end}.sponsor-cards>.sponsor-inline .inline-hide-details{font-size:14px;min-height:36px;padding:6px 10px}}
+
+/* Explicit placement keeps the close control at the top on desktop. */
+@media(min-width:801px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}
+@media(min-width:521px) and (max-width:800px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}

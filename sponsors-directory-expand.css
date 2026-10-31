@@ -75,3 +75,7 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-cards>.sponsor-inline .inline-hide-details{font-size:16px;min-height:38px;padding:7px 12px;background:#ffd800;color:#111;border:2px solid #ffd800}
 .sponsor-cards>.sponsor-inline .inline-hide-details:hover{background:#fff;color:#111}
 @media(max-width:520px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{justify-content:flex-end}.sponsor-cards>.sponsor-inline .inline-hide-details{font-size:14px;min-height:36px;padding:6px 10px}}
+
+/* Explicit placement keeps the close control at the top on desktop. */
+@media(min-width:801px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}
+@media(min-width:521px) and (max-width:800px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}

@@ -55,6 +55,17 @@ footer{padding:28px 0;color:#777;font-size:13px}
 .refresh-more{background:#fff;border:1px solid #ddd;margin:18px 0;padding:15px}.refresh-more summary{cursor:pointer;font-weight:800}.refresh-more-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.refresh-more a{background:#111;color:#fff;padding:9px 11px;text-decoration:none}
 @media(max-width:800px){.refresh-next{grid-template-columns:1fr}.refresh-tools{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.refresh-intro{display:block;padding:16px}.refresh-intro>a{display:inline-block;margin-top:12px}.refresh-tools{grid-template-columns:1fr}.refresh-next strong{font-size:23px}}
+</style><style>
+/* Preview-only navigation: no horizontal scrolling or duplicate menu. */
+.programme-global-nav .pgn-inner{overflow:visible!important;max-width:1260px!important;flex-wrap:wrap!important;gap:7px!important}
+.programme-global-nav .pgn-inner>a{font-size:13px!important}
+.programme-global-nav .pgn-more{position:relative}
+.programme-global-nav .pgn-more summary{cursor:pointer;list-style:none;border:1px solid #444;border-radius:7px;padding:8px 11px;color:#fff;font:700 13px Arial,sans-serif;background:#1b1b1b}
+.programme-global-nav .pgn-more summary::-webkit-details-marker{display:none}
+.programme-global-nav .pgn-more[open] summary{background:#ffd400;color:#111}
+.programme-global-nav .pgn-more-items{position:absolute;top:100%;right:0;z-index:1010;background:#111;border:2px solid #ffd400;min-width:210px;padding:8px;display:grid;gap:5px;box-shadow:0 8px 20px #0006}
+.programme-global-nav .pgn-more-items a{display:block!important}
+@media(max-width:540px){.programme-global-nav .pgn-inner{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))}.programme-global-nav .pgn-inner>a{text-align:center;font-size:11px!important;padding:8px 4px!important}.programme-global-nav .pgn-more summary{text-align:center;font-size:11px;padding:8px 4px}}
 </style></head>
 <body><section id="auth-gate"><form id="login-form"><img src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town Football Club crest" style="display:block;width:125px;max-height:145px;object-fit:contain;margin:0 auto 18px" onerror="this.style.display='none'"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section><div id="private-app">
 <header>
@@ -99,7 +110,12 @@ footer{padding:28px 0;color:#777;font-size:13px}
   <details class="refresh-more"><summary>More tools and technical resources</summary><div class="refresh-more-links"><a href="today-in-60.html">Today in 60 Seconds</a><a href="around-the-league.html">Around the League</a><a href="news-publisher.html">News Publisher</a><a href="league-table.html">League Table</a><a href="results-matrix.html">Results Matrix</a><a href="league-so-far.html">League So Far</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a><a href="https://github.com/nickabull/Tiverton-Town-Control-Centre/actions">Source Diagnostics</a></div></details>
 </main>
 <footer class="wrap">Tiverton Town Programme Centre · Built to support programme production, not replace the editor.</footer>
-</div><script type="module" src="auth.js"></script><script src="programme-nav.js?v=20261018-theme-1"></script><script type="module" src="dashboard-glance.js"></script><script type="module">
+</div><script type="module" src="auth.js"></script><script src="programme-nav.js?v=20261018-theme-1"></script><script>
+(function(){
+const nav=document.querySelector('.programme-global-nav .pgn-inner');if(!nav)return;
+nav.innerHTML='<a class="active" href="index-refresh.html">Dashboard</a><a href="programme-builder-v21.html">Programme</a><a href="match-status.html">Matchday</a><a href="sponsors-admin.html">Sponsors</a><a href="photo-library.html">Media</a><details class="pgn-more"><summary>More ▾</summary><div class="pgn-more-items"><a href="away-day.html">Away Trip</a><a href="today-in-60.html">Today in 60 Seconds</a><a href="league-table.html">League Table</a><a href="results-matrix.html">Results Matrix</a><a href="league-so-far.html">League So Far</a><a href="around-the-league.html">Around the League</a><a href="programme-plan.html">Planner</a><a href="feature-slot.html">Feature Slot</a></div></details>';
+})();
+</script><script type="module" src="dashboard-glance.js"></script><script type="module">
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function updateUpcoming(){
  const base='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json?v='+Date.now();

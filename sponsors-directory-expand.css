@@ -35,3 +35,16 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-inline .contact-button{font-size:16px;padding:8px 10px}
 .sponsor-inline .source-note{margin-top:14px}
 @media(max-width:520px){.sponsor-inline{grid-column:1/-1;margin:14px -17px -17px;padding:14px 17px}.sponsor-inline .detail-brand .logo{width:90px;height:65px}.sponsor-inline .detail-brand h2{font-size:23px}}
+
+/* Full-width expansion below the selected card's grid row. */
+.sponsor-cards>.sponsor-inline{grid-column:1/-1;margin:0;padding:18px 24px 16px;border-right:2px solid #111;border-bottom:2px solid #111;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);column-gap:24px;row-gap:8px;align-items:start}
+.sponsor-cards>.sponsor-inline[hidden]{display:none!important}
+.sponsor-cards>.sponsor-inline .detail-brand{grid-column:1;grid-row:1;align-items:center}
+.sponsor-cards>.sponsor-inline .detail-summary{grid-column:1;grid-row:2;margin:4px 0}
+.sponsor-cards>.sponsor-inline .detail-columns{grid-column:2/4;grid-row:1/3;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sponsor-cards>.sponsor-inline .detail-columns h3{font-size:19px;margin:3px 0 8px}
+.sponsor-cards>.sponsor-inline .contact-list li{margin-bottom:8px;font-size:14px}
+.sponsor-cards>.sponsor-inline .contact-actions{grid-column:1/4;display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.sponsor-cards>.sponsor-inline .source-note{grid-column:1/4;margin:0;padding-top:7px}
+@media(max-width:800px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr 1fr;gap:12px}.sponsor-cards>.sponsor-inline .detail-columns{grid-column:2;display:block}.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1/-1}}
+@media(max-width:520px){.sponsor-cards>.sponsor-inline{grid-template-columns:1fr;padding:15px;gap:8px}.sponsor-cards>.sponsor-inline .detail-brand,.sponsor-cards>.sponsor-inline .detail-summary,.sponsor-cards>.sponsor-inline .detail-columns,.sponsor-cards>.sponsor-inline .contact-actions,.sponsor-cards>.sponsor-inline .source-note{grid-column:1;grid-row:auto}.sponsor-cards>.sponsor-inline .detail-columns{display:grid;grid-template-columns:1fr}.sponsor-cards>.sponsor-inline .contact-actions{display:flex}}

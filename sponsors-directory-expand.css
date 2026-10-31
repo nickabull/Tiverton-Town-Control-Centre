@@ -21,7 +21,7 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 @media(max-width:520px){.sponsor-modal{padding:10px}.sponsor-dialog-panel{width:100%;max-height:calc(100dvh - 20px);padding:17px 18px}}
 
 /* Expandable sponsor trial. Original pop-up version remains unchanged. */
-.sponsor-card.expanded{align-self:start}
+.sponsor-card.expanded{align-self:stretch}
 .sponsor-inline[hidden]{display:none!important}
 .sponsor-inline{margin:18px -20px -20px;padding:16px 20px 20px;background:#252323;color:#fff;overflow-wrap:anywhere}
 .sponsor-inline h3{color:#ffd800}

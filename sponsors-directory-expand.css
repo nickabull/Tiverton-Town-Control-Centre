@@ -79,3 +79,6 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 /* Explicit placement keeps the close control at the top on desktop. */
 @media(min-width:801px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}
 @media(min-width:521px) and (max-width:800px){.sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:1}.sponsor-cards>.sponsor-inline .detail-brand{grid-row:2}.sponsor-cards>.sponsor-inline .detail-summary{grid-row:3}.sponsor-cards>.sponsor-inline .detail-columns{grid-row:2/4}}
+
+/* Keep the approved preview aligned with live: no divider above the note. */
+.sponsor-cards>.sponsor-inline .source-note{border-top:0!important}

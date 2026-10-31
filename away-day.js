@@ -35,7 +35,7 @@
       if (typeof guide.content?.[selector] !== 'string') throw new Error('Trip content is incomplete');
       document.querySelector(selector).innerHTML = guide.content[selector];
     }
-    if (/^assets\/away-days\/[a-z0-9-]+\.(jpg|png|webp)$/.test(guide.hero_photo || '')) document.querySelector('.trip-hero').style.backgroundImage = `url("${guide.hero_photo}")`;
+    if (/^(https:\/\/static\.wixstatic\.com\/media\/[a-zA-Z0-9_~.-]+|assets\/away-days\/[a-z0-9-]+\.(jpg|png|webp))$/.test(guide.hero_photo || '')) document.querySelector('.trip-hero').style.backgroundImage = `url("${guide.hero_photo}")`;
     else document.querySelector('.trip-hero').style.backgroundImage = 'linear-gradient(110deg,#142019,#21312d)';
     document.querySelector('meta[name="description"]').content = `Tivvy away-day planner: ${guide.display_name}, ${date(guide.fixture.date)}. Tickets, travel and current league form.`;
   }

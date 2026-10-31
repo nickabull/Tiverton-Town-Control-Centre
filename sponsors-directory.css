@@ -87,3 +87,8 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-cards>.sponsor-inline{border:0!important;outline:0!important;box-shadow:none!important;background:#252323;position:relative;z-index:1}
 .sponsor-cards>.sponsor-inline .source-note{border:0!important;box-shadow:none!important}
 .sponsor-card.expanded{border-bottom:2px solid #111!important}
+
+/* Match Centre-consistent action labels: DETAILS and red outlined CLOSE. */
+.sponsor-cards>.sponsor-inline .inline-hide-details{background:transparent!important;color:#ff4050!important;border:2px solid #ff4050!important;font-family:Anton,Impact,"Arial Narrow",sans-serif;font-size:17px}
+.sponsor-cards>.sponsor-inline .inline-hide-details:hover{background:#ff4050!important;color:#111!important}
+@media(max-width:520px){.sponsor-cards>.sponsor-inline .inline-hide-details{font-size:15px}}

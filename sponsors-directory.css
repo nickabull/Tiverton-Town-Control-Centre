@@ -92,3 +92,10 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 .sponsor-cards>.sponsor-inline .inline-hide-details{background:transparent!important;color:#ff4050!important;border:2px solid #ff4050!important;font-family:Anton,Impact,"Arial Narrow",sans-serif;font-size:17px}
 .sponsor-cards>.sponsor-inline .inline-hide-details:hover{background:#ff4050!important;color:#111!important}
 @media(max-width:520px){.sponsor-cards>.sponsor-inline .inline-hide-details{font-size:15px}}
+
+/* Mobile: close action at the foot of the expanded sponsor panel, matching Match Centre. */
+@media(max-width:520px){
+ .sponsor-cards>.sponsor-inline .inline-detail-toolbar{grid-row:auto!important;grid-column:1/-1;order:99;justify-content:flex-start;margin-top:10px}
+ .sponsor-cards>.sponsor-inline{display:flex!important;flex-direction:column;align-items:stretch}
+ .sponsor-cards>.sponsor-inline .inline-detail-toolbar{align-self:flex-start}
+}

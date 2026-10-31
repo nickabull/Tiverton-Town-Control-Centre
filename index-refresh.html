@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Control Centre · Homepage Preview</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&display=swap">
+<link rel="stylesheet" href="dashboard-glance.css">
+<style>
+:root{--yellow:#f2c400;--black:#111;--ink:#171717;--muted:#6b6b6b;--panel:#fff;--bg:#f3f3f1;--line:#deded8}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(115deg,#111 0%,#242424 45%,#111 100%);color:#fff;border-bottom:5px solid var(--yellow);position:relative;overflow:hidden}
+header:after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 0 58%,rgba(242,196,0,.12) 58% 72%,transparent 72%);pointer-events:none}
+.header-inner{max-width:1180px;margin:0 auto;padding:18px 22px 14px;position:relative;z-index:1}
+.topstrap{display:grid;grid-template-columns:110px 1fr 170px;align-items:center;gap:22px}
+.hero-logo{height:92px;max-width:160px;object-fit:contain;display:block;margin:auto;filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
+.hero-league{width:160px;height:78px;object-fit:cover;object-position:center;background:#ed1c24;border:2px solid rgba(255,255,255,.65);border-radius:6px}
+.hero-copy{text-align:left}.strap-eyebrow{color:var(--yellow);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.hero-copy h1{margin:0;font-size:clamp(25px,3vw,38px);line-height:1.05}.hero-copy .subtitle{margin-top:6px;color:#ddd;font-size:14px}
+.logo-fallback{display:none;font-weight:900;color:var(--yellow);text-align:center}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{color:#fff;text-decoration:none;padding:8px 11px;border:1px solid #444;border-radius:8px;font-size:14px;background:rgba(0,0,0,.12)}nav a:hover{border-color:var(--yellow);color:var(--yellow)}
+.wrap{max-width:1180px;margin:auto;padding:0 22px}
+main{padding:28px 0 50px}.hero{display:grid;grid-template-columns:2fr 1fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#555}.big{font-size:32px;font-weight:900;margin:6px 0}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}.card h2{margin:0 0 8px;font-size:19px}.card p{margin:0 0 16px;color:#666;line-height:1.45}.btn{display:inline-block;background:var(--black);color:#fff;text-decoration:none;padding:10px 13px;border-radius:8px;font-weight:700}.btn.yellow{background:var(--yellow);color:#111}
+.status{display:flex;align-items:center;gap:9px;margin:10px 0}.dot{width:10px;height:10px;border-radius:50%;background:#b8b8b8}.dot.ok{background:#38a169}.dot.warn{background:#d69e2e}
+table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #ecece7;font-size:14px}th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#666}
+footer{padding:28px 0;color:#777;font-size:13px}
+@media(max-width:820px){.hero,.grid{grid-template-columns:1fr}}
+@media(max-width:700px){.header-inner{padding:12px 10px}.topstrap{grid-template-columns:70px 1fr;gap:12px}.hero-logo{height:64px}.hero-league{display:none}.strap-eyebrow{font-size:10px;letter-spacing:1.3px}.hero-copy .subtitle{font-size:12px}nav{margin-top:12px}}
+#auth-gate{min-height:100vh;display:grid;place-items:center;background:#171717;color:#fff;padding:20px}#auth-gate form{background:#292929;border-top:5px solid #f2c400;border-radius:12px;padding:30px;max-width:430px;width:100%}#auth-gate input{width:100%;padding:12px;margin:8px 0 16px}#auth-gate button,#sign-out{background:#f2c400;border:0;padding:10px 16px;cursor:pointer}#private-app{display:none}#auth-error{color:#ffb4b4}
+
+/* Keep approved grass background; restore original header and tabs. */
+#private-app{min-height:100vh;background:linear-gradient(180deg,rgba(247,245,216,.24),rgba(255,255,255,.38)),url("Tiverton%20Grass%20.jpg") center top / cover fixed no-repeat;}
+</style>
+<style>
+/* Preview-only dashboard refresh; shared site pages remain unchanged. */
+#private-app{background:linear-gradient(180deg,rgba(250,239,153,.18),rgba(255,255,255,.65)),url("Tiverton%20Grass%20.jpg") center / cover fixed}
+#dashboard{max-width:1260px;padding:25px 20px 60px}
+.refresh-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#111;color:#fff;padding:22px 26px;border-bottom:5px solid #ffd400}
+.refresh-intro h2{font:clamp(29px,3vw,43px)/1.16 Antonio,Impact,sans-serif;margin:5px 0}.refresh-intro p{margin:3px 0;color:#ddd}
+.kicker{font:800 12px Arial,sans-serif;letter-spacing:1px;color:#ffd400}
+.refresh-intro>a{background:#ffd400;color:#111;padding:12px 15px;text-decoration:none;font-weight:800;white-space:nowrap}
+.refresh-next{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;margin:12px 0}
+.refresh-next-main,.refresh-next-away{padding:17px 20px;min-height:112px;background:#171717;color:#fff;border:2px solid #111}
+.refresh-next-away{background:#fff;color:#111;border-left:5px solid #ffd400}.refresh-next-away .kicker{color:#6b5200}
+.refresh-next strong{font:26px/1.2 Antonio,Impact,sans-serif;display:block;margin:8px 0 3px}.refresh-next p{font-size:13px;margin:4px 0;color:inherit}
+.refresh-next a{color:#ffd400;font-weight:800;font-size:13px}.refresh-next-away a{color:#111}
+.refresh-glance{border-radius:0;padding:15px 18px;border:3px solid #111;background:#fff}
+.refresh-glance .dashboard-glance-heading h2{font:28px Antonio,Impact,sans-serif}
+.refresh-tool-header{margin:28px 0 12px}.refresh-tool-header .kicker{color:#775e00}.refresh-tool-header h2{font:32px Antonio,Impact,sans-serif;margin:3px 0}
+.refresh-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.refresh-tools a{background:#fff;border:2px solid #111;padding:18px;text-decoration:none;color:#111;min-height:110px;transition:background .12s}
+.refresh-tools a:hover{background:#ffd400}.refresh-tools strong{display:block;font:23px Antonio,Impact,sans-serif}.refresh-tools span{display:block;color:#555;margin-top:7px;font-size:13px}
+.refresh-more{background:#fff;border:1px solid #ddd;margin:18px 0;padding:15px}.refresh-more summary{cursor:pointer;font-weight:800}.refresh-more-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.refresh-more a{background:#111;color:#fff;padding:9px 11px;text-decoration:none}
+@media(max-width:800px){.refresh-next{grid-template-columns:1fr}.refresh-tools{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.refresh-intro{display:block;padding:16px}.refresh-intro>a{display:inline-block;margin-top:12px}.refresh-tools{grid-template-columns:1fr}.refresh-next strong{font-size:23px}}
+</style></head>
+<body><section id="auth-gate"><form id="login-form"><img src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town Football Club crest" style="display:block;width:125px;max-height:145px;object-fit:contain;margin:0 auto 18px" onerror="this.style.display='none'"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section><div id="private-app">
+<header>
+  <div class="header-inner">
+    <div class="topstrap">
+      <div>
+        <img class="hero-logo" src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town FC crest" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="logo-fallback">TIVERTON<br>TOWN FC</div>
+      </div>
+      <div class="hero-copy">
+        <div class="strap-eyebrow">Tiverton Town • 2026/27</div>
+        <h1>Tiverton Town Programme Centre</h1>
+        <div class="subtitle">Football data · programme production · matchday intelligence</div>
+      </div>
+      <div>
+        <img class="hero-league" src="https://www.voicenewspapers.co.uk/tindle-static/image/2024/08/30/12/41/Untitled-design-119.jpeg?crop=752%3A500&amp;height=500&amp;width=752" alt="Pitching In Southern League" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <nav><button id="sign-out" type="button">Sign out</button>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#results">Results</a>
+      <a href="#players">Players</a>
+      <a href="#league">League</a>
+      <a href="around-the-league.html">Around the League</a>
+      <a href="news-publisher.html">News Publisher</a><a href="#programme">Programme</a><a href="programme-builder-v21.html">Programme Automator</a><a href="photo-library.html">Photo Library</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="dashboard">
+  <section class="refresh-intro"><div><span class="kicker">TIVERTON TOWN · MATCHDAY CONTROL</span><h2>Everything Tivvy. One place.</h2><p>Live football, matchday information and programme production.</p></div><a href="https://www.tivertontownfc.uk/match-centre" target="_blank" rel="noopener">OPEN MATCH CENTRE ↗</a></section>
+  <section class="refresh-next" aria-label="Upcoming matches"><div class="refresh-next-main" id="refresh-next-match"><span class="kicker">NEXT MATCH</span><strong>Loading fixtures…</strong></div><div class="refresh-next-away" id="refresh-away-match"><span class="kicker">NEXT AWAY GAME</span><strong>Loading fixtures…</strong></div></section>
+  <section class="panel dashboard-glance refresh-glance" aria-labelledby="dashboard-glance-title"><div class="dashboard-glance-heading"><div><h2 id="dashboard-glance-title">TIVVY AT A GLANCE</h2><p>Latest five · all competitions · newest first</p></div><a href="https://www.tivertontownfc.uk/match-centre" target="_blank" rel="noopener">View match details ↗</a></div><div id="dashboard-glance-results" aria-live="polite"><p>Loading results…</p></div></section>
+  <section class="refresh-tool-header"><div><span class="kicker">YOUR WORKSPACE</span><h2>Get things done</h2></div></section>
+  <section class="refresh-tools">
+    <a href="programme-builder-v21.html"><strong>Programme Automator</strong><span>Build and prepare the next issue</span></a>
+    <a href="match-status.html"><strong>Match Status</strong><span>Pitch inspections, game on and postponements</span></a>
+    <a href="away-day.html"><strong>Next Away Trip</strong><span>Tickets, travel and matchday guide</span></a>
+    <a href="sponsors-admin.html"><strong>Sponsors</strong><span>Sponsor directory and administration</span></a>
+    <a href="photo-library.html"><strong>Photo Library</strong><span>Approved images and matchday assets</span></a>
+    <a href="programme-final-check.html"><strong>Final Programme Check</strong><span>Spot issues before sending to print</span></a>
+  </section>
+  <details class="refresh-more"><summary>More tools and technical resources</summary><div class="refresh-more-links"><a href="today-in-60.html">Today in 60 Seconds</a><a href="around-the-league.html">Around the League</a><a href="news-publisher.html">News Publisher</a><a href="league-table.html">League Table</a><a href="results-matrix.html">Results Matrix</a><a href="league-so-far.html">League So Far</a><a href="programme-plan.html">Programme Planner</a><a href="feature-slot.html">Feature Slot</a><a href="https://github.com/nickabull/Tiverton-Town-Control-Centre/actions">Source Diagnostics</a></div></details>
+</main>
+<footer class="wrap">Tiverton Town Programme Centre · Built to support programme production, not replace the editor.</footer>
+</div><script type="module" src="auth.js"></script><script src="programme-nav.js?v=20261018-theme-1"></script><script type="module" src="dashboard-glance.js"></script><script type="module">
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function updateUpcoming(){
+ const base='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json?v='+Date.now();
+ try{
+ const response=await fetch(base,{cache:'no-store'});if(!response.ok)throw Error('Fixture feed');
+ const data=await response.json(),now=new Date();
+ const upcoming=(data.fixtures||[]).filter(f=>f.date&&f.opposition&&!/^([WDL]\\s|ABD)/i.test(String(f.result||''))&&new Date(f.date+'T'+(f.kickOff||'15:00')+':00+00:00')>now).sort((a,b)=>a.date.localeCompare(b.date)||String(a.kickOff).localeCompare(String(b.kickOff)));
+ const fmt=f=>new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',timeZone:'Europe/London'});
+ const markup=(f,title)=>f?'<span class="kicker">'+title+'</span><strong>'+esc(f.opposition)+'</strong><p>'+esc(fmt(f))+' · '+esc(f.kickOff||'Kick-off TBC')+' · '+(f.homeAway==='H'?'Home':'Away')+' · '+esc(f.competition)+'</p><a href="https://www.tivertontownfc.uk/match-centre">MATCH INFO ↗</a>':'<span class="kicker">'+title+'</span><strong>No upcoming fixture listed</strong>';
+ document.getElementById('refresh-next-match').innerHTML=markup(upcoming[0],'NEXT MATCH');
+ document.getElementById('refresh-away-match').innerHTML=markup(upcoming.find(f=>f.homeAway==='A'),'NEXT AWAY GAME');
+ }catch(e){for(const id of ['refresh-next-match','refresh-away-match'])document.getElementById(id).innerHTML='<strong>Fixture feed unavailable</strong><a href="https://www.tivertontownfc.uk/match-centre">Open Match Centre ↗</a>'}
+}
+updateUpcoming();setInterval(updateUpcoming,300000);
+</script></body>
+</html>

@@ -36,6 +36,7 @@
       document.querySelector(selector).innerHTML = guide.content[selector];
     }
     if (/^assets\/away-days\/[a-z0-9-]+\.(jpg|png|webp)$/.test(guide.hero_photo || '')) document.querySelector('.trip-hero').style.backgroundImage = `url("${guide.hero_photo}")`;
+    else document.querySelector('.trip-hero').style.backgroundImage = 'linear-gradient(110deg,#142019,#21312d)';
     document.querySelector('meta[name="description"]').content = `Tivvy away-day planner: ${guide.display_name}, ${date(guide.fixture.date)}. Tickets, travel and current league form.`;
   }
   async function fetchJson(url) {
@@ -68,7 +69,7 @@
     $('leave-time').textContent = time || 'enter an arrival time';
   }
   function tickets() {
-    if (!guide) return;
+    if (!guide || !Object.keys(guide.ticket_prices).length || !$('ticket-total')) return;
     const party = {};
     for (const key of Object.keys(guide.ticket_prices)) { party[key] = C.count($(key).value); $(key).value = party[key]; }
     $('ticket-total').textContent = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(C.ticketTotal(guide.ticket_prices, party));

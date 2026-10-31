@@ -86,4 +86,4 @@ dialog{position:fixed;inset:0;width:min(880px,calc(100% - 32px));max-height:calc
 /* Seamless expanded sponsor drawer: no black keylines across the open panel. */
 .sponsor-cards>.sponsor-inline{border:0!important;outline:0!important;box-shadow:none!important;background:#252323;position:relative;z-index:1}
 .sponsor-cards>.sponsor-inline .source-note{border:0!important;box-shadow:none!important}
-.sponsor-card.expanded{border-bottom:0!important}
+.sponsor-card.expanded{border-bottom:2px solid #111!important}

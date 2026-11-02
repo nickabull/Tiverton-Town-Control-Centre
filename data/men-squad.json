@@ -501,12 +501,12 @@
     {
       "id": "lewis-flowers",
       "name": "Lewis Flowers",
-      "status": "on_loan",
-      "status_verified": false,
+      "status": "departed",
+      "status_verified": true,
       "position": "Defender",
       "shirt_number": null,
-      "current_club": "Torpoint Athletic",
-      "notes": "Torpoint Athletic involvement verified by match team sheet; exact Tiverton loan/registration status unconfirmed. Archive lists 1 start, 0 sub appearances, 0 goals; 22 Sep 2026 is debut, NOT necessarily last appearance. Check competition-specific match records before publishing totals.",
+      "current_club": null,
+      "notes": "Torpoint Athletic involvement verified by match team sheet; exact Tiverton loan/registration status unconfirmed. Archive lists 1 start, 0 sub appearances, 0 goals; 22 Sep 2026 is debut, NOT necessarily last appearance. Check competition-specific match records before publishing totals. Editor confirmed Lewis Flowers has left Tiverton Town on 2 November 2026. Retain every historical appearance and sponsorship record.",
       "source": "Tivvy Archive players listing; Torpoint match report and FA Full-Time squad",
       "statistics_reference": {
         "starts": 1,
@@ -526,7 +526,8 @@
         }
       },
       "summer_2026_tracking_club": "Plymouth",
-      "summer_2026_tracking_source": "Editor-supplied closed-season signing spreadsheet screenshot; club column meaning not verified as former/current club"
+      "summer_2026_tracking_source": "Editor-supplied closed-season signing spreadsheet screenshot; club column meaning not verified as former/current club",
+      "departure_source": "Editor confirmation 2 November 2026"
     },
     {
       "id": "steve-walker",

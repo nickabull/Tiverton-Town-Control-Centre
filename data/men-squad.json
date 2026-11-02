@@ -270,6 +270,25 @@
       "notes": "Loan spell at Corsham Town to support development.",
       "source": "Programme loan announcement supplied by editor",
       "status_verified": true
+    },
+    {
+      "id": "lewis-flowers",
+      "name": "Lewis Flowers",
+      "status": "on_loan",
+      "status_verified": false,
+      "position": "Defender",
+      "shirt_number": null,
+      "current_club": "Torpoint Athletic",
+      "notes": "Torpoint Athletic involvement verified by match team sheet; exact Tiverton loan/registration status unconfirmed. Archive lists 1 start, 0 sub appearances, 0 goals; 22 Sep 2026 is debut, NOT necessarily last appearance. Check competition-specific match records before publishing totals.",
+      "source": "Tivvy Archive players listing; Torpoint match report and FA Full-Time squad",
+      "statistics_reference": {
+        "starts": 1,
+        "sub_appearances": 0,
+        "total_appearances": 1,
+        "goals": 0,
+        "debut": "2026-09-22",
+        "status": "provisional; verify scope"
+      }
     }
   ]
 }

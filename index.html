@@ -32,6 +32,7 @@ footer{padding:28px 0;color:#777;font-size:13px}
 
 /* Keep approved grass background; restore original header and tabs. */
 #private-app{min-height:100vh;background:linear-gradient(180deg,rgba(247,245,216,.24),rgba(255,255,255,.38)),url("Tiverton%20Grass%20.jpg") center top / cover fixed no-repeat;}
+.departed-overview{margin-top:15px;padding:13px;background:#eeeeec;border:1px solid #a9a9a9;border-radius:7px;color:#434343}.departed-overview strong{font:700 18px Antonio,Impact,sans-serif;text-transform:uppercase}.departed-overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.departed-overview-grid>div{background:#d3d3d1;border-left:4px solid #777;padding:8px 10px;display:flex;flex-direction:column}.departed-overview-grid b{font-size:14px}.departed-overview-grid span{font-size:12px;font-weight:bold;color:#555}.departed-overview p{font-size:12px;color:#666;margin:9px 0 0}@media(max-width:550px){.departed-overview-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body><section id="auth-gate"><form id="login-form"><img src="https://ilcalcio.net/assets/74/79/74798e74ec395fe9614ced7aa31c4dc3.png" alt="Tiverton Town Football Club crest" style="display:block;width:125px;max-height:145px;object-fit:contain;margin:0 auto 18px" onerror="this.style.display='none'"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section><div id="private-app">
@@ -98,7 +99,14 @@ footer{padding:28px 0;color:#777;font-size:13px}
     <article class="panel card" id="players">
       <h2>Players</h2>
       <p>Line-ups, substitutions, appearances and player information stay available from the existing player tool.</p>
-      <a class="btn" href="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/" target="_blank" rel="noopener">Open Player Info</a>
+      <a class="btn" href="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/" target="_blank" rel="noopener">Open Player Info</a><div class="departed-overview" aria-label="Former players">
+  <strong>Former player records retained</strong>
+  <div class="departed-overview-grid">
+    <div><b>Ed Palmer</b><span>Has left the club</span></div>
+    <div><b>Lewis Flowers</b><span>Has left the club</span></div>
+  </div>
+  <p>Historical appearances and match data remain in Player Info. Departure does not erase a player's Tiverton record.</p>
+</div>
     </article>
 
     <article class="panel card" id="league">

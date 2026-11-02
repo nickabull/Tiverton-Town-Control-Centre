@@ -71,11 +71,12 @@
       "status_verified": false,
       "sponsorships": {
         "2026/27": {
-          "sponsor_name": "Kelvin Groves",
+          "sponsor_name": "Kelvin Phillips",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Tivvy",
@@ -96,8 +97,9 @@
           "sponsor_name": "Viv Curtis",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Previously supplied by editor as Viv Curtis; latest club list says 'Louis - Viv' (player identity needs confirmation)",
+          "logo_note": "",
+          "status": "identity_to_confirm"
         }
       },
       "summer_2026_tracking_club": "Bideford",
@@ -158,8 +160,9 @@
           "sponsor_name": "Bruce Benton",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Tivvy",
@@ -180,8 +183,9 @@
           "sponsor_name": "Exeter Window Store",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Melksham",
@@ -252,8 +256,9 @@
           "sponsor_name": "Kelvin Groves",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Tivvy",
@@ -274,8 +279,9 @@
           "sponsor_name": "Exeter City Senior Reds",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": "Use Exeter City Senior Reds logo when a confirmed asset is available."
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "Use Exeter City Senior Reds logo when a confirmed asset is available.",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Tivvy",
@@ -314,8 +320,9 @@
           "sponsor_name": "Michael and Carol Pike",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": ""
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Bideford",
@@ -336,8 +343,9 @@
           "sponsor_name": "Kelly Gillard",
           "sponsor_url": "",
           "logo_asset": "",
-          "source": "Supplied by club website editor, 2 November 2026; pending reconciliation with definitive club list",
-          "logo_note": "Use Tivvy Sports Bar logo when a confirmed asset is available."
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "logo_note": "Use Tivvy Sports Bar logo when a confirmed asset is available.",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Bridgwater",
@@ -510,9 +518,11 @@
       },
       "sponsorships": {
         "2026/27": {
-          "sponsor_name": "",
+          "sponsor_name": "Landscaped R US",
           "sponsor_url": "",
-          "logo_asset": ""
+          "logo_asset": "",
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Plymouth",
@@ -597,9 +607,11 @@
       "competitive_statistics_status": "not verified",
       "sponsorships": {
         "2026/27": {
-          "sponsor_name": "",
+          "sponsor_name": "Chris Dyke",
           "sponsor_url": "",
-          "logo_asset": ""
+          "logo_asset": "",
+          "source": "Club-supplied sponsorship list relayed by editor, 2 November 2026",
+          "status": "club_supplied"
         }
       },
       "summer_2026_tracking_club": "Brixham",

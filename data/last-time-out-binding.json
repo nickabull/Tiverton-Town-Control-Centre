@@ -55,7 +55,7 @@
     },
     {
       "key": "body_1",
-      "label": "Opening page \u2014 main report",
+      "label": "Opening page — main report",
       "kind": "body",
       "page_key": "last_time_out_1",
       "baseline": "",
@@ -63,7 +63,7 @@
     },
     {
       "key": "body_2",
-      "label": "Opening page \u2014 beside crest",
+      "label": "Opening page — beside crest",
       "kind": "body",
       "page_key": "last_time_out_1",
       "baseline": "",
@@ -71,7 +71,7 @@
     },
     {
       "key": "body_3",
-      "label": "Second page \u2014 beside photo",
+      "label": "Second page — beside photo",
       "kind": "body",
       "page_key": "last_time_out_2",
       "baseline": "",
@@ -79,7 +79,7 @@
     },
     {
       "key": "body_4",
-      "label": "Second page \u2014 main report",
+      "label": "Second page — main report",
       "kind": "body",
       "page_key": "last_time_out_2",
       "baseline": "",
@@ -87,7 +87,7 @@
     },
     {
       "key": "body_5",
-      "label": "Third page \u2014 report",
+      "label": "Third page — report",
       "kind": "body",
       "page_key": "last_time_out_3",
       "baseline": "",
@@ -95,7 +95,7 @@
     },
     {
       "key": "body_6",
-      "label": "Fourth page \u2014 report and teams",
+      "label": "Fourth page — report and teams",
       "kind": "body",
       "page_key": "last_time_out_4",
       "baseline": "",
@@ -147,15 +147,22 @@
   "media_slots": [
     {
       "key": "opponent_crest",
-      "label": "Opponent crest \u2014 opening page",
+      "label": "Opponent crest — opening page",
       "page_key": "last_time_out_1",
       "preserve_existing_frame": true
     },
     {
       "key": "report_photo",
-      "label": "Report photo \u2014 second page",
+      "label": "Report photo — second page",
       "page_key": "last_time_out_2",
       "preserve_existing_frame": true
+    },
+    {
+      "key": "report_photo_page_4",
+      "label": "Report photo — fourth page",
+      "page_key": "last_time_out_4",
+      "preserve_existing_frame": true,
+      "notes": "Select image for fourth report page (Canva page 22); check existence of frame or request approval to position without covering copy."
     }
   ],
   "rules": {

@@ -3,14 +3,15 @@
   "season": "2026/27",
   "source_design_id": "DAHYKUo9Tzo",
   "source_page": 52,
-  "review_status": "Initial page-52 squad plus Ed Palmer departed and two confirmed Corsham Town loanees; other roster statuses pending review",
+  "review_status": "Preseason audit provisional: reviewed published 2026 fixture list and available Bridgwater match report; other friendly lineups still to source. Four players flagged for review; no competitive stats inferred.",
   "policy": {
     "statistics": "Never erase match history when status changes",
     "status_values": [
       "current",
       "on_loan",
       "injured",
-      "departed"
+      "departed",
+      "review"
     ],
     "match_centre": "Show current players by default; historical match appearances retain all players",
     "programme": "All-player season totals retained; current squad separated from departed and on-loan",
@@ -289,6 +290,97 @@
         "debut": "2026-09-22",
         "status": "provisional; verify scope"
       }
+    },
+    {
+      "id": "steve-walker",
+      "name": "Steve Walker",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Named in Tiverton Town pre-season match against Bridgwater United on 14 July 2026. Current registration, transfer and loan status unverified. Pre-season friendly appearances are separate from competitive statistics.",
+      "source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-14",
+          "opponent": "Bridgwater United",
+          "participated": true
+        }
+      ],
+      "competitive_statistics_status": "not verified"
+    },
+    {
+      "id": "joe-wylie",
+      "name": "Joe Wylie",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Named in Tiverton Town pre-season match against Bridgwater United on 14 July 2026. Current registration, transfer and loan status unverified. Pre-season friendly appearances are separate from competitive statistics.",
+      "source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-14",
+          "opponent": "Bridgwater United",
+          "participated": true
+        }
+      ],
+      "competitive_statistics_status": "not verified"
+    },
+    {
+      "id": "cole-harford",
+      "name": "Cole Harford",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Named in Tiverton Town pre-season match against Bridgwater United on 14 July 2026. Current registration, transfer and loan status unverified. Pre-season friendly appearances are separate from competitive statistics.",
+      "source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-14",
+          "opponent": "Bridgwater United",
+          "participated": true
+        }
+      ],
+      "competitive_statistics_status": "not verified"
+    },
+    {
+      "id": "charlie-wright",
+      "name": "Charlie Wright",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Named in Tiverton Town pre-season match against Bridgwater United on 14 July 2026. Current registration, transfer and loan status unverified. Pre-season friendly appearances are separate from competitive statistics.",
+      "source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-14",
+          "opponent": "Bridgwater United",
+          "participated": true
+        }
+      ],
+      "competitive_statistics_status": "not verified"
     }
-  ]
+  ],
+  "preseason_audit": {
+    "season": "2026/27",
+    "fixture_list_source": "https://www.tivertontownfc.uk/2025-26-fixtures-results",
+    "verified_lineup_source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
+    "unverified_matches": [
+      "Roman Glass St George (4 July)",
+      "Tavistock (7 July)",
+      "Brixham (18 July; abandoned)",
+      "Shirehampton (21 July)",
+      "Taunton Town (25 July)",
+      "Ilminster Town (28 July)",
+      "Cullompton Rangers (1 August)"
+    ],
+    "rule": "Only named players from published team sheets enter provisional records. Never count pre-season as competitive appearances; no automatic current/on-loan designation."
+  }
 }

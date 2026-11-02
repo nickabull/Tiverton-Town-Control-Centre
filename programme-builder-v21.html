@@ -35,7 +35,6 @@ h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
 
 <section class="panel" id="issueBuilder" aria-label="Complete issue build">Loading issue planner and template audit…</section>
 <section class="panel" id="sourceOfTruth" aria-label="Match Centre source of truth"><div class="ey" style="color:#555">One source of truth</div><h2 style="margin:6px 0">Match Centre data → Programme</h2><p style="font-size:13px;line-height:1.5">The programme reuses the same <strong>Get Results</strong> and <strong>Get Player Info</strong> feeds as the Tivvy Match Centre. Do not re-key scores, line-ups or match events from scratch. Use verified league standings for League Table and league positions. Canva is the editable presentation output, not an independent data source.</p><p class="small"><strong>Before each programme run:</strong> refresh the feeds; use confirmed fixtures and results only; flag missing or conflicting data; update existing Canva content using the approved page rules (Antonio, yellow/white rows, Tivvy goals red, native editable content, artwork untouched). A feed refresh does not itself publish changes to Canva. Pending games remain pending until verified.</p><div class="links"><a href="https://nickabull.github.io/Tiverton-Town-Get-Results/" target="_blank" rel="noopener">Get Results</a><a href="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/" target="_blank" rel="noopener">Get Player Info</a><a href="data/programme-data-policy.json" target="_blank" rel="noopener">Data policy / technical rules</a></div></section>
-<section class="panel" id="pageArtworkAudit" aria-label="Page-by-page image and crest audit"><div class="ey" style="color:#555">52-page artwork register</div><h2 style="margin:6px 0">Images, crests, logos &amp; credits — page by page</h2><p class="small">This checklist follows the exact Canva page order and live-verified page IDs. Each page starts as KEEP. Set REPLACE only when you want artwork changed; enter a Canva asset link, Viv Flickr reference or upload a file. Fields are instructions for the connected copy build, not edits to Canva. Image and logo presence must be visually confirmed before replacing anything. Protected adverts require separate explicit approval.</p><div class="controls"><button class="btn ghost" type="button" onclick="document.getElementById('artworkPages').open=!document.getElementById('artworkPages').open">Open / close artwork checklist</button></div><details id="artworkPages"><summary>Show all 52 pages and their artwork options</summary><div id="artworkPageRows"></div></details></section>
 <section class="summary" id="summary"></section>
 
 
@@ -616,11 +615,11 @@ async function syncCanvaPages(){
 }
 
 function artworkSetting(key,part){return fieldValue('artwork-'+key+'-'+part);}
-function artworkSelect(key,part,value){saveField('artwork-'+key+'-'+part,value);if(part==='action')renderArtworkRows();}
-function renderArtworkRows(){
- const host=document.getElementById('artworkPageRows');if(!host||!registry)return;
- const items=registry.pages.filter(p=>p.active!==false&&Number.isInteger(p.position)).sort((a,b)=>a.position-b.position);
- host.innerHTML='<p class="small"><strong>'+items.length+' currently mapped pages.</strong> Every REPLACE request must be checked against the source page and approved on the copied issue. No blind element swaps.</p>'+items.map(p=>{
+function artworkSelect(key,part,value){saveField('artwork-'+key+'-'+part,value);if(part==='action')draw();}
+function renderArtworkRows(section){
+ if(!registry)return '';
+ const items=registry.pages.filter(p=>p.active!==false&&Number.isInteger(p.position)&&section.pages.includes(p.key)).sort((a,b)=>a.position-b.position);
+ return '<details class="tech"><summary>Images, crests, logos &amp; credits — '+items.length+' page'+(items.length===1?'':'s')+'</summary><p class="small">Keep current artwork unless deliberately changing it. Each replacement requires a source and identified position; protected adverts require approval. Canva remains untouched until the reviewed connected build.</p>'+items.map(p=>{
  const key=p.key,selected=artworkSetting(key,'action')||'keep',protectedPage=p.type==='FIXED';
  const opts=['keep','replace_image','replace_crest','replace_logo','multiple','review_only'];
  const names={keep:'Keep current artwork',replace_image:'Replace photograph / image',replace_crest:'Replace club crest',replace_logo:'Replace sponsor / other logo',multiple:'Multiple artwork changes',review_only:'Inspect only — no replacement'};
@@ -635,7 +634,7 @@ function renderArtworkRows(){
  '<div class="field" style="grid-column:1/-1">'+imageUploadControl('artwork-'+key,'Or upload replacement JPG / PNG / WebP')+'</div>'+
  (protectedPage?'<div class="field" style="grid-column:1/-1"><label class="check"><input type="checkbox" '+(artworkSetting(key,'protected-approved')==='1'?'checked':'')+' onchange="artworkSelect(\''+key+'\',\'protected-approved\',this.checked?\'1\':\'0\')"> I explicitly approve requesting an artwork change on this protected page (still requires final proof)</label></div>':'')
  )+'</div></details>';
- }).join('');
+ }).join('')+'</details>';
 }
 function draw(){
  const grid=document.getElementById('sectionGrid');
@@ -658,6 +657,7 @@ function draw(){
      (fields?((s.custom==='oppositionPreview'||s.custom==='lastOut'||s.custom==='aroundLeague'||s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
      (legacyOfficials?'<div class="action-fields">'+legacyOfficials+'</div>':'')+
      (links?'<div class="links">'+links+'</div>':'')+
+     renderArtworkRows(s)+
      '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
      (s.type==='FIXED'?'':'<label class="check"><input data-section-approval type="checkbox" '+(approved(s)&&!unavailable?'checked':'')+(unavailable?' disabled':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>')+'</div>';
    grid.appendChild(card);
@@ -694,7 +694,7 @@ function syncIssueFromFixture(){
   // New issue: clear previous cover photo and crest preview from browser storage.
   coverPhotoDb().then(db=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).delete('current');tx.objectStore(coverPhotoStore).delete('crest-preview');tx.oncomplete=()=>db.close();tx.onerror=()=>db.close();}).catch(()=>{});
 }
-async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw();renderArtworkRows()}
+async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw()}
 boot();
 </script>
 <script src="issue-builder.js?v=20261028-audit"></script>

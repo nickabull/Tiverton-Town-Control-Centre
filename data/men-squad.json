@@ -15,7 +15,8 @@
     ],
     "match_centre": "Show current players by default; historical match appearances retain all players",
     "programme": "All-player season totals retained; current squad separated from departed and on-loan",
-    "publication": "Changes made in manager require explicit export/import until write-through is connected"
+    "publication": "Changes made in manager require explicit export/import until write-through is connected",
+    "sponsorship": "Keep sponsors per season per player; never overwrite previous season sponsorship when editing a new season."
   },
   "players": [
     {
@@ -27,7 +28,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "mason-winter",
@@ -38,7 +46,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "corey-koerner",
@@ -49,7 +64,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "louie-slough",
@@ -60,7 +82,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "matt-wood",
@@ -71,7 +100,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "josh-bissett",
@@ -82,7 +118,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "asa-hall",
@@ -93,7 +136,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "owen-howe",
@@ -104,7 +154,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "ryan-keates",
@@ -115,7 +172,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "jacob-wellington",
@@ -126,7 +190,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "jack-kennell",
@@ -137,7 +208,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "aiden-horne",
@@ -148,7 +226,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "aaron-wellington",
@@ -159,7 +244,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "finn-roberts",
@@ -170,7 +262,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "billy-tucker",
@@ -181,7 +280,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "karim-coulibaly",
@@ -192,7 +298,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "louis-jagger-cane",
@@ -203,7 +316,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "dan-koita",
@@ -214,7 +334,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "toby-stephens",
@@ -225,7 +352,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "tobias-alsop",
@@ -236,7 +370,14 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
-      "status_verified": false
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "ed-palmer",
@@ -248,7 +389,14 @@
       "current_club": "Plymouth Parkway",
       "notes": "Departure confirmed by editor; preserve prior Tiverton match records and statistics.",
       "source": "Club departure information provided by programme editor",
-      "status_verified": true
+      "status_verified": true,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "caleb-pryce-hall",
@@ -259,7 +407,14 @@
       "current_club": "Corsham Town",
       "notes": "Loan spell at Corsham Town to support development.",
       "source": "Programme loan announcement supplied by editor",
-      "status_verified": true
+      "status_verified": true,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "finn-hodge",
@@ -270,7 +425,14 @@
       "current_club": "Corsham Town",
       "notes": "Loan spell at Corsham Town to support development.",
       "source": "Programme loan announcement supplied by editor",
-      "status_verified": true
+      "status_verified": true,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "lewis-flowers",
@@ -289,6 +451,13 @@
         "goals": 0,
         "debut": "2026-09-22",
         "status": "provisional; verify scope"
+      },
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
       }
     },
     {
@@ -308,7 +477,14 @@
           "participated": true
         }
       ],
-      "competitive_statistics_status": "not verified"
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "joe-wylie",
@@ -327,7 +503,14 @@
           "participated": true
         }
       ],
-      "competitive_statistics_status": "not verified"
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "cole-harford",
@@ -346,7 +529,14 @@
           "participated": true
         }
       ],
-      "competitive_statistics_status": "not verified"
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     },
     {
       "id": "charlie-wright",
@@ -365,7 +555,14 @@
           "participated": true
         }
       ],
-      "competitive_statistics_status": "not verified"
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     }
   ],
   "preseason_audit": {

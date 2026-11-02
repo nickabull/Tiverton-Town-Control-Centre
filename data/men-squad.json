@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "season": "2026/27",
+  "source_design_id": "DAHYKUo9Tzo",
+  "source_page": 52,
+  "review_status": "provisional roster based on programme page 52; loan players not yet identified",
+  "policy": {
+    "statistics": "Never erase match history when status changes",
+    "status_values": [
+      "current",
+      "on_loan",
+      "injured",
+      "departed"
+    ],
+    "match_centre": "Show current players by default; historical match appearances retain all players",
+    "programme": "All-player season totals retained; current squad separated from departed and on-loan",
+    "publication": "Changes made in manager require explicit export/import until write-through is connected"
+  },
+  "players": [
+    {
+      "id": "louis-smith",
+      "name": "Louis Smith",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "mason-winter",
+      "name": "Mason Winter",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "corey-koerner",
+      "name": "Corey Koerner",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "louie-slough",
+      "name": "Louie Slough",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "matt-wood",
+      "name": "Matt Wood",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "josh-bissett",
+      "name": "Josh Bissett",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "asa-hall",
+      "name": "Asa Hall",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "owen-howe",
+      "name": "Owen Howe",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "ryan-keates",
+      "name": "Ryan Keates",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "jacob-wellington",
+      "name": "Jacob Wellington",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "jack-kennell",
+      "name": "Jack Kennell",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "aiden-horne",
+      "name": "Aiden Horne",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "aaron-wellington",
+      "name": "Aaron Wellington",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "finn-roberts",
+      "name": "Finn Roberts",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "billy-tucker",
+      "name": "Billy Tucker",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "karim-coulibaly",
+      "name": "Karim Coulibaly",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "louis-jagger-cane",
+      "name": "Louis Jagger Cane",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "dan-koita",
+      "name": "Dan Koita",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "toby-stephens",
+      "name": "Toby Stephens",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "tobias-alsop",
+      "name": "Tobias Alsop",
+      "status": "current",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false
+    },
+    {
+      "id": "ed-palmer",
+      "name": "Ed Palmer",
+      "status": "departed",
+      "position": null,
+      "shirt_number": null,
+      "previous_club": null,
+      "current_club": "Plymouth Parkway",
+      "notes": "Departure confirmed by editor; preserve prior Tiverton match records and statistics.",
+      "source": "Club departure information provided by programme editor",
+      "status_verified": true
+    }
+  ]
+}

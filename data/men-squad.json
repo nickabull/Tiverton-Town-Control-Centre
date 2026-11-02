@@ -3,7 +3,7 @@
   "season": "2026/27",
   "source_design_id": "DAHYKUo9Tzo",
   "source_page": 52,
-  "review_status": "provisional roster based on programme page 52; loan players not yet identified",
+  "review_status": "Initial page-52 squad plus Ed Palmer departed and two confirmed Corsham Town loanees; other roster statuses pending review",
   "policy": {
     "statistics": "Never erase match history when status changes",
     "status_values": [
@@ -247,6 +247,28 @@
       "current_club": "Plymouth Parkway",
       "notes": "Departure confirmed by editor; preserve prior Tiverton match records and statistics.",
       "source": "Club departure information provided by programme editor",
+      "status_verified": true
+    },
+    {
+      "id": "caleb-pryce-hall",
+      "name": "Caleb Pryce-Hall",
+      "status": "on_loan",
+      "position": null,
+      "shirt_number": null,
+      "current_club": "Corsham Town",
+      "notes": "Loan spell at Corsham Town to support development.",
+      "source": "Programme loan announcement supplied by editor",
+      "status_verified": true
+    },
+    {
+      "id": "finn-hodge",
+      "name": "Finn Hodge",
+      "status": "on_loan",
+      "position": null,
+      "shirt_number": null,
+      "current_club": "Corsham Town",
+      "notes": "Loan spell at Corsham Town to support development.",
+      "source": "Programme loan announcement supplied by editor",
       "status_verified": true
     }
   ]

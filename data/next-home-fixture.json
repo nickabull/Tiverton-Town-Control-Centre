@@ -5,13 +5,13 @@
   "issue_number": "13",
   "venue": "H",
   "fixture_source": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489",
-  "detection_note": "Sporting Club Inkberrow home fixture Saturday 7 November 2026 at 15:00. Issue 13 confirmed by editor (Dorchester was issue 12). Crest still needs selection and confirmation.",
+  "detection_note": "Inkberrow fixture and issue 13 confirmed. Sporting Club Inkberrow crest matched to existing Canva asset MAHYHc0FmQ0; visually confirm before publishing.",
   "kickoff_rule": "Saturday home fixtures 15:00; Tuesday home fixtures 19:30",
   "crest": {
-    "asset_id": "",
-    "asset_name": "",
+    "asset_id": "MAHYHc0FmQ0",
+    "asset_name": "Sporting Club Inkberrow.png",
     "canva_folder_id": "FAHYHS9R2XM",
-    "thumbnail_url": "",
+    "thumbnail_url": "https://media.canva.com/v2/image-resize/format:PNG/height:200/quality:100/uri:ifs%3A%2F%2FM%2F5b1f0656-220d-453b-80f9-7d1bac82ea71/watermark:F/width:121?csig=AAAAAAAAAAAAAAAAAAAAAOPhPMABp_FkCnadTMbBJK-iQnRtL_Ortr97rxviDMxM&exp=1793629873&osig=AAAAAAAAAAAAAAAAAAAAAPYptLQdpbqU1gD32ZO3talGvcEgc4WZhUDrgNCHvBQx&signer=media-rpc&token=AAIAAU0AJDViMWYwNjU2LTIyMGQtNDUzYi04MGY5LTdkMWJhYzgyZWE3MQAAAAABoZyr42iJc09ozPCLGf0_bwIh_XJpVcRytsJvAXGfj74mZIruwg&x-canva-quality=thumbnail",
     "fallback_url": ""
   }
 }

@@ -2,10 +2,10 @@
   "opponent": "Sporting Club Inkberrow",
   "match_date": "07/11/2026",
   "kickoff": "15:00",
-  "issue_number": "",
+  "issue_number": "13",
   "venue": "H",
   "fixture_source": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489",
-  "detection_note": "Official Southern League home fixture confirmed for Saturday 7 November 2026 at 15:00. Issue number and official crest asset require manual confirmation.",
+  "detection_note": "Sporting Club Inkberrow home fixture Saturday 7 November 2026 at 15:00. Issue 13 confirmed by editor (Dorchester was issue 12). Crest still needs selection and confirmation.",
   "kickoff_rule": "Saturday home fixtures 15:00; Tuesday home fixtures 19:30",
   "crest": {
     "asset_id": "",

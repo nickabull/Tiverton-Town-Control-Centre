@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiverton Town Programme Automator V30</title>
+<style>
+:root{--y:#f2c400;--b:#111;--bg:#f3f3f1;--line:#ddd;--g:#238636;--a:#b7791f;--r:#c53030;--blue:#174ea6}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#171717}
+header{background:linear-gradient(115deg,#111,#242424 45%,#111);color:#fff;border-bottom:5px solid var(--y)}
+.h{max-width:1320px;margin:auto;padding:18px 22px}.ey{color:var(--y);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+h1{margin:5px 0}.sub{color:#ccc}.wrap{max-width:1320px;margin:auto;padding:22px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.meta,.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.box{border:1px solid var(--line);border-radius:10px;padding:13px}.n{font-size:26px;font-weight:900}.small{font-size:12px;color:#666}
+.note{background:#fff8cf;border-left:5px solid var(--y);padding:12px 14px;margin-bottom:16px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:7px;padding:10px 13px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}.yellow{background:var(--y);color:#111}.dark{background:#111;color:#fff}.ghost{background:#eee;color:#111}
+.f label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;color:#666;margin-bottom:4px}.f input{width:100%;padding:9px;border:1px solid #bbb;border-radius:6px}
+.section-grid{display:grid;grid-template-columns:1fr;gap:12px}.section-card{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}.section-card.done{background:#f0fff4;border-color:#89c999}
+.section-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.section-card h3{margin:0 0 5px;font-size:17px}.section-card p{margin:0 0 10px;color:#666;font-size:13px;line-height:1.4}
+.section-toggle{display:block;position:relative;cursor:pointer;list-style:none;padding-right:30px}.section-toggle::-webkit-details-marker{display:none}.section-toggle::after{content:'+';position:absolute;right:0;top:0;font-size:23px;line-height:1;font-weight:700;color:#666}.section-card[open]>.section-toggle::after{content:'−'}.section-toggle:focus-visible{outline:3px solid #174ea6;outline-offset:6px;border-radius:3px}.section-body{padding-top:1px}
+.tag{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800}.fixed{background:#eee}.auto{background:#d8f3dc;color:#185c27}.guided{background:#fff3cd;color:#7a5600}.editorial{background:#dbeafe;color:#174ea6}.mixed{background:#efe4ff;color:#6333a3}
+.action-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field{border:1px solid #eee;border-radius:8px;padding:9px}.field label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;color:#666;margin-bottom:4px}.field input,.field textarea,.field select{width:100%;padding:8px;border:1px solid #bbb;border-radius:6px;font:inherit;background:#fff}.field textarea{min-height:70px;resize:vertical}
+.ai-do{margin-top:11px;background:#111;color:#fff;border-radius:8px;padding:10px 12px}.ai-do strong{color:var(--y);display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ai-do span{font-size:12px;line-height:1.4;display:block}
+.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.links a{background:#111;color:#fff;text-decoration:none;border-radius:6px;padding:7px 9px;font-size:11px;font-weight:800}.links a.live{background:var(--g)}
+.tech{margin-top:10px;border-top:1px dashed #ddd;padding-top:9px}.tech summary{cursor:pointer;font-size:11px;font-weight:800;color:#666}.tech-list{font-size:11px;color:#666;line-height:1.55;margin-top:7px}.tech code{font-size:10px}.tech-grid{display:grid;grid-template-columns:1.2fr 1fr .7fr;gap:8px;margin-top:7px}.tech-item{border:1px solid #eee;border-radius:7px;padding:8px;background:#fafafa}.tech-item .lbl{font-size:9px;font-weight:900;text-transform:uppercase;color:#888;letter-spacing:.04em}.tech-item .val{margin-top:2px;font-size:11px;color:#333;overflow-wrap:anywhere}@media(max-width:700px){.tech-grid{grid-template-columns:1fr}}
+.check{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;font-weight:800}.check input{width:auto;transform:scale(1.15)}.cover-fixture{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:10px}.crest-preview{border:1px solid #ddd;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;background:#fafafa}.crest-preview img{width:92px;height:92px;object-fit:contain;background:#fff;border-radius:8px}.crest-meta{font-size:11px;color:#666;line-height:1.45}.autofill-note{background:#eef8ee;border-left:4px solid #38a169;padding:8px 10px;border-radius:5px;font-size:12px;margin-bottom:9px}
+@media(max-width:850px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr 1fr}.wrap{padding:10px}}@media(max-width:560px){.meta,.summary,.action-fields,.cover-fixture{grid-template-columns:1fr}.section-head{display:block}}
+.advert-embed{margin-top:14px;border:1px solid #ddd;border-radius:10px;overflow:hidden}.advert-embed iframe{display:block;width:100%;height:1120px;border:0;background:#f3f3f1}@media(max-width:700px){.advert-embed iframe{height:1250px}}
+.issue-counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:15px 0}.issue-counts label,#issueBuilder>label{display:block;font-weight:700;font-size:13px}.issue-counts select{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid #aaa;border-radius:5px;background:#fff}#issueBuilder>label{margin:12px 0}#issueBuilder textarea{display:block;width:100%;margin-top:6px}.issue-alert{padding:14px;border-left:5px solid #ba7200;background:#fff4d7;margin:15px 0}.issue-table{width:100%;border-collapse:collapse;font-size:11px}.issue-table td,.issue-table th{padding:6px;text-align:left;border-bottom:1px solid #ddd}.issue-table code{overflow-wrap:anywhere}#issueBuildPreview>details{overflow-x:auto}#issueConfirmation[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="h"><div class="ey">Tiverton Town · Programme Production</div><h1>Programme Automator V30</h1><div class="sub">V25 · fourth-page report photo · editorial formatting · page-specific artwork controls · verified 52-page registry · organised by section, not page</div></div><div style="padding:10px 0"><a href="men-squad-manager-v1.html" style="display:inline-block;padding:10px 15px;border-radius:6px;background:#efbd31;color:#171717;font-weight:800;text-decoration:none">Manage Men's Squad ↗</a></div></header>
+<main class="wrap">
+<div class="note"><strong>Connected Canva build:</strong> Enter and review each issue here, then download one complete build package for the connected ChatGPT run. The browser does not publish directly to Canva. <span hidden> this deliberately brings back the richer V19 action-card workflow, but the engine underneath uses the current CHATGPT TEMPLATE registry, stable logical keys and Canva page IDs. You can now refine what you want to see for each <strong>section</strong>.</span></div>
+
+<section class="panel" id="issueBuilder" aria-label="Complete issue build">Loading issue planner and template audit…</section>
+<section class="panel" id="sourceOfTruth" aria-label="Match Centre source of truth"><div class="ey" style="color:#555">One source of truth</div><h2 style="margin:6px 0">Match Centre data → Programme</h2><p style="font-size:13px;line-height:1.5">The programme reuses the same <strong>Get Results</strong> and <strong>Get Player Info</strong> feeds as the Tivvy Match Centre. Do not re-key scores, line-ups or match events from scratch. Use verified league standings for League Table and league positions. Canva is the editable presentation output, not an independent data source.</p><p class="small"><strong>Before each programme run:</strong> refresh the feeds; use confirmed fixtures and results only; flag missing or conflicting data; update existing Canva content using the approved page rules (Antonio, yellow/white rows, Tivvy goals red, native editable content, artwork untouched). A feed refresh does not itself publish changes to Canva. Pending games remain pending until verified.</p><div class="links"><a href="https://nickabull.github.io/Tiverton-Town-Get-Results/" target="_blank" rel="noopener">Get Results</a><a href="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/" target="_blank" rel="noopener">Get Player Info</a><a href="data/programme-data-policy.json" target="_blank" rel="noopener">Data policy / technical rules</a></div></section>
+<section class="summary" id="summary"></section>
+
+
+<section class="panel">
+  <div class="ey" style="color:#555">Sections</div>
+  <h2 style="margin:5px 0 8px">What the automator needs, does and produces</h2>
+  <p class="small" style="margin:0 0 14px">Click a section heading to expand or collapse it. All sections start collapsed when the page loads or refreshes. Your saved content and approval checks are kept.</p>
+  <div class="controls" style="margin-bottom:10px"><button class="btn yellow" type="button" onclick="syncCanvaPages()">Check audited page map</button><a class="btn ghost" href="https://www.canva.com/d/6Q-9ufMBftdAKIj" target="_blank" rel="noopener">Open Canva template</a></div><p id="canvaSyncStatus" class="small" role="status">Checks the latest connected Canva scan stored in the Automator. It does not edit Canva or contact Canva live.</p><div id="canvaSyncDetails" class="small" style="margin-bottom:12px"></div><div id="sectionGrid" class="section-grid"></div>
+</section>
+</main>
+<script src="issue-page-plan.js?v=20261028-audit"></script>
+<script src="results-matrix-update.js?v=20261018-1"></script>
+<script src="around-league-run.js?v=20261019-1"></script>
+<script src="last-time-out-run.js?v=20261028-page-count"></script>
+<script src="opposition-preview-run.js?v=20261028-page-count"></script>
+<script>
+const REGISTRY_URL='data/programme-page-registry.json';
+const CLUB_OFFICIALS_URL='data/club-officials.json';
+const NEXT_HOME_URL='data/next-home-fixture.json';
+const YOUR_TIVVY_URL='data/your-tivvy.json';
+const EXEC_UPDATE_URL='data/executive-update.json';
+let registry=null;
+let clubOfficialsData=null;
+let nextHomeData=null;
+let yourTivvyData=null;
+let executiveUpdateData=null;
+
+const sections=[
+ {key:'cover',name:'Cover',type:'GUIDED',pages:['cover'],needs:['Confirm fixture / crest','Cover player / photo'],does:'Detect the next Tiverton home fixture, prefill opponent/date/kick-off/issue, select the approved opponent PNG from the Canva crest folder, and use your confirmed choices when the copied programme is built.',custom:'cover'},
+ {key:'latest_news',name:'Latest News',type:'GUIDED',pages:['latest_news'],needs:['Two stories','One image + photo byline for each'],does:'Build the Latest News section as two stories in the approved house style. Each story gets its own headline, body copy, one image and a small editable photo byline beneath the image.',custom:'latestNews'},
+ {key:'club_officials',name:'Club Officials & Honours',type:'GUIDED',pages:['club_officials'],needs:['Edit only what has changed'],does:'Load the current Club Officials & Honours content into the dashboard, let you edit it here, and use the approved values when the fixture copy is written to Canva.',custom:'clubOfficials'},
+ {key:'executive_update',name:'Executive Update',type:'EDITORIAL',pages:['executive_update_1','executive_update_2'],needs:['Four stories','Confirm / replace Mark Farrell photo'],does:'Load the current Chairman photo and four Executive Update stories into the dashboard, let you edit or replace them here, then flow the approved content across the linked spread.',custom:'executiveUpdate'},
+ {key:'league_so_far',name:'The League So Far',type:'AUTO',pages:['league_so_far_1','league_so_far_2','league_so_far_3'],needs:['Final proof only'],does:'Build the linked season table from Get Player Info plus Southern League event detail, including goals, subs, cards and Tiverton score highlighting.',links:[['Live renderer','league-so-far.html']]},
+ {key:'results_matrix',name:'Results Matrix',type:'AUTO',pages:['results_matrix'],needs:['Final proof only'],does:'Update new scores in the approved editable Canva table. Keep Antonio, the yellow diagonal, grey Tiverton band, red Tiverton score numeral and existing layout. Update the subtitle to the successful run date. Existing score disagreements are flagged for review.',custom:'resultsMatrix',links:[['Live renderer','results-matrix.html']]},
+ {key:'around_league',name:'Around the League',type:'AUTO',pages:['around_league'],custom:'aroundLeague',needs:['Review six stories and two credited photos'],does:'Find six stories from the chosen Saturday involving Division One South clubs, excluding Tiverton-led stories. Populate the approved two-column Antonio layout with capitalised headlines, two photos and credited captions, using only the white content area.',links:[['Editorial collector','around-the-league.html']]},
+ {key:'league_table',name:'League Table',type:'AUTO',pages:['league_table'],needs:['Final proof only'],does:'Refresh the league table, approved crest mapping, promotion/play-off/relegation bands and highlight the entire Tiverton row in yellow.',links:[['Live renderer','league-table.html']]},
+ {key:'tivvy_glance',name:'Tivvy at a Glance',type:'AUTO',pages:['tivvy_glance'],needs:['Final proof only'],does:'Rebuild the Tiverton stats dashboard from Southern League competition data plus detailed Tiverton match/player events: position, points, form, home/away records, top scorer, appearances, minutes and upcoming fixtures.',links:[['Live renderer','tivvy-at-a-glance.html']]},
+ {key:'last_time_out',name:'Last Time Out',type:'EDITORIAL',pages:['last_time_out_1','last_time_out_2','last_time_out_3','last_time_out_4'],needs:['Supply Darren report','Review copy, images and crest'],does:'Flow the supplied report through the selected standard league report pages. Preserve wording and editable Antonio text; allow optional headlines, score, match details, image, crest and credit changes. Preview every page before the connected save.',custom:'lastOut'},
+ {key:'your_tivvy',name:'Your Tivvy',type:'GUIDED',pages:['your_tivvy_1','your_tivvy_2','your_tivvy_3','your_tivvy_4'],needs:['Edit only changed profiles / photos'],does:'Load the current player paragraphs and linked Canva photos into the dashboard, let you edit them here, and carry the approved content into the fixture copy.',custom:'yourTivvy'},
+ {key:'commercial',name:'Commercial & Sponsors',type:'FIXED',pages:['commercial','sponsors','local_independents'],needs:['Review locked advert artwork and expiry warnings'],does:'Show each current-template advert as a protected content block with a staged replacement and two-step unlock confirmation.',custom:'adverts'},
+ {key:'opposition_history',name:'Meet the Opposition — Club History (text only)',type:'GUIDED',pages:['opposition_1'],needs:['Confirm club facts and link','Preview Canva page before saving'],does:'Replace ONLY the four existing text boxes on the opposition overview page. The team photo, two kits, artwork, layout and formatting stay entirely untouched. Tested successfully on Inkberrow page 35.',custom:'oppositionHistory'},
+ {key:'opposition',name:'Meet the Opposition',type:'EDITORIAL',pages:['opposition_1','opposition_2','opposition_4','opposition_3','opposition_pen_pics_4','opposition_pen_pics_5','opposition_pen_pics_6','opposition_preview_1','opposition_preview_2','opposition_preview_3','opposition_preview_4'],needs:['Supply Darren preview','Review preview copy, images and crests'],does:'Use Darren’s words in the selected preview pages of CHATGPT LEAGUE TEMPLATE. Keep native editable Antonio text; allow headline, upcoming fixture, image, crest and credit overrides. Club facts and squad pages stay separate from this preview run.',custom:'oppositionPreview'},
+ {key:'today_in_60',name:'Today in 60 Seconds',type:'GUIDED',pages:['today_in_60'],needs:['Proof the four short boxes','Choose whether to include this page'],does:'Prepare the four-panel match briefing using the approved editable Canva layout and checked sources. The Watch For label follows the current story; preserve cosmetic edits and review copy before the connected update.',custom:'today60',links:[['Open Today in 60 Seconds demo','today-in-60.html'],['Open Canva template','https://www.canva.com/design/DAHYKUo9Tzo/edit']]},
+ {key:'next_away_trip',name:'Next Away Trip — Full Page',type:'GUIDED',pages:['next_away_trip'],needs:['Review travel / tickets / food','Choose whether to include this page'],does:'Prepare the next away-day guide for the linked Canva page, using the Away Trip preview for travel, tickets, parking, catering, crest and league form. Review dated details and editorial notes before the issue copy is populated.',custom:'nextAwayTrip',links:[['Open active Away Trip preview','away-day.html'],['Open Canva template','https://www.canva.com/design/DAHYKUo9Tzo/edit']]},
+ {key:'teams_officials',name:'Teams & Officials',type:'GUIDED',pages:['teams_officials'],needs:['Away squad','Referee','Two assistants'],does:'Carry Tiverton’s squad forward, inherit opponent/crest from the cover and populate the opposition squad plus the referee and each assistant from their separate boxes.',fields:[['awaySquad','Away squad','textarea'],['referee','Referee','text'],['assistant1','Assistant 1','text'],['assistant2','Assistant 2','text']]},
+ {key:'feature_slot',name:'Feature Slot',type:'GUIDED',pages:['feature_slot'],needs:['Choose a feature','Decide whether to publish it'],does:'Use the Feature Slot chooser to select one optional feature for this issue. You can preview it, publish it, or leave the slot unpublished for the issue.',custom:'featureSlot',links:[['Open Feature Slot preview','feature-slot.html'],['Plan Your Next Away Trip','away-day.html']]},
+ {key:'player_stats',name:'Player Stats',type:'AUTO',pages:['player_stats'],needs:['Final proof only'],does:'Build the player stats section dynamically from Get Player Info, preserving the approved table layout and player ordering.'}
+];
+
+const typeClass={FIXED:'fixed',AUTO:'auto',GUIDED:'guided',EDITORIAL:'editorial'};
+
+function pageInfo(keys){
+ if(!registry) return [];
+ return keys.map(k=>registry.pages.find(p=>p.key===k)).filter(Boolean);
+}
+function saveField(id,val){localStorage.setItem('tivvy-v21-'+id,val)}
+function fieldValue(id){return localStorage.getItem('tivvy-v21-'+id)||''}
+function approved(s){return localStorage.getItem('tivvy-v21-approved-'+s.key)==='1'}
+function setApproved(k,v){localStorage.setItem('tivvy-v21-approved-'+k,v?'1':'0');draw()}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+// Editorial inline formatting: Markdown markers remain plain, editable text in the build package.
+function formatEditorial(button,mark){
+ const area=button.closest('.field')?.querySelector('textarea');if(!area)return;
+ const markers={bold:['**','**'],italic:['*','*'],underline:['<u>','</u>']};
+ const pair=markers[mark];if(!pair)return;
+ const start=area.selectionStart,end=area.selectionEnd,source=area.value;
+ const selected=source.slice(start,end),insert=pair[0]+selected+pair[1];
+ area.focus();area.setRangeText(insert,start,end,'select');
+ area.setSelectionRange(start+pair[0].length,start+pair[0].length+selected.length);
+ area.dispatchEvent(new Event('input',{bubbles:true}));
+}
+function editorialToolbar(){
+ return '<div class="controls" style="margin:6px 0"><button type="button" class="btn ghost" title="Bold selected text" onclick="formatEditorial(this,\'bold\')"><b>B</b></button><button type="button" class="btn ghost" title="Italic selected text" onclick="formatEditorial(this,\'italic\')"><i>I</i></button><button type="button" class="btn ghost" title="Underline selected text" onclick="formatEditorial(this,\'underline\')"><u>U</u></button></div><div class="small">Select wording in the box, then choose a style. Formatting is retained as editable markup in your request; the connected Canva build must convert it to native text formatting.</div>';
+}
+function renderField(f){
+ const [id,label,type]=f, val=fieldValue(id);
+ if(type==='textarea') return '<div class="field"><label>'+esc(label)+'</label><textarea oninput="saveField(\''+id+'\',this.value)">'+esc(val)+'</textarea></div>';
+ return '<div class="field"><label>'+esc(label)+'</label><input value="'+esc(val)+'" oninput="saveField(\''+id+'\',this.value)"></div>';
+}
+
+
+function metaVal(id,def=''){const v=localStorage.getItem('tivvy-v21-meta-'+id);return v!==null?v:def}
+function saveMetaField(id,val){localStorage.setItem('tivvy-v21-meta-'+id,val)}
+function kickoffForDate(value,current){
+  const m=String(value||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/); if(!m)return current||'';
+  const d=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));
+  const day=d.getDay();
+  if(day===6)return '15:00';
+  if(day===2)return '19:30';
+  return current||'';
+}
+function coverCrestConfirmed(){return localStorage.getItem('tivvy-v21-cover-crest-confirmed')==='1'}
+function setCoverCrestConfirmed(v){localStorage.setItem('tivvy-v21-cover-crest-confirmed',v?'1':'0')}
+// Cover uploads are stored in this browser's IndexedDB, not squeezed into localStorage.
+const coverPhotoDbName='tivvy-cover-photos', coverPhotoStore='photos';
+function coverPhotoDb(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(coverPhotoDbName,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(coverPhotoStore))req.result.createObjectStore(coverPhotoStore)};
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>reject(req.error);
+ });
+}
+async function saveCoverUpload(input){
+ const file=input.files&&input.files[0];if(!file)return;
+ const status=document.getElementById('coverUploadStatus');
+ if(!file.type.startsWith('image/')){if(status)status.textContent='Please select a JPG, PNG or other image.';return}
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{
+   const tx=db.transaction(coverPhotoStore,'readwrite');
+   tx.objectStore(coverPhotoStore).put(file,'current');
+   tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+  });db.close();
+  localStorage.setItem('tivvy-v21-cover-upload-name',file.name);
+  localStorage.setItem('tivvy-v21-cover-image-source','upload');
+  await showCoverUpload();
+ }catch(e){if(status)status.textContent='Upload could not be saved in this browser: '+e.message}
+}
+async function showCoverUpload(){
+ const img=document.getElementById('coverUploadPreview'),status=document.getElementById('coverUploadStatus');
+ if(!img||!status)return;
+ try{
+  const db=await coverPhotoDb();
+  const file=await new Promise((resolve,reject)=>{
+   const tx=db.transaction(coverPhotoStore,'readonly');
+   const req=tx.objectStore(coverPhotoStore).get('current');
+   req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+  });db.close();
+  if(file && localStorage.getItem('tivvy-v21-cover-image-source')==='upload'){
+   if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);
+   const url=URL.createObjectURL(file);img.src=url;img.dataset.url=url;img.style.display='block';
+   status.textContent='Selected: '+file.name+' (saved on this browser; upload to Canva before rendering)';
+  }else{img.style.display='none';status.textContent='No manually uploaded cover photo yet.'}
+ }catch(e){status.textContent='Photo preview unavailable: '+e.message}
+}
+async function saveCrestPreviewUpload(input){
+ const file=input.files&&input.files[0];if(!file)return;
+ if(!file.type.startsWith('image/'))return;
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).put(file,'crest-preview');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+  db.close();await showCrestPreviewUpload();
+ }catch(e){const el=document.getElementById('crestPreviewStatus');if(el)el.textContent='Could not save preview: '+e.message}
+}
+async function showCrestPreviewUpload(){
+ const img=document.getElementById('crestPreviewImage'),el=document.getElementById('crestPreviewStatus');
+ if(!img||!el)return;
+ try{
+  const db=await coverPhotoDb();
+  const file=await new Promise((resolve,reject)=>{const q=db.transaction(coverPhotoStore,'readonly').objectStore(coverPhotoStore).get('crest-preview');q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});
+  db.close();if(!file)return;
+  if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);
+  img.dataset.url=URL.createObjectURL(file);img.src=img.dataset.url;img.style.display='block';
+  el.textContent='Preview: '+file.name+' (Canva asset unchanged)';
+ }catch(e){el.textContent='Preview unavailable: '+e.message}
+}
+function coverLinkChanged(v){
+ saveField('coverImage',v);
+ if(v.trim())localStorage.setItem('tivvy-v21-cover-image-source','link');
+}
+let vivCoverPhotos=[];
+async function openVivCoverPicker(){
+ const panel=document.getElementById('vivCoverPicker'); panel.style.display='block';
+ const status=document.getElementById('vivCoverStatus');
+ status.textContent='Loading Viv’s indexed photos…';
+ try{
+  const response=await fetch('data/flickr-gallery.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('Catalogue unavailable');
+  const data=await response.json();
+  const albumMap=new Map((data.albums||[]).map(a=>[String(a.album_id),a.title]));
+  vivCoverPhotos=(data.rows||[]).map(row=>{const p=Object.fromEntries(data.photo_fields.map((key,i)=>[key,row[i]]));return {...p,album_title:albumMap.get(String(p.album_id))||'',source_url:'https://www.flickr.com/photos/'+data.owner_id+'/'+p.photo_id+'/'};});
+  if(!vivCoverPhotos.length)vivCoverPhotos=data.photos||[];
+  renderVivCoverPicker();
+ }catch(e){status.textContent='Photo catalogue unavailable. Open Viv’s Photo Library to browse the existing albums.';document.getElementById('vivCoverGrid').innerHTML='<a class="btn dark" href="photo-library.html" target="_blank" rel="noopener">Open Viv’s Photo Library</a>';}
+}
+function renderVivCoverPicker(){
+ const q=(document.getElementById('vivCoverSearch')?.value||'').toLowerCase().trim();
+ const matches=vivCoverPhotos.filter(p=>[p.title,p.album_title,p.date_taken].join(' ').toLowerCase().includes(q));
+ document.getElementById('vivCoverStatus').textContent=matches.length+' matching photographs · select one for this cover';
+ document.getElementById('vivCoverGrid').innerHTML=matches.slice(0,120).map(p=>{
+   const thumb=String(p.thumbnail_url||'');
+   const safeThumb=/^https:\/\/(live\.staticflickr\.com|farm[0-9]+\.staticflickr\.com)\//.test(thumb)?thumb:'';
+   const source=String(p.source_url||'');
+   const url=/^https:\/\/www\.flickr\.com\/photos\//.test(source)?source:'';
+   if(!url)return '';
+   return '<div style="border:1px solid #ddd;border-radius:7px;padding:7px">'+(safeThumb?'<img src="'+esc(safeThumb)+'" alt="" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover">':'<div class="small">No preview</div>')+'<div class="small">'+esc(p.album_title||p.title||'Viv Curtis')+'</div><button class="btn yellow" style="margin-top:5px;width:100%" type="button" data-vivurl="'+esc(url)+'" onclick="chooseVivCoverPhoto(this.dataset.vivurl)">Use this photo</button></div>';
+ }).join('') || '<div class="small">No indexed photos match. <a href="photo-library.html" target="_blank">Browse Viv’s albums</a>.</div>';
+}
+function chooseVivCoverPhoto(url){
+ coverLinkChanged(url);
+ const cover=document.getElementById('section-cover');
+ const input=cover?.querySelector('input[placeholder="Paste Viv Flickr or direct image link"]');
+ if(input)input.value=url;
+ document.getElementById('vivCoverStatus').textContent='Selected photo saved for this issue: '+url;
+ document.getElementById('vivCoverPicker').style.display='none';
+}
+
+function prepareCoverRun(){
+ const f=nextHomeData||{};
+ const data={
+  schema:'tivvy-cover-run-v1',status:'awaiting_canva_execution',
+  fixture:{opponent:metaVal('opponent',f.opponent||''),date:metaVal('matchDate',f.match_date||''),kickoff:metaVal('kickoff',f.kickoff||''),issue:metaVal('issue',f.issue_number||'')},
+  cover_player:fieldValue('coverPlayer'),
+  cover_player_strap:fieldValue('coverPlayer').trim(),
+  cover_workflow:{update_player_strap:true,update_opponent_crest_from_confirmed_asset:true,update_fixture_and_issue:true,leave_main_cover_photo_untouched:true,photo_selection_is_manual:true,require_preview_before_save:true},
+  image:{source:localStorage.getItem('tivvy-v21-cover-image-source')||'',flickr_url:fieldValue('coverImage'),local_upload_filename:localStorage.getItem('tivvy-v21-cover-upload-name')||''},
+  crest:{asset_id:f.crest?.asset_id||'',asset_name:f.crest?.asset_name||'',confirmed:coverCrestConfirmed()},
+  canva:{master_design_id:registry?.master?.canva_design_id||'DAHYKUo9Tzo',page_key:'cover',master_page_id:pageInfo(['cover'])[0]?.master_page_id||'',rule:'Copy master first; do not edit original'},
+  approval:'pending',notes:'Run request only: Canva is not yet changed. Apply confirmed crest to opponent crest frame and selected player text to existing vertical player strap; preserve cover image.'
+ };
+ const status=document.getElementById('coverRunStatus');
+ if(!data.fixture.opponent||!data.fixture.date||!data.fixture.kickoff||!data.cover_player.trim()||!data.crest.confirmed){
+  status.textContent='Complete the fixture, cover player and crest confirmation before preparing a run. The main photo is optional and remains an editorial choice.';return;
+ }
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='tivvy-cover-run.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),60000);
+ status.textContent='Run request downloaded. Canva has NOT been changed. Attach this JSON in our chat to populate a working copy.';
+}
+
+function renderCover(){
+  const f=nextHomeData||{};
+  const opp=metaVal('opponent',f.opponent||'');
+  const date=metaVal('matchDate',f.match_date||'');
+  const ko=metaVal('kickoff',f.kickoff||kickoffForDate(date,''));
+  const issue=metaVal('issue',f.issue_number||'');
+  const crest=f.crest||{};
+  const player=fieldValue('coverPlayer');
+  const photo=fieldValue('coverImage');
+  setTimeout(showCoverUpload,0);setTimeout(showCrestPreviewUpload,0);
+   return '<div class="cover-fixture">'+
+    '<div>'+
+      '<div class="autofill-note"><strong>Cover workflow:</strong> Update fixture, issue, confirmed away crest and chosen player strap automatically. Leave the cover photograph for Nick to place in Canva.<br><strong>Auto-detected next home programme fixture:</strong> '+esc(f.opponent||'')+' · '+esc(f.match_date||'')+' · '+esc(f.kickoff||'')+(f.issue_number?' · Issue '+esc(f.issue_number):'')+'</div>'+
+      '<div class="action-fields">'+
+        '<div class="field"><label>Opponent</label><input id="coverOpponent" value="'+esc(opp)+'" oninput="saveMetaField(\'opponent\',this.value)"></div>'+
+        '<div class="field"><label>Match date</label><input id="coverDate" value="'+esc(date)+'" onchange="saveMetaField(\'matchDate\',this.value);const k=kickoffForDate(this.value,document.getElementById(\'coverKickoff\').value);document.getElementById(\'coverKickoff\').value=k;saveMetaField(\'kickoff\',k)"></div>'+
+        '<div class="field"><label>Kick-off</label><input id="coverKickoff" value="'+esc(ko)+'" oninput="saveMetaField(\'kickoff\',this.value)"><div class="small">Rule: Saturday 15:00 · Tuesday 19:30</div></div>'+
+        '<div class="field"><label>Issue number</label><input value="'+esc(issue)+'" oninput="saveMetaField(\'issue\',this.value)"></div>'+
+        '<div class="field"><label>Cover player strap (number and name, e.g. #9 OWEN HOWE)</label><input value="'+esc(player)+'" oninput="saveField(\'coverPlayer\',this.value)"></div>'+
+        '<div class="field"><label>Optional Viv cover photo link (leave blank to choose in Canva)</label><input value="'+esc(photo)+'" oninput="coverLinkChanged(this.value)" placeholder="Paste Viv Flickr or direct image link"></div>'+
+        '<div class="field" style="grid-column:1/-1"><button type="button" class="btn yellow" onclick="openVivCoverPicker()">Browse &amp; choose from Viv’s photographs</button><div class="small">Search the indexed Flickr albums and select an image for the cover. Original photos remain on Flickr.</div><div id="vivCoverPicker" style="display:none;margin-top:12px;padding:12px;border:1px solid #ddd;border-radius:8px"><input id="vivCoverSearch" placeholder="Search album, fixture or photo title" oninput="renderVivCoverPicker()"><div id="vivCoverStatus" class="small" style="margin:8px 0">Loading photos…</div><div id="vivCoverGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;max-height:420px;overflow:auto"></div><button class="btn ghost" type="button" style="margin-top:10px" onclick="document.getElementById(\'vivCoverPicker\').style.display=\'none\'">Close picker</button></div></div>'+
+        '<div class="field"><label>Or upload Viv photo (local staging until Canva is connected)</label><input type="file" accept="image/*" onchange="saveCoverUpload(this)" aria-label="Upload cover photo"><div id="coverUploadStatus" class="small">Choose a photo Viv sent you. It will be kept in this browser until uploaded into Canva.</div><img id="coverUploadPreview" alt="Chosen cover photo preview" style="display:none;width:100%;max-height:220px;object-fit:contain;margin-top:8px;border-radius:7px;background:#eee"></div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="grid-column:1/-1;padding:12px;margin-top:12px;background:#fff8cf;border-radius:8px"><button class="btn yellow" type="button" onclick="prepareCoverRun()">Prepare Cover for Canva</button><div id="coverRunStatus" class="small" style="margin-top:8px">Download the run request, then share it here for the connected Canva step. The master is never changed by this button.</div></div>'+
+    '<div class="crest-preview">'+
+      '<div style="min-width:110px"><img id="crestPreviewImage" src="'+esc(crest.thumbnail_url||crest.fallback_url||'')+'" data-fallback-url="'+esc(crest.fallback_url||'')+'" alt="Opponent crest preview" onerror="if(!this.dataset.fallback &amp;&amp; this.dataset.fallbackUrl){this.dataset.fallback=\'1\';this.src=this.dataset.fallbackUrl;document.getElementById(\'crestPreviewStatus\').textContent=\'Stable crest preview · Canva asset retained for programme\'}else{this.style.display=\'none\';document.getElementById(\'crestPreviewStatus\').textContent=\'Crest preview unavailable; Canva asset is still linked.\'}"><div id="crestPreviewStatus" class="small">Canva image preview</div></div>'+
+      '<div><strong>Opponent crest</strong><div class="crest-meta">'+esc(crest.asset_name||'')+'<br>Canva asset <code>'+esc(crest.asset_id||'')+'</code><br>Approved crest folder</div>'+
+      '<label style="display:block;font-size:12px;margin-top:10px">Upload crest PNG for preview</label><input type="file" accept="image/*" onchange="saveCrestPreviewUpload(this)" style="max-width:200px;width:100%;font-size:12px">'+
+      '<label class="check"><input type="checkbox" '+(coverCrestConfirmed()?'checked':'')+' onchange="setCoverCrestConfirmed(this.checked)"> Confirm this is the correct away crest</label></div>'+
+    '</div>'+
+  '</div>';
+}
+
+
+function playerKey(name,suffix){return 'yourtivvy-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+suffix}
+function renderYourTivvy(){
+ const profiles=(yourTivvyData&&yourTivvyData.profiles)||[];
+ const synced=(yourTivvyData&&yourTivvyData.synced_at_utc)?'<div class="small" style="margin-bottom:8px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(yourTivvyData.synced_at_utc)+'</div>':'';
+ if(!profiles.length)return '<div class="small">No Your Tivvy profiles loaded.</div>';
+ const cards=profiles.map(p=>{
+   const txtKey=playerKey(p.name,'paragraph');
+   const imgKey=playerKey(p.name,'replacement-photo');
+   const paragraph=fieldValue(txtKey)||p.paragraph||'';
+   const replacement=fieldValue(imgKey)||'';
+   const preview=p.image_preview_url
+     ? '<img src="'+p.image_preview_url+'" alt="'+esc(p.name)+'" style="width:105px;height:132px;object-fit:cover;border-radius:7px;background:#eee">'
+     : '<div style="width:105px;height:132px;border-radius:7px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:10px;color:#666">Current Canva photo linked<br><code>'+esc(p.image_asset_id||'')+'</code></div>';
+   return '<div class="field" style="grid-column:1/-1">'+
+      '<div style="display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start">'+
+        '<div>'+preview+'<div class="small" style="margin-top:5px"><strong>'+esc(p.name)+'</strong><br>'+esc(p.position||'')+'</div></div>'+
+        '<div><label>'+esc(p.name)+' profile paragraph</label><textarea style="min-height:115px" oninput="saveField(\''+txtKey+'\',this.value)">'+esc(paragraph)+'</textarea>'+
+        '<label style="margin-top:8px">Replacement photo / Viv link (optional)</label><input value="'+esc(replacement)+'" oninput="saveField(\''+imgKey+'\',this.value)" placeholder="Leave blank to keep current Canva photo">'+
+        '<div class="small" style="margin-top:5px">Current Canva asset: <code>'+esc(p.image_asset_id||'')+'</code> · '+esc(p.page_key||'')+'</div></div>'+
+      '</div></div>';
+ }).join('');
+ return synced+'<div class="action-fields">'+cards+'</div>';
+}
+
+
+
+const imageUploadState={};
+function imageUploadControl(key,label){
+ const saved=fieldValue('canva-asset-'+key);
+ return '<div style="margin-top:8px"><label>'+esc(label||'Select image')+'</label>'+
+ '<input type="file" accept="image/jpeg,image/png,image/webp" onchange="queueCanvaImage(this,\''+key+'\')" style="max-width:100%">'+
+ '<div id="image-upload-'+key+'" class="small" role="status">'+(saved?'Canva asset saved: '+esc(saved):'Select an image. File retained locally until a secure Canva upload connection is available.')+'</div>'+
+ '<img id="image-preview-'+key+'" alt="Selected image preview" style="display:none;max-width:240px;max-height:160px;object-fit:contain;margin-top:6px;border-radius:6px">'+
+ '</div>';
+}
+async function queueCanvaImage(input,key){
+ const file=input.files&&input.files[0],status=document.getElementById('image-upload-'+key),preview=document.getElementById('image-preview-'+key);
+ if(!file)return;
+ if(!/^image\/(jpeg|png|webp)$/.test(file.type)){status.textContent='Please select a JPEG, PNG or WebP.';return;}
+ if(file.size>30*1024*1024){status.textContent='File is larger than 30 MB. Please select a smaller image.';return;}
+ try{
+  const db=await coverPhotoDb();
+  await new Promise((resolve,reject)=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).put(file,'image-'+key);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});
+  db.close();saveField('image-file-'+key,file.name);
+  const url=URL.createObjectURL(file);if(preview.dataset.url)URL.revokeObjectURL(preview.dataset.url);
+  preview.src=url;preview.dataset.url=url;preview.style.display='block';
+  status.textContent=file.name+' · saved locally. Canva upload not yet connected; do not mark this as uploaded.';
+  const endpoint=window.TIVVY_CANVA_UPLOAD_ENDPOINT;
+  if(endpoint && /^https:\/\//.test(endpoint)){
+   status.textContent='Uploading '+file.name+' to Canva…';
+   try{
+    const fd=new FormData();fd.append('file',file,file.name);fd.append('field',key);
+    const response=await fetch(endpoint,{method:'POST',body:fd,credentials:'include'});
+    if(!response.ok)throw Error('Upload service responded '+response.status);
+    const json=await response.json();
+    if(!/^[a-zA-Z0-9_-]{1,50}$/.test(json.asset_id||''))throw Error('No Canva asset ID returned');
+    saveField('canva-asset-'+key,json.asset_id);
+    status.textContent='Uploaded to Canva: '+file.name+' · asset '+json.asset_id;
+   }catch(e){status.textContent='Canva upload failed: '+e.message+'. Local copy retained.';}
+  }
+ }catch(e){status.textContent='Could not save file: '+e.message;}
+}
+
+function latestNewsStory(n){
+  const headline=fieldValue('latest-news-'+n+'-headline');
+  const body=fieldValue('latest-news-'+n+'-body');
+  const imageUrl=fieldValue('latest-news-'+n+'-image');
+  const byline=fieldValue('latest-news-'+n+'-byline');
+  const preview=imageUrl
+    ? '<img src="'+esc(imageUrl)+'" alt="Story '+n+' preview" style="width:100%;max-width:240px;height:150px;object-fit:cover;border-radius:7px;background:#eee" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><div class="small" style="display:none">Image preview unavailable — link still saved.</div>'
+    : '<div style="width:100%;max-width:240px;height:150px;border-radius:7px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:11px;color:#666">Image preview</div>';
+  return '<div class="field" style="grid-column:1/-1">'+
+    '<div style="font-size:13px;font-weight:900;margin-bottom:8px">Story '+n+'</div>'+
+    '<div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,.8fr);gap:12px;align-items:start">'+
+      '<div>'+
+        '<label>Headline</label><input value="'+esc(headline)+'" oninput="saveField(\'latest-news-'+n+'-headline\',this.value)">'+
+        '<label style="margin-top:8px">Story copy</label>'+editorialToolbar()+'<textarea style="min-height:150px" oninput="saveField(\'latest-news-'+n+'-body\',this.value)">'+esc(body)+'</textarea>'+
+      '</div>'+
+      '<div>'+
+        preview+
+        '<label style="margin-top:8px">Image / Viv or source link</label><input value="'+esc(imageUrl)+'" oninput="saveField(\'latest-news-'+n+'-image\',this.value);draw()" placeholder="Paste image link">'+
+        imageUploadControl('latest-news-'+n+'-image','Or choose a full-size photo')+
+        '<label style="margin-top:8px">Photo byline</label><input value="'+esc(byline)+'" oninput="saveField(\'latest-news-'+n+'-byline\',this.value)" placeholder="e.g. Photo: Viv Curtis">'+
+      '</div>'+
+    '</div>'+
+  '</div>';
+}
+function exportLatestNews(){
+ const data={schema:'tivvy-latest-news-v1',fixture:nextHomeData?.opponent||'',template:'CHATGPT LEAGUE TEMPLATE',stories:[1,2].map(n=>({number:n,headline:fieldValue('latest-news-'+n+'-headline'),body:fieldValue('latest-news-'+n+'-body'),image_url:fieldValue('latest-news-'+n+'-image'),image_filename:fieldValue('image-file-latest-news-'+n+'-image'),canva_asset_id:fieldValue('canva-asset-latest-news-'+n+'-image'),byline:fieldValue('latest-news-'+n+'-byline')})),note:'Source photos selected locally still need to be attached to the ChatGPT conversation. Only content within the white Canva box may change.'};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='tivvy-latest-news-run.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+ document.getElementById('latestNewsExportStatus').textContent='Latest News instructions downloaded. Attach the JSON here, plus any photos selected locally.';
+}
+function renderLatestNews(){
+  return '<div class="autofill-note"><strong>Latest News layout:</strong> exactly two stories. Each story uses one image with a small byline directly underneath it.</div>'+
+    '<div class="action-fields">'+latestNewsStory(1)+latestNewsStory(2)+'</div><div class="controls"><button class="btn yellow" type="button" onclick="exportLatestNews()">Prepare Latest News request</button></div><p class="small" id="latestNewsExportStatus">Creates a handoff file; Canva is unchanged until the connected run is completed.</p>';
+}
+
+
+function execStoryKey(n,suffix){return 'exec-story-'+n+'-'+suffix}
+function renderExecutiveUpdate(){
+  const d=executiveUpdateData||{};
+  const chair=d.chairman||{name:'Mark Farrell',role:'TTFC Chairman',photo_asset_id:''};
+  const stories=(d.stories||[]).slice(0,4);
+  const photoReplacement=fieldValue('exec-photo-replacement');
+  const photoBlock='<div class="field" style="grid-column:1/-1"><div style="display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:start">'+
+    '<div style="width:128px;height:112px;border-radius:8px;background:#eee;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:10px;color:#666">Current Mark Farrell photo linked<br><code>'+esc(chair.photo_asset_id||'')+'</code></div>'+
+    '<div><label>Chairman photo</label><div class="small"><strong>'+esc(chair.name||'Mark Farrell')+'</strong><br>'+esc(chair.role||'TTFC Chairman')+'</div>'+
+      '<label style="margin-top:8px">Replacement photo / Viv or Canva link</label><input value="'+esc(photoReplacement)+'" oninput="saveField(\'exec-photo-replacement\',this.value)" placeholder="Leave blank to keep current photo"></div>'+
+      imageUploadControl('exec-photo-replacement','Or select chairman photo')+
+    '</div></div>';
+  const storyCards=[1,2,3,4].map(n=>{
+    const src=stories[n-1]||{};
+    const heading=fieldValue(execStoryKey(n,'heading'))||src.heading||'';
+    const body=fieldValue(execStoryKey(n,'body'))||src.body||'';
+    return '<div class="field" style="grid-column:1/-1"><div style="font-size:13px;font-weight:900;margin-bottom:8px">Story '+n+'</div>'+
+      '<label>Heading</label><input value="'+esc(heading)+'" oninput="saveField(\''+execStoryKey(n,'heading')+'\',this.value)">'+
+      '<label style="margin-top:8px">Story copy</label><textarea style="min-height:170px" oninput="saveField(\''+execStoryKey(n,'body')+'\',this.value)">'+esc(body)+'</textarea></div>';
+  }).join('');
+  const synced=d.synced_at_utc?'<div class="small" style="margin-bottom:8px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(d.synced_at_utc)+'</div>':'';
+  return synced+'<div class="action-fields">'+photoBlock+storyCards+'</div>';
+}
+
+
+function setToday60Publish(value){window.tivvySetIssuePageCount?.('today_in_60',value?1:0);localStorage.setItem('tivvy-v21-today-60-publish',value?'1':'0');setApproved('today_in_60',false)}
+function renderToday60(){
+ const publish=window.tivvyIssuePageCount?window.tivvyIssuePageCount('today_in_60',1)>0:localStorage.getItem('tivvy-v21-today-60-publish')==='1';
+ return '<div class="autofill-note"><strong>Approved editable layout:</strong> four matching light-grey panels, white gutters and Antonio. Keep the small numbered sublines and report tagline hidden; preserve the header, footer and artwork.</div>'+
+ '<div class="action-fields" style="margin-top:10px"><div class="field"><label>Story-led Watch For label</label><input id="today60-label" value="'+esc(fieldValue('today60-label'))+'" oninput="saveField(\'today60-label\',this.value);localStorage.removeItem(\'tivvy-v21-approved-today_in_60\')" placeholder="Leave blank to use the current edition label"><div class="small">Choose wording to suit the story. “Cup action” belongs to the current cup edition; future editions can use a different label.</div></div>'+
+ '<div class="field"><label>Inclusion decision</label><label class="check"><input type="checkbox" '+(publish?'checked':'')+' onchange="setToday60Publish(this.checked)"> Include Today in 60 Seconds in this issue</label><div class="small">'+(publish?'Marked for inclusion in the next issue build.':'Leave unpublished until ready.')+' This saves your build instruction here; it does not change Canva visibility or export settings.</div></div></div>'+
+ '<button class="btn dark" type="button" onclick="prepareToday60(this)">Prepare Today in 60 Seconds run</button><p id="today60Status" class="small">Prepare the current copy and saved layout rules for a ChatGPT-assisted Canva update.</p><div id="today60Output"></div>';
+}
+async function prepareToday60(button){
+ const status=document.getElementById('today60Status'),output=document.getElementById('today60Output');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/today-in-60-binding.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Could not load the approved Today in 60 Seconds layout.');
+  const binding=await response.json();
+  const editionResponse=await fetch(binding.copy_source+'?v='+Date.now(),{cache:'no-store'});
+  if(!editionResponse.ok)throw Error('Could not load the current edition copy.');
+  const edition=await editionResponse.json(),label=document.getElementById('today60-label').value.trim();
+  if(label)edition.copy.watchForLabel=label;
+  const plan={section:'today_in_60',status:'review_required',execution_mode:binding.execution_mode,standalone_canva_write_supported:false,binding,edition,instructions:'Recheck the current fixture, source data and story before updating. Use copy.watchForLabel for the highlighted label; choose fresh wording to suit a changed story, preserving explicit editorial overrides. Reread Canva and preserve manual edits. Apply the saved grey panel, hidden subline and no report tagline rules. Keep all text native and editable.',label_override:label||null};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'}));
+  const link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-today-in-60-run.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready with the approved layout and story-led label. Review the edition copy before the connected Canva update. Canva has not been changed.';
+ }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
+}
+
+function awayTripPublish(){return window.tivvyIssuePageCount?window.tivvyIssuePageCount('next_away_trip',1)>0:localStorage.getItem('tivvy-v21-away-trip-publish')==='1'}
+function setAwayTripPublish(value){window.tivvySetIssuePageCount?.('next_away_trip',value?1:0);localStorage.setItem('tivvy-v21-away-trip-publish',value?'1':'0');setApproved('next_away_trip',false)}
+function saveAwayTripNotes(input){
+ saveField('away-trip-notes',input.value);
+ localStorage.removeItem('tivvy-v21-approved-next_away_trip');
+ const card=input.closest('.section-card');card.classList.remove('done');card.querySelector('[data-section-approval]').checked=false;
+}
+function renderNextAwayTrip(){
+ return '<div class="autofill-note"><strong>FULL PAGE AUTOMATION — tested on Paulton Rovers.</strong> Updates the editable native table, both club crests, the heading and the stadium photograph. Keeps the gold/black template layout and other pages untouched. Always preview and confirm before Canva save. This prepares a request; no automatic Canva write occurs.</div>'+
+ '<div class="action-fields">'+
+ '<div class="field"><label>Verified upcoming trip</label><strong>Paulton Rovers · Wednesday 11 November 2026 · 19:45</strong><p class="small">Winterfield Stadium, BS39 7RF. The home club lists 19:45; cross-check the Match Centre discrepancy before publication.</p></div>'+
+ '<div class="field"><label>Publication decision</label><label class="check"><input type="checkbox" '+(awayTripPublish()?'checked':'')+' onchange="setAwayTripPublish(this.checked)"> Include Next Away Trip in this issue</label></div>'+
+ '<div class="field" style="grid-column:1/-1"><label>Corrections / last-minute notes</label><textarea id="away-trip-notes" oninput="saveAwayTripNotes(this)" placeholder="Confirmed prices, kick-off, parking, results or image changes…">'+esc(fieldValue('away-trip-notes'))+'</textarea></div>'+
+ '</div><div style="margin-top:12px"><button type="button" class="btn dark" onclick="prepareFullAwayTrip()">Download full-page Canva run request</button></div><p class="small" id="fullAwayTripStatus">Uses data/away-trip-binding.json → data/away-trip-paulton-rovers.json. Future fixtures must be updated in the approved source, not by copying Paulton facts into the next issue.</p>';
+}
+function prepareFullAwayTrip(){
+ const request={schema:'tivvy-away-trip-full-page-v1',status:'awaiting_canva_execution',fixture_source:'data/away-trip-binding.json',approved_trip_source:'data/away-trip-paulton-rovers.json',fixture:'Paulton Rovers v Tiverton Town, 11 November 2026',page_key:'next_away_trip',reference_working_copy:{design_id:'DAHZwZ3BD74',page_index:51,page_id:'PBlkQ5f6HvFTVtKQ'},render_mode:'native_editable_table_plus_media',includes:['page heading','table fixture and ground','admission','road','rail','recent football form','matchnight advice','large opponent crest','small opponent crest','stadium photo'],confirmed_reference_assets:{opponent_crest_asset_id:'MAHYHTDtw54',stadium_photo_asset_id:'MAHZxs8PA1g'},safety:{keep_original_gold_black_layout:true,leave_other_pages_untouched:true,resolve_all_page_and_element_ids_on_new_issue_copy:true,verify_dates_kickoff_prices_results:true,require_preview_and_user_approval_before_commit:true},editorial_notes:fieldValue('away-trip-notes')};
+ const blob=new Blob([JSON.stringify(request,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='tivvy-next-away-trip-full-page.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);document.getElementById('fullAwayTripStatus').textContent='Full page run request downloaded. Canva has not been changed by this button.';
+}
+
+const featureChoices=['Around the League','Stat Attack','On This Day','Tivvy Quiz','Meet the Player','Who Am I?','Away Day Guide','From the Archive','Tivvy Teammates','Spot the Ball'];
+function featureSelected(){return localStorage.getItem('tivvyChosenFeature')||''}
+function featurePublish(){if(window.tivvyIssuePageCount)return window.tivvyIssuePageCount('feature_slot',1)>0;const v=localStorage.getItem('tivvy-v21-feature-publish');return v===null?true:v==='1'}
+function setFeatureChoice(v){localStorage.setItem('tivvyChosenFeature',v);draw()}
+function setFeaturePublish(v){window.tivvySetIssuePageCount?.('feature_slot',v?1:0);localStorage.setItem('tivvy-v21-feature-publish',v?'1':'0');draw()}
+function renderFeatureSlot(){
+ const selected=featureSelected();
+ const publish=featurePublish();
+ return '<div class="action-fields">'+
+  '<div class="field"><label>Feature for this issue</label><select onchange="setFeatureChoice(this.value)"><option value="">Nothing selected</option>'+featureChoices.map(x=>'<option '+(x===selected?'selected':'')+'>'+esc(x)+'</option>').join('')+'</select>'+
+  '<div class="small" style="margin-top:6px">This uses the same saved selection as the dedicated Feature Slot preview page.</div></div>'+
+  '<div class="field"><label>Publication decision</label><label class="check"><input type="checkbox" '+(publish?'checked':'')+' onchange="setFeaturePublish(this.checked)"> Publish Feature Slot in this issue</label>'+
+  '<div class="small" style="margin-top:6px">'+(publish?'This section is marked for inclusion.':'This section will remain unpublished for this issue.')+'</div></div>'+
+  '<div class="field" style="grid-column:1/-1"><label>Current selection</label><div style="font-size:18px;font-weight:900">'+esc(selected||'No feature selected yet')+'</div>'+
+  '<div class="links"><a class="live" href="feature-slot.html" target="_blank" rel="noopener">Preview / choose feature</a></div></div>'+
+ '</div>';
+}
+
+const fallbackClubOfficials=[
+ ['President','Wally Burk'],['Chairman','Mark Farrell'],['Vice Chairman','Vacant'],['Club Secretary','Viv Curtis'],['Treasurer','Jon Line'],['Fixtures Secretary','Anthony Dodd'],
+ ['Ground Safety Officer','Marian Pile'],['Director Of Football','Lee Lashenko'],['Head of Football Development','Mike Ebdon'],['Head of Media','Ryan Downer'],['Commercial Manager','Craig Bryce'],['Programme Editor','Nick Bull'],['Club Photographer','Viv Curtis'],
+ ['First Team Manager','Asa Hall'],['First Team Assistant','Steven Orchard'],['First Team Coach','David Steele'],['First Team Medic','Ellie Jones'],['First Team Kit Manager','Will Buttle']
+];
+function clubOfficialKey(role){return 'clubofficial-'+role.toLowerCase().replace(/[^a-z0-9]+/g,'-')}
+function officialVal(role,def){const v=fieldValue(clubOfficialKey(role)); return v||def}
+function renderClubOfficials(){
+ const officials=(clubOfficialsData&&clubOfficialsData.officials)||fallbackClubOfficials;
+ const rows=officials.map(([role,def])=>{
+   const id=clubOfficialKey(role);
+   return '<div class="field"><label>'+esc(role)+'</label><input value="'+esc(officialVal(role,def))+'" oninput="saveField(\''+id+'\',this.value)"></div>';
+ }).join('');
+ const honoursDefault=(clubOfficialsData&&clubOfficialsData.honours)
+   ? clubOfficialsData.honours.map(x=>x[0]+' — '+x[1]).join('\n')
+   : 'FA VASE — Winners: 1998 & 1999; Runners Up: 1993';
+ const honours=fieldValue('club-honours')||honoursDefault;
+ const c=(clubOfficialsData&&clubOfficialsData.contact)||{};
+ const contactDefault=[
+   c.address||'Slee Blackwell Solicitors Stadium, Bolham Road, Tiverton, EX16 6SG',
+   'Telephone: '+(c.telephone||'01884 693989'),
+   'Email: '+(c.email||'Contact@TivertonTownFC.uk'),
+   c.club_type||'Unincorporated Members Club'
+ ].join('\n');
+ const synced=(clubOfficialsData&&clubOfficialsData.synced_at_utc)
+   ? '<div class="small" style="grid-column:1/-1;margin-top:-2px">Loaded from CHATGPT TEMPLATE snapshot · synced '+esc(clubOfficialsData.synced_at_utc)+'</div>'
+   : '';
+ return '<div class="action-fields" style="margin-top:10px">'+synced+rows+
+   '<div class="field" style="grid-column:1/-1"><label>Club honours</label><textarea style="min-height:150px" oninput="saveField(\'club-honours\',this.value)">'+esc(honours)+'</textarea></div>'+
+   '<div class="field" style="grid-column:1/-1"><label>Club contact / address block</label><textarea style="min-height:95px" oninput="saveField(\'club-contact\',this.value)">'+esc(fieldValue('club-contact')||contactDefault)+'</textarea></div>'+
+   '</div>';
+}
+
+function renderResultsMatrix(){
+ return '<div class="autofill-note"><strong>Approved editable table:</strong> new scores go into the existing cells; the table is never replaced.</div>'+
+ '<div class="controls"><button class="btn yellow" onclick="prepareResultsMatrix(this)">Prepare Canva update</button><a class="btn ghost" href="https://www.canva.com/design/DAHYKUo9Tzo/edit" target="_blank" rel="noopener">Open league template</a></div>'+
+ '<p class="small" id="resultsMatrixRunStatus" role="status" style="margin-top:10px">Canva updates currently run with ChatGPT assistance. This button prepares the update request; it does not publish to Canva.</p>'+
+ '<div id="resultsMatrixRunOutput"></div>';
+}
+async function prepareResultsMatrix(button){
+ const status=document.getElementById('resultsMatrixRunStatus'),output=document.getElementById('resultsMatrixRunOutput');button.disabled=true;output.replaceChildren();
+ status.textContent='Checking the latest results against the approved table…';
+ try{
+  const get=async url=>{const r=await fetch(url+(url.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('Could not load the matrix data.');return r.json()};
+  const binding=await get('data/results-matrix-binding.json');
+  const feed=await get(binding.source_url);
+  const plan=TivvyMatrixUpdate.planUpdate(feed,binding);
+  const blob=new Blob([JSON.stringify(plan,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);
+  const download=document.createElement('a');download.className='btn dark';download.textContent='Download update request';download.href=url;download.download='tivvy-results-matrix-update.json';download.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(download);
+  status.textContent=plan.result_count+' results checked; '+plan.operations.length+' new scores; '+plan.conflicts.length+' disagreements to review. Request prepared. Canva has not been changed. The connected run will read the live table again before writing and update the subtitle only after success.';
+ }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
+}
+
+function renderAroundLeague(){
+ const date=fieldValue('around-league-saturday')||TivvyAroundLeague.saturdayBeforeToday();
+ return '<div class="autofill-note"><strong>Approved page layout:</strong> six stories · three per column · Antonio · capitalised headlines · two photos with credited captions. Everything remains editable; the header, footer and background stay fixed.</div>'+
+ '<div class="action-fields"><div class="field"><label for="around-league-saturday">Saturday to cover</label><input id="around-league-saturday" type="date" value="'+esc(date)+'" oninput="saveField(\'around-league-saturday\',this.value)"></div>'+
+ '<div class="field"><label for="around-league-notes">Editorial notes / preferred stories</label><textarea id="around-league-notes" oninput="saveField(\'around-league-notes\',this.value)" placeholder="Anything to include, avoid or correct…">'+esc(fieldValue('around-league-notes'))+'</textarea></div></div>'+
+ '<div class="controls"><button class="btn yellow" onclick="prepareAroundLeague(this)">Prepare Around the League run</button></div>'+
+ '<p class="small" id="aroundLeagueStatus" role="status">Prepares a request for a connected ChatGPT run to research and update the page. This button does not publish to Canva.</p><div id="aroundLeagueOutput"></div>';
+}
+async function prepareAroundLeague(button){
+ const status=document.getElementById('aroundLeagueStatus'),output=document.getElementById('aroundLeagueOutput');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/around-the-league-binding.json?v='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw Error('Could not load the approved Around the League layout.');
+  const binding=await response.json();
+  const plan=TivvyAroundLeague.prepare(binding,document.getElementById('around-league-saturday').value,document.getElementById('around-league-notes').value);
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'}));
+  const link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-around-the-league-'+plan.coverage_date+'.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready for '+plan.coverage_date+': six fresh stories, two photos and credited captions in the approved editable layout. Canva has not been changed.';
+ }catch(error){status.textContent=error.message+' Canva has not been changed.';}finally{button.disabled=false;}
+}
+
+let lastOutBinding=null;
+function lastOutValue(key,baseline=''){const value=localStorage.getItem('tivvy-v21-lastOut-'+key);return value===null?baseline:value;}
+function saveLastOut(key,value){if(['report','source','attachment'].includes(key)&&value!==lastOutValue(key)){const previous={};for(let i=1;i<=6;i++){const v=localStorage.getItem('tivvy-v21-lastOut-body_'+i);if(v!==null)previous['body_'+i]=v;localStorage.removeItem('tivvy-v21-lastOut-body_'+i);}if(Object.keys(previous).length)localStorage.setItem('tivvy-v21-lastOut-previous-split',JSON.stringify(previous));}saveField('lastOut-'+key,value);localStorage.removeItem('tivvy-v21-approved-last_time_out');const check=document.querySelector('#section-last_time_out [data-section-approval]');if(check){check.checked=false;check.closest('.section-card').classList.remove('done');}}
+function lastOutControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="lastOut-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?editorialToolbar()+'<textarea id="lastOut-'+esc(key)+'" style="min-height:120px" oninput="saveLastOut(\''+key+'\',this.value)">'+esc(lastOutValue(key,baseline))+'</textarea>':'<input id="lastOut-'+esc(key)+'" value="'+esc(lastOutValue(key,baseline))+'" oninput="saveLastOut(\''+key+'\',this.value)">')+(key.startsWith('media-')?imageUploadControl('lastout-'+key,'Or select photo file'):'')+'</div>';}
+function renderLastOut(){
+ if(!lastOutBinding)return '<p class="small">The Last Time Out layout could not be loaded. Refresh to try again.</p>';
+ const b=lastOutBinding;
+ let html='<div class="autofill-note"><strong>CHATGPT LEAGUE TEMPLATE only.</strong> Use Darren’s report in the selected report pages, with one editable Antonio report text box per page. Use four pages when comfortable, or five for longer copy. Leave room for Nick to place artwork manually. Preserve the template artwork, page order and current images unless you request replacements.</div><div class="action-fields">';
+ html+=lastOutControl('source','Report URL',fieldValue('lastOutSource'))+lastOutControl('attachment','Report attachment / reference (supply the Word file in the connected chat)');
+ html+=lastOutControl('article_headline','Article headline — optional; inserted above the opening paragraph')+lastOutControl('notes','Editorial instructions / image notes',fieldValue('lastOutImages'),true);
+ html+=lastOutControl('report','Complete new report — paste the full wording, including teams and scorers','',true)+'</div><button class="btn dark" type="button" onclick="distributeLastOut()">Distribute report across selected pages</button><p class="small">Unedited fields keep the live Canva content. The connected run reads the current copy; these controls start blank. This prepares editable copy below. Paragraphs stay in order; no automatic rewriting or shortening. The connected run checks the new fixture and updates the score/match details from the report; your explicit overrides take precedence. Review the split and any corrections before preparing the Canva run.</p>';
+ html+='<details><summary>Images and crests — keep or replace</summary><div class="action-fields">'+b.media_slots.map(m=>lastOutControl('media-'+m.key,m.label+' — Flickr photo link, Canva asset ID/link or Canva location')).join('')+'</div><p class="small">Blank means keep the current item. You can now choose a photo for report page 4 (Canva page 22) too. Existing frames are preserved where available; if a new frame is needed, the connected build must request approval and check text fit. Check photo credits when changing images.</p><a class="btn dark" href="photo-library.html" target="_blank" rel="noopener">Browse Viv’s Photo Library</a></details>';
+ b.pages.slice(0,window.tivvyIssuePageCount?.('last_time_out',4)??4).forEach((page,i)=>{const fields=b.fields.filter(f=>f.page_key===page.key);html+='<details style="margin-top:12px"><summary>Report page '+(i+1)+' — headlines, copy and credits</summary><div class="action-fields">'+fields.map(f=>lastOutControl(f.key,f.label,f.baseline,f.kind!=='heading')).join('')+'</div></details>';});
+ return html+'<div style="margin-top:16px"><button class="btn dark" type="button" onclick="prepareLastOut(this)">Prepare Last Time Out run</button></div><p id="lastOutStatus" class="small">Prepares a request for the connected Canva run. This button does not publish to Canva by itself.</p><div id="lastOutOutput"></div>';
+}
+function distributeLastOut(){
+ try{const fields=TivvyLastOut.flow(lastOutBinding,lastOutValue('report'),{page_count:window.tivvyIssuePageCount?.('last_time_out',4)??4});for(const [key,value] of Object.entries(fields))saveLastOut(key,value);draw();document.getElementById('lastOutStatus').textContent='Report distributed in paragraph order. Open the selected page editors to check the copy; the Canva template has not been changed.';}catch(error){document.getElementById('lastOutStatus').textContent=error.message;}
+}
+async function prepareLastOut(button){
+ const status=document.getElementById('lastOutStatus'),output=document.getElementById('lastOutOutput');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Could not load the league report layout.');const binding=await response.json();
+  const overrides={};for(const f of binding.fields){const v=localStorage.getItem('tivvy-v21-lastOut-'+f.key);if(v!==null)overrides[f.key]=v;}
+  const media={};for(const m of binding.media_slots)media[m.key]=lastOutValue('media-'+m.key);
+  const plan=TivvyLastOut.prepare(binding,{page_count:window.tivvyIssuePageCount?.('last_time_out',4)??4,report:lastOutValue('report'),source:lastOutValue('source',fieldValue('lastOutSource')),attachment:lastOutValue('attachment'),article_headline:lastOutValue('article_headline'),notes:lastOutValue('notes',fieldValue('lastOutImages')),overrides,media});
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'})),link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-last-time-out-run.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready for CHATGPT LEAGUE TEMPLATE: '+plan.text_updates.length+' text changes and '+plan.media_replacements.length+' image/crest replacements. '+(plan.status==='source_import_required'?'The connected run must import the referenced report first. ':'')+(plan.warnings.length?plan.warnings.join(' ')+' ':'')+'Canva has not been changed.';
+ }catch(error){status.textContent=error.message;}finally{button.disabled=false;}
+}
+
+let oppPreviewBinding=null;
+function oppPreviewValue(key,baseline=''){const value=localStorage.getItem('tivvy-v21-oppPreview-'+key);return value===null?baseline:value;}
+function saveOppPreview(key,value){if(['report','source','attachment'].includes(key)&&value!==oppPreviewValue(key)){const previous={};for(let i=1;i<=6;i++){const v=localStorage.getItem('tivvy-v21-oppPreview-body_'+i);if(v!==null)previous['body_'+i]=v;localStorage.removeItem('tivvy-v21-oppPreview-body_'+i);}if(Object.keys(previous).length)localStorage.setItem('tivvy-v21-oppPreview-previous-split',JSON.stringify(previous));}saveField('oppPreview-'+key,value);localStorage.removeItem('tivvy-v21-approved-opposition');const check=document.querySelector('#section-opposition [data-section-approval]');if(check){check.checked=false;check.closest('.section-card').classList.remove('done');}}
+function oppPreviewControl(key,label,baseline='',multiline=false){return '<div class="field"'+(multiline?' style="grid-column:1/-1"':'')+'><label for="oppPreview-'+esc(key)+'">'+esc(label)+'</label>'+(multiline?editorialToolbar()+'<textarea id="oppPreview-'+esc(key)+'" style="min-height:120px" oninput="saveOppPreview(\''+key+'\',this.value)">'+esc(oppPreviewValue(key,baseline))+'</textarea>':'<input id="oppPreview-'+esc(key)+'" value="'+esc(oppPreviewValue(key,baseline))+'" oninput="saveOppPreview(\''+key+'\',this.value)">')+(key.startsWith('media-')?imageUploadControl('opposition-'+key,'Or select photo file'):'')+'</div>';}
+function renderOppPreview(){
+ if(!oppPreviewBinding)return '<p class="small">The Meet the Opposition Preview layout could not be loaded. Refresh to try again.</p>';
+ const b=oppPreviewBinding;
+ let html='<div class="autofill-note"><strong>CHATGPT LEAGUE TEMPLATE only.</strong> Use Darren’s preview in the selected four- or five-page spread, with native editable Antonio text. Preserve the template artwork, page order and current images unless you request replacements.</div><div class="action-fields">';
+ html+=oppPreviewControl('source','Darren preview URL',fieldValue('oppSource'))+oppPreviewControl('attachment','Preview attachment / reference (supply the Word file in the connected chat)');
+ html+=oppPreviewControl('article_headline','Article headline — optional; inserted above the opening paragraph')+oppPreviewControl('notes','Editorial instructions / image notes',fieldValue('oppNotes'),true);
+ html+=oppPreviewControl('report','Complete new preview — paste Darren’s full wording','',true)+'</div><button class="btn dark" type="button" onclick="distributeOppPreview()">Distribute preview across selected pages</button><p class="small">Unedited fields keep the live Canva content. The connected run reads the current copy; these controls start blank. This prepares editable copy below. Paragraphs stay in order; no automatic rewriting or shortening. The connected run checks the upcoming fixture and updates the opponent/match details from the preview; your explicit overrides take precedence. Review the split and any corrections before preparing the Canva run.</p>';
+ html+='<details><summary>Preview images and crests — keep or replace</summary><div class="action-fields">'+b.media_slots.map(m=>oppPreviewControl('media-'+m.key,m.label+' — Flickr photo link, Canva asset ID/link or Canva location')).join('')+'</div><p class="small">Blank means keep the current item. Replacements keep the existing frame. Check the page photo credit below when changing an image.</p><a class="btn dark" href="photo-library.html" target="_blank" rel="noopener">Browse Viv’s Photo Library</a></details>';
+ b.pages.slice(0,window.tivvyIssuePageCount?.('opposition_preview',4)??4).forEach((page,i)=>{const fields=b.fields.filter(f=>f.page_key===page.key);html+='<details style="margin-top:12px"><summary>Preview page '+(i+1)+' — headlines, copy and credits</summary><div class="action-fields">'+fields.map(f=>oppPreviewControl(f.key,f.label,f.baseline,f.kind!=='heading')).join('')+'</div></details>';});
+ html+='<details style="margin-top:12px"><summary>Separate club facts / squad notes</summary><p class="small">These notes remain separate from the four-page preview run; club facts and squad pages are not changed by this request.</p><div class="action-fields">'+renderField(['oppNotes','Existing opposition notes / corrections','textarea'])+'</div></details>';
+ return html+'<div style="margin-top:16px"><button class="btn dark" type="button" onclick="prepareOppPreview(this)">Prepare Meet the Opposition Preview run</button></div><p id="oppPreviewStatus" class="small">Prepares a request for the connected Canva run. This button does not publish to Canva by itself.</p><div id="oppPreviewOutput"></div>';
+}
+function distributeOppPreview(){
+ try{const fields=TivvyOppPreview.flow(oppPreviewBinding,oppPreviewValue('report'),{page_count:window.tivvyIssuePageCount?.('opposition_preview',4)??4});for(const [key,value] of Object.entries(fields))saveOppPreview(key,value);draw();document.getElementById('oppPreviewStatus').textContent='Preview distributed in paragraph order. Open the selected page editors to check the copy; the Canva template has not been changed.';}catch(error){document.getElementById('oppPreviewStatus').textContent=error.message;}
+}
+async function prepareOppPreview(button){
+ const status=document.getElementById('oppPreviewStatus'),output=document.getElementById('oppPreviewOutput');button.disabled=true;output.replaceChildren();
+ try{
+  const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('Could not load the league preview layout.');const binding=await response.json();
+  const overrides={};for(const f of binding.fields){const v=localStorage.getItem('tivvy-v21-oppPreview-'+f.key);if(v!==null)overrides[f.key]=v;}
+  const media={};for(const m of binding.media_slots)media[m.key]=oppPreviewValue('media-'+m.key);
+  const plan=TivvyOppPreview.prepare(binding,{page_count:window.tivvyIssuePageCount?.('opposition_preview',4)??4,report:oppPreviewValue('report'),source:oppPreviewValue('source',fieldValue('oppSource')),attachment:oppPreviewValue('attachment'),article_headline:oppPreviewValue('article_headline'),notes:oppPreviewValue('notes',fieldValue('oppNotes')),overrides,media});
+  const url=URL.createObjectURL(new Blob([JSON.stringify(plan,null,2)],{type:'application/json'})),link=document.createElement('a');link.className='btn dark';link.textContent='Download run request';link.href=url;link.download='tivvy-opposition-preview-run.json';link.onclick=()=>setTimeout(()=>URL.revokeObjectURL(url),60000);output.appendChild(link);
+  status.textContent='Request ready for CHATGPT LEAGUE TEMPLATE: '+plan.text_updates.length+' text changes and '+plan.media_replacements.length+' image/crest replacements. '+(plan.status==='source_import_required'?'The connected run must import the referenced report first. ':'')+(plan.warnings.length?plan.warnings.join(' ')+' ':'')+'Canva has not been changed.';
+ }catch(error){status.textContent=error.message;}finally{button.disabled=false;}
+}
+
+async function syncCanvaPages(){
+ const status=document.getElementById('canvaSyncStatus'),details=document.getElementById('canvaSyncDetails');
+ status.textContent='Checking saved Canva page scan…';details.replaceChildren();
+ try{
+  const r=await fetch('data/canva-page-snapshot.json?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('Saved Canva scan unavailable ('+r.status+')');
+  const snapshot=await r.json();
+  if(snapshot.design_id!==registry?.master?.canva_design_id || !Array.isArray(snapshot.pages))throw Error('Canva design ID or page list does not match');
+  const positions=new Map(snapshot.pages.map(p=>[p.page_id,p.position]));
+  const ids=new Set();
+  let moved=0,missing=0,found=0,duplicated=0;
+  for(const item of registry.pages){
+   if(ids.has(item.master_page_id))duplicated++;else ids.add(item.master_page_id);
+   const live=positions.get(item.master_page_id);
+   if(!live){item.position=null;item.mapping_status='absent_from_current_master';if(item.active!==false)missing++;}
+   else{if(item.position!==live)moved++;item.position=live;item.mapping_status='verified_against_snapshot';found++;}
+  }
+  registry.master.page_count=snapshot.pages.length;
+  draw();
+  status.textContent='Saved scan '+snapshot.captured_at+' · '+snapshot.pages.length+' Canva pages · '+found+' mapped · '+moved+' positions refreshed · '+missing+' missing · '+duplicated+' duplicate registry IDs.';
+  details.textContent='This is a read-only check against the last connector scan, NOT a fresh live Canva API call. To refresh the source snapshot after reordering, ask me to scan Canva and update the Automator; it will then check positions automatically. Missing pages are flagged, never silently rebound.';
+ }catch(e){status.textContent='Sync check failed: '+e.message;}
+}
+
+function artworkSetting(key,part){return fieldValue('artwork-'+key+'-'+part);}
+function artworkSelect(key,part,value){saveField('artwork-'+key+'-'+part,value);if(part==='action')draw();}
+function renderArtworkRows(section){
+ if(!registry)return '';
+ const items=registry.pages.filter(p=>p.active!==false&&Number.isInteger(p.position)&&section.pages.includes(p.key)).sort((a,b)=>a.position-b.position);
+ return '<details class="tech"><summary>Images, crests, logos &amp; credits — '+items.length+' page'+(items.length===1?'':'s')+'</summary><p class="small">Keep current artwork unless deliberately changing it. Each replacement requires a source and identified position; protected adverts require approval. Canva remains untouched until the reviewed connected build.</p>'+items.map(p=>{
+ const key=p.key,selected=artworkSetting(key,'action')||'keep',protectedPage=p.type==='FIXED';
+ const opts=['keep','replace_image','replace_crest','replace_logo','multiple','review_only'];
+ const names={keep:'Keep current artwork',replace_image:'Replace photograph / image',replace_crest:'Replace club crest',replace_logo:'Replace sponsor / other logo',multiple:'Multiple artwork changes',review_only:'Inspect only — no replacement'};
+ const label='<strong>Page '+p.position+' — '+esc(p.name)+'</strong> <code class="small">'+esc(p.master_page_id)+'</code>';
+ return '<details style="border-bottom:1px solid #ddd;padding:10px 0"><summary>'+label+(selected!=='keep'?' · <strong>REVIEW REQUESTED</strong>':'')+'</summary><div class="action-fields" style="margin-top:10px">'+
+ '<div class="field"><label>Artwork action</label><select onchange="artworkSelect(\''+key+'\',\'action\',this.value)">'+opts.map(o=>'<option value="'+o+'"'+(o===selected?' selected':'')+'>'+names[o]+'</option>').join('')+'</select></div>'+
+ '<div class="field"><label>Current elements / position (verify in Canva)</label><input value="'+esc(artworkSetting(key,'location'))+'" oninput="artworkSelect(\''+key+'\',\'location\',this.value)" placeholder="e.g. upper-right crest, main photo"></div>'+
+ (selected==='keep'?'<p class="small">No artwork replacement requested. Existing image frames, logos and captions remain intact.</p>':
+ '<div class="field"><label>Replacement asset / Flickr or Canva link</label><input value="'+esc(artworkSetting(key,'source'))+'" oninput="artworkSelect(\''+key+'\',\'source\',this.value)" placeholder="Paste source link or asset ID"></div>'+
+ '<div class="field"><label>Photo credit / logo attribution (if applicable)</label><input value="'+esc(artworkSetting(key,'credit'))+'" oninput="artworkSelect(\''+key+'\',\'credit\',this.value)" placeholder="Keep existing credit unless changed"></div>'+
+ '<div class="field" style="grid-column:1/-1"><label>Specific instructions</label><textarea oninput="artworkSelect(\''+key+'\',\'notes\',this.value)" placeholder="Which image or logo? Frame, crop or position?">'+esc(artworkSetting(key,'notes'))+'</textarea></div>'+
+ '<div class="field" style="grid-column:1/-1">'+imageUploadControl('artwork-'+key,'Or upload replacement JPG / PNG / WebP')+'</div>'+
+ (protectedPage?'<div class="field" style="grid-column:1/-1"><label class="check"><input type="checkbox" '+(artworkSetting(key,'protected-approved')==='1'?'checked':'')+' onchange="artworkSelect(\''+key+'\',\'protected-approved\',this.checked?\'1\':\'0\')"> I explicitly approve requesting an artwork change on this protected page (still requires final proof)</label></div>':'')
+ )+'</div></details>';
+ }).join('')+'</details>';
+}
+
+function renderOppositionHistory(){
+ const fields=[['ohClub','Club name','input'],['ohNickname','Nickname','input'],['ohLeague','League','input'],['ohSeason','Season / league position','input'],['ohGround','Home ground','input'],['ohHistory','Club history — main body','textarea'],['ohMore','Additional history / Tivvy connection','textarea'],['ohWebsite','Official website / further reading link','input']];
+ return '<div class="autofill-note"><strong>Proven on Canva page 35 (Inkberrow).</strong> Four text boxes only. Existing photo and BOTH kit graphics are correct and must be retained. This panel prepares the editable request; Canva publication still requires a preview and your confirmation.</div><div class="action-fields">'+fields.map(renderField).join('')+'</div><button type="button" class="btn dark" onclick="prepareOppHistory()">Download text-only Canva run request</button><div id="ohOut"></div>';
+}
+function prepareOppHistory(){
+ const f=k=>fieldValue(k).trim();
+ const req={schema:'tivvy-opposition-history-v1',status:'awaiting_canva_execution',page_key:'opposition_1',verified_working_copy_page_index:35,design_id:'DAHZwZ3BD74',text_only:true,do_not_touch:['photographs','home kit graphic','away kit graphic','fonts','colours','backgrounds','layout','other pages'],fields:{club_name:f('ohClub'),nickname:f('ohNickname'),league:f('ohLeague'),season_summary:f('ohSeason'),home_ground:f('ohGround'),history_main:f('ohHistory'),history_additional:f('ohMore'),website:f('ohWebsite')},canva_elements:{club_facts:'PBSDVf1WFQVspwnG-LBBykRPP0qmVyNn4',history_main:'PBSDVf1WFQVspwnG-LB5sBKdvd92qD6C0',history_additional:'PBSDVf1WFQVspwnG-LBPtnpS4sgwjsmQL',website:'PBSDVf1WFQVspwnG-LBS6h5cm3JDJ98TP'},warning:'Element IDs and page index are working-copy specific; re-identify by content when copying a new issue. Preview for overflow before save.'};
+ const blob=new Blob([JSON.stringify(req,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='tivvy-opposition-history-text-only.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);document.getElementById('ohOut').textContent='Run request downloaded. No Canva changes have been made.';
+}
+
+function draw(){
+ const grid=document.getElementById('sectionGrid');
+ const expanded=new Set([...grid.querySelectorAll(':scope > details[open]')].map(card=>card.id));
+ grid.innerHTML='';
+ [...sections].sort((a,b)=>{
+   const firstPosition=section=>Math.min(...section.pages.map(k=>registry?.pages.find(p=>p.key===k)?.position).filter(n=>Number.isInteger(n)&&n>0).concat(Infinity));
+   return firstPosition(a)-firstPosition(b);
+ }).forEach(s=>{
+   const infos=pageInfo(s.pages);
+   const unavailable=infos.length>0&&infos.every(p=>p.active===false);
+   const card=document.createElement('details'); card.id='section-'+s.key; card.className='section-card'+(approved(s)?' done':''); card.open=expanded.has(card.id);
+   const tech=infos.map(p=>'<div class="tech-grid"><div class="tech-item"><div class="lbl">Nice name</div><div class="val"><strong>'+esc(p.name)+'</strong></div></div><div class="tech-item"><div class="lbl">Unique Canva Page ID</div><div class="val"><code>'+esc(p.master_page_id)+'</code></div></div><div class="tech-item"><div class="lbl">Current position</div><div class="val">'+(p.position||'UNAVAILABLE — absent from current master')+'</div></div></div>').join('');
+   const fields=unavailable?'<div class="note"><strong>No layout in the current Canva master.</strong> This old section is excluded from the issue copy. An approved replacement layout is needed if it is required again.</div>':s.custom==='oppositionHistory' ? renderOppositionHistory() : s.custom==='oppositionPreview' ? renderOppPreview() : s.custom==='lastOut' ? renderLastOut() : s.custom==='aroundLeague' ? renderAroundLeague() : s.custom==='resultsMatrix' ? renderResultsMatrix() : s.custom==='today60' ? renderToday60() : s.custom==='nextAwayTrip' ? renderNextAwayTrip() : s.custom==='clubOfficials' ? renderClubOfficials() : s.custom==='cover' ? renderCover() : s.custom==='yourTivvy' ? renderYourTivvy() : s.custom==='latestNews' ? renderLatestNews() : s.custom==='executiveUpdate' ? renderExecutiveUpdate() : s.custom==='featureSlot' ? renderFeatureSlot() : s.custom==='adverts' ? '<div class="advert-embed"><iframe title="Current template advert content blocks" src="adverts.html?embedded=1" loading="lazy"></iframe></div>' : (s.fields||[]).map(renderField).join('');
+   const legacyOfficials=s.key==='teams_officials'&&fieldValue('officials') ? renderField(['officials','Previous officials entry / notes','textarea']) : '';
+   const links=(s.links||[]).map(x=>'<a class="live" href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a>').join('');
+   card.innerHTML=
+     '<summary class="section-toggle"><div class="section-head"><div><h3>'+esc(s.name)+'</h3><span class="tag '+typeClass[s.type]+'">'+s.type+'</span></div><div class="small"><strong>Needs from you:</strong> '+esc(s.needs.join(' · '))+'</div></div></summary><div class="section-body">'+
+     '<div class="ai-do"><strong>What the automator will do</strong><span>'+esc(s.does)+'</span></div>'+
+     (fields?((s.custom==='oppositionPreview'||s.custom==='lastOut'||s.custom==='aroundLeague'||s.custom==='resultsMatrix'||s.custom==='today60'||s.custom==='nextAwayTrip'||s.custom==='clubOfficials'||s.custom==='cover'||s.custom==='yourTivvy'||s.custom==='latestNews'||s.custom==='executiveUpdate'||s.custom==='featureSlot'||s.custom==='adverts')?fields:'<div class="action-fields" style="margin-top:10px">'+fields+'</div>'):'')+
+     (legacyOfficials?'<div class="action-fields">'+legacyOfficials+'</div>':'')+
+     (links?'<div class="links">'+links+'</div>':'')+
+     renderArtworkRows(s)+
+     '<details class="tech"><summary>Technical details — Canva page mapping ('+infos.length+' '+(infos.length===1?'page':'pages')+')</summary><div class="tech-list">'+tech+'</div></details>'+
+     (s.type==='FIXED'?'':'<label class="check"><input data-section-approval type="checkbox" '+(approved(s)&&!unavailable?'checked':'')+(unavailable?' disabled':'')+' onchange="setApproved(\''+s.key+'\',this.checked)"> Section checked / approved for this issue</label>')+'</div>';
+   grid.appendChild(card);
+ });
+ const counts={AUTO:0,GUIDED:0,EDITORIAL:0,FIXED:0}; sections.forEach(s=>counts[s.type]++);
+ document.getElementById('summary').innerHTML=
+   box(sections.length,'Programme sections','V21 working view')+
+   box(counts.AUTO,'Automatic','Live data/content')+
+   box(counts.GUIDED,'Guided','Quick confirmations')+
+   box(counts.EDITORIAL,'Editorial','Copy/image flow');
+}
+function box(n,label,small){return '<div class="box"><div class="n">'+n+'</div><strong>'+label+'</strong><div class="small">'+small+'</div></div>'}
+function saveMeta(){}
+function loadMeta(){}
+function resetChecks(){sections.forEach(s=>localStorage.removeItem('tivvy-v21-approved-'+s.key));draw()}
+function syncIssueFromFixture(){
+  const f=nextHomeData||{};
+  if(!f.match_date||!f.opponent)return;
+  const newKey=[f.match_date,f.opponent].join('|');
+  const oldKey=localStorage.getItem('tivvy-v21-active-fixture');
+  if(oldKey===newKey)return;
+  // Changing issue invalidates all old approvals; do not delete source assets.
+  sections.forEach(section=>localStorage.removeItem('tivvy-v21-approved-'+section.key));
+  localStorage.removeItem('tivvy-v21-cover-crest-confirmed');
+  ['opponent','matchDate','kickoff','issue'].forEach(id=>localStorage.removeItem('tivvy-v21-meta-'+id));
+  // Keep artwork choices issue-specific: do not carry replacement requests into a new fixture.
+  for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith('tivvy-v21-artwork-'))localStorage.removeItem(k);}
+  // Never present an old Bideford cover player or Flickr link as a new selection.
+  ['coverPlayer','coverImage'].forEach(id=>localStorage.removeItem('tivvy-v21-'+id));
+  localStorage.removeItem('tivvy-v21-cover-image-source');
+  localStorage.removeItem('tivvy-v21-cover-upload-name');
+  localStorage.setItem('tivvy-v21-active-fixture',newKey);
+  // A previous local upload stays in the browser as an archive, but is not selected.
+  // New issue: clear previous cover photo and crest preview from browser storage.
+  coverPhotoDb().then(db=>{const tx=db.transaction(coverPhotoStore,'readwrite');tx.objectStore(coverPhotoStore).delete('current');tx.objectStore(coverPhotoStore).delete('crest-preview');tx.oncomplete=()=>db.close();tx.onerror=()=>db.close();}).catch(()=>{});
+}
+async function boot(){loadMeta();try{const response=await fetch('data/opposition-preview-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)oppPreviewBinding=await response.json();}catch(error){}try{const response=await fetch('data/last-time-out-binding.json?v='+Date.now(),{cache:'no-store'});if(response.ok)lastOutBinding=await response.json();}catch(error){}try{const [r,c,n,y,e]=await Promise.all([fetch(REGISTRY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(CLUB_OFFICIALS_URL+'?v='+Date.now()).then(r=>r.json()),fetch(NEXT_HOME_URL+'?v='+Date.now()).then(r=>r.json()),fetch(YOUR_TIVVY_URL+'?v='+Date.now()).then(r=>r.json()),fetch(EXEC_UPDATE_URL+'?v='+Date.now()).then(r=>r.json())]);registry=r;clubOfficialsData=c;nextHomeData=n;yourTivvyData=y;executiveUpdateData=e}catch(e){}syncIssueFromFixture();draw()}
+boot();
+</script>
+<script src="issue-builder.js?v=20261028-audit"></script>
+<script src="programme-nav.js?v=20261018-theme-1"></script>
+</body></html>

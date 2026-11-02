@@ -3,7 +3,7 @@
   "season": "2026/27",
   "source_design_id": "DAHYKUo9Tzo",
   "source_page": 52,
-  "review_status": "Preseason audit provisional: reviewed published 2026 fixture list and available Bridgwater match report; other friendly lineups still to source. Four players flagged for review; no competitive stats inferred.",
+  "review_status": "All eight known preseason match team sheets supplied by editor. Nine new provisional name-only player records, identity and competitive appearances not assumed.",
   "policy": {
     "statistics": "Never erase match history when status changes",
     "status_values": [
@@ -563,21 +563,313 @@
           "logo_asset": ""
         }
       }
+    },
+    {
+      "id": "radovanovic",
+      "name": "J. Radovanovic",
+      "status": "review",
+      "status_verified": false,
+      "position": "Goalkeeper",
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-04",
+          "opponent": "Roman Glass St George",
+          "evidence": "First-half and second-half teams"
+        },
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "jenkins",
+      "name": "Jenkins",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-04",
+          "opponent": "Roman Glass St George",
+          "evidence": "First-half and second-half teams"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "lumbombo-kalala",
+      "name": "Lumbombo-Kalala",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-07",
+          "opponent": "Tavistock",
+          "evidence": "Starting XI and second-half team"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "wilkins",
+      "name": "Wilkins",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        },
+        {
+          "date": "2026-07-25",
+          "opponent": "Taunton Town",
+          "evidence": "Starting XI and named substitutions; Kennell duplicate in source"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "dowing",
+      "name": "Dowing",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "swann",
+      "name": "Swann",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "billington",
+      "name": "Billington",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "hutchinson",
+      "name": "Hutchinson",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "rooke",
+      "name": "Rooke",
+      "status": "review",
+      "status_verified": false,
+      "position": null,
+      "shirt_number": null,
+      "current_club": null,
+      "notes": "Pre-season team-sheet name only; full identity and current registration unconfirmed. Do not count as competitive appearances.",
+      "source": "Editor-supplied Pre season Game Info.docx, sourced from 2026 club match reports",
+      "preseason_evidence": [
+        {
+          "date": "2026-07-18",
+          "opponent": "Brixham",
+          "evidence": "Starting XI and named substitutes, match abandoned"
+        }
+      ],
+      "competitive_statistics_status": "not verified",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
     }
   ],
   "preseason_audit": {
     "season": "2026/27",
-    "fixture_list_source": "https://www.tivertontownfc.uk/2025-26-fixtures-results",
-    "verified_lineup_source": "https://www.tivertontownfc.uk/post/pre-season-match-report-bridgwater-utd-v-tiverton-town",
-    "unverified_matches": [
-      "Roman Glass St George (4 July)",
-      "Tavistock (7 July)",
-      "Brixham (18 July; abandoned)",
-      "Shirehampton (21 July)",
-      "Taunton Town (25 July)",
-      "Ilminster Town (28 July)",
-      "Cullompton Rangers (1 August)"
+    "supplied_document": "Pre season Game Info.docx",
+    "matches_reviewed": [
+      {
+        "date": "2026-07-04",
+        "opponent": "Roman Glass St George",
+        "lineup_type": "First-half and second-half teams",
+        "names_recorded": 20
+      },
+      {
+        "date": "2026-07-07",
+        "opponent": "Tavistock",
+        "lineup_type": "Starting XI and second-half team",
+        "names_recorded": 19
+      },
+      {
+        "date": "2026-07-14",
+        "opponent": "Bridgwater United",
+        "lineup_type": "Starting XI and substitutions",
+        "names_recorded": 17
+      },
+      {
+        "date": "2026-07-18",
+        "opponent": "Brixham",
+        "lineup_type": "Starting XI and named substitutes, match abandoned",
+        "names_recorded": 14
+      },
+      {
+        "date": "2026-07-21",
+        "opponent": "Shirehampton",
+        "lineup_type": "Starting XI and substitutions",
+        "names_recorded": 16
+      },
+      {
+        "date": "2026-07-25",
+        "opponent": "Taunton Town",
+        "lineup_type": "Starting XI and named substitutions; Kennell duplicate in source",
+        "names_recorded": 14
+      },
+      {
+        "date": "2026-07-28",
+        "opponent": "Ilminster Town",
+        "lineup_type": "Starting XI and named substitutes; Hall unused",
+        "names_recorded": 18
+      },
+      {
+        "date": "2026-08-01",
+        "opponent": "Cullompton Rangers",
+        "lineup_type": "Starting XI and substitutions",
+        "names_recorded": 16
+      }
     ],
-    "rule": "Only named players from published team sheets enter provisional records. Never count pre-season as competitive appearances; no automatic current/on-loan designation."
+    "unverified_matches": [],
+    "ambiguities": [
+      "Brixham sheet has Wellington without first initial, cannot reliably match to Aaron or Jacob.",
+      "Taunton sheet lists Kennell in starting XI and among subs; original transcription contradictory.",
+      "Roman Glass has asterisks against some names without explanation.",
+      "Brixham was abandoned, so counts as a squad-sheet entry, not an official completed match.",
+      "Several players listed only by surname; full identities unconfirmed."
+    ],
+    "rule": "Preseason team-sheet inclusion is not automatically an appearance, and does not affect competitive appearances/goals. Unused substitutes do not count as played."
   }
 }

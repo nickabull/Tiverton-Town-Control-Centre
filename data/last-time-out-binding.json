@@ -21,6 +21,10 @@
     {
       "key": "last_time_out_4",
       "label": "Last Time Out 4"
+    },
+    {
+      "key": "last_time_out_5",
+      "label": "Last Time Out 5 (optional; hide when not needed)"
     }
   ],
   "font": "Antonio",
@@ -142,6 +146,21 @@
       "kind": "credit",
       "page_key": "last_time_out_4",
       "baseline": ""
+    },
+    {
+      "key": "body_7",
+      "label": "Fifth page — optional conclusion and teams",
+      "kind": "body",
+      "page_key": "last_time_out_5",
+      "baseline": "",
+      "estimated_capacity": 1850
+    },
+    {
+      "key": "credit_5",
+      "label": "Page 5 author/photo credit",
+      "kind": "credit",
+      "page_key": "last_time_out_5",
+      "baseline": ""
     }
   ],
   "media_slots": [
@@ -170,14 +189,22 @@
     "resolve_live": "Use the audited registry to locate the source section by unique page ID. Re-read current source content, copy the selected issue pages, and resolve all native targets again inside that new issue copy. Never publish report/preview copy or fresh native element metadata to the public repository.",
     "report": "Preserve supplied wording, paragraph order, line-ups, substitutes and scorers. Never silently summarise or correct names/facts. Flag possible mistakes for Nick.",
     "sources": "Accept pasted report, source URL or Word attachment supplied in the connected chat. Import referenced copy before editing.",
-    "defaults": "Unedited controls keep the live item. Explicit text edits, including clearing a text box, are applied; blank media references keep the current media. New report copy requires correct fixture metadata from the report or checked source, with explicit overrides taking precedence; never reuse a stale opponent or invent a date.",
+    "defaults": "Unedited controls keep the live item. Explicit text edits, including clearing a text box, are applied; blank media references keep the current media. New report copy requires correct fixture metadata from the report or checked source, with explicit overrides taking precedence; never reuse a stale opponent or invent a date. Artwork references are optional; no automatic image upload or image placement.",
     "native_editability": "Keep native editable Antonio text and existing frame geometry. Never flatten the report or template to images.",
-    "media": "Resolve explicitly supplied public Flickr photo links, Canva asset IDs/links or Canva locations only during the connected run. Preserve existing frames and check photo credits. Blank replacement retains current image or crest.",
+    "media": "Editorial artwork is manually arranged by Nick after text is placed. Do not automatically insert or replace photos or crests. Leave deliberate breathing room around copy, preserve existing graphics and credits, and flag any image changes for explicit approval.",
     "manual_edits": "Reread the current master and preserve unspecified manual edits. Build a new issue copy using only approved selected pages. Do not change the master page count/order/artwork. Resolve new native IDs after copying. Named content changes are limited to the approved white content areas, headings, metadata and explicit media/credit overrides.",
-    "fit": "Split at paragraph boundaries in order. Estimated capacities only guide the draft; inspect every page in Canva and flag overflow. Do not truncate wording, shrink type or move frames to force a fit.",
+    "fit": "One main editable text area per report page. Flow 4 or 5 pages by whole paragraphs, preserving every word and paragraph order; choose 5 only if 4 pages cannot fit comfortably with intentional blank photo/crest space. Never shrink type or truncate. If 4 pages suffice, exclude the fifth page from the issue copy; if the fifth already exists in a copy, leave it untouched and flag for manual removal.",
     "privacy": "Report text and media references entered in the automator stay in this browser/local downloaded request. Do not commit them, live Canva content or native design metadata to the public repository."
   },
   "issue_page_policy": "data/issue-page-policy.json",
   "target_policy": "new_issue_copy_only",
-  "native_targets_must_be_resolved_after_copy": true
+  "native_targets_must_be_resolved_after_copy": true,
+  "workflow": {
+    "layout": "one clean, editable Antonio text box per page; retain headings, score, credits and page margins",
+    "page_count_policy": "four pages by default; fifth page only when required by length and planned photo space",
+    "artwork": "Nick chooses and positions photos and crests separately in Canva after the text build",
+    "spacing": "target no more than about 75% of available editorial text area when possible, allowing room for bespoke image layouts",
+    "source_of_truth": "full Darren report supplied by Nick; preserve exact wording and teams",
+    "known_fifth_page": "Inkberrow working copy DAHZwZ3BD74 has a fifth Last Time Out page at current Canva page 23; other designs must resolve pages by ID"
+  }
 }

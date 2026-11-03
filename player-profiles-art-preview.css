@@ -152,3 +152,17 @@
 #players .tivvyArtText h3{color:#fff!important}
 #players .tivvyArtText .tivvyLeague{padding:0;margin-top:10px}
 @media(max-width:690px){#players .tivvyArtworkProfile{overflow:hidden}#players .tivvyArtStage{height:245px}#players .tivvyArtName{left:14px;top:55px}#players .tivvyArtName h3{font-size:clamp(27px,7vw,49px)}#players .tivvyArtName p{font-size:11px}#players .tivvyArtPhoto{height:260px;right:-20px}#players .tivvyLeague{font-size:12px;padding:9px 13px}}
+
+/* Exact squad artwork, not a redesigned Match Centre graphic.
+   Replicates first-team-squad.html at its native 850px design width. */
+#players .profile-hero.tivvyExactArtwork{display:block;padding:0!important;background:#fff!important;border:0!important;overflow:hidden;color:#111}
+#players .tivvyExactArt{width:100%;height:auto;aspect-ratio:850 / 330;position:relative;background:#fff;overflow:hidden;--tivvy-art-scale:1}
+#players .tivvyExactCanvas{position:absolute;left:0;top:0;width:850px;height:330px;padding:28px 29px 32px;box-sizing:border-box;background:#fff;transform:scale(var(--tivvy-art-scale));transform-origin:top left}
+#players .tivvyExactCanvas .studioHero{position:relative;height:260px;margin-top:6px;isolation:isolate;background:#fff;overflow:visible}
+#players .tivvyExactCanvas .studioBrush{position:absolute;inset:-35px -40px -25px -50px;width:calc(100% + 90px);height:calc(100% + 60px);object-fit:contain;object-position:center;z-index:0;transform-origin:center;pointer-events:none}
+#players .tivvyExactCanvas .studioNameBar{position:relative;z-index:1;margin-top:49px;width:100%;min-height:90px;padding:0}
+#players .tivvyExactCanvas .studioName{font:700 76px/1 Antonio,Impact,sans-serif!important;font-style:italic!important;text-transform:uppercase;white-space:nowrap;margin:0;letter-spacing:.3px;color:#101010!important}
+#players .tivvyExactCanvas .studioPosition{position:relative;z-index:1;display:block;width:44%;max-width:240px;background:#111;color:#fff;font:700 34px/1.15 Antonio,Impact,sans-serif;text-transform:uppercase;padding:10px 19px;margin-top:2px;transform-origin:top left}
+#players .tivvyExactCanvas .studioPhoto{position:absolute;right:-29px;bottom:-15px;height:345px;max-width:none;object-fit:contain;object-position:bottom center;z-index:2;transform-origin:bottom right;pointer-events:none}
+#players .tivvyArtworkFallback{background:#111;color:#fff;padding:20px}
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@700&display=swap');

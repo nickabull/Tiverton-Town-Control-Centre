@@ -103,14 +103,35 @@
 .squadTab span{font:600 12px Arial,sans-serif}
 .positionGroup[hidden],#formerSection[hidden]{display:none!important}
 @media(max-width:650px){.squadTabs{gap:5px}.squadTab{flex:1 1 130px;font-size:18px;padding:9px 8px}}
+
+/* Wix Match Centre parity — yellow canvas, black panels, sentence-case controls. */
+body{background:#ffd800;color:#111}
+body>header{background:#ffd800;color:#111;border-bottom:3px solid #111}
+body>header h1{color:#111}
+body>header small{color:#222}
+.showcaseWrap{background:#ffd800}
+.showcaseNote{background:#111;color:#fff;border-left-color:#111}
+.squadTabs .squadTab{background:#ffd800;color:#111;border:2px solid #111;text-transform:none}
+.squadTabs .squadTab.active,.squadTabs .squadTab[aria-pressed="true"]{background:#111;color:#ffd800}
+.squadTabs .squadTab:hover:not(.active){background:#f5c800;color:#111}
+.positionGroup{background:transparent}
+.positionGroup .groupTitle{color:#ffd800;background:#111;border-bottom:0;margin:0 0 18px;padding:13px 19px}
+.positionGroup .groupTitle .groupCount{color:#ffd800}
+.showcasePlayer{background:#111;border:1px solid #111}
+.showcasePlayer .playerControl{width:min(100%,850px);margin:0 auto;padding:0 0 10px;align-items:center;color:#ffd800}
+.showcasePlayer .playerControl>span{font:600 20px Antonio,Impact,sans-serif}
+.showcasePlayer .playerControl .playerClose{text-transform:none;margin-left:auto;margin-right:0}
+.showcasePlayer:not(.expanded) .studioLower{visibility:hidden!important}
+.showcasePlayer .showcaseViewport{background:#fff}
+@media(max-width:650px){.showcasePlayer .playerControl{padding:2px 0 9px}.showcasePlayer .playerControl>span{font-size:17px}.showcasePlayer .playerControl .playerClose{font-size:15px;padding:8px}}
 </style><header><h1>TIVVY PLAYER CARDS</h1><small>2026/27 · private squad showcase · test version, not the public Wix page</small></header>
 <main class="showcaseWrap"><div class="showcaseNote"><b>PREVIEW ONLY.</b> Your original player-photo, name, position and swoosh coordinates are preserved. Match statistics are being checked against the season's complete records. Choose a position group below; the full-width artwork stays visible, with player details expandable.</div>
 <nav class="squadTabs" aria-label="Squad positions">
-<button type="button" class="squadTab active" data-group="goalkeepers" aria-pressed="true">GOALKEEPERS <span data-count="goalkeepers"></span></button>
-<button type="button" class="squadTab" data-group="defenders" aria-pressed="false">DEFENDERS <span data-count="defenders"></span></button>
-<button type="button" class="squadTab" data-group="midfielders" aria-pressed="false">MIDFIELDERS <span data-count="midfielders"></span></button>
-<button type="button" class="squadTab" data-group="attackers" aria-pressed="false">ATTACKERS <span data-count="attackers"></span></button>
-<button type="button" class="squadTab" data-group="former" aria-pressed="false">FORMER PLAYERS <span data-count="former"></span></button>
+<button type="button" class="squadTab active" data-group="goalkeepers" aria-pressed="true">Goalkeepers <span data-count="goalkeepers"></span></button>
+<button type="button" class="squadTab" data-group="defenders" aria-pressed="false">Defenders <span data-count="defenders"></span></button>
+<button type="button" class="squadTab" data-group="midfielders" aria-pressed="false">Midfielders <span data-count="midfielders"></span></button>
+<button type="button" class="squadTab" data-group="attackers" aria-pressed="false">Attackers <span data-count="attackers"></span></button>
+<button type="button" class="squadTab" data-group="former" aria-pressed="false">Former players <span data-count="former"></span></button>
 </nav>
 <div id="groups"></div>
 <section class="positionGroup" id="formerSection"><h2 class="groupTitle">Former Players</h2><div id="formerCards"></div></section>
@@ -214,12 +235,12 @@ function addPlayer(p,container){
  const wrapper=document.createElement('article');
  wrapper.className='showcasePlayer'+(p.status==='departed'?' formerPlayer':'');
  wrapper.id='player-'+p.id;
- wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="false">SHOW DETAILS +</button></div>'+cardMarkup(p);
+ wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="false">Show details +</button></div>'+cardMarkup(p);
  const button=wrapper.querySelector('.playerClose');
  button.addEventListener('click',()=>{
    const opening=!wrapper.classList.contains('expanded');
    wrapper.classList.toggle('expanded',opening);
-   button.textContent=opening?'CLOSE PLAYER ✕':'SHOW DETAILS +';
+   button.textContent=opening?'Close player ✕':'Show details +';
    button.setAttribute('aria-expanded',String(opening));
    fitCards();
  });
@@ -234,7 +255,7 @@ function fitCards(){
    element.style.transform='scale('+factor+')';
    const player=viewport.closest('.showcasePlayer');
    const lower=element.querySelector('.studioLower');
-   const collapsedBottom=lower.offsetTop+8;
+   const collapsedBottom=Math.max(0,lower.offsetTop-9);
    const fullHeight=Math.max(element.scrollHeight,lower.offsetTop+lower.offsetHeight+36);
    viewport.style.height=Math.ceil((player?.classList.contains('expanded')?fullHeight:collapsedBottom)*factor+3)+'px';
  });

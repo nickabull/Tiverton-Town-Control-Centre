@@ -165,4 +165,6 @@
 #players .tivvyExactCanvas .studioPosition{position:relative;z-index:1;display:block;width:44%;max-width:240px;background:#111;color:#fff;font:700 34px/1.15 Antonio,Impact,sans-serif;text-transform:uppercase;padding:10px 19px;margin-top:2px;transform-origin:top left}
 #players .tivvyExactCanvas .studioPhoto{position:absolute;right:-29px;bottom:-15px;height:345px;max-width:none;object-fit:contain;object-position:bottom center;z-index:2;transform-origin:bottom right;pointer-events:none}
 #players .tivvyArtworkFallback{background:#111;color:#fff;padding:20px}
-@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@700&display=swap');
+
+
+#players .profile-hero.tivvyExactArtwork{width:100%;max-width:850px;margin-left:auto;margin-right:auto}

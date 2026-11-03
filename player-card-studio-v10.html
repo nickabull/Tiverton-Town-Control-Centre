@@ -28,6 +28,9 @@
 .editor .statfields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
 .hero .titlebar{width:100%;margin-top:48px}
 .imagehint{border:2px dashed #aaa;color:#bbb}
+/* Keep the photo guide truly hidden when a real portrait is present. */
+.imagehint[hidden],#imageHint[hidden]{display:none!important;border:0!important}
+
 @media(max-width:580px){.hero .titlebar{margin-top:35px}.editor .statfields{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* V4: make the editor canvas and mock-up easier to compare */

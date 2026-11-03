@@ -32,7 +32,7 @@ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'
 const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function cell(p){let left=['matt-wood','jacob-wellington'].includes(p.id),g=p.id==='louis-smith';let article=document.createElement('button');article.className='tile'+(left?' left':'')+(p.status==='departed'?' former':'');article.innerHTML='<div class="art"><img class="sw" src="'+(g?purple:yellow)+'"><img class="face" src="'+photos[p.id]+'"></div><div class="txt"><div class="name">'+safe(p.name)+'</div><div class="pos">'+safe(p.position||'First Team')+'</div></div>';article.onclick=()=>show(p,left,g,article);return article}
 function fitCard(){
- const viewport=document.querySelector('.cardViewport');const element=document.querySelector('.cardStudio');
+ const viewport=document.querySelector('#inlineExpansion .cardViewport');const element=document.querySelector('#inlineExpansion .cardStudio');
  if(!viewport||!element)return;
  const available=viewport.clientWidth;
  const factor=Math.min(1,available/850);

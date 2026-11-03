@@ -194,5 +194,5 @@ Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.g
  }
  for(const group of GROUPS)document.getElementById('count-'+group.id).textContent='('+counts[group.id]+')';
  requestAnimationFrame(fitCards);
-}).catch(e=>document.querySelector('.note').textContent='Preview data unavailable: '+e.message)
+}).catch(e=>{const note=document.querySelector('.showcaseNote');if(note)note.textContent='Preview data unavailable: '+e.message;})
 </script></html>

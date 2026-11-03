@@ -146,8 +146,23 @@ body>header.squadSiteHeader h1{
   font-size:clamp(29px,5vw,52px);
 }
 .showcasePlayer{
-  width:min(100%,936px);
+  /* Artwork is 850px wide; only a six-pixel black surround on each side. */
+  width:min(100%,862px);
+  padding:6px 6px 12px;
+  box-sizing:border-box;
 }
+.showcasePlayer .playerControl{
+  width:100%;
+  max-width:850px;
+  padding:0 0 8px;
+  margin:0 auto;
+}
+.showcasePlayer .showcaseViewport{
+  width:100%;
+  max-width:850px;
+}
+@media(max-width:620px){.showcasePlayer{padding:4px 4px 10px}}
+
 @media(max-width:740px){
   body>header.squadSiteHeader h1{font-size:clamp(29px,5vw,52px)}
 }

@@ -88,6 +88,12 @@
 .showcasePlayer.formerPlayer .cardStudio{filter:grayscale(1);opacity:.72}
 .showcasePlayer.formerPlayer{border-color:#777}
 @media(max-width:620px){.showcaseWrap{padding:12px 6px}.positionGroup{margin-top:24px}.groupTitle{font-size:30px}.showcasePlayer{padding:5px}.playerControl{font-size:15px}.playerClose{font-size:14px;padding:7px 10px}}
+/* V3 finishing: preserve the exact yellow border at the artwork crop edge. */
+.showcasePlayer:not(.expanded) .studioLower{visibility:visible!important}
+.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 20px minmax(92px,auto)!important;align-items:center}
+.showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{grid-column:5!important;grid-row:1!important;text-align:right!important;font-size:11px!important;white-space:nowrap}
+.showcasePlayer .studioInfoGrid .studioMatch .studioVenue{grid-column:4!important;grid-row:1!important}
+@media(max-width:650px){.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:20px 31px minmax(0,1fr) 16px minmax(65px,auto)!important;gap:3px!important}.showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{grid-column:5!important;grid-row:1!important;font-size:10px!important;white-space:normal}}
 </style><header><h1>TIVVY PLAYER CARDS</h1><small>2026/27 · private squad showcase · test version, not the public Wix page</small></header>
 <main class="showcaseWrap"><div class="showcaseNote"><b>PREVIEW ONLY.</b> Your original player-photo, name, position and swoosh coordinates are preserved. Match statistics are being checked against the season's complete records. Every full card is open by default; the red control collapses details if needed.</div>
 <div id="groups"></div>

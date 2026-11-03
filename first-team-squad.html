@@ -1,0 +1,375 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>First Team Squad | Tiverton Town FC</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"><style>
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap');
+:root{--y:#ffd800}*{box-sizing:border-box}body{margin:0;background:#111;color:#fff;font:15px Arial}h1,h2,h3,.name,.pos,.stat,.btn{font-family:Antonio,Impact,sans-serif;text-transform:uppercase}header{padding:26px max(20px,calc((100vw - 1240px)/2));background:#050505;border-bottom:5px solid var(--y)}h1{font-size:52px;margin:0}header small{color:#bbb}.wrap{max-width:1240px;margin:auto;padding:22px}.note{border-left:4px solid var(--y);padding:12px;background:#242424;margin-bottom:20px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}.tile{padding:0;background:#fff;color:#111;border:2px solid #333;cursor:pointer;text-align:left;overflow:hidden}.tile:hover{border-color:var(--y)}.tile .art{position:relative;height:220px;background:#f9f9f9;overflow:hidden}.tile .sw{position:absolute;inset:-10%;width:120%;height:120%;object-fit:contain}.tile .face{position:absolute;max-width:90%;height:95%;bottom:0;right:0;object-fit:contain;object-position:bottom}.tile.left .face{right:auto;left:0}.tile .txt{background:#111;color:white;padding:9px 13px}.name{font-size:27px}.tile .pos{font-size:15px;color:var(--y)}h2{font-size:32px;margin:20px 0 12px}.former{filter:grayscale(1);opacity:.7}button{font:inherit}.btn{padding:12px 20px;background:var(--y);border:0;cursor:pointer;font-size:20px}dialog{border:0;padding:0;background:#fff;color:#111;width:min(94vw,900px);max-height:94vh;overflow:auto}dialog::backdrop{background:#000c}.close{position:sticky;top:0;float:right;z-index:9;border:0;background:#c22;color:#fff;padding:10px 16px;cursor:pointer;font:700 18px Arial}.hero{height:345px;position:relative;overflow:hidden;background:#fff}.hero .sw{position:absolute;inset:-12%;width:125%;height:125%;object-fit:contain}.hero .face{position:absolute;right:0;bottom:0;height:100%;max-width:62%;object-fit:contain;object-position:bottom}.hero.left .face{left:0;right:auto}.hero .identity{position:absolute;top:85px;left:40px;max-width:70%;z-index:2}.hero.left .identity{left:auto;right:25px}.hero h2{font-size:clamp(46px,7vw,82px);line-height:1;margin:0 0 12px;font-style:italic}.hero .pos{display:inline-block;background:#111;color:white;padding:9px 18px;transform:skewX(-10deg);font-size:30px}.lower{background:#161616;color:#fff;border:8px solid var(--y);padding:22px}.lower h3{color:var(--y);font-size:27px;margin:12px 0}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.stat{background:#fff;color:#111;text-align:center;padding:10px 3px}.stat b{font-size:31px;display:block}.stat small{font-size:13px}.matches{margin:14px 0}.match{border-bottom:1px solid #555;padding:8px 0;display:flex;justify-content:space-between;gap:8px}.match strong.W{color:#42c46b}.match strong.D{color:#f4a33c}.match strong.L{color:#fa6969}.extra{margin-top:20px;display:none}@media(max-width:650px){.wrap{padding:12px}.stats{grid-template-columns:repeat(3,1fr)}.hero{height:270px}.hero .identity{top:65px;left:15px}.hero.left .identity{right:10px}.hero h2{font-size:42px}.hero .pos{font-size:22px}.lower{padding:10px;border-width:5px}}
+/* Match the original Studio card coordinate system at its 850px design width. */
+.cardStudio { width:850px; max-width:none; background:#fff; color:#101010; padding:28px 29px 32px; box-sizing:border-box; transform-origin:top left; }
+.cardStudio .studioHero { position:relative; height:260px; margin-top:6px; isolation:isolate; background:#fff; overflow:visible; }
+.cardStudio .studioBrush { position:absolute; inset:-35px -40px -25px -50px; width:calc(100% + 90px);height:calc(100% + 60px);object-fit:contain;object-position:center;z-index:0;transform-origin:center;pointer-events:none; }
+.cardStudio .studioNameBar { position:relative; z-index:1; margin-top:49px; width:100%; min-height:90px; padding:0; }
+.cardStudio .studioName { font:700 76px/1 Antonio,Impact,sans-serif;font-style:italic;text-transform:uppercase;white-space:nowrap;margin:0;letter-spacing:.3px; }
+.cardStudio .studioPosition { position:relative;z-index:1;display:block;width:44%;max-width:240px;background:#111;color:#fff;font:700 34px/1.15 Antonio,Impact,sans-serif;text-transform:uppercase;padding:10px 19px;margin-top:2px;transform-origin:top left; }
+.cardStudio .studioPhoto { position:absolute;right:-29px;bottom:-15px;height:345px;max-width:none;object-fit:contain;object-position:bottom center;z-index:2;transform-origin:bottom right;pointer-events:none; }
+.cardStudio .studioLower {position:relative;z-index:3;background:linear-gradient(145deg,#141414,#242424 55%,#161616);color:#fff;border:8px solid #ffd800;padding:15px 19px 20px;box-shadow:0 8px 24px #0004}
+.cardStudio .studioLower h3 {font:700 29px Antonio,Impact,sans-serif;color:#ffd800;text-transform:uppercase;margin:17px 0 10px;border-top:1px solid #aaa;padding-top:10px}
+.cardStudio .studioLower h3:first-child{margin-top:0;border-top:0}
+.cardStudio .studioStatGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.cardStudio .studioStat{background:#fff;text-align:center;color:#111;border-bottom:4px solid transparent;padding:8px 1px}
+.cardStudio .studioStat.yellow{border-color:#ffd800}.cardStudio .studioStat.red{border-color:#dc2441}
+.cardStudio .studioStat strong{display:block;font:700 30px Antonio,Impact,sans-serif}
+.cardStudio .studioStat small{display:block;font:600 13px Antonio,Impact,sans-serif}
+.cardStudio .studioMatches{margin:0 0 8px}.cardStudio .studioMatch{display:grid;grid-template-columns:72px 1fr 30px;gap:12px;border-bottom:1px solid #555;padding:9px 2px;font-size:15px}
+.cardStudio .studioMatch strong.W{color:#4bd278}.cardStudio .studioMatch strong.D{color:#ffb64d}.cardStudio .studioMatch strong.L{color:#ff6464}
+.cardViewport{width:100%;overflow:hidden;background:#fff}
+.inlineExpansion{grid-column:1/-1;background:#fff;color:#111;max-width:100%;margin:3px 0 17px;border:3px solid #ffd800;overflow:hidden}
+.inlineTop{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#101010;color:#ffd800;padding:8px 13px;font:600 20px Antonio,Impact,sans-serif}
+.inlineClose{border:0;background:#bd1e2d;color:#fff;font:700 16px Antonio,Impact,sans-serif;padding:9px 16px;cursor:pointer}
+.inlineExpansion .cardViewport{margin:auto;width:min(100%,850px)}
+/* Studio-style match list, sponsor and coloured card indicators */
+.cardStudio .studioMatch{display:grid;grid-template-columns:27px 40px minmax(0,1fr) 24px minmax(100px,auto);align-items:center;gap:8px;border-bottom:1px solid #5a5a5a;padding:8px 0;font:600 14px Antonio,Impact,sans-serif;text-transform:uppercase}
+.studioResult{display:inline-block;text-align:center;color:#fff;font:700 16px Antonio,Impact,sans-serif;padding:3px 0}
+.studioResult.W{background:#29994e;color:#fff!important}.studioResult.D{background:#d68c2a;color:#fff!important}.studioResult.L{background:#b8202d;color:#fff!important}
+.studioVenue{border:1px solid #fff;text-align:center;font-size:12px}
+.studioIncidents{text-align:right;color:#eee;font-size:12px;text-transform:none}
+.cardMarker{display:inline-block;width:10px;height:14px;margin-right:5px;vertical-align:-2px}.cardMarker.yellow{background:#ffd800}.cardMarker.red{background:#d4273a}
+.studioSponsor{margin-top:21px;border-top:1px solid #aaa;padding-top:13px;color:#fff;font-size:13px}.studioSponsor b{display:inline-block;background:#ffd800;color:#111;padding:8px 13px;margin-right:14px;font:600 13px Antonio,Impact,sans-serif}
+.cardStudio .studioLower h3{font-size:26px}
+@media(max-width:650px){.studioIncidents{font-size:11px}}
+
+/* V3: collapsed cards end at the exact top border of the detailed panel */
+.showcasePlayer:not(.expanded) .showcaseViewport{overflow:hidden}
+.showcasePlayer:not(.expanded) .studioLower{visibility:hidden}
+.showcasePlayer.expanded .studioLower{visibility:visible}
+.showcasePlayer .clubList{list-style:none;padding:0;margin:8px 0 14px;display:flex;flex-wrap:wrap;gap:6px 13px;font:14px/1.4 Arial,sans-serif}
+.showcasePlayer .clubList li{min-width:120px;flex:1 1 160px;border-bottom:1px solid #444;padding:6px 0}
+.showcasePlayer .clubList strong{display:block;color:#fff}
+.showcasePlayer .clubPeriod{color:#ffd800;font-size:12px}
+.showcasePlayer .clubNote{display:block;color:#aaa;font-size:11px}
+.showcasePlayer .clubSources{margin-top:10px;border-top:1px solid #555;padding:8px 0;color:#ddd;font-size:12px}
+.showcasePlayer .clubSources summary{cursor:pointer;color:#ffd800}
+.showcasePlayer .clubSources a{color:#fff;text-decoration:underline;line-height:1.75}
+.showcasePlayer .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 20px minmax(90px,auto)!important;align-items:center}
+.showcasePlayer .studioMatch .studioIncidents{grid-column:auto!important;text-align:right!important;font-size:11px}
+.showcasePlayer .studioMatch .studioOpponent{min-width:0}
+.showcasePlayer .studioMatch .matchCrest{width:16px;height:16px;object-fit:contain;vertical-align:-3px;margin-right:4px}
+.showcasePlayer .playerControl .playerClose{font:600 18px Antonio,Impact,sans-serif;border:2px solid #ef3340;background:transparent;color:#ff666b;min-height:45px}
+.showcasePlayer .playerControl .playerClose:hover{background:#ef3340;color:#fff}
+.showcasePlayer .playerControl .playerClose:focus-visible{outline:3px solid #2782ef;outline-offset:2px}
+.showcasePlayer .studioClubIdentity{display:flex;align-items:center;gap:8px;color:#ffd800;font:600 12px Antonio,Impact,sans-serif;margin-bottom:9px}
+.showcasePlayer .studioClubIdentity img{width:27px;height:27px;object-fit:contain}
+@media(max-width:650px){.showcasePlayer .studioMatch{grid-template-columns:24px 34px minmax(0,1fr) 18px!important}.showcasePlayer .studioMatch .studioIncidents{grid-column:3/-1!important}.showcasePlayer .studioInfoGrid{grid-template-columns:1fr!important}}
+/* Squad showcase V2: full approved 850px composition, grouped by playing position. */
+.showcaseWrap{max-width:1120px;margin:auto;padding:22px 18px 60px}
+.showcaseNote{background:#242424;border-left:5px solid #ffd800;padding:12px 16px;margin:10px 0 26px;line-height:1.5}
+.positionGroup{margin:34px 0 42px}
+.groupTitle{font:700 39px/1.15 Antonio,Impact,sans-serif;text-transform:uppercase;border-bottom:3px solid #ffd800;padding:0 0 12px;margin:0 0 20px;color:#ffd800}
+.groupCount{font:600 16px Arial,sans-serif;color:#ddd;margin-left:14px}
+.showcasePlayer{width:min(100%,930px);margin:0 auto 34px;background:#111;border:1px solid #555;padding:12px 12px 18px}
+.playerControl{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#ffd800;font:600 20px Antonio,Impact,sans-serif;padding:0 6px 10px}
+.playerClose{border:2px solid #ef3340;background:transparent;color:#ff666b;padding:10px 14px;font:600 18px Antonio,Impact,sans-serif;text-transform:uppercase;cursor:pointer}
+.playerClose:focus-visible,.playerLink:focus-visible{outline:3px solid #2782ef;outline-offset:3px}
+.showcaseViewport{width:min(100%,850px);overflow:hidden;margin:0 auto;background:white}
+.showcasePlayer .cardStudio{margin:0}
+.showcasePlayer .studioLower{margin:0}
+.showcasePlayer .studioInfoGrid{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.87fr);gap:22px;margin:16px 0 2px}
+.showcasePlayer .studioInfoGrid h3{font-size:24px;margin:0 0 10px;padding:9px 0 5px;border-top:1px solid #888}
+.showcasePlayer .studioInfoGrid h3:not(:first-child){margin-top:16px}
+.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 18px;gap:6px;font-size:12px;padding:8px 0}
+.showcasePlayer .studioInfoGrid .studioIncidents{grid-column:2 / -1;text-align:right;font:600 12px Arial,sans-serif;text-transform:none;min-height:0}
+.showcasePlayer .studioInfoGrid .studioOpponent{overflow-wrap:anywhere}
+.showcasePlayer .studioInfoGrid .studioVenue{font-size:11px}
+.showcasePlayer .studioInfoGrid .studioMatches{margin-bottom:0}
+.showcasePlayer .studioInfoGrid .clubText{font-size:15px;line-height:1.55;margin:5px 0 16px}
+.showcasePlayer .studioInfoGrid .noClubs{font-size:13px;color:#aaa;font-style:italic}
+.showcasePlayer .studioInfoGrid .sponsorText{font-size:14px;line-height:1.5;margin:6px 0 13px}
+.showcasePlayer .playerLink{display:block;background:#b8202d;color:#fff;font:700 18px Antonio,Impact,sans-serif;text-decoration:none;text-align:center;padding:12px 9px;margin-top:18px}
+.showcasePlayer .studioEventOn{color:#4bd278}.showcasePlayer .studioEventOff{color:#ff5e70}.showcasePlayer .studioEventGoal{color:#5aaeff}
+.showcasePlayer .detailArea[hidden]{display:none!important}
+.showcasePlayer .studioLower.shrunk{padding-bottom:12px}
+.showcasePlayer.formerPlayer .cardStudio{filter:grayscale(1);opacity:.72}
+.showcasePlayer.formerPlayer{border-color:#777}
+@media(max-width:620px){.showcaseWrap{padding:12px 6px}.positionGroup{margin-top:24px}.groupTitle{font-size:30px}.showcasePlayer{padding:5px}.playerControl{font-size:15px}.playerClose{font-size:14px;padding:7px 10px}}
+/* V3 finishing: preserve the exact yellow border at the artwork crop edge. */
+.showcasePlayer:not(.expanded) .studioLower{visibility:visible!important}
+.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 20px minmax(92px,auto)!important;align-items:center}
+.showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{grid-column:5!important;grid-row:1!important;text-align:right!important;font-size:11px!important;white-space:nowrap}
+.showcasePlayer .studioInfoGrid .studioMatch .studioVenue{grid-column:4!important;grid-row:1!important}
+@media(max-width:650px){.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:20px 31px minmax(0,1fr) 16px minmax(65px,auto)!important;gap:3px!important}.showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{grid-column:5!important;grid-row:1!important;font-size:10px!important;white-space:normal}}
+/* Show a single position group at a time to keep the Wix embed manageable. */
+.squadTabs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px;position:relative}
+.squadTab{cursor:pointer;background:#222;border:2px solid #ffd800;color:#ffd800;padding:12px 17px;font:700 21px/1.1 Antonio,Impact,sans-serif;min-height:46px}
+.squadTab.active,.squadTab[aria-pressed="true"]{background:#ffd800;color:#111}
+.squadTab:hover:not(.active){background:#353535}
+.squadTab:focus-visible{outline:3px solid #5ca9ff;outline-offset:3px}
+.squadTab span{font:600 12px Arial,sans-serif}
+.positionGroup[hidden],#formerSection[hidden]{display:none!important}
+@media(max-width:650px){.squadTabs{gap:5px}.squadTab{flex:1 1 130px;font-size:18px;padding:9px 8px}}
+
+/* Wix Match Centre parity — yellow canvas, black panels, sentence-case controls. */
+body{background:#ffd800;color:#111}
+body>header{background:#ffd800;color:#111;border-bottom:3px solid #111}
+body>header h1{color:#111}
+body>header small{color:#222}
+.showcaseWrap{background:#ffd800}
+.showcaseNote{background:#111;color:#fff;border-left-color:#111}
+.squadTabs .squadTab{background:#ffd800;color:#111;border:2px solid #111;text-transform:none}
+.squadTabs .squadTab.active,.squadTabs .squadTab[aria-pressed="true"]{background:#111;color:#ffd800}
+.squadTabs .squadTab:hover:not(.active){background:#f5c800;color:#111}
+.positionGroup{background:transparent}
+.positionGroup .groupTitle{color:#ffd800;background:#111;border-bottom:0;margin:0 0 18px;padding:13px 19px}
+.positionGroup .groupTitle .groupCount{color:#ffd800}
+.showcasePlayer{background:#111;border:1px solid #111}
+.showcasePlayer .playerControl{width:min(100%,850px);margin:0 auto;padding:0 0 10px;align-items:center;color:#ffd800}
+.showcasePlayer .playerControl>span{font:600 20px Antonio,Impact,sans-serif}
+.showcasePlayer .playerControl .playerClose{text-transform:none;margin-left:auto;margin-right:0}
+.showcasePlayer:not(.expanded) .studioLower{visibility:hidden!important}
+.showcasePlayer .showcaseViewport{background:#fff}
+@media(max-width:650px){.showcasePlayer .playerControl{padding:2px 0 9px}.showcasePlayer .playerControl>span{font-size:17px}.showcasePlayer .playerControl .playerClose{font-size:15px;padding:8px}}
+
+/* Squad site header — matches the actual Tivvy Match Centre identity */
+body>header.squadSiteHeader{display:flex;align-items:center;gap:18px;max-width:1120px;margin:0 auto;padding:22px 18px 15px;border-bottom:3px solid #111;background:#ffd800;color:#111}
+.squadSiteHeader>img{display:block;flex:none;width:78px;height:78px;object-fit:contain}
+body>header.squadSiteHeader h1{margin:0;font:400 clamp(29px,5vw,52px)/1.1 "Anton",Impact,"Arial Narrow",sans-serif;letter-spacing:.2px;text-transform:none;color:#111}
+.squadSiteHeader p{margin:5px 0 0;font:700 16px/1.35 Arial,Helvetica,sans-serif;color:#111}
+.showcaseWrap{padding-top:18px}
+.squadTabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:100%;margin:0 0 18px}
+.squadTabs .squadTab{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:5px;min-width:0;width:100%;padding:12px 5px;text-align:center;font-size:clamp(15px,1.7vw,23px)}
+.squadTabs .squadTab span{flex:none}
+@media(max-width:740px){.squadTabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.squadTabs .squadTab:last-child{grid-column:1/-1}.squadTabs .squadTab{font-size:19px;min-height:44px}.squadSiteHeader>img{width:60px;height:60px}body>header.squadSiteHeader{gap:12px;padding:16px 11px 11px}body>header.squadSiteHeader h1{font-size:36px}.squadSiteHeader p{font-size:12px}}
+@media(max-width:420px){body>header.squadSiteHeader h1{font-size:30px}.squadSiteHeader p{font-size:11px}}
+
+/* Match Centre typography parity and 6px panel-width adjustment. */
+body>header.squadSiteHeader h1{
+  font-family:"Anton",Impact,"Arial Narrow",sans-serif;
+  font-weight:400;
+  letter-spacing:.2px;
+  line-height:1.1;
+  font-size:clamp(29px,5vw,52px);
+}
+.showcasePlayer{
+  /* Artwork is 850px wide; only a six-pixel black surround on each side. */
+  width:min(100%,862px);
+  padding:6px 6px 12px;
+  box-sizing:border-box;
+}
+.showcasePlayer .playerControl{
+  width:100%;
+  max-width:850px;
+  padding:0 0 8px;
+  margin:0 auto;
+}
+.showcasePlayer .showcaseViewport{
+  width:100%;
+  max-width:850px;
+}
+@media(max-width:620px){.showcasePlayer{padding:4px 4px 10px}}
+
+@media(max-width:740px){
+  body>header.squadSiteHeader h1{font-size:clamp(29px,5vw,52px)}
+}
+/* Align the OUTER black player panel with the full-width category title.
+   Keep the approved white artwork at its own centered design width. */
+.positionGroup .groupCards{width:100%}
+.positionGroup .showcasePlayer{
+  width:100%;
+  max-width:none;
+  margin-left:0;
+  margin-right:0;
+  box-sizing:border-box;
+  padding:12px 14px 18px;
+}
+.positionGroup .showcasePlayer .playerControl,
+.positionGroup .showcasePlayer .showcaseViewport{
+  width:min(100%,850px);
+  margin-left:auto;
+  margin-right:auto;
+}
+@media(max-width:650px){
+  .positionGroup .showcasePlayer{padding:7px 6px 12px}
+}
+/* Production mobile readability: do not alter artwork coordinates or desktop layout. */
+.showcasePlayer .matchCentreReminder{color:#e6e6e6;font:14px/1.45 Arial,sans-serif;margin:14px 0 4px}
+.showcasePlayer .matchCentreReminder strong{color:#ffd800}
+@media(max-width:650px){
+ .showcasePlayer .clubList{font-size:16px;line-height:1.5;gap:8px 14px}
+ .showcasePlayer .clubList li{min-width:130px;padding:8px 0}
+ .showcasePlayer .clubPeriod{font-size:14px}
+ .showcasePlayer .clubNote{font-size:13px}
+ .showcasePlayer .clubSources{font-size:14px}
+ .showcasePlayer .studioInfoGrid .studioMatch{font-size:13px}
+ .showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{font-size:11px!important}
+ .showcasePlayer .studioInfoGrid .noClubs,.showcasePlayer .studioInfoGrid .sponsorText{font-size:15px}
+ .showcasePlayer .matchCentreReminder{font-size:15px;line-height:1.5}
+}
+</style><header class="squadSiteHeader"><img src="https://static.wixstatic.com/media/8aa829_88bbff928f6b42f49eba4aef6c32fcb2~mv2.png" alt="Tiverton Town FC crest" width="78" height="78"><div><h1>First Team Squad</h1><p>2026/27 · Southern League Division One South</p></div></header>
+<main class="showcaseWrap">
+<nav class="squadTabs" aria-label="Squad positions">
+<button type="button" class="squadTab active" data-group="goalkeepers" aria-pressed="true">Goalkeepers <span data-count="goalkeepers"></span></button>
+<button type="button" class="squadTab" data-group="defenders" aria-pressed="false">Defenders <span data-count="defenders"></span></button>
+<button type="button" class="squadTab" data-group="midfielders" aria-pressed="false">Midfielders <span data-count="midfielders"></span></button>
+<button type="button" class="squadTab" data-group="attackers" aria-pressed="false">Attackers <span data-count="attackers"></span></button>
+<button type="button" class="squadTab" data-group="former" aria-pressed="false">Former players <span data-count="former"></span></button>
+</nav>
+<div id="groups"></div>
+<section class="positionGroup" id="formerSection"><h2 class="groupTitle">Former Players</h2><div id="formerCards"></div></section>
+</main><script>
+const photos={"aaron-wellington":"https://static.wixstatic.com/media/8aa829_341ebcb77e794cd2b0fe7534293a6c2d~mv2.png","aiden-horne":"https://static.wixstatic.com/media/8aa829_012f1fbb61014842b6a897ea8efb7446~mv2.png","asa-hall":"https://static.wixstatic.com/media/8aa829_37b4ea236d174d5a90824e7d396ee1f1~mv2.png","billy-tucker":"https://static.wixstatic.com/media/8aa829_72a3e03e9f8e49b29a83633bbb4bf11e~mv2.png","corey-koerner":"https://static.wixstatic.com/media/8aa829_b76b9523565343d99d3301c915aa4977~mv2.png","dan-koita":"https://static.wixstatic.com/media/8aa829_1f5a4cedd9e043dbae78b14dc7db3c9d~mv2.png","ed-palmer":"https://static.wixstatic.com/media/8aa829_1b54df80b2c94ae2a906bdf9851d15f8~mv2.png","finn-hodge":"https://static.wixstatic.com/media/8aa829_f4b68ebbbf01431daec2f0164f1f9430~mv2.png","finn-roberts":"https://static.wixstatic.com/media/8aa829_ae75aa2346974e80946c94cd679f3791~mv2.png","jack-kennell":"https://static.wixstatic.com/media/8aa829_e48c892b583f4b76b20703891c56ff4f~mv2.png","jacob-wellington":"https://static.wixstatic.com/media/8aa829_79191ea70db34e93897042ac05f18685~mv2.png","josh-bissett":"https://static.wixstatic.com/media/8aa829_3d1548970ffb40b5ae8b97b5b6fb193f~mv2.png","karim-coulibaly":"https://static.wixstatic.com/media/8aa829_256e163a46014a26beef49ef434ac967~mv2.png","louie-slough":"https://static.wixstatic.com/media/8aa829_6684a7b2e03c4b299c56ec07291bf83d~mv2.png","louis-jagger-cane":"https://static.wixstatic.com/media/8aa829_6e9c403d1b0b465ea12d55eab1ae2e88~mv2.png","louis-smith":"https://static.wixstatic.com/media/8aa829_b1be1b6074694a0ca185d115564c7e52~mv2.png","mason-winter":"https://static.wixstatic.com/media/8aa829_6fc4a5a9d42144d488e87046a3b34adb~mv2.png","matt-wood":"https://static.wixstatic.com/media/8aa829_8289ed63195e4553a0dfffd918ce04f0~mv2.png","owen-howe":"https://static.wixstatic.com/media/8aa829_e6b7e0879c31459c8705b8af6de9ce4b~mv2.png","ryan-keates":"https://static.wixstatic.com/media/8aa829_a93fe520111741d5998d0737ff3499d0~mv2.png","tobias-alsop":"https://static.wixstatic.com/media/8aa829_8cc51513e6744f85997af6914de5dcc8~mv2.png","toby-stephens":"https://static.wixstatic.com/media/8aa829_aee9bfe88b324647a64023f388be7c85~mv2.png"};
+const yellow="https://static.wixstatic.com/media/8aa829_81efb7b2c16545dd9be6c263ddacfeae~mv2.png",purple="https://static.wixstatic.com/media/8aa829_577ea00227df4e88a88a3b109b717166~mv2.png";
+// Editorial values taken from the player's exported Studio JSON; do not replace with generic squad fallbacks.
+const editorial={"louis-smith":["Goalkeeper","","Dave Lewis & Roclad Limited"],"mason-winter":["Defender","",""],"corey-koerner":["Defender","","Kelvin Phillips"],"louie-slough":["Centre Back","","Viv Curtis"],"matt-wood":["Defender","","Witheridge AFC Warriors"],"josh-bissett":["Attacker","",""],"asa-hall":["Midfielder","","Bruce Benton"],"owen-howe":["Striker","","Exeter Window Store"],"ryan-keates":["Midfielder","",""],"jacob-wellington":["Midfielder","",""],"jack-kennell":["Midfielder","","Kelvin Groves"],"aiden-horne":["Striker","","Exeter City Senior Reds"],"aaron-wellington":["Midfield","",""],"finn-roberts":["Midfielder","Bideford","Michael and Carol Pike"],"billy-tucker":["Midfielder","","Kelly Gillard"],"karim-coulibaly":["Midfield","",""],"louis-jagger-cane":["Striker","",""],"dan-koita":["Forward","Elmore, Crediton United, Tavistock, Okehampton Argyle",""],"toby-stephens":["Midfielder","",""],"tobias-alsop":["Defender","",""],"ed-palmer":["Defender","",""],"lewis-flowers":["Defender","","Landscaped R US"]};
+const savedPlacements={"finn-roberts":[-20,-5,100,0,0,0,0,0,-20,200,0],"jack-kennell":[-455,0,105,375,0,365,0,0,-20,200,0],"jacob-wellington":[-530,0,110,240,0,225,0,0,-20,200,0],"josh-bissett":[-445,0,140,385,0,370,0,0,-20,200,0],"karim-coulibaly":[-540,-5,100,275,0,265,0,0,-20,200,0],"lewis-flowers":[0,0,100,0,0,0,0,0,-20,115,0],"louie-slough":[-25,120,140,0,0,0,0,0,-20,200,0],"louis-jagger-cane":[-535,0,100,235,0,215,0,0,-20,200,0],"louis-smith":[-25,-5,100,0,0,0,0,25,-5,200,0],"mason-winter":[-495,0,130,350,0,330,0,0,-20,200,0],"matt-wood":[-520,90,130,445,0,430,0,0,-20,200,0],"owen-howe":[0,0,115,0,0,0,0,0,-20,200,0],"ryan-keates":[-35,55,135,0,0,0,0,0,-20,200,0],"tobias-alsop":[0,0,105,0,0,0,0,0,-20,200,0],"toby-stephens":[0,30,115,0,0,0,0,0,-20,200,0],"aaron-wellington":[10,0,115,0,0,0,0,0,-20,200,0],"aiden-horne":[-265,25,125,410,0,390,0,0,-20,200,0],"asa-hall":[-5,95,130,0,0,0,0,0,-20,200,0],"billy-tucker":[-35,0,115,0,0,0,0,0,-20,200,0],"caleb-pryce-hall":[0,0,100,0,0,0,0,0,-20,115,0],"corey-koerner":[10,0,110,0,0,0,0,0,-20,200,0],"dan-koita":[-25,-5,100,0,0,0,0,0,-20,200,0],"ed-palmer":[-500,80,125,465,0,440,0,0,-20,200,0],"finn-hodge":[-380,35,120,435,0,430,0,0,-20,200,0]};
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+const GROUPS=[
+  {id:'goalkeepers',title:'Goalkeepers',description:['goalkeeper']},
+  {id:'defenders',title:'Defenders',description:['defender','centre back','central defender','full back']},
+  {id:'midfielders',title:'Midfielders',description:['midfield','midfielder','winger']},
+  {id:'attackers',title:'Attackers',description:['attacker','striker','forward']}
+];
+const DATA_LINK='https://www.tivertontownfc.uk/match-centre';
+const officialMatchCrests={"romanglassstgeorge":"https://static.wixstatic.com/media/8aa829_6ad6695811c0498db90473766fc8bbd4~mv2.png","tavistock":"https://static.wixstatic.com/media/8aa829_ecc264bc646d41a9b6c372a0a3a23243~mv2.png","bridgwaterunited":"https://static.wixstatic.com/media/8aa829_199b1514dbef4b79882263529ff162ae~mv2.png","brixham":"https://static.wixstatic.com/media/8aa829_7f87e9823bb94650961f9d3160a065dc~mv2.png","shirehampton":"https://static.wixstatic.com/media/8aa829_ce9c7882df30410cb4c8d445b9077226~mv2.png","tauntontown":"https://static.wixstatic.com/media/d12aff_a4325afc73e54ed98cb25f2a2986cae0~mv2.png","ilminstertown":"https://static.wixstatic.com/media/8aa829_969cbd8d12cb4952bc614fe294f8294f~mv2.png","cullomptonrangers":"https://static.wixstatic.com/media/8aa829_4e91f106bc444b2f9ca4692d43864e53~mv2.png","portlandunited":"https://static.wixstatic.com/media/8aa829_65009eedd74649b3b7405d2be35faff4~mv2.png","bideford":"https://static.wixstatic.com/media/8aa829_da6d2deb112945e1ab17de6e6f36462d~mv2.png","hungerfordtown":"https://static.wixstatic.com/media/f62a66_4fc40563b6a942d1aab1f3fdb82ef2df~mv2.png","barnstapletown":"https://static.wixstatic.com/media/8aa829_4c6bb278ab2c46c49336767c95cedb89~mv2.png","bishopscleeve":"https://static.wixstatic.com/media/8aa829_bc015fb499ab4b4fa71b63804bc47f9b~mv2.png","bristolmanorfarm":"https://static.wixstatic.com/media/8aa829_7cf5ed3ed4bc40f2b3faa6e90e66080b~mv2.png","dorchester":"https://static.wixstatic.com/media/8aa829_2fb4a520831d4bfa8ea7e1fdf138ac51~mv2.png","dorchestertown":"https://static.wixstatic.com/media/8aa829_2fb4a520831d4bfa8ea7e1fdf138ac51~mv2.png","exmouthtown":"https://static.wixstatic.com/media/8aa829_b4cc913ef31345aabfac3ebba6b7df54~mv2.png","falmouthtown":"https://static.wixstatic.com/media/8aa829_78892dbf0f4c4813b85618cb3419d7a7~mv2.png","hartpury":"https://static.wixstatic.com/media/8aa829_e2d06cb8e952431f8aed9b329a02aa8c~mv2.png","hungerford":"https://static.wixstatic.com/media/f62a66_4fc40563b6a942d1aab1f3fdb82ef2df~mv2.png","larkhallathletic":"https://static.wixstatic.com/media/8aa829_71765df901f54fbb909ebb009efa011b~mv2.png","melkshamtown":"https://static.wixstatic.com/media/8aa829_e8ab9d4f1f854d039d17f7dcde8a3b4f~mv2.png","paultonrovers":"https://static.wixstatic.com/media/8aa829_26e00a2cd0bc450ebd9bf1d912f5695d~mv2.png","portlandutd":"https://static.wixstatic.com/media/8aa829_65009eedd74649b3b7405d2be35faff4~mv2.png","shaftesbury":"https://static.wixstatic.com/media/8aa829_379295bfca974bf593c6d737ce238ad3~mv2.png","slimbridge":"https://static.wixstatic.com/media/8aa829_025e16a547cc4520ad5e926a61a69e3b~mv2.png","scinkberrow":"https://static.wixstatic.com/media/8aa829_a2aefe84c95b41cb924fb838ab493574~mv2.png","sportingclubinkberrow":"https://static.wixstatic.com/media/8aa829_a2aefe84c95b41cb924fb838ab493574~mv2.png","swindonsm":"https://static.wixstatic.com/media/8aa829_fc13ce065bd543e68de0c684030ace1f~mv2.png","swindonsupermarine":"https://static.wixstatic.com/media/8aa829_fc13ce065bd543e68de0c684030ace1f~mv2.png","tivertontown":"https://static.wixstatic.com/media/8aa829_88bbff928f6b42f49eba4aef6c32fcb2~mv2.png","westbury":"https://static.wixstatic.com/media/8aa829_997c5e0c7f114de7918338be91b3a2c5~mv2.png","westburyunited":"https://static.wixstatic.com/media/8aa829_997c5e0c7f114de7918338be91b3a2c5~mv2.png","weymouth":"https://static.wixstatic.com/media/8aa829_60e64f23139143509c99a9e4bde185d3~mv2.png","willandrovers":"https://static.wixstatic.com/media/8aa829_d3c15347e48c4200a3118dda1ac54a04~mv2.png","worcesterraiders":"https://static.wixstatic.com/media/8aa829_54f9d56e0e9849fb996257f2521be89e~mv2.png","worcestershireraiders":"https://static.wixstatic.com/media/8aa829_54f9d56e0e9849fb996257f2521be89e~mv2.png"};
+function verifiedOpponentCrest(name){const key=String(name||'').toLowerCase().replace(/\b(football club|afc|fc)\b/g,'').replace(/[^a-z0-9]/g,'');return officialMatchCrests[key]||'';}
+const tivvyCrest="https://static.wixstatic.com/media/8aa829_88bbff928f6b42f49eba4aef6c32fcb2~mv2.png";
+const careerHistory={"aaron wellington":{"clubs":[{"club":"Brixham AFC","period":"2025/26"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=886"},"aiden horne":{"clubs":[{"club":"Cullompton Rangers"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-get-horne"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=808"},"asa hall":{"clubs":[{"club":"Birmingham City","period":"2004–2008"},{"club":"Boston United","period":"2006","note":"Loan"},{"club":"Ashford Town (Kent)","period":"2007","note":"Loan"},{"club":"Shrewsbury Town","period":"2008; 2012–2014","note":"First spell on loan"},{"club":"Luton Town","period":"2008–2010"},{"club":"Oxford United","period":"2010–2012; 2013","note":"Second spell on loan"},{"club":"Aldershot Town","period":"2013","note":"Loan"},{"club":"Cheltenham Town","period":"2014–2017"},{"club":"York City","period":"2017","note":"Loan"},{"club":"Barrow","period":"2017–2018"},{"club":"Torquay United","period":"2018–2024"}],"sources":[{"label":"Career record","url":"https://en.wikipedia.org/wiki/Asa_Hall"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=782"},"billy tucker":{"clubs":[{"club":"Bideford","period":"Debut 2012/13"}],"sources":[{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=892"},"caleb pryce-hall":{"clubs":[{"club":"Oldland Abbotonians"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=893"},"corey koerner":{"clubs":[{"club":"Yeovil Town","note":"Academy / first team"},{"club":"Plymouth Parkway","note":"Loan","period":"2024/25"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/welcome-corey-koerner"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=812"},"ed palmer":{"clubs":[{"club":"Torquay United"},{"club":"Truro City"},{"club":"Weymouth"},{"club":"Taunton Town"},{"club":"Bideford","period":"2015/16"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=481"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/the-robins-fly-in-for-challenge-cup-round-2"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=481"},"finn roberts":{"clubs":[{"club":"Bideford","period":"Includes 2023/24"}],"sources":[{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=891"},"jack kennell":{"clubs":[{"club":"Torquay United","note":"Academy"},{"club":"Willand Rovers"},{"club":"Exmouth Town"}],"sources":[{"label":"Club signing preview","url":"https://www.tivertontownfc.uk/post/match-preview-gosport-borough-1"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=825"},"jacob wellington":{"clubs":[{"club":"Torquay United","note":"Academy / first team"},{"club":"Willand Rovers","period":"2024/25"}],"sources":[{"label":"Club profile","url":"https://www.tivertontownfc.uk/post/yellows-return-for-wellington"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=810"},"josh bissett":{"clubs":[{"club":"Exeter City","note":"Academy"},{"club":"Exmouth Town"},{"club":"Mousehole"},{"club":"Bristol Manor Farm","period":"2024/25"},{"club":"Falmouth Town","period":"2026"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/bissett-signs-for-the-yellows"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=895"},"karim coulibaly":{"clubs":[{"club":"Sidmouth Town"}],"sources":[{"label":"Club profile","url":"https://www.tivertontownfc.uk/post/asa-hall-s-side-looks-for-a-match-made-in-heaven-as-gosport-visit-a-dampened-mid-devon"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=823"},"louie slough":{"clubs":[{"club":"Torquay United"},{"club":"Dorchester Town","period":"2022/23–2023/24","note":"Also an earlier loan spell"},{"club":"Taunton Town"},{"club":"Bideford","period":"Joined 2023/24"}],"sources":[{"label":"Club Dorchester report","url":"https://www.tivertontownfc.uk/post/defeat-despite-debut-day-delight"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=890"},"louis jagger cane":{"clubs":[{"club":"Exwick Villa","period":"Before summer 2019"},{"club":"Bideford","period":"2021/22–2022/23"},{"club":"Willand Rovers","period":"2026"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=9"},{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/the-robins-fly-in-for-challenge-cup-round-2"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=9"},"louis smith":{"clubs":[{"club":"Bristol Manor Farm","note":"Youth / first team"},{"club":"Keynsham Town"},{"club":"Corsham Town"},{"club":"Taunton Town","period":"2025/26","note":"Dual registration"},{"club":"Bridgwater United","period":"2025/26","note":"Dual registration"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-recruit-keeper-smith"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=888"},"mason winter":{"clubs":[{"club":"Bristol Rovers","note":"Academy"},{"club":"Clevedon Town","period":"2013/14–2014/15"},{"club":"Larkhall Athletic"},{"club":"Cribbs"},{"club":"Bristol Manor Farm","period":"Joined 2019/20"},{"club":"Portishead Town"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/mason-winter-concludes-tivvy-s-pre-season-signings"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=889"},"matt wood":{"clubs":[{"club":"Frome Town"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-get-wood"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=809"},"owen howe":{"clubs":[{"club":"Bideford","period":"2013/14"},{"club":"Salisbury","note":"Two spells"},{"club":"Bristol Manor Farm","note":"Two spells"},{"club":"Weston-super-Mare"},{"club":"Taunton Town"},{"club":"Barnstaple Town","period":"Joined 2022"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=435"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=435"},"ryan keates":{"clubs":[{"club":"Watcombe Wanderers"},{"club":"Newton Abbot Spurs"},{"club":"Stoke Gabriel","period":"Joined Feb 2020","note":"Return spell"},{"club":"Barnstaple Town","period":"Joined Aug 2021","note":"Also a later loan spell"},{"club":"Lymington Town"},{"club":"Brixham AFC"},{"club":"Willand Rovers"},{"club":"Exmouth Town"},{"club":"Buckland Athletic"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/keates-to-ladysmead"},{"label":"Club return announcement","url":"https://www.tivertontownfc.uk/post/ryan-returns-for-the-yellows"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=762"},"tobias alsop":{"clubs":[{"club":"Exeter City","note":"Academy / parent club; Tiverton loan, Oct 2026"}],"sources":[{"label":"Club loan announcement","url":"https://www.tivertontownfc.uk/post/young-grecian-joins-tiverton-town"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=897"},"toby stephens":{"clubs":[{"club":"Southampton","note":"Academy"},{"club":"Yeovil Town","note":"Academy / first team"},{"club":"Plymouth Parkway"},{"club":"AFC Totton"}],"sources":[{"label":"Club return announcement","url":"https://www.tivertontownfc.uk/post/toby-stephens-signs-with-tivvy"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=814"}};
+function selectGroup(group){
+  const chosen=['goalkeepers','defenders','midfielders','attackers','former'].includes(group)?group:'goalkeepers';
+  document.querySelectorAll('.squadTab').forEach(btn=>{
+    const active=btn.dataset.group===chosen;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-pressed',String(active));
+  });
+  document.querySelectorAll('.positionGroup').forEach(section=>{
+    section.hidden=(section.id!==(chosen==='former'?'formerSection':chosen));
+  });
+  requestAnimationFrame(fitCards);
+}
+document.querySelectorAll('.squadTab').forEach(button=>button.addEventListener('click',()=>selectGroup(button.dataset.group)));
+function categoryFor(p){
+ const role=String(p.position||'').trim().toLowerCase();
+ const group=GROUPS.find(g=>g.description.some(word=>role.includes(word)));
+ return group?.id||'midfielders';
+}
+function matchEvents(m){
+ return (m.events||[]).map(e=>{
+   const type=e?.type||'';
+   const minute=safe(e?.minute||'');
+   if(type==='goal')return '<span class="studioEventGoal">⚽ '+minute+'′</span>';
+   if(type==='on')return '<span class="studioEventOn">▲ on '+minute+'′</span>';
+   if(type==='off')return '<span class="studioEventOff">▼ off '+minute+'′</span>';
+   return '';
+ }).filter(Boolean).join(' · ');
+}
+function linkSafe(url){return /^https:\/\/[a-z0-9.-]+(?:\/|$)/i.test(String(url||''))?safe(url):'';}
+function historyMarkup(p){
+ const record=careerHistory[String(p.name||'').toLowerCase()];
+ if(!record||!record.clubs?.length)return p.previous_club?'<p class="clubText">'+safe(p.previous_club)+'</p>':'<p class="noClubs">Not yet confirmed</p>';
+ const list=record.clubs.map(item=>'<li><strong>'+safe(item.club)+'</strong>'+(item.period?' <span class="clubPeriod">'+safe(item.period)+'</span>':'')+(item.note?' <span class="clubNote">('+safe(item.note)+')</span>':'')+'</li>').join('');
+ const sources=(record.sources||[]).filter(s=>linkSafe(s.url)).map(s=>'<a href="'+linkSafe(s.url)+'" target="_blank" rel="noopener noreferrer">'+safe(s.label)+'</a>');
+ if(linkSafe(record.archiveUrl))sources.push('<a href="'+linkSafe(record.archiveUrl)+'" target="_blank" rel="noopener noreferrer">Tivvy Archive</a>');
+ return '<ul class="clubList">'+list+'</ul>'+(sources.length?'<details class="clubSources"><summary>Sources ('+sources.length+')</summary><div>'+sources.join(' · ')+'</div></details>':'');
+}
+function matchMarkup(m){
+ const code=String(m.result||'').match(/\b[WDL]\b/)?.[0]||'';
+ const venue=String(m.venue||'').charAt(0).toUpperCase();
+ const tag=venue==='H'?'H':venue==='A'?'A':'';
+ const crest=linkSafe(verifiedOpponentCrest(m.opponent)||m.crest||'');
+ const date=String(m.date||'').match(/^\d{4}-(\d{2})-(\d{2})$/);
+ return '<div class="studioMatch">'+
+   '<strong class="studioResult '+safe(code)+'">'+safe(code||'—')+'</strong>'+
+   '<span class="studioDate">'+safe(date?date[2]+'/'+date[1]:m.date)+'</span>'+
+   '<span class="studioOpponent">'+(crest?'<img class="matchCrest" src="'+crest+'" alt="" onerror="this.style.display=\'none\'">':'')+safe(m.opponent||'')+'</span>'+
+   '<span class="studioVenue">'+safe(tag)+'</span>'+
+   '<span class="studioIncidents">'+matchEvents(m)+'</span></div>';
+}
+function cardMarkup(p){
+ const a=savedPlacements[p.id]||[-25,0,100,0,0,0,0,0,-20,200,0];
+ const [photoX,photoY,photoScale,nameX,nameY,positionX,positionY,brushX,brushY,brushSize,panelY]=a;
+ const stat=p.stats||{};
+ const statFields=[['apps','APPS'],['starts','STARTS'],['goals','GOALS'],['minutes','MINS*'],['yellowCards','YELLOW'],['redCards','RED']];
+ const stats=statFields.map(([k,l])=>'<div class="studioStat '+(k==='yellowCards'?'yellow':k==='redCards'?'red':'')+'"><strong>'+safe(stat[k]??'—')+'</strong><small>'+(k==='yellowCards'?'<i class="cardMarker yellow"></i>':k==='redCards'?'<i class="cardMarker red"></i>':'')+l+'</small></div>').join('');
+ const matchRows=(p.matches||[]).slice(0,5).map(matchMarkup).join('')||'<p class="noClubs">Match details awaiting verification.</p>';
+ const pos=safe(p.position||'Position to confirm');
+ const clubs=historyMarkup(p);
+ const sponsor=String(p.confirmedSponsor||'').trim();
+ const brush=(p.id==='louis-smith'?purple:yellow);
+ const photoStyle='translate('+photoX+'px,'+photoY+'px) scale('+(photoScale/100)+')';
+ const nameStyle='translate('+nameX+'px,'+nameY+'px)';
+ const posStyle='translate('+positionX+'px,'+positionY+'px) skewX(-12deg)';
+ const brushStyle='translate('+brushX+'px,'+brushY+'px) scale('+(brushSize/100)+')';
+ return '<div class="cardViewport showcaseViewport"><article class="cardStudio">'+
+ '<section class="studioHero"><img class="studioBrush" alt="" src="'+brush+'" style="transform:'+brushStyle+'">'+
+ '<div class="studioNameBar" style="transform:'+nameStyle+'"><h2 class="studioName">'+safe(p.name)+'</h2></div>'+
+ '<div class="studioPosition" style="transform:'+posStyle+'">'+pos+'</div>'+
+ '<img class="studioPhoto" alt="" src="'+photos[p.id]+'" style="transform:'+photoStyle+'"></section>'+
+ '<section class="studioLower" style="transform:translateY('+panelY+'px)"><div class="detailArea">'+
+ '<div class="studioClubIdentity"><img src="'+tivvyCrest+'" alt="Tiverton Town crest"> TIVERTON TOWN · 2026/27</div><h3>PLAYER DETAILS</h3><div class="studioStatGrid">'+stats+'</div>'+
+ '<div class="studioInfoGrid"><div class="infoMatches"><h3>LAST FIVE APPEARANCES</h3><div class="studioMatches">'+matchRows+'</div></div>'+
+ '<div class="infoCareer"><h3>PREVIOUS CLUBS</h3>'+clubs+
+ '<h3>SPONSOR</h3>'+(sponsor?'<p class="sponsorText">'+safe(sponsor)+'</p>':'<p class="noClubs">Sponsorship not listed</p>')+
+ '<p class="matchCentreReminder">For full match-by-match statistics, open the Match Centre and <strong>search for this player again</strong> in the Players tab.</p>'+
+ '<a class="playerLink" href="'+DATA_LINK+'" target="_blank" rel="noopener">MORE PLAYER STATS · MATCH CENTRE ↗</a></div></div>'+
+ '</div></section></article></div>';
+}
+function addPlayer(p,container){
+ const wrapper=document.createElement('article');
+ wrapper.className='showcasePlayer'+(p.status==='departed'?' formerPlayer':'');
+ wrapper.id='player-'+p.id;
+ wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="false">Show details +</button></div>'+cardMarkup(p);
+ const button=wrapper.querySelector('.playerClose');
+ button.addEventListener('click',()=>{
+   const opening=!wrapper.classList.contains('expanded');
+   wrapper.classList.toggle('expanded',opening);
+   button.textContent=opening?'Close player ✕':'Show details +';
+   button.setAttribute('aria-expanded',String(opening));
+   fitCards();
+ });
+ container.appendChild(wrapper);
+ return wrapper;
+}
+function fitCards(){
+ document.querySelectorAll('.showcaseViewport').forEach(viewport=>{
+   const element=viewport.querySelector('.cardStudio');
+   if(!element)return;
+   const factor=Math.min(1,viewport.clientWidth/850);
+   element.style.transform='scale('+factor+')';
+   const player=viewport.closest('.showcasePlayer');
+   const lower=element.querySelector('.studioLower');
+   const collapsedBottom=Math.max(0,lower.offsetTop-9);
+   const fullHeight=Math.max(element.scrollHeight,lower.offsetTop+lower.offsetHeight+36);
+   viewport.style.height=Math.ceil((player?.classList.contains('expanded')?fullHeight:collapsedBottom)*factor+3)+'px';
+ });
+}
+window.addEventListener('resize',fitCards);
+Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json').then(r=>r.json())]).then(([s,d])=>{let fs=d.fixtures||[];function compute(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,matches=[];for(const f of fs){if(f.upcoming)continue;let x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(z=>z.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const n=v=>{const q=String(v||'').match(/^(\d+)(?:\+(\d+))?/);return q?Number(q[1])+Number(q[2]||0):null};const on=x.sub?n(x.onMinute):0,off=n(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const card of x.cards||[]){if(/yellow/i.test(card.type||''))yellowCards++;if(/red|sending_off/i.test(card.type||''))redCards++}matches.push({date:f.date,opponent:f.opponent,crest:f.opponentLogoUrl||'',venue:f.venue,result:(()=>{const score=String(f.result||'').match(/^(\d+)\s*[-–:]\s*(\d+)$/);return !score?'':Number(score[1])>Number(score[2])?'W':Number(score[1])<Number(score[2])?'L':'D'})(),events:[...(x.goalMinutes||[]).map(t=>({type:'goal',minute:t})),...(x.sub&&x.onMinute?[{type:'on',minute:x.onMinute}]:[]),...(x.offMinute?[{type:'off',minute:x.offMinute}]:[])]})}matches.sort((a,b)=>b.date.localeCompare(a.date));return{stats:{apps,starts,goals,minutes,yellowCards,redCards},matches:matches.slice(0,5)}};const mount=document.getElementById('groups');
+ const regions={};
+ for(const group of GROUPS){
+   const section=document.createElement('section');
+   section.className='positionGroup';
+   section.id=group.id;
+   section.innerHTML='<h2 class="groupTitle">'+group.title+' <span class="groupCount" id="count-'+group.id+'"></span></h2><div class="groupCards"></div>';
+   mount.appendChild(section);
+   regions[group.id]=section.querySelector('.groupCards');
+ }
+ const counts=Object.fromEntries(GROUPS.map(g=>[g.id,0]));
+ for(const p of s.players||[]){
+   if(!photos[p.id])continue;
+   const saved=editorial[p.id]||[];
+   const z={...p,...compute(p.name),position:saved[0]||p.position||'Position to confirm',previous_club:saved[1]||p.previous_club||'',confirmedSponsor:saved[2]||p.sponsorships?.['2026/27']?.sponsor_name||''};
+   if(['ed-palmer','lewis-flowers'].includes(p.id)){
+     z.status='departed';
+     addPlayer(z,document.getElementById('formerCards'));
+   }else if(!['caleb-price-hall','caleb-pryce-hall','finn-hodge'].includes(p.id)&&p.status!=='on_loan'&&p.status!=='departed'){
+     const category=categoryFor(z);
+     counts[category]++;
+     addPlayer(z,regions[category]);
+   }
+ }
+ for(const group of GROUPS)document.getElementById('count-'+group.id).textContent='('+counts[group.id]+')';
+ for(const [id,n] of Object.entries({...counts,former:document.querySelectorAll('#formerCards .showcasePlayer').length})){
+   const badge=document.querySelector('.squadTab [data-count="'+id+'"]');
+   if(badge)badge.textContent='('+n+')';
+ }
+ selectGroup('goalkeepers');
+ requestAnimationFrame(fitCards);
+}).catch(e=>{const note=document.querySelector('.showcaseNote');if(note)note.textContent='Preview data unavailable: '+e.message;})
+</script></html>

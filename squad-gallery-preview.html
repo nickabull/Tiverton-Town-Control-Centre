@@ -34,7 +34,43 @@
 .studioSponsor{margin-top:21px;border-top:1px solid #aaa;padding-top:13px;color:#fff;font-size:13px}.studioSponsor b{display:inline-block;background:#ffd800;color:#111;padding:8px 13px;margin-right:14px;font:600 13px Antonio,Impact,sans-serif}
 .cardStudio .studioLower h3{font-size:26px}
 @media(max-width:650px){.studioIncidents{font-size:11px}}
-</style><header><h1>TIVVY PLAYER CARDS</h1><small>Private design preview · 2026/27 · not linked from the public navigation</small></header><main class="wrap"><div class="note">PREVIEW ONLY — current figures are subject to final verification. Biographies omitted as agreed. Select any player to see the full black-and-gold card.</div><h2>First Team</h2><section id="grid" class="grid"></section><h2>Former Players</h2><section id="former" class="grid"></section></main><dialog id="detail"><button class="close" onclick="document.getElementById('detail').close()">✕ Close</button><div id="card"></div></dialog><script>
+
+/* Squad showcase V2: full approved 850px composition, grouped by playing position. */
+.showcaseWrap{max-width:1120px;margin:auto;padding:22px 18px 60px}
+.showcaseNote{background:#242424;border-left:5px solid #ffd800;padding:12px 16px;margin:10px 0 26px;line-height:1.5}
+.positionGroup{margin:34px 0 42px}
+.groupTitle{font:700 39px/1.15 Antonio,Impact,sans-serif;text-transform:uppercase;border-bottom:3px solid #ffd800;padding:0 0 12px;margin:0 0 20px;color:#ffd800}
+.groupCount{font:600 16px Arial,sans-serif;color:#ddd;margin-left:14px}
+.showcasePlayer{width:min(100%,930px);margin:0 auto 34px;background:#111;border:1px solid #555;padding:12px 12px 18px}
+.playerControl{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#ffd800;font:600 20px Antonio,Impact,sans-serif;padding:0 6px 10px}
+.playerClose{border:2px solid #ef3340;background:transparent;color:#ff666b;padding:10px 14px;font:600 18px Antonio,Impact,sans-serif;text-transform:uppercase;cursor:pointer}
+.playerClose:focus-visible,.playerLink:focus-visible{outline:3px solid #2782ef;outline-offset:3px}
+.showcaseViewport{width:min(100%,850px);overflow:hidden;margin:0 auto;background:white}
+.showcasePlayer .cardStudio{margin:0}
+.showcasePlayer .studioLower{margin:0}
+.showcasePlayer .studioInfoGrid{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.87fr);gap:22px;margin:16px 0 2px}
+.showcasePlayer .studioInfoGrid h3{font-size:24px;margin:0 0 10px;padding:9px 0 5px;border-top:1px solid #888}
+.showcasePlayer .studioInfoGrid h3:not(:first-child){margin-top:16px}
+.showcasePlayer .studioInfoGrid .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 18px;gap:6px;font-size:12px;padding:8px 0}
+.showcasePlayer .studioInfoGrid .studioIncidents{grid-column:2 / -1;text-align:right;font:600 12px Arial,sans-serif;text-transform:none;min-height:0}
+.showcasePlayer .studioInfoGrid .studioOpponent{overflow-wrap:anywhere}
+.showcasePlayer .studioInfoGrid .studioVenue{font-size:11px}
+.showcasePlayer .studioInfoGrid .studioMatches{margin-bottom:0}
+.showcasePlayer .studioInfoGrid .clubText{font-size:15px;line-height:1.55;margin:5px 0 16px}
+.showcasePlayer .studioInfoGrid .noClubs{font-size:13px;color:#aaa;font-style:italic}
+.showcasePlayer .studioInfoGrid .sponsorText{font-size:14px;line-height:1.5;margin:6px 0 13px}
+.showcasePlayer .playerLink{display:block;background:#b8202d;color:#fff;font:700 18px Antonio,Impact,sans-serif;text-decoration:none;text-align:center;padding:12px 9px;margin-top:18px}
+.showcasePlayer .studioEventOn{color:#4bd278}.showcasePlayer .studioEventOff{color:#ff5e70}.showcasePlayer .studioEventGoal{color:#5aaeff}
+.showcasePlayer .detailArea[hidden]{display:none!important}
+.showcasePlayer .studioLower.shrunk{padding-bottom:12px}
+.showcasePlayer.formerPlayer .cardStudio{filter:grayscale(1);opacity:.72}
+.showcasePlayer.formerPlayer{border-color:#777}
+@media(max-width:620px){.showcaseWrap{padding:12px 6px}.positionGroup{margin-top:24px}.groupTitle{font-size:30px}.showcasePlayer{padding:5px}.playerControl{font-size:15px}.playerClose{font-size:14px;padding:7px 10px}}
+</style><header><h1>TIVVY PLAYER CARDS</h1><small>2026/27 · private squad showcase · test version, not the public Wix page</small></header>
+<main class="showcaseWrap"><div class="showcaseNote"><b>PREVIEW ONLY.</b> Your original player-photo, name, position and swoosh coordinates are preserved. Match statistics are being checked against the season's complete records. Every full card is open by default; the red control collapses details if needed.</div>
+<div id="groups"></div>
+<section class="positionGroup" id="formerSection"><h2 class="groupTitle">Former Players</h2><div id="formerCards"></div></section>
+</main><script>
 const photos={"aaron-wellington":"https://static.wixstatic.com/media/8aa829_341ebcb77e794cd2b0fe7534293a6c2d~mv2.png","aiden-horne":"https://static.wixstatic.com/media/8aa829_012f1fbb61014842b6a897ea8efb7446~mv2.png","asa-hall":"https://static.wixstatic.com/media/8aa829_37b4ea236d174d5a90824e7d396ee1f1~mv2.png","billy-tucker":"https://static.wixstatic.com/media/8aa829_72a3e03e9f8e49b29a83633bbb4bf11e~mv2.png","corey-koerner":"https://static.wixstatic.com/media/8aa829_b76b9523565343d99d3301c915aa4977~mv2.png","dan-koita":"https://static.wixstatic.com/media/8aa829_1f5a4cedd9e043dbae78b14dc7db3c9d~mv2.png","ed-palmer":"https://static.wixstatic.com/media/8aa829_1b54df80b2c94ae2a906bdf9851d15f8~mv2.png","finn-hodge":"https://static.wixstatic.com/media/8aa829_f4b68ebbbf01431daec2f0164f1f9430~mv2.png","finn-roberts":"https://static.wixstatic.com/media/8aa829_ae75aa2346974e80946c94cd679f3791~mv2.png","jack-kennell":"https://static.wixstatic.com/media/8aa829_e48c892b583f4b76b20703891c56ff4f~mv2.png","jacob-wellington":"https://static.wixstatic.com/media/8aa829_79191ea70db34e93897042ac05f18685~mv2.png","josh-bissett":"https://static.wixstatic.com/media/8aa829_3d1548970ffb40b5ae8b97b5b6fb193f~mv2.png","karim-coulibaly":"https://static.wixstatic.com/media/8aa829_256e163a46014a26beef49ef434ac967~mv2.png","louie-slough":"https://static.wixstatic.com/media/8aa829_6684a7b2e03c4b299c56ec07291bf83d~mv2.png","louis-jagger-cane":"https://static.wixstatic.com/media/8aa829_6e9c403d1b0b465ea12d55eab1ae2e88~mv2.png","louis-smith":"https://static.wixstatic.com/media/8aa829_b1be1b6074694a0ca185d115564c7e52~mv2.png","mason-winter":"https://static.wixstatic.com/media/8aa829_6fc4a5a9d42144d488e87046a3b34adb~mv2.png","matt-wood":"https://static.wixstatic.com/media/8aa829_8289ed63195e4553a0dfffd918ce04f0~mv2.png","owen-howe":"https://static.wixstatic.com/media/8aa829_e6b7e0879c31459c8705b8af6de9ce4b~mv2.png","ryan-keates":"https://static.wixstatic.com/media/8aa829_a93fe520111741d5998d0737ff3499d0~mv2.png","tobias-alsop":"https://static.wixstatic.com/media/8aa829_8cc51513e6744f85997af6914de5dcc8~mv2.png","toby-stephens":"https://static.wixstatic.com/media/8aa829_aee9bfe88b324647a64023f388be7c85~mv2.png"};
 const yellow="https://static.wixstatic.com/media/8aa829_81efb7b2c16545dd9be6c263ddacfeae~mv2.png",purple="https://static.wixstatic.com/media/8aa829_577ea00227df4e88a88a3b109b717166~mv2.png";
 // Editorial values taken from the player's exported Studio JSON; do not replace with generic squad fallbacks.
@@ -42,55 +78,121 @@ const editorial={"louis-smith":["Goalkeeper","","Dave Lewis & Roclad Limited"],"
 const savedPlacements={"finn-roberts":[-20,-5,100,0,0,0,0,0,-20,200,0],"jack-kennell":[-455,0,105,375,0,365,0,0,-20,200,0],"jacob-wellington":[-530,0,110,240,0,225,0,0,-20,200,0],"josh-bissett":[-445,0,140,385,0,370,0,0,-20,200,0],"karim-coulibaly":[-540,-5,100,275,0,265,0,0,-20,200,0],"lewis-flowers":[0,0,100,0,0,0,0,0,-20,115,0],"louie-slough":[-25,120,140,0,0,0,0,0,-20,200,0],"louis-jagger-cane":[-535,0,100,235,0,215,0,0,-20,200,0],"louis-smith":[-25,-5,100,0,0,0,0,25,-5,200,0],"mason-winter":[-495,0,130,350,0,330,0,0,-20,200,0],"matt-wood":[-520,90,130,445,0,430,0,0,-20,200,0],"owen-howe":[0,0,115,0,0,0,0,0,-20,200,0],"ryan-keates":[-35,55,135,0,0,0,0,0,-20,200,0],"tobias-alsop":[0,0,105,0,0,0,0,0,-20,200,0],"toby-stephens":[0,30,115,0,0,0,0,0,-20,200,0],"aaron-wellington":[10,0,115,0,0,0,0,0,-20,200,0],"aiden-horne":[-265,25,125,410,0,390,0,0,-20,200,0],"asa-hall":[-5,95,130,0,0,0,0,0,-20,200,0],"billy-tucker":[-35,0,115,0,0,0,0,0,-20,200,0],"caleb-pryce-hall":[0,0,100,0,0,0,0,0,-20,115,0],"corey-koerner":[10,0,110,0,0,0,0,0,-20,200,0],"dan-koita":[-25,-5,100,0,0,0,0,0,-20,200,0],"ed-palmer":[-500,80,125,465,0,440,0,0,-20,200,0],"finn-hodge":[-380,35,120,435,0,430,0,0,-20,200,0]};
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-function cell(p){let left=['matt-wood','jacob-wellington'].includes(p.id),g=p.id==='louis-smith';let article=document.createElement('button');article.className='tile'+(left?' left':'')+(p.status==='departed'?' former':'');article.innerHTML='<div class="art"><img class="sw" src="'+(g?purple:yellow)+'"><img class="face" src="'+photos[p.id]+'"></div><div class="txt"><div class="name">'+safe(p.name)+'</div><div class="pos">'+safe(p.position||'First Team')+'</div></div>';article.onclick=()=>show(p,left,g,article);return article}
-function fitCard(){
- const viewport=document.querySelector('#inlineExpansion .cardViewport');const element=document.querySelector('#inlineExpansion .cardStudio');
- if(!viewport||!element)return;
- const available=viewport.clientWidth;
- const factor=Math.min(1,available/850);
- element.style.transform='scale('+factor+')';
- viewport.style.height=Math.ceil(element.scrollHeight*factor)+'px';
+
+const GROUPS=[
+  {id:'goalkeepers',title:'Goalkeepers',description:['goalkeeper']},
+  {id:'defenders',title:'Defenders',description:['defender','centre back','central defender','full back']},
+  {id:'midfielders',title:'Midfielders',description:['midfield','midfielder','winger']},
+  {id:'attackers',title:'Attackers',description:['attacker','striker','forward']}
+];
+const DATA_LINK='https://www.tivertontownfc.uk/match-centre';
+function categoryFor(p){
+ const role=String(p.position||'').trim().toLowerCase();
+ const group=GROUPS.find(g=>g.description.some(word=>role.includes(word)));
+ return group?.id||'midfielders';
 }
-function show(p,left,g,tile){
+function matchEvents(m){
+ return (m.events||[]).map(e=>{
+   const type=e?.type||'';
+   const minute=safe(e?.minute||'');
+   if(type==='goal')return '<span class="studioEventGoal">⚽ '+minute+'′</span>';
+   if(type==='on')return '<span class="studioEventOn">▲ on '+minute+'′</span>';
+   if(type==='off')return '<span class="studioEventOff">▼ off '+minute+'′</span>';
+   return '';
+ }).filter(Boolean).join(' · ');
+}
+function matchMarkup(m){
+ const code=String(m.result||'').match(/\b[WDL]\b/)?.[0]||'';
+ const venue=String(m.venue||'').charAt(0).toUpperCase();
+ const tag=venue==='H'?'H':venue==='A'?'A':'';
+ const date=String(m.date||'').match(/^\d{4}-(\d{2})-(\d{2})$/);
+ return '<div class="studioMatch">'+
+   '<strong class="studioResult '+safe(code)+'">'+safe(code||'—')+'</strong>'+
+   '<span class="studioDate">'+safe(date?date[2]+'/'+date[1]:m.date)+'</span>'+
+   '<span class="studioOpponent">'+safe(m.opponent||'')+'</span>'+
+   '<span class="studioVenue">'+safe(tag)+'</span>'+
+   '<span class="studioIncidents">'+matchEvents(m)+'</span></div>';
+}
+function cardMarkup(p){
  const a=savedPlacements[p.id]||[-25,0,100,0,0,0,0,0,-20,200,0];
  const [photoX,photoY,photoScale,nameX,nameY,positionX,positionY,brushX,brushY,brushSize,panelY]=a;
  const stat=p.stats||{};
- const keys=[['apps','APPS'],['starts','STARTS'],['goals','GOALS'],['minutes','MINS*'],['yellowCards','YELLOW'],['redCards','RED']];
- const stats=keys.map(([k,l])=>'<div class="studioStat '+(k==='yellowCards'?'yellow':k==='redCards'?'red':'')+'"><strong>'+safe(stat[k]??'—')+'</strong><small>'+(k==='yellowCards'?'<i class="cardMarker yellow"></i>':k==='redCards'?'<i class="cardMarker red"></i>':'')+l+'</small></div>').join('');
- const matches=(p.matches||[]).slice(0,5).map(m=>{
-   const code=String(m.result||'').match(/\b[WDL]\b/)?.[0]||'';
-   const result=code||'—';
-   const venue=String(m.venue||'').charAt(0).toUpperCase();
-   const tag=venue==='H'?'H':venue==='A'?'A':'';
-   const played=String(m.date||'').match(/^\d{4}-(\d{2})-(\d{2})$/);
-   const date=played?(played[2]+'/'+played[1]):String(m.date||'');
-   const incidents=(m.events||[]).join(' ');
-   return '<div class="studioMatch"><strong class="studioResult '+safe(code)+'">'+safe(result)+'</strong><span class="studioDate">'+safe(date)+'</span><span class="studioOpponent">'+safe(m.opponent||'')+'</span><span class="studioVenue">'+safe(tag)+'</span><span class="studioIncidents">'+safe(incidents)+'</span></div>';
- }).join('')||'<p>Match records to be verified.</p>';
- const paint=(g?purple:yellow);
- const brushStyle='translate('+brushX+'px,'+brushY+'px) scale('+(brushSize/100)+')';
+ const statFields=[['apps','APPS'],['starts','STARTS'],['goals','GOALS'],['minutes','MINS*'],['yellowCards','YELLOW'],['redCards','RED']];
+ const stats=statFields.map(([k,l])=>'<div class="studioStat '+(k==='yellowCards'?'yellow':k==='redCards'?'red':'')+'"><strong>'+safe(stat[k]??'—')+'</strong><small>'+(k==='yellowCards'?'<i class="cardMarker yellow"></i>':k==='redCards'?'<i class="cardMarker red"></i>':'')+l+'</small></div>').join('');
+ const matchRows=(p.matches||[]).slice(0,5).map(matchMarkup).join('')||'<p class="noClubs">Match details awaiting verification.</p>';
+ const pos=safe(p.position||'Position to confirm');
+ const oldClubs=String(p.previous_club||'').trim();
+ const sponsor=String(p.confirmedSponsor||'').trim();
+ const brush=(p.id==='louis-smith'?purple:yellow);
  const photoStyle='translate('+photoX+'px,'+photoY+'px) scale('+(photoScale/100)+')';
  const nameStyle='translate('+nameX+'px,'+nameY+'px)';
  const posStyle='translate('+positionX+'px,'+positionY+'px) skewX(-12deg)';
- document.getElementById('card').innerHTML='<div class="cardViewport"><article class="cardStudio">'+
- '<section class="studioHero"><img class="studioBrush" alt="" src="'+paint+'" style="transform:'+brushStyle+'">'+
+ const brushStyle='translate('+brushX+'px,'+brushY+'px) scale('+(brushSize/100)+')';
+ return '<div class="cardViewport showcaseViewport"><article class="cardStudio">'+
+ '<section class="studioHero"><img class="studioBrush" alt="" src="'+brush+'" style="transform:'+brushStyle+'">'+
  '<div class="studioNameBar" style="transform:'+nameStyle+'"><h2 class="studioName">'+safe(p.name)+'</h2></div>'+
- '<div class="studioPosition" style="transform:'+posStyle+'">'+safe(p.position||'First Team')+'</div>'+
+ '<div class="studioPosition" style="transform:'+posStyle+'">'+pos+'</div>'+
  '<img class="studioPhoto" alt="" src="'+photos[p.id]+'" style="transform:'+photoStyle+'"></section>'+
- '<section class="studioLower" style="transform:translateY('+panelY+'px)"><h3>PLAYER DETAILS</h3><div class="studioStatGrid">'+stats+'</div>'+
- '<h3>LAST FIVE APPEARANCES</h3><div class="studioMatches">'+matches+'</div>'+
- (p.previous_club?'<h3>PREVIOUS CLUBS</h3><p>'+safe(p.previous_club)+'</p>':'')+
- (p.confirmedSponsor?'<div class="studioSponsor"><b>SPONSORED BY</b> '+safe(p.confirmedSponsor)+'</div>':'')+
- '</section></article></div>';
- const old=document.getElementById('inlineExpansion');
- if(old)old.remove();
- const expanded=document.createElement('section');
- expanded.id='inlineExpansion';expanded.className='inlineExpansion';
- expanded.innerHTML='<div class="inlineTop"><b>PLAYER CARD · '+safe(p.name)+'</b><button type="button" class="inlineClose" aria-label="Close player card">✕ HIDE DETAILS</button></div>'+document.getElementById('card').innerHTML;
- tile.after(expanded);
- expanded.querySelector('.inlineClose').onclick=()=>expanded.remove();
- requestAnimationFrame(()=>{fitCard();expanded.scrollIntoView({block:'nearest',behavior:'smooth'})});
+ '<section class="studioLower" style="transform:translateY('+panelY+'px)"><div class="detailArea">'+
+ '<h3>PLAYER DETAILS</h3><div class="studioStatGrid">'+stats+'</div>'+
+ '<div class="studioInfoGrid"><div class="infoMatches"><h3>LAST FIVE APPEARANCES</h3><div class="studioMatches">'+matchRows+'</div></div>'+
+ '<div class="infoCareer"><h3>PREVIOUS CLUBS</h3>'+(oldClubs?'<p class="clubText">'+safe(oldClubs)+'</p>':'<p class="noClubs">Not yet confirmed</p>')+
+ '<h3>SPONSOR</h3>'+(sponsor?'<p class="sponsorText">'+safe(sponsor)+'</p>':'<p class="noClubs">Sponsorship not listed</p>')+
+ '<a class="playerLink" href="'+DATA_LINK+'" target="_blank" rel="noopener">MORE PLAYER STATS · MATCH CENTRE ↗</a></div></div>'+
+ '</div></section></article></div>';
 }
-window.addEventListener('resize',()=>{if(document.getElementById('inlineExpansion'))fitCard()});
-Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json').then(r=>r.json())]).then(([s,d])=>{let fs=d.fixtures||[];function compute(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,matches=[];for(const f of fs){if(f.upcoming)continue;let x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(z=>z.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const n=v=>{const q=String(v||'').match(/^(\d+)(?:\+(\d+))?/);return q?Number(q[1])+Number(q[2]||0):null};const on=x.sub?n(x.onMinute):0,off=n(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const card of x.cards||[]){if(/yellow/i.test(card.type||''))yellowCards++;if(/red|sending_off/i.test(card.type||''))redCards++}matches.push({date:f.date,opponent:f.opponent,venue:f.venue,result:(()=>{const score=String(f.result||'').match(/^(\d+)\s*[-–:]\s*(\d+)$/);return !score?'':Number(score[1])>Number(score[2])?'W':Number(score[1])<Number(score[2])?'L':'D'})(),events:[...(x.goalMinutes||[]).map(t=>'⚽ '+t+'′'),x.onMinute?'▲ on '+x.onMinute+'′':'',x.offMinute?'▼ off '+x.offMinute+'′':''].filter(Boolean)})}matches.sort((a,b)=>b.date.localeCompare(a.date));return{stats:{apps,starts,goals,minutes,yellowCards,redCards},matches:matches.slice(0,5)}};for(const p of s.players||[]){if(!photos[p.id])continue;const saved=editorial[p.id]||[];const z={...p,...compute(p.name),position:saved[0]||p.position||'Position to confirm',previous_club:saved[1]||p.previous_club||'',confirmedSponsor:saved[2]||p.sponsorships?.['2026/27']?.sponsor_name||''};if(['ed-palmer','lewis-flowers'].includes(p.id)){z.status='departed';document.getElementById('former').appendChild(cell(z))}else if(!['caleb-price-hall','caleb-pryce-hall','finn-hodge'].includes(p.id)&&p.status!=='on_loan'&&p.status!=='departed'){document.getElementById('grid').appendChild(cell(z))}}}).catch(e=>document.querySelector('.note').textContent='Preview data unavailable: '+e.message)
+function addPlayer(p,container){
+ const wrapper=document.createElement('article');
+ wrapper.className='showcasePlayer'+(p.status==='departed'?' formerPlayer':'');
+ wrapper.id='player-'+p.id;
+ wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="true">CLOSE PLAYER ✕</button></div>'+cardMarkup(p);
+ const button=wrapper.querySelector('.playerClose');
+ button.addEventListener('click',()=>{
+   const area=wrapper.querySelector('.detailArea');
+   const isOpen=!area.hidden;
+   area.hidden=isOpen;
+   button.textContent=isOpen?'SHOW DETAILS +':'CLOSE PLAYER ✕';
+   button.setAttribute('aria-expanded',String(!isOpen));
+   fitCards();
+ });
+ container.appendChild(wrapper);
+ return wrapper;
+}
+function fitCards(){
+ document.querySelectorAll('.showcaseViewport').forEach(viewport=>{
+   const element=viewport.querySelector('.cardStudio');
+   if(!element)return;
+   const factor=Math.min(1,viewport.clientWidth/850);
+   element.style.transform='scale('+factor+')';
+   viewport.style.height=Math.ceil(element.scrollHeight*factor+3)+'px';
+ });
+}
+window.addEventListener('resize',fitCards);
+Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json').then(r=>r.json())]).then(([s,d])=>{let fs=d.fixtures||[];function compute(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,matches=[];for(const f of fs){if(f.upcoming)continue;let x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(z=>z.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const n=v=>{const q=String(v||'').match(/^(\d+)(?:\+(\d+))?/);return q?Number(q[1])+Number(q[2]||0):null};const on=x.sub?n(x.onMinute):0,off=n(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const card of x.cards||[]){if(/yellow/i.test(card.type||''))yellowCards++;if(/red|sending_off/i.test(card.type||''))redCards++}matches.push({date:f.date,opponent:f.opponent,venue:f.venue,result:(()=>{const score=String(f.result||'').match(/^(\d+)\s*[-–:]\s*(\d+)$/);return !score?'':Number(score[1])>Number(score[2])?'W':Number(score[1])<Number(score[2])?'L':'D'})(),events:[...(x.goalMinutes||[]).map(t=>({type:'goal',minute:t})),...(x.sub&&x.onMinute?[{type:'on',minute:x.onMinute}]:[]),...(x.offMinute?[{type:'off',minute:x.offMinute}]:[])]})}matches.sort((a,b)=>b.date.localeCompare(a.date));return{stats:{apps,starts,goals,minutes,yellowCards,redCards},matches:matches.slice(0,5)}};const mount=document.getElementById('groups');
+ const regions={};
+ for(const group of GROUPS){
+   const section=document.createElement('section');
+   section.className='positionGroup';
+   section.id=group.id;
+   section.innerHTML='<h2 class="groupTitle">'+group.title+' <span class="groupCount" id="count-'+group.id+'"></span></h2><div class="groupCards"></div>';
+   mount.appendChild(section);
+   regions[group.id]=section.querySelector('.groupCards');
+ }
+ const counts=Object.fromEntries(GROUPS.map(g=>[g.id,0]));
+ for(const p of s.players||[]){
+   if(!photos[p.id])continue;
+   const saved=editorial[p.id]||[];
+   const z={...p,...compute(p.name),position:saved[0]||p.position||'Position to confirm',previous_club:saved[1]||p.previous_club||'',confirmedSponsor:saved[2]||p.sponsorships?.['2026/27']?.sponsor_name||''};
+   if(['ed-palmer','lewis-flowers'].includes(p.id)){
+     z.status='departed';
+     addPlayer(z,document.getElementById('formerCards'));
+   }else if(!['caleb-price-hall','caleb-pryce-hall','finn-hodge'].includes(p.id)&&p.status!=='on_loan'&&p.status!=='departed'){
+     const category=categoryFor(z);
+     counts[category]++;
+     addPlayer(z,regions[category]);
+   }
+ }
+ for(const group of GROUPS)document.getElementById('count-'+group.id).textContent='('+counts[group.id]+')';
+ requestAnimationFrame(fitCards);
+}).catch(e=>document.querySelector('.note').textContent='Preview data unavailable: '+e.message)
 </script></html>

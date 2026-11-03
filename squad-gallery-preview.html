@@ -189,6 +189,31 @@ body>header.squadSiteHeader h1{
 
 /* Retain original brush silhouette, recoloured precisely to official #FFD800. */
 .cardStudio .exactYellowBrush{background-color:#ffd800;-webkit-mask-image:var(--brush-url);mask-image:var(--brush-url);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+
+/* Lock H/A to the far right; goal/substitution events sit immediately to its left. */
+.showcasePlayer .studioInfoGrid .studioMatch{
+  grid-template-columns:24px 35px minmax(0,1fr) minmax(75px,auto) 20px!important;
+}
+.showcasePlayer .studioInfoGrid .studioMatch .studioIncidents{
+  grid-column:4!important;
+  grid-row:1!important;
+  text-align:right!important;
+  min-width:0;
+  white-space:normal!important;
+}
+.showcasePlayer .studioInfoGrid .studioMatch .studioVenue{
+  grid-column:5!important;
+  grid-row:1!important;
+  width:20px;
+  justify-self:end;
+}
+@media(max-width:650px){
+  .showcasePlayer .studioInfoGrid .studioMatch{
+    grid-template-columns:20px 31px minmax(0,1fr) minmax(55px,auto) 20px!important;
+    gap:3px!important;
+  }
+}
+
 </style><header class="squadSiteHeader"><img src="https://static.wixstatic.com/media/8aa829_88bbff928f6b42f49eba4aef6c32fcb2~mv2.png" alt="Tiverton Town FC crest" width="78" height="78"><div><h1>First Team Squad</h1><p>2026/27 · Southern League Division One South</p></div></header>
 <main class="showcaseWrap">
 <nav class="squadTabs" aria-label="Squad positions">

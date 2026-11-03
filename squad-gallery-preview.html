@@ -35,6 +35,28 @@
 .cardStudio .studioLower h3{font-size:26px}
 @media(max-width:650px){.studioIncidents{font-size:11px}}
 
+/* V3: collapsed cards end at the exact top border of the detailed panel */
+.showcasePlayer:not(.expanded) .showcaseViewport{overflow:hidden}
+.showcasePlayer:not(.expanded) .studioLower{visibility:hidden}
+.showcasePlayer.expanded .studioLower{visibility:visible}
+.showcasePlayer .clubList{list-style:none;padding:0;margin:8px 0 14px;display:flex;flex-wrap:wrap;gap:6px 13px;font:14px/1.4 Arial,sans-serif}
+.showcasePlayer .clubList li{min-width:120px;flex:1 1 160px;border-bottom:1px solid #444;padding:6px 0}
+.showcasePlayer .clubList strong{display:block;color:#fff}
+.showcasePlayer .clubPeriod{color:#ffd800;font-size:12px}
+.showcasePlayer .clubNote{display:block;color:#aaa;font-size:11px}
+.showcasePlayer .clubSources{margin-top:10px;border-top:1px solid #555;padding:8px 0;color:#ddd;font-size:12px}
+.showcasePlayer .clubSources summary{cursor:pointer;color:#ffd800}
+.showcasePlayer .clubSources a{color:#fff;text-decoration:underline;line-height:1.75}
+.showcasePlayer .studioMatch{grid-template-columns:24px 35px minmax(0,1fr) 20px minmax(90px,auto)!important;align-items:center}
+.showcasePlayer .studioMatch .studioIncidents{grid-column:auto!important;text-align:right!important;font-size:11px}
+.showcasePlayer .studioMatch .studioOpponent{min-width:0}
+.showcasePlayer .studioMatch .matchCrest{width:16px;height:16px;object-fit:contain;vertical-align:-3px;margin-right:4px}
+.showcasePlayer .playerControl .playerClose{font:600 18px Antonio,Impact,sans-serif;border:2px solid #ef3340;background:transparent;color:#ff666b;min-height:45px}
+.showcasePlayer .playerControl .playerClose:hover{background:#ef3340;color:#fff}
+.showcasePlayer .playerControl .playerClose:focus-visible{outline:3px solid #2782ef;outline-offset:2px}
+.showcasePlayer .studioClubIdentity{display:flex;align-items:center;gap:8px;color:#ffd800;font:600 12px Antonio,Impact,sans-serif;margin-bottom:9px}
+.showcasePlayer .studioClubIdentity img{width:27px;height:27px;object-fit:contain}
+@media(max-width:650px){.showcasePlayer .studioMatch{grid-template-columns:24px 34px minmax(0,1fr) 18px!important}.showcasePlayer .studioMatch .studioIncidents{grid-column:3/-1!important}.showcasePlayer .studioInfoGrid{grid-template-columns:1fr!important}}
 /* Squad showcase V2: full approved 850px composition, grouped by playing position. */
 .showcaseWrap{max-width:1120px;margin:auto;padding:22px 18px 60px}
 .showcaseNote{background:#242424;border-left:5px solid #ffd800;padding:12px 16px;margin:10px 0 26px;line-height:1.5}
@@ -86,6 +108,8 @@ const GROUPS=[
   {id:'attackers',title:'Attackers',description:['attacker','striker','forward']}
 ];
 const DATA_LINK='https://www.tivertontownfc.uk/match-centre';
+const tivvyCrest="https://static.wixstatic.com/media/8aa829_88bbff928f6b42f49eba4aef6c32fcb2~mv2.png";
+const careerHistory={"aaron wellington":{"clubs":[{"club":"Brixham AFC","period":"2025/26"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=886"},"aiden horne":{"clubs":[{"club":"Cullompton Rangers"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-get-horne"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=808"},"asa hall":{"clubs":[{"club":"Birmingham City","period":"2004–2008"},{"club":"Boston United","period":"2006","note":"Loan"},{"club":"Ashford Town (Kent)","period":"2007","note":"Loan"},{"club":"Shrewsbury Town","period":"2008; 2012–2014","note":"First spell on loan"},{"club":"Luton Town","period":"2008–2010"},{"club":"Oxford United","period":"2010–2012; 2013","note":"Second spell on loan"},{"club":"Aldershot Town","period":"2013","note":"Loan"},{"club":"Cheltenham Town","period":"2014–2017"},{"club":"York City","period":"2017","note":"Loan"},{"club":"Barrow","period":"2017–2018"},{"club":"Torquay United","period":"2018–2024"}],"sources":[{"label":"Career record","url":"https://en.wikipedia.org/wiki/Asa_Hall"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=782"},"billy tucker":{"clubs":[{"club":"Bideford","period":"Debut 2012/13"}],"sources":[{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=892"},"caleb pryce-hall":{"clubs":[{"club":"Oldland Abbotonians"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=893"},"corey koerner":{"clubs":[{"club":"Yeovil Town","note":"Academy / first team"},{"club":"Plymouth Parkway","note":"Loan","period":"2024/25"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/welcome-corey-koerner"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=812"},"ed palmer":{"clubs":[{"club":"Torquay United"},{"club":"Truro City"},{"club":"Weymouth"},{"club":"Taunton Town"},{"club":"Bideford","period":"2015/16"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=481"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/the-robins-fly-in-for-challenge-cup-round-2"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=481"},"finn roberts":{"clubs":[{"club":"Bideford","period":"Includes 2023/24"}],"sources":[{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=891"},"jack kennell":{"clubs":[{"club":"Torquay United","note":"Academy"},{"club":"Willand Rovers"},{"club":"Exmouth Town"}],"sources":[{"label":"Club signing preview","url":"https://www.tivertontownfc.uk/post/match-preview-gosport-borough-1"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=825"},"jacob wellington":{"clubs":[{"club":"Torquay United","note":"Academy / first team"},{"club":"Willand Rovers","period":"2024/25"}],"sources":[{"label":"Club profile","url":"https://www.tivertontownfc.uk/post/yellows-return-for-wellington"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=810"},"josh bissett":{"clubs":[{"club":"Exeter City","note":"Academy"},{"club":"Exmouth Town"},{"club":"Mousehole"},{"club":"Bristol Manor Farm","period":"2024/25"},{"club":"Falmouth Town","period":"2026"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/bissett-signs-for-the-yellows"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=895"},"karim coulibaly":{"clubs":[{"club":"Sidmouth Town"}],"sources":[{"label":"Club profile","url":"https://www.tivertontownfc.uk/post/asa-hall-s-side-looks-for-a-match-made-in-heaven-as-gosport-visit-a-dampened-mid-devon"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=823"},"louie slough":{"clubs":[{"club":"Torquay United"},{"club":"Dorchester Town","period":"2022/23–2023/24","note":"Also an earlier loan spell"},{"club":"Taunton Town"},{"club":"Bideford","period":"Joined 2023/24"}],"sources":[{"label":"Club Dorchester report","url":"https://www.tivertontownfc.uk/post/defeat-despite-debut-day-delight"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/robins-host-tivvy-for-trophy-opener"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=890"},"louis jagger cane":{"clubs":[{"club":"Exwick Villa","period":"Before summer 2019"},{"club":"Bideford","period":"2021/22–2022/23"},{"club":"Willand Rovers","period":"2026"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=9"},{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/trio-sign-ahead-of-hungerford"},{"label":"Club Bideford preview","url":"https://www.tivertontownfc.uk/post/the-robins-fly-in-for-challenge-cup-round-2"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=9"},"louis smith":{"clubs":[{"club":"Bristol Manor Farm","note":"Youth / first team"},{"club":"Keynsham Town"},{"club":"Corsham Town"},{"club":"Taunton Town","period":"2025/26","note":"Dual registration"},{"club":"Bridgwater United","period":"2025/26","note":"Dual registration"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-recruit-keeper-smith"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=888"},"mason winter":{"clubs":[{"club":"Bristol Rovers","note":"Academy"},{"club":"Clevedon Town","period":"2013/14–2014/15"},{"club":"Larkhall Athletic"},{"club":"Cribbs"},{"club":"Bristol Manor Farm","period":"Joined 2019/20"},{"club":"Portishead Town"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/mason-winter-concludes-tivvy-s-pre-season-signings"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=889"},"matt wood":{"clubs":[{"club":"Frome Town"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/yellows-get-wood"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=809"},"owen howe":{"clubs":[{"club":"Bideford","period":"2013/14"},{"club":"Salisbury","note":"Two spells"},{"club":"Bristol Manor Farm","note":"Two spells"},{"club":"Weston-super-Mare"},{"club":"Taunton Town"},{"club":"Barnstaple Town","period":"Joined 2022"}],"sources":[{"label":"Tivvy Archive biography","url":"https://www.tivvyarchive.co.uk/player.php?player=435"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=435"},"ryan keates":{"clubs":[{"club":"Watcombe Wanderers"},{"club":"Newton Abbot Spurs"},{"club":"Stoke Gabriel","period":"Joined Feb 2020","note":"Return spell"},{"club":"Barnstaple Town","period":"Joined Aug 2021","note":"Also a later loan spell"},{"club":"Lymington Town"},{"club":"Brixham AFC"},{"club":"Willand Rovers"},{"club":"Exmouth Town"},{"club":"Buckland Athletic"}],"sources":[{"label":"Club signing announcement","url":"https://www.tivertontownfc.uk/post/keates-to-ladysmead"},{"label":"Club return announcement","url":"https://www.tivertontownfc.uk/post/ryan-returns-for-the-yellows"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=762"},"tobias alsop":{"clubs":[{"club":"Exeter City","note":"Academy / parent club; Tiverton loan, Oct 2026"}],"sources":[{"label":"Club loan announcement","url":"https://www.tivertontownfc.uk/post/young-grecian-joins-tiverton-town"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=897"},"toby stephens":{"clubs":[{"club":"Southampton","note":"Academy"},{"club":"Yeovil Town","note":"Academy / first team"},{"club":"Plymouth Parkway"},{"club":"AFC Totton"}],"sources":[{"label":"Club return announcement","url":"https://www.tivertontownfc.uk/post/toby-stephens-signs-with-tivvy"}],"archiveUrl":"https://www.tivvyarchive.co.uk/player.php?player=814"}};
 function categoryFor(p){
  const role=String(p.position||'').trim().toLowerCase();
  const group=GROUPS.find(g=>g.description.some(word=>role.includes(word)));
@@ -101,15 +125,25 @@ function matchEvents(m){
    return '';
  }).filter(Boolean).join(' · ');
 }
+function linkSafe(url){return /^https:\/\/[a-z0-9.-]+(?:\/|$)/i.test(String(url||''))?safe(url):'';}
+function historyMarkup(p){
+ const record=careerHistory[String(p.name||'').toLowerCase()];
+ if(!record||!record.clubs?.length)return p.previous_club?'<p class="clubText">'+safe(p.previous_club)+'</p>':'<p class="noClubs">Not yet confirmed</p>';
+ const list=record.clubs.map(item=>'<li><strong>'+safe(item.club)+'</strong>'+(item.period?' <span class="clubPeriod">'+safe(item.period)+'</span>':'')+(item.note?' <span class="clubNote">('+safe(item.note)+')</span>':'')+'</li>').join('');
+ const sources=(record.sources||[]).filter(s=>linkSafe(s.url)).map(s=>'<a href="'+linkSafe(s.url)+'" target="_blank" rel="noopener noreferrer">'+safe(s.label)+'</a>');
+ if(linkSafe(record.archiveUrl))sources.push('<a href="'+linkSafe(record.archiveUrl)+'" target="_blank" rel="noopener noreferrer">Tivvy Archive</a>');
+ return '<ul class="clubList">'+list+'</ul>'+(sources.length?'<details class="clubSources"><summary>Sources ('+sources.length+')</summary><div>'+sources.join(' · ')+'</div></details>':'');
+}
 function matchMarkup(m){
  const code=String(m.result||'').match(/\b[WDL]\b/)?.[0]||'';
  const venue=String(m.venue||'').charAt(0).toUpperCase();
  const tag=venue==='H'?'H':venue==='A'?'A':'';
+ const crest=linkSafe(m.crest||'');
  const date=String(m.date||'').match(/^\d{4}-(\d{2})-(\d{2})$/);
  return '<div class="studioMatch">'+
    '<strong class="studioResult '+safe(code)+'">'+safe(code||'—')+'</strong>'+
    '<span class="studioDate">'+safe(date?date[2]+'/'+date[1]:m.date)+'</span>'+
-   '<span class="studioOpponent">'+safe(m.opponent||'')+'</span>'+
+   '<span class="studioOpponent">'+(crest?'<img class="matchCrest" src="'+crest+'" alt="">':'')+safe(m.opponent||'')+'</span>'+
    '<span class="studioVenue">'+safe(tag)+'</span>'+
    '<span class="studioIncidents">'+matchEvents(m)+'</span></div>';
 }
@@ -121,7 +155,7 @@ function cardMarkup(p){
  const stats=statFields.map(([k,l])=>'<div class="studioStat '+(k==='yellowCards'?'yellow':k==='redCards'?'red':'')+'"><strong>'+safe(stat[k]??'—')+'</strong><small>'+(k==='yellowCards'?'<i class="cardMarker yellow"></i>':k==='redCards'?'<i class="cardMarker red"></i>':'')+l+'</small></div>').join('');
  const matchRows=(p.matches||[]).slice(0,5).map(matchMarkup).join('')||'<p class="noClubs">Match details awaiting verification.</p>';
  const pos=safe(p.position||'Position to confirm');
- const oldClubs=String(p.previous_club||'').trim();
+ const clubs=historyMarkup(p);
  const sponsor=String(p.confirmedSponsor||'').trim();
  const brush=(p.id==='louis-smith'?purple:yellow);
  const photoStyle='translate('+photoX+'px,'+photoY+'px) scale('+(photoScale/100)+')';
@@ -134,9 +168,9 @@ function cardMarkup(p){
  '<div class="studioPosition" style="transform:'+posStyle+'">'+pos+'</div>'+
  '<img class="studioPhoto" alt="" src="'+photos[p.id]+'" style="transform:'+photoStyle+'"></section>'+
  '<section class="studioLower" style="transform:translateY('+panelY+'px)"><div class="detailArea">'+
- '<h3>PLAYER DETAILS</h3><div class="studioStatGrid">'+stats+'</div>'+
+ '<div class="studioClubIdentity"><img src="'+tivvyCrest+'" alt="Tiverton Town crest"> TIVERTON TOWN · 2026/27</div><h3>PLAYER DETAILS</h3><div class="studioStatGrid">'+stats+'</div>'+
  '<div class="studioInfoGrid"><div class="infoMatches"><h3>LAST FIVE APPEARANCES</h3><div class="studioMatches">'+matchRows+'</div></div>'+
- '<div class="infoCareer"><h3>PREVIOUS CLUBS</h3>'+(oldClubs?'<p class="clubText">'+safe(oldClubs)+'</p>':'<p class="noClubs">Not yet confirmed</p>')+
+ '<div class="infoCareer"><h3>PREVIOUS CLUBS</h3>'+clubs+
  '<h3>SPONSOR</h3>'+(sponsor?'<p class="sponsorText">'+safe(sponsor)+'</p>':'<p class="noClubs">Sponsorship not listed</p>')+
  '<a class="playerLink" href="'+DATA_LINK+'" target="_blank" rel="noopener">MORE PLAYER STATS · MATCH CENTRE ↗</a></div></div>'+
  '</div></section></article></div>';
@@ -145,14 +179,13 @@ function addPlayer(p,container){
  const wrapper=document.createElement('article');
  wrapper.className='showcasePlayer'+(p.status==='departed'?' formerPlayer':'');
  wrapper.id='player-'+p.id;
- wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="true">CLOSE PLAYER ✕</button></div>'+cardMarkup(p);
+ wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="false">SHOW DETAILS +</button></div>'+cardMarkup(p);
  const button=wrapper.querySelector('.playerClose');
  button.addEventListener('click',()=>{
-   const area=wrapper.querySelector('.detailArea');
-   const isOpen=!area.hidden;
-   area.hidden=isOpen;
-   button.textContent=isOpen?'SHOW DETAILS +':'CLOSE PLAYER ✕';
-   button.setAttribute('aria-expanded',String(!isOpen));
+   const opening=!wrapper.classList.contains('expanded');
+   wrapper.classList.toggle('expanded',opening);
+   button.textContent=opening?'CLOSE PLAYER ✕':'SHOW DETAILS +';
+   button.setAttribute('aria-expanded',String(opening));
    fitCards();
  });
  container.appendChild(wrapper);
@@ -164,11 +197,15 @@ function fitCards(){
    if(!element)return;
    const factor=Math.min(1,viewport.clientWidth/850);
    element.style.transform='scale('+factor+')';
-   viewport.style.height=Math.ceil(element.scrollHeight*factor+3)+'px';
+   const player=viewport.closest('.showcasePlayer');
+   const lower=element.querySelector('.studioLower');
+   const collapsedBottom=lower.offsetTop+8;
+   const fullHeight=Math.max(element.scrollHeight,lower.offsetTop+lower.offsetHeight+36);
+   viewport.style.height=Math.ceil((player?.classList.contains('expanded')?fullHeight:collapsedBottom)*factor+3)+'px';
  });
 }
 window.addEventListener('resize',fitCards);
-Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json').then(r=>r.json())]).then(([s,d])=>{let fs=d.fixtures||[];function compute(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,matches=[];for(const f of fs){if(f.upcoming)continue;let x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(z=>z.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const n=v=>{const q=String(v||'').match(/^(\d+)(?:\+(\d+))?/);return q?Number(q[1])+Number(q[2]||0):null};const on=x.sub?n(x.onMinute):0,off=n(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const card of x.cards||[]){if(/yellow/i.test(card.type||''))yellowCards++;if(/red|sending_off/i.test(card.type||''))redCards++}matches.push({date:f.date,opponent:f.opponent,venue:f.venue,result:(()=>{const score=String(f.result||'').match(/^(\d+)\s*[-–:]\s*(\d+)$/);return !score?'':Number(score[1])>Number(score[2])?'W':Number(score[1])<Number(score[2])?'L':'D'})(),events:[...(x.goalMinutes||[]).map(t=>({type:'goal',minute:t})),...(x.sub&&x.onMinute?[{type:'on',minute:x.onMinute}]:[]),...(x.offMinute?[{type:'off',minute:x.offMinute}]:[])]})}matches.sort((a,b)=>b.date.localeCompare(a.date));return{stats:{apps,starts,goals,minutes,yellowCards,redCards},matches:matches.slice(0,5)}};const mount=document.getElementById('groups');
+Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json').then(r=>r.json())]).then(([s,d])=>{let fs=d.fixtures||[];function compute(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,matches=[];for(const f of fs){if(f.upcoming)continue;let x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(z=>z.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const n=v=>{const q=String(v||'').match(/^(\d+)(?:\+(\d+))?/);return q?Number(q[1])+Number(q[2]||0):null};const on=x.sub?n(x.onMinute):0,off=n(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const card of x.cards||[]){if(/yellow/i.test(card.type||''))yellowCards++;if(/red|sending_off/i.test(card.type||''))redCards++}matches.push({date:f.date,opponent:f.opponent,crest:f.opponentLogoUrl||'',venue:f.venue,result:(()=>{const score=String(f.result||'').match(/^(\d+)\s*[-–:]\s*(\d+)$/);return !score?'':Number(score[1])>Number(score[2])?'W':Number(score[1])<Number(score[2])?'L':'D'})(),events:[...(x.goalMinutes||[]).map(t=>({type:'goal',minute:t})),...(x.sub&&x.onMinute?[{type:'on',minute:x.onMinute}]:[]),...(x.offMinute?[{type:'off',minute:x.offMinute}]:[])]})}matches.sort((a,b)=>b.date.localeCompare(a.date));return{stats:{apps,starts,goals,minutes,yellowCards,redCards},matches:matches.slice(0,5)}};const mount=document.getElementById('groups');
  const regions={};
  for(const group of GROUPS){
    const section=document.createElement('section');

@@ -1,0 +1,105 @@
+name: Bulls Backup Centre
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/bulls-backup.yml'
+  schedule:
+    - cron: '17 2 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Prepare backup directory
+        run: |
+          mkdir -p backup/repos
+          echo "BACKUP_DATE=$(date -u +%Y-%m-%dT%H-%M-%SZ)" >> "$GITHUB_ENV"
+
+      - name: Clone all public repositories with complete history
+        shell: bash
+        run: |
+          set -euo pipefail
+          repos=(
+            Tiverton-Town-Get-Player-Info
+            Tiverton-Town-Get-Results
+            Eldoret-Home-Automation
+            Tiverton-Town-Control-Centre
+            Willow-Tree-Vocal-Remover
+            Eldoret-Playout-Demo
+            Bampton-Fair-Control
+            Bampton-Fair-Steward-Lookup
+            Bampton-Fair-Trader-Directory
+          )
+          for repo in "${repos[@]}"; do
+            git clone --mirror "https://github.com/nickabull/${repo}.git" "backup/repos/${repo}.git"
+          done
+
+      - name: Include private repositories when backup token is configured
+        shell: bash
+        env:
+          PRIVATE_BACKUP_TOKEN: ${{ secrets.BULLS_BACKUP_GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$PRIVATE_BACKUP_TOKEN" ]]; then
+            echo "Private GitHub token not configured; private repositories are NOT backed up." | tee backup/PRIVATE_REPOS_PENDING.txt
+            exit 0
+          fi
+          auth="$(printf 'x-access-token:%s' "$PRIVATE_BACKUP_TOKEN" | base64 -w0)"
+          for repo in Eldoret-Playout bulls-rail-radar Bampton-Fair-Mapping; do
+            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" clone --mirror \
+              "https://github.com/nickabull/${repo}.git" "backup/repos/${repo}.git"
+          done
+
+      - name: Package and verify archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find backup/repos -mindepth 1 -maxdepth 1 -name '*.git' -type d | wc -l)" -ge 9
+          for repo in backup/repos/*.git; do
+            git --git-dir="$repo" fsck --no-reflogs --connectivity-only
+          done
+          mkdir -p out
+          find backup/repos -mindepth 1 -maxdepth 1 -name '*.git' -printf '%f\n' | sort > backup/REPOSITORIES.txt
+          date -u > backup/CREATED_UTC.txt
+          tar -C backup -czf "out/bulls-backup-${BACKUP_DATE}.tar.gz" .
+          sha256sum out/*.tar.gz > "out/SHA256SUMS.txt"
+          sha256sum -c "out/SHA256SUMS.txt"
+
+      - name: Preserve downloadable GitHub Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bulls-backup-${{ env.BACKUP_DATE }}
+          path: out/
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Copy to Google Drive when service account configured
+        shell: bash
+        env:
+          DRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.BULLS_BACKUP_DRIVE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$DRIVE_SERVICE_ACCOUNT_JSON" ]]; then
+            echo "Google Drive credential not yet configured; Actions archive is available, Drive copy PENDING."
+            exit 0
+          fi
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq rclone
+          umask 077
+          printf '%s' "$DRIVE_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/drive-service-account.json"
+          cat > "$RUNNER_TEMP/rclone.conf" << EOF
+          [backupdrive]
+          type = drive
+          scope = drive
+          service_account_file = $RUNNER_TEMP/drive-service-account.json
+          root_folder_id = 1dfboxeIdkXmPYuwKOZc5qkHqxsF8WSOJ
+          EOF
+          rclone --config "$RUNNER_TEMP/rclone.conf" copy out/ backupdrive: --checksum --transfers 2
+          rclone --config "$RUNNER_TEMP/rclone.conf" check out/ backupdrive: --one-way
+          rm -f "$RUNNER_TEMP/drive-service-account.json" "$RUNNER_TEMP/rclone.conf"

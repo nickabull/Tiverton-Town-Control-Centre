@@ -40,28 +40,12 @@ jobs:
             git clone --mirror "https://github.com/nickabull/${repo}.git" "backup/repos/${repo}.git"
           done
 
-      - name: Include private repositories when backup token is configured
-        shell: bash
-        env:
-          PRIVATE_BACKUP_TOKEN: ${{ secrets.BULLS_BACKUP_GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [[ -z "$PRIVATE_BACKUP_TOKEN" ]]; then
-            echo "Private GitHub token not configured; private repositories are NOT backed up." | tee backup/PRIVATE_REPOS_PENDING.txt
-            exit 0
-          fi
-          auth="$(printf 'x-access-token:%s' "$PRIVATE_BACKUP_TOKEN" | base64 -w0)"
-          for repo in Eldoret-Playout bulls-rail-radar Bampton-Fair-Mapping; do
-            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $auth" clone --mirror \
-              "https://github.com/nickabull/${repo}.git" "backup/repos/${repo}.git"
-          done
-
       - name: Package and verify archive
         shell: bash
         run: |
           set -euo pipefail
           test "$(find backup/repos -mindepth 1 -maxdepth 1 -name '*.git' -type d | wc -l)" -ge 9
-          for repo in backup/repos/*.git; do
+          # This public repository must never package private repositories.\n          for repo in backup/repos/*.git; do
             git --git-dir="$repo" fsck --no-reflogs --connectivity-only
           done
           mkdir -p out

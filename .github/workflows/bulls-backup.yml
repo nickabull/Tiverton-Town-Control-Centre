@@ -45,7 +45,8 @@ jobs:
         run: |
           set -euo pipefail
           test "$(find backup/repos -mindepth 1 -maxdepth 1 -name '*.git' -type d | wc -l)" -ge 9
-          # This public repository must never package private repositories.\n          for repo in backup/repos/*.git; do
+          # This public repository must never package private repositories.
+          for repo in backup/repos/*.git; do
             git --git-dir="$repo" fsck --no-reflogs --connectivity-only
           done
           mkdir -p out

@@ -4,32 +4,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#ffd600;--ink:#111;--muted:#aaa}*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif}
-.widget{max-width:100%;background:#101010;border-top:6px solid var(--yellow);overflow:hidden}
-.head{position:relative;padding:19px 22px 17px;background:linear-gradient(125deg,#101010,#282828 60%,#101010)}
-.head:after{content:"";position:absolute;right:-25px;top:-55px;width:170px;height:210px;transform:rotate(24deg);opacity:.35;background:repeating-linear-gradient(105deg,transparent 0 12px,#ffd600 13px 17px,transparent 19px 25px);pointer-events:none}
-.eyebrow{font:700 12px Antonio,Impact,sans-serif;letter-spacing:1.6px;color:var(--yellow)}
-h1{font:700 clamp(29px,5vw,42px)/1.05 Antonio,Impact,sans-serif;margin:6px 0 8px;letter-spacing:.4px}
-.sub{color:#d0d0d0;font-size:13px;margin:0}
-.strip{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--yellow);color:#101010;padding:8px 18px;font:700 18px Antonio,Impact,sans-serif}
-.strip small{font:700 12px Antonio,Impact,sans-serif;white-space:nowrap}
-.list{padding:7px 14px 11px}
-.game{display:grid;grid-template-columns:minmax(0,1fr) 74px minmax(0,1fr);gap:12px;align-items:center;min-height:53px;padding:10px 7px;border-bottom:1px solid #333}
-.game:nth-child(even){background:#1b1b1b}
-.team{font-size:14px;font-weight:700;line-height:1.28;overflow-wrap:break-word}
-.team a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
-.team a:hover,.team a:focus-visible{color:var(--yellow);border-bottom-color:var(--yellow);outline-offset:3px}
+:root{--yellow:#ffda00;--ink:#111}*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent;color:#111;font-family:Arial,Helvetica,sans-serif}
+.widget{width:100%;background:var(--yellow);border:3px solid #111;overflow:hidden}
+.head{background:#111;padding:18px 24px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.headCopy{min-width:0}.eyebrow{font:700 13px Antonio,Impact,sans-serif;color:#ffda00;text-transform:uppercase}
+h1{color:#ffda00;font:700 clamp(25px,3.5vw,36px)/1.07 Antonio,Impact,sans-serif;margin:3px 0 0;letter-spacing:.1px}
+.sub{color:#111;font:700 14px Arial,sans-serif;margin:0}
+.strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#ffda00;color:#111;padding:15px 20px 10px;font:700 19px Antonio,Impact,sans-serif}
+.strip small{font:700 14px Antonio,Impact,sans-serif;white-space:nowrap}
+.list{padding:0 20px 10px;background:var(--yellow)}
+.game{display:grid;grid-template-columns:minmax(0,1fr) 94px minmax(0,1fr);gap:12px;align-items:center;min-height:54px;padding:9px 12px;border-bottom:1px solid #17171744}
+.game:nth-child(even){background:#fff}
+.team{font-size:16px;font-weight:700;line-height:1.28;overflow-wrap:break-word}
+.team a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.team a:hover,.team a:focus-visible{border-bottom-color:#111;text-decoration:underline;outline-offset:3px}
 .home{text-align:right}.away{text-align:left}
-.score{text-align:center;color:var(--yellow);font:700 21px Antonio,Impact,sans-serif;white-space:nowrap}
-.kickoff{display:block;color:#b9b9b9;text-align:center;font-size:11px;white-space:nowrap;margin-top:2px}
-.foot{display:flex;justify-content:space-between;gap:10px;padding:13px 20px 16px;align-items:center;flex-wrap:wrap;color:#aaa;font-size:11px}
-.foot a{color:var(--yellow);font:700 14px Antonio,Impact,sans-serif;text-decoration:none}
-.message{padding:24px 15px;text-align:center;color:#ddd;font-size:14px}
-@media(max-width:500px){.head{padding:15px}.strip{padding:8px 12px;font-size:16px}.list{padding:5px}.game{grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr);gap:6px;padding:10px 5px}.team{font-size:12px}.foot{padding:12px}}
+.score{text-align:center;color:#111;font:700 25px Antonio,Impact,sans-serif;white-space:nowrap}
+.kickoff{display:block;color:#333;text-align:center;font:13px Arial,sans-serif;white-space:nowrap;margin-top:2px}
+.datebar{background:#ffda00;color:#111;font-size:14px;padding:0 20px 13px}
+.foot{display:flex;justify-content:space-between;gap:10px;padding:13px 20px;align-items:center;flex-wrap:wrap;background:#111;color:#ddd;font-size:11px}
+.foot a{color:#ffda00;font:700 17px Antonio,Impact,sans-serif;text-decoration:none}
+.message{padding:25px 15px;text-align:center;color:#111;font-size:14px;background:#ffda00}
+@media(max-width:500px){.head{padding:15px}.strip{padding:11px 12px;font-size:17px}.datebar{padding:0 12px 12px;font-size:12px}.list{padding:0 6px 8px}.game{grid-template-columns:minmax(0,1fr) 57px minmax(0,1fr);gap:6px;padding:11px 5px}.team{font-size:12px}.score{font-size:21px}.kickoff{font-size:10px}.foot{padding:12px}}
 </style></head><body>
 <section class="widget" aria-label="Other Southern League Division One South fixtures">
-<header class="head"><div class="eyebrow">TIVERTON TOWN FC · DIVISION ONE SOUTH</div><h1>AROUND THE LEAGUE</h1><p class="sub" id="matchDate">Checking the next matchday…</p></header>
+<header class="head"><div class="headCopy"><h1>AROUND THE LEAGUE</h1></div></header><div class="datebar" id="matchDate">Checking the next matchday…</div>
 <div class="strip"><span id="stripTitle">OTHER LEAGUE FIXTURES</span><small id="stripCount"></small></div>
 <div class="list" id="fixtures" aria-live="polite"><div class="message">Loading league fixtures…</div></div>
 <footer class="foot"><span id="source">Football Web Pages · League data</span><a href="https://www.southern-football-league.co.uk/overview/divonesouth" target="_blank" rel="noopener noreferrer">FULL FIXTURE LIST ↗</a></footer>

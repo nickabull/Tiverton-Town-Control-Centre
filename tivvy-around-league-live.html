@@ -63,7 +63,7 @@ var clubProfiles={
 };
 function teamLink(team,side){
  var outer=document.createElement("div");outer.className="team "+side;
- var key=String(team||"").trim().toLowerCase().replace(/\\s+/g," ");
+ var key=String(team||"").trim().toLowerCase().replace(/\s+/g," ");
  var slug=clubProfiles[key];
  if(slug){
   var a=document.createElement("a");

@@ -123,8 +123,8 @@ function renderLeague(d){
  let out=band(d.title,d.subtitle)+'<section class="panel"><table class="leagueTable"><colgroup><col style="width:27px"><col style="width:29px"><col style="width:154px">'+Array(8).fill('<col>').join('')+'</colgroup><thead><tr>'+["POS","", "TEAM","P","W","D","L","GF","GA","GD","PTS"].map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
  d.teams.forEach((t,i)=>{const c=i===11?"tivvy":i===0?"band-green":i<5?"band-blue":i>=18?"band-red":"";
  out+='<tr class="'+c+'" data-row="'+i+'" data-name="'+esc(t[0])+'"><td>'+(i+1)+'</td><td><img src="'+ORIGIN+encodeURIComponent(t[8])+'.png" alt=""></td><td contenteditable="true" data-cell="'+i+':0">'+esc(t[0])+'</td>';
- for(let j=1;j<=7;j++){let n=t[j];out+='<td data-cell="'+i+':'+j+'" contenteditable="true">'+(j===6&&n>0?'+':'')+esc(n)+'</td>';}
- out+='<td data-cell="'+i+':7" contenteditable="true">'+esc(t[7])+'</td></tr>';});
+ for(let j=1;j<=8;j++){let n=t[j];out+='<td data-cell="'+i+':'+j+'" contenteditable="true">'+(j===7&&n>0?'+':'')+esc(n)+'</td>';}
+ out+='</tr>';});
  out+='</tbody></table><p class="caption" style="margin-top:14px">Automatic promotion &nbsp;&nbsp; Promotion play-offs &nbsp;&nbsp; Relegation</p></section><div class="bottomBand"></div>';
  return out;
 }

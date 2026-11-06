@@ -97,7 +97,7 @@ function crestFor(team){
  var key=String(team||"").toLowerCase().trim().replace(/\s+/g," ");
  var name=crestMap[key];
  if(!name)return null;
- return "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/"+name+".png";
+ return "https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/assets/locked-crests/"+name+".png";
 }
 function dateShort(d){return new Date(d+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"});}
 function renderMessage(t){list.replaceChildren();var el=document.createElement("div");el.className="message";el.textContent=t;list.append(el);}
@@ -118,7 +118,7 @@ window.tivvyFixturesReady=function(data){
   var row=document.createElement("div");row.className="game";
   var logo=crestFor(m.home);
   var badge=logo?document.createElement("img"):document.createElement("div");
-  if(logo){badge.src=logo;badge.alt=m.home+" crest";badge.loading="lazy";badge.className="crest";}
+  if(logo){badge.src=logo;badge.alt=m.home+" crest";badge.loading="lazy";badge.className="crest";badge.onerror=function(){if(this.dataset.fallback)return;this.dataset.fallback="1";this.src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/"+crestMap[String(m.home||"").toLowerCase().trim()]+".png";};}
   else{badge.className="crest-fallback";badge.textContent=m.home;}
   var detail=document.createElement("div");detail.className="detail";
   var date=document.createElement("div");date.className="date";date.textContent=dateShort(m.date);

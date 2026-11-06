@@ -4,29 +4,34 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--yellow:#ffda00;--ink:#111}*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:transparent;color:#111;font-family:Arial,Helvetica,sans-serif}
-.widget{width:100%;background:var(--yellow);border:3px solid #111;overflow:hidden}
-.head{background:#111;padding:18px 24px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.headCopy{min-width:0}.eyebrow{font:700 13px Antonio,Impact,sans-serif;color:#ffda00;text-transform:uppercase}
-h1{color:#ffda00;font:700 clamp(25px,3.5vw,36px)/1.07 Antonio,Impact,sans-serif;margin:3px 0 0;letter-spacing:.1px}
-.sub{color:#111;font:700 14px Arial,sans-serif;margin:0}
-.strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#ffda00;color:#111;padding:15px 20px 10px;font:700 19px Antonio,Impact,sans-serif}
-.strip small{font:700 14px Antonio,Impact,sans-serif;white-space:nowrap}
-.list{padding:0 20px 10px;background:var(--yellow)}
-.game{display:grid;grid-template-columns:minmax(0,1fr) 94px minmax(0,1fr);gap:12px;align-items:center;min-height:54px;padding:9px 12px;border-bottom:1px solid #17171744}
+:root{--yellow:#ffdd00;--black:#111}*{box-sizing:border-box}
+html,body{margin:0;background:transparent;color:#111;font-family:Arial,Helvetica,sans-serif}
+.widget{width:100%;background:var(--yellow);border:2px solid #111}
+.head{background:#111;padding:19px 22px;color:var(--yellow)}
+h1{font:700 clamp(27px,3vw,37px)/1.1 Antonio,Impact,'Arial Narrow',sans-serif;margin:0}
+.strip{background:var(--yellow);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;font:700 19px Antonio,Impact,'Arial Narrow',sans-serif}
+.strip small{font:700 15px Antonio,Impact,sans-serif}
+.datebar{background:var(--yellow);padding:0 20px 11px;font-size:14px}
+.list{background:var(--yellow)}
+.game{display:grid;grid-template-columns:115px minmax(185px,1.18fr) 140px 70px minmax(205px,1.42fr);align-items:center;gap:11px;padding:19px 18px;min-height:142px;border-top:1px solid #111}
 .game:nth-child(even){background:#fff}
-.team{font-size:16px;font-weight:700;line-height:1.28;overflow-wrap:break-word}
-.team a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
-.team a:hover,.team a:focus-visible{border-bottom-color:#111;text-decoration:underline;outline-offset:3px}
-.home{text-align:right}.away{text-align:left}
-.score{text-align:center;color:#111;font:700 25px Antonio,Impact,sans-serif;white-space:nowrap}
-.kickoff{display:block;color:#333;text-align:center;font:13px Arial,sans-serif;white-space:nowrap;margin-top:2px}
-.datebar{background:#ffda00;color:#111;font-size:14px;padding:0 20px 13px}
-.foot{display:flex;justify-content:space-between;gap:10px;padding:13px 20px;align-items:center;flex-wrap:wrap;background:#111;color:#ddd;font-size:11px}
-.foot a{color:#ffda00;font:700 17px Antonio,Impact,sans-serif;text-decoration:none}
-.message{padding:25px 15px;text-align:center;color:#111;font-size:14px;background:#ffda00}
-@media(max-width:500px){.head{padding:15px}.strip{padding:11px 12px;font-size:17px}.datebar{padding:0 12px 12px;font-size:12px}.list{padding:0 6px 8px}.game{grid-template-columns:minmax(0,1fr) 57px minmax(0,1fr);gap:6px;padding:11px 5px}.team{font-size:12px}.score{font-size:21px}.kickoff{font-size:10px}.foot{padding:12px}}
+.crest{width:104px;height:104px;object-fit:contain;display:block}
+.crest-fallback{width:104px;height:104px;display:grid;place-items:center;font:700 12px Antonio,sans-serif;text-align:center;border:2px solid #111}
+.detail{display:flex;flex-direction:column;justify-content:space-between;align-self:stretch;gap:9px;padding:8px 0}
+.date{font-size:21px;font-weight:700}
+.homeName{font:700 clamp(16px,1.7vw,22px)/1.1 Arial,sans-serif}
+.meta{line-height:1.28;font-size:17px;align-self:end;padding-bottom:8px}
+.meta strong{font-size:18px;display:block}
+.score{text-align:center;font:700 29px/1.1 Arial,sans-serif}
+.kickoff{display:block;font:14px Arial,sans-serif;margin-top:7px}
+.awayName{font:700 clamp(20px,2.3vw,30px)/1.18 Arial,sans-serif;overflow-wrap:anywhere}
+a.club{color:#111;text-decoration:none}
+a.club:hover,a.club:focus-visible{text-decoration:underline;text-underline-offset:4px}
+.foot{background:#111;color:#ddd;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 20px;font-size:12px}
+.foot a{font:700 16px Antonio,Impact,sans-serif;color:var(--yellow);text-decoration:none}
+.message{padding:22px;background:var(--yellow);text-align:center}
+@media(max-width:900px){.game{grid-template-columns:80px minmax(140px,1fr) 97px 48px minmax(120px,1.25fr);gap:8px;min-height:119px;padding:13px 12px}.crest,.crest-fallback{width:73px;height:73px}.date{font-size:17px}.meta,.meta strong{font-size:14px}.homeName{font-size:16px}.awayName{font-size:20px}.score{font-size:24px}}
+@media(max-width:600px){.head{padding:14px}.strip{padding:10px 9px;font-size:15px}.strip small{font-size:12px}.datebar{padding:0 9px 10px;font-size:12px}.game{grid-template-columns:56px minmax(0,1.1fr) 47px minmax(0,1.15fr);gap:7px;min-height:91px;padding:10px 7px}.crest,.crest-fallback{width:53px;height:53px}.detail{padding:2px 0;gap:6px}.date{font-size:13px}.homeName{font-size:13px}.meta{display:none}.score{font-size:21px}.kickoff{font-size:10px;margin-top:3px}.awayName{font-size:14px}.foot{padding:12px}}
 </style></head><body>
 <section class="widget" aria-label="Other Southern League Division One South fixtures">
 <header class="head"><div class="headCopy"><h1>AROUND THE LEAGUE</h1></div></header><div class="datebar" id="matchDate">Checking the next matchday…</div>
@@ -75,6 +80,26 @@ function teamLink(team,side){
  }else{outer.textContent=team;}
  return outer;
 }
+var crestMap={
+ "barnstaple town":"barnstapletown","bideford":"bideford","bideford afc":"bideford",
+ "bishops cleeve":"bishopscleeve","bishop's cleeve":"bishopscleeve",
+ "bristol manor farm":"bristolmanorfarm","dorchester town":"dorchestertown",
+ "exmouth town":"exmouthtown","falmouth town":"falmouthtown","hartpury":"hartpury",
+ "hungerford town":"hungerfordtown","larkhall athletic":"larkhallathletic",
+ "melksham town":"melkshamtown","paulton rovers":"paultonrovers",
+ "portland united":"portlandunited","shaftesbury":"shaftesbury","slimbridge":"slimbridge",
+ "sporting club inkberrow":"scinkberrow","swindon supermarine":"swindonsupermarine",
+ "tiverton town":"tivertontown","westbury united":"westburyunited",
+ "weymouth":"weymouth","willand rovers":"willandrovers",
+ "worcester raiders":"worcesterraiders"
+};
+function crestFor(team){
+ var key=String(team||"").toLowerCase().trim().replace(/\\s+/g," ");
+ var name=crestMap[key];
+ if(!name)return null;
+ return "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/"+name+".png";
+}
+function dateShort(d){return new Date(d+"T12:00:00Z").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"Europe/London"});}
 function renderMessage(t){list.replaceChildren();var el=document.createElement("div");el.className="message";el.textContent=t;list.append(el);}
 window.tivvyFixturesReady=function(data){
  received=true;if(!data||data.success!==true||!Array.isArray(data.fixtures)){renderMessage("Fixture feed temporarily unavailable.");return;}
@@ -91,16 +116,27 @@ window.tivvyFixturesReady=function(data){
  list.replaceChildren();
  games.forEach(function(m){
   var row=document.createElement("div");row.className="game";
-  var home=teamLink(m.home,"home");
-  var mid=document.createElement("div");mid.className="score";
-  var isFinal=/^(FT|AET|PEN)$/i.test(m.status||"");
-  var scored=isFinal&&m.homeScore!=null&&m.awayScore!=null;
-  mid.textContent=scored?String(m.homeScore)+" – "+String(m.awayScore):"v";
+  var logo=crestFor(m.home);
+  var badge=logo?document.createElement("img"):document.createElement("div");
+  if(logo){badge.src=logo;badge.alt=m.home+" crest";badge.loading="lazy";badge.className="crest";}
+  else{badge.className="crest-fallback";badge.textContent=m.home;}
+  var detail=document.createElement("div");detail.className="detail";
+  var date=document.createElement("div");date.className="date";date.textContent=dateShort(m.date);
+  var home=teamLink(m.home,"homeName");
+  detail.append(date,home);
+  var meta=document.createElement("div");meta.className="meta";
+  var hl=document.createElement("strong");hl.textContent="HOME";
+  var league=document.createElement("span");league.textContent="Southern League Div 1 South";
+  meta.append(hl,league);
+  var score=document.createElement("div");score.className="score";
+  var final=/^(FT|AET|PEN)$/i.test(m.status||"");
+  var scored=final&&m.homeScore!=null&&m.awayScore!=null;
+  score.textContent=scored?String(m.homeScore)+"–"+String(m.awayScore):"—";
   var when=document.createElement("span");when.className="kickoff";
   when.textContent=scored?"FULL TIME":(/^(P|P-P|POST)$/i.test(m.status||"")?"POSTPONED":m.time||"15:00");
-  mid.append(when);
-  var away=teamLink(m.away,"away");
-  row.append(home,mid,away);list.append(row);
+  score.append(when);
+  var away=teamLink(m.away,"awayName");
+  row.append(badge,detail,meta,score,away);list.append(row);
  });
  document.getElementById("source").textContent="Football Web Pages · Updated periodically";
 };

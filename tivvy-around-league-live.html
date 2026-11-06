@@ -94,7 +94,7 @@ var crestMap={
  "worcester raiders":"worcesterraiders"
 };
 function crestFor(team){
- var key=String(team||"").toLowerCase().trim().replace(/\\s+/g," ");
+ var key=String(team||"").toLowerCase().trim().replace(/\s+/g," ");
  var name=crestMap[key];
  if(!name)return null;
  return "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/"+name+".png";

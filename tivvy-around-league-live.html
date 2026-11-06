@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Around the League | Tiverton Town FC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#ffd600;--ink:#111;--muted:#aaa}*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:transparent;color:#fff;font-family:Arial,Helvetica,sans-serif}
+.widget{max-width:100%;background:#101010;border-top:6px solid var(--yellow);overflow:hidden}
+.head{position:relative;padding:19px 22px 17px;background:linear-gradient(125deg,#101010,#282828 60%,#101010)}
+.head:after{content:"";position:absolute;right:-25px;top:-55px;width:170px;height:210px;transform:rotate(24deg);opacity:.35;background:repeating-linear-gradient(105deg,transparent 0 12px,#ffd600 13px 17px,transparent 19px 25px);pointer-events:none}
+.eyebrow{font:700 12px Antonio,Impact,sans-serif;letter-spacing:1.6px;color:var(--yellow)}
+h1{font:700 clamp(29px,5vw,42px)/1.05 Antonio,Impact,sans-serif;margin:6px 0 8px;letter-spacing:.4px}
+.sub{color:#d0d0d0;font-size:13px;margin:0}
+.strip{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--yellow);color:#101010;padding:8px 18px;font:700 18px Antonio,Impact,sans-serif}
+.strip small{font:700 12px Antonio,Impact,sans-serif;white-space:nowrap}
+.list{padding:7px 14px 11px}
+.game{display:grid;grid-template-columns:minmax(0,1fr) 74px minmax(0,1fr);gap:12px;align-items:center;min-height:53px;padding:10px 7px;border-bottom:1px solid #333}
+.game:nth-child(even){background:#1b1b1b}
+.team{font-size:14px;font-weight:700;line-height:1.28;overflow-wrap:break-word}
+.home{text-align:right}.away{text-align:left}
+.score{text-align:center;color:var(--yellow);font:700 21px Antonio,Impact,sans-serif;white-space:nowrap}
+.kickoff{display:block;color:#b9b9b9;text-align:center;font-size:11px;white-space:nowrap;margin-top:2px}
+.foot{display:flex;justify-content:space-between;gap:10px;padding:13px 20px 16px;align-items:center;flex-wrap:wrap;color:#aaa;font-size:11px}
+.foot a{color:var(--yellow);font:700 14px Antonio,Impact,sans-serif;text-decoration:none}
+.message{padding:24px 15px;text-align:center;color:#ddd;font-size:14px}
+@media(max-width:500px){.head{padding:15px}.strip{padding:8px 12px;font-size:16px}.list{padding:5px}.game{grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr);gap:6px;padding:10px 5px}.team{font-size:12px}.foot{padding:12px}}
+</style></head><body>
+<section class="widget" aria-label="Other Southern League Division One South fixtures">
+<header class="head"><div class="eyebrow">TIVERTON TOWN FC · DIVISION ONE SOUTH</div><h1>AROUND THE LEAGUE</h1><p class="sub" id="matchDate">Checking the next matchday…</p></header>
+<div class="strip"><span id="stripTitle">OTHER LEAGUE FIXTURES</span><small id="stripCount"></small></div>
+<div class="list" id="fixtures" aria-live="polite"><div class="message">Loading league fixtures…</div></div>
+<footer class="foot"><span id="source">Football Web Pages · League data</span><a href="https://www.southern-football-league.co.uk/overview/divonesouth" target="_blank" rel="noopener noreferrer">FULL FIXTURE LIST ↗</a></footer>
+</section>
+<script>
+(function(){
+"use strict";
+var list=document.getElementById("fixtures"), dateEl=document.getElementById("matchDate");
+var titleEl=document.getElementById("stripTitle"), countEl=document.getElementById("stripCount");
+var script=document.createElement("script"),received=false;
+function londonToday(){
+ var pieces=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+ var o={};pieces.forEach(function(p){o[p.type]=p.value;});return o.year+"-"+o.month+"-"+o.day;
+}
+function dateLabel(d){return new Date(d+"T12:00:00Z").toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long",year:"numeric"});}
+function isSaturday(d){return new Date(d+"T12:00:00Z").getUTCDay()===6;}
+function renderMessage(t){list.replaceChildren();var el=document.createElement("div");el.className="message";el.textContent=t;list.append(el);}
+window.tivvyFixturesReady=function(data){
+ received=true;if(!data||data.success!==true||!Array.isArray(data.fixtures)){renderMessage("Fixture feed temporarily unavailable.");return;}
+ var today=londonToday();
+ var all=data.fixtures.filter(function(m){return m&&/^\d{4}-\d{2}-\d{2}$/.test(m.date)&&isSaturday(m.date)&&m.date>=today&&!/tiverton/i.test((m.home||"")+" "+(m.away||""));});
+ all.sort(function(a,b){return a.date.localeCompare(b.date)||(a.time||"").localeCompare(b.time||"");});
+ var matchday=all.length?all[0].date:null;
+ if(!matchday){dateEl.textContent="No upcoming Saturday fixtures currently listed";renderMessage("Please check the Southern League fixtures page.");return;}
+ var games=all.filter(function(m){return m.date===matchday;});
+ dateEl.textContent=dateLabel(matchday)+" · Excluding Tiverton Town";
+ var finished=games.filter(function(m){return /^(FT|AET|PEN)$/i.test(m.status||"");}).length;
+ titleEl.textContent=finished===games.length?"MATCHDAY RESULTS":finished>0?"FIXTURES & RESULTS":"OTHER LEAGUE FIXTURES";
+ countEl.textContent=games.length+" MATCH"+(games.length===1?"":"ES");
+ list.replaceChildren();
+ games.forEach(function(m){
+  var row=document.createElement("div");row.className="game";
+  var home=document.createElement("div");home.className="team home";home.textContent=m.home;
+  var mid=document.createElement("div");mid.className="score";
+  var isFinal=/^(FT|AET|PEN)$/i.test(m.status||"");
+  var scored=isFinal&&m.homeScore!=null&&m.awayScore!=null;
+  mid.textContent=scored?String(m.homeScore)+" – "+String(m.awayScore):"v";
+  var when=document.createElement("span");when.className="kickoff";
+  when.textContent=scored?"FULL TIME":(/^(P|P-P|POST)$/i.test(m.status||"")?"POSTPONED":m.time||"15:00");
+  mid.append(when);
+  var away=document.createElement("div");away.className="team away";away.textContent=m.away;
+  row.append(home,mid,away);list.append(row);
+ });
+ document.getElementById("source").textContent="Football Web Pages · Updated periodically";
+};
+script.src="https://script.google.com/macros/s/AKfycbyuoOyNsgayGU5-_k6VmH-l450riaeFbjzmQTm67XfxXOZ1JkQMh4Zr22KLHQOaRhwr/exec"+"?v="+Math.floor(Date.now()/600000);
+script.onerror=function(){if(!received)renderMessage("Fixture feed temporarily unavailable.");};
+document.head.appendChild(script);
+setTimeout(function(){if(!received)renderMessage("Still waiting for the fixture feed. Try refreshing.");},12000);
+})();
+</script>
+</body></html>

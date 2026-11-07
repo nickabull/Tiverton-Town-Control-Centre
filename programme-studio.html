@@ -127,7 +127,7 @@ const news=[
 ];
 const clone=x=>JSON.parse(JSON.stringify(x));
 const defaultMaster={cover:{title:"TIVERTON TOWN",subtitle:"MATCHDAY PROGRAMME",featuredPlayer:"",photo:"",photoCredit:"",photoSource:null,overrides:{}},squad:{title:"FIRST TEAM SQUAD",overrides:{}},around:{title:"AROUND THE LEAGUE",fixtures:[],date:"",fetchedAt:"",frozen:false,frozenAt:"",overrides:{}},league:{title:"LEAGUE TABLE",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH (UP TO 03/11/26)",teams:clone(teams),overrides:{}},matrix:{title:"THE LEAGUE SO FAR",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 03/11/26)",scores:clone(scoreSeeds),overrides:{}},news:{title:"LATEST NEWS",items:clone(news),footer:"WE WILL REMEMBER THEM",photos:["",""],captions:["Billy Tucker heads to North Devon for a month. Photo: Tiverton Town FC","Pool returns to the Sports Bar. Photo: Tiverton Town FC"],overrides:{}}};
-let master,edition,page="opposition",mode="edition",selected=null,editionName="Inkberrow · 7 Nov 2026",editions={},activeEdition="inkberrow";
+let master,edition,page="cover",mode="edition",selected=null,editionName="Inkberrow · 7 Nov 2026",editions={},activeEdition="inkberrow";
 const KEY="tivvy-programme-studio-v02";
 const CLUB_LIBRARY={
  "bishops-cleeve":{name:"Bishops Cleeve",crest:"bishopscleeve",homeColours:["#00872f","#111111"],awayColours:["#1732ed","#ffffff","#ffdc00"],note:"Reference supplied 7 Nov: home green shirts/black shorts/green socks; away royal-blue shirt/white shorts/yellow socks. Club nickname: The Mitres; founded 1905; ground Kayte Lane."},
@@ -384,6 +384,122 @@ function renderEditorial(){
  if(issues.length>45){const overflow=document.createElement("p");overflow.className="note";overflow.textContent="Showing first 45 findings. Correct and rescan for more.";container.append(overflow);}
 }
 
+
+let inspectorTab="content";
+const pageNum={cover:"Page 1",news:"Page 6",squad:"Pages 29–33",around:"Page 17",league:"Page 18",matrix:"Page 13",opposition:"Opposition"};
+function readiness(key){
+ const d=edition,ok=[],todo=[];function check(cond,yes,no){(cond?ok:todo).push(cond?yes:no);}
+ if(key==="cover"){
+  check(Boolean(d.fixture&&d.fixture.away),"Opposition selected","Opposition missing");
+  check(Boolean(d.fixture&&d.fixture.date&&d.fixture.kickoff),"Match details present","Date or kick-off missing");
+  check(Boolean(d.cover.featuredPlayer),"Featured player selected","Choose a featured player");
+  check(Boolean(d.cover.photo),"Cover photo selected","Choose a cover photograph");
+  check(Boolean(d.cover.photoCredit),"Image credited","Add a photo credit");
+ }else if(key==="news"){
+  const count=(d.news.items||[]).filter(x=>x.title&&x.body).length;
+  check(count===6,"All six stories supplied",count+"/6 complete stories");
+  check(d.news.photos.filter(Boolean).length===2,"Two photographs selected",d.news.photos.filter(Boolean).length+"/2 photos");
+  check(d.news.photos.every((v,i)=>!v||Boolean(d.news.captions[i]&&/photo:|viv curtis|photograph:/i.test(d.news.captions[i]))),"Photo bylines present","Missing photo byline");
+ }else if(key==="squad"){
+  const rows=Object.values(d.squadRoster||{});
+  check(rows.some(x=>x.include),"At least one player selected","Select players to include");
+  check(rows.every(x=>x.status!=="review"),"Statuses reviewed","Unverified statuses require checking");
+ }else if(key==="around"){
+  check(Boolean(d.around.fetchedAt&&d.around.date===(d.fixture||{}).date),"Matchday feed loaded","Refresh matchday feed");
+  check(Boolean(d.around.frozen),"Approved print snapshot","Approve and freeze for print");
+ }else if(key==="league"){check(false,"Data validated","League table feed not yet connected");}
+ else if(key==="matrix"){check(false,"Data validated","Results matrix feed not yet connected");}
+ else{check(Boolean(d.opposition&&d.opposition.crest),"Club crest selected","Club crest required");}
+ return {ok,todo,total:ok.length+todo.length};
+}
+function piButton(label,click){const b=document.createElement("button");b.className="smallBtn";b.textContent=label;b.onclick=click;return b;}
+function piField(root,label,value,onChange,kind){
+ const wrap=document.createElement("div");wrap.className="piField";
+ const name=document.createElement("label");name.textContent=label;
+ const el=kind==="textarea"?document.createElement("textarea"):document.createElement("input");
+ if(kind!=="textarea")el.type=kind||"text";el.value=value||"";el.addEventListener("change",()=>onChange(el.value));
+ wrap.append(name,el);root.append(wrap);return el;
+}
+function piInfo(root,message,type){const p=document.createElement("div");p.className=type==="warn"?"piWarning":type==="good"?"piGood":"piHelp";p.textContent=message;root.append(p);}
+function editEditionField(action,target,modify){
+ if(mode!=="edition"){alert("Use Programme Designer to change this edition's content.");return;}
+ const before=snapshot();const old=JSON.stringify(edition[page]);modify();persist();
+ commitChange(before,action,target,old.length>130?old.slice(0,130)+"…":old,"Updated");render();
+}
+function showInspectorTab(tab){
+ inspectorTab=tab;for(const t of ["content","design","checks"]){
+  $(t+"Panel").hidden=t!==tab;
+  $("tab"+t[0].toUpperCase()+t.slice(1)).classList.toggle("active",t===tab);
+ }
+}
+function renderInspector(){
+ showInspectorTab(inspectorTab);
+ const state=readiness(page),badge=$("pageReadiness");badge.classList.toggle("ready",state.todo.length===0);
+ badge.replaceChildren();
+ const title=document.createElement("strong");title.textContent=(pageNum[page]||"Page")+" · "+(state.todo.length?"NEEDS ATTENTION":"CHECKS COMPLETE");
+ const count=document.createElement("div");count.className="readyCount";count.textContent=state.ok.length+"/"+state.total+" requirements met";
+ badge.append(title,count);
+ const panel=$("contentPanel"),checks=$("checksPanel");panel.replaceChildren();checks.replaceChildren();
+ const heading=document.createElement("div");heading.className="sectionTitle";heading.textContent=({cover:"COVER REQUIREMENTS",news:"LATEST NEWS",squad:"FIRST TEAM SQUAD",league:"LEAGUE TABLE",around:"AROUND THE LEAGUE",matrix:"RESULTS MATRIX",opposition:"OPPOSITION LIBRARY"}[page]||"CONTENT & DATA");
+ panel.append(heading);
+ if(page==="cover"){
+  const fixture=edition.fixture||{},c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.inkberrow;
+  piInfo(panel,"Fixture data and opposition crest come from this edition's Club Library. Choose the featured player and image for each programme.");
+  piField(panel,"Opposition club",fixture.away||"",v=>editEditionField("Edit opponent","Cover",()=>edition.fixture.away=v));
+  piField(panel,"Match date",fixture.date||"",v=>editEditionField("Edit date","Cover",()=>edition.fixture.date=v),"date");
+  piField(panel,"Kick-off",fixture.kickoff||"",v=>editEditionField("Edit kick-off","Cover",()=>edition.fixture.kickoff=v),"time");
+  piInfo(panel,"Crest from Club Library: "+c.name,"good");
+  const select=document.createElement("select");select.setAttribute("aria-label","Featured player");
+  const label=document.createElement("label");label.className="label";label.textContent="Featured player — choose explicitly";panel.append(label,select);
+  const initial=document.createElement("option");initial.value="";initial.textContent="Choose player…";select.append(initial);
+  Object.entries(edition.squadRoster||{}).filter(([name,x])=>x.status!=="left").forEach(([name,x])=>{let o=document.createElement("option");o.value=name;o.textContent=name+(x.status==="review"?" · status unverified":"");select.append(o);});
+  select.value=edition.cover.featuredPlayer||"";
+  select.onchange=()=>editEditionField("Set featured player","Cover",()=>edition.cover.featuredPlayer=select.value);
+  panel.append(piButton("📷 Select photograph from Viv",()=>{openViv("cover");}));
+  panel.append(piButton("Upload cover photo",()=>{$("photoFile").click();}));
+  piField(panel,"Cover photo credit",edition.cover.photoCredit||"",v=>editEditionField("Edit photo credit","Cover",()=>edition.cover.photoCredit=v));
+ }else if(page==="news"){
+  piInfo(panel,"This page expects six complete stories and two credited photographs. The layout and positions are controlled separately.");
+  (edition.news.items||[]).forEach((item,i)=>{
+   const div=document.createElement("div");div.className="piSeparator";panel.append(div);
+   piField(panel,"Story "+(i+1)+" headline",item.title,v=>editEditionField("Edit headline","Story "+(i+1),()=>edition.news.items[i].title=v));
+   piField(panel,"Story "+(i+1)+" body",item.body,v=>editEditionField("Edit story","Story "+(i+1),()=>edition.news.items[i].body=v),"textarea");
+  });
+  panel.append(piButton("📷 Choose news photographs",()=>openViv("news")));
+  panel.append(piButton("Upload photograph",()=>{$("photoFile").click()}));
+  edition.news.captions.forEach((v,i)=>piField(panel,"Photo "+(i+1)+" byline",v,x=>editEditionField("Edit byline","Photo "+(i+1),()=>edition.news.captions[i]=x)));
+ }else if(page==="squad"){
+  piInfo(panel,"These are editable candidate records, not a live verified squad feed. Please review each status. Status does not force inclusion in this programme.");
+  for(const [name,player] of Object.entries(edition.squadRoster||{})){
+   const row=document.createElement("div");row.className="squadStatusRow";
+   const title=document.createElement("strong");title.textContent=name;row.append(title);
+   const sel=document.createElement("select");sel.setAttribute("aria-label","Status for "+name);
+   for(const [value,label] of [["review","Status needs verification"],["current","Current first-team"],["on-loan-out","Out on loan"],["on-loan-in","On loan to Tiverton"],["unavailable","Unavailable / injured"],["left","Left club"]]){
+    const opt=document.createElement("option");opt.value=value;opt.textContent=label;sel.append(opt);
+   }
+   sel.value=player.status;sel.onchange=()=>editEditionField("Set player status",name,()=>edition.squadRoster[name].status=sel.value);
+   const label=document.createElement("label");const check=document.createElement("input");check.type="checkbox";check.checked=!!player.include;check.onchange=()=>editEditionField("Programme inclusion",name,()=>edition.squadRoster[name].include=check.checked);
+   label.append(check,document.createTextNode(" Include in this programme"));row.append(sel,label);panel.append(row);
+  }
+  piInfo(panel,"Current prototype squad pages show editable data cards. The final player graphics will be connected to the existing Player Studio assets.");
+ }else if(page==="around"){
+  piInfo(panel,"Shared Football Web Pages feed, filtered to this edition's match date. Website remains live; programme data freezes after approval.");
+  panel.append(piButton("Refresh matchday fixtures",refreshAround));
+  panel.append(piButton("Approve print snapshot",()=>{$("freezeLeagueFeed").click()}));
+ }else if(page==="league"){
+  piInfo(panel,"Table currently uses the existing programme data. Automatic official standings refresh and approval are still to be built. Current crests and editable rows stay intact.","warn");
+ }else if(page==="matrix"){
+  piInfo(panel,"The 22×22 matrix is editable. Automatic result-to-cell mapping and verification are still being developed.","warn");
+ }else piInfo(panel,"Opposition colours, crest and artwork are stored separately from edition-specific layout adjustments.");
+ const checkHeading=document.createElement("div");checkHeading.className="sectionTitle";checkHeading.textContent="PAGE READINESS";checks.append(checkHeading);
+ state.ok.forEach(msg=>piInfo(checks,"✓ "+msg,"good"));state.todo.forEach(msg=>piInfo(checks,"Needs review: "+msg,"warn"));
+ checks.append(piButton("Check spelling & consistency",()=>{renderEditorial();$("editorialFindings").scrollIntoView({behavior:"smooth"});}));
+ checks.append(piButton("Create restore point",()=>{$("checkpoint").click();}));
+ checks.append(piButton("Open Design & Layout",()=>showInspectorTab("design")));
+ const info=document.createElement("p");info.className="piHelp";info.textContent="Completion checks are guidance, not proof of factual accuracy. Publishing still requires explicit approval.";checks.append(info);
+}
+["content","design","checks"].forEach(t=>{$("tab"+t[0].toUpperCase()+t.slice(1)).onclick=()=>showInspectorTab(t);});
+
 function renderClubLibrary(){let c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.inkberrow;let el=$("clubLibrary");el.replaceChildren();let img=document.createElement("img");img.src=ORIGIN+c.crest+".png";img.alt=c.name+" crest";let name=document.createElement("strong");name.textContent=c.name;let p=document.createElement("div");p.textContent=edition.fixture&&edition.fixture.date==="2026-11-14"?"Next scheduled home game · 14 Nov · 15:00":"Published reference edition";let palette=document.createElement("div");palette.style.cssText="clear:both;padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:7px";[["HOME",c.homeColours],["AWAY",c.awayColours]].forEach(pair=>{let box=document.createElement("div");let t=document.createElement("div");t.textContent=pair[0];t.style.cssText="font:700 11px Antonio,Arial;margin-bottom:4px";let sw=document.createElement("div");sw.className="swash";sw.style.marginTop="0";sw.style.background=pair[1].length?("linear-gradient(90deg,"+pair[1].map((col,i)=>col+" "+Math.round(i*100/pair[1].length)+"% "+Math.round((i+1)*100/pair[1].length)+"%").join(",")+")"):"#ddd";sw.title=pair[1].join(" · ");box.append(t,sw);palette.append(box);});let rev=document.createElement("div");rev.className="review";rev.textContent=c.note;el.append(img,name,p,palette,rev);}
 function labelOf(e){return e.dataset.row!==undefined?"League row "+(+e.dataset.row+1)+" · "+e.dataset.name:e.dataset.asset!==undefined?"Editorial photo "+(+e.dataset.asset+1):e.dataset.field==="title"?"Page title":e.dataset.field==="subtitle"?"Subtitle":e.dataset.field==="band"?"Header artwork":(e.textContent||e.dataset.field||"Element").trim().slice(0,46);}
 function idOf(e){return e.dataset.row!==undefined?"row:"+e.dataset.row:e.dataset.asset!==undefined?"photo:"+e.dataset.asset:e.dataset.field!==undefined?"field:"+e.dataset.field:null;}
@@ -600,8 +716,8 @@ $("photoUpload").onclick=()=>{if(!selected||!selected.startsWith("photo:")){aler
 $("photoFile").onchange=e=>{let f=e.target.files[0];if(!f||!selected||!selected.startsWith("photo:"))return;let n=+selected.split(":")[1];if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}const before=snapshot(),old=current().news.photos[n]?"Previous photo":"No photo";let rd=new FileReader();rd.onload=()=>{current().news.photos[n]=rd.result;persist();commitChange(before,"Replace photo","Photo "+(n+1),old,f.name);render();};rd.readAsDataURL(f);};
 $("save").onclick=()=>{editionName=$("editionName").value.trim()||editionName;persist();$("status").textContent="Edition saved locally · "+editionName;};
 function populateEditionPicker(){let sel=$("editionPicker");sel.replaceChildren();[["bishops-cleeve","Bishops Cleeve · 14 Nov"],["inkberrow","Inkberrow · 7 Nov"]].forEach(x=>{let o=document.createElement("option");o.value=x[0];o.textContent=x[1];sel.append(o);});sel.value=activeEdition;}
-$("editionPicker").onchange=e=>{persist();activeEdition=e.target.value;edition=editions[activeEdition];editionName=activeEdition==="bishops-cleeve"?"Bishops Cleeve · 14 Nov 2026":"Inkberrow · 7 Nov 2026";mode="edition";page=activeEdition==="bishops-cleeve"?"opposition":"league";persist();render();};
-$("newEdition").onclick=()=>{if(!confirm("Create a Bishops Cleeve edition from the master? Existing Inkberrow remains safely available."))return;activeEdition="bishops-cleeve";edition=editions[activeEdition]||newBishopsEdition(master);editionName="Bishops Cleeve · 14 Nov 2026";mode="edition";page="opposition";populateEditionPicker();persist();render();};
+$("editionPicker").onchange=e=>{persist();activeEdition=e.target.value;edition=editions[activeEdition];editionName=activeEdition==="bishops-cleeve"?"Bishops Cleeve · 14 Nov 2026":"Inkberrow · 7 Nov 2026";mode="edition";page="cover";persist();render();};
+$("newEdition").onclick=()=>{if(!confirm("Create a Bishops Cleeve edition from the master? Existing Inkberrow remains safely available."))return;activeEdition="bishops-cleeve";edition=editions[activeEdition]||newBishopsEdition(master);editionName="Bishops Cleeve · 14 Nov 2026";mode="edition";page="cover";populateEditionPicker();persist();render();};
 $("reset").onclick=()=>{if(!confirm("Revert this page to the approved master layout and content for this edition?"))return;if(mode==="template"){alert("Revert is only available in Programme Designer.");return;}const before=snapshot();makeRestorePoint("Before reverting "+page);edition[page]=page==="opposition"?newBishopsEdition(master).opposition:clone(master[page]);persist();commitChange(before,"Revert page",page,"Edited","Template default");render();};
 $("mode").onchange=e=>{if(e.target.value==="template"&&!confirm("Enter TEMPLATE DESIGNER? Edits here are deliberate master changes, not changes to this matchday edition.")){e.target.value="edition";return;}mode=e.target.value;render();};
 $("saveTemplate").onclick=()=>{if(mode!=="template")return;if(confirm("Confirm MASTER TEMPLATE change. It will be used for future new editions, not the current saved edition.")){persist();$("status").textContent="Master template saved in this browser.";}}

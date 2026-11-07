@@ -45,7 +45,7 @@ summary{cursor:pointer;font-weight:bold}
 @media(max-width:1150px){main{grid-template-columns:245px minmax(280px,1fr)}.details{grid-column:1/-1;border-left:0;border-top:1px solid #ddd}}
 @media(max-width:680px){main{display:block}.middle{padding:15px}aside,.details{border:0;border-bottom:1px solid #ccc}textarea{min-height:350px}}
 </style></head><body>
-<header><div><small>TIVVY DATA CENTRE · PRODUCTION</small><h1>EDITORIAL INBOX <span style="color:white;font-size:17px">v1.0</span></h1><small>RAW WORD → EDITORIAL REVIEW → APPROVED COPY</small></div>
+<header><div><small>TIVVY DATA CENTRE · PRODUCTION</small><h1>EDITORIAL INBOX <span style="color:white;font-size:17px">v1.1</span></h1><small>RAW WORD → EDITORIAL REVIEW → APPROVED COPY</small></div>
 <div class="actions"><a class="button dark" href="programme-studio.html">← Programme Studio</a><button id="backup" class="dark">Download inbox backup</button><button id="help">? USER GUIDE</button></div></header>
 <main>
 <aside><div class="section"><h2>Incoming copy</h2>
@@ -53,8 +53,18 @@ summary{cursor:pointer;font-weight:bold}
 <label for="files">Add Word files (.docx)</label><input id="files" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple>
 <p class="note" id="importStatus">Choose one or more Word files. The file is converted to editable text on your device.</p>
 <label for="jsonFile">Restore a previous inbox backup (.json)</label><input id="jsonFile" type="file" accept=".json">
-</div><div class="section"><h3>Documents <span id="docCount">0</span></h3><div id="docList"></div></div>
-<div class="section"><h3>How the inbox works</h3><p class="note">Import → review flags → approve corrected version → export or send to Programme Studio. Your original wording is preserved separately.</p><p class="note">Gmail automatic collection isn't activated yet. Gmail attachments can already be retrieved through the connected ChatGPT Gmail app, but this browser cannot access your private inbox without separate authorisation.</p></div>
+</div>
+<div class="section"><h3>Gmail import <small style="font:11px Arial;color:#777">(optional)</small></h3>
+<p class="note">Connect your Google account for one-click fetching of new Word reports. A Google OAuth web-client ID is required once. Only Gmail read access is requested; tokens stay in memory.</p>
+<details><summary>Connect Gmail directly</summary>
+<label for="gmailClientId">Google OAuth web client ID</label><input type="text" id="gmailClientId" placeholder="...apps.googleusercontent.com" autocomplete="off">
+<p class="note">Configure this GitHub Pages origin in Google Cloud Console and enable Gmail API with the gmail.readonly scope. Client ID is not a password.</p>
+<button id="gmailConnect" class="gold">Connect Gmail securely</button>
+<label for="gmailQuery">Gmail search query</label><input type="text" id="gmailQuery" value="has:attachment filename:docx newer_than:30d">
+<button id="gmailSync" disabled>↻ Import new Word attachments</button>
+<p id="gmailStatus" class="note" aria-live="polite">Not connected. Manual Word importing works without Gmail setup.</p>
+</details></div><div class="section"><h3>Documents <span id="docCount">0</span></h3><div id="docList"></div></div>
+<div class="section"><h3>How the inbox works</h3><p class="note">Import → review flags → approve corrected version → export or send to Programme Studio. Your original wording is preserved separately.</p><p class="note">Optional Gmail connection can import new Word attachments directly, after Google OAuth setup and consent. Closed-browser background collection is not yet available.</p></div>
 </aside>
 <section class="middle"><div id="empty" class="inboxEmpty"><div style="font:700 30px Antonio">YOUR EDITORIAL WORKBENCH</div>Import a raw Word report or preview to begin.<br>The health check will classify possible issues without altering Darren's original words.</div>
 <div id="editor"><div class="summary"><div class="tile"><strong id="countAll">0</strong><small>OPEN FLAGS</small></div><div class="tile"><strong id="countDef">0</strong><small>DEFINITE ERRORS</small></div><div class="tile"><strong id="countPos">0</strong><small>CHECK / VERIFY</small></div><div class="tile"><strong id="countApplied">0</strong><small>CORRECTIONS ACCEPTED</small></div></div>
@@ -69,13 +79,13 @@ summary{cursor:pointer;font-weight:bold}
 </div></section>
 <aside class="details"><div id="reviewPanel"><h2>Editorial Health Check</h2><p class="note">Red = definite; amber = needs a human check; grey = style suggestion. Click a correction to apply only that change.</p><div class="controls"><button id="rescan" class="gold">↻ Scan this document</button><button id="showIgnored">Show ignored</button></div><div id="issues"></div><div class="section"><h3>Corrections log</h3><div id="versionList" class="note"></div></div></div><div id="noReview" class="note">Select a document to view the editorial findings.</div></aside>
 </main>
-<dialog id="guide" style="max-width:700px;width:90%;border:3px solid #ffdb00;padding:20px;background:#fff"><div style="display:flex;justify-content:space-between"><h2 style="margin:0">Editorial Inbox · User Guide</h2><button id="closeGuide">✕</button></div><ol><li>Receive a Word report or preview from Darren by email; download it once for the browser importer. Fully automated Gmail delivery requires secure setup.</li><li>Import the .docx. It is parsed locally in the browser. The original is retained and never overwritten by suggested edits.</li><li>Review red errors first, then amber fact/name checks. Use <b>Apply correction</b>, <b>Ignore</b> or manually edit the copy.</li><li>Re-scan after changes. The corrections log records what has been accepted.</li><li>Approve a snapshot only after checking the text. This makes it available to Programme Studio (in the same browser) and unlocks copy/export for Wix.</li><li>Download the inbox JSON backup before clearing this browser or moving computers. Nothing in this tool automatically publishes to Wix.</li></ol><p class="note">Changes to the working text after approval require another approval to update the published-ready snapshot. Fictional or disputed football facts must not be silently rewritten.</p></dialog>
-<script src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js"></script>
+<dialog id="guide" style="max-width:700px;width:90%;border:3px solid #ffdb00;padding:20px;background:#fff"><div style="display:flex;justify-content:space-between"><h2 style="margin:0">Editorial Inbox · User Guide</h2><button id="closeGuide">✕</button></div><ol><li>Receive a Word report or preview from Darren by email; download it once for the browser importer. Direct Gmail importing requires Google OAuth setup; unattended closed-browser syncing additionally needs a private server or scheduled connector.</li><li>Import the .docx. It is parsed locally in the browser. The original is retained and never overwritten by suggested edits.</li><li>Review red errors first, then amber fact/name checks. Use <b>Apply correction</b>, <b>Ignore</b> or manually edit the copy.</li><li>Re-scan after changes. The corrections log records what has been accepted.</li><li>Approve a snapshot only after checking the text. This makes it available to Programme Studio (in the same browser) and unlocks copy/export for Wix.</li><li>Download the inbox JSON backup before clearing this browser or moving computers. Nothing in this tool automatically publishes to Wix.</li></ol><p class="note">Changes to the working text after approval require another approval to update the published-ready snapshot. Fictional or disputed football facts must not be silently rewritten.</p></dialog>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 (function(){
 "use strict";
-var KEY="tivvy-editorial-inbox-v1",APPROVED="tivvy-editorial-approved-v1";
-var docs=[],selected=null,showIgnored=false,saveTimer=0;
+var KEY="tivvy-editorial-inbox-v1",APPROVED="tivvy-editorial-approved-v1",GMAIL_CLIENT_KEY="tivvy-editorial-gmail-client-v1";
+var docs=[],selected=null,showIgnored=false,saveTimer=0,gmailToken=null,gmailClient=null;
 var $=function(id){return document.getElementById(id)};
 var esc=function(v){return String(v==null?"":v).replace(/[&<>"']/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]})};
 try{var stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))docs=stored;}catch(err){}
@@ -120,6 +130,74 @@ function scan(d){if(!d)return[];var out=[],text=d.working||"";
  return out.sort(function(a,b){return a.at-b.at});
 }
 function exportApproved(){try{localStorage.setItem(APPROVED,JSON.stringify(docs.filter(function(d){return !!d.approved}).map(function(d){return {id:d.id,title:d.title,kind:d.kind,text:d.approved.text,approvedAt:d.approved.at,source:d.filename}})));}catch(e){$("importStatus").textContent="Approved copy could not be stored: browser limit.";}}
+
+async function importWordBuffer(fileName,arrayBuffer,metadata){
+ if(typeof mammoth==="undefined")throw Error("Word parser failed to load");
+ var result=await mammoth.extractRawText({arrayBuffer:arrayBuffer});
+ var content=(result.value||"").trim();if(!content)throw Error("Word document contains no extractable text");
+ var kind=/preview/i.test(fileName)||/Match Preview/i.test(content.slice(0,100))?"preview":/report/i.test(fileName)||/Match Report/i.test(content.slice(0,100))?"report":"other";
+ var doc={id:id(),filename:fileName,title:titleOf(fileName),kind:kind,original:content,working:content,ignored:[],changes:[],approved:null,importedAt:new Date().toISOString(),source:metadata||{method:"manual"}};
+ docs.unshift(doc);selected=doc.id;return doc;
+}
+async function gmailRequest(path){
+ if(!gmailToken)throw Error("Connect Gmail first");
+ var res=await fetch("https://gmail.googleapis.com/gmail/v1/users/me/"+path,{headers:{Authorization:"Bearer "+gmailToken}});
+ if(!res.ok){if(res.status===401)gmailToken=null;throw Error("Gmail returned HTTP "+res.status+" — check the account authorisation and API permissions");}
+ return res.json();
+}
+function decodeUrlBase64(data){
+ var normalized=data.replace(/-/g,"+").replace(/_/g,"/");
+ var raw=atob(normalized);var bytes=new Uint8Array(raw.length);
+ for(var i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+ return bytes.buffer;
+}
+function findDocxParts(payload,found){
+ found=found||[];if(payload&&payload.filename&&/\.docx$/i.test(payload.filename)&&payload.body&&payload.body.attachmentId)found.push(payload);
+ (payload&&payload.parts||[]).forEach(function(part){findDocxParts(part,found)});
+ return found;
+}
+async function syncGmail(){
+ if(!gmailToken)return;
+ var btn=$("gmailSync");btn.disabled=true;$("gmailStatus").textContent="Checking Gmail for new Word documents…";
+ try{
+  var query=$("gmailQuery").value.trim()||"has:attachment filename:docx newer_than:30d";
+  var list=await gmailRequest("messages?maxResults=12&q="+encodeURIComponent(query));
+  var emails=list.messages||[],added=0,duplicates=0;
+  for(var item of emails){
+   var msg=await gmailRequest("messages/"+encodeURIComponent(item.id)+"?format=full");
+   var headers=msg.payload&&msg.payload.headers||[];
+   var h=function(k){var a=headers.find(function(x){return x.name.toLowerCase()===k});return a?a.value:""};
+   var parts=findDocxParts(msg.payload||{});
+   for(var part of parts){
+    if(docs.some(function(d){return d.source&&d.source.gmailId===item.id&&d.filename===part.filename})){duplicates++;continue;}
+    var bin=await gmailRequest("messages/"+encodeURIComponent(item.id)+"/attachments/"+encodeURIComponent(part.body.attachmentId));
+    var buffer=decodeUrlBase64(bin.data||"");
+    if(buffer.byteLength>10000000)throw Error(part.filename+" is over the 10MB limit");
+    await importWordBuffer(part.filename,buffer,{method:"gmail",gmailId:item.id,sender:h("from"),subject:h("subject"),receivedAt:h("date")});added++;
+   }
+  }
+  save();render();$("gmailStatus").textContent="✓ "+added+" new Word attachment(s) imported. "+duplicates+" previously imported attachment(s) skipped. No document sent to GitHub.";
+ }catch(err){$("gmailStatus").textContent="Gmail import failed: "+err.message;}
+ finally{btn.disabled=!gmailToken;}
+}
+$("gmailClientId").value=localStorage.getItem(GMAIL_CLIENT_KEY)||"";
+$("gmailConnect").onclick=function(){
+ var clientId=$("gmailClientId").value.trim();
+ if(!/^[\w-]+\.apps\.googleusercontent\.com$/.test(clientId)){alert("Enter a valid Google OAuth Web Client ID.");return;}
+ if(!window.google||!google.accounts||!google.accounts.oauth2){$("gmailStatus").textContent="Google Identity could not load. Check internet access or blockers.";return;}
+ localStorage.setItem(GMAIL_CLIENT_KEY,clientId);
+ $("gmailStatus").textContent="Opening Google's account authorisation…";
+ try{gmailClient=google.accounts.oauth2.initTokenClient({
+  client_id:clientId,scope:"https://www.googleapis.com/auth/gmail.readonly",
+  callback:function(response){
+   if(response.error){$("gmailStatus").textContent="Google authorisation failed: "+response.error;return;}
+   gmailToken=response.access_token;$("gmailSync").disabled=false;
+   $("gmailStatus").textContent="✓ Connected for read-only Gmail access. Click Import new Word attachments.";
+  }
+ });gmailClient.requestAccessToken({prompt:"consent"});}
+ catch(err){$("gmailStatus").textContent="Could not start Gmail authorisation: "+err.message;}
+};
+$("gmailSync").onclick=syncGmail;
 function renderList(){
  $("docCount").textContent=docs.length;var c=$("docList");c.innerHTML="";
  docs.forEach(function(d){var b=document.createElement("button");b.className="doc"+(d.id===selected?" active":"");
@@ -155,10 +233,7 @@ function articleHtml(d){var lines=d.approved.text.split(/\n\s*\n/).filter(functi
 $("files").onchange=async function(e){var files=Array.from(e.target.files||[]);if(!files.length)return;var successful=0;
  if(typeof mammoth==="undefined"){$("importStatus").textContent="Word parser could not load. Check your internet access and reload the page.";return;}
  for(var i=0;i<files.length;i++){try{var file=files[i];if(!/\.docx$/i.test(file.name))throw Error("Only .docx files are supported.");
- var result=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});var text=(result.value||"").trim();if(!text)throw Error("The Word document contains no extractable text.");
- var kind=/preview/i.test(file.name)||/Match Preview/i.test(text.slice(0,80))?"preview":/report/i.test(file.name)||/Match Report/i.test(text.slice(0,80))?"report":"other";
- var doc={id:id(),filename:file.name,title:titleOf(file.name),kind:kind,original:text,working:text,ignored:[],changes:[],approved:null,importedAt:new Date().toISOString()};
- docs.unshift(doc);selected=doc.id;successful++;
+ await importWordBuffer(file.name,await file.arrayBuffer(),{method:"manual"});successful++;
  }catch(err){$("importStatus").textContent="Couldn't import "+file.name+": "+err.message;}}
  save();render();if(successful)$("importStatus").textContent="✓ "+successful+" Word document(s) imported. No copy was uploaded to GitHub.";e.target.value="";
 };

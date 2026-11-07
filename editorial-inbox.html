@@ -58,7 +58,7 @@ summary{cursor:pointer;font-weight:bold}
 <p class="note">Connect your Google account for one-click fetching of new Word reports. A Google OAuth web-client ID is required once. Only Gmail read access is requested; tokens stay in memory.</p>
 <details><summary>Connect Gmail directly</summary>
 <label for="gmailClientId">Google OAuth web client ID</label><input type="text" id="gmailClientId" placeholder="...apps.googleusercontent.com" autocomplete="off">
-<p class="note">Configure this GitHub Pages origin in Google Cloud Console and enable Gmail API with the gmail.readonly scope. Client ID is not a password.</p>
+<p class="note">Configure this GitHub Pages origin in Google Cloud Console and enable Gmail API with the gmail.messages.readonly scope. Client ID is not a password.</p>
 <button id="gmailConnect" class="gold">Connect Gmail securely</button>
 <label for="gmailQuery">Gmail search query</label><input type="text" id="gmailQuery" value="has:attachment filename:docx newer_than:30d">
 <button id="gmailSync" disabled>↻ Import new Word attachments</button>
@@ -207,7 +207,7 @@ $("gmailConnect").onclick=function(){
  localStorage.setItem(GMAIL_CLIENT_KEY,clientId);
  $("gmailStatus").textContent="Opening Google's account authorisation…";
  try{gmailClient=google.accounts.oauth2.initTokenClient({
-  client_id:clientId,scope:"https://www.googleapis.com/auth/gmail.readonly",
+  client_id:clientId,scope:"https://www.googleapis.com/auth/gmail.messages.readonly",
   callback:function(response){
    if(response.error){$("gmailStatus").textContent="Google authorisation failed: "+response.error;return;}
    gmailToken=response.access_token;$("gmailSync").disabled=false;

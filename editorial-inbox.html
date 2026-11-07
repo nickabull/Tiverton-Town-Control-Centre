@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tivvy Data Centre | Editorial Inbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffdb00;--ink:#151515;--red:#bb2525;--line:#d8d8d8}*{box-sizing:border-box}
+body{margin:0;color:#141414;background:#ededed;font:14px/1.48 Arial,Helvetica,sans-serif}
+header{background:#111;color:#fff;padding:17px 24px;border-bottom:5px solid var(--gold);display:flex;gap:15px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+h1,h2,h3,.heading{font-family:Antonio,Impact,sans-serif}h1{margin:2px 0;color:var(--gold);font-size:30px;line-height:1.2}header small{font-size:10px;color:#aaa;letter-spacing:.14em}
+button,.button{border:1px solid #777;background:#fff;color:#111;padding:9px 12px;font:700 12px Arial;cursor:pointer;border-radius:3px;text-align:center}
+button:hover,.button:hover{filter:brightness(.95)}button:disabled{opacity:.45;cursor:not-allowed}
+button.gold,.button.gold{background:var(--gold);border-color:#c19f00}button.dark,.button.dark{background:#2c2c2c;color:white;border-color:#555}
+button.red{background:#b21e2e;color:white;border-color:#b21e2e}
+header .actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}header a{color:#fff;text-decoration:none}
+main{display:grid;grid-template-columns:280px minmax(300px,1fr) 330px;max-width:1600px;min-height:calc(100vh - 82px);margin:auto}
+aside,.details{background:#fafafa;padding:18px;min-width:0}aside{border-right:1px solid var(--line)}.details{border-left:1px solid var(--line)}
+.middle{padding:20px 24px;min-width:0}h2{font-size:24px;margin:0 0 14px}h3{font-size:19px;margin:15px 0 7px}
+.note{font-size:12px;color:#555;line-height:1.5}.section{margin-bottom:18px;padding-bottom:15px;border-bottom:1px solid #ddd}
+.doc{display:block;background:#fff;border:1px solid #ccc;padding:13px;margin:8px 0;width:100%;text-align:left;line-height:1.5;word-break:break-word}
+.doc.active{border:3px solid #c4a600;background:#fff7ca;padding:11px}.doc strong{display:block;font:700 18px Antonio}.doc small{display:block;color:#666}
+.status{font-size:11px;color:#4d4d4d;margin-top:5px;display:block}
+.inboxEmpty{padding:34px 20px;border:2px dashed #bbb;text-align:center;background:#fff;line-height:1.8}
+input[type=file]{width:100%;padding:7px;border:1px dashed #bbb;background:#fff;max-width:100%}
+input[type=text],select,textarea{display:block;padding:9px;width:100%;border:1px solid #aaa;background:#fff;color:#111;font:14px Arial}
+label{display:block;font-weight:bold;font-size:12px;margin:8px 0}
+textarea{line-height:1.65;resize:vertical;min-height:390px;tab-size:4}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:9px 0}.controls>button{flex:1}
+.summary{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.tile{background:#fff;border:1px solid #ccc;padding:8px 11px;min-width:100px;flex:1}
+.tile strong{display:block;font:700 25px Antonio}.tile small{color:#555;font-size:10px}
+.issue{background:#fff;border:1px solid #ddd;border-left:5px solid #777;margin:9px 0;padding:10px}
+.issue.definite{border-left-color:#bf2525}.issue.possible{border-left-color:#d8a900}.issue.suggestion{border-left-color:#778}
+.issue strong{display:block;font-size:13px}.issue small{color:#666}.issue .quote{background:#f5f5f5;padding:6px 8px;font-size:12px;margin:8px 0;white-space:pre-wrap;word-break:break-word}
+.issue .replace{color:#235526;font-weight:bold}.issue .actions{display:flex;gap:6px;flex-wrap:wrap}.issue .actions button{flex:1;padding:6px}
+.sep{height:1px;background:#ddd;margin:14px 0}
+.alert{padding:10px;background:#e7e7e7;border:1px solid #aaa;font-size:12px;margin:12px 0}
+.approved{background:#e6f3e2;border:1px solid #a8c5a2;padding:10px}
+.reportBox{margin-top:10px;padding:10px;background:#fff6ce;border:1px solid #c2ac59}
+#editor,#reviewPanel{display:none}
+#versionList{max-height:120px;overflow:auto}
+.copyStatus{padding:10px;background:#eee;white-space:pre-wrap;font-size:12px}
+footer{margin:14px 0;color:#555;font-size:11px}
+details{margin:8px 0;padding:8px;background:#fff;border:1px solid #ddd}
+summary{cursor:pointer;font-weight:bold}
+@media(max-width:1150px){main{grid-template-columns:245px minmax(280px,1fr)}.details{grid-column:1/-1;border-left:0;border-top:1px solid #ddd}}
+@media(max-width:680px){main{display:block}.middle{padding:15px}aside,.details{border:0;border-bottom:1px solid #ccc}textarea{min-height:350px}}
+</style></head><body>
+<header><div><small>TIVVY DATA CENTRE · PRODUCTION</small><h1>EDITORIAL INBOX <span style="color:white;font-size:17px">v1.0</span></h1><small>RAW WORD → EDITORIAL REVIEW → APPROVED COPY</small></div>
+<div class="actions"><a class="button dark" href="programme-studio.html">← Programme Studio</a><button id="backup" class="dark">Download inbox backup</button><button id="help">? USER GUIDE</button></div></header>
+<main>
+<aside><div class="section"><h2>Incoming copy</h2>
+<p class="note">Import Darren's original Word document. The entire review stays in this browser; nothing is uploaded to GitHub or published to Wix.</p>
+<label for="files">Add Word files (.docx)</label><input id="files" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple>
+<p class="note" id="importStatus">Choose one or more Word files. The file is converted to editable text on your device.</p>
+<label for="jsonFile">Restore a previous inbox backup (.json)</label><input id="jsonFile" type="file" accept=".json">
+</div><div class="section"><h3>Documents <span id="docCount">0</span></h3><div id="docList"></div></div>
+<div class="section"><h3>How the inbox works</h3><p class="note">Import → review flags → approve corrected version → export or send to Programme Studio. Your original wording is preserved separately.</p><p class="note">Gmail automatic collection isn't activated yet. Gmail attachments can already be retrieved through the connected ChatGPT Gmail app, but this browser cannot access your private inbox without separate authorisation.</p></div>
+</aside>
+<section class="middle"><div id="empty" class="inboxEmpty"><div style="font:700 30px Antonio">YOUR EDITORIAL WORKBENCH</div>Import a raw Word report or preview to begin.<br>The health check will classify possible issues without altering Darren's original words.</div>
+<div id="editor"><div class="summary"><div class="tile"><strong id="countAll">0</strong><small>OPEN FLAGS</small></div><div class="tile"><strong id="countDef">0</strong><small>DEFINITE ERRORS</small></div><div class="tile"><strong id="countPos">0</strong><small>CHECK / VERIFY</small></div><div class="tile"><strong id="countApplied">0</strong><small>CORRECTIONS ACCEPTED</small></div></div>
+<label for="docTitle">Editorial title</label><input id="docTitle" type="text">
+<div class="controls"><label for="docKind" style="margin:0">Type</label><select id="docKind" style="flex:1"><option value="report">Match report</option><option value="preview">Match preview</option><option value="other">Other editorial copy</option></select><button id="compare" class="dark">Show original</button></div>
+<div id="originalView" hidden><h3>Unchanged original</h3><pre id="originalText" style="white-space:pre-wrap;font:12px/1.6 Arial;background:#fff;border:1px solid #ddd;max-height:260px;overflow:auto;padding:14px"></pre></div>
+<label for="working">Working copy (editable)</label><textarea id="working" spellcheck="true" placeholder="Document text"></textarea>
+<p class="note" id="saveStatus">Edits are saved to your browser. Proofreading suggestions are not applied unless you accept them.</p>
+<div class="controls"><button id="reset" class="dark">Reset to original</button><button id="downloadTxt">Download working copy</button><button id="approve" class="gold">✓ Approve editorial copy</button></div>
+<div id="approvalStatus" class="reportBox" hidden></div>
+<h3>Approved outputs</h3><div class="controls"><button id="copyText">Copy for programme</button><button id="copyHtml">Copy article HTML for Wix</button><button id="downloadHtml">Download Wix article HTML</button></div><p class="note">Output actions use the last explicitly approved snapshot, not later unapproved edits. Wix publishing is not connected: the HTML is for creating a draft, not going live automatically.</p>
+</div></section>
+<aside class="details"><div id="reviewPanel"><h2>Editorial Health Check</h2><p class="note">Red = definite; amber = needs a human check; grey = style suggestion. Click a correction to apply only that change.</p><div class="controls"><button id="rescan" class="gold">↻ Scan this document</button><button id="showIgnored">Show ignored</button></div><div id="issues"></div><div class="section"><h3>Corrections log</h3><div id="versionList" class="note"></div></div></div><div id="noReview" class="note">Select a document to view the editorial findings.</div></aside>
+</main>
+<dialog id="guide" style="max-width:700px;width:90%;border:3px solid #ffdb00;padding:20px;background:#fff"><div style="display:flex;justify-content:space-between"><h2 style="margin:0">Editorial Inbox · User Guide</h2><button id="closeGuide">✕</button></div><ol><li>Receive a Word report or preview from Darren by email; download it once for the browser importer. Fully automated Gmail delivery requires secure setup.</li><li>Import the .docx. It is parsed locally in the browser. The original is retained and never overwritten by suggested edits.</li><li>Review red errors first, then amber fact/name checks. Use <b>Apply correction</b>, <b>Ignore</b> or manually edit the copy.</li><li>Re-scan after changes. The corrections log records what has been accepted.</li><li>Approve a snapshot only after checking the text. This makes it available to Programme Studio (in the same browser) and unlocks copy/export for Wix.</li><li>Download the inbox JSON backup before clearing this browser or moving computers. Nothing in this tool automatically publishes to Wix.</li></ol><p class="note">Changes to the working text after approval require another approval to update the published-ready snapshot. Fictional or disputed football facts must not be silently rewritten.</p></dialog>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js"></script>
+<script>
+(function(){
+"use strict";
+var KEY="tivvy-editorial-inbox-v1",APPROVED="tivvy-editorial-approved-v1";
+var docs=[],selected=null,showIgnored=false,saveTimer=0;
+var $=function(id){return document.getElementById(id)};
+var esc=function(v){return String(v==null?"":v).replace(/[&<>"']/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]})};
+try{var stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))docs=stored;}catch(err){}
+var RULES=[
+ {id:"slough",type:"definite",message:"Club player name: Louie Slough",pattern:/\bLouis Slough\b/gi,to:"Louie Slough"},
+ {id:"jagger",type:"possible",message:"Check approved spelling of Louis Jagger-Cane",pattern:/\bLouis Jagger Cane\b/gi,to:"Louis Jagger-Cane"},
+ {id:"jagger2",type:"possible",message:"Surname hyphenation",pattern:/\bJagger Cane\b/gi,to:"Jagger-Cane"},
+ {id:"asahall",type:"definite",message:"Asa Hall possessive",pattern:/\bAsa Halls[’']\b|\bAsa Halls[’']\s/gi,to:"Asa Hall's "},
+ {id:"yellows",type:"definite",message:"Unnecessary apostrophe in team name",pattern:/\bYellows[’'](?=\s+(?:demonstrated|continue|broke|managed|will|have|were|returned|rearguard))/gi,to:"Yellows"},
+ {id:"terras",type:"possible",message:"Check possessive / plural: Terras",pattern:/\bTerras[’'](?=\s+(?:at|were|regrouped|routes|players))/gi,to:"Terras"},
+ {id:"leagues",type:"definite",message:"Incorrect apostrophe in plural",pattern:/\bleague[’']s\b(?=\s+(?:has|have|made))/gi,to:"leagues"},
+ {id:"visitor",type:"definite",message:"Joined words and misplaced capital",pattern:/\btheVisitor[’']s\b/gi,to:"the visitors'"},
+ {id:"spaceposs",type:"definite",message:"Space before possessive apostrophe",pattern:/\bKoerner\s+[’']s\b/gi,to:"Koerner's"},
+ {id:"dee",type:"definite",message:"Football term: edge of the D",pattern:/\bthe dee\b/gi,to:"the D"},
+ {id:"closer",type:"definite",message:"Double comparative",pattern:/\bmore closer\b/gi,to:"closer"},
+ {id:"yellows2",type:"definite",message:"Unnecessary apostrophe: the Yellows",pattern:/\bYellows[’'](?=\s+(?:fans|side|team|number|last|area|goal|players))/gi,to:"Yellows"},
+ {id:"playoffs",type:"suggestion",message:"Hyphenation: play-offs",pattern:/\bplay offs\b/gi,to:"play-offs"},
+ {id:"half",type:"suggestion",message:"Hyphenation: half-time",pattern:/\bhalf time\b/gi,to:"half-time"},
+ {id:"fullback",type:"suggestion",message:"Hyphenation: full-back",pattern:/\bfull back\b/gi,to:"full-back"},
+ {id:"linup",type:"suggestion",message:"Hyphenation: line-up",pattern:/\bline up\b/gi,to:"line-up"},
+ {id:"more",type:"definite",message:"Repeated word",pattern:/\b([a-z]{2,})\s+\1\b/gi,to:null},
+ {id:"spacing",type:"definite",message:"Unexpected double spaces",pattern:/ {2,}/g,to:" "},
+ {id:"punct",type:"definite",message:"Unexpected space before punctuation",pattern:/\s+[,;:!?]/g,to:null},
+ {id:"dotdot",type:"definite",message:"Double full stop",pattern:/\.{2,}(?!\.)/g,to:"."},
+ {id:"yellowsq",type:"definite",message:"Question sentence needs question mark",pattern:/\bCan the Yellows[’']?\s+continue their resurgence\./gi,to:"Can the Yellows continue their resurgence?"},
+ {id:"possessive",type:"possible",message:"Check apostrophe and team plural",pattern:/\b(?:Terra[’']s|Yellows[’']|Well[’']s)\b/gi,to:null},
+ {id:"number",type:"suggestion",message:"Consider consistent number style",pattern:/\b(?:Fourteen|Eleven)\b/g,to:null}
+];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(docs));$("saveStatus").textContent="Saved locally at "+new Date().toLocaleTimeString("en-GB")+". No cloud sync.";return true;}catch(e){$("saveStatus").textContent="LOCAL STORAGE FULL. Download your inbox backup now; photos and large files are not stored.";return false;}}
+function active(){return docs.find(function(d){return d.id===selected})}
+function id(){return "editorial-"+Date.now()+"-"+Math.random().toString(36).slice(2,6)}
+function titleOf(name){return name.replace(/\.docx$/i,"").replace(/\s+raw$/i,"").replace(/\s+/g," ").trim()}
+function scan(d){if(!d)return[];var out=[],text=d.working||"";
+ RULES.forEach(function(rule){var re=new RegExp(rule.pattern.source,rule.pattern.flags);var m;
+ while((m=re.exec(text))!==null){var replacement=rule.to;
+ if(rule.id==="more")replacement=m[1]; if(rule.id==="punct")replacement=m[0].trim();
+ if(rule.id==="asahall")replacement="Asa Hall's"+(m[0].endsWith(" ")?" ":"");
+ var fingerprint=rule.id+"|"+m[0]+"|"+m.index;
+ if(!(d.ignored||[]).includes(fingerprint)||showIgnored)out.push({rule:rule,match:m[0],at:m.index,to:replacement,key:fingerprint,ignored:(d.ignored||[]).includes(fingerprint)});
+ if(m[0].length===0)re.lastIndex++;
+ }});
+ return out.sort(function(a,b){return a.at-b.at});
+}
+function exportApproved(){try{localStorage.setItem(APPROVED,JSON.stringify(docs.filter(function(d){return !!d.approved}).map(function(d){return {id:d.id,title:d.title,kind:d.kind,text:d.approved.text,approvedAt:d.approved.at,source:d.filename}})));}catch(e){$("importStatus").textContent="Approved copy could not be stored: browser limit.";}}
+function renderList(){
+ $("docCount").textContent=docs.length;var c=$("docList");c.innerHTML="";
+ docs.forEach(function(d){var b=document.createElement("button");b.className="doc"+(d.id===selected?" active":"");
+ b.innerHTML="<strong>"+esc(d.title)+"</strong><small>"+esc(d.filename)+"</small><span class='status'>"+(d.approved?"✓ Approved copy available":"● Needs editorial approval")+"</span>";
+ b.onclick=function(){selected=d.id;render()};c.appendChild(b)});
+}
+function render(){
+ renderList();var d=active();$("empty").style.display=d?"none":"block";$("editor").style.display=d?"block":"none";$("reviewPanel").style.display=d?"block":"none";$("noReview").style.display=d?"none":"block";if(!d)return;
+ $("docTitle").value=d.title;$("docKind").value=d.kind;$("working").value=d.working||"";$("originalText").textContent=d.original||"";
+ var issues=scan(d).filter(function(f){return !f.ignored}),def=issues.filter(function(f){return f.rule.type==="definite"}).length,pos=issues.filter(function(f){return f.rule.type==="possible"}).length;
+ $("countAll").textContent=issues.length;$("countDef").textContent=def;$("countPos").textContent=pos;$("countApplied").textContent=(d.changes||[]).length;
+ $("approvalStatus").hidden=!d.approved;
+ if(d.approved)$("approvalStatus").textContent="✓ Approved snapshot: "+new Date(d.approved.at).toLocaleString("en-GB")+(d.working!==d.approved.text?" · WORKING COPY CHANGED SINCE APPROVAL — re-approve to update outputs.":" · Ready for programme/Wix handoff.");
+ ["copyText","copyHtml","downloadHtml"].forEach(function(x){$(x).disabled=!d.approved});
+ var log=$("versionList");log.innerHTML=(d.changes||[]).slice(-12).reverse().map(function(x){return "<div>"+esc(x.at.slice(0,16).replace("T"," "))+" · "+esc(x.message)+"</div>"}).join("")||"No corrections accepted yet.";
+ renderIssues(issues);
+}
+function renderIssues(issues){
+ var host=$("issues");host.replaceChildren();var d=active();if(!d)return;
+ if(!issues.length){host.innerHTML="<div class='approved'>✓ No unresolved findings from current rules. Still check names, football facts and style manually.</div>";return;}
+ issues.slice(0,100).forEach(function(f){var box=document.createElement("article");box.className="issue "+f.rule.type;var type=f.rule.type==="definite"?"DEFINITE ERROR":f.rule.type==="possible"?"CHECK / VERIFY":"STYLE SUGGESTION";
+ var snippet=d.working.slice(Math.max(0,f.at-32),Math.min(d.working.length,f.at+f.match.length+45)).replace(/\s+/g," ");
+ box.innerHTML="<small>"+type+"</small><strong>"+esc(f.rule.message)+"</strong><div class='quote'>…"+esc(snippet)+"…</div>"+(f.to!=null?"<div class='replace'>Suggested: "+esc(f.to)+"</div>":"<div class='note'>No automatic replacement: review in the text editor.</div>");
+ var actions=document.createElement("div");actions.className="actions";
+ if(!f.ignored&&f.to!=null){var apply=document.createElement("button");apply.className="gold";apply.textContent="Apply correction";apply.onclick=function(){var current=active(),at=f.at;if(current.working.slice(at,at+f.match.length)!==f.match){render();return;}current.working=current.working.slice(0,at)+f.to+current.working.slice(at+f.match.length);current.changes=current.changes||[];current.changes.push({at:new Date().toISOString(),message:f.rule.message,from:f.match,to:f.to});save();render()};actions.append(apply);}
+ if(!f.ignored){var ignore=document.createElement("button");ignore.textContent="Ignore";ignore.onclick=function(){d.ignored=d.ignored||[];d.ignored.push(f.key);save();render()};actions.append(ignore);}
+ else{var restore=document.createElement("button");restore.textContent="Unignore";restore.onclick=function(){d.ignored=d.ignored.filter(function(x){return x!==f.key});save();render()};actions.append(restore);}
+ box.append(actions);host.append(box);});
+ if(issues.length>100){var p=document.createElement("p");p.className="note";p.textContent="Showing 100 of "+issues.length+" findings. Fix and re-scan.";host.append(p);}
+}
+function download(name,contents,mime){var url=URL.createObjectURL(new Blob([contents],{type:mime||"text/plain;charset=utf-8"}));var a=document.createElement("a");a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000)}
+function articleHtml(d){var lines=d.approved.text.split(/\n\s*\n/).filter(function(x){return x.trim()});return '<article class="tivvy-article">\n<h1>'+esc(d.title)+'</h1>\n'+lines.map(function(p){return "<p>"+esc(p.trim()).replace(/\n/g," ")+"</p>"}).join("\n")+"\n</article>";}
+$("files").onchange=async function(e){var files=Array.from(e.target.files||[]);if(!files.length)return;var successful=0;
+ if(typeof mammoth==="undefined"){$("importStatus").textContent="Word parser could not load. Check your internet access and reload the page.";return;}
+ for(var i=0;i<files.length;i++){try{var file=files[i];if(!/\.docx$/i.test(file.name))throw Error("Only .docx files are supported.");
+ var result=await mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()});var text=(result.value||"").trim();if(!text)throw Error("The Word document contains no extractable text.");
+ var kind=/preview/i.test(file.name)||/Match Preview/i.test(text.slice(0,80))?"preview":/report/i.test(file.name)||/Match Report/i.test(text.slice(0,80))?"report":"other";
+ var doc={id:id(),filename:file.name,title:titleOf(file.name),kind:kind,original:text,working:text,ignored:[],changes:[],approved:null,importedAt:new Date().toISOString()};
+ docs.unshift(doc);selected=doc.id;successful++;
+ }catch(err){$("importStatus").textContent="Couldn't import "+file.name+": "+err.message;}}
+ save();render();if(successful)$("importStatus").textContent="✓ "+successful+" Word document(s) imported. No copy was uploaded to GitHub.";e.target.value="";
+};
+$("jsonFile").onchange=async function(e){var file=e.target.files[0];if(!file)return;try{var obj=JSON.parse(await file.text());if(!Array.isArray(obj))throw Error("Expected editorial inbox JSON array");if(!confirm("Restore this inbox backup? It replaces the current local inbox."))return;docs=obj.filter(function(d){return d&&typeof d.original==="string"&&typeof d.working==="string"&&d.id});selected=docs[0]&&docs[0].id;save();exportApproved();render();}catch(err){alert("Cannot restore backup: "+err.message)}e.target.value="";};
+$("backup").onclick=function(){download("tivvy-editorial-inbox-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(docs,null,2),"application/json")};
+$("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length},280)};
+$("working").onblur=function(){save();render()};
+$("docTitle").onchange=function(e){var d=active();d.title=e.target.value;save();render()};
+$("docKind").onchange=function(e){var d=active();d.kind=e.target.value;save();render()};
+$("rescan").onclick=render;
+$("showIgnored").onclick=function(){showIgnored=!showIgnored;$("showIgnored").textContent=showIgnored?"Hide ignored":"Show ignored";renderIssues(showIgnored?scan(active()):scan(active()).filter(function(x){return !x.ignored}))};
+$("compare").onclick=function(){$("originalView").hidden=!$("originalView").hidden;$("compare").textContent=$("originalView").hidden?"Show original":"Hide original"};
+$("reset").onclick=function(){var d=active();if(!confirm("Restore Darren's unchanged original into the working editor? The previously approved snapshot (if any) will remain available."))return;d.working=d.original;d.changes=[];d.ignored=[];save();render()};
+$("approve").onclick=function(){var d=active(),issues=scan(d).filter(function(f){return !f.ignored});var msg="Approve this working copy for programme and Wix DRAFT preparation?";
+ if(issues.length)msg+="\n\nThere are "+issues.length+" unresolved editorial flags. Approval means YOU have reviewed them. Continue?";
+ if(!confirm(msg))return;d.approved={at:new Date().toISOString(),text:d.working};save();exportApproved();render()};
+$("copyText").onclick=async function(){var d=active();if(!d||!d.approved)return;try{await navigator.clipboard.writeText(d.approved.text);$("saveStatus").textContent="Approved text copied to clipboard.";}catch(e){alert("Clipboard unavailable. Use Download working copy instead.")}};
+$("copyHtml").onclick=async function(){var d=active();if(!d||!d.approved)return;try{await navigator.clipboard.writeText(articleHtml(d));$("saveStatus").textContent="Wix article HTML copied to clipboard.";}catch(e){alert("Clipboard unavailable; use Download Wix HTML instead.")}};
+$("downloadTxt").onclick=function(){var d=active();if(d)download(d.title.replace(/[^\w -]/g,"")+".txt",d.working)};
+$("downloadHtml").onclick=function(){var d=active();if(d&&d.approved)download(d.title.replace(/[^\w -]/g,"")+".html",articleHtml(d),"text/html")};
+$("help").onclick=function(){$("guide").showModal()};$("closeGuide").onclick=function(){$("guide").close()};
+selected=docs[0]&&docs[0].id;exportApproved();render();
+})();
+</script></body></html>

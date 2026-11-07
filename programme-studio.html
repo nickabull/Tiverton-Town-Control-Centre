@@ -45,7 +45,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 .leagueTable tr.tivvy{background:var(--y)!important;font-weight:900}
 .matrixWrap{overflow:hidden;margin-top:12px}.matrix{border-collapse:collapse;table-layout:fixed;width:100%}.matrix th,.matrix td{border:1px solid #666;height:20px;padding:0;text-align:center;font:700 8px Antonio,Impact,sans-serif}.matrix th{background:#eee;font-size:8px}.matrix th.side{width:25px}.matrix td.diag{background:var(--y)}.matrix td.tiv{color:#b51b2a}.matrix td[contenteditable=true]:focus{background:#fff6ab}
 .caption{font:10px Arial;color:#444}.newsGrid{display:grid;grid-template-columns:1fr 1fr;gap:21px;margin-top:17px}
-.story h3{font:700 22px/1.1 Antonio,Impact,sans-serif;margin:0 0 8px}.story p{font:15px/1.32 Antonio,Impact,sans-serif;margin:0 0 17px;text-align:justify}
+.story h3{font:700 18pt/1.1 Antonio,Impact,sans-serif;margin:0 0 8px}.story p{font:14pt/1.32 Antonio,Impact,sans-serif;margin:0 0 17px;text-align:justify}
 .newsFooter{position:absolute;bottom:0;width:100%;background:#111;color:var(--y);text-align:center;padding:15px 0;font:700 38px/1 Antonio,Impact,sans-serif}
 .photo{height:155px;background:#e9e9e9;border:1px dashed #aaa;display:flex;align-items:center;justify-content:center;color:#666;font-size:12px;overflow:hidden}
 .photo img{width:100%;height:100%;object-fit:cover}.photoCaption{font:11px Antonio,sans-serif;margin-top:4px}
@@ -158,7 +158,7 @@ function band(title,sub){return '<div class="topBand" data-field="band" style="c
 function renderLeague(d){
  let out=band(d.title,d.subtitle)+'<section class="panel"><table class="leagueTable"><colgroup><col style="width:27px"><col style="width:29px"><col style="width:154px">'+Array(8).fill('<col>').join('')+'</colgroup><thead><tr>'+["POS","", "TEAM","P","W","D","L","GF","GA","GD","PTS"].map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
  d.teams.forEach((t,i)=>{const c=i===11?"tivvy":i===0?"band-green":i<5?"band-blue":i>=18?"band-red":"";
- out+='<tr class="'+c+'" data-row="'+i+'" data-name="'+esc(t[0])+'"><td>'+(i+1)+'</td><td><img src="'+ORIGIN+encodeURIComponent(t[8])+'.png" alt=""></td><td contenteditable="true" data-cell="'+i+':0">'+esc(t[0])+'</td>';
+ out+='<tr class="'+c+'" data-row="'+i+'" data-name="'+esc(t[0])+'"><td>'+(i+1)+'</td><td><img src="'+ORIGIN+encodeURIComponent(t[9])+'.png" alt=""></td><td contenteditable="true" data-cell="'+i+':0">'+esc(t[0])+'</td>';
  for(let j=1;j<=8;j++){let n=t[j];out+='<td data-cell="'+i+':'+j+'" contenteditable="true">'+(j===7&&n>0?'+':'')+esc(n)+'</td>';}
  out+='</tr>';});
  out+='</tbody></table><p class="caption" style="margin-top:14px">Automatic promotion &nbsp;&nbsp; Promotion play-offs &nbsp;&nbsp; Relegation</p></section><div class="bottomBand"></div>';
@@ -205,16 +205,17 @@ function fontDefault(el){
  if(!el||!el.dataset||!el.dataset.field)return null;
  let key=el.dataset.field;
  if(key==="band"||key==="oppHeader")return null;
- if(key==="title")return 18;
+ if(key==="title")return 37;
  if(key.startsWith("newsTitle"))return 18;
- if(key==="footer")return 18;
- if(key==="oppClub")return 18;
- return 14;
+ if(key==="footer")return 29;
+ if(key==="oppClub")return 27;
+ if(key==="subtitle"||key.startsWith("caption"))return 10;
+return 14;
 }
 function syncFontControl(){
  let el=selected&&element(selected),base=fontDefault(el);
  $("fontPt").disabled=base===null;
- if(base===null){$("fontPtVal").textContent="—";$("fontWarning").textContent="Select editable text to set its point size."; $("fontWarning").classList.remove("off");return;}
+ if(base===null){$("fontPtVal").textContent="—";$("fontWarning").textContent="Editorial defaults: 14 pt body / 18 pt headings. Large display titles have separate defaults."; $("fontWarning").classList.remove("off");return;}
  let currentPt=(ov()[selected]||{}).fontPt||base;
  $("fontPt").value=currentPt;$("fontPtVal").textContent=currentPt+" pt";
  let changed=currentPt!==base;

@@ -53,7 +53,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 .sliderRow{display:flex;align-items:center;gap:6px}input[type=range]{flex:1;min-width:0;accent-color:#d4ad00}.value{min-width:45px;text-align:right;font-size:12px;font-weight:700}
 .colors{display:flex;gap:5px}.swatch{width:30px;height:28px;border:1px solid #888;padding:0}
 .smallBtn{font-size:12px;padding:6px 8px;margin:4px 3px 0 0}
-.fontWarning{font-size:12px;color:#155d24;padding:7px 8px;background:#e4f6e4;margin-top:6px;line-height:1.4}
+.audit{border-top:3px solid #111;margin-top:18px;padding-top:9px}.auditEntries{max-height:275px;overflow:auto;background:#fafafa;border:1px solid #ddd}.auditEntry{font-size:11px;line-height:1.3;padding:7px;border-bottom:1px solid #ddd}.auditEntry strong{display:block}.auditEntry small{color:#666}.auditEntry.undo{border-left:4px solid orange}.auditEntry.redo{border-left:4px solid green}.fontWarning{font-size:12px;color:#155d24;padding:7px 8px;background:#e4f6e4;margin-top:6px;line-height:1.4}
 .fontWarning.off{background:#ffe1e1;color:#a51515;font-weight:700;border-left:4px solid #d52020}
 .clubLib{background:#fff8d6;border:1px solid #dbce81;padding:10px;margin-bottom:16px;font-size:12px}
 .clubLib img{width:50px;height:50px;object-fit:contain;float:left;margin-right:9px}
@@ -66,7 +66,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 @media print{@page{size:A4 portrait;margin:0}body{background:#fff}.top,.left,.right,.stagebar{display:none!important}.layout{display:block;min-height:0}.stage{padding:0;overflow:visible}.sheetBox{margin:0!important;box-shadow:none; width:595px!important;height:842px!important}.paper{transform:none!important;width:595px;height:842px}.paper [contenteditable=true]{outline:0!important}}
 .oppHeader{height:130px;background:#111;color:#fff;padding:28px;position:relative}.oppHeader h1{font-size:44px}.oppAccent{position:absolute;right:0;bottom:0;width:180px;height:70px;background:repeating-linear-gradient(150deg,transparent 0 13px,#fff 14px 16px,transparent 17px 24px);opacity:.3;transform:skewX(-16deg)}.oppBody{padding:35px}.oppTop{display:flex;gap:25px;align-items:center}.oppBadge img{width:155px;height:155px;object-fit:contain}.oppClub{font:700 36px Antonio,Impact,sans-serif}.oppIntro{font:19px/1.3 Antonio,Impact,sans-serif;padding:28px 0}.oppKits{display:grid;grid-template-columns:1fr 1fr;gap:15px}.oppKit{height:125px;color:#fff;display:flex;align-items:center;justify-content:center;font:700 21px Antonio;padding:14px}.oppKit.white{background:#f6f6f6;border:3px solid #111;color:#111}.oppNote{font:13px Arial,sans-serif;color:#444;margin-top:20px}
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.2</small></div><div class="actions"><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.3</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
 <div class="layout"><aside class="left"><div class="sectionTitle">RUNNING ORDER</div>
 <label class="label" for="editionPicker">Matchday editions</label><select id="editionPicker"></select><label class="label" for="editionName">Edition name</label><input id="editionName" type="text" value="Inkberrow · 7 Nov 2026">
 <label class="label" for="mode">Designer mode</label><select id="mode"><option value="edition">Programme Designer (safe)</option><option value="template">Template Designer</option></select>
@@ -74,7 +74,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 <div class="sectionTitle">Club library</div><div id="clubLibrary" class="clubLib"></div><div class="sectionTitle">Test pages</div><div class="pageButtons" id="pageButtons"></div>
 <p class="note">Three working page types from the 51-page final Inkberrow PDF. Further pages, central storage, automated data refreshing and Wix publishing will follow.</p>
 <div class="fieldGroup"><button id="saveTemplate" class="smallBtn" style="display:none">Save changes to master…</button></div>
-<div class="status" id="status"></div>
+<div class="status" id="status"></div><section class="audit"><div class="sectionTitle">SAFETY & CHANGE LOG</div><button class="smallBtn" id="checkpoint">Create restore point</button><label class="label" for="restoreSelect">Restore points</label><select id="restoreSelect"></select><button class="smallBtn" id="restorePoint">Restore selected…</button><button class="smallBtn" id="downloadBackup">Download backup</button><div class="sectionTitle" style="margin-top:15px">DIAGNOSTIC LOG</div><p class="note">Local browser history · timestamps and before/after values. Not yet a secure server audit.</p><div id="auditEntries" class="auditEntries"></div><button id="downloadAudit" class="smallBtn">Download log</button></section>
 </aside>
 <main class="stage"><div class="stagebar"><strong id="pageTitle">Page 18 · League Table</strong><label>Preview zoom <input id="zoom" type="range" min="55" max="115" value="85"><span id="zoomValue">85%</span></label></div><div class="sheetBox" id="sheetBox"><div class="paper" id="paper"></div></div></main>
 <aside class="right"><div class="sectionTitle">ELEMENT CONTROLS</div><div class="note">Click an element, or choose it from this list. Then use sliders rather than dragging corners.</div>
@@ -156,6 +156,56 @@ const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,
 const current=()=>mode==="template"?master:edition;
 function persist(){try{editions[activeEdition]=edition;localStorage.setItem(KEY,JSON.stringify({master,editions,activeEdition,names:{"inkberrow":activeEdition==="inkberrow"?editionName:"Inkberrow · 7 Nov 2026","bishops-cleeve":activeEdition==="bishops-cleeve"?editionName:"Bishops Cleeve · 14 Nov 2026"}}));$("status").textContent="Saved in this browser · "+new Date().toLocaleTimeString("en-GB");}catch(e){$("status").textContent="Browser storage full — export photos need server storage.";}}
 const ov=()=>current()[page].overrides;
+const AUDIT_KEY="tivvy-programme-audit-v01",CHECKPOINT_KEY="tivvy-programme-checkpoints-v01";
+let undoStack=[],redoStack=[],audit=[],restorePoints=[],skipRecord=false;
+try{let saved=JSON.parse(localStorage.getItem(AUDIT_KEY)||"[]");if(Array.isArray(saved))audit=saved;}catch(e){}
+try{let saved=JSON.parse(localStorage.getItem(CHECKPOINT_KEY)||"[]");if(Array.isArray(saved))restorePoints=saved;}catch(e){}
+function snapshot(){return JSON.stringify({master,editions,activeEdition,editionName,page,mode});}
+function restoreState(raw){let state=JSON.parse(raw);master=state.master;editions=state.editions;activeEdition=state.activeEdition;edition=editions[activeEdition];editionName=state.editionName;page=state.page;mode=state.mode;populateEditionPicker();persist();render();}
+function logEvent(action,target,before,after,kind){
+ let item={time:new Date().toISOString(),actor:"Local editor",edition:editionName,page,mode,action,target,before:String(before??""),after:String(after??""),kind:kind||"edit"};
+ audit.push(item);if(audit.length>1500)audit.shift();
+ try{localStorage.setItem(AUDIT_KEY,JSON.stringify(audit));}catch(e){}
+ drawAudit();
+}
+function drawAudit(){let target=$("auditEntries");if(!target)return;target.replaceChildren();
+ if(!audit.length){target.textContent="No edits yet.";return;}
+ audit.slice(-35).reverse().forEach(a=>{
+ let item=document.createElement("div");item.className="auditEntry "+(a.kind||"");
+ let title=document.createElement("strong");title.textContent=a.action+" · "+a.target;
+ let val=document.createElement("div");val.textContent=a.before.slice(0,130)+" → "+a.after.slice(0,130);
+ let meta=document.createElement("small");meta.textContent=new Date(a.time).toLocaleString("en-GB")+" · "+a.actor+" · "+a.edition+" · "+a.page;
+ item.append(title,val,meta);target.append(item);
+ });}
+function updateHistoryButtons(){$("undo").disabled=!undoStack.length;$("redo").disabled=!redoStack.length;}
+function commitChange(before,action,target,oldVal,newVal){
+ if(skipRecord||before===snapshot())return;
+ undoStack.push({state:before,action,target,oldVal,newVal});if(undoStack.length>150)undoStack.shift();
+ redoStack=[];updateHistoryButtons();logEvent(action,target,oldVal,newVal);
+}
+function undo(){if(!undoStack.length)return;
+ const x=undoStack.pop();redoStack.push({state:snapshot(),action:x.action,target:x.target,oldVal:x.oldVal,newVal:x.newVal});
+ restoreState(x.state);updateHistoryButtons();logEvent("UNDO "+x.action,x.target,x.newVal,x.oldVal,"undo");
+}
+function redo(){if(!redoStack.length)return;
+ const x=redoStack.pop();undoStack.push({state:snapshot(),action:x.action,target:x.target,oldVal:x.oldVal,newVal:x.newVal});
+ restoreState(x.state);updateHistoryButtons();logEvent("REDO "+x.action,x.target,x.oldVal,x.newVal,"redo");
+}
+function paintRestorePoints(){const select=$("restoreSelect");if(!select)return;select.replaceChildren();
+ if(!restorePoints.length){let option=document.createElement("option");option.textContent="No restore points yet";option.value="";select.append(option);return;}
+ restorePoints.slice().reverse().forEach(point=>{let option=document.createElement("option");option.value=point.id;option.textContent=point.name+" · "+new Date(point.time).toLocaleString("en-GB");select.append(option);});}
+function makeRestorePoint(name){
+ const id="rp-"+Date.now()+"-"+Math.random().toString(36).slice(2,8);
+ const point={id,time:new Date().toISOString(),name,edition:editionName,state:snapshot()};
+ restorePoints.push(point);if(restorePoints.length>12)restorePoints.shift();
+ try{localStorage.setItem(CHECKPOINT_KEY,JSON.stringify(restorePoints));}catch(e){restorePoints.pop();alert("Browser storage is full. Download a backup instead.");return false;}
+ paintRestorePoints();logEvent("CREATE RESTORE POINT",name,"",point.time,"checkpoint");return true;
+}
+function downloadJSON(name,data){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob);
+ let a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+
 function attr(k){return ' data-field="'+k+'" contenteditable="true" spellcheck="true"';}
 function band(title,sub){return '<div class="topBand" data-field="band" style="cursor:pointer"><h1 data-field="title" contenteditable="true">'+esc(title)+'</h1>'+(sub?'<div class="subhead" data-field="subtitle" contenteditable="true">'+esc(sub)+'</div>':'')+'</div>';}
 function renderLeague(d){
@@ -193,7 +243,7 @@ function render(){
  $("paper").querySelectorAll("[data-field],[data-row],[data-asset]").forEach(e=>{if(e.closest("[data-field]")&&e!==e.closest("[data-field]"))return;const id=idOf(e);if(!id)return;const opt=document.createElement("option");opt.value=id;opt.textContent=labelOf(e);$("objectList").append(opt);});
  selected=null;$("selectedInfo").textContent="Select an element to reveal its slider controls.";
 renderClubLibrary();syncFontControl();
- resizePaper();
+ resizePaper();drawAudit();paintRestorePoints();updateHistoryButtons();
 }
 function renderClubLibrary(){let c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.inkberrow;let el=$("clubLibrary");el.replaceChildren();let img=document.createElement("img");img.src=ORIGIN+c.crest+".png";img.alt=c.name+" crest";let name=document.createElement("strong");name.textContent=c.name;let p=document.createElement("div");p.textContent=edition.fixture&&edition.fixture.date==="2026-11-14"?"Next scheduled home game · 14 Nov · 15:00":"Published reference edition";let palette=document.createElement("div");palette.style.cssText="clear:both;padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:7px";[["HOME",c.homeColours],["AWAY",c.awayColours]].forEach(pair=>{let box=document.createElement("div");let t=document.createElement("div");t.textContent=pair[0];t.style.cssText="font:700 11px Antonio,Arial;margin-bottom:4px";let sw=document.createElement("div");sw.className="swash";sw.style.marginTop="0";sw.style.background=pair[1].length?("linear-gradient(90deg,"+pair[1].map((col,i)=>col+" "+Math.round(i*100/pair[1].length)+"% "+Math.round((i+1)*100/pair[1].length)+"%").join(",")+")"):"#ddd";sw.title=pair[1].join(" · ");box.append(t,sw);palette.append(box);});let rev=document.createElement("div");rev.className="review";rev.textContent=c.note;el.append(img,name,p,palette,rev);}
 function labelOf(e){return e.dataset.row!==undefined?"League row "+(+e.dataset.row+1)+" · "+e.dataset.name:e.dataset.asset!==undefined?"Editorial photo "+(+e.dataset.asset+1):e.dataset.field==="title"?"Page title":e.dataset.field==="subtitle"?"Subtitle":e.dataset.field==="band"?"Header artwork":(e.textContent||e.dataset.field||"Element").trim().slice(0,46);}
@@ -226,7 +276,13 @@ function syncFontControl(){
  $("fontWarning").textContent=changed?"⚠ Off template: "+currentPt+" pt (default "+base+" pt). Allowed for this edition.":"✓ Template standard: "+base+" pt";
 }
 function updateValue(id){$(id+"Val").textContent=$(id).value+(id==="size"?"%":" px");}
-function changeProp(prop,val){if(!selected)return;const o=ov()[selected]||(ov()[selected]={});o[prop]=val;applyOverride(element(selected),o);persist();}
+function changeProp(prop,val){
+ if(!selected)return;const before=snapshot(),el=element(selected),o=ov()[selected]||(ov()[selected]={});
+ const previous=o[prop]??(prop==="size"?100:prop==="fontPt"?fontDefault(el):prop==="x"||prop==="y"?0:"default");
+ if(previous===val)return;
+ o[prop]=val;applyOverride(el,o);persist();
+ commitChange(before,prop==="bg"?"Background colour":prop==="color"?"Text colour":prop==="fontPt"?"Font size":prop==="size"?"Scale":prop==="height"?"Height":"Move ("+prop+")",labelOf(el),previous,val);
+}
 function resizePaper(){let v=+$("zoom").value/100;$("zoomValue").textContent=Math.round(v*100)+"%";$("paper").style.transform="scale("+v+")";$("sheetBox").style.width=(595*v)+"px";$("sheetBox").style.height=(842*v)+"px";}
 $("zoom").oninput=resizePaper;
 ["size","x","y","height"].forEach(id=>{$(id).oninput=()=>{updateValue(id);changeProp(id,+$(id).value);};});
@@ -235,20 +291,35 @@ $("customColor").oninput=e=>changeProp("color",e.target.value);
 $("fontPt").oninput=e=>{if(!selected||fontDefault(element(selected))===null)return;changeProp("fontPt",Number(e.target.value));syncFontControl();};
 $("paper").onclick=e=>{let el=e.target.closest("[data-row],[data-asset],[data-field]");if(el){let k=idOf(el);if(k)choose(k);}};
 $("objectList").onchange=e=>choose(e.target.value);
+let textBefore=null,textOld=null,textName=null;
+$("paper").addEventListener("focusin",e=>{if(e.target.matches("[contenteditable=true]")){textBefore=snapshot();textOld=e.target.textContent;textName=e.target.dataset.field||e.target.dataset.cell||"Editable text";}});
+$("paper").addEventListener("focusout",e=>{if(textBefore&&e.target.matches("[contenteditable]")){commitChange(textBefore,"Text edit",textName,textOld,e.target.textContent);textBefore=null;}});
 $("paper").addEventListener("input",e=>{let a=e.target.dataset.field,c=e.target.dataset.cell,d=current()[page];if(a){if(a==="title"||a==="subtitle"||a==="footer")d[a]=e.target.textContent;else if(a==="oppClub")d.club=e.target.textContent;else if(a==="oppIntro")d.intro=e.target.textContent;else if(a==="oppNote")d.kitLabel=e.target.textContent;else if(a.startsWith("newsTitle"))d.items[+a.slice(9)].title=e.target.textContent;else if(a.startsWith("newsBody"))d.items[+a.slice(8)].body=e.target.textContent;else if(a.startsWith("caption"))d.captions[+a.slice(7)]=e.target.textContent;}if(c){if(page==="matrix"){d.scores[c]=e.target.textContent;}else if(page==="league"){let ij=c.split(":").map(Number);d.teams[ij[0]][ij[1]]=ij[1]===0?e.target.textContent:(Number(e.target.textContent.replace("+",""))||0);}}persist();});
 $("photoUpload").onclick=()=>{if(!selected||!selected.startsWith("photo:")){alert("First select a photo box.");return;}$("photoFile").click();};
-$("photoFile").onchange=e=>{let f=e.target.files[0];if(!f||!selected||!selected.startsWith("photo:"))return;let n=+selected.split(":")[1];if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}let rd=new FileReader();rd.onload=()=>{current().news.photos[n]=rd.result;persist();render();};rd.readAsDataURL(f);};
+$("photoFile").onchange=e=>{let f=e.target.files[0];if(!f||!selected||!selected.startsWith("photo:"))return;let n=+selected.split(":")[1];if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}const before=snapshot(),old=current().news.photos[n]?"Previous photo":"No photo";let rd=new FileReader();rd.onload=()=>{current().news.photos[n]=rd.result;persist();commitChange(before,"Replace photo","Photo "+(n+1),old,f.name);render();};rd.readAsDataURL(f);};
 $("save").onclick=()=>{editionName=$("editionName").value.trim()||editionName;persist();$("status").textContent="Edition saved locally · "+editionName;};
 function populateEditionPicker(){let sel=$("editionPicker");sel.replaceChildren();[["bishops-cleeve","Bishops Cleeve · 14 Nov"],["inkberrow","Inkberrow · 7 Nov"]].forEach(x=>{let o=document.createElement("option");o.value=x[0];o.textContent=x[1];sel.append(o);});sel.value=activeEdition;}
 $("editionPicker").onchange=e=>{persist();activeEdition=e.target.value;edition=editions[activeEdition];editionName=activeEdition==="bishops-cleeve"?"Bishops Cleeve · 14 Nov 2026":"Inkberrow · 7 Nov 2026";mode="edition";page=activeEdition==="bishops-cleeve"?"opposition":"league";persist();render();};
 $("newEdition").onclick=()=>{if(!confirm("Create a Bishops Cleeve edition from the master? Existing Inkberrow remains safely available."))return;activeEdition="bishops-cleeve";edition=editions[activeEdition]||newBishopsEdition(master);editionName="Bishops Cleeve · 14 Nov 2026";mode="edition";page="opposition";populateEditionPicker();persist();render();};
-$("reset").onclick=()=>{if(!confirm("Revert this page to the approved master layout and content for this edition?"))return;if(mode==="template"){alert("Revert is only available in Programme Designer.");return;}edition[page]=page==="opposition"?newBishopsEdition(master).opposition:clone(master[page]);persist();render();};
+$("reset").onclick=()=>{if(!confirm("Revert this page to the approved master layout and content for this edition?"))return;if(mode==="template"){alert("Revert is only available in Programme Designer.");return;}const before=snapshot();makeRestorePoint("Before reverting "+page);edition[page]=page==="opposition"?newBishopsEdition(master).opposition:clone(master[page]);persist();commitChange(before,"Revert page",page,"Edited","Template default");render();};
 $("mode").onchange=e=>{if(e.target.value==="template"&&!confirm("Enter TEMPLATE DESIGNER? Edits here are deliberate master changes, not changes to this matchday edition.")){e.target.value="edition";return;}mode=e.target.value;render();};
 $("saveTemplate").onclick=()=>{if(mode!=="template")return;if(confirm("Confirm MASTER TEMPLATE change. It will be used for future new editions, not the current saved edition.")){persist();$("status").textContent="Master template saved in this browser.";}}
-$("resetElement").onclick=()=>{if(!selected)return;delete ov()[selected];persist();render();};
+$("resetElement").onclick=()=>{if(!selected)return;const before=snapshot(),target=selected,old=JSON.stringify(ov()[selected]||{});delete ov()[selected];persist();commitChange(before,"Reset element",target,old,"Default");render();};
 $("print").onclick=()=>{let old=$("zoom").value;$("zoom").value=100;resizePaper();window.print();$("zoom").value=old;resizePaper();};
-$("editionName").onchange=e=>{editionName=e.target.value;persist();};
+$("editionName").onchange=e=>{const before=snapshot(),old=editionName;editionName=e.target.value;persist();commitChange(before,"Rename edition","Edition",old,editionName);};
+$("undo").onclick=undo;$("redo").onclick=redo;
+document.addEventListener("keydown",e=>{if(!(e.ctrlKey||e.metaKey)||e.altKey||e.key.toLowerCase()!=="z")return;
+ if(e.target.closest&&e.target.closest('input,textarea,[contenteditable="true"]'))return;
+ e.preventDefault();if(e.shiftKey)redo();else undo();});
+$("checkpoint").onclick=()=>{let name=prompt("Name this restore point","Known-good layout · "+new Date().toLocaleString("en-GB"));if(name&&name.trim())makeRestorePoint(name.trim());};
+$("restorePoint").onclick=()=>{let found=restorePoints.find(p=>p.id===$("restoreSelect").value);if(!found)return;
+ if(!confirm("Restore '"+found.name+"'? Your current edition and template state will return to that checkpoint."))return;
+ const before=snapshot();makeRestorePoint("Automatic backup before restoring "+found.name);
+ restoreState(found.state);undoStack.push({state:before,action:"Restore point",target:found.name,oldVal:"Current state",newVal:found.time});redoStack=[];updateHistoryButtons();logEvent("RESTORE POINT",found.name,"Current state","State from "+found.time,"restore");};
+$("downloadBackup").onclick=()=>downloadJSON("tivvy-programme-backup.json",{exportedAt:new Date().toISOString(),source:"Local browser prototype",state:JSON.parse(snapshot()),restorePoints,audit});
+$("downloadAudit").onclick=()=>downloadJSON("tivvy-programme-change-log.json",{exportedAt:new Date().toISOString(),events:audit});
+
 [["opposition","Bishops · Club artwork"],["league","18 · League Table"],["matrix","13 · Results Matrix"],["news","6 · Latest News"]].forEach(pair=>{let b=document.createElement("button");b.className="pageOption";b.dataset.page=pair[0];b.innerHTML="<strong>"+pair[1]+"</strong><br><small>"+(pair[0]==="league"?"22 club rows · editable":pair[0]==="matrix"?"22 × 22 editable cells":pair[0]==="opposition"?"Crest · swashes · text":"6 stories · 2 photo slots")+"</small>";b.onclick=()=>{page=pair[0];render();};$("pageButtons").append(b);});
-populateEditionPicker();render();
+populateEditionPicker();render();paintRestorePoints();drawAudit();updateHistoryButtons();
 })();
 </script></body></html>

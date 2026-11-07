@@ -20,7 +20,7 @@ button:hover{filter:brightness(.94)}
 select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px solid #aaa;background:white}
 .pageOption{display:block;text-align:left;width:100%;margin-bottom:7px;background:#f4f4f4;border:1px solid #ddd;line-height:1.3}
 .pageOption.active{background:var(--y);border-color:#111}
-.pageOption small{font-weight:400;color:#555}
+.pageOption small{font-weight:400;color:#555}.pageOption .pageReady{display:inline-block;margin-top:5px;font:700 10px Arial,sans-serif;color:#9a1d1d}.pageOption .pageReady.ok{color:#145f30}
 .note{font-size:12px;color:#555;line-height:1.45}.status{font-size:12px;font-weight:700;color:#135d28;min-height:18px}
 .stage{padding:20px;overflow:auto;min-width:0}
 .stagebar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;max-width:940px;margin:0 auto 15px}
@@ -332,7 +332,11 @@ function render(){
  $("editionName").value=editionName;
  $("mode").value=mode;$("modeInfo").textContent=mode==="edition"?"Changes affect ONLY this edition. The master is protected.":"CAUTION: Template Designer — changes here can affect newly generated editions. Existing editions remain unchanged.";
  $("saveTemplate").style.display=mode==="template"?"inline-block":"none";
- document.querySelectorAll(".pageOption").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ document.querySelectorAll(".pageOption").forEach(b=>{
+ b.classList.toggle("active",b.dataset.page===page);
+ const rating=readiness(b.dataset.page),el=b.querySelector(".pageReady");
+ if(el){el.textContent=rating.todo.length?rating.todo.length+" to review":"✓ Requirements met";el.classList.toggle("ok",rating.todo.length===0);}
+});
  $("objectList").replaceChildren();
  const opt=document.createElement("option");opt.textContent="Choose an element…";opt.value="";$("objectList").append(opt);
  $("paper").querySelectorAll("[data-field],[data-row],[data-asset]").forEach(e=>{if(e.closest("[data-field]")&&e!==e.closest("[data-field]"))return;const id=idOf(e);if(!id)return;const opt=document.createElement("option");opt.value=id;opt.textContent=labelOf(e);$("objectList").append(opt);});
@@ -768,7 +772,7 @@ $("restorePoint").onclick=()=>{let found=restorePoints.find(p=>p.id===$("restore
 $("downloadBackup").onclick=()=>downloadJSON("tivvy-programme-backup.json",{exportedAt:new Date().toISOString(),source:"Local browser prototype",state:JSON.parse(snapshot()),restorePoints,audit});
 $("downloadAudit").onclick=()=>downloadJSON("tivvy-programme-change-log.json",{exportedAt:new Date().toISOString(),events:audit});
 
-[["cover","1 · Front Cover"],["news","6 · Latest News"],["squad","29–33 · Squad"],["opposition","Opposition · Artwork"],["around","17 · Around the League"],["league","18 · League Table"],["matrix","13 · Results Matrix"]].forEach(pair=>{let b=document.createElement("button");b.className="pageOption";b.dataset.page=pair[0];b.innerHTML="<strong>"+pair[1]+"</strong><br><small>"+(pair[0]==="cover"?"Opponent · featured player · image":pair[0]==="squad"?"Player statuses & inclusion":pair[0]==="around"?"Shared live fixtures · print snapshot":pair[0]==="league"?"22 club rows · editable":pair[0]==="matrix"?"22 × 22 editable cells":pair[0]==="opposition"?"Crest · swashes · text":"6 stories · 2 photo slots")+"</small>";b.onclick=()=>{page=pair[0];render();if(page==="around"&&mode==="edition"&&!edition.around.frozen&&(!edition.around.fetchedAt||edition.around.date!==issueDate()))refreshAround();};$("pageButtons").append(b);});
+[["cover","1 · Front Cover"],["news","6 · Latest News"],["squad","29–33 · Squad"],["opposition","Opposition · Artwork"],["around","17 · Around the League"],["league","18 · League Table"],["matrix","13 · Results Matrix"]].forEach(pair=>{let b=document.createElement("button");b.className="pageOption";b.dataset.page=pair[0];b.innerHTML="<strong>"+pair[1]+"</strong><br><small>"+(pair[0]==="cover"?"Opponent · featured player · image":pair[0]==="squad"?"Player statuses & inclusion":pair[0]==="around"?"Shared live fixtures · print snapshot":pair[0]==="league"?"22 club rows · editable":pair[0]==="matrix"?"22 × 22 editable cells":pair[0]==="opposition"?"Crest · swashes · text":"6 stories · 2 photo slots")+"</small><span class=\"pageReady\"></span>";b.onclick=()=>{page=pair[0];render();if(page==="around"&&mode==="edition"&&!edition.around.frozen&&(!edition.around.fetchedAt||edition.around.date!==issueDate()))refreshAround();};$("pageButtons").append(b);});
 populateEditionPicker();render();paintRestorePoints();drawAudit();updateHistoryButtons();
 })();
 </script></body></html>

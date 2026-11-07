@@ -121,14 +121,15 @@ const defaultMaster={league:{title:"LEAGUE TABLE",subtitle:"SOUTHERN LEAGUE DIVI
 let master,edition,page="opposition",mode="edition",selected=null,editionName="Inkberrow · 7 Nov 2026",editions={},activeEdition="inkberrow";
 const KEY="tivvy-programme-studio-v02";
 const CLUB_LIBRARY={
- "bishops-cleeve":{name:"Bishops Cleeve",crest:"bishopscleeve",homeColours:["#111111","#ffffff"],awayColours:["#ffffff","#111111"],note:"Black/white artwork palette is an editorial starting point from your notes; kit colours and use need confirmation."},
+ "bishops-cleeve":{name:"Bishops Cleeve",crest:"bishopscleeve",homeColours:["#00872f","#111111"],awayColours:["#1732ed","#ffffff","#ffdc00"],note:"Reference supplied 7 Nov: home green shirts/black shorts/green socks; away royal-blue shirt/white shorts/yellow socks. Club nickname: The Mitres; founded 1905; ground Kayte Lane."},
+ "dorchester-town":{name:"Dorchester Town",crest:"dorchestertown",homeColours:["#111111","#ffffff"],awayColours:[],note:"Black-and-white club artwork preset from previous Dorchester programme; keep distinct from Bishops Cleeve."},
  "inkberrow":{name:"Sporting Club Inkberrow",crest:"scinkberrow",homeColours:["#16853d","#ffffff"],awayColours:["#ffdb00","#111111"],note:"Historic Inkberrow edition: retain its published artwork; this is not a master theme change."}
 };
 function newBishopsEdition(base){
  let d=clone(base);
  d.clubKey="bishops-cleeve";
  d.fixture={home:"Tiverton Town",away:"Bishops Cleeve",date:"2026-11-14",kickoff:"15:00",competition:"Southern League Division One South"};
- d.opposition={title:"MEET THE OPPOSITION",club:"BISHOPS CLEEVE",intro:"Bishops Cleeve visit Tiverton Town for the next scheduled home league match.",crest:"bishopscleeve",accent:"#111111",accent2:"#ffffff",kitLabel:"Black & white · artwork preset (verify kit)",overrides:{}};
+ d.opposition={title:"MEET THE OPPOSITION",club:"BISHOPS CLEEVE",intro:"Bishops Cleeve visit Tiverton Town for the next scheduled home league match.",crest:"bishopscleeve",accent:"#00872f",accent2:"#ffffff",kitLabel:"HOME: green / black / green · AWAY: blue / white / yellow",overrides:{}};
  d.news.title="LATEST NEWS";d.news.footer="TIVERTON TOWN FOOTBALL CLUB";
  return d;
 }
@@ -143,6 +144,8 @@ try{
  editions=saved&&saved.editions||{inkberrow:legacy&&legacy.edition||initialInk,"bishops-cleeve":newBishopsEdition(master)};
  if(!editions.inkberrow.opposition)editions.inkberrow.opposition=clone(initialInk.opposition);
  if(!editions.inkberrow.clubKey)editions.inkberrow.clubKey="inkberrow";
+ // Migrate only the incorrect starter palette; do not overwrite deliberate user edits.
+ if(editions["bishops-cleeve"]&&editions["bishops-cleeve"].opposition){let opp=editions["bishops-cleeve"].opposition;if(opp.kitLabel==="Black & white · artwork preset (verify kit)"){opp.accent="#00872f";opp.accent2="#ffffff";opp.kitLabel="HOME: green / black / green · AWAY: blue / white / yellow";}}
  activeEdition=saved&&saved.activeEdition||"bishops-cleeve";
  edition=editions[activeEdition]||editions["bishops-cleeve"];
  editionName=saved&&saved.names&&saved.names[activeEdition]||(activeEdition==="inkberrow"?(legacy&&legacy.editionName||"Inkberrow · 7 Nov 2026"):"Bishops Cleeve · 14 Nov 2026");
@@ -192,7 +195,7 @@ function render(){
 renderClubLibrary();syncFontControl();
  resizePaper();
 }
-function renderClubLibrary(){let c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.inkberrow;let el=$("clubLibrary");el.replaceChildren();let img=document.createElement("img");img.src=ORIGIN+c.crest+".png";img.alt=c.name+" crest";let name=document.createElement("strong");name.textContent=c.name;let p=document.createElement("div");p.textContent=edition.fixture&&edition.fixture.date==="2026-11-14"?"Next scheduled home game · 14 Nov · 15:00":"Published reference edition";let sw=document.createElement("div");sw.className="swash";sw.style.background="repeating-linear-gradient(150deg,"+c.homeColours[0]+" 0 26px,"+c.homeColours[1]+" 26px 34px)";let rev=document.createElement("div");rev.className="review";rev.textContent=c.note;el.append(img,name,p,sw,rev);}
+function renderClubLibrary(){let c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.inkberrow;let el=$("clubLibrary");el.replaceChildren();let img=document.createElement("img");img.src=ORIGIN+c.crest+".png";img.alt=c.name+" crest";let name=document.createElement("strong");name.textContent=c.name;let p=document.createElement("div");p.textContent=edition.fixture&&edition.fixture.date==="2026-11-14"?"Next scheduled home game · 14 Nov · 15:00":"Published reference edition";let palette=document.createElement("div");palette.style.cssText="clear:both;padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:7px";[["HOME",c.homeColours],["AWAY",c.awayColours]].forEach(pair=>{let box=document.createElement("div");let t=document.createElement("div");t.textContent=pair[0];t.style.cssText="font:700 11px Antonio,Arial;margin-bottom:4px";let sw=document.createElement("div");sw.className="swash";sw.style.marginTop="0";sw.style.background=pair[1].length?("linear-gradient(90deg,"+pair[1].map((col,i)=>col+" "+Math.round(i*100/pair[1].length)+"% "+Math.round((i+1)*100/pair[1].length)+"%").join(",")+")"):"#ddd";sw.title=pair[1].join(" · ");box.append(t,sw);palette.append(box);});let rev=document.createElement("div");rev.className="review";rev.textContent=c.note;el.append(img,name,p,palette,rev);}
 function labelOf(e){return e.dataset.row!==undefined?"League row "+(+e.dataset.row+1)+" · "+e.dataset.name:e.dataset.asset!==undefined?"Editorial photo "+(+e.dataset.asset+1):e.dataset.field==="title"?"Page title":e.dataset.field==="subtitle"?"Subtitle":e.dataset.field==="band"?"Header artwork":(e.textContent||e.dataset.field||"Element").trim().slice(0,46);}
 function idOf(e){return e.dataset.row!==undefined?"row:"+e.dataset.row:e.dataset.asset!==undefined?"photo:"+e.dataset.asset:e.dataset.field!==undefined?"field:"+e.dataset.field:null;}
 function element(key){let a=key.split(":");if(a[0]==="row")return $("paper").querySelector('[data-row="'+a[1]+'"]');if(a[0]==="photo")return $("paper").querySelector('[data-asset="'+a[1]+'"]');if(a[0]==="field")return $("paper").querySelector('[data-field="'+a.slice(1).join(":")+'"]');}

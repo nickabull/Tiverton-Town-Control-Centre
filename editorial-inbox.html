@@ -107,6 +107,25 @@ var RULES=[
  {id:"fullback",type:"suggestion",message:"Hyphenation: full-back",pattern:/\bfull back\b/gi,to:"full-back"},
  {id:"linup",type:"suggestion",message:"Hyphenation: line-up",pattern:/\bline up\b/gi,to:"line-up"},
  {id:"more",type:"definite",message:"Repeated word",pattern:/\b([a-z]{2,})\s+\1\b/gi,to:null},
+ {id:"topper",type:"possible",message:"Team reference: table-toppers",pattern:/\bTable topper[’']s\b/gi,to:"Table-toppers"},
+ {id:"terrassingle",type:"possible",message:"Check the plural team nickname: Terras",pattern:/\bTerra[’']s\b/gi,to:"Terras"},
+ {id:"middevon",type:"suggestion",message:"Place name: Mid Devon",pattern:/\bmid Devon\b/g,to:"Mid Devon"},
+ {id:"illness",type:"definite",message:"Unexpected capitalisation mid-sentence",pattern:/\bafter Illness\b/g,to:"after illness"},
+ {id:"twelfth",type:"suggestion",message:"Hyphenation of league position",pattern:/\bTwelfth placed\b/g,to:"Twelfth-placed"},
+ {id:"tenth",type:"suggestion",message:"Hyphenation of league position",pattern:/\btenth placed\b/gi,to:"tenth-placed"},
+ {id:"throwin",type:"suggestion",message:"Hyphenation: throw-in",pattern:/\bthrow in\b/gi,to:"throw-in"},
+ {id:"sidefoot",type:"suggestion",message:"Football terminology: side-footed",pattern:/\bsidefooted\b/gi,to:"side-footed"},
+ {id:"goalshy",type:"suggestion",message:"Hyphenation: goal-shy",pattern:/\bgoal shy\b/gi,to:"goal-shy"},
+ {id:"wellorganised",type:"suggestion",message:"Hyphenation: well-organised",pattern:/\bwell organised\b/gi,to:"well-organised"},
+ {id:"wellmarshalled",type:"suggestion",message:"Hyphenation: well-marshalled",pattern:/\bwell marshalled\b/gi,to:"well-marshalled"},
+ {id:"wellearned",type:"suggestion",message:"Hyphenation: well-earned",pattern:/\bwell earned\b/gi,to:"well-earned"},
+ {id:"allround",type:"suggestion",message:"Hyphenation: all-round",pattern:/\ball round\b/gi,to:"all-round"},
+ {id:"pointblank",type:"suggestion",message:"Hyphenation: point-blank",pattern:/\bpoint blank\b/gi,to:"point-blank"},
+ {id:"freekick",type:"suggestion",message:"Hyphenation: free-kick",pattern:/\bfree kick\b/gi,to:"free-kick"},
+ {id:"halfvolley",type:"definite",message:"Spacing in football term: half-volley",pattern:/\bhalf-\s+volley\b/gi,to:"half-volley"},
+ {id:"snapshot",type:"suggestion",message:"Football term: snapshot",pattern:/\bsnap-shot\b/gi,to:"snapshot"},
+ {id:"yellowsdot",type:"possible",message:"Check nickname for unnecessary apostrophe",pattern:/\bYellows[’'](?=[.,;!])/gi,to:"Yellows"},
+ {id:"possessJamie",type:"possible",message:"Verify Jamie Wells' surname / possessive",pattern:/\bJamie Well[’']s team\b/gi,to:"Jamie Wells' team"},
  {id:"spacing",type:"definite",message:"Unexpected double spaces",pattern:/ {2,}/g,to:" "},
  {id:"punct",type:"definite",message:"Unexpected space before punctuation",pattern:/\s+[,;:!?]/g,to:null},
  {id:"dotdot",type:"definite",message:"Double full stop",pattern:/\.{2,}(?!\.)/g,to:"."},
@@ -152,7 +171,7 @@ function decodeUrlBase64(data){
  return bytes.buffer;
 }
 function findDocxParts(payload,found){
- found=found||[];if(payload&&payload.filename&&/\.docx$/i.test(payload.filename)&&payload.body&&payload.body.attachmentId)found.push(payload);
+ found=found||[];if(payload&&payload.filename&&/\.docx$/i.test(payload.filename)&&payload.body&&(payload.body.attachmentId||payload.body.data))found.push(payload);
  (payload&&payload.parts||[]).forEach(function(part){findDocxParts(part,found)});
  return found;
 }
@@ -170,7 +189,7 @@ async function syncGmail(){
    var parts=findDocxParts(msg.payload||{});
    for(var part of parts){
     if(docs.some(function(d){return d.source&&d.source.gmailId===item.id&&d.filename===part.filename})){duplicates++;continue;}
-    var bin=await gmailRequest("messages/"+encodeURIComponent(item.id)+"/attachments/"+encodeURIComponent(part.body.attachmentId));
+    var bin=part.body.attachmentId?await gmailRequest("messages/"+encodeURIComponent(item.id)+"/attachments/"+encodeURIComponent(part.body.attachmentId)):part.body;
     var buffer=decodeUrlBase64(bin.data||"");
     if(buffer.byteLength>10000000)throw Error(part.filename+" is over the 10MB limit");
     await importWordBuffer(part.filename,buffer,{method:"gmail",gmailId:item.id,sender:h("from"),subject:h("subject"),receivedAt:h("date")});added++;

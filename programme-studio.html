@@ -26,7 +26,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 .stagebar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;max-width:940px;margin:0 auto 15px}
 .sheetBox{position:relative;margin:0 auto;box-shadow:0 4px 22px #0003;background:#fff;width:max-content}
 .paper{position:relative;overflow:hidden;background:#fff;width:595px;height:842px;transform-origin:top left;color:#111}
-.paper .topBand{height:96px;background:var(--y);padding:20px 28px 13px;position:relative}
+.snapOverlay{position:absolute;inset:0;z-index:95;pointer-events:none;overflow:hidden}.snapGuide{position:absolute;background:#e31837;pointer-events:none;box-shadow:0 0 0 1px #fff8}.snapGuide.vertical{top:0;height:100%;width:1.5px}.snapGuide.horizontal{left:0;width:100%;height:1.5px}.snapMark{position:absolute;top:7px;left:7px;background:#e31837;color:#fff;padding:3px 6px;font:700 10px Arial;max-width:170px}.snapOptions{background:#f8f8f8;padding:9px;border:1px solid #ddd;margin-top:10px;font-size:12px;line-height:1.4}.snapOptions label{display:flex;align-items:center;gap:7px;cursor:pointer;font-weight:700}.snapOptions input{accent-color:#c20f2c}.paper .topBand{height:96px;background:var(--y);padding:20px 28px 13px;position:relative}
 .paper .topBand:after{content:"";position:absolute;inset:0;opacity:.07;pointer-events:none;background:repeating-linear-gradient(-15deg,transparent 0 13px,#111 14px 15px,transparent 16px 23px)}
 .paper h1{position:relative;z-index:1;font:700 49px/1 Antonio,Impact,sans-serif;margin:0}
 .paper .subhead{margin:8px 0 0;font:700 12px Antonio,Impact,sans-serif}
@@ -67,7 +67,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 .feedControls{padding:9px;margin-bottom:13px;border:1px solid #d2bd40;background:#fff7cf}.feedControls button{display:block;width:100%;text-align:center;margin:5px 0}.aroundHead{height:108px;background:#111;color:#ffdb00;padding:21px 26px}.aroundHead h1{font:700 41px/1 Antonio,Impact,sans-serif;color:#ffdb00}.aroundDate{background:#ffdb00;padding:13px 23px;font:14px Arial,sans-serif}.aroundStrip{background:#ffdb00;padding:15px 23px;font:700 24px Antonio,Impact,sans-serif;border-bottom:2px solid #111}.aroundList{background:#ffdb00}.aroundGame{display:grid;grid-template-columns:65px minmax(0,1.1fr) 95px 57px minmax(0,1.15fr);align-items:center;gap:8px;min-height:75px;padding:10px 13px;border-bottom:1px solid #111;font:700 13px Arial,sans-serif}.aroundGame:nth-child(even){background:#fff}.aroundGame img{width:59px;height:59px;object-fit:contain}.aroundGame .agSmall{font:11px/1.3 Arial,sans-serif;display:block;margin-top:4px}.aroundGame .agDate{font-size:12px}.aroundGame .agScore{text-align:center;font-size:17px}.aroundGame .agAway{font-size:14px}.aroundFooter{position:absolute;bottom:0;background:#111;color:#ffdb00;width:100%;padding:14px 25px;font:13px Antonio,sans-serif}.aroundNotice{padding:22px;font:14px/1.5 Arial,sans-serif}.aroundSnapshot{background:#dff1db;padding:7px 23px;font:700 12px Arial,sans-serif}.oppHeader{height:130px;background:#111;color:#fff;padding:28px;position:relative}.oppHeader h1{font-size:44px}.oppAccent{position:absolute;right:0;bottom:0;width:180px;height:70px;background:repeating-linear-gradient(150deg,transparent 0 13px,#fff 14px 16px,transparent 17px 24px);opacity:.3;transform:skewX(-16deg)}.oppBody{padding:35px}.oppTop{display:flex;gap:25px;align-items:center}.oppBadge img{width:155px;height:155px;object-fit:contain}.oppClub{font:700 36px Antonio,Impact,sans-serif}.oppIntro{font:19px/1.3 Antonio,Impact,sans-serif;padding:28px 0}.oppKits{display:grid;grid-template-columns:1fr 1fr;gap:15px}.oppKit{height:125px;color:#fff;display:flex;align-items:center;justify-content:center;font:700 21px Antonio;padding:14px}.oppKit.white{background:#f6f6f6;border:3px solid #111;color:#111}.oppNote{font:13px Arial,sans-serif;color:#444;margin-top:20px}
 .vivDialog[hidden]{display:none!important}.vivDialog{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:16px}.vivPanel{width:min(1140px,100%);height:min(90vh,900px);display:flex;flex-direction:column;background:#fff;overflow:hidden;box-shadow:0 15px 60px #0008}.vivHead{background:#111;color:#fff;border-bottom:5px solid #ffdb00;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.vivHead h2{font:700 29px Antonio,Impact,sans-serif;margin:0}.vivHead small{font-size:12px;color:#ffdb00}.vivFilters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;padding:14px 18px;border-bottom:1px solid #ddd}.vivFilters label{display:block;font-size:12px;font-weight:700}.vivFilters input,.vivFilters select{display:block;width:100%;margin-top:4px;padding:9px;border:1px solid #aaa}.vivGrid{padding:15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;overflow:auto;flex:1;align-content:start}.vivPhoto{border:2px solid #ddd;background:#fff;padding:0;text-align:left;min-width:0}.vivPhoto:hover,.vivPhoto:focus-visible{border-color:#111;background:#fff3b0}.vivPhoto img{display:block;width:100%;height:135px;object-fit:cover;background:#eee}.vivPhotoInfo{display:block;padding:8px;font:12px/1.35 Arial,sans-serif}.vivPhotoInfo strong{display:block;font-weight:700}.vivPhotoInfo small{display:block;color:#555;font-weight:400}.vivFoot{padding:12px 18px;background:#f2f2f2;border-top:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px}.vivFoot a{color:#111}.vivEmpty{grid-column:1/-1;padding:22px;text-align:center;color:#555}.vivPageFooter{font:11px Arial;color:#444}@media(max-width:600px){.vivFilters{grid-template-columns:1fr}.vivHead h2{font-size:21px}.vivGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:7px}.vivPhoto img{height:100px}} 
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.8</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="vivOpenTop" class="primary" type="button">📷 VIV’S PHOTO LIBRARY</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.9</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="vivOpenTop" class="primary" type="button">📷 VIV’S PHOTO LIBRARY</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
 <div class="layout"><aside class="left"><div class="sectionTitle">RUNNING ORDER</div>
 <label class="label" for="editionPicker">Matchday editions</label><select id="editionPicker"></select><label class="label" for="editionName">Edition name</label><input id="editionName" type="text" value="Inkberrow · 7 Nov 2026">
 <label class="label" for="mode">Designer mode</label><select id="mode"><option value="edition">Programme Designer (safe)</option><option value="template">Template Designer</option></select>
@@ -82,7 +82,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 <label class="label" for="objectList">Selected element</label><select id="objectList"></select>
 <div id="selectedInfo" class="info">Select a text block, artwork or table row.</div>
 <div class="fieldGroup"><div class="fieldTitle">Size</div><div class="sliderRow"><input type="range" id="size" min="50" max="170" value="100"><span id="sizeVal" class="value">100%</span></div></div>
-<div class="fieldGroup"><div class="fieldTitle">Font size (points)</div><div class="sliderRow"><input type="range" id="fontPt" min="6" max="56" step="1" value="14"><span id="fontPtVal" class="value">14 pt</span></div><div id="fontWarning" class="fontWarning">Select text to adjust its point size.</div></div><div class="fieldGroup"><div class="fieldTitle">Move left / right</div><div class="sliderRow"><input type="range" id="x" min="-140" max="140" value="0"><span id="xVal" class="value">0 px</span></div></div>
+<div class="fieldGroup"><div class="fieldTitle">Font size (points)</div><div class="sliderRow"><input type="range" id="fontPt" min="6" max="56" step="1" value="14"><span id="fontPtVal" class="value">14 pt</span></div><div id="fontWarning" class="fontWarning">Select text to adjust its point size.</div></div><div class="snapOptions"><label><input type="checkbox" id="snapEnabled" checked> Smart alignment guides &amp; snapping</label><div id="snapHint" class="note">Move X/Y sliders to align edges and centres. Hold Alt while sliding for free positioning.</div></div><div class="fieldGroup"><div class="fieldTitle">Move left / right</div><div class="sliderRow"><input type="range" id="x" min="-140" max="140" value="0"><span id="xVal" class="value">0 px</span></div></div>
 <div class="fieldGroup"><div class="fieldTitle">Move up / down</div><div class="sliderRow"><input type="range" id="y" min="-140" max="140" value="0"><span id="yVal" class="value">0 px</span></div></div>
 <div class="fieldGroup"><div class="fieldTitle">Row height / spacing</div><div class="sliderRow"><input type="range" id="height" min="16" max="65" value="24"><span id="heightVal" class="value">24 px</span></div></div>
 <div class="fieldGroup colourStudio"><div class="fieldTitle">BACKGROUND COLOUR</div><p class="note">Changes the selected box, row or header fill.</p><div class="colors" id="colors"></div><div class="colourTools"><button id="pickBg" class="smallBtn" title="Pick background colour from the screen">◉ Pick from screen</button><span id="bgHex" class="hexReadout">Default</span></div><div class="fieldTitle" style="margin-top:17px">TEXT COLOUR</div><p class="note">Changes the selected words only.</p><div class="colourTools"><input id="customColor" type="color" value="#111111" title="Choose text colour"><button id="pickText" class="smallBtn" title="Pick text colour from the screen">◉ Pick from screen</button><span id="textHex" class="hexReadout">#111111</span></div><p id="pickStatus" class="note" aria-live="polite">Eyedropper works in supported desktop browsers; click anywhere on screen to sample.</p></div>
@@ -301,6 +301,7 @@ async function refreshAround(){
  }catch(e){$("leagueFeedStatus").textContent="Feed unavailable: "+e.message+". Existing snapshot preserved.";}
 }
 function render(){
+ clearSnapGuides();
  const data=current()[page];$("paper").innerHTML=page==="league"?renderLeague(data):page==="matrix"?renderMatrix(data):page==="news"?renderNews(data):page==="around"?renderAround(data):renderOpposition(data);
  Object.keys(ov()).forEach(key=>{let e=element(key);if(e)applyOverride(e,ov()[key]);});
  let pnames={league:"Page 18 · League Table",matrix:"Page 13 · Results Matrix",news:"Page 6 · Latest News",around:"Page 17 · Around the League",opposition:"Opposition · Club Artwork"};
@@ -364,7 +365,7 @@ function renderClubLibrary(){let c=CLUB_LIBRARY[edition.clubKey]||CLUB_LIBRARY.i
 function labelOf(e){return e.dataset.row!==undefined?"League row "+(+e.dataset.row+1)+" · "+e.dataset.name:e.dataset.asset!==undefined?"Editorial photo "+(+e.dataset.asset+1):e.dataset.field==="title"?"Page title":e.dataset.field==="subtitle"?"Subtitle":e.dataset.field==="band"?"Header artwork":(e.textContent||e.dataset.field||"Element").trim().slice(0,46);}
 function idOf(e){return e.dataset.row!==undefined?"row:"+e.dataset.row:e.dataset.asset!==undefined?"photo:"+e.dataset.asset:e.dataset.field!==undefined?"field:"+e.dataset.field:null;}
 function element(key){let a=key.split(":");if(a[0]==="row")return $("paper").querySelector('[data-row="'+a[1]+'"]');if(a[0]==="photo")return $("paper").querySelector('[data-asset="'+a[1]+'"]');if(a[0]==="field")return $("paper").querySelector('[data-field="'+a.slice(1).join(":")+'"]');}
-function choose(key){$("paper").querySelectorAll(".chosen").forEach(e=>e.classList.remove("chosen"));selected=key;const e=element(key);if(!e)return;if(key.startsWith("field:title"))e=document.querySelector('[data-field="title"]');
+function choose(key){clearSnapGuides();$("paper").querySelectorAll(".chosen").forEach(e=>e.classList.remove("chosen"));selected=key;const e=element(key);if(!e)return;if(key.startsWith("field:title"))e=document.querySelector('[data-field="title"]');
  e.classList.add("chosen");$("objectList").value=key;$("selectedInfo").textContent=labelOf(e);
  const o=ov()[key]||{};syncFontControl();syncColours();["size","x","y","height"].forEach(n=>{$(n).value=o[n]??(n==="size"?100:n==="height"?24:0);updateValue(n);});$("customColor").value=o.color||"#111111";
 }
@@ -411,6 +412,64 @@ async function pickScreenColour(kind){
  }catch(e){$("pickStatus").textContent="Eyedropper cancelled or unavailable."; }
 }
 function updateValue(id){$(id+"Val").textContent=$(id).value+(id==="size"?"%":" px");}
+
+const ALIGN_TOLERANCE=5;
+function clearSnapGuides(){const layer=$("snapOverlay");if(layer)layer.replaceChildren();const hint=$("snapHint");if(hint&&!selected)hint.textContent="Move X/Y sliders to align edges and centres. Hold Alt while sliding for free positioning.";}
+function guideLayer(){let layer=$("snapOverlay");if(!layer){layer=document.createElement("div");layer.id="snapOverlay";layer.className="snapOverlay";layer.setAttribute("aria-hidden","true");$("paper").append(layer);}return layer;}
+function positionsFor(el,axis,scale){
+ const p=el.getBoundingClientRect(),sheet=$("paper").getBoundingClientRect();
+ const offset=(axis==="x"?p.left-sheet.left:p.top-sheet.top)/scale;
+ const extent=(axis==="x"?p.width:p.height)/scale;
+ return [offset,offset+extent/2,offset+extent];
+}
+function snapForSlider(prop,el,requested,event){
+ if(!$("snapEnabled").checked||(event&&event.altKey))return {value:requested,match:null};
+ const paper=$("paper"),scale=Number($("zoom").value)/100;
+ const target=positionsFor(el,prop,scale),others=Array.from(paper.querySelectorAll("[data-field],[data-row],[data-asset]"))
+  .filter(other=>other!==el&&!el.contains(other)&&!other.contains(el)&&!other.closest("#snapOverlay"))
+  .filter(other=>{const r=other.getBoundingClientRect();return r.width>0&&r.height>0;});
+ let best=null;
+ for(const other of others){
+  const coords=positionsFor(other,prop,scale);
+  for(let a=0;a<3;a++)for(let b=0;b<3;b++){
+   const delta=coords[b]-target[a];
+   if(Math.abs(delta)>ALIGN_TOLERANCE)continue;
+   if(!best||Math.abs(delta)<Math.abs(best.delta))best={delta,position:coords[b],against:other,edge:["start","centre","end"][a],targetEdge:["start","centre","end"][b]};
+  }
+ }
+ if(!best)return {value:requested,match:null};
+ const input=$(prop),min=Number(input.min),max=Number(input.max);
+ const snapped=Math.round(Math.max(min,Math.min(max,requested+best.delta)));
+ // Do not display a guide when slider limits prevent alignment.
+ if(Math.abs(snapped-(requested+best.delta))>1)return {value:requested,match:null};
+ return {value:snapped,match:best};
+}
+function showSnapGuide(axis,match){
+ const layer=guideLayer();layer.replaceChildren();if(!match){$("snapHint").textContent="Free positioning — no neighbouring alignment within 5 px.";return;}
+ const line=document.createElement("div");
+ line.className="snapGuide "+(axis==="x"?"vertical":"horizontal");
+ line.style[axis==="x"?"left":"top"]=match.position+"px";
+ const mark=document.createElement("span");mark.className="snapMark";mark.textContent=(axis==="x"?"↔ ":"↕ ")+match.edge+" aligned";
+ if(axis==="x"){mark.style.top="9px";mark.style.left="4px";}else{mark.style.top="4px";mark.style.left="9px";}
+ line.append(mark);layer.append(line);
+ $("snapHint").textContent="Aligned with "+labelOf(match.against)+" · "+match.edge+" edge / "+match.targetEdge+" edge";
+}
+function moveWithGuides(axis,event){
+ if(!selected)return;
+ const el=element(selected);if(!el)return;
+ // Start with raw slider position, then measure against other page objects.
+ let requested=Number($(axis).value),o=ov()[selected]||{};
+ const original=Number(o[axis]||0);
+ const temporary={...o,[axis]:requested};
+ applyOverride(el,temporary);
+ const snap=snapForSlider(axis,el,requested,event);
+ // Reapply the stored transform in case no edit is actually made.
+ applyOverride(el,{...o,[axis]:original});
+ $(axis).value=snap.value;
+ updateValue(axis);
+ changeProp(axis,snap.value);
+ showSnapGuide(axis,snap.match);
+}
 function changeProp(prop,val){
  if(!selected)return;const before=snapshot(),el=element(selected),o=ov()[selected]||(ov()[selected]={});
  const previous=o[prop]??(prop==="size"?100:prop==="fontPt"?fontDefault(el):prop==="x"||prop==="y"?0:"default");
@@ -420,7 +479,9 @@ function changeProp(prop,val){
 }
 function resizePaper(){let v=+$("zoom").value/100;$("zoomValue").textContent=Math.round(v*100)+"%";$("paper").style.transform="scale("+v+")";$("sheetBox").style.width=(595*v)+"px";$("sheetBox").style.height=(842*v)+"px";}
 $("zoom").oninput=resizePaper;
-["size","x","y","height"].forEach(id=>{$(id).oninput=()=>{updateValue(id);changeProp(id,+$(id).value);};});
+["size","x","y","height"].forEach(id=>{$(id).oninput=e=>{if(id==="x"||id==="y"){moveWithGuides(id,e);}else{clearSnapGuides();updateValue(id);changeProp(id,+$(id).value);}};});
+["x","y"].forEach(id=>{$(id).addEventListener("change",clearSnapGuides);$(id).addEventListener("pointerup",clearSnapGuides);$(id).addEventListener("keyup",clearSnapGuides);});
+$("snapEnabled").onchange=()=>{clearSnapGuides();$("snapHint").textContent=$("snapEnabled").checked?"Smart snapping enabled · within 5 px":"Smart snapping disabled · free positioning";};
 ["#111111","#ffdb00","#ffffff","#cbe8bb","#c8dffa","#f6bbbb","#be1e2d"].forEach(c=>{let b=document.createElement("button");b.className="swatch";b.style.background=c;b.title=c;b.onclick=()=>{changeProp("bg",c);syncColours();};$("colors").append(b);});
 $("customColor").oninput=e=>{changeProp("color",e.target.value);syncColours();};
 $("pickBg").onclick=()=>pickScreenColour("background");

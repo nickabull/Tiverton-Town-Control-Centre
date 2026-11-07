@@ -65,8 +65,9 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 @media(max-width:750px){.layout{display:block}.left,.right{border:0;border-bottom:1px solid #ccc}.pageButtons{display:flex;gap:6px;overflow:auto}.pageOption{min-width:160px}.stage{padding:12px}}
 @media print{@page{size:A4 portrait;margin:0}body{background:#fff}.top,.left,.right,.stagebar{display:none!important}.layout{display:block;min-height:0}.stage{padding:0;overflow:visible}.sheetBox{margin:0!important;box-shadow:none; width:595px!important;height:842px!important}.paper{transform:none!important;width:595px;height:842px}.paper [contenteditable=true]{outline:0!important}}
 .oppHeader{height:130px;background:#111;color:#fff;padding:28px;position:relative}.oppHeader h1{font-size:44px}.oppAccent{position:absolute;right:0;bottom:0;width:180px;height:70px;background:repeating-linear-gradient(150deg,transparent 0 13px,#fff 14px 16px,transparent 17px 24px);opacity:.3;transform:skewX(-16deg)}.oppBody{padding:35px}.oppTop{display:flex;gap:25px;align-items:center}.oppBadge img{width:155px;height:155px;object-fit:contain}.oppClub{font:700 36px Antonio,Impact,sans-serif}.oppIntro{font:19px/1.3 Antonio,Impact,sans-serif;padding:28px 0}.oppKits{display:grid;grid-template-columns:1fr 1fr;gap:15px}.oppKit{height:125px;color:#fff;display:flex;align-items:center;justify-content:center;font:700 21px Antonio;padding:14px}.oppKit.white{background:#f6f6f6;border:3px solid #111;color:#111}.oppNote{font:13px Arial,sans-serif;color:#444;margin-top:20px}
+.vivDialog[hidden]{display:none!important}.vivDialog{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:16px}.vivPanel{width:min(1140px,100%);height:min(90vh,900px);display:flex;flex-direction:column;background:#fff;overflow:hidden;box-shadow:0 15px 60px #0008}.vivHead{background:#111;color:#fff;border-bottom:5px solid #ffdb00;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.vivHead h2{font:700 29px Antonio,Impact,sans-serif;margin:0}.vivHead small{font-size:12px;color:#ffdb00}.vivFilters{display:grid;grid-template-columns:2fr 1fr;gap:12px;padding:14px 18px;border-bottom:1px solid #ddd}.vivFilters label{display:block;font-size:12px;font-weight:700}.vivFilters input,.vivFilters select{display:block;width:100%;margin-top:4px;padding:9px;border:1px solid #aaa}.vivGrid{padding:15px;display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;overflow:auto;flex:1;align-content:start}.vivPhoto{border:2px solid #ddd;background:#fff;padding:0;text-align:left;min-width:0}.vivPhoto:hover,.vivPhoto:focus-visible{border-color:#111;background:#fff3b0}.vivPhoto img{display:block;width:100%;height:135px;object-fit:cover;background:#eee}.vivPhotoInfo{display:block;padding:8px;font:12px/1.35 Arial,sans-serif}.vivPhotoInfo strong{display:block;font-weight:700}.vivPhotoInfo small{display:block;color:#555;font-weight:400}.vivFoot{padding:12px 18px;background:#f2f2f2;border-top:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px}.vivFoot a{color:#111}.vivEmpty{grid-column:1/-1;padding:22px;text-align:center;color:#555}.vivPageFooter{font:11px Arial;color:#444}@media(max-width:600px){.vivFilters{grid-template-columns:1fr}.vivHead h2{font-size:21px}.vivGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:7px}.vivPhoto img{height:100px}} 
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.4</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.5</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
 <div class="layout"><aside class="left"><div class="sectionTitle">RUNNING ORDER</div>
 <label class="label" for="editionPicker">Matchday editions</label><select id="editionPicker"></select><label class="label" for="editionName">Edition name</label><input id="editionName" type="text" value="Inkberrow · 7 Nov 2026">
 <label class="label" for="mode">Designer mode</label><select id="mode"><option value="edition">Programme Designer (safe)</option><option value="template">Template Designer</option></select>
@@ -85,10 +86,18 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 <div class="fieldGroup"><div class="fieldTitle">Move up / down</div><div class="sliderRow"><input type="range" id="y" min="-140" max="140" value="0"><span id="yVal" class="value">0 px</span></div></div>
 <div class="fieldGroup"><div class="fieldTitle">Row height / spacing</div><div class="sliderRow"><input type="range" id="height" min="16" max="65" value="24"><span id="heightVal" class="value">24 px</span></div></div>
 <div class="fieldGroup colourStudio"><div class="fieldTitle">BACKGROUND COLOUR</div><p class="note">Changes the selected box, row or header fill.</p><div class="colors" id="colors"></div><div class="colourTools"><button id="pickBg" class="smallBtn" title="Pick background colour from the screen">◉ Pick from screen</button><span id="bgHex" class="hexReadout">Default</span></div><div class="fieldTitle" style="margin-top:17px">TEXT COLOUR</div><p class="note">Changes the selected words only.</p><div class="colourTools"><input id="customColor" type="color" value="#111111" title="Choose text colour"><button id="pickText" class="smallBtn" title="Pick text colour from the screen">◉ Pick from screen</button><span id="textHex" class="hexReadout">#111111</span></div><p id="pickStatus" class="note" aria-live="polite">Eyedropper works in supported desktop browsers; click anywhere on screen to sample.</p></div>
-<div class="fieldGroup"><div class="fieldTitle">Text / table data</div><p class="note">Double-click the wording or a table cell on the A4 page and edit it directly. Each row is independent.</p><button id="photoUpload" class="smallBtn">Replace selected photo</button><input type="file" accept="image/*" id="photoFile" hidden></div>
+<div class="fieldGroup"><div class="fieldTitle">Text / table data</div><p class="note">Double-click the wording or a table cell on the A4 page and edit it directly. Each row is independent.</p><button id="vivPicker" class="smallBtn primary" type="button">📷 Viv’s photo library</button><button id="photoUpload" class="smallBtn">Upload from computer</button><input type="file" accept="image/*" id="photoFile" hidden></div>
 <div class="fieldGroup"><button id="resetElement" class="smallBtn">Reset selected element</button></div>
 <p class="note">Changes are currently saved in this browser only; production server save and one-click Wix publishing are not yet connected.</p>
 </aside></div>
+<div class="vivDialog" id="vivDialog" hidden role="dialog" aria-modal="true" aria-labelledby="vivTitle">
+ <div class="vivPanel">
+  <div class="vivHead"><div><small>VIV CURTIS · TIVVY PHOTO LIBRARY</small><h2 id="vivTitle">Select a programme photograph</h2></div><button id="vivClose">✕ Close</button></div>
+  <div class="vivFilters"><label>Search match, player, opponent or date<input id="vivSearch" type="search" placeholder="e.g. Dorchester, Weymouth, 2026"></label><label>Album<select id="vivAlbum"><option value="">All albums</option></select></label></div>
+  <div class="vivGrid" id="vivGrid"><p class="vivEmpty">Loading photographs…</p></div>
+  <div class="vivFoot"><span id="vivStatus">Loading indexed Flickr catalogue</span><button id="vivMore" hidden>Show more</button><a href="photo-library.html" target="_blank" rel="noopener noreferrer">Full Viv photo library ↗</a></div>
+ </div>
+</div>
 <script>
 (function(){
 "use strict";
@@ -323,6 +332,80 @@ let textBefore=null,textOld=null,textName=null;
 $("paper").addEventListener("focusin",e=>{if(e.target.matches("[contenteditable=true]")){textBefore=snapshot();textOld=e.target.textContent;textName=e.target.dataset.field||e.target.dataset.cell||"Editable text";}});
 $("paper").addEventListener("focusout",e=>{if(textBefore&&e.target.matches("[contenteditable]")){commitChange(textBefore,"Text edit",textName,textOld,e.target.textContent);textBefore=null;}});
 $("paper").addEventListener("input",e=>{let a=e.target.dataset.field,c=e.target.dataset.cell,d=current()[page];if(a){if(a==="title"||a==="subtitle"||a==="footer")d[a]=e.target.textContent;else if(a==="oppClub")d.club=e.target.textContent;else if(a==="oppIntro")d.intro=e.target.textContent;else if(a==="oppNote")d.kitLabel=e.target.textContent;else if(a.startsWith("newsTitle"))d.items[+a.slice(9)].title=e.target.textContent;else if(a.startsWith("newsBody"))d.items[+a.slice(8)].body=e.target.textContent;else if(a.startsWith("caption"))d.captions[+a.slice(7)]=e.target.textContent;}if(c){if(page==="matrix"){d.scores[c]=e.target.textContent;}else if(page==="league"){let ij=c.split(":").map(Number);d.teams[ij[0]][ij[1]]=ij[1]===0?e.target.textContent:(Number(e.target.textContent.replace("+",""))||0);}}persist();});
+
+const FLICKR_CATALOGUE="data/flickr-gallery.json";
+let vivCatalogue=null,vivPhotos=[],vivShown=40,vivTarget=null;
+function isVivUrl(url){
+ try{const u=new URL(url);return u.protocol==="https:"&&u.hostname==="live.staticflickr.com"}catch(e){return false}
+}
+function getVivTarget(){
+ if(selected&&selected.startsWith("photo:")&&page==="news")return +selected.split(":")[1];
+ return null;
+}
+function closeViv(){ $("vivDialog").hidden=true;vivTarget=null;}
+function renderViv(){
+ const root=$("vivGrid");root.replaceChildren();
+ const q=$("vivSearch").value.toLowerCase().trim(),alb=$("vivAlbum").value;
+ const items=vivPhotos.filter(p=>(!alb||p.album_id===alb)&&(!q||[p.title,p.album_title,p.date_taken,p.photo_id].join(" ").toLowerCase().includes(q)));
+ const visible=items.slice(0,vivShown);
+ if(!visible.length){let el=document.createElement("p");el.className="vivEmpty";el.textContent=vivCatalogue&&vivCatalogue.status!=="connected"?"The Flickr catalogue is awaiting its first successful update.":"No matching photographs. Try another match or album.";root.append(el);}
+ visible.forEach(p=>{
+  const b=document.createElement("button");b.type="button";b.className="vivPhoto";b.title="Use this Viv Curtis photo";
+  const thumb=p.thumbnail_url;
+  if(isVivUrl(thumb)){const img=document.createElement("img");img.src=thumb;img.loading="lazy";img.alt=p.title||"Viv Curtis match photo";b.append(img);}
+  const d=document.createElement("span");d.className="vivPhotoInfo";
+  const h=document.createElement("strong");h.textContent=p.title||p.album_title||"Match photograph";
+  const meta=document.createElement("small");meta.textContent=(p.album_title||"")+(p.date_taken?" · "+p.date_taken.slice(0,10):"");
+  d.append(h,meta);b.append(d);b.onclick=()=>insertVivPhoto(p);root.append(b);
+ });
+ $("vivStatus").textContent=items.length+" indexed photo"+(items.length===1?"":"s")+" · "+Math.min(vivShown,items.length)+" shown · Credit: Viv Curtis";
+ $("vivMore").hidden=items.length<=vivShown;
+}
+async function openViv(){
+ const target=getVivTarget();
+ if(target===null){alert("First open Latest News and click the photo box you want to replace.");return;}
+ vivTarget=target;$("vivDialog").hidden=false;$("vivSearch").value="";$("vivAlbum").value="";vivShown=40;
+ if(vivCatalogue){renderViv();return;}
+ $("vivGrid").textContent="Loading Viv’s Flickr album catalogue…";
+ try{
+  const response=await fetch(FLICKR_CATALOGUE+"?v="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("Catalogue request returned "+response.status);
+  const c=await response.json();vivCatalogue=c;
+  const albumNames=new Map((c.albums||[]).map(a=>[String(a.album_id),a.title]));
+  if(c.rows&&c.photo_fields){
+   vivPhotos=c.rows.map(row=>{let p={};c.photo_fields.forEach((field,i)=>p[field]=row[i]);p.album_title=albumNames.get(String(p.album_id))||"";return p;});
+  }else vivPhotos=Array.isArray(c.photos)?c.photos:[];
+  vivPhotos=vivPhotos.filter(p=>isVivUrl(p.thumbnail_url)&&isVivUrl(p.original_url||p.large_url||p.thumbnail_url));
+  const sel=$("vivAlbum");sel.replaceChildren();
+  const any=document.createElement("option");any.value="";any.textContent="All albums";sel.append(any);
+  (c.albums||[]).forEach(a=>{let o=document.createElement("option");o.value=String(a.album_id);o.textContent=a.title||"Album";sel.append(o)});
+  renderViv();
+ }catch(e){
+  $("vivGrid").replaceChildren();const err=document.createElement("p");err.className="vivEmpty";err.textContent="Unable to load the Flickr catalogue right now. The existing photo library may need its index refreshed. You can still upload a local image."; $("vivGrid").append(err);
+  $("vivStatus").textContent="Catalogue unavailable";
+ }
+}
+function insertVivPhoto(p){
+ if(vivTarget===null||!isVivUrl(p.original_url||p.large_url||p.thumbnail_url))return;
+ const src=p.original_url&&isVivUrl(p.original_url)?p.original_url:p.large_url&&isVivUrl(p.large_url)?p.large_url:p.thumbnail_url;
+ const n=vivTarget,d=current().news,before=snapshot(),old=d.photos[n]?"Existing image":"Empty photo";
+ d.photos[n]=src;
+ const caption=(p.title&&p.title.trim()?p.title.trim()+". ":"")+"Photo: Viv Curtis";
+ d.captions[n]=caption;
+ if(!d.photoSources)d.photoSources={};
+ d.photoSources[n]={photo_id:String(p.photo_id||""),album_id:String(p.album_id||""),album_title:p.album_title||"",source_url:"https://www.flickr.com/photos/90186291@N04/"+encodeURIComponent(String(p.photo_id||""))+"/",credit:"Photo: Viv Curtis",chosen_at:new Date().toISOString()};
+ persist();commitChange(before,"Insert Viv photo","Photo "+(n+1),old,(p.title||p.album_title||"Photo")+" · Viv Curtis");
+ closeViv();render();
+ $("status").textContent="Photo inserted into this edition · Viv Curtis credit retained";
+}
+$("vivPicker").onclick=openViv;
+$("vivClose").onclick=closeViv;
+$("vivDialog").addEventListener("click",e=>{if(e.target===$("vivDialog"))closeViv();});
+$("vivSearch").addEventListener("input",()=>{vivShown=40;renderViv();});
+$("vivAlbum").addEventListener("change",()=>{vivShown=40;renderViv();});
+$("vivMore").onclick=()=>{vivShown+=40;renderViv();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("vivDialog").hidden)closeViv();});
+
 $("photoUpload").onclick=()=>{if(!selected||!selected.startsWith("photo:")){alert("First select a photo box.");return;}$("photoFile").click();};
 $("photoFile").onchange=e=>{let f=e.target.files[0];if(!f||!selected||!selected.startsWith("photo:"))return;let n=+selected.split(":")[1];if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}const before=snapshot(),old=current().news.photos[n]?"Previous photo":"No photo";let rd=new FileReader();rd.onload=()=>{current().news.photos[n]=rd.result;persist();commitChange(before,"Replace photo","Photo "+(n+1),old,f.name);render();};rd.readAsDataURL(f);};
 $("save").onclick=()=>{editionName=$("editionName").value.trim()||editionName;persist();$("status").textContent="Edition saved locally · "+editionName;};

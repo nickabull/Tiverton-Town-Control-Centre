@@ -339,6 +339,7 @@ function renderSquad(d){
 }
 function render(){
  clearSnapGuides();
+ $("liveFootballArea").hidden=page!=="around";
  const data=current()[page];$("paper").innerHTML=page==="league"?renderLeague(data):page==="matrix"?renderMatrix(data):page==="news"?renderNews(data):page==="around"?renderAround(data):page==="cover"?renderCover(data):page==="squad"?renderSquad(data):renderOpposition(data);
  Object.keys(ov()).forEach(key=>{let e=element(key);if(e)applyOverride(e,ov()[key]);});
  let pnames={league:"Page 18 · League Table",matrix:"Page 13 · Results Matrix",news:"Page 6 · Latest News",around:"Page 17 · Around the League",cover:"Page 1 · Front Cover",squad:"Pages 29–33 · Squad",opposition:"Opposition · Club Artwork"};
@@ -356,7 +357,7 @@ function render(){
  $("paper").querySelectorAll("[data-field],[data-row],[data-asset]").forEach(e=>{if(e.closest("[data-field]")&&e!==e.closest("[data-field]"))return;const id=idOf(e);if(!id)return;const opt=document.createElement("option");opt.value=id;opt.textContent=labelOf(e);$("objectList").append(opt);});
  selected=null;$("selectedInfo").textContent="Select an element to reveal its slider controls.";syncColours();
 renderClubLibrary();syncFontControl();syncColours();
- resizePaper();drawAudit();paintRestorePoints();updateHistoryButtons();updateFeedUI();renderEditorial();renderInspector();
+ resizePaper();drawAudit();paintRestorePoints();updateHistoryButtons();updateFeedUI();renderEditorial();renderInspector();updatePageAlert();
 }
 
 const EDITORIAL_IGNORE_KEY="tivvy-editorial-ignored-v01";
@@ -386,6 +387,42 @@ function scanEditorial(){
  if(data.news) data.news.photos.forEach((src,i)=>{const credit=data.news.captions[i]||"";if(src&&!/photo:|photograph:|viv curtis/i.test(credit))flag({pg:"news",field:"caption"+i,label:"Photo "+(i+1),value:credit},"credit","Photograph appears to be missing a photo credit",i);});
  return findings;
 }
+
+let alertDismissed={};
+function currentPageIssues(){return scanEditorial().filter(item=>item.pg===page);}
+function pageAlertKey(issues){
+ // The dismissal is specific to the edition, page and current warning text.
+ return activeEdition+"|"+page+"|"+issues.map(f=>f.id+"="+f.message).sort().join(";");
+}
+function updatePageAlert(){
+ const box=$("pageAlert");if(!box||!$("guideDialog").hidden){if(box)box.hidden=true;return;}
+ const issues=currentPageIssues(),key=pageAlertKey(issues);
+ if(!issues.length||alertDismissed[key]){box.hidden=true;return;}
+ $("alertHeading").textContent=(pageNum[page]||"PAGE").toUpperCase()+" · EDITORIAL CHECK";
+ $("alertSummary").textContent=issues.length+" possible editorial issue"+(issues.length===1?"":"s")+" on this page. Review now or leave it for later.";
+ const list=$("alertExamples");list.replaceChildren();
+ issues.slice(0,3).forEach(f=>{const row=document.createElement("div");row.textContent=f.message+" · "+f.label;list.append(row);});
+ if(issues.length>3){const more=document.createElement("div");more.textContent="Plus "+(issues.length-3)+" more…";list.append(more);}
+ box.dataset.issueKey=key;box.hidden=false;
+}
+function dismissPageAlert(){
+ const box=$("pageAlert");
+ if(box.dataset.issueKey)alertDismissed[box.dataset.issueKey]=true;
+ box.hidden=true;
+}
+function openCurrentEditorialReview(){
+ dismissPageAlert();showInspectorTab("checks");
+ $("checksPanel").scrollIntoView({block:"start",behavior:"smooth"});
+}
+$("alertDismiss").onclick=dismissPageAlert;
+$("alertLater").onclick=dismissPageAlert;
+$("alertReview").onclick=openCurrentEditorialReview;
+function jumpToEditorialField(f){
+ if(page!==f.pg){page=f.pg;render();}
+ const key="field:"+f.field,el=element(key);
+ if(el){choose(key);el.scrollIntoView({block:"center",behavior:"smooth"});if(el.isContentEditable)el.focus();}
+ else $("status").textContent="Review "+f.label+" on this page.";
+}
 function renderEditorial(){
  const container=$("editorialFindings");if(!container)return;
  const issues=scanEditorial();container.replaceChildren();
@@ -395,8 +432,8 @@ function renderEditorial(){
  const box=document.createElement("div");box.className="editorialIssue";
  const title=document.createElement("strong");title.textContent=f.message;
  const label=document.createElement("small");label.textContent=({news:"Page 6",around:"Page 17",league:"Page 18",matrix:"Page 13",opposition:"Opposition"}[f.pg]||f.pg)+" · "+f.label;
- const go=document.createElement("button");go.textContent="Open & review";go.onclick=()=>{page=f.pg;render();let target=element("field:"+f.field);if(target){choose("field:"+f.field);target.scrollIntoView({block:"center",behavior:"smooth"});if(target.isContentEditable)target.focus();}else $("status").textContent="Review "+f.label+" on this page.";};
- const ignore=document.createElement("button");ignore.textContent="Ignore warning";ignore.onclick=()=>{editorialIgnored[f.id]=true;try{localStorage.setItem(EDITORIAL_IGNORE_KEY,JSON.stringify(editorialIgnored))}catch(e){}logEvent("Dismiss editorial flag",f.label,f.message,"Ignored","editorial");renderEditorial();};
+ const go=document.createElement("button");go.textContent="Open & review";go.onclick=()=>jumpToEditorialField(f);
+ const ignore=document.createElement("button");ignore.textContent="Ignore warning";ignore.onclick=()=>{editorialIgnored[f.id]=true;try{localStorage.setItem(EDITORIAL_IGNORE_KEY,JSON.stringify(editorialIgnored))}catch(e){}logEvent("Dismiss editorial flag",f.label,f.message,"Ignored","editorial");renderEditorial();renderInspector();updatePageAlert();};
  box.append(title,label,go,ignore);container.append(box);
  });
  if(issues.length>45){const overflow=document.createElement("p");overflow.className="note";overflow.textContent="Showing first 45 findings. Correct and rescan for more.";container.append(overflow);}
@@ -510,6 +547,16 @@ function renderInspector(){
   piInfo(panel,"The 22×22 matrix is editable. Automatic result-to-cell mapping and verification are still being developed.","warn");
  }else piInfo(panel,"Opposition colours, crest and artwork are stored separately from edition-specific layout adjustments.");
  const checkHeading=document.createElement("div");checkHeading.className="sectionTitle";checkHeading.textContent="PAGE READINESS";checks.append(checkHeading);
+ const editorialForPage=currentPageIssues();
+ if(editorialForPage.length){
+  const heading=document.createElement("h3");heading.textContent="Editorial warnings · "+editorialForPage.length;heading.className="sectionTitle";checks.append(heading);
+  editorialForPage.forEach(f=>{
+   const div=document.createElement("div");div.className="piWarning";const message=document.createElement("div");message.textContent=f.message+" — "+f.label;
+   const go=piButton("Jump to text",()=>jumpToEditorialField(f));const ignore=piButton("Ignore this finding",()=>{editorialIgnored[f.id]=true;localStorage.setItem(EDITORIAL_IGNORE_KEY,JSON.stringify(editorialIgnored));logEvent("Ignore editorial warning",f.label,f.message,"Ignored","editorial");renderEditorial();renderInspector();updatePageAlert();});
+   div.append(message,go,ignore);checks.append(div);
+  });
+ }else{piInfo(checks,"No current rules-based editorial flags on this page.","good");}
+
  state.ok.forEach(msg=>piInfo(checks,"✓ "+msg,"good"));state.todo.forEach(msg=>piInfo(checks,"Needs review: "+msg,"warn"));
  checks.append(piButton("Check spelling & consistency",()=>{renderEditorial();$("editorialFindings").scrollIntoView({behavior:"smooth"});}));
  checks.append(piButton("Create restore point",()=>{$("checkpoint").click();}));
@@ -686,7 +733,7 @@ $("paper").onclick=e=>{let el=e.target.closest("[data-row],[data-asset],[data-fi
 $("objectList").onchange=e=>choose(e.target.value);
 let textBefore=null,textOld=null,textName=null;
 $("paper").addEventListener("focusin",e=>{if(e.target.matches("[contenteditable=true]")){textBefore=snapshot();textOld=e.target.textContent;textName=e.target.dataset.field||e.target.dataset.cell||"Editable text";}});
-$("paper").addEventListener("focusout",e=>{if(textBefore&&e.target.matches("[contenteditable]")){commitChange(textBefore,"Text edit",textName,textOld,e.target.textContent);textBefore=null;}});
+$("paper").addEventListener("focusout",e=>{if(textBefore&&e.target.matches("[contenteditable]")){commitChange(textBefore,"Text edit",textName,textOld,e.target.textContent);textBefore=null;renderInspector();updatePageAlert();}});
 $("paper").addEventListener("input",e=>{let a=e.target.dataset.field,c=e.target.dataset.cell,d=current()[page];if(a){if(a==="title"||a==="subtitle"||a==="footer")d[a]=e.target.textContent;else if(a==="oppClub")d.club=e.target.textContent;else if(a==="oppIntro")d.intro=e.target.textContent;else if(a==="oppNote")d.kitLabel=e.target.textContent;else if(a.startsWith("newsTitle"))d.items[+a.slice(9)].title=e.target.textContent;else if(a.startsWith("newsBody"))d.items[+a.slice(8)].body=e.target.textContent;else if(a.startsWith("caption"))d.captions[+a.slice(7)]=e.target.textContent;}if(c){if(page==="matrix"){d.scores[c]=e.target.textContent;}else if(page==="league"){let ij=c.split(":").map(Number);d.teams[ij[0]][ij[1]]=ij[1]===0?e.target.textContent:(Number(e.target.textContent.replace("+",""))||0);}}persist();renderEditorial();});
 
 const FLICKR_CATALOGUE="data/flickr-gallery.json";
@@ -771,7 +818,7 @@ function insertVivPhoto(p){
  $("status").textContent="Photo inserted into this edition · Viv Curtis credit retained";
 }
 $("vivPicker").onclick=()=>openViv();
-$("vivOpenTop").onclick=()=>openViv();
+
 $("vivSlot").onchange=e=>{vivTarget=e.target.value==="cover"?"cover":Number(e.target.value);};
 $("vivClose").onclick=closeViv;
 $("vivDialog").addEventListener("click",e=>{if(e.target===$("vivDialog"))closeViv();});
@@ -801,7 +848,12 @@ $("mode").onchange=e=>{if(e.target.value==="template"&&!confirm("Enter TEMPLATE 
 $("saveTemplate").onclick=()=>{if(mode!=="template")return;if(confirm("Confirm MASTER TEMPLATE change. It will be used for future new editions, not the current saved edition.")){persist();$("status").textContent="Master template saved in this browser.";}}
 $("resetElement").onclick=()=>{if(!selected)return;const before=snapshot(),target=selected,old=JSON.stringify(ov()[selected]||{});delete ov()[selected];persist();commitChange(before,"Reset element",target,old,"Default");render();};
 $("print").onclick=()=>{if(page==="around"&&mode==="edition"&&!edition.around.frozen){alert("Page 17 is still a draft. Please approve and freeze its matchday fixtures before exporting for print.");return;}let old=$("zoom").value;$("zoom").value=100;resizePaper();window.print();$("zoom").value=old;resizePaper();};
-$("runEditorial").onclick=renderEditorial;
+$("runEditorial").onclick=()=>{renderEditorial();if(page!=="cover")showInspectorTab("checks");};
+$("guideOpen").onclick=()=>{$("guideDialog").hidden=false;$("pageAlert").hidden=true;$("guideClose").focus();};
+function closeGuide(){$("guideDialog").hidden=true;updatePageAlert();}
+$("guideClose").onclick=closeGuide;
+$("guideDialog").addEventListener("click",e=>{if(e.target===$("guideDialog"))closeGuide();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("guideDialog").hidden)closeGuide();});
 $("refreshLeagueFeed").onclick=refreshAround;
 $("freezeLeagueFeed").onclick=()=>{const d=edition.around;if(mode!=="edition"||d.frozen||!d.fetchedAt||d.date!==issueDate())return;
  if(!d.fixtures.length&&!confirm("The feed returned zero fixtures. Freeze an empty page?"))return;

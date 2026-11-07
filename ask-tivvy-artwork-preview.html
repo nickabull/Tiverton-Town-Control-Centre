@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ask Tivvy | Styling Preview</title><link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#ffdb00;--ink:#111}*{box-sizing:border-box}body{margin:0;background:#111;color:white;font:16px/1.45 Arial,sans-serif}
+main{max-width:1200px;margin:auto;padding:22px}h1,h2,h3,.name,.amount{font-family:Antonio,Impact,sans-serif;text-transform:uppercase}
+h1{color:var(--y);font-size:40px;margin:0 0 8px}h2{font-size:24px;margin:22px 0 12px}
+.note{color:#bbb;font-size:12px;margin:0 0 20px}.ask{display:grid;grid-template-columns:minmax(0,1fr) 166px;gap:12px}
+.ask input{height:58px;padding:14px;border:2px solid #ccc;font:18px Arial;min-width:0}.ask button{border:0;background:var(--y);color:#111;font:700 23px Antonio;cursor:pointer}
+.question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch}
+.question-grid button{color:var(--y);background:#242424;border:1px solid #666;padding:14px 17px;min-height:64px;text-align:left;cursor:pointer;font:16px/1.4 Arial;display:flex;align-items:center;width:100%}
+.question-grid button:focus-visible,.question-grid button:hover{outline:2px solid var(--y);outline-offset:-2px;background:#333}
+.answer{margin-top:22px;background:#222;border-left:6px solid var(--y);padding:20px}
+.heading{display:flex;align-items:center;gap:22px}.amount{font-size:64px;line-height:1;color:var(--y)}.heading h2{margin:0}.sub{font-size:13px;color:#ddd}
+.player-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+.player{background:#111;border:2px solid #555;overflow:hidden;min-width:0}
+.art{height:240px;position:relative;overflow:hidden;background:#ffd800}
+.art .brush{position:absolute;width:120%;height:125%;left:-10%;top:-14%;object-fit:cover}
+.art .photo{position:absolute;max-height:97%;max-width:85%;bottom:0;left:50%;transform:translateX(-50%);object-fit:contain;object-position:bottom}
+.player .info{padding:18px}.name{color:var(--y);font-size:29px;margin:0 0 5px}
+.count{color:var(--y);font-weight:700;margin:0 0 7px}.fixture{color:#ddd;font-size:13px;margin:0 0 18px}
+.profile{display:inline-block;text-decoration:none;color:#111;background:var(--y);font-weight:700;font-size:13px;padding:10px 13px}
+.foot{font-size:12px;color:#bbb;margin-top:15px}
+@media(max-width:650px){main{padding:12px}h1{font-size:32px}.ask{grid-template-columns:1fr}.ask button{height:50px}.question-grid{grid-template-columns:1fr}.question-grid button{min-height:52px}.player-grid{grid-template-columns:1fr}.art{height:210px}}
+</style></head><body><main>
+<h1>Ask Tivvy — styling preview</h1>
+<p class="note">Design review only — the live question engine and data are not connected to this preview. Player photographs and brush artwork are taken from the approved Tivvy squad page.</p>
+<form class="ask" id="ask"><input id="q" aria-label="Your question" value="How many red cards have we had this season?"><button>ASK TIVVY</button></form>
+<h2>Some example questions you can ask</h2>
+<div class="question-grid" id="examples"></div>
+<section class="answer" id="answer" aria-live="polite"></section>
+</main><script>
+const questions=[
+"How many red cards have we had this season?",
+"How many goals has Matt Wood scored this season?",
+"How many times has Louie Slough been substituted off?",
+"Which players have received yellow cards this season?",
+"What is the club postcode?",
+"Where can I find the match programme?",
+"What was the score when we last played Dorchester?"
+];
+const brush="https://static.wixstatic.com/media/8aa829_81efb7b2c16545dd9be6c263ddacfeae~mv2.png";
+const profiles="https://nickabull.github.io/Tiverton-Town-Control-Centre/first-team-squad.html";
+const players=[
+{name:"Finn Roberts",photo:"https://static.wixstatic.com/media/8aa829_ae75aa2346974e80946c94cd679f3791~mv2.png",event:"31 Aug 2026 · Exmouth Town · 51'"},
+{name:"Jack Kennell",photo:"https://static.wixstatic.com/media/8aa829_e48c892b583f4b76b20703891c56ff4f~mv2.png",event:"7 Nov 2026 · Sporting Club Inkberrow · 48'"}
+];
+const ex=document.getElementById("examples");questions.forEach(q=>{const b=document.createElement("button");b.textContent=q;b.type="button";b.onclick=()=>{document.getElementById("q").value=q;render(q)};ex.appendChild(b)});
+function render(q){
+const a=document.getElementById("answer");a.replaceChildren();
+if(!/red cards?/i.test(q)){const h=document.createElement("h2");h.textContent="Preview only — answer engine unchanged";const p=document.createElement("p");p.textContent="This question continues to be answered by the existing live Ask Tivvy engine. This page demonstrates the aligned layout and approved artwork for player results.";a.append(h,p);return}
+a.innerHTML='<div class="heading"><strong class="amount">2</strong><div><h2>Red cards recorded</h2><div class="sub">Tiverton Town · 2026/27 league only · example from 7 Nov screenshot</div></div></div>';
+const grid=document.createElement("div");grid.className="player-grid";
+players.forEach(p=>{const card=document.createElement("article");card.className="player";const art=document.createElement("div");art.className="art";
+const sw=document.createElement("img");sw.className="brush";sw.src=brush;sw.alt="";const photo=document.createElement("img");photo.className="photo";photo.src=p.photo;photo.alt=p.name;art.append(sw,photo);
+const info=document.createElement("div");info.className="info";const name=document.createElement("h3");name.className="name";name.textContent=p.name;
+const count=document.createElement("p");count.className="count";count.textContent="1 red card";
+const event=document.createElement("p");event.className="fixture";event.textContent=p.event;
+const link=document.createElement("a");link.className="profile";link.href=profiles;link.textContent="VIEW PLAYER PROFILE ↗";
+info.append(name,count,event,link);card.append(art,info);grid.append(card)});a.append(grid);
+const foot=document.createElement("p");foot.className="foot";foot.textContent="Visual preview using the result shown in your screenshot. Live statistics are not fed into this preview.";a.append(foot)
+}
+document.getElementById("ask").onsubmit=e=>{e.preventDefault();render(document.getElementById("q").value)};render(questions[0]);
+</script></body></html>

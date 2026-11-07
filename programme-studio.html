@@ -93,7 +93,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 <div class="vivDialog" id="vivDialog" hidden role="dialog" aria-modal="true" aria-labelledby="vivTitle">
  <div class="vivPanel">
   <div class="vivHead"><div><small>VIV CURTIS · TIVVY PHOTO LIBRARY</small><h2 id="vivTitle">Select a programme photograph</h2></div><button id="vivClose">✕ Close</button></div>
-  <div class="vivFilters"><label>Search match, player, opponent or date<input id="vivSearch" type="search" placeholder="e.g. Dorchester, Weymouth, 2026"></label><label>Album<select id="vivAlbum"><option value="">All albums</option></select></label><label>Insert into<select id="vivSlot"><option value="0">Latest News · Left photo</option><option value="1">Latest News · Right photo</option></select></label></div>
+  <div class="vivFilters"><label>Search match, player, opponent or date<input id="vivSearch" type="search" placeholder="e.g. Dorchester, Weymouth, 2026"></label><label>Album<select id="vivAlbum"><option value="">All albums</option></select></label><label>Insert into<select id="vivSlot"><option value="cover">Cover · Main photo</option><option value="0">Latest News · Left photo</option><option value="1">Latest News · Right photo</option></select></label></div>
   <div class="vivGrid" id="vivGrid"><p class="vivEmpty">Loading photographs…</p></div>
   <div class="vivFoot"><span id="vivStatus">Loading indexed Flickr catalogue</span><button id="vivMore" hidden>Show more</button><a href="photo-library.html" target="_blank" rel="noopener noreferrer">Full Viv photo library ↗</a></div>
  </div>
@@ -639,6 +639,7 @@ function isVivUrl(url){
  try{const u=new URL(url);return u.protocol==="https:"&&u.hostname==="live.staticflickr.com"}catch(e){return false}
 }
 function getVivTarget(){
+ if(page==="cover")return "cover";
  if(selected&&selected.startsWith("photo:")&&page==="news")return +selected.split(":")[1];
  return null;
 }
@@ -661,11 +662,13 @@ function renderViv(){
  $("vivStatus").textContent=items.length+" indexed photo"+(items.length===1?"":"s")+" · "+Math.min(vivShown,items.length)+" shown · Credit: Viv Curtis";
  $("vivMore").hidden=items.length<=vivShown;
 }
-async function openViv(){
+async function openViv(destination){
  if(mode==="template"){alert("Switch to Programme Designer to select photographs for a matchday edition.");return;}
  const existing=getVivTarget();
- if(page!=="news"){page="news";render();}
- vivTarget=existing===null?0:existing;
+ const target=destination==="cover"?"cover":destination==="news"?0:existing;
+ if(target==="cover"&&page!=="cover"){page="cover";render();}
+ else if(target!=="cover"&&page!=="news"){page="news";render();}
+ vivTarget=target===null?0:target;
  $("vivSlot").value=String(vivTarget);
  $("vivDialog").hidden=false;$("vivSearch").value="";$("vivAlbum").value="";vivShown=40;
  if(vivCatalogue){renderViv();return;}
@@ -689,10 +692,19 @@ async function openViv(){
  }
 }
 function insertVivPhoto(p){
- vivTarget=Number($("vivSlot").value);
+ vivTarget=$("vivSlot").value==="cover"?"cover":Number($("vivSlot").value);
  if(vivTarget===null||!isVivUrl(p.original_url||p.large_url||p.thumbnail_url))return;
  const src=p.original_url&&isVivUrl(p.original_url)?p.original_url:p.large_url&&isVivUrl(p.large_url)?p.large_url:p.thumbnail_url;
- const n=vivTarget,d=current().news,before=snapshot(),old=d.photos[n]?"Existing image":"Empty photo";
+ const before=snapshot();
+ if(vivTarget==="cover"){
+  const old=edition.cover.photo?"Existing cover photo":"Empty cover photo";
+  edition.cover.photo=src;
+  edition.cover.photoCredit=(p.title&&p.title.trim()?p.title.trim()+". ":"")+"Photo: Viv Curtis";
+  edition.cover.photoSource={photo_id:String(p.photo_id||""),album_id:String(p.album_id||""),source_url:"https://www.flickr.com/photos/90186291@N04/"+encodeURIComponent(String(p.photo_id||""))+"/",credit:"Photo: Viv Curtis"};
+  persist();commitChange(before,"Insert Viv cover photo","Page 1",old,(p.title||"Photograph")+" · Viv Curtis");
+  closeViv();render();return;
+ }
+ const n=vivTarget,d=edition.news,old=d.photos[n]?"Existing image":"Empty photo";
  d.photos[n]=src;
  const caption=(p.title&&p.title.trim()?p.title.trim()+". ":"")+"Photo: Viv Curtis";
  d.captions[n]=caption;
@@ -702,9 +714,9 @@ function insertVivPhoto(p){
  closeViv();render();
  $("status").textContent="Photo inserted into this edition · Viv Curtis credit retained";
 }
-$("vivPicker").onclick=openViv;
-$("vivOpenTop").onclick=openViv;
-$("vivSlot").onchange=e=>{vivTarget=Number(e.target.value);};
+$("vivPicker").onclick=()=>openViv();
+$("vivOpenTop").onclick=()=>openViv();
+$("vivSlot").onchange=e=>{vivTarget=e.target.value==="cover"?"cover":Number(e.target.value);};
 $("vivClose").onclick=closeViv;
 $("vivDialog").addEventListener("click",e=>{if(e.target===$("vivDialog"))closeViv();});
 $("vivSearch").addEventListener("input",()=>{vivShown=40;renderViv();});
@@ -712,8 +724,18 @@ $("vivAlbum").addEventListener("change",()=>{vivShown=40;renderViv();});
 $("vivMore").onclick=()=>{vivShown+=40;renderViv();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("vivDialog").hidden)closeViv();});
 
-$("photoUpload").onclick=()=>{if(!selected||!selected.startsWith("photo:")){alert("First select a photo box.");return;}$("photoFile").click();};
-$("photoFile").onchange=e=>{let f=e.target.files[0];if(!f||!selected||!selected.startsWith("photo:"))return;let n=+selected.split(":")[1];if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}const before=snapshot(),old=current().news.photos[n]?"Previous photo":"No photo";let rd=new FileReader();rd.onload=()=>{current().news.photos[n]=rd.result;persist();commitChange(before,"Replace photo","Photo "+(n+1),old,f.name);render();};rd.readAsDataURL(f);};
+$("photoUpload").onclick=()=>{if(page!=="cover"&&(!selected||!selected.startsWith("photo:"))){alert("First select a photo box.");return;}$("photoFile").click();};
+$("photoFile").onchange=e=>{const f=e.target.files[0];if(!f)return;
+ if(page!=="cover"&&(!selected||!selected.startsWith("photo:")))return;
+ if(f.size>2500000){alert("For this browser-only prototype please use an image smaller than 2.5 MB.");return;}
+ const before=snapshot(),onCover=page==="cover",n=onCover?null:+selected.split(":")[1];
+ const old=onCover?(edition.cover.photo?"Previous cover image":"No cover image"):(edition.news.photos[n]?"Previous photo":"No photo");
+ const reader=new FileReader();
+ reader.onload=()=>{if(onCover){edition.cover.photo=reader.result;edition.cover.photoSource={type:"local",filename:f.name};}
+ else edition.news.photos[n]=reader.result;
+ persist();commitChange(before,"Upload photo",onCover?"Page 1 cover":"Photo "+(n+1),old,f.name);render();};
+ reader.readAsDataURL(f);e.target.value="";
+};
 $("save").onclick=()=>{editionName=$("editionName").value.trim()||editionName;persist();$("status").textContent="Edition saved locally · "+editionName;};
 function populateEditionPicker(){let sel=$("editionPicker");sel.replaceChildren();[["bishops-cleeve","Bishops Cleeve · 14 Nov"],["inkberrow","Inkberrow · 7 Nov"]].forEach(x=>{let o=document.createElement("option");o.value=x[0];o.textContent=x[1];sel.append(o);});sel.value=activeEdition;}
 $("editionPicker").onchange=e=>{persist();activeEdition=e.target.value;edition=editions[activeEdition];editionName=activeEdition==="bishops-cleeve"?"Bishops Cleeve · 14 Nov 2026":"Inkberrow · 7 Nov 2026";mode="edition";page="cover";persist();render();};

@@ -51,7 +51,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 .photo img{width:100%;height:100%;object-fit:cover}.photoCaption{font:11px Antonio,sans-serif;margin-top:4px}
 .fieldGroup{padding:10px 0;border-bottom:1px solid #ddd}.fieldTitle{font-size:12px;font-weight:700;margin-bottom:5px}
 .sliderRow{display:flex;align-items:center;gap:6px}input[type=range]{flex:1;min-width:0;accent-color:#d4ad00}.value{min-width:45px;text-align:right;font-size:12px;font-weight:700}
-.colors{display:flex;gap:5px}.swatch{width:30px;height:28px;border:1px solid #888;padding:0}
+.colourTools{display:flex;align-items:center;gap:7px;margin:8px 0 3px;flex-wrap:wrap}.colourTools input[type=color]{width:49px;height:34px;cursor:pointer;border:1px solid #999;background:#fff;padding:2px}.hexReadout{font:700 12px Arial,sans-serif;color:#333}.colourStudio .fieldTitle{font-size:13px;letter-spacing:.4px}.colourStudio .note{margin:5px 0}.colors{display:flex;gap:5px;flex-wrap:wrap}.swatch{width:30px;height:28px;border:1px solid #888;padding:0}
 .smallBtn{font-size:12px;padding:6px 8px;margin:4px 3px 0 0}
 .audit{border-top:3px solid #111;margin-top:18px;padding-top:9px}.auditEntries{max-height:275px;overflow:auto;background:#fafafa;border:1px solid #ddd}.auditEntry{font-size:11px;line-height:1.3;padding:7px;border-bottom:1px solid #ddd}.auditEntry strong{display:block}.auditEntry small{color:#666}.auditEntry.undo{border-left:4px solid orange}.auditEntry.redo{border-left:4px solid green}.fontWarning{font-size:12px;color:#155d24;padding:7px 8px;background:#e4f6e4;margin-top:6px;line-height:1.4}
 .fontWarning.off{background:#ffe1e1;color:#a51515;font-weight:700;border-left:4px solid #d52020}
@@ -66,7 +66,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 @media print{@page{size:A4 portrait;margin:0}body{background:#fff}.top,.left,.right,.stagebar{display:none!important}.layout{display:block;min-height:0}.stage{padding:0;overflow:visible}.sheetBox{margin:0!important;box-shadow:none; width:595px!important;height:842px!important}.paper{transform:none!important;width:595px;height:842px}.paper [contenteditable=true]{outline:0!important}}
 .oppHeader{height:130px;background:#111;color:#fff;padding:28px;position:relative}.oppHeader h1{font-size:44px}.oppAccent{position:absolute;right:0;bottom:0;width:180px;height:70px;background:repeating-linear-gradient(150deg,transparent 0 13px,#fff 14px 16px,transparent 17px 24px);opacity:.3;transform:skewX(-16deg)}.oppBody{padding:35px}.oppTop{display:flex;gap:25px;align-items:center}.oppBadge img{width:155px;height:155px;object-fit:contain}.oppClub{font:700 36px Antonio,Impact,sans-serif}.oppIntro{font:19px/1.3 Antonio,Impact,sans-serif;padding:28px 0}.oppKits{display:grid;grid-template-columns:1fr 1fr;gap:15px}.oppKit{height:125px;color:#fff;display:flex;align-items:center;justify-content:center;font:700 21px Antonio;padding:14px}.oppKit.white{background:#f6f6f6;border:3px solid #111;color:#111}.oppNote{font:13px Arial,sans-serif;color:#444;margin-top:20px}
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.3</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · PROGRAMME STUDIO</div><small>Player Card Studio controls · Real A4 objects · Prototype v0.4</small></div><div class="actions"><button id="undo" class="dark" disabled title="Undo (Ctrl/Cmd+Z)">↶ Undo</button><button id="redo" class="dark" disabled title="Redo (Ctrl/Cmd+Shift+Z)">↷ Redo</button><button id="newEdition" class="dark">New edition</button><button id="save" class="primary">Save edition</button><button id="reset">Revert this page</button><button id="print" class="dark">Export A4 PDF</button></div></header>
 <div class="layout"><aside class="left"><div class="sectionTitle">RUNNING ORDER</div>
 <label class="label" for="editionPicker">Matchday editions</label><select id="editionPicker"></select><label class="label" for="editionName">Edition name</label><input id="editionName" type="text" value="Inkberrow · 7 Nov 2026">
 <label class="label" for="mode">Designer mode</label><select id="mode"><option value="edition">Programme Designer (safe)</option><option value="template">Template Designer</option></select>
@@ -84,7 +84,7 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 <div class="fieldGroup"><div class="fieldTitle">Font size (points)</div><div class="sliderRow"><input type="range" id="fontPt" min="6" max="56" step="1" value="14"><span id="fontPtVal" class="value">14 pt</span></div><div id="fontWarning" class="fontWarning">Select text to adjust its point size.</div></div><div class="fieldGroup"><div class="fieldTitle">Move left / right</div><div class="sliderRow"><input type="range" id="x" min="-140" max="140" value="0"><span id="xVal" class="value">0 px</span></div></div>
 <div class="fieldGroup"><div class="fieldTitle">Move up / down</div><div class="sliderRow"><input type="range" id="y" min="-140" max="140" value="0"><span id="yVal" class="value">0 px</span></div></div>
 <div class="fieldGroup"><div class="fieldTitle">Row height / spacing</div><div class="sliderRow"><input type="range" id="height" min="16" max="65" value="24"><span id="heightVal" class="value">24 px</span></div></div>
-<div class="fieldGroup"><div class="fieldTitle">Colour</div><div class="colors" id="colors"></div><label class="label">Custom text colour <input id="customColor" type="color" value="#111111"></label></div>
+<div class="fieldGroup colourStudio"><div class="fieldTitle">BACKGROUND COLOUR</div><p class="note">Changes the selected box, row or header fill.</p><div class="colors" id="colors"></div><div class="colourTools"><button id="pickBg" class="smallBtn" title="Pick background colour from the screen">◉ Pick from screen</button><span id="bgHex" class="hexReadout">Default</span></div><div class="fieldTitle" style="margin-top:17px">TEXT COLOUR</div><p class="note">Changes the selected words only.</p><div class="colourTools"><input id="customColor" type="color" value="#111111" title="Choose text colour"><button id="pickText" class="smallBtn" title="Pick text colour from the screen">◉ Pick from screen</button><span id="textHex" class="hexReadout">#111111</span></div><p id="pickStatus" class="note" aria-live="polite">Eyedropper works in supported desktop browsers; click anywhere on screen to sample.</p></div>
 <div class="fieldGroup"><div class="fieldTitle">Text / table data</div><p class="note">Double-click the wording or a table cell on the A4 page and edit it directly. Each row is independent.</p><button id="photoUpload" class="smallBtn">Replace selected photo</button><input type="file" accept="image/*" id="photoFile" hidden></div>
 <div class="fieldGroup"><button id="resetElement" class="smallBtn">Reset selected element</button></div>
 <p class="note">Changes are currently saved in this browser only; production server save and one-click Wix publishing are not yet connected.</p>
@@ -177,7 +177,13 @@ function drawAudit(){let target=$("auditEntries");if(!target)return;target.repla
  let meta=document.createElement("small");meta.textContent=new Date(a.time).toLocaleString("en-GB")+" · "+a.actor+" · "+a.edition+" · "+a.page;
  item.append(title,val,meta);target.append(item);
  });}
-function updateHistoryButtons(){$("undo").disabled=!undoStack.length;$("redo").disabled=!redoStack.length;}
+function updateHistoryButtons(){
+ $("undo").disabled=!undoStack.length;$("redo").disabled=!redoStack.length;
+ $("undo").textContent="↶ Undo ("+undoStack.length+")";
+ $("redo").textContent="↷ Redo ("+redoStack.length+")";
+ $("undo").title="Undo "+undoStack.length+" available change(s) · Ctrl/Cmd+Z";
+ $("redo").title="Redo "+redoStack.length+" available change(s) · Ctrl/Cmd+Shift+Z";
+}
 function commitChange(before,action,target,oldVal,newVal){
  if(skipRecord||before===snapshot())return;
  undoStack.push({state:before,action,target,oldVal,newVal});if(undoStack.length>150)undoStack.shift();
@@ -241,7 +247,7 @@ function render(){
  $("objectList").replaceChildren();
  const opt=document.createElement("option");opt.textContent="Choose an element…";opt.value="";$("objectList").append(opt);
  $("paper").querySelectorAll("[data-field],[data-row],[data-asset]").forEach(e=>{if(e.closest("[data-field]")&&e!==e.closest("[data-field]"))return;const id=idOf(e);if(!id)return;const opt=document.createElement("option");opt.value=id;opt.textContent=labelOf(e);$("objectList").append(opt);});
- selected=null;$("selectedInfo").textContent="Select an element to reveal its slider controls.";
+ selected=null;$("selectedInfo").textContent="Select an element to reveal its slider controls.";syncColours();
 renderClubLibrary();syncFontControl();
  resizePaper();drawAudit();paintRestorePoints();updateHistoryButtons();
 }
@@ -251,7 +257,7 @@ function idOf(e){return e.dataset.row!==undefined?"row:"+e.dataset.row:e.dataset
 function element(key){let a=key.split(":");if(a[0]==="row")return $("paper").querySelector('[data-row="'+a[1]+'"]');if(a[0]==="photo")return $("paper").querySelector('[data-asset="'+a[1]+'"]');if(a[0]==="field")return $("paper").querySelector('[data-field="'+a.slice(1).join(":")+'"]');}
 function choose(key){$("paper").querySelectorAll(".chosen").forEach(e=>e.classList.remove("chosen"));selected=key;const e=element(key);if(!e)return;if(key.startsWith("field:title"))e=document.querySelector('[data-field="title"]');
  e.classList.add("chosen");$("objectList").value=key;$("selectedInfo").textContent=labelOf(e);
- const o=ov()[key]||{};syncFontControl();["size","x","y","height"].forEach(n=>{$(n).value=o[n]??(n==="size"?100:n==="height"?24:0);updateValue(n);});$("customColor").value=o.color||"#111111";
+ const o=ov()[key]||{};syncFontControl();syncColours();["size","x","y","height"].forEach(n=>{$(n).value=o[n]??(n==="size"?100:n==="height"?24:0);updateValue(n);});$("customColor").value=o.color||"#111111";
 }
 function applyOverride(el,o){if(o.size!==undefined||o.x!==undefined||o.y!==undefined){el.style.transform="translate("+(o.x||0)+"px,"+(o.y||0)+"px) scale("+((o.size||100)/100)+")";el.style.transformOrigin="center center";}if(o.color)el.style.color=o.color;if(o.fontPt&&el.matches("[data-field]")&&!el.matches("[data-field=band]"))el.style.fontSize=o.fontPt+"pt";if(o.bg)el.style.backgroundColor=o.bg;if(el.matches("tr")&&o.height)el.querySelectorAll("td").forEach(td=>td.style.height=o.height+"px");if(el.classList.contains("photo")&&o.height)el.style.height=o.height+"px";}
 function fontDefault(el){
@@ -275,6 +281,26 @@ function syncFontControl(){
  $("fontWarning").classList.toggle("off",changed);
  $("fontWarning").textContent=changed?"⚠ Off template: "+currentPt+" pt (default "+base+" pt). Allowed for this edition.":"✓ Template standard: "+base+" pt";
 }
+function syncColours(){
+ const data=selected&&(ov()[selected]||{});
+ $("bgHex").textContent=data&&data.bg?data.bg.toUpperCase():"Default";
+ const fg=data&&data.color||"#111111";
+ $("textHex").textContent=fg.toUpperCase();
+ $("customColor").value=/^#[0-9a-f]{6}$/i.test(fg)?fg:"#111111";
+}
+async function pickScreenColour(kind){
+ if(!selected){$("pickStatus").textContent="Select a page element first.";return;}
+ if(!("EyeDropper" in window)){$("pickStatus").textContent="Screen eyedropper is not supported in this browser. Use Chrome or Edge on desktop, or the normal colour picker.";return;}
+ $("pickStatus").textContent="Click any pixel on your screen · Esc to cancel.";
+ try{
+  const result=await new EyeDropper().open();
+  if(!selected){$("pickStatus").textContent="Please select an element again.";return;}
+  const hex=result.sRGBHex.toUpperCase();
+  changeProp(kind==="background"?"bg":"color",hex);
+  syncColours();
+  $("pickStatus").textContent=(kind==="background"?"Background":"Text")+" colour sampled: "+hex;
+ }catch(e){$("pickStatus").textContent="Eyedropper cancelled or unavailable."; }
+}
 function updateValue(id){$(id+"Val").textContent=$(id).value+(id==="size"?"%":" px");}
 function changeProp(prop,val){
  if(!selected)return;const before=snapshot(),el=element(selected),o=ov()[selected]||(ov()[selected]={});
@@ -286,8 +312,10 @@ function changeProp(prop,val){
 function resizePaper(){let v=+$("zoom").value/100;$("zoomValue").textContent=Math.round(v*100)+"%";$("paper").style.transform="scale("+v+")";$("sheetBox").style.width=(595*v)+"px";$("sheetBox").style.height=(842*v)+"px";}
 $("zoom").oninput=resizePaper;
 ["size","x","y","height"].forEach(id=>{$(id).oninput=()=>{updateValue(id);changeProp(id,+$(id).value);};});
-["#111111","#ffdb00","#ffffff","#cbe8bb","#c8dffa","#f6bbbb","#be1e2d"].forEach(c=>{let b=document.createElement("button");b.className="swatch";b.style.background=c;b.title=c;b.onclick=()=>changeProp("bg",c);$("colors").append(b);});
-$("customColor").oninput=e=>changeProp("color",e.target.value);
+["#111111","#ffdb00","#ffffff","#cbe8bb","#c8dffa","#f6bbbb","#be1e2d"].forEach(c=>{let b=document.createElement("button");b.className="swatch";b.style.background=c;b.title=c;b.onclick=()=>{changeProp("bg",c);syncColours();};$("colors").append(b);});
+$("customColor").oninput=e=>{changeProp("color",e.target.value);syncColours();};
+$("pickBg").onclick=()=>pickScreenColour("background");
+$("pickText").onclick=()=>pickScreenColour("text");
 $("fontPt").oninput=e=>{if(!selected||fontDefault(element(selected))===null)return;changeProp("fontPt",Number(e.target.value));syncFontControl();};
 $("paper").onclick=e=>{let el=e.target.closest("[data-row],[data-asset],[data-field]");if(el){let k=idOf(el);if(k)choose(k);}};
 $("objectList").onchange=e=>choose(e.target.value);

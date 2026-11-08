@@ -1,0 +1,33 @@
+/* TIVVY UI DESIGN SYSTEM v1.0 - shared opt-in classes; scoped to .tivvy-ui
+   Reference: current Match Centre colours, icons and approved Tivvy Live concept.
+   Use for NEW tools first. Do not overwrite live legacy CSS without visual QA. */
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&display=swap');
+.tivvy-ui{
+ --tivvy-gold:#ffd800;--tivvy-ink:#252323;--tivvy-black:#111;
+ --tivvy-red:#ef3340;--tivvy-off:#ff666b;--tivvy-on:#65e6a2;
+ --tivvy-blue:#65baff;--tivvy-pen:#d71f88;--tivvy-yellow-card:#ffae42;
+ --tivvy-card-red:#e33a7b;--tivvy-white:#fff;--tivvy-muted:#aaa;
+ color:var(--tivvy-white);font:15px/1.45 Arial,Helvetica,sans-serif;
+}
+.tivvy-ui .tivvy-heading,.tivvy-ui .tivvy-button,.tivvy-ui .tivvy-score,
+.tivvy-ui .tivvy-section-heading{font-family:Antonio,Impact,'Arial Narrow',sans-serif;font-weight:700}
+.tivvy-ui .tivvy-heading{color:var(--tivvy-gold);text-transform:uppercase}
+.tivvy-ui .tivvy-team{font-family:Antonio,Impact,sans-serif;text-transform:uppercase}
+.tivvy-ui .tivvy-goal{color:var(--tivvy-blue);font-weight:700}
+.tivvy-ui .tivvy-penalty{color:var(--tivvy-pen);font-weight:700}
+.tivvy-ui .tivvy-card-yellow{color:var(--tivvy-yellow-card);font-weight:700}
+.tivvy-ui .tivvy-card-red{color:var(--tivvy-card-red);font-weight:700}
+.tivvy-ui .tivvy-on{color:var(--tivvy-on);font-weight:700}
+.tivvy-ui .tivvy-off{color:var(--tivvy-off);font-weight:700}
+.tivvy-ui .tivvy-captain,.tivvy-ui .tivvy-gk{color:var(--tivvy-gold);font-weight:700}
+.tivvy-ui .tivvy-unused{color:var(--tivvy-muted)}
+.tivvy-ui .tivvy-status-win{color:#2c9e4d}.tivvy-ui .tivvy-status-draw{color:#eb9612}
+.tivvy-ui .tivvy-status-loss{color:#e2434b}
+.tivvy-ui .tivvy-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+ border:0;padding:8px 13px;background:var(--tivvy-black);color:var(--tivvy-gold);cursor:pointer}
+.tivvy-ui .tivvy-button:focus-visible{outline:3px solid #2782ef;outline-offset:2px}
+.tivvy-ui .tivvy-matrix-row:nth-child(odd){background:var(--tivvy-gold);color:#171717}
+.tivvy-ui .tivvy-matrix-row:nth-child(even){background:#fff;color:#171717}
+.tivvy-ui .tivvy-match-panel{background:var(--tivvy-ink);color:#fff}
+.tivvy-ui .tivvy-branch{border-left:3px solid var(--tivvy-gold)}
+.tivvy-ui .tivvy-event-icon{font-family:Arial,sans-serif;font-style:normal}

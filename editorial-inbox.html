@@ -42,6 +42,15 @@ textarea{line-height:1.65;resize:vertical;min-height:390px;tab-size:4}
 .reportBox{margin-top:10px;padding:10px;background:#fff6ce;border:1px solid #c2ac59}
 #editor,#reviewPanel{display:none}
 #versionList{max-height:120px;overflow:auto}
+.issue{cursor:pointer}.issue:focus-visible{outline:3px solid #d8a900}
+#colourReview{background:#fff;border:1px solid #aaa;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.65 Arial;max-height:390px;overflow:auto}
+#colourReview mark{color:#111;cursor:pointer;padding:1px 2px}
+#colourReview mark.definite{background:#ffcccc;border-bottom:2px solid #b22}
+#colourReview mark.possible{background:#fff0a6;border-bottom:2px solid #c90}
+#colourReview mark.suggestion{background:#e5e5ed;border-bottom:2px solid #889}
+#colourReview mark.accepted{background:#caf1d3;border-bottom:2px solid #28863a}
+#colourReview mark.focused{outline:2px solid #222}
+.review-legend{font-size:12px;margin:8px 0;color:#444}
 .copyStatus{padding:10px;background:#eee;white-space:pre-wrap;font-size:12px}
 footer{margin:14px 0;color:#555;font-size:11px}
 details{margin:8px 0;padding:8px;background:#fff;border:1px solid #ddd}
@@ -75,7 +84,7 @@ summary{cursor:pointer;font-weight:bold}
 <label for="docTitle">Editorial title</label><input id="docTitle" type="text">
 <div class="controls"><label for="docKind" style="margin:0">Type</label><select id="docKind" style="flex:1"><option value="report">Match report</option><option value="preview">Match preview</option><option value="other">Other editorial copy</option></select><button id="compare" class="dark">Show original</button></div>
 <div id="originalView" hidden><h3>Unchanged original</h3><pre id="originalText" style="white-space:pre-wrap;font:12px/1.6 Arial;background:#fff;border:1px solid #ddd;max-height:260px;overflow:auto;padding:14px"></pre></div>
-<label for="working">Working copy (editable)</label><textarea id="working" spellcheck="true" placeholder="Document text"></textarea>
+<label for="working">Working copy (editable)</label><textarea id="working" spellcheck="true" placeholder="Document text"></textarea><div class="review-legend">🔴 Definite error · 🟡 Check/verify · 🟢 Accepted correction</div><button id="toggleColourReview" type="button">Show coloured review</button><div id="colourReview" hidden aria-label="Colour-coded review text"></div>
 <p class="note" id="saveStatus">Edits are saved to your browser. Proofreading suggestions are not applied unless you accept them.</p>
 <div class="controls"><button id="reset" class="dark">Reset to original</button><button id="downloadTxt">Download working copy</button><button id="approve" class="gold">✓ Approve editorial copy</button></div>
 <div id="approvalStatus" class="reportBox" hidden></div>
@@ -89,7 +98,7 @@ summary{cursor:pointer;font-weight:bold}
 (function(){
 "use strict";
 var KEY="tivvy-editorial-inbox-v1",APPROVED="tivvy-editorial-approved-v1",GMAIL_CLIENT_KEY="tivvy-editorial-gmail-client-v1";
-var docs=[],selected=null,showIgnored=false,saveTimer=0,gmailToken=null,gmailClient=null;
+var docs=[],selected=null,showIgnored=false,saveTimer=0,gmailToken=null,gmailClient=null,reviewFocus=-1;
 var $=function(id){return document.getElementById(id)};
 var esc=function(v){return String(v==null?"":v).replace(/[&<>"']/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]})};
 try{var stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))docs=stored;}catch(err){}
@@ -225,7 +234,7 @@ function renderList(){
  $("docCount").textContent=docs.length;var c=$("docList");c.innerHTML="";
  docs.forEach(function(d){var b=document.createElement("button");b.className="doc"+(d.id===selected?" active":"");
  b.innerHTML="<strong>"+esc(d.title)+"</strong><small>"+esc(d.filename)+"</small><span class='status'>"+(d.approved?"✓ Approved copy available":"● Needs editorial approval")+"</span>";
- b.onclick=function(){selected=d.id;render()};c.appendChild(b)});
+ b.onclick=function(){selected=d.id;reviewFocus=-1;render()};c.appendChild(b)});
 }
 function render(){
  renderList();var d=active();$("empty").style.display=d?"none":"block";$("editor").style.display=d?"block":"none";$("reviewPanel").style.display=d?"block":"none";$("noReview").style.display=d?"none":"block";if(!d)return;
@@ -237,15 +246,34 @@ function render(){
  ["copyText","copyHtml","downloadHtml"].forEach(function(x){$(x).disabled=!d.approved});
  var log=$("versionList");log.innerHTML=(d.changes||[]).slice(-12).reverse().map(function(x){return "<div>"+esc(x.at.slice(0,16).replace("T"," "))+" · "+esc(x.message)+"</div>"}).join("")||"No corrections accepted yet.";
  renderIssues(issues);
+  paintColourReview();
+}
+function paintColourReview(){
+ var d=active(),view=$("colourReview");if(!d||view.hidden)return;
+ var text=d.working||"",marks=scan(d).filter(function(f){return !f.ignored}).map(function(f){return {a:f.at,b:f.at+f.match.length,t:f.rule.type,priority:2}});
+ (d.changes||[]).forEach(function(c){if(!c.to)return;var i=text.indexOf(c.to);if(i>=0)marks.push({a:i,b:i+c.to.length,t:"accepted",priority:1});});
+ marks.sort(function(x,y){return x.a-y.a||y.priority-x.priority});var html="",last=0;
+ marks.forEach(function(m){if(m.a<last||m.b<=m.a)return;html+=esc(text.slice(last,m.a))+'<mark data-at="'+m.a+'" data-len="'+(m.b-m.a)+'" class="'+m.t+(m.a===reviewFocus?" focused":"")+'">'+esc(text.slice(m.a,m.b))+'</mark>';last=m.b;});
+ view.innerHTML=html+esc(text.slice(last));
+ view.querySelectorAll("mark").forEach(function(m){m.onclick=function(){focusIssue(+m.dataset.at,+m.dataset.len);};});
+}
+function focusIssue(at,len){
+ var d=active();if(!d)return;reviewFocus=at;$("colourReview").hidden=false;$("toggleColourReview").textContent="Hide coloured review";paintColourReview();
+ var mark=[...$("colourReview").querySelectorAll("mark")].find(function(m){return +m.dataset.at===at});if(mark)mark.scrollIntoView({block:"center"});
+ var el=$("working");el.focus({preventScroll:true});el.setSelectionRange(at,at+len);
+ // Textarea highlights selection in its native style; scroll selection into view.
+ var before=d.working.slice(0,at),lines=before.split("\n"),avg=Math.max(20,Math.floor((el.clientWidth-20)/7.5));
+ var visual=lines.reduce(function(n,line){return n+Math.max(1,Math.ceil(line.length/avg));},0);
+ el.scrollTop=Math.max(0,visual*23-el.clientHeight*0.4);
 }
 function renderIssues(issues){
  var host=$("issues");host.replaceChildren();var d=active();if(!d)return;
  if(!issues.length){host.innerHTML="<div class='approved'>✓ No unresolved findings from current rules. Still check names, football facts and style manually.</div>";return;}
- issues.slice(0,100).forEach(function(f){var box=document.createElement("article");box.className="issue "+f.rule.type;var type=f.rule.type==="definite"?"DEFINITE ERROR":f.rule.type==="possible"?"CHECK / VERIFY":"STYLE SUGGESTION";
+ issues.slice(0,100).forEach(function(f){var box=document.createElement("article");box.className="issue "+f.rule.type;box.tabIndex=0;box.onclick=function(e){if(e.target.closest("button"))return;focusIssue(f.at,f.match.length)};box.onkeydown=function(e){if(e.target===box&&e.key==="Enter")focusIssue(f.at,f.match.length)};var type=f.rule.type==="definite"?"DEFINITE ERROR":f.rule.type==="possible"?"CHECK / VERIFY":"STYLE SUGGESTION";
  var snippet=d.working.slice(Math.max(0,f.at-32),Math.min(d.working.length,f.at+f.match.length+45)).replace(/\s+/g," ");
  box.innerHTML="<small>"+type+"</small><strong>"+esc(f.rule.message)+"</strong><div class='quote'>…"+esc(snippet)+"…</div>"+(f.to!=null?"<div class='replace'>Suggested: "+esc(f.to)+"</div>":"<div class='note'>No automatic replacement: review in the text editor.</div>");
  var actions=document.createElement("div");actions.className="actions";
- if(!f.ignored&&f.to!=null){var apply=document.createElement("button");apply.className="gold";apply.textContent="Apply correction";apply.onclick=function(){var current=active(),at=f.at;if(current.working.slice(at,at+f.match.length)!==f.match){render();return;}current.working=current.working.slice(0,at)+f.to+current.working.slice(at+f.match.length);current.changes=current.changes||[];current.changes.push({at:new Date().toISOString(),message:f.rule.message,from:f.match,to:f.to});save();render()};actions.append(apply);}
+ if(!f.ignored&&f.to!=null){var apply=document.createElement("button");apply.className="gold";apply.textContent="Apply correction";apply.onclick=function(){var current=active(),at=f.at;if(current.working.slice(at,at+f.match.length)!==f.match){render();return;}current.working=current.working.slice(0,at)+f.to+current.working.slice(at+f.match.length);current.changes=current.changes||[];current.changes.push({at:new Date().toISOString(),message:f.rule.message,from:f.match,to:f.to});save();render();focusIssue(at,f.to.length)};actions.append(apply);}
  if(!f.ignored){var ignore=document.createElement("button");ignore.textContent="Ignore";ignore.onclick=function(){d.ignored=d.ignored||[];d.ignored.push(f.key);save();render()};actions.append(ignore);}
  else{var restore=document.createElement("button");restore.textContent="Unignore";restore.onclick=function(){d.ignored=d.ignored.filter(function(x){return x!==f.key});save();render()};actions.append(restore);}
  box.append(actions);host.append(box);});
@@ -262,7 +290,8 @@ $("files").onchange=async function(e){var files=Array.from(e.target.files||[]);i
 };
 $("jsonFile").onchange=async function(e){var file=e.target.files[0];if(!file)return;try{var obj=JSON.parse(await file.text());if(!Array.isArray(obj))throw Error("Expected editorial inbox JSON array");if(!confirm("Restore this inbox backup? It replaces the current local inbox."))return;docs=obj.filter(function(d){return d&&typeof d.original==="string"&&typeof d.working==="string"&&d.id});selected=docs[0]&&docs[0].id;save();exportApproved();render();}catch(err){alert("Cannot restore backup: "+err.message)}e.target.value="";};
 $("backup").onclick=function(){download("tivvy-editorial-inbox-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(docs,null,2),"application/json")};
-$("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length},280)};
+$("toggleColourReview").onclick=function(){var v=$("colourReview");v.hidden=!v.hidden;$("toggleColourReview").textContent=v.hidden?"Show coloured review":"Hide coloured review";paintColourReview()};
+ $("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));paintColourReview();var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length},280)};
 $("working").onblur=function(){save();render()};
 $("docTitle").onchange=function(e){var d=active();d.title=e.target.value;save();render()};
 $("docKind").onchange=function(e){var d=active();d.kind=e.target.value;save();render()};

@@ -85,15 +85,13 @@ function attachSL(items){
  return {joined,created};
 }
 function matchFormatting(value,source){
- // Presentation-only editorial tidy-up for human-written social posts.
- // Keep the archived source wording unchanged, including match facts and players.
+ // Safe display-only typography for EVERY source; never mutate original records.
+ // Facts, names, scorelines and original wording remain untouched.
  let plain=String(value??"");
- if(source==="facebook"||source==="x"){
-   plain=plain.replace(/\b(SC)(?=Inkberrow\b)/gi,"$1 ");
-   plain=plain.replace(/\b(Inkberrow)(?=[0-9]\b)/gi,"$1 ");
-   plain=plain.replace(/([!?])(?=[A-Za-z])/g,"$1 ");
-   plain=plain.replace(/ {2,}/g," ");
- }
+ plain=plain.replace(/\b(SC)(?=Inkberrow\b)/gi,"$1 ");
+ plain=plain.replace(/\b(Inkberrow)(?=[0-9]\b)/gi,"$1 ");
+ plain=plain.replace(/([!?;,])(?=[A-Za-z])/g,"$1 ");
+ plain=plain.replace(/ {2,}/g," ");
  let text=esc(plain);
  // Existing club posts use blue down/up emojis: recolour only their glyphs.
  text=text.replace(/⬇️?/g,'<span class="player-off">▼</span>').replace(/⬆️?/g,'<span class="player-on">▲</span>');

@@ -381,7 +381,7 @@ function cardMarkup(p){
 }
 function addPlayer(p,container){
  const wrapper=document.createElement('article');
- wrapper.className='showcasePlayer'+(p.status==='departed'?' formerPlayer':'');
+ wrapper.className='showcasePlayer'+(['departed','on_loan'].includes(p.status)?' formerPlayer':'');
  wrapper.id='player-'+p.id;
  wrapper.innerHTML='<div class="playerControl"><span>'+safe(p.name)+'</span><button class="playerClose" type="button" aria-expanded="false">Show details +</button></div>'+cardMarkup(p);
  const button=wrapper.querySelector('.playerClose');
@@ -424,10 +424,10 @@ Promise.all([fetch('data/men-squad.json').then(r=>r.json()),fetch('https://raw.g
    if(!photos[p.id])continue;
    const saved=editorial[p.id]||[];
    const z={...p,...compute(p.name),position:saved[0]||p.position||'Position to confirm',previous_club:saved[1]||p.previous_club||'',confirmedSponsor:saved[2]||p.sponsorships?.['2026/27']?.sponsor_name||''};
-   if(['ed-palmer','lewis-flowers'].includes(p.id)){
-     z.status='departed';
+   if(['ed-palmer','lewis-flowers'].includes(p.id)||['departed','on_loan'].includes(p.status)){
+     if(['ed-palmer','lewis-flowers'].includes(p.id))z.status='departed';
      addPlayer(z,document.getElementById('formerCards'));
-   }else if(!['caleb-price-hall','caleb-pryce-hall','finn-hodge'].includes(p.id)&&p.status!=='on_loan'&&p.status!=='departed'){
+   }else if(!['caleb-price-hall','caleb-pryce-hall','finn-hodge'].includes(p.id)){
      const category=categoryFor(z);
      counts[category]++;
      addPlayer(z,regions[category]);

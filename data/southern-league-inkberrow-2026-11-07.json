@@ -1,0 +1,90 @@
+{
+  "schema_version": "tivvy-sfl-match-audit-v1",
+  "source": "Southern Football League public match API",
+  "api": "https://api.southern-football-league.co.uk/matches",
+  "source_url": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489",
+  "checkedAt": "2026-11-08T21:35:32.023904+00:00",
+  "run_url": "https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/42526051033",
+  "match": {
+    "apiId": "6a5a1cc3ce9ef452b61f4489",
+    "date": "2026-11-07",
+    "status": "FullTime",
+    "venue": "H",
+    "home": "Tiverton Town",
+    "away": "Sporting Club Inkberrow",
+    "score": [
+      1,
+      2
+    ],
+    "attendance": 223,
+    "goals": [
+      {
+        "minute": 59,
+        "personName": "Matthew Liam Wood",
+        "goalType": "normal",
+        "phase": "SecondHalf"
+      }
+    ],
+    "cards": [
+      {
+        "minute": 45,
+        "personName": "Corey Hayden Koerner",
+        "cardType": "first_yellow_card",
+        "phase": "FirstHalf"
+      },
+      {
+        "minute": 48,
+        "personName": "Jack William Kennell",
+        "cardType": "red_card",
+        "phase": "SecondHalf"
+      }
+    ],
+    "subs": [
+      {
+        "minute": 53,
+        "personOnName": "Dan Koita",
+        "personOffName": "Toby Stephens"
+      },
+      {
+        "minute": 85,
+        "personOnName": "Finn Roberts",
+        "personOffName": "Louis Jagger Cane"
+      },
+      {
+        "minute": 89,
+        "personOnName": "Ryan Richard Keates",
+        "personOffName": "Louie Slough"
+      }
+    ],
+    "opponentGoals": [
+      {
+        "minute": 2,
+        "personName": "William Moore",
+        "goalType": "normal"
+      },
+      {
+        "minute": 85,
+        "personName": "Louis Crook",
+        "goalType": "normal"
+      }
+    ],
+    "opponentCards": [],
+    "opponentSubs": [
+      {
+        "minute": 46,
+        "personOnName": "Zachary Powell",
+        "personOffName": "Aidan Clark"
+      },
+      {
+        "minute": 75,
+        "personOnName": "Louis Crook",
+        "personOffName": "Gregor Guy"
+      },
+      {
+        "minute": 85,
+        "personOnName": "Max Angelides",
+        "personOffName": "Joshua Hurdman"
+      }
+    ]
+  }
+}

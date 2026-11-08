@@ -22,7 +22,8 @@ nav a.active{border-color:var(--gold);background:var(--gold);color:#111;font-wei
 /* Keep approved grass background; restore original header and tabs. */
 #private-app{min-height:100vh;background:linear-gradient(180deg,rgba(247,245,216,.24),rgba(255,255,255,.38)),url("Tiverton%20Grass%20.jpg") center top / cover fixed no-repeat;}
 .editor-toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#f4f4f4;border:1px solid #aaa;border-bottom:0;border-radius:8px 8px 0 0}.editor-toolbar button{padding:8px 10px;min-height:36px;background:#fff;color:#111;border:1px solid #ccc;border-radius:5px;font-size:14px}.editor-toolbar button:hover{background:#fff4b8}.editor-toolbar button:focus-visible,.article-editor:focus-visible{outline:3px solid #174ea6;outline-offset:2px}.article-editor{min-height:300px;max-height:650px;overflow:auto;resize:vertical;border:1px solid #aaa;border-radius:0 0 8px 8px;padding:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;font-weight:400}.article-editor:empty:before{content:attr(data-placeholder);color:#777;pointer-events:none}.article-editor p,.article-editor div,.story p,.story div{margin:0 0 .65em}.article-editor ul,.article-editor ol,.story ul,.story ol{padding-left:1.5em;white-space:normal}.article-editor li,.story li{margin:.2em 0}.story{white-space:normal}
-</style></head><body>
+</style><link rel="stylesheet" href="tivvy-data-centre-dark.css">
+</head><body class="tivvy-dark">
 <section id="auth-gate"><form id="login-form"><h1>Tiverton Town Programme Centre</h1><p>Authorised access only</p><label>Email<input id="login-email" type="email" required autocomplete="username"></label><label>Password<input id="login-password" type="password" required autocomplete="current-password"></label><button type="submit">Sign in</button><p id="auth-error" role="alert"></p></form></section>
 <div id="private-app"><header>
   <div class="header-inner">

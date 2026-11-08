@@ -1,0 +1,399 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live | Live Alerts Test Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffda00;--bg:#121213;--panel:#222123;--line:#474447;--white:#f9f9f8;--muted:#bab7b9;--fb:#66b9ff;--x:#f3f3f3;--goal:#ffda00;--red:#ff455b;--green:#60dba4}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font:14px/1.6 Inter,Arial,sans-serif}button{font:700 13px Antonio;letter-spacing:.4px;cursor:pointer}
+header{border-bottom:4px solid var(--gold);background:#212021;padding:14px clamp(12px,2.5vw,35px)}
+.brand{max-width:1380px;margin:auto;display:flex;align-items:center;gap:15px}.brand img{width:51px;height:51px;object-fit:contain}.brand h1{font:700 34px/1 Antonio;margin:0;letter-spacing:.4px}.brand small{color:var(--gold);font:700 11px Inter;letter-spacing:.05em}
+main{max-width:1380px;margin:auto;padding:20px clamp(10px,2.5vw,34px) 50px}
+.hero{display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}.hero h2{font:700 clamp(30px,4vw,47px)/1.12 Antonio;margin:0}.hero h2 em{color:var(--gold);font-style:normal}.desc{font-size:12px;color:#d4d2d3}.sourceNav{display:flex;gap:7px;flex-wrap:wrap;margin:15px 0 20px}
+.sourceNav button{padding:8px 12px;border:1px solid #757173;background:#222;color:#fff;border-radius:4px}.sourceNav button[aria-pressed=true]{background:var(--gold);color:#171717;border-color:var(--gold)}
+.sourceNav .sourceLogo{font-family:Arial;margin-right:5px}
+.scoreboard{display:flex;justify-content:space-around;align-items:center;gap:15px;background:#211f20;border:1px solid #5d5758;border-top:5px solid var(--gold);border-bottom:2px solid var(--gold);padding:19px;flex-wrap:wrap}
+.crest{width:55px;height:55px;object-fit:contain}.team{font:700 clamp(20px,2.8vw,31px)/1.06 Antonio;text-transform:uppercase}.teamline{display:flex;align-items:center;gap:9px;max-width:35%}.score{font:700 clamp(44px,6vw,72px)/1 Antonio;letter-spacing:3px;white-space:nowrap;color:var(--gold)}
+.summary{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;padding:10px 3px 17px;color:#e9e7e7;font-size:12px;border-bottom:1px solid #484548}.summary b{color:var(--gold)}
+.note{border-left:4px solid var(--gold);background:#25241c;padding:11px 13px;margin:14px 0 22px;font-size:12px;color:#e0d7a2}
+.pagegrid{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:21px}.timeline{position:relative;margin:8px 0}
+.timeline:before{content:"";position:absolute;top:20px;bottom:25px;left:18px;width:4px;background:var(--gold)}
+.group{display:grid;grid-template-columns:38px 88px minmax(0,1fr);gap:8px;position:relative;margin-bottom:12px;align-items:start}
+.junction{height:15px;width:15px;border-radius:50%;background:var(--gold);position:relative;z-index:1;left:12px;top:17px;box-shadow:0 0 0 3px #131313}
+.time{display:inline-block;background:var(--gold);color:#121212;border-radius:4px;min-width:55px;text-align:center;padding:2px 6px;font:700 21px Antonio}
+.groupTitle{font:700 20px/1.1 Antonio;margin:0 0 9px;letter-spacing:.1px}
+.bundle{position:relative;padding-left:21px}.bundle:before{content:"";position:absolute;top:7px;bottom:15px;left:6px;border-left:3px solid var(--gold)}.bundle:after{content:"";position:absolute;top:7px;left:-9px;width:17px;border-top:3px solid var(--gold)}
+.entry{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:9px 13px 10px;border:1px solid #565357;background:#242326;border-radius:5px;margin:0 0 7px}
+.entry:before{content:"";position:absolute;left:-15px;top:19px;width:15px;border-top:2px solid var(--gold)}
+.entry.data{border-left:4px solid var(--gold)}.entry.facebook{border-left:4px solid #4ca7ff}.entry.x{border-left:4px solid #efefef}
+.meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.sourcePill{display:inline-flex;align-items:center;gap:5px;font:700 11px Antonio;letter-spacing:.3px;border:1px solid #a38b24;border-radius:3px;padding:2px 6px;color:var(--gold)}
+.sourcePill.fb{color:#7bbcff;border-color:#5883a8}.sourcePill.tw{color:#fff;border-color:#999}
+.sourcePill .badgeIcon{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;font:700 12px Arial}.sourcePill.fb .badgeIcon{background:#1877f2;color:white}.sourcePill.tw .badgeIcon{background:#000;color:white}
+.sourcePill.data .badgeIcon{border:1px solid var(--gold);color:var(--gold);font:700 8px Antonio}
+.entrytitle{font:700 19px/1.17 Antonio}.entry p{margin:1px 0;white-space:pre-line;font-size:13px}.entry .origin{font:11px Inter;color:#c2bfc1}.label{color:var(--gold);font-weight:700}
+aside{position:sticky;top:10px;align-self:start}.sidepanel{border:1px solid #665f4e;border-radius:6px;margin:0 0 15px;background:#202022;overflow:hidden}.sidepanel h3{font:700 23px Antonio;margin:0;padding:9px 12px;background:var(--gold);color:#131313}.sidepanel .inner{padding:13px}.sidepanel p{font-size:12px;margin:0 0 11px}.sidepanel .item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid #454144;font-size:12px}.sidepanel .item span:first-child{color:var(--gold)}
+footer{font-size:11px;color:#b4b0b2;border-top:1px solid #514d50;margin-top:25px;padding-top:14px}a{color:var(--gold)}.empty{padding:25px;color:#ccc}
+@media(max-width:980px){.pagegrid{grid-template-columns:1fr}aside{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}}@media(max-width:650px){.group{grid-template-columns:27px 58px minmax(0,1fr);gap:3px}.timeline:before{left:11px}.junction{left:5px}.time{min-width:49px;font-size:16px}.groupTitle{font-size:17px}.bundle{padding-left:14px}.entry{padding:8px}.entry p{font-size:12px}.entrytitle{font-size:17px}.teamline{max-width:35%}.crest{width:34px;height:34px}.team{font-size:18px}.score{font-size:39px}.scoreboard{padding:11px;gap:5px}aside{grid-template-columns:1fr}}
+.slImport{margin:5px 0 17px;padding:12px 14px;background:#202125;border:1px dashed #9a841d;border-radius:5px}.slTop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.slTop strong{display:block;font:700 21px Antonio;color:var(--gold)}.slTop small{font-size:11px;color:#d1d0d0;display:block}.slAction{background:var(--gold);color:#111;padding:9px 11px;font:700 13px Antonio;cursor:pointer;white-space:nowrap}.slImport p{font-size:11px;color:#c9c9c9;margin:6px 0 0}.entry.sl{border-left:4px solid #d9b64c}.sourcePill.sl{color:#f8dd68;border-color:#d4b454}
+.incidentIcon{display:inline-flex;gap:4px;align-items:center;justify-content:center;margin-right:9px;font-family:Arial,sans-serif;font-size:16px}.player-off{color:#ff5263;font-weight:800}.player-on{color:#60dba4;font-weight:800}.goal-blue{color:#68b7ff;font-weight:800}.card-yellow{color:#ffad3b;font-weight:800}.card-red{color:#ef4c8f;font-weight:800}.redIcon{color:#ef4c8f}.yellowIcon{color:#ffad3b}.entrytitle .player-on,.entrytitle .player-off{font-family:Inter,Arial,sans-serif;font-size:14px}
+/* Match Centre icon vocabulary, with the established yellow branching still intact. */
+.groupTitle{display:flex;align-items:center;gap:9px;min-height:30px}
+.match-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 31px;min-width:31px;height:31px;font:700 22px/1 Arial,Helvetica,sans-serif}
+.match-icon-goal{color:#65baff;font-size:24px;filter:drop-shadow(0 1px 2px rgba(101,186,255,.25))}
+.match-icon-red{font-size:24px;color:#e33a7b}
+.match-icon-card{font-size:23px;color:#ffae42}
+.match-icon-sub{gap:1px;font-size:16px}
+.match-icon-note{font-size:12px;color:#ffd800}
+.match-icon-kick,.match-icon-half,.match-icon-full{color:#ffd800;font-size:20px}
+.match-icon-half{border:2px solid #ffd800;border-radius:3px;font-family:Antonio,Impact,sans-serif;font-size:16px;height:25px;margin:3px 0}
+.group.kind-goal .entry:before{border-color:#65baff}
+.group.kind-red .entry:before{border-color:#e33a7b}
+.group.kind-sub .entry:before{border-color:#65e6a2}
+.group.kind-card .entry:before{border-color:#ffae42}
+/* End markers inherit their incident category, not the social platform colour. */
+.group .entry:after{content:"";position:absolute;left:-18px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.group.kind-goal .entry:after{background:#65baff}
+.group.kind-red .entry:after{background:#e33a7b}
+.group.kind-card .entry:after{background:#ffae42}
+.group.kind-sub .entry:after{background:#65e6a2}
+@media(max-width:650px){.match-icon{min-width:23px;flex-basis:23px;height:25px;font-size:19px}.match-icon-sub{font-size:12px}.groupTitle{gap:5px}}
+.viewNav{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:-8px 0 17px}.viewNav strong{font:700 16px Antonio;color:var(--gold);margin-right:6px}.viewNav button{border:1px solid #827a61;background:#292829;color:#fff;padding:9px 13px;border-radius:3px}.viewNav button[aria-pressed=true]{background:var(--gold);color:#111;border-color:var(--gold)}@media(max-width:650px){.viewNav button{font-size:12px}}
+
+/* v0.5.1: fixed, independent MATCH-EVENT ICON COLUMN, like the original
+   verified-events strip; source cards remain a different visual layer. */
+.group{grid-template-columns:38px 76px 38px minmax(0,1fr);gap:7px}
+.incident-cell{display:flex;align-items:flex-start;justify-content:center;padding-top:4px;min-width:0}
+.incident-content{min-width:0}
+.groupTitle{display:block;font-size:20px;line-height:1.24;margin:6px 0 12px;min-height:0}
+.match-icon{min-width:34px;flex:0 0 34px;height:35px;font-size:25px}
+.match-icon-goal{color:#65baff;font-size:25px}
+.match-icon-red{font-size:25px}
+.match-icon-card{font-size:25px}
+.match-icon-sub{font-size:17px}
+.match-icon-note{font-size:14px}
+@media(max-width:650px){
+.group{grid-template-columns:26px 53px 27px minmax(0,1fr);gap:3px}
+.match-icon{min-width:25px;flex-basis:25px;height:27px;font-size:19px}
+.match-icon-sub{font-size:12px}
+.groupTitle{font-size:17px;margin:6px 0 9px}
+.bundle{padding-left:14px}
+}
+.entry.incident-goal:after{background:#65baff!important}.entry.incident-red:after{background:#e33a7b!important}.entry.incident-yellow:after{background:#ffae42!important}.entry.incident-sub:after{background:#65e6a2!important}.entry.sl{border-left:4px solid #252e82}.sourcePill.sl{border:1px solid #647ac7;color:#dce6ff}.sourcePill.sl .badgeIcon{color:#dce6ff;font-weight:700}.darrenIntro{background:#232224;border:1px solid #665819;border-top:4px solid var(--gold);padding:15px 18px;margin:16px 0}.darrenIntroTitle{font:700 26px Antonio,Impact,sans-serif;color:var(--gold)}.darrenIntro p{font-size:13px;margin:8px 0}.darrenTip{margin-top:10px;padding:9px 11px;background:#171718;border-left:3px solid var(--gold);color:#efdf92;font-size:11px}.darrenSource{display:flex;gap:12px;align-items:flex-start;background:#202125;border:1px solid #514d3b;padding:10px 14px;margin-bottom:17px}.verifiedMark{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#111;font-weight:bold}.darrenSource strong{display:block;font:700 18px Antonio;color:var(--gold)}.darrenSource small,.provenance{display:block;font-size:11px;color:#d6d2d2}.provenance{margin-top:4px;color:#aaa}@media(max-width:650px){.darrenIntro{padding:12px}.darrenIntroTitle{font-size:21px}}
+/* Darren preview v0.6.1 — official logos and usable full-width event layout */
+.pagegrid{grid-template-columns:minmax(0,1fr);gap:22px}.pagegrid>section{min-width:0}
+.pagegrid aside{position:static;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.pagegrid aside .sidepanel{margin:0}
+.sourceNav button{display:inline-flex;align-items:center;gap:8px;font:700 13px Antonio,Impact,sans-serif;padding:8px 11px}
+.sourceNav button img{width:26px;height:26px;object-fit:contain;background:white;padding:2px;border-radius:5px;flex:none}
+.sourceNav button[data-filter="x"] img{background:#111}
+.sourcePill{display:inline-flex;align-items:center;gap:7px;padding:4px 8px;font:700 13px Antonio,Impact,sans-serif;line-height:1.1}
+.sourcePill .badgeIcon{display:grid;place-items:center;width:27px;height:27px;background:transparent}
+.sourcePill .sourceBadgeLogo{display:block;width:26px;height:26px;object-fit:contain;background:white;border-radius:4px;padding:1px}
+.sourcePill.tw .sourceBadgeLogo{background:#111}
+.entry{padding:11px 14px 12px;margin-bottom:8px;box-shadow:0 2px 8px #0003}
+.entrytitle{font-size:20px;line-height:1.3;overflow-wrap:break-word}
+.entry p{font-size:13px;line-height:1.5;overflow-wrap:break-word}
+.entry.sl{border-left:5px solid var(--gold)}.entry.data{border-left:5px solid #8fb37a}.entry.facebook{border-left:5px solid #4d9df8}.entry.x{border-left:5px solid #f4f4f4}
+.sourcePill.sl{color:var(--gold);border-color:#aa9848}.sourcePill.data{color:#bce9ab;border-color:#89ba77}
+.group{margin-bottom:18px}.groupTitle{font:700 24px/1.22 Antonio,Impact,sans-serif;margin:7px 0 13px}
+.bundle{padding-left:23px}.group .entry:before{left:-17px;width:17px}.group .entry:after{left:-20px}
+.legenditem{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #4c4c4c}
+.legenditem img{width:38px;height:38px;object-fit:contain;background:white;padding:3px;border-radius:6px}
+.legenditem:nth-child(4) img{background:#111}.legenditem b{display:block;font-size:12px;color:#fff}
+.legenditem small{display:block;color:#bbb;font-size:11px}.legenditem:last-child{border-bottom:0}
+@media(max-width:900px){.pagegrid aside{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.pagegrid aside{grid-template-columns:1fr}.sourceNav button{font-size:12px}.sourceNav button img{width:22px;height:22px}.group{grid-template-columns:27px 54px 30px minmax(0,1fr)}.groupTitle{font-size:18px}.bundle{padding-left:16px}.entry{padding:9px 10px}.entrytitle{font-size:18px}.entry p{font-size:12px}.sourcePill{font-size:11px}.sourcePill .badgeIcon,.sourcePill .sourceBadgeLogo{width:22px;height:22px}.group .entry:before{left:-13px;width:13px}.group .entry:after{left:-16px}}
+
+/* Darren v0.6.2 emergency layout correction: no min-content letter towers */
+.pagegrid{display:block!important;width:100%!important;min-width:0!important}
+.pagegrid>section,.timeline{display:block!important;width:100%!important;min-width:0!important}
+.pagegrid aside{position:static;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.group{display:grid!important;grid-template-columns:26px 83px minmax(0,1fr)!important;column-gap:10px!important;align-items:start;width:100%;min-width:0;margin-bottom:19px}
+.junction{grid-column:1;left:5px;top:14px}
+.timecell{grid-column:2;min-width:0}
+.time{display:block!important;min-width:0!important;width:100%;font:700 20px/1.2 Antonio,Impact,sans-serif!important;white-space:nowrap;padding:5px 4px;text-align:center}
+.incident-content{grid-column:3;min-width:0!important;max-width:100%;width:100%;overflow:visible}
+.incidentHead{display:flex!important;align-items:flex-start;gap:11px;min-width:0;padding:2px 0 9px}
+.incidentHeading{min-width:0;flex:1}
+.match-icon{display:inline-flex;flex:0 0 39px;min-width:39px;width:39px;height:39px;justify-content:center;align-items:center;font:700 27px/1 Arial,sans-serif}
+.match-icon-goal{font-size:29px}.match-icon-card,.match-icon-red{font-size:29px}.match-icon-sub{font-size:19px;gap:1px}
+.groupTitle{font:700 23px/1.15 Antonio,Impact,sans-serif!important;margin:1px 0 4px!important;overflow-wrap:normal;word-break:normal}
+.incidentSubtitle{font:700 12px/1.4 Arial,sans-serif;color:#dddad2;letter-spacing:.15px}
+.bundle{display:block!important;width:100%!important;min-width:0!important;padding-left:19px!important;box-sizing:border-box}
+.entry{display:block!important;position:relative;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;padding:11px 13px!important;margin-bottom:8px!important;overflow-wrap:break-word!important;word-break:normal!important}
+.entry .meta{display:flex!important;flex-wrap:wrap!important;align-items:center;gap:8px;min-width:0}
+.sourcePill{display:inline-flex!important;align-items:center!important;width:auto!important;max-width:100%;white-space:normal!important;flex:0 1 auto}
+.sourcePill .badgeIcon{flex:0 0 27px}
+.entry .origin{display:inline-block!important;white-space:nowrap!important}
+.entrytitle{display:block!important;width:100%!important;font:700 20px/1.22 Antonio,Impact,sans-serif!important;overflow-wrap:break-word!important;word-break:normal!important;white-space:normal!important;margin-top:7px!important}
+.entry p{display:block!important;width:100%!important;font:13px/1.55 Arial,Helvetica,sans-serif!important;white-space:pre-line!important;overflow-wrap:break-word!important;word-break:normal!important;margin-top:7px!important}
+.group .entry:before{left:-15px;width:15px}
+.group .entry:after{left:-18px}
+.timeline:before{left:12px!important}
+@media(max-width:900px){.pagegrid aside{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){
+.pagegrid aside{grid-template-columns:1fr}
+.group{grid-template-columns:17px 57px minmax(0,1fr)!important;column-gap:5px!important}
+.junction{left:0;top:12px;width:12px;height:12px}
+.timeline:before{left:5px!important}
+.time{font-size:15px!important;padding:5px 2px}
+.incidentHead{gap:5px}
+.match-icon{width:27px;height:29px;min-width:27px;flex-basis:27px;font-size:19px}
+.match-icon-sub{font-size:12px}
+.groupTitle{font-size:18px!important}
+.incidentSubtitle{font-size:10px}
+.bundle{padding-left:12px!important}
+.entry{padding:9px!important}
+.entrytitle{font-size:17px!important}
+.entry p{font-size:12px!important}
+.sourcePill{font-size:10px!important;letter-spacing:0}
+.sourcePill .badgeIcon{flex-basis:22px}
+.group .entry:before{left:-10px;width:10px}.group .entry:after{left:-13px}
+}
+/* Tivvy Live v0.7 private alert lab */
+.labbar{border:1px solid #75651f;background:#212120;padding:13px 17px;display:flex;justify-content:space-between;align-items:center;gap:15px;margin:17px 0}
+.labbar strong,.alertEyebrow{font:700 20px Antonio,Impact,sans-serif;color:var(--gold)}
+.labbar p{font-size:12px;color:#d0d0d0;max-width:810px;margin:4px 0}
+.health{flex:none;background:#494019;color:#ffde78;border:1px solid #997f2b;border-radius:5px;padding:8px 11px;font:700 12px Antonio,Impact,sans-serif;white-space:nowrap}
+.health.ok{background:#1b382b;border-color:#4d956d;color:#b3edcb}
+.health.fail{background:#4b2828;border-color:#a65252;color:#ffd0d0}
+.alertbox{background:linear-gradient(130deg,#252526,#17181b);border:1px solid #6b5e2f;border-top:5px solid var(--gold);padding:19px 21px;margin:18px 0;border-radius:7px}
+.alertTop{display:flex;gap:15px;justify-content:space-between;align-items:start}
+.alertTop h2{font:700 clamp(24px,3vw,35px)/1.12 Antonio,Impact,sans-serif;margin:4px 0 6px;color:#fff}
+.alertTop p{font-size:13px;color:#c6c6c6;margin:3px 0}
+.testLabel{font:700 13px Antonio,Impact,sans-serif;border:1px solid #ffdf00;color:#ffdf00;border-radius:4px;padding:5px 9px;white-space:nowrap}
+.alertCols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.alertCols>div{background:#1c1d20;border:1px solid #424449;border-radius:5px;padding:12px 14px}
+.alertCols h3{font:700 19px Antonio,Impact,sans-serif;color:#ffda00;margin:0 0 10px}
+.alertChecks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.alertCols>div:nth-child(2) .alertChecks{grid-template-columns:1fr}
+.alertChecks label{display:flex;gap:8px;align-items:center;font:12px Arial,Helvetica,sans-serif;cursor:pointer;padding:8px;border-radius:4px;background:#2b2c30}
+.alertChecks label:has(input:checked){border-left:3px solid #ffda00;padding-left:5px;background:#333128}
+.alertChecks input{width:16px;height:16px;flex:none;accent-color:#ffd800}
+.alertActions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:17px}
+.alertActions button,.alertActions a{font:700 15px Antonio,Impact,sans-serif;display:inline-flex;align-items:center;justify-content:center;min-height:39px;border:1px solid #a78d28;border-radius:4px;padding:9px 12px;background:var(--gold);color:#151515;text-decoration:none;cursor:pointer}
+.alertActions button:nth-child(2),.alertActions a{background:#32353a;color:#fff;border-color:#676b73}
+.alertActions small{font-size:11px;color:#bcbcbc;flex-basis:100%}
+#testToast{position:fixed;z-index:9999;right:20px;bottom:20px;max-width:min(400px,calc(100vw - 30px));background:#222429;color:#fff;border:2px solid #ffdc00;border-left:8px solid #ffdc00;box-shadow:0 12px 40px #000a;border-radius:6px;padding:16px 40px 16px 17px}
+#testToast[hidden]{display:none}
+#testToast strong{display:block;font:700 22px Antonio,Impact,sans-serif;color:#ffda00}
+#testToast span{display:block;font:13px/1.5 Arial,sans-serif;margin-top:4px}
+#closeToast{position:absolute;top:5px;right:6px;background:transparent;color:#fff;font-size:23px;border:0;cursor:pointer}
+@media(max-width:750px){.labbar{align-items:flex-start;flex-wrap:wrap}.alertCols{grid-template-columns:1fr;gap:10px}.alertbox{padding:14px}.alertChecks{grid-template-columns:1fr 1fr}.testLabel{font-size:10px}}
+@media(max-width:410px){.alertChecks{grid-template-columns:1fr}.alertTop{flex-wrap:wrap}}
+</style></head><body>
+<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>PRIVATE MATCHDAY LAB · LIVE ALERTS TEST · v0.7</small></div></div></header>
+<main><div class="hero"><div><h2>TIVVY <em>LIVE</em></h2><div class="desc">Live timeline and supporter alert lab · historical Inkberrow data while we connect Wednesday's polling backend.</div></div><div class="desc">7 NOV 2026 · HOME · DIVISION ONE SOUTH</div></div>
+<div class="sourceNav" id="filters"><button data-filter="all" aria-pressed="true">ALL SOURCES</button><button data-filter="data" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png" alt="">FOOTBALL WEB PAGES</button><button data-filter="sl" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png" alt="">SOUTHERN LEAGUE</button><button data-filter="facebook" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_fe04546aceb943afadf7fd3f8fa12bb8~mv2.png" alt="">TIVERTON TOWN FC FANS</button><button data-filter="x" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_157c986840c645ae8b736df04f29a37f~mv2.png" alt="">TIVERTON TOWN FC · X</button></div>
+<div class="viewNav"><strong>TIMELINE ORDER</strong><button type="button" data-order="newest" aria-pressed="true">↓ LIVE VIEW · NEWEST FIRST</button><button type="button" data-order="oldest" aria-pressed="false">↑ REPLAY · KICK-OFF FIRST</button></div>
+<div class="scoreboard"><div class="teamline"><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><span class="team">Tiverton Town</span></div><span class="score">1 – 2</span><div class="teamline"><span class="team">Sporting Club Inkberrow</span><img class="crest" src="https://www.southern-football-league.co.uk/img/teams/sporting_club_inkberrow_f.c._logo-7380b5a5-0cb4-4e2c-9e9d-9fd9ddfc93db.png?variant=detail_s&amp;fit=contain" alt="Sporting Club Inkberrow crest"></div></div>
+<div class="summary"><span><b>FULL-TIME</b> · Saturday 7 November 2026 · Kick-off 15:00</span><span>Attendance <b>223</b> · Southern League Division One South</span></div>
+<section class="labbar" aria-label="Test environment"><div><strong>WEDNESDAY TRIAL LAB</strong><p>Historical Inkberrow data is shown below. The page checks for updated published data automatically. A green indicator means the snapshot is reachable, <em>not</em> that the match is being collected live.</p></div><span id="feedHealth" role="status" class="health">CONNECTING…</span></section>
+<section class="alertbox" id="alerts">
+<div class="alertTop"><div><div class="alertEyebrow">TIVVY LIVE · SUPPORTER ALERTS</div><h2>Choose your matchday notifications</h2><p>Save your preferences, preview an alert, and see how Wednesday's live experience will work. <strong>Real push delivery is not enabled yet.</strong></p></div><span class="testLabel">TEST MODE</span></div>
+<div class="alertCols"><div><h3>Alert me about</h3><div class="alertChecks">
+<label><input type="checkbox" data-alert="goal" checked> ⚽ Goals</label>
+<label><input type="checkbox" data-alert="red" checked> 🟥 Red cards</label>
+<label><input type="checkbox" data-alert="yellow"> 🟨 Yellow cards</label>
+<label><input type="checkbox" data-alert="sub"> ▲▼ Substitutions</label>
+<label><input type="checkbox" data-alert="status" checked> 🏁 Half-time / full-time</label>
+<label><input type="checkbox" data-alert="commentary"> 💬 Commentary</label></div></div>
+<div><h3>Follow these sources</h3><div class="alertChecks">
+<label><input type="checkbox" data-source="sl" checked> Southern League</label>
+<label><input type="checkbox" data-source="data" checked> Football Web Pages</label>
+<label><input type="checkbox" data-source="facebook"> Tivvy Fans · Facebook</label>
+<label><input type="checkbox" data-source="x"> Tiverton Town FC · X</label>
+</div></div></div>
+<div class="alertActions"><button type="button" id="saveAlerts">SAVE MY TEST PREFERENCES</button><button type="button" id="demoAlert">PREVIEW A GOAL ALERT</button><a href="live-alerts-test.html" target="_blank" rel="noopener">OPEN STANDALONE ↗</a><small id="alertMessage" role="status">Preferences are saved in this browser only. They are not sent to a server.</small></div>
+</section>
+<div id="testToast" role="status" aria-live="polite" hidden><strong>⚽ TIVVY LIVE · GOAL!</strong><span>Illustration: a new goal has been reported. No actual push message has been sent.</span><button type="button" id="closeToast" aria-label="Close demo alert">×</button></div>
+<section class="darrenIntro"><div class="darrenIntroTitle">INKBERROW REPLAY · TEST DATA</div><p>This is a historical reconstruction of Tiverton's Inkberrow match. The Southern League entries are verified, while Football Web Pages and social reports are the earlier compiled demo records. We'll use this interface for Wednesday only after confirming the live collection service.</p><p><strong>Important:</strong> a successful refresh check means this archive is available. It does not demonstrate a real-time collection from Football Web Pages or the Southern League during a match.</p><div class="darrenTip">This opens with the latest updates at the top, like a live ticker. Select <b>Replay · Kick-off first</b> to follow the full match from the start.</div></section>
+<section class="darrenSource"><span class="verifiedMark">✓</span><div><strong>SOUTHERN LEAGUE MATCH DATA</strong><small id="slStatus">Loading the genuine Southern League match events…</small><span id="slHelp" class="provenance">Historical snapshot; not a live connection.</span></div><input id="slFile" type="file" accept=".json,application/json" hidden></section>
+<div class="pagegrid"><section><div class="timeline" id="timeline"></div></section><aside>
+<div class="sidepanel"><h3>WHAT DARREN DOES</h3><div class="inner"><div class="item"><span>✓</span> Keep posting your normal match notes</div><div class="item"><span>✓</span> Goals, cards and substitutions are handled by the data feeds</div><div class="item"><span>✓</span> Your observations add the atmosphere</div><div class="item"><span>✓</span> No additional work needed for this demonstration</div></div></div>
+<div class="sidepanel"><h3>FOUR MATCHDAY SOURCES</h3><div class="inner source-legend"><div class="legenditem"><img src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png" alt="Southern League"><span><b>Southern League</b><small>Official league match events</small></span></div><div class="legenditem"><img src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png" alt="Football Web Pages"><span><b>Football Web Pages</b><small>Secondary match records</small></span></div><div class="legenditem"><img src="https://static.wixstatic.com/media/8aa829_fe04546aceb943afadf7fd3f8fa12bb8~mv2.png" alt="Tiverton Town FC Fans"><span><b>Tiverton Town FC Fans</b><small>Darren's Facebook notes</small></span></div><div class="legenditem"><img src="https://static.wixstatic.com/media/8aa829_157c986840c645ae8b736df04f29a37f~mv2.png" alt="Tiverton Town FC · X"><span><b>Tiverton Town FC · X</b><small>Club's matchday posts</small></span></div></div></div>
+<div class="sidepanel"><h3>THE NEXT STEP</h3><div class="inner"><p>This is what someone following an away fixture at home could see: reliable match incidents combined with commentary that tells the story.</p><p>We'll test live timing privately before putting it on the club website. Automated Facebook/X imports are still to be developed.</p></div></div></aside></div>
+<footer><b>DEMO ONLY.</b> Southern League cards come from its actual public match API, retrieved for 7 November 2026. Source match record: <a target="_blank" rel="noopener" href="https://www.footballwebpages.co.uk/match/2026-2027/southern-football-league-division-one-south/tiverton-town/sporting-club-inkberrow/583887">Football Web Pages</a>. Facebook and X wording transcribed from screenshots supplied for this demo. This preview does not send alerts, post to social media or affect the public homepage. <a href="version-history.html">Version history</a>.</footer></main>
+<script>
+(()=>{"use strict";const groups=[{"minute":"KO","sort":0,"title":"KICK-OFF","icon":"kick","items":[["facebook","Team news","As we lined up. Louis Jagger Cane returns to the starting line up, with Owen Howe being unavailable, in an otherwise unchanged eleven up, from the side that won at Weymouth.",-1],["x","KICK-OFF","HEEEREEEE WE GOO","#OneTivvy",0]]},{"minute":"2–3′","sort":2,"title":"INKBERROW STRIKE EARLY","icon":"goal","items":[["data","2′ · GOAL · William Moore","Sporting Club Inkberrow take the lead. Tiverton 0–1 Inkberrow.",2],["facebook","3′ · Tiverton caught cold!","An early goal for the visitors. 0-1",3],["x","3′ · GOAL","Early opener from the away side after an attack from a throw in is failed to be cleared, the ball is bundled into the net. TIV 0–1 INK · #OneTivvy",3]]},{"minute":"15′","sort":15,"title":"OPENING QUARTER","icon":"note","items":[["x","15′","A scrappy opening 15 with neither side really keeping the ball on the deck. An open game for sure.",15]]},{"minute":"20′","sort":20,"title":"INKBERROW CHANCE","icon":"note","items":[["x","20′","Inkberrow’s full back finds himself in space from distance and fancied his chances with a strike but it just didn’t have the height and it flies out for a goal kick.",20]]},{"minute":"26′","sort":26,"title":"TIVVY SETTLING","icon":"note","items":[["x","26′","Tivvy growing into the game with some good looks at the goal but nothing clear cut just yet.",26]]},{"minute":"31′","sort":31,"title":"TIVVY PUSH FORWARD","icon":"note","items":[["x","31′","A powerful curling free kick from Bissett is on target to the keeper’s top right but is caught well. Moments later we find ourselves on the counter where Kennell lashes at his shot and it’s out for a goal kick. Promising signs.",31]]},{"minute":"45′","sort":45,"title":"LATE FIRST-HALF CHANCE","icon":"note","items":[["data","45′ · YELLOW CARD","Corey Hayden Koerner cautioned.",45],["x","45′","Inkberrow go close with a benching shot to the far top left corner but whistles past the post.",45]]},{"minute":"HT","sort":45.5,"title":"HALF-TIME · TIVVY 0–1 INKBERROW","icon":"half","items":[["facebook","Half time: Tiverton 0 SC Inkberrow1","A bitty opening half hour, lacking the quality of recent Yellows' performances, saw us caught cold and behind after just three minutes. They struggled to find any rhythm to their play for the majority of the half, but did improve in the closing period of the half.",45.5],["x","HALF TIME","A scrappy start to the half had the visitors in the lead early doors but later in the half Tivvy started to grow into it. All to the play for, stay tuned for the second half!",45.5]]},{"minute":"46′","sort":46,"title":"INKBERROW CHANGE","icon":"sub","items":[["x","Second half","We are underway again! #OneTivvy",46],["data","46′ · SUBSTITUTION","Zachary Powell replaces Aidan Clark for Sporting Club Inkberrow.",46]]},{"minute":"48–53′","sort":48,"title":"RED CARD AND RESHUFFLE","icon":"red","items":[["data","48′ · RED CARD","Jack William Kennell sent off.",48],["facebook","Sending off 48″","Jack Kennell is sent off after a heavy mistimed challenge. 50″ in a reshuffle after going down to ten men, Stephens is withdrawn and Dan Koita is on.",48],["x","48′ · RED CARD","Not a good start, Kennell flies in on the opposition player and it was a red card. TIV 0–1 INK",48],["x","50′ · SUBS","Stephens ⬇️ Koita ⬆️ · TIV 0–1 INK",50],["data","53′ · SUBSTITUTION","Dan Koita replaces Toby Stephens for Tiverton Town.",53]]},{"minute":"57–59′","sort":57,"title":"GOAL! MATT WOOD LEVELS IT","icon":"goal","items":[["facebook","57′ Wood leveller! Tiverton 1 SC Inkberrow 1","Captain Matt Wood heads home from a corner and it's all to play for, despite Tivvy being down to 10.",57],["x","57′ · GOAL ⚽","It’s the skipper Matt Wood who levels it for Tivvy! Get in 🙌 Let’s kick on now boys!",57],["data","59′ · GOAL · Matthew Liam Wood","Matt Wood equalises for Tiverton Town. Tiverton 1–1 Inkberrow.",59]]},{"minute":"73–75′","sort":73,"title":"BOTH SIDES HIT THE BAR","icon":"note","items":[["x","73′","A shot from outside the box by the opposition rattles the bar and the rebound is nodded over the bar. Warning signs for 10 man Tivvy.",73],["data","75′ · SUBSTITUTION","Louis Crook replaces Gregor Guy for Sporting Club Inkberrow.",75],["facebook","75′ Both sides hit the crossbar!","The visitors rattle the bar from outside the box and then head over and the Matt Wood clips the crossbar with a header from a Tivvy corner. 1-1",75]]},{"minute":"80′","sort":80,"title":"CHAOS IN THE INKBERROW BOX","icon":"note","items":[["x","80′","Chaos. Koita skins the keeper outside the box and beats the defender but couldn’t put it away. Moments after, Koita is swiped out by their keeper outside the box, no foul. Tivvy hunting that late winner again 👀",80]]},{"minute":"81–85′","sort":81,"title":"LATE WINNER FOR INKBERROW","icon":"goal","items":[["x","81′ · SUBS","Jagger Cane ⬇️ Roberts ⬆️ · TIV 1–1 INK",81],["x","82′ · GOAL","Inkberrow score. TIV 1–2 INK",82],["facebook","83 Inkberrow back in front","1-2",83],["data","85′ · GOAL · Louis Crook","Sporting Club Inkberrow regain the lead. Tiverton 1–2 Inkberrow.",85],["data","85′ · SUBSTITUTION · TIVVY","Finn Roberts replaces Louis Jagger Cane.",85],["data","85′ · SUBSTITUTION · INKBERROW","Max Angelides replaces Joshua Hurdman.",85]]},{"minute":"87–89′","sort":87,"title":"FINAL TIVVY CHANGE","icon":"sub","items":[["x","87′ · SUBSTITUTION","Slough ⬇️ Keates ⬆️ · TIV 1–2 INK",87],["data","89′ · SUBSTITUTION","Ryan Richard Keates replaces Louie Slough.",89]]},{"minute":"90+6′","sort":90,"title":"ADDED TIME","icon":"half","items":[["x","SIX MINUTES ADDED","6 minutes added on · #OneTivvy",90],["x","Added-time reaction","Didn’t seem like 6 minutes... okay. #OneTivvy",90.1]]},{"minute":"FT","sort":100,"title":"FULL-TIME · TIVVY 1–2 INKBERROW","icon":"full","items":[["data","FULL-TIME","Tiverton Town 1–2 Sporting Club Inkberrow. Attendance: 223. Scorers: Moore 2′, Wood 59′, Crook 85′.",100],["facebook","Full time: Tiverton 1 Sporting Club Inkberrow 2","Despite being a goal down at the break and being down to Ten Men when just after it, Jack Kennell was dismissed, for a heavy, mistimed challenge, Matt Wood drew us level with a header from a corner.\n\nHowever both sides had chances to win it and in the 83rd minute, despite a spirited effort from Tiverton, Berrow found the winner. Whatever the circumstances, home results need to be better.",100.1],["x","FULL TIME","All over here at the Slee Blackwell Solicitors. Despite going down to 10 men early in the second, we fought hard to bring it level and to the end in hopes of grabbing a winner but it wasn’t meant to be.\n\n⚽ Matt Wood\nMOTM: Matt Wood\nUp next Paulton Rovers away on Wednesday 👊",100.2]]}];const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const names={data:"FOOTBALL WEB PAGES",facebook:"TIVERTON TOWN FC FANS · FACEBOOK",x:"TIVERTON TOWN FC · X",sl:"SOUTHERN LEAGUE · API"};const logos={"facebook":"https://static.wixstatic.com/media/8aa829_fe04546aceb943afadf7fd3f8fa12bb8~mv2.png","data":"https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png","sl":"https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png","x":"https://static.wixstatic.com/media/8aa829_157c986840c645ae8b736df04f29a37f~mv2.png"};
+function logoImage(src){return '<img class="sourceBadgeLogo" src="'+esc(logos[src])+'" alt="">';}
+const icons={data:"FWP",facebook:"f",x:"𝕏",sl:"SL"};
+let slImports=[];
+const SOUTHERN_SNAPSHOT="data/southern-league-inkberrow-2026-11-07.json";
+let filter="all";let order="newest";const kinds={goal:"⚽",card:"🟨",red:"🟥",sub:"↕",half:"HT",full:"🏁",note:"●",kick:"▶"};
+function findMatches(data){
+ let root=Array.isArray(data)?data:Array.isArray(data.tivertonMatches)?data.tivertonMatches:Array.isArray(data.items)?data.items:Array.isArray(data.matches)?data.matches:data.match?[data.match]:[data];
+ return root.filter(m=>m&&typeof m==="object"&&/tiverton/i.test(JSON.stringify([m.homeTeam?.fullName,m.awayTeam?.fullName,m.homeTeamName,m.awayTeamName,m.opponent,m.venue==="H"?"Tiverton Town":m.venue==="A"?"Tiverton Town":""])));
+}
+function numberOf(e){const n=parseInt(String(e.minute??e.matchMinute??e.time??""),10);return Number.isFinite(n)?n:null;}
+function takeSL(m){
+ const out=[],tivvySide=m.venue==="A"?"away":"home";
+ function add(rows,type,team){
+  if(!Array.isArray(rows))return;
+  rows.forEach(ev=>{
+   if(!ev||typeof ev!=="object")return;
+   const minute=numberOf(ev);if(minute===null)return;
+   const name=ev.personName||ev.scorerName||ev.playerName||"Player not supplied";
+   const on=ev.personOnName||ev.playerOnName,off=ev.personOffName||ev.playerOffName;
+   if(type==="sub"&&(!on||!off))return;
+   const resolved=type==="card"?(String(ev.cardType||"").toLowerCase().includes("red")?"red":"yellow"):type;
+   const detail=type==="goal"?"Goal · "+name:type==="card"?(resolved==="red"?"Red card":"Yellow card")+" · "+name:"Substitution · "+on+" replaces "+off;
+   out.push({minute,type:resolved,team,detail});
+  });
+ }
+ if(Array.isArray(m.goals)||Array.isArray(m.cards)||Array.isArray(m.subs)){
+  add(m.goals,"goal","Tiverton Town");add(m.cards,"card","Tiverton Town");add(m.subs,"sub","Tiverton Town");
+  add(m.opponentGoals,"goal","Sporting Club Inkberrow");add(m.opponentCards,"card","Sporting Club Inkberrow");add(m.opponentSubs,"sub","Sporting Club Inkberrow");
+ }else{
+  add(m.homeGoals,"goal",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awayGoals,"goal",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.homeCards,"card",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awayCards,"card",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.homeSubs,"sub",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awaySubs,"sub",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+ }
+ return out.sort((a,b)=>a.minute-b.minute);
+}
+
+function attachSL(items){
+ // Each genuine league event has its own source card; FWP and social posts are untouched.
+ groups.forEach(g=>{g.items=g.items.filter(v=>v[0]!=="sl")});
+ for(let i=groups.length-1;i>=0;i--)if(groups[i].autoSFL)groups.splice(i,1);
+ const seen=new Set();let joined=0,created=0;
+ items.forEach(e=>{
+  const key=[e.minute,e.type,e.team,e.detail].join("|").toLowerCase();if(seen.has(key))return;seen.add(key);
+  const card=["sl",e.minute+"′ · "+e.detail.toUpperCase(),e.team+" · "+e.detail,e.minute,e.type];
+  let matches=groups.filter(g=>!g.autoSFL&&g.sort>=0&&g.sort<100&&Math.abs(g.sort-e.minute)<=5);
+  const semantic=matches.filter(g=>
+   e.type==="goal"?g.icon==="goal":
+   e.type==="red"?g.icon==="red"||g.title.includes("RED CARD"):
+   e.type==="yellow"?g.icon==="card"||g.title.includes("YELLOW")||g.title.includes("FIRST-HALF"):
+   e.type==="sub"?g.icon==="sub"||g.title.includes("RESHUFFLE")||g.title.includes("WINNER"):true);
+  if(semantic.length)matches=semantic;
+  matches.sort((a,b)=>Math.abs(a.sort-e.minute)-Math.abs(b.sort-e.minute));
+  if(matches.length){matches[0].items.push(card);joined++}
+  else{groups.push({minute:e.minute+"′",sort:e.minute,title:e.team+" · "+e.detail,icon:e.type==="goal"?"goal":e.type==="red"?"red":e.type==="yellow"?"card":"sub",items:[card],autoSFL:true});created++}
+ });
+ groups.sort((a,b)=>a.sort-b.sort);return{joined,created};
+}
+
+function matchFormatting(value,source){
+ // Safe display-only typography for EVERY source; never mutate original records.
+ // Facts, names, scorelines and original wording remain untouched.
+ let plain=String(value??"");
+ plain=plain.replace(/\b(SC)(?=Inkberrow\b)/gi,"$1 ");
+ plain=plain.replace(/\b(Inkberrow)(?=[0-9]\b)/gi,"$1 ");
+ plain=plain.replace(/([!?;,])(?=[A-Za-z])/g,"$1 ");
+ plain=plain.replace(/ {2,}/g," ");
+ let text=esc(plain);
+ // Existing club posts use blue down/up emojis: recolour only their glyphs.
+ text=text.replace(/⬇️?/g,'<span class="player-off">▼</span>').replace(/⬆️?/g,'<span class="player-on">▲</span>');
+ // Detect and colour plain-language substitutions from structured match data.
+ text=text.replace(/\b([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ.'’ -]{1,55}?)\s+replaces\s+([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ.'’ -]{1,55}?)(?=\.|,|;|$)/gi,function(full,on,off){
+   return '<span class="player-on">▲ '+on.trim()+'</span> for <span class="player-off">▼ '+off.trim()+'</span>';
+ });
+ // Football actions and incidents use the existing club palette.
+ text=text.replace(/\b(red card|sent off)\b/gi,(_full)=>'<span class="card-red">'+_full+'</span>')
+          .replace(/\b(yellow card|cautioned)\b/gi,(_full)=>'<span class="card-yellow">'+_full+'</span>')
+          .replace(/\b(goal|scores|equalises|leveller)\b/gi,(_full)=>'<span class="goal-blue">'+_full+'</span>');
+ return text;
+}
+function eventIcon(title,body){
+ const t=(title+" "+body).toLowerCase();
+ if(/red card|sent off/.test(t))return '<span class="incidentIcon redIcon">■</span>';
+ if(/yellow card|cautioned/.test(t))return '<span class="incidentIcon yellowIcon">■</span>';
+ if(/substitution|subs\b|replaces|⬇|⬆/.test(t))return '<span class="incidentIcon"><span class="player-off">▼</span><span class="player-on">▲</span></span>';
+ if(/goal|scores|leveller|equalis/.test(t))return '<span class="incidentIcon goal-blue">⚽</span>';
+ return '';
+}
+function entry(item){let [src,title,body,minute,incident]=item;return '<div class="entry '+src+(incident?' incident-'+incident:'')+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":src==="sl"?"sl":"data")+'"><span class="badgeIcon">'+logoImage(src)+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
+function render(){
+ const ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);
+ const html=ordered.map(g=>{
+  const items=g.items.filter(i=>filter==="all"||i[0]===filter);
+  if(!items.length)return "";
+  const icon=g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●");
+  const eventInfo=items.find(i=>i[0]==="sl")||items.find(i=>i[0]==="data");
+  const mainTitle=g.title;
+  const subtitle=eventInfo?eventInfo[1].replace(/^\\d+′ · /,""):"";
+  return '<div class="group kind-'+esc(g.icon)+'">'+
+   '<span class="junction"></span>'+
+   '<div class="timecell"><span class="time">'+esc(g.minute)+'</span></div>'+
+   '<div class="incident-content">'+
+    '<div class="incidentHead"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+icon+'</span>'+
+     '<div class="incidentHeading"><h3 class="groupTitle">'+esc(mainTitle)+'</h3>'+
+     (subtitle?'<div class="incidentSubtitle">'+esc(subtitle)+'</div>':"")+'</div></div>'+
+    '<div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div>'+
+   '</div></div>';
+ }).join("");
+ document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';
+}
+
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
+document.querySelectorAll("[data-order]").forEach(b=>b.addEventListener("click",()=>{order=b.dataset.order;document.querySelectorAll("[data-order]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
+document.getElementById("slFile").addEventListener("change",async ev=>{
+ const f=ev.target.files?.[0];if(!f)return;
+ try{const parsed=JSON.parse(await f.text());let selected=parsed.match?[parsed.match]:findMatches(parsed);
+ if(selected.length!==1)throw Error("Expected one Tiverton match in the JSON; found "+selected.length+".");
+ let match=selected[0],day=String(match.date||match.startDate||match.matchDate||parsed.date||"").slice(0,10);
+ if(day&&day!=="2026-11-07")throw Error("File is for "+day+", not Inkberrow on 7 Nov 2026.");
+ let actual=takeSL(match);if(!actual.length)throw Error("No structured match events in this file.");
+ const added=attachSL(actual);slImports=actual;
+ document.getElementById("slStatus").textContent="Imported "+actual.length+" Southern League API entries from "+f.name+". "+added.joined+" joined existing branches; "+added.created+" new moments created.";
+ document.getElementById("slHelp").textContent="Real imported event minutes remain alongside FWP, Darren and X reports. No fabricated Southern League events have been added.";
+ filter="all";document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.filter==="all")));render();
+ }catch(err){document.getElementById("slStatus").textContent="Import rejected: "+err.message;}
+ ev.target.value="";
+});
+async function loadVerifiedSouthernLeague(){
+ const status=document.getElementById("slStatus");
+ try{
+  const res=await fetch(SOUTHERN_SNAPSHOT+"?v=20261108-verified",{cache:"no-store"});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  const payload=await res.json();
+  if(payload.match?.date!=="2026-11-07"||payload.match?.apiId!=="6a5a1cc3ce9ef452b61f4489"||payload.match?.status!=="FullTime")
+   throw Error("Match identity or status does not match Inkberrow.");
+  if(payload.api!=="https://api.southern-football-league.co.uk/matches")throw Error("Snapshot source not recognised.");
+  const items=takeSL(payload.match);if(items.length!==11)throw Error("Expected 11 match events; received "+items.length+".");
+  const result=attachSL(items);slImports=items;
+  status.textContent="✓ SOUTHERN LEAGUE API VERIFIED: "+items.length+" actual events (both teams), "+result.joined+" added to existing yellow branches and "+result.created+" new moments. Archived "+payload.checkedAt+".";
+  document.getElementById("slHelp").textContent="Genuine historical Southern League API snapshot, independently attributed. Not live polling. Source: "+payload.source_url;
+  render();
+ }catch(e){
+  status.textContent="Southern League archive unavailable ("+e.message+"). Football Web Pages and social reports are still visible.";
+  render();
+ }
+}
+render();loadVerifiedSouthernLeague();
+})();
+</script><script>
+(function(){
+ "use strict";
+ const KEY="tivvy-live-alerts-test-prefs-v1";
+ const checks=[...document.querySelectorAll("[data-alert],[data-source]")];
+ function status(msg){document.getElementById("alertMessage").textContent=msg}
+ try{const prefs=JSON.parse(localStorage.getItem(KEY)||"null");if(prefs){checks.forEach(e=>{if(Object.prototype.hasOwnProperty.call(prefs,e.dataset.alert||("src:"+e.dataset.source)))e.checked=!!prefs[e.dataset.alert||("src:"+e.dataset.source)]});status("Your saved TEST preferences have been restored on this device.")}}catch(e){status("Preferences will stay in this browser when storage is available.")}
+ document.getElementById("saveAlerts").addEventListener("click",()=>{
+  const obj={};checks.forEach(e=>obj[e.dataset.alert||("src:"+e.dataset.source)]=e.checked);
+  try{localStorage.setItem(KEY,JSON.stringify(obj));status("✓ Saved on this device only. Real alerts have NOT been subscribed.")}catch(e){status("Browser storage is unavailable. These preferences are only set for this session.")}
+ });
+ document.getElementById("demoAlert").addEventListener("click",()=>{document.getElementById("testToast").hidden=false;status("Preview displayed. No phone or browser push notification was sent.")});
+ document.getElementById("closeToast").addEventListener("click",()=>{document.getElementById("testToast").hidden=true});
+ const health=document.getElementById("feedHealth");let previous="";
+ async function poll(){
+  try{
+   const r=await fetch("data/southern-league-inkberrow-2026-11-07.json?check="+Date.now(),{cache:"no-store"});
+   if(!r.ok)throw Error("HTTP "+r.status);
+   const d=await r.json();
+   if(d.match?.apiId!=="6a5a1cc3ce9ef452b61f4489")throw Error("Unexpected archive record");
+   const marker=JSON.stringify(d.match);
+   if(previous&&marker!==previous){
+    // Existing prototype has its own source renderer; keep archival replay
+    // unchanged and never notify fans as if this were a live-match event.
+    health.textContent="ARCHIVE CHANGED · "+new Date().toLocaleTimeString("en-GB");
+   }else health.textContent="ARCHIVE REACHABLE · "+new Date().toLocaleTimeString("en-GB");
+   previous=marker;health.className="health ok";
+  }catch(e){health.textContent="ARCHIVE UNAVAILABLE";health.className="health fail"}
+ }
+ poll();setInterval(poll,15000);
+})();
+</script></body></html>

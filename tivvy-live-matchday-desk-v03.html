@@ -94,9 +94,9 @@ function matchFormatting(value){
    return '<span class="player-on">▲ '+on.trim()+'</span> for <span class="player-off">▼ '+off.trim()+'</span>';
  });
  // Football actions and incidents use the existing club palette.
- text=text.replace(/\b(red card|sent off)\b/gi,'<span class="card-red">function entry(item){let [src,title,body,minute]=item;</span>')
-          .replace(/\b(yellow card|cautioned)\b/gi,'<span class="card-yellow">function entry(item){let [src,title,body,minute]=item;</span>')
-          .replace(/\b(goal|scores|equalises|leveller)\b/gi,'<span class="goal-blue">function entry(item){let [src,title,body,minute]=item;</span>');
+ text=text.replace(/\b(red card|sent off)\b/gi,(_full)=>'<span class="card-red">'+_full+'</span>')
+          .replace(/\b(yellow card|cautioned)\b/gi,(_full)=>'<span class="card-yellow">'+_full+'</span>')
+          .replace(/\b(goal|scores|equalises|leveller)\b/gi,(_full)=>'<span class="goal-blue">'+_full+'</span>');
  return text;
 }
 function eventIcon(title,body){

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Data Centre | Version History</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#ffdb00;--ink:#131313;--line:#dadada}*{box-sizing:border-box}body{margin:0;background:#f0f0ee;color:#181818;font:14px/1.5 Arial,sans-serif}
+header{background:#121212;border-bottom:5px solid var(--y);color:#fff;padding:22px clamp(18px,4vw,55px)}h1,h2,h3,.brand{font-family:Antonio,Impact,sans-serif}h1{font-size:clamp(32px,5vw,50px);margin:3px 0 6px;color:var(--y)}header p{margin:0;color:#ddd}header .small{font-size:12px;color:#aaa}
+header a{color:var(--y)}main{max-width:1360px;padding:24px clamp(14px,3vw,30px) 48px;margin:auto}
+.controls{background:#fff;border:1px solid #d2d2d2;padding:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.controls label{display:grid;gap:5px;font-weight:bold;font-size:12px;flex:1;min-width:180px}.controls select,.controls input{width:100%;padding:11px;border:1px solid #bbb;font:14px Arial}
+button,.btn{background:var(--y);border:1px solid #b69c00;padding:11px 16px;font-weight:800;color:#111;text-decoration:none;cursor:pointer;display:inline-block}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.stat{background:#fff;border:1px solid var(--line);padding:13px}.stat strong{font:700 28px Antonio;display:block}.stat small{color:#555}
+.notice{border-left:5px solid #bb9200;background:#fff8d5;padding:13px 16px;margin:14px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:16px 0 26px}.card{background:#191919;color:white;padding:17px;border-top:4px solid var(--y)}
+.card h3{font-size:24px;color:var(--y);margin:0 0 6px}.card .version{font-size:24px;font-weight:900}.card p{color:#ddd;min-height:40px}.card a{color:var(--y)}.card small{color:#bababa}
+table{width:100%;border-collapse:collapse;background:#fff}th{background:#171717;color:var(--y);text-align:left}td,th{padding:12px;border-bottom:1px solid #ddd;vertical-align:top}td a{color:#5b4900;font-weight:bold}.muted{color:#666}.pill{display:inline-block;background:#ececec;border:1px solid #ccc;padding:3px 7px;font-size:11px;font-weight:bold;border-radius:3px}
+.pill.warn{background:#fff1be;border-color:#d6ac00}.pill.good{background:#d8efd9;border-color:#86b68b}
+.loghead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:18px 0 8px}h2{font-size:28px;margin:0}
+footer{margin-top:22px;font-size:12px;color:#555}
+@media(max-width:740px){.summary{grid-template-columns:1fr 1fr}.history-table thead{display:none}.history-table,.history-table tbody,.history-table tr,.history-table td{display:block;width:100%}.history-table tr{border:1px solid #ddd;margin:10px 0;background:#fff}.history-table td{padding:7px 12px;border:0}.history-table td:before{content:attr(data-label) ": ";font-weight:bold;color:#555}}
+</style></head><body>
+<header><div class="brand">TIVVY DATA CENTRE · RELEASE CONTROL</div><h1>VERSION HISTORY</h1>
+<p>One place to track what changed, when it changed and whether it has been tested.</p><p class="small">Register v1.0 · Established 8 November 2026 · GitHub-backed</p>
+<p style="margin-top:13px"><a href="editorial-inbox.html">Editorial Inbox</a> · <a href="programme-studio.html">Programme Studio</a> · <a href="source-exploration-desk-v5.html">Source Desk</a> · <a href="data-centre/index.html">Data Centre Studio</a></p></header>
+<main><div class="notice"><strong>How to read this register:</strong> “Deployed” means committed to source control, not necessarily visually tested. “Awaiting user test” means the Pixel Police have not yet approved it. No historical versions have been guessed. This is a curated record, not a complete reconstruction of every past commit.</div>
+<div class="summary"><div class="stat"><strong id="total">—</strong><small>Recorded changes</small></div><div class="stat"><strong id="apps">—</strong><small>Tracked applications</small></div><div class="stat"><strong id="awaiting">—</strong><small>Awaiting user test</small></div></div>
+<h2>Current application register</h2><div class="cards" id="cards"></div>
+<div class="controls"><label>Search changes<input id="query" type="search" placeholder="e.g. Gmail, mobile, player stats"></label><label>Application<select id="appFilter"><option value="">All applications</option></select></label><label>Status<select id="statusFilter"><option value="">All statuses</option></select></label><button id="resetFilters">Clear filters</button></div>
+<div class="loghead"><h2>Change log</h2><span id="count" class="muted"></span></div>
+<table class="history-table"><thead><tr><th>Date</th><th>Application / version</th><th>Type / status</th><th>What changed</th><th>Source</th></tr></thead><tbody id="history"></tbody></table>
+<footer>This register stores references to GitHub source and commits. It does not publish content or change application data. Update the register when making future releases, using the checklist in <a href="docs/versioning-policy.md">the versioning policy</a>.</footer>
+</main>
+<script>
+"use strict";
+const entries=[
+  {
+    "date": "2026-11-08",
+    "app": "Editorial Inbox",
+    "version": "v1.2",
+    "type": "Feature",
+    "status": "Awaiting user test",
+    "summary": "Colour-coded error review and click-to-find navigation; preserve manual approval workflow.",
+    "sha": "b745f8f0e92a1d17a39421ff59d7e74aa9e8ba67",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "editorial-inbox.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Editorial Inbox",
+    "version": "v1.2",
+    "type": "Release",
+    "status": "Deployed",
+    "summary": "Version label updated to v1.2.",
+    "sha": "400a114e3fe50264b8afbd4d9bd02e86bfc928af",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "editorial-inbox.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Around the League",
+    "version": "Unversioned",
+    "type": "Content",
+    "status": "Deployed",
+    "summary": "Around the League content update; publication appearance not independently checked.",
+    "sha": "5919607bca51",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "around-the-league.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Match Centre",
+    "version": "Unversioned",
+    "type": "Fix",
+    "status": "Awaiting user test",
+    "summary": "Prevent mobile fixture club names breaking in the middle of a word.",
+    "sha": "ff9d94f2c24c",
+    "r": "Tiverton-Town-Get-Player-Info",
+    "file": "tivvy-hub-preview.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Match Centre",
+    "version": "Unversioned",
+    "type": "Fix",
+    "status": "Awaiting user test",
+    "summary": "Remove inner homepage summary viewport cap that clipped the latest result.",
+    "sha": "52a82f9affb7",
+    "r": "Tiverton-Town-Get-Player-Info",
+    "file": "tivvy-hub-preview.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Source Exploration Desk",
+    "version": "v5",
+    "type": "Release",
+    "status": "Deployed · known limitations",
+    "summary": "Five-source exploration desk with published Tivvy data fallback. Direct Southern League browser API access is restricted; live source feeds not all connected.",
+    "sha": "f671c853f3fb",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "source-exploration-desk-v5.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Source Exploration Desk",
+    "version": "v4",
+    "type": "Fix",
+    "status": "Superseded",
+    "summary": "Fixed JavaScript collision with window.top and isolated explorer globals.",
+    "sha": "3d35af81b728",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "source-exploration-desk-v4.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Ask Tivvy / Player Stats",
+    "version": "Unversioned",
+    "type": "Feature",
+    "status": "Deployed · verify coverage",
+    "summary": "Add All Competitions toggle; exclude pre-season and label partial cup coverage.",
+    "sha": "866ddf95e987",
+    "r": "Tiverton-Town-Get-Player-Info",
+    "file": "tivvy-hub-preview.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Ask Tivvy / Player Stats",
+    "version": "Unversioned",
+    "type": "Feature",
+    "status": "Deployed",
+    "summary": "Add club FAQs, opponent results and approved-artwork player cards.",
+    "sha": "7983b209230f",
+    "r": "Tiverton-Town-Get-Player-Info",
+    "file": "tivvy-hub-preview.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Match Centre",
+    "version": "Unversioned",
+    "type": "Data fix",
+    "status": "Deployed",
+    "summary": "Correct away score order in Ask Tivvy previous-match answers.",
+    "sha": "1ae36866b840",
+    "r": "Tiverton-Town-Get-Player-Info",
+    "file": "tivvy-hub-preview.html"
+  },
+  {
+    "date": "2026-11-07",
+    "app": "Programme Studio",
+    "version": "v1.5",
+    "type": "Baseline",
+    "status": "Prototype",
+    "summary": "Existing programme-studio code identifies itself as prototype v1.5; no end-to-end production PDF approval implied.",
+    "sha": "",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "programme-studio.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Tivvy Data Centre Studio",
+    "version": "v1",
+    "type": "Baseline",
+    "status": "Prototype",
+    "summary": "Existing studio page identifies itself as Studio v1. This register does not certify output production readiness.",
+    "sha": "",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "data-centre/index.html"
+  },
+  {
+    "date": "2026-11-08",
+    "app": "Photo Library",
+    "version": "Unversioned",
+    "type": "Content",
+    "status": "Deployed · archive unverified",
+    "summary": "Viv public Tiverton photo catalogue updated. Does not establish that original full-resolution files were archived.",
+    "sha": "4b9057fb92d0",
+    "r": "Tiverton-Town-Control-Centre",
+    "file": "photo-library.html"
+  }
+];
+const applications=[
+{name:"Editorial Inbox",version:"v1.2",status:"Awaiting user test",description:"Gmail imports, editorial scanning, colour review and approvals.",url:"editorial-inbox.html"},
+{name:"Programme Studio",version:"v1.5",status:"Prototype",description:"Page-building and A4 workflow; production readiness not certified.",url:"programme-studio.html"},
+{name:"Source Exploration Desk",version:"v5",status:"Deployed · known limitations",description:"Five-source discovery and data testing sandbox.",url:"source-exploration-desk-v5.html"},
+{name:"Tivvy Data Centre Studio",version:"v1",status:"Prototype",description:"Current Studio baseline; independent from Programme Studio.",url:"data-centre/index.html"},
+{name:"Match Centre",version:"Unversioned",status:"Awaiting user test",description:"Fixture and player presentation; version baseline to be agreed.",url:"https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tivvy-hub-preview.html"},
+{name:"Ask Tivvy / Player Stats",version:"Unversioned",status:"Deployed · verify coverage",description:"Natural-language player questions and available statistics.",url:"https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tivvy-hub-preview.html#players"},
+{name:"Around the League",version:"Unversioned",status:"Deployed",description:"Programme editorial round-up content.",url:"around-the-league.html"},
+{name:"Photo Library",version:"Unversioned",status:"Deployed · archive unverified",description:"Viv's catalogue; originals not yet confirmed backed up.",url:"photo-library.html"}
+];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const el=id=>document.getElementById(id);
+const badge=s=>'<span class="pill '+(/awaiting|limitation|unverified|prototype/i.test(s)?"warn":/approved/i.test(s)?"good":"")+'">'+esc(s)+'</span>';
+function render(){
+ const q=el("query").value.toLowerCase().trim(),app=el("appFilter").value,status=el("statusFilter").value;
+ const shown=entries.filter(x=>(!app||x.app===app)&&(!status||x.status===status)&&(!q||[x.app,x.version,x.summary,x.type,x.status,x.sha].join(" ").toLowerCase().includes(q)));
+ el("count").textContent=shown.length+" of "+entries.length+" entries";
+ el("history").innerHTML=shown.map(x=>'<tr><td data-label="Date">'+esc(x.date)+'</td><td data-label="Application"><strong>'+esc(x.app)+'</strong><div>'+esc(x.version)+'</div></td><td data-label="Status">'+esc(x.type)+'<div>'+badge(x.status)+'</div></td><td data-label="Change">'+esc(x.summary)+'</td><td data-label="Source">'+(x.sha?'<a target="_blank" rel="noopener" href="https://github.com/nickabull/'+encodeURIComponent(x.r)+'/commit/'+encodeURIComponent(x.sha)+'">Commit '+esc(x.sha.slice(0,7))+'</a>':'<span class="muted">Code baseline</span>')+'</td></tr>').join("")||'<tr><td colspan="5">No matching changes.</td></tr>';
+}
+function init(){
+ el("total").textContent=entries.length;el("apps").textContent=applications.length;el("awaiting").textContent=entries.filter(x=>x.status==="Awaiting user test").length;
+ el("cards").innerHTML=applications.map(a=>'<article class="card"><h3>'+esc(a.name)+'</h3><div class="version">'+esc(a.version)+'</div><div>'+badge(a.status)+'</div><p>'+esc(a.description)+'</p><a href="'+esc(a.url)+'">Open application →</a></article>').join("");
+ [...new Set(entries.map(x=>x.app))].sort().forEach(v=>el("appFilter").add(new Option(v,v)));
+ [...new Set(entries.map(x=>x.status))].sort().forEach(v=>el("statusFilter").add(new Option(v,v)));
+ ["query","appFilter","statusFilter"].forEach(id=>el(id).addEventListener("input",render));
+ el("resetFilters").onclick=()=>{el("query").value="";el("appFilter").value="";el("statusFilter").value="";render();};render();
+}init();
+</script></body></html>

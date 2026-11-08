@@ -56,8 +56,28 @@ footer{font-size:11px;color:#b4b0b2;border-top:1px solid #514d50;margin-top:25px
 .group.kind-sub .entry:after{background:#65e6a2}
 @media(max-width:650px){.match-icon{min-width:23px;flex-basis:23px;height:25px;font-size:19px}.match-icon-sub{font-size:12px}.groupTitle{gap:5px}}
 .viewNav{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:-8px 0 17px}.viewNav strong{font:700 16px Antonio;color:var(--gold);margin-right:6px}.viewNav button{border:1px solid #827a61;background:#292829;color:#fff;padding:9px 13px;border-radius:3px}.viewNav button[aria-pressed=true]{background:var(--gold);color:#111;border-color:var(--gold)}@media(max-width:650px){.viewNav button{font-size:12px}}
+
+/* v0.5.1: fixed, independent MATCH-EVENT ICON COLUMN, like the original
+   verified-events strip; source cards remain a different visual layer. */
+.group{grid-template-columns:38px 76px 38px minmax(0,1fr);gap:7px}
+.incident-cell{display:flex;align-items:flex-start;justify-content:center;padding-top:4px;min-width:0}
+.incident-content{min-width:0}
+.groupTitle{display:block;font-size:20px;line-height:1.24;margin:6px 0 12px;min-height:0}
+.match-icon{min-width:34px;flex:0 0 34px;height:35px;font-size:25px}
+.match-icon-goal{color:#65baff;font-size:25px}
+.match-icon-red{font-size:25px}
+.match-icon-card{font-size:25px}
+.match-icon-sub{font-size:17px}
+.match-icon-note{font-size:14px}
+@media(max-width:650px){
+.group{grid-template-columns:26px 53px 27px minmax(0,1fr);gap:3px}
+.match-icon{min-width:25px;flex-basis:25px;height:27px;font-size:19px}
+.match-icon-sub{font-size:12px}
+.groupTitle{font-size:17px;margin:6px 0 9px}
+.bundle{padding-left:14px}
+}
 </style></head><body>
-<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>INKBERROW REWIND · WORKING HTML DEMO · v0.5 · NEWEST-FIRST TIMELINE</small></div></div></header>
+<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>INKBERROW REWIND · WORKING HTML DEMO · v0.5.1 · MATCH ICON COLUMN</small></div></div></header>
 <main><div class="hero"><div><h2>TIVVY <em>LIVE</em></h2><div class="desc">The Saturday story told through match data, fan commentary and Tiverton Town's X posts.</div></div><div class="desc">7 NOV 2026 · HOME · DIVISION ONE SOUTH</div></div>
 <div class="sourceNav" id="filters"><button data-filter="all" aria-pressed="true">ALL SOURCES</button><button data-filter="data" aria-pressed="false">◉ FOOTBALL WEB PAGES</button><button data-filter="sl" aria-pressed="false">⚑ SOUTHERN LEAGUE</button><button data-filter="facebook" aria-pressed="false"><span class="sourceLogo">f</span> TIVVY FANS FACEBOOK</button><button data-filter="x" aria-pressed="false"><span class="sourceLogo">𝕏</span> TIVVY X</button></div>
 <div class="viewNav"><strong>TIMELINE ORDER</strong><button type="button" data-order="newest" aria-pressed="true">↓ LIVE VIEW · NEWEST FIRST</button><button type="button" data-order="oldest" aria-pressed="false">↑ REPLAY · KICK-OFF FIRST</button></div>
@@ -138,7 +158,7 @@ function eventIcon(title,body){
  return '';
 }
 function entry(item){let [src,title,body,minute]=item;return '<div class="entry '+src+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":"data")+'"><span class="badgeIcon">'+icons[src]+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
-function render(){let shown=0;let ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);let html=ordered.map(g=>{let items=g.items.filter(i=>filter==="all"||i[0]===filter);if(!items.length)return"";shown+=items.length;return '<div class="group kind-'+esc(g.icon)+'"><span class="junction"></span><div><span class="time">'+esc(g.minute)+'</span></div><div><h3 class="groupTitle"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+(g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●"))+'</span><span>'+esc(g.title)+'</span></h3><div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div></div></div>'}).join("");document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';}
+function render(){let shown=0;let ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);let html=ordered.map(g=>{let items=g.items.filter(i=>filter==="all"||i[0]===filter);if(!items.length)return"";shown+=items.length;return '<div class="group kind-'+esc(g.icon)+'"><span class="junction"></span><div><span class="time">'+esc(g.minute)+'</span></div><div class="incident-cell"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+(g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●"))+'</span></div><div class="incident-content"><h3 class="groupTitle">'+esc(g.title)+'</h3><div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div></div>'}).join("");document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';}
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.querySelectorAll("[data-order]").forEach(b=>b.addEventListener("click",()=>{order=b.dataset.order;document.querySelectorAll("[data-order]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.getElementById("slFile").addEventListener("change",async ev=>{

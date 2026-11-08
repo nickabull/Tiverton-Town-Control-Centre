@@ -188,8 +188,10 @@ footer{font-size:11px;color:#b4b0b2;border-top:1px solid #514d50;margin-top:25px
 .group .entry:before{left:-9px!important;width:9px!important}
 .group .entry:after{left:-13px!important}
 }
+.entrytitle .small-connector{font:500 12px/1.25 Arial,Helvetica,sans-serif!important;letter-spacing:normal!important;color:#d6d6d8!important;text-transform:lowercase!important;display:inline!important;vertical-align:baseline!important}
+@media(max-width:650px){.entrytitle .small-connector{font-size:11px!important}}
 </style></head><body>
-<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>DARREN PREVIEW · INKBERROW MATCHDAY RECONSTRUCTION · v0.6.4</small></div></div></header>
+<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>DARREN PREVIEW · INKBERROW MATCHDAY RECONSTRUCTION · v0.6.5</small></div></div></header>
 <main><div class="hero"><div><h2>TIVVY <em>LIVE</em></h2><div class="desc">One match. Four sources. The whole story — match facts, club updates and your commentary.</div></div><div class="desc">7 NOV 2026 · HOME · DIVISION ONE SOUTH</div></div>
 <div class="sourceNav" id="filters"><button data-filter="all" aria-pressed="true">ALL SOURCES</button><button data-filter="data" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png" alt="">FOOTBALL WEB PAGES</button><button data-filter="sl" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png" alt="">SOUTHERN LEAGUE</button><button data-filter="facebook" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_fe04546aceb943afadf7fd3f8fa12bb8~mv2.png" alt="">TIVERTON TOWN FC FANS</button><button data-filter="x" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_157c986840c645ae8b736df04f29a37f~mv2.png" alt="">TIVERTON TOWN FC · X</button></div>
 <div class="viewNav"><strong>TIMELINE ORDER</strong><button type="button" data-order="newest" aria-pressed="true">↓ LIVE VIEW · NEWEST FIRST</button><button type="button" data-order="oldest" aria-pressed="false">↑ REPLAY · KICK-OFF FIRST</button></div>
@@ -270,6 +272,10 @@ function matchFormatting(value,source){
  // Safe display-only typography for EVERY source; never mutate original records.
  // Facts, names, scorelines and original wording remain untouched.
  let plain=String(value??"");
+ // A team attribution is not another substitution: render the second "for" as a separator.
+ if(source==="data"&&/\breplaces\b/i.test(plain))
+  plain=plain.replace(/\s+for (Sporting Club Inkberrow|Tiverton Town)\.?$/i," · $1.");
+ 
  // Display-only shortening of known players' full API names; raw data preserved.
  plain=plain.replace(/Jack William Kennell/gi,"Jack Kennell")
   .replace(/Corey Hayden Koerner/gi,"Corey Koerner")
@@ -292,6 +298,13 @@ function matchFormatting(value,source){
           .replace(/\b(goal|scores|equalises|leveller)\b/gi,(_full)=>'<span class="goal-blue">'+_full+'</span>');
  return text;
 }
+function formatEventTitle(title,src){
+ let clean=String(title??"").replace(/\s*·\s*·\s*/g," · ").replace(/\s{2,}/g," ").trim();
+ let html=matchFormatting(clean,src);
+ // Apply to visible words, after source decorations are generated.
+ html=html.replace(/(\s)for(?=\s|<)/gi,'$1<span class="small-connector">for</span>');
+ return html;
+}
 function eventIcon(title,body){
  const t=(title+" "+body).toLowerCase();
  if(/red card|sent off/.test(t))return '<span class="incidentIcon redIcon">■</span>';
@@ -300,7 +313,7 @@ function eventIcon(title,body){
  if(/goal|scores|leveller|equalis/.test(t))return '<span class="incidentIcon goal-blue">⚽</span>';
  return '';
 }
-function entry(item){let [src,title,body,minute,incident]=item;return '<div class="entry '+src+(incident?' incident-'+incident:'')+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":src==="sl"?"sl":"data")+'"><span class="badgeIcon">'+logoImage(src)+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src).replace(/\\bfor\\b/gi,'<span class="small-connector">for</span>')+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
+function entry(item){let [src,title,body,minute,incident]=item;return '<div class="entry '+src+(incident?' incident-'+incident:'')+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":src==="sl"?"sl":"data")+'"><span class="badgeIcon">'+logoImage(src)+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+formatEventTitle(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
 function render(){
  const ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);
  const html=ordered.map(g=>{

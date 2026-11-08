@@ -58,7 +58,7 @@ summary{cursor:pointer;font-weight:bold}
 @media(max-width:1150px){main{grid-template-columns:245px minmax(280px,1fr)}.details{grid-column:1/-1;border-left:0;border-top:1px solid #ddd}}
 @media(max-width:680px){main{display:block}.middle{padding:15px}aside,.details{border:0;border-bottom:1px solid #ccc}textarea{min-height:350px}}
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · EDITORIAL CONTROL CENTRE</div><small>Raw Word → Editorial review → Approved copy · v1.3</small></div>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · EDITORIAL CONTROL CENTRE</div><small>Raw Word → Editorial review → Approved copy · v1.3.1</small></div>
 <div class="actions"><a class="button dark" href="programme-studio.html">← PROGRAMME STUDIO</a><a class="button dark" href="version-history.html">VERSION HISTORY</a><button id="backup" class="dark">Download inbox backup</button><button id="help">? USER GUIDE</button></div></header>
 <main>
 <aside><div class="section"><h2>Incoming copy</h2>
@@ -103,7 +103,7 @@ var $=function(id){return document.getElementById(id)};
 var esc=function(v){return String(v==null?"":v).replace(/[&<>"']/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]})};
 try{var stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))docs=stored;}catch(err){}
 // Bulk whitelist: mechanical fixes only, never player names, results, apostrophes or ambiguous phrasing.
-var SAFE_RULE_IDS=new Set(["spacing","closer","halfvolley","dotdot","sidefoot"]);
+var SAFE_RULE_IDS=new Set(["spacing","closer","halfvolley","dotdot","sidefoot","tenth","twelfth","wellorganised","wellmarshalled","pointblank","goalshy","wellearned"]);
 var RULES=[
  {id:"slough",type:"definite",message:"Club player name: Louie Slough",pattern:/\bLouis Slough\b/gi,to:"Louie Slough"},
  {id:"jagger",type:"possible",message:"Check approved spelling of Louis Jagger-Cane",pattern:/\bLouis Jagger Cane\b/gi,to:"Louis Jagger-Cane"},
@@ -250,10 +250,23 @@ function render(){
  renderIssues(issues);
   paintColourReview();
   $("undoSafe").disabled=!d.batchUndo||d.working!==d.batchUndo.after;
+  updateSafeAvailability(d);
 }
 function safeCandidates(d){
- return scan(d).filter(function(f){return !f.ignored&&SAFE_RULE_IDS.has(f.rule.id)&&typeof f.to==="string"&&f.to!==f.match&&!/[\\r\\n]/.test(f.match);});
+ // Avoid crossing line breaks. The v1.3 check inadvertently excluded words
+ // containing letters r or n; test actual newline characters instead.
+ return scan(d).filter(function(f){return !f.ignored&&SAFE_RULE_IDS.has(f.rule.id)&&typeof f.to==="string"&&f.to!==f.match&&
+   !f.match.includes(String.fromCharCode(10))&&!f.match.includes(String.fromCharCode(13));});
 }
+function updateSafeAvailability(d){
+ var n=safeCandidates(d).length,button=$("applySafe");
+ button.textContent=n?"✓ Apply "+n+" safe correction"+(n===1?"":"s"):"✓ No safe corrections available";
+ button.disabled=n===0;
+ $("safeStatus").textContent=n
+  ?n+" vetted mechanical/house-style fix"+(n===1?" is":"es are")+" available. You'll review the proposed changes before anything is applied. Names and facts are excluded."
+  :"No safe corrections remain. The other findings need individual editorial review.";
+}
+
 function applySafeBatch(){
  var d=active();if(!d)return;var items=safeCandidates(d);
  if(!items.length){$("safeStatus").textContent="No eligible safe corrections; other issues require individual review.";return;}
@@ -323,7 +336,7 @@ $("backup").onclick=function(){download("tivvy-editorial-inbox-backup-"+new Date
 $("applySafe").onclick=applySafeBatch;
  $("undoSafe").onclick=undoSafeBatch;
  $("toggleColourReview").onclick=function(){var v=$("colourReview");v.hidden=!v.hidden;$("toggleColourReview").textContent=v.hidden?"Show coloured review":"Hide coloured review";paintColourReview()};
- $("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));paintColourReview();var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length},280)};
+ $("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));paintColourReview();var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length;updateSafeAvailability(d)},280)};
 $("working").onblur=function(){save();render()};
 $("docTitle").onchange=function(e){var d=active();d.title=e.target.value;save();render()};
 $("docKind").onchange=function(e){var d=active();d.kind=e.target.value;save();render()};

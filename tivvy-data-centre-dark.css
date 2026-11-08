@@ -1,0 +1,33 @@
+/* Tivvy Data Centre — shared dark operator skin, 2026-11-08
+   Applies only to admin/editorial tools using body.tivvy-dark.
+   Do not recolour A4 print canvases or player graphics. */
+body.tivvy-dark{background:#111214!important;color:#f2f2f2!important;color-scheme:dark}
+body.tivvy-dark :is(.left,.right,aside,.details,.middle,.panel,.controls,.stat,.tile,.doc,.inboxEmpty,.issue,.card,.notice,.toolbar,.player,.item,.section,.pageReadiness,.sheetInfo,.inspector,.intelligencePanel,.feedControls,.editorial,.fieldGroup,.table-wrap){border-color:#45464b}
+body.tivvy-dark :is(.left,.right,aside,.details){background:#1c1d21!important;color:#f2f2f2!important}
+body.tivvy-dark :is(.controls,.panel,.stat,.tile,.doc,.inboxEmpty,.issue,.notice,.player,.toolbar,.pageReadiness,.inspectorTab,.pageOption,.fieldGroup,.intelligencePanel,.editorialIssue){background:#24262a!important;color:#f2f2f2!important;border-color:#484b51!important}
+body.tivvy-dark :is(.panel,.player,.stat,.doc,.issue,.pageOption,.notice,.controls,.tile) :is(h1,h2,h3,strong,b){color:inherit}
+body.tivvy-dark :is(.note,.sub,.muted,.help,.status,.field label,.player small,.player .sub,.doc small,.tile small,.issue small,.pageOption small,.stat small,.item small,.notice small){color:#b9bdc5!important}
+body.tivvy-dark :is(input:not([type=checkbox]):not([type=radio]):not([type=color]),textarea,select){background:#16181c!important;color:#f4f4f4!important;border:1px solid #62656d!important;accent-color:#ffd800}
+body.tivvy-dark :is(input,textarea,select)::placeholder{color:#9ba0a9}
+body.tivvy-dark :is(button:not(.primary):not(.gold):not(.yellow):not(.red):not(.btn.yellow):not(.btn.primary),.button:not(.gold):not(.dark),.btn:not(.yellow):not(.dark)){background:#33353b;color:#f5f5f5;border-color:#646873}
+body.tivvy-dark :is(button.primary,button.gold,button.yellow,.btn.yellow,.btn.primary,.pageOption.active,.inspectorTab.active){background:#ffd800!important;color:#141414!important;border-color:#bd9f00!important}
+body.tivvy-dark :is(.doc.active,.player.on_loan,.player.injured,.player.review){background:#343126!important;color:#fff!important;border-color:#b89a30!important}
+body.tivvy-dark .player.departed{background:#292b30!important;color:#c7c9d1!important}
+body.tivvy-dark :is(.notice,.pageReadiness){border-left:4px solid #ffd800!important}
+body.tivvy-dark :is(.item.high,.issue.definite){background:#372629!important;border-left-color:#f0606a!important}
+body.tivvy-dark :is(.item.good,.pageReadiness.ready){background:#20372d!important;border-color:#49996c!important}
+body.tivvy-dark :is(.chip,.tag){background:#3c3c40;color:#f4f4f4}
+body.tivvy-dark :is(.stage){background:#151619!important}
+body.tivvy-dark :is(.sheetBox,.paper,.page,.spread){color-scheme:light}
+body.tivvy-dark :is(.sheetBox,.paper,.page){background:#fff;color:#111}
+body.tivvy-dark :is(.sheetBox,.paper,.page) :is(input,textarea,select){color-scheme:light}
+body.tivvy-dark table:not(.page table){background:#222428!important;color:#f2f2f2!important}
+body.tivvy-dark :is(table:not(.page table) td,table:not(.page table) th){border-color:#494b50!important}
+body.tivvy-dark table:not(.page table) th{background:#101113!important;color:#ffd800!important}
+body.tivvy-dark table:not(.page table) td{background:#222428!important;color:#f2f2f2!important}
+body.tivvy-dark :is(.pill,.status-tag){background:#383a41;color:#f4f4f4;border-color:#65676d}
+body.tivvy-dark :is(.pill.good){background:#203b2b;color:#a0edbf}
+body.tivvy-dark :is(.pill.warn){background:#463716;color:#ffdb77}
+body.tivvy-dark a:not(.button):not(.btn){color:#ffdb00}
+body.tivvy-dark :is(button,input,textarea,select,a):focus-visible{outline:2px solid #ffd800;outline-offset:2px}
+body.tivvy-dark footer{color:#b5b9c1}

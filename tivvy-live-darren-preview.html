@@ -101,8 +101,55 @@ footer{font-size:11px;color:#b4b0b2;border-top:1px solid #514d50;margin-top:25px
 .legenditem small{display:block;color:#bbb;font-size:11px}.legenditem:last-child{border-bottom:0}
 @media(max-width:900px){.pagegrid aside{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.pagegrid aside{grid-template-columns:1fr}.sourceNav button{font-size:12px}.sourceNav button img{width:22px;height:22px}.group{grid-template-columns:27px 54px 30px minmax(0,1fr)}.groupTitle{font-size:18px}.bundle{padding-left:16px}.entry{padding:9px 10px}.entrytitle{font-size:18px}.entry p{font-size:12px}.sourcePill{font-size:11px}.sourcePill .badgeIcon,.sourcePill .sourceBadgeLogo{width:22px;height:22px}.group .entry:before{left:-13px;width:13px}.group .entry:after{left:-16px}}
+
+/* Darren v0.6.2 emergency layout correction: no min-content letter towers */
+.pagegrid{display:block!important;width:100%!important;min-width:0!important}
+.pagegrid>section,.timeline{display:block!important;width:100%!important;min-width:0!important}
+.pagegrid aside{position:static;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.group{display:grid!important;grid-template-columns:26px 83px minmax(0,1fr)!important;column-gap:10px!important;align-items:start;width:100%;min-width:0;margin-bottom:19px}
+.junction{grid-column:1;left:5px;top:14px}
+.timecell{grid-column:2;min-width:0}
+.time{display:block!important;min-width:0!important;width:100%;font:700 20px/1.2 Antonio,Impact,sans-serif!important;white-space:nowrap;padding:5px 4px;text-align:center}
+.incident-content{grid-column:3;min-width:0!important;max-width:100%;width:100%;overflow:visible}
+.incidentHead{display:flex!important;align-items:flex-start;gap:11px;min-width:0;padding:2px 0 9px}
+.incidentHeading{min-width:0;flex:1}
+.match-icon{display:inline-flex;flex:0 0 39px;min-width:39px;width:39px;height:39px;justify-content:center;align-items:center;font:700 27px/1 Arial,sans-serif}
+.match-icon-goal{font-size:29px}.match-icon-card,.match-icon-red{font-size:29px}.match-icon-sub{font-size:19px;gap:1px}
+.groupTitle{font:700 23px/1.15 Antonio,Impact,sans-serif!important;margin:1px 0 4px!important;overflow-wrap:normal;word-break:normal}
+.incidentSubtitle{font:700 12px/1.4 Arial,sans-serif;color:#dddad2;letter-spacing:.15px}
+.bundle{display:block!important;width:100%!important;min-width:0!important;padding-left:19px!important;box-sizing:border-box}
+.entry{display:block!important;position:relative;width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;padding:11px 13px!important;margin-bottom:8px!important;overflow-wrap:break-word!important;word-break:normal!important}
+.entry .meta{display:flex!important;flex-wrap:wrap!important;align-items:center;gap:8px;min-width:0}
+.sourcePill{display:inline-flex!important;align-items:center!important;width:auto!important;max-width:100%;white-space:normal!important;flex:0 1 auto}
+.sourcePill .badgeIcon{flex:0 0 27px}
+.entry .origin{display:inline-block!important;white-space:nowrap!important}
+.entrytitle{display:block!important;width:100%!important;font:700 20px/1.22 Antonio,Impact,sans-serif!important;overflow-wrap:break-word!important;word-break:normal!important;white-space:normal!important;margin-top:7px!important}
+.entry p{display:block!important;width:100%!important;font:13px/1.55 Arial,Helvetica,sans-serif!important;white-space:pre-line!important;overflow-wrap:break-word!important;word-break:normal!important;margin-top:7px!important}
+.group .entry:before{left:-15px;width:15px}
+.group .entry:after{left:-18px}
+.timeline:before{left:12px!important}
+@media(max-width:900px){.pagegrid aside{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){
+.pagegrid aside{grid-template-columns:1fr}
+.group{grid-template-columns:17px 57px minmax(0,1fr)!important;column-gap:5px!important}
+.junction{left:0;top:12px;width:12px;height:12px}
+.timeline:before{left:5px!important}
+.time{font-size:15px!important;padding:5px 2px}
+.incidentHead{gap:5px}
+.match-icon{width:27px;height:29px;min-width:27px;flex-basis:27px;font-size:19px}
+.match-icon-sub{font-size:12px}
+.groupTitle{font-size:18px!important}
+.incidentSubtitle{font-size:10px}
+.bundle{padding-left:12px!important}
+.entry{padding:9px!important}
+.entrytitle{font-size:17px!important}
+.entry p{font-size:12px!important}
+.sourcePill{font-size:10px!important;letter-spacing:0}
+.sourcePill .badgeIcon{flex-basis:22px}
+.group .entry:before{left:-10px;width:10px}.group .entry:after{left:-13px}
+}
 </style></head><body>
-<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>DARREN PREVIEW · INKBERROW MATCHDAY RECONSTRUCTION · v0.6.1</small></div></div></header>
+<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>DARREN PREVIEW · INKBERROW MATCHDAY RECONSTRUCTION · v0.6.2</small></div></div></header>
 <main><div class="hero"><div><h2>TIVVY <em>LIVE</em></h2><div class="desc">One match. Four sources. The whole story — match facts, club updates and your commentary.</div></div><div class="desc">7 NOV 2026 · HOME · DIVISION ONE SOUTH</div></div>
 <div class="sourceNav" id="filters"><button data-filter="all" aria-pressed="true">ALL SOURCES</button><button data-filter="data" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png" alt="">FOOTBALL WEB PAGES</button><button data-filter="sl" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png" alt="">SOUTHERN LEAGUE</button><button data-filter="facebook" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_fe04546aceb943afadf7fd3f8fa12bb8~mv2.png" alt="">TIVERTON TOWN FC FANS</button><button data-filter="x" aria-pressed="false"><img src="https://static.wixstatic.com/media/8aa829_157c986840c645ae8b736df04f29a37f~mv2.png" alt="">TIVERTON TOWN FC · X</button></div>
 <div class="viewNav"><strong>TIMELINE ORDER</strong><button type="button" data-order="newest" aria-pressed="true">↓ LIVE VIEW · NEWEST FIRST</button><button type="button" data-order="oldest" aria-pressed="false">↑ REPLAY · KICK-OFF FIRST</button></div>
@@ -209,7 +256,28 @@ function eventIcon(title,body){
  return '';
 }
 function entry(item){let [src,title,body,minute,incident]=item;return '<div class="entry '+src+(incident?' incident-'+incident:'')+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":src==="sl"?"sl":"data")+'"><span class="badgeIcon">'+logoImage(src)+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
-function render(){let shown=0;let ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);let html=ordered.map(g=>{let items=g.items.filter(i=>filter==="all"||i[0]===filter);if(!items.length)return"";shown+=items.length;return '<div class="group kind-'+esc(g.icon)+'"><span class="junction"></span><div><span class="time">'+esc(g.minute)+'</span></div><div class="incident-cell"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+(g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●"))+'</span></div><div class="incident-content"><h3 class="groupTitle">'+esc(g.title)+'</h3><div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div></div>'}).join("");document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';}
+function render(){
+ const ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);
+ const html=ordered.map(g=>{
+  const items=g.items.filter(i=>filter==="all"||i[0]===filter);
+  if(!items.length)return "";
+  const icon=g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●");
+  const eventInfo=items.find(i=>i[0]==="sl")||items.find(i=>i[0]==="data");
+  const mainTitle=g.title;
+  const subtitle=eventInfo?eventInfo[1].replace(/^\\d+′ · /,""):"";
+  return '<div class="group kind-'+esc(g.icon)+'">'+
+   '<span class="junction"></span>'+
+   '<div class="timecell"><span class="time">'+esc(g.minute)+'</span></div>'+
+   '<div class="incident-content">'+
+    '<div class="incidentHead"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+icon+'</span>'+
+     '<div class="incidentHeading"><h3 class="groupTitle">'+esc(mainTitle)+'</h3>'+
+     (subtitle?'<div class="incidentSubtitle">'+esc(subtitle)+'</div>':"")+'</div></div>'+
+    '<div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div>'+
+   '</div></div>';
+ }).join("");
+ document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';
+}
+
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.querySelectorAll("[data-order]").forEach(b=>b.addEventListener("click",()=>{order=b.dataset.order;document.querySelectorAll("[data-order]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.getElementById("slFile").addEventListener("change",async ev=>{

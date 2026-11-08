@@ -88,7 +88,7 @@ function dedup(items){const seen=new Set(),list=[];let duplicates=0;for(const e 
 function diagnostic(msg){audit.unshift(new Date().toLocaleTimeString("en-GB")+" · "+msg);$("diagnostics").textContent=audit.slice(0,20).join("\n")}
 function paint(){
  let chosen=mode==="replay"?events.slice(0,cursor):events.slice(),d=dedup(chosen);
- $("home").textContent=match.home;$("away").textContent=match.away;$("score").textContent=scoreFor(d.list);
+ $("home").textContent=match.home;$("away").textContent=match.away;$("score").textContent=(mode==="import"&&match.verifiedScore)?match.verifiedScore:scoreFor(d.list);
  $("competition").textContent=match.competition.toUpperCase()+" · "+match.date.split("-").reverse().join("/");
  $("meta").textContent=(mode==="replay"?"HISTORICAL REPLAY · ":"IMPORTED SNAPSHOT · ")+(match.kickoff?"Kick-off "+match.kickoff+" · ":"")+(match.venue||"Venue not supplied");
  $("mode").textContent=mode==="replay"?"HISTORICAL REPLAY":"IMPORTED SNAPSHOT";$("mode").className="mode "+(mode==="replay"?"demo":"archive");
@@ -113,7 +113,7 @@ function fromSouthern(record){
  else{add(record.homeGoals||[],"goal","home");add(record.awayGoals||[],"goal","away");add(record.homeCards||[],"card","home");add(record.awayCards||[],"card","away");add(record.homeSubs||[],"sub","home");add(record.awaySubs||[],"sub","away");}
  a.sort((x,y)=>x.minute-y.minute);
  const date=String(record.date||record.startDate||record.matchDate||"").slice(0,10);
- return {fixture:{date:date||"Date unavailable",home:homeName,away:awayName,kickoff:"",competition:"Southern League match snapshot",venue:"",status:String(record.status||"Unknown")},events:a};
+ let sc=record.score,verifiedScore=null;if(Array.isArray(sc)&&sc.length===2)verifiedScore=sc.join(" – ");else if(sc?.current&&sc.current.home!=null&&sc.current.away!=null)verifiedScore=sc.current.home+" – "+sc.current.away;return {fixture:{date:date||"Date unavailable",home:homeName,away:awayName,kickoff:"",competition:"Southern League match snapshot",venue:"",status:String(record.status||"Unknown"),verifiedScore},events:a};
 }
 function loadJSON(doc){
  let records=Array.isArray(doc)?doc:Array.isArray(doc.tivertonMatches)?doc.tivertonMatches:Array.isArray(doc.items)?doc.items:Array.isArray(doc.matches)?doc.matches:doc.match?[doc.match]:doc.fixture?[doc.fixture]:[doc];

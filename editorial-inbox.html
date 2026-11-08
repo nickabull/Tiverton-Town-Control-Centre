@@ -58,7 +58,7 @@ summary{cursor:pointer;font-weight:bold}
 @media(max-width:1150px){main{grid-template-columns:245px minmax(280px,1fr)}.details{grid-column:1/-1;border-left:0;border-top:1px solid #ddd}}
 @media(max-width:680px){main{display:block}.middle{padding:15px}aside,.details{border:0;border-bottom:1px solid #ccc}textarea{min-height:350px}}
 </style></head><body>
-<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · EDITORIAL CONTROL CENTRE</div><small>Raw Word → Editorial review → Approved copy · v1.2</small></div>
+<header class="top"><div><div class="logo"><em>TIVVY</em> DATA CENTRE · EDITORIAL CONTROL CENTRE</div><small>Raw Word → Editorial review → Approved copy · v1.3</small></div>
 <div class="actions"><a class="button dark" href="programme-studio.html">← PROGRAMME STUDIO</a><a class="button dark" href="version-history.html">VERSION HISTORY</a><button id="backup" class="dark">Download inbox backup</button><button id="help">? USER GUIDE</button></div></header>
 <main>
 <aside><div class="section"><h2>Incoming copy</h2>
@@ -90,9 +90,9 @@ summary{cursor:pointer;font-weight:bold}
 <div id="approvalStatus" class="reportBox" hidden></div>
 <h3>Approved outputs</h3><div class="controls"><button id="copyText">Copy for programme</button><button id="copyHtml">Copy article HTML for Wix</button><button id="downloadHtml">Download Wix article HTML</button></div><p class="note">Output actions use the last explicitly approved snapshot, not later unapproved edits. Wix publishing is not connected: the HTML is for creating a draft, not going live automatically.</p>
 </div></section>
-<aside class="details"><div id="reviewPanel"><h2>Editorial Health Check</h2><p class="note">Red = definite; amber = needs a human check; grey = style suggestion. Click a correction to apply only that change.</p><div class="controls"><button id="rescan" class="gold">↻ Scan this document</button><button id="showIgnored">Show ignored</button></div><div id="issues"></div><div class="section"><h3>Corrections log</h3><div id="versionList" class="note"></div></div></div><div id="noReview" class="note">Select a document to view the editorial findings.</div></aside>
+<aside class="details"><div id="reviewPanel"><h2>Editorial Health Check</h2><p class="note">Red = definite; amber = needs a human check; grey = style suggestion. Click a correction to apply only that change.</p><div class="controls"><button id="rescan" class="gold">↻ Scan this document</button><button id="showIgnored">Show ignored</button></div><div class="controls"><button id="applySafe" class="gold" type="button">✓ Apply all safe corrections</button><button id="undoSafe" type="button" disabled>↶ Undo safe batch</button></div><p id="safeStatus" class="note">Strict mechanical fixes only. Preview and confirm first. Names, match facts and uncertain wording stay for individual review.</p><div id="issues"></div><div class="section"><h3>Corrections log</h3><div id="versionList" class="note"></div></div></div><div id="noReview" class="note">Select a document to view the editorial findings.</div></aside>
 </main>
-<dialog id="guide" style="max-width:700px;width:90%;border:3px solid #ffdb00;padding:20px;background:#fff"><div style="display:flex;justify-content:space-between"><h2 style="margin:0">Editorial Inbox · User Guide</h2><button id="closeGuide">✕</button></div><ol><li>Receive a Word report or preview from Darren by email; download it once for the browser importer. Direct Gmail importing requires Google OAuth setup; unattended closed-browser syncing additionally needs a private server or scheduled connector.</li><li>Import the .docx. It is parsed locally in the browser. The original is retained and never overwritten by suggested edits.</li><li>Review red errors first, then amber fact/name checks. Use <b>Apply correction</b>, <b>Ignore</b> or manually edit the copy.</li><li>Re-scan after changes. The corrections log records what has been accepted.</li><li>Approve a snapshot only after checking the text. This makes it available to Programme Studio (in the same browser) and unlocks copy/export for Wix.</li><li>Download the inbox JSON backup before clearing this browser or moving computers. Nothing in this tool automatically publishes to Wix.</li></ol><p class="note">Changes to the working text after approval require another approval to update the published-ready snapshot. Fictional or disputed football facts must not be silently rewritten.</p></dialog>
+<dialog id="guide" style="max-width:700px;width:90%;border:3px solid #ffdb00;padding:20px;background:#fff"><div style="display:flex;justify-content:space-between"><h2 style="margin:0">Editorial Inbox · User Guide</h2><button id="closeGuide">✕</button></div><ol><li>Receive a Word report or preview from Darren by email; download it once for the browser importer. Direct Gmail importing requires Google OAuth setup; unattended closed-browser syncing additionally needs a private server or scheduled connector.</li><li>Import the .docx. It is parsed locally in the browser. The original is retained and never overwritten by suggested edits.</li><li>Review red errors first, then amber fact/name checks. Apply all safe corrections previews only whitelisted mechanical fixes; other issues remain for manual review. Use <b>Apply correction</b>, <b>Ignore</b> or manually edit the copy.</li><li>Re-scan after changes. The corrections log records what has been accepted.</li><li>Approve a snapshot only after checking the text. This makes it available to Programme Studio (in the same browser) and unlocks copy/export for Wix.</li><li>Download the inbox JSON backup before clearing this browser or moving computers. Nothing in this tool automatically publishes to Wix.</li></ol><p class="note">Changes to the working text after approval require another approval to update the published-ready snapshot. Fictional or disputed football facts must not be silently rewritten.</p></dialog>
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js"></script><script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 (function(){
@@ -102,6 +102,8 @@ var docs=[],selected=null,showIgnored=false,saveTimer=0,gmailToken=null,gmailCli
 var $=function(id){return document.getElementById(id)};
 var esc=function(v){return String(v==null?"":v).replace(/[&<>"']/g,function(x){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]})};
 try{var stored=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(stored))docs=stored;}catch(err){}
+// Bulk whitelist: mechanical fixes only, never player names, results, apostrophes or ambiguous phrasing.
+var SAFE_RULE_IDS=new Set(["spacing","closer","halfvolley","dotdot","sidefoot"]);
 var RULES=[
  {id:"slough",type:"definite",message:"Club player name: Louie Slough",pattern:/\bLouis Slough\b/gi,to:"Louie Slough"},
  {id:"jagger",type:"possible",message:"Check approved spelling of Louis Jagger-Cane",pattern:/\bLouis Jagger Cane\b/gi,to:"Louis Jagger-Cane"},
@@ -247,6 +249,34 @@ function render(){
  var log=$("versionList");log.innerHTML=(d.changes||[]).slice(-12).reverse().map(function(x){return "<div>"+esc(x.at.slice(0,16).replace("T"," "))+" · "+esc(x.message)+"</div>"}).join("")||"No corrections accepted yet.";
  renderIssues(issues);
   paintColourReview();
+  $("undoSafe").disabled=!d.batchUndo||d.working!==d.batchUndo.after;
+}
+function safeCandidates(d){
+ return scan(d).filter(function(f){return !f.ignored&&SAFE_RULE_IDS.has(f.rule.id)&&typeof f.to==="string"&&f.to!==f.match&&!/[\\r\\n]/.test(f.match);});
+}
+function applySafeBatch(){
+ var d=active();if(!d)return;var items=safeCandidates(d);
+ if(!items.length){$("safeStatus").textContent="No eligible safe corrections; other issues require individual review.";return;}
+ var preview=items.slice(0,15).map(function(f){return "• "+f.rule.message+": "+JSON.stringify(f.match)+" → "+JSON.stringify(f.to);}).join("\\n");
+ var skipped=scan(d).filter(function(f){return !f.ignored}).length-items.length;
+ if(!confirm("Apply "+items.length+" strictly mechanical correction(s)?\\n\\n"+preview+(items.length>15?"\\n… plus "+(items.length-15)+" more.":"")+"\\n\\n"+skipped+" other flags remain for review. No approval or publishing occurs."))return;
+ var before=d.working,changes=[],right=Infinity;
+ items.sort(function(a,b){return b.at-a.at;});
+ items.forEach(function(f){if(f.at+f.match.length>right)return;if(d.working.slice(f.at,f.at+f.match.length)!==f.match)return;
+  d.working=d.working.slice(0,f.at)+f.to+d.working.slice(f.at+f.match.length);
+  changes.push({at:new Date().toISOString(),message:"Safe batch: "+f.rule.message,from:f.match,to:f.to,position:f.at});
+  right=f.at;
+ });
+ if(!changes.length)return;
+ d.batchUndo={before:before,after:d.working,count:changes.length};d.changes=(d.changes||[]).concat(changes);
+ save();render();$("safeStatus").textContent="Applied "+changes.length+" safe corrections. Remaining issues need individual review.";
+}
+function undoSafeBatch(){
+ var d=active();if(!d||!d.batchUndo)return;
+ if(d.working!==d.batchUndo.after){alert("The working copy changed after this batch; undo is disabled to protect newer edits.");return;}
+ if(!confirm("Undo the last batch of "+d.batchUndo.count+" safe corrections?"))return;
+ d.working=d.batchUndo.before;d.changes=(d.changes||[]).slice(0,-d.batchUndo.count);d.batchUndo=null;
+ save();render();$("safeStatus").textContent="Last safe batch undone.";
 }
 function paintColourReview(){
  var d=active(),view=$("colourReview");if(!d||view.hidden)return;
@@ -290,7 +320,9 @@ $("files").onchange=async function(e){var files=Array.from(e.target.files||[]);i
 };
 $("jsonFile").onchange=async function(e){var file=e.target.files[0];if(!file)return;try{var obj=JSON.parse(await file.text());if(!Array.isArray(obj))throw Error("Expected editorial inbox JSON array");if(!confirm("Restore this inbox backup? It replaces the current local inbox."))return;docs=obj.filter(function(d){return d&&typeof d.original==="string"&&typeof d.working==="string"&&d.id});selected=docs[0]&&docs[0].id;save();exportApproved();render();}catch(err){alert("Cannot restore backup: "+err.message)}e.target.value="";};
 $("backup").onclick=function(){download("tivvy-editorial-inbox-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(docs,null,2),"application/json")};
-$("toggleColourReview").onclick=function(){var v=$("colourReview");v.hidden=!v.hidden;$("toggleColourReview").textContent=v.hidden?"Show coloured review":"Hide coloured review";paintColourReview()};
+$("applySafe").onclick=applySafeBatch;
+ $("undoSafe").onclick=undoSafeBatch;
+ $("toggleColourReview").onclick=function(){var v=$("colourReview");v.hidden=!v.hidden;$("toggleColourReview").textContent=v.hidden?"Show coloured review":"Hide coloured review";paintColourReview()};
  $("working").oninput=function(e){var d=active();if(!d)return;d.working=e.target.value;clearTimeout(saveTimer);saveTimer=setTimeout(function(){save();renderIssues(scan(d).filter(function(f){return !f.ignored}));paintColourReview();var issues=scan(d).filter(function(f){return !f.ignored});$("countAll").textContent=issues.length;$("countDef").textContent=issues.filter(function(f){return f.rule.type==="definite"}).length;$("countPos").textContent=issues.filter(function(f){return f.rule.type==="possible"}).length},280)};
 $("working").onblur=function(){save();render()};
 $("docTitle").onchange=function(e){var d=active();d.title=e.target.value;save();render()};
@@ -298,7 +330,7 @@ $("docKind").onchange=function(e){var d=active();d.kind=e.target.value;save();re
 $("rescan").onclick=render;
 $("showIgnored").onclick=function(){showIgnored=!showIgnored;$("showIgnored").textContent=showIgnored?"Hide ignored":"Show ignored";renderIssues(showIgnored?scan(active()):scan(active()).filter(function(x){return !x.ignored}))};
 $("compare").onclick=function(){$("originalView").hidden=!$("originalView").hidden;$("compare").textContent=$("originalView").hidden?"Show original":"Hide original"};
-$("reset").onclick=function(){var d=active();if(!confirm("Restore Darren's unchanged original into the working editor? The previously approved snapshot (if any) will remain available."))return;d.working=d.original;d.changes=[];d.ignored=[];save();render()};
+$("reset").onclick=function(){var d=active();if(!confirm("Restore Darren's unchanged original into the working editor? The previously approved snapshot (if any) will remain available."))return;d.working=d.original;d.changes=[];d.ignored=[];d.batchUndo=null;save();render()};
 $("approve").onclick=function(){var d=active(),issues=scan(d).filter(function(f){return !f.ignored});var msg="Approve this working copy for programme and Wix DRAFT preparation?";
  if(issues.length)msg+="\n\nThere are "+issues.length+" unresolved editorial flags. Approval means YOU have reviewed them. Continue?";
  if(!confirm(msg))return;d.approved={at:new Date().toISOString(),text:d.working};save();exportApproved();render()};

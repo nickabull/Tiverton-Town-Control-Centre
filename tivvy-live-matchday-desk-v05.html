@@ -76,23 +76,24 @@ footer{font-size:11px;color:#b4b0b2;border-top:1px solid #514d50;margin-top:25px
 .groupTitle{font-size:17px;margin:6px 0 9px}
 .bundle{padding-left:14px}
 }
-</style></head><body>
-<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>INKBERROW REWIND · WORKING HTML DEMO · v0.5.1 · MATCH ICON COLUMN</small></div></div></header>
+.entry.incident-goal:after{background:#65baff!important}.entry.incident-red:after{background:#e33a7b!important}.entry.incident-yellow:after{background:#ffae42!important}.entry.incident-sub:after{background:#65e6a2!important}.entry.sl{border-left:4px solid #252e82}.sourcePill.sl{border:1px solid #647ac7;color:#dce6ff}.sourcePill.sl .badgeIcon{color:#dce6ff;font-weight:700}</style></head><body>
+<header><div class="brand"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div><h1>TIVERTON TOWN FC · <span style="color:var(--gold)">LIVE MATCHDAY DESK</span></h1><small>INKBERROW REWIND · WORKING HTML DEMO · v0.6 · LEAGUE API CONNECTED · MATCH ICON COLUMN</small></div></div></header>
 <main><div class="hero"><div><h2>TIVVY <em>LIVE</em></h2><div class="desc">The Saturday story told through match data, fan commentary and Tiverton Town's X posts.</div></div><div class="desc">7 NOV 2026 · HOME · DIVISION ONE SOUTH</div></div>
 <div class="sourceNav" id="filters"><button data-filter="all" aria-pressed="true">ALL SOURCES</button><button data-filter="data" aria-pressed="false">◉ FOOTBALL WEB PAGES</button><button data-filter="sl" aria-pressed="false">⚑ SOUTHERN LEAGUE</button><button data-filter="facebook" aria-pressed="false"><span class="sourceLogo">f</span> TIVVY FANS FACEBOOK</button><button data-filter="x" aria-pressed="false"><span class="sourceLogo">𝕏</span> TIVVY X</button></div>
 <div class="viewNav"><strong>TIMELINE ORDER</strong><button type="button" data-order="newest" aria-pressed="true">↓ LIVE VIEW · NEWEST FIRST</button><button type="button" data-order="oldest" aria-pressed="false">↑ REPLAY · KICK-OFF FIRST</button></div>
 <div class="scoreboard"><div class="teamline"><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><span class="team">Tiverton Town</span></div><span class="score">1 – 2</span><div class="teamline"><span class="team">Sporting Club Inkberrow</span><img class="crest" src="https://www.southern-football-league.co.uk/img/teams/sporting_club_inkberrow_f.c._logo-7380b5a5-0cb4-4e2c-9e9d-9fd9ddfc93db.png?variant=detail_s&amp;fit=contain" alt="Sporting Club Inkberrow crest"></div></div>
 <div class="summary"><span><b>FULL-TIME</b> · Saturday 7 November 2026 · Kick-off 15:00</span><span>Attendance <b>223</b> · Southern League Division One South</span></div>
-<div class="note"><b>HISTORICAL DEMO:</b> Yellow branches group posts describing the same incident. Their reported minutes differ occasionally from the structured match record. Match data shown here comes from Football Web Pages; Southern League API import exists separately. No social integrations or live alerts are active.</div>
-<section class="slImport"><div class="slTop"><div><strong>⚑ SOUTHERN LEAGUE API · MATCH EVENTS</strong><small id="slStatus">Not yet verified: the latest archived GitHub audit failed with HTTP 400 and contained no Southern League event JSON. Football Web Pages, fan commentary and X data below remain intact.</small></div><label class="slAction">IMPORT ACTUAL API AUDIT JSON<input id="slFile" type="file" accept=".json,application/json" hidden></label></div><p id="slHelp">If the league API responds successfully, import its JSON response or GitHub audit file here. Events will branch beside the existing incident when they concern the same match moment; differing minutes remain visible.</p></section><div class="pagegrid"><section><div class="timeline" id="timeline"></div></section><aside>
+<div class="note"><b>HISTORICAL DEMO:</b> Yellow branches group posts describing the same incident. Their reported minutes differ occasionally from the structured match record. Football Web Pages and the Southern League API are independently attributed. Darren and club X posts retain their original reported match minutes. Historical reconstruction only; no live polling or alerts yet.</div>
+<section class="slImport"><div class="slTop"><div><strong>⚑ SOUTHERN LEAGUE API · MATCH EVENTS</strong><small id="slStatus">Connecting to verified Southern League API archive of Tiverton v Inkberrow…</small></div><label class="slAction">IMPORT ACTUAL API AUDIT JSON<input id="slFile" type="file" accept=".json,application/json" hidden></label></div><p id="slHelp">Verified Southern League match events will load automatically and branch into the real match timeline. You can still test a later match with a manual JSON import. Historical snapshot, not a live polling connection.</p></section><div class="pagegrid"><section><div class="timeline" id="timeline"></div></section><aside>
 <div class="sidepanel"><h3>HOW IT WORKS</h3><div class="inner"><div class="item"><span>✓</span> All sources in match order</div><div class="item"><span>✓</span> Same incident, branching yellow line</div><div class="item"><span>✓</span> Darren's commentary alongside match facts</div><div class="item"><span>✓</span> Entirely separate from live Wix pages</div></div></div>
 <div class="sidepanel"><h3>SOURCE KEY</h3><div class="inner"><div class="item"><span>◉</span> Football Web Pages · match data</div><div class="item"><span>⚑</span> Southern League · API only when actually imported</div><div class="item"><span style="font-weight:bold">f</span> Darren Holmes · Facebook</div><div class="item"><span>𝕏</span> Tiverton Town FC · X</div><p style="margin-top:12px;color:#ccc">Each update is labelled. Football Web Pages match minutes are treated as structured match-record minutes; social commentary keeps its own reported minute.</p></div></div>
 <div class="sidepanel"><h3>NEXT: PAULTON</h3><div class="inner"><p>This is how a supporter could follow an away game, even without any social integration: official events first, commentary added when available.</p></div></div></aside></div>
-<footer><b>DEMO ONLY.</b> No Southern League events are invented; API import requires a genuine successful response. Source match record: <a target="_blank" rel="noopener" href="https://www.footballwebpages.co.uk/match/2026-2027/southern-football-league-division-one-south/tiverton-town/sporting-club-inkberrow/583887">Football Web Pages</a>. Facebook and X wording transcribed from screenshots supplied for this demo. This page does not post to social media or send alerts. <a href="version-history.html">Version history</a>.</footer></main>
+<footer><b>DEMO ONLY.</b> Southern League cards come from its actual public match API, retrieved for 7 November 2026. Source match record: <a target="_blank" rel="noopener" href="https://www.footballwebpages.co.uk/match/2026-2027/southern-football-league-division-one-south/tiverton-town/sporting-club-inkberrow/583887">Football Web Pages</a>. Facebook and X wording transcribed from screenshots supplied for this demo. This page does not post to social media or send alerts. <a href="version-history.html">Version history</a>.</footer></main>
 <script>
 (()=>{"use strict";const groups=[{"minute":"KO","sort":0,"title":"KICK-OFF","icon":"kick","items":[["facebook","Team news","As we lined up. Louis Jagger Cane returns to the starting line up, with Owen Howe being unavailable, in an otherwise unchanged eleven up, from the side that won at Weymouth.",-1],["x","KICK-OFF","HEEEREEEE WE GOO","#OneTivvy",0]]},{"minute":"2–3′","sort":2,"title":"INKBERROW STRIKE EARLY","icon":"goal","items":[["data","2′ · GOAL · William Moore","Sporting Club Inkberrow take the lead. Tiverton 0–1 Inkberrow.",2],["facebook","3′ · Tiverton caught cold!","An early goal for the visitors. 0-1",3],["x","3′ · GOAL","Early opener from the away side after an attack from a throw in is failed to be cleared, the ball is bundled into the net. TIV 0–1 INK · #OneTivvy",3]]},{"minute":"15′","sort":15,"title":"OPENING QUARTER","icon":"note","items":[["x","15′","A scrappy opening 15 with neither side really keeping the ball on the deck. An open game for sure.",15]]},{"minute":"20′","sort":20,"title":"INKBERROW CHANCE","icon":"note","items":[["x","20′","Inkberrow’s full back finds himself in space from distance and fancied his chances with a strike but it just didn’t have the height and it flies out for a goal kick.",20]]},{"minute":"26′","sort":26,"title":"TIVVY SETTLING","icon":"note","items":[["x","26′","Tivvy growing into the game with some good looks at the goal but nothing clear cut just yet.",26]]},{"minute":"31′","sort":31,"title":"TIVVY PUSH FORWARD","icon":"note","items":[["x","31′","A powerful curling free kick from Bissett is on target to the keeper’s top right but is caught well. Moments later we find ourselves on the counter where Kennell lashes at his shot and it’s out for a goal kick. Promising signs.",31]]},{"minute":"45′","sort":45,"title":"LATE FIRST-HALF CHANCE","icon":"note","items":[["data","45′ · YELLOW CARD","Corey Hayden Koerner cautioned.",45],["x","45′","Inkberrow go close with a benching shot to the far top left corner but whistles past the post.",45]]},{"minute":"HT","sort":45.5,"title":"HALF-TIME · TIVVY 0–1 INKBERROW","icon":"half","items":[["facebook","Half time: Tiverton 0 SC Inkberrow1","A bitty opening half hour, lacking the quality of recent Yellows' performances, saw us caught cold and behind after just three minutes. They struggled to find any rhythm to their play for the majority of the half, but did improve in the closing period of the half.",45.5],["x","HALF TIME","A scrappy start to the half had the visitors in the lead early doors but later in the half Tivvy started to grow into it. All to the play for, stay tuned for the second half!",45.5]]},{"minute":"46′","sort":46,"title":"INKBERROW CHANGE","icon":"sub","items":[["x","Second half","We are underway again! #OneTivvy",46],["data","46′ · SUBSTITUTION","Zachary Powell replaces Aidan Clark for Sporting Club Inkberrow.",46]]},{"minute":"48–53′","sort":48,"title":"RED CARD AND RESHUFFLE","icon":"red","items":[["data","48′ · RED CARD","Jack William Kennell sent off.",48],["facebook","Sending off 48″","Jack Kennell is sent off after a heavy mistimed challenge. 50″ in a reshuffle after going down to ten men, Stephens is withdrawn and Dan Koita is on.",48],["x","48′ · RED CARD","Not a good start, Kennell flies in on the opposition player and it was a red card. TIV 0–1 INK",48],["x","50′ · SUBS","Stephens ⬇️ Koita ⬆️ · TIV 0–1 INK",50],["data","53′ · SUBSTITUTION","Dan Koita replaces Toby Stephens for Tiverton Town.",53]]},{"minute":"57–59′","sort":57,"title":"GOAL! MATT WOOD LEVELS IT","icon":"goal","items":[["facebook","57′ Wood leveller! Tiverton 1 SC Inkberrow 1","Captain Matt Wood heads home from a corner and it's all to play for, despite Tivvy being down to 10.",57],["x","57′ · GOAL ⚽","It’s the skipper Matt Wood who levels it for Tivvy! Get in 🙌 Let’s kick on now boys!",57],["data","59′ · GOAL · Matthew Liam Wood","Matt Wood equalises for Tiverton Town. Tiverton 1–1 Inkberrow.",59]]},{"minute":"73–75′","sort":73,"title":"BOTH SIDES HIT THE BAR","icon":"note","items":[["x","73′","A shot from outside the box by the opposition rattles the bar and the rebound is nodded over the bar. Warning signs for 10 man Tivvy.",73],["data","75′ · SUBSTITUTION","Louis Crook replaces Gregor Guy for Sporting Club Inkberrow.",75],["facebook","75′ Both sides hit the crossbar!","The visitors rattle the bar from outside the box and then head over and the Matt Wood clips the crossbar with a header from a Tivvy corner. 1-1",75]]},{"minute":"80′","sort":80,"title":"CHAOS IN THE INKBERROW BOX","icon":"note","items":[["x","80′","Chaos. Koita skins the keeper outside the box and beats the defender but couldn’t put it away. Moments after, Koita is swiped out by their keeper outside the box, no foul. Tivvy hunting that late winner again 👀",80]]},{"minute":"81–85′","sort":81,"title":"LATE WINNER FOR INKBERROW","icon":"goal","items":[["x","81′ · SUBS","Jagger Cane ⬇️ Roberts ⬆️ · TIV 1–1 INK",81],["x","82′ · GOAL","Inkberrow score. TIV 1–2 INK",82],["facebook","83 Inkberrow back in front","1-2",83],["data","85′ · GOAL · Louis Crook","Sporting Club Inkberrow regain the lead. Tiverton 1–2 Inkberrow.",85],["data","85′ · SUBSTITUTION · TIVVY","Finn Roberts replaces Louis Jagger Cane.",85],["data","85′ · SUBSTITUTION · INKBERROW","Max Angelides replaces Joshua Hurdman.",85]]},{"minute":"87–89′","sort":87,"title":"FINAL TIVVY CHANGE","icon":"sub","items":[["x","87′ · SUBSTITUTION","Slough ⬇️ Keates ⬆️ · TIV 1–2 INK",87],["data","89′ · SUBSTITUTION","Ryan Richard Keates replaces Louie Slough.",89]]},{"minute":"90+6′","sort":90,"title":"ADDED TIME","icon":"half","items":[["x","SIX MINUTES ADDED","6 minutes added on · #OneTivvy",90],["x","Added-time reaction","Didn’t seem like 6 minutes... okay. #OneTivvy",90.1]]},{"minute":"FT","sort":100,"title":"FULL-TIME · TIVVY 1–2 INKBERROW","icon":"full","items":[["data","FULL-TIME","Tiverton Town 1–2 Sporting Club Inkberrow. Attendance: 223. Scorers: Moore 2′, Wood 59′, Crook 85′.",100],["facebook","Full time: Tiverton 1 Sporting Club Inkberrow 2","Despite being a goal down at the break and being down to Ten Men when just after it, Jack Kennell was dismissed, for a heavy, mistimed challenge, Matt Wood drew us level with a header from a corner.\n\nHowever both sides had chances to win it and in the 83rd minute, despite a spirited effort from Tiverton, Berrow found the winner. Whatever the circumstances, home results need to be better.",100.1],["x","FULL TIME","All over here at the Slee Blackwell Solicitors. Despite going down to 10 men early in the second, we fought hard to bring it level and to the end in hopes of grabbing a winner but it wasn’t meant to be.\n\n⚽ Matt Wood\nMOTM: Matt Wood\nUp next Paulton Rovers away on Wednesday 👊",100.2]]}];const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const names={data:"FOOTBALL WEB PAGES",facebook:"TIVERTON TOWN FC FANS · FACEBOOK",x:"TIVERTON TOWN FC · X",sl:"SOUTHERN LEAGUE · API"};const icons={data:"FWP",facebook:"f",x:"𝕏",sl:"SL"};
 let slImports=[];
+const SOUTHERN_SNAPSHOT="data/southern-league-inkberrow-2026-11-07.json";
 let filter="all";let order="newest";const kinds={goal:"⚽",card:"🟨",red:"🟥",sub:"↕",half:"HT",full:"🏁",note:"●",kick:"▶"};
 function findMatches(data){
  let root=Array.isArray(data)?data:Array.isArray(data.tivertonMatches)?data.tivertonMatches:Array.isArray(data.items)?data.items:Array.isArray(data.matches)?data.matches:data.match?[data.match]:[data];
@@ -100,34 +101,56 @@ function findMatches(data){
 }
 function numberOf(e){const n=parseInt(String(e.minute??e.matchMinute??e.time??""),10);return Number.isFinite(n)?n:null;}
 function takeSL(m){
- const out=[];const isAway=m.venue==="A";const isHome=m.venue==="H";const add=(list,type,team)=>{if(!Array.isArray(list))return;list.forEach(ev=>{if(!ev||typeof ev!=="object")return;let minute=numberOf(ev);if(minute===null)return;
- let name=ev.personName||ev.scorerName||ev.playerName||"Player not supplied";
- let detail=type==="goal"?"Goal · "+name:type==="card"?(String(ev.cardType||"").toLowerCase().includes("red")?"Red card":"Yellow card")+" · "+name:"Substitution · "+(ev.personOnName||ev.playerOnName||"Player on")+" for "+(ev.personOffName||ev.playerOffName||"Player off");
- if(type==="sub"&&(!ev.personOnName&&!ev.personOffName))return;
- out.push({minute,type,team,detail,raw:ev});});};
- if(Array.isArray(m.goals)||Array.isArray(m.cards)||Array.isArray(m.subs)){
- const side=isAway?"Tiverton Town (A)":isHome?"Tiverton Town (H)":"Tiverton Town";
- add(m.goals,"goal",side);add(m.cards,"card",side);add(m.subs,"sub",side);
+ const out=[],tivvySide=m.venue==="A"?"away":"home";
+ function add(rows,type,team){
+  if(!Array.isArray(rows))return;
+  rows.forEach(ev=>{
+   if(!ev||typeof ev!=="object")return;
+   const minute=numberOf(ev);if(minute===null)return;
+   const name=ev.personName||ev.scorerName||ev.playerName||"Player not supplied";
+   const on=ev.personOnName||ev.playerOnName,off=ev.personOffName||ev.playerOffName;
+   if(type==="sub"&&(!on||!off))return;
+   const resolved=type==="card"?(String(ev.cardType||"").toLowerCase().includes("red")?"red":"yellow"):type;
+   const detail=type==="goal"?"Goal · "+name:type==="card"?(resolved==="red"?"Red card":"Yellow card")+" · "+name:"Substitution · "+on+" replaces "+off;
+   out.push({minute,type:resolved,team,detail});
+  });
  }
- add(m.homeGoals,"goal","Home");add(m.awayGoals,"goal","Away");add(m.homeCards,"card","Home");add(m.awayCards,"card","Away");add(m.homeSubs,"sub","Home");add(m.awaySubs,"sub","Away");
+ if(Array.isArray(m.goals)||Array.isArray(m.cards)||Array.isArray(m.subs)){
+  add(m.goals,"goal","Tiverton Town");add(m.cards,"card","Tiverton Town");add(m.subs,"sub","Tiverton Town");
+  add(m.opponentGoals,"goal","Sporting Club Inkberrow");add(m.opponentCards,"card","Sporting Club Inkberrow");add(m.opponentSubs,"sub","Sporting Club Inkberrow");
+ }else{
+  add(m.homeGoals,"goal",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awayGoals,"goal",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.homeCards,"card",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awayCards,"card",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.homeSubs,"sub",tivvySide==="home"?"Tiverton Town":"Sporting Club Inkberrow");
+  add(m.awaySubs,"sub",tivvySide==="away"?"Tiverton Town":"Sporting Club Inkberrow");
+ }
  return out.sort((a,b)=>a.minute-b.minute);
 }
+
 function attachSL(items){
- // Fresh grouping on every import; never edit the FWP, Darren or club X records.
+ // Each genuine league event has its own source card; FWP and social posts are untouched.
  groups.forEach(g=>{g.items=g.items.filter(v=>v[0]!=="sl")});
- let created=0,joined=0;const seen=new Set();
+ for(let i=groups.length-1;i>=0;i--)if(groups[i].autoSFL)groups.splice(i,1);
+ const seen=new Set();let joined=0,created=0;
  items.forEach(e=>{
- const id=[e.minute,e.type,e.team,e.detail].join("|").toLowerCase();if(seen.has(id))return;seen.add(id);
- const content=[ "sl",e.minute+"′ · "+e.detail.toUpperCase(),e.team+" · "+e.detail,e.minute ];
- const likely=groups.filter(g=>g.sort>=0&&g.sort<100&&Math.abs(g.sort-e.minute)<=4&&
-  (e.type==="goal"?g.icon==="goal":e.type==="card"?g.icon==="red"||g.icon==="note":e.type==="sub"?g.icon==="sub"||g.title.includes("SUB")||g.title.includes("RED CARD")||g.title.includes("WINNER"):true));
- likely.sort((a,b)=>Math.abs(a.sort-e.minute)-Math.abs(b.sort-e.minute));
- if(likely.length){likely[0].items.push(content);joined++}
- else{groups.push({minute:e.minute+"′",sort:e.minute,title:"SOUTHERN LEAGUE EVENT",icon:e.type==="goal"?"goal":e.type==="card"?"red":"sub",items:[content]});created++}
+  const key=[e.minute,e.type,e.team,e.detail].join("|").toLowerCase();if(seen.has(key))return;seen.add(key);
+  const card=["sl",e.minute+"′ · "+e.detail.toUpperCase(),e.team+" · "+e.detail,e.minute,e.type];
+  let matches=groups.filter(g=>!g.autoSFL&&g.sort>=0&&g.sort<100&&Math.abs(g.sort-e.minute)<=5);
+  const semantic=matches.filter(g=>
+   e.type==="goal"?g.icon==="goal":
+   e.type==="red"?g.icon==="red"||g.title.includes("RED CARD"):
+   e.type==="yellow"?g.icon==="card"||g.title.includes("YELLOW")||g.title.includes("FIRST-HALF"):
+   e.type==="sub"?g.icon==="sub"||g.title.includes("RESHUFFLE")||g.title.includes("WINNER"):true);
+  if(semantic.length)matches=semantic;
+  matches.sort((a,b)=>Math.abs(a.sort-e.minute)-Math.abs(b.sort-e.minute));
+  if(matches.length){matches[0].items.push(card);joined++}
+  else{groups.push({minute:e.minute+"′",sort:e.minute,title:e.team+" · "+e.detail,icon:e.type==="goal"?"goal":e.type==="red"?"red":e.type==="yellow"?"card":"sub",items:[card],autoSFL:true});created++}
  });
- groups.sort((a,b)=>a.sort-b.sort);
- return {joined,created};
+ groups.sort((a,b)=>a.sort-b.sort);return{joined,created};
 }
+
 function matchFormatting(value,source){
  // Safe display-only typography for EVERY source; never mutate original records.
  // Facts, names, scorelines and original wording remain untouched.
@@ -157,23 +180,43 @@ function eventIcon(title,body){
  if(/goal|scores|leveller|equalis/.test(t))return '<span class="incidentIcon goal-blue">⚽</span>';
  return '';
 }
-function entry(item){let [src,title,body,minute]=item;return '<div class="entry '+src+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":"data")+'"><span class="badgeIcon">'+icons[src]+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
+function entry(item){let [src,title,body,minute,incident]=item;return '<div class="entry '+src+(incident?' incident-'+incident:'')+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":src==="sl"?"sl":"data")+'"><span class="badgeIcon">'+icons[src]+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
 function render(){let shown=0;let ordered=groups.slice().sort((a,b)=>order==="newest"?b.sort-a.sort:a.sort-b.sort);let html=ordered.map(g=>{let items=g.items.filter(i=>filter==="all"||i[0]===filter);if(!items.length)return"";shown+=items.length;return '<div class="group kind-'+esc(g.icon)+'"><span class="junction"></span><div><span class="time">'+esc(g.minute)+'</span></div><div class="incident-cell"><span class="match-icon match-icon-'+esc(g.icon)+'" aria-hidden="true">'+(g.icon==="sub"?'<span class="player-off">▼</span><span class="player-on">▲</span>':(kinds[g.icon]||"●"))+'</span></div><div class="incident-content"><h3 class="groupTitle">'+esc(g.title)+'</h3><div class="bundle">'+(order==="newest"?items.slice().reverse():items).map(entry).join("")+'</div></div>'}).join("");document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';}
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.querySelectorAll("[data-order]").forEach(b=>b.addEventListener("click",()=>{order=b.dataset.order;document.querySelectorAll("[data-order]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.getElementById("slFile").addEventListener("change",async ev=>{
  const f=ev.target.files?.[0];if(!f)return;
- try{const parsed=JSON.parse(await f.text());let selected=findMatches(parsed);
+ try{const parsed=JSON.parse(await f.text());let selected=parsed.match?[parsed.match]:findMatches(parsed);
  if(selected.length!==1)throw Error("Expected one Tiverton match in the JSON; found "+selected.length+".");
  let match=selected[0],day=String(match.date||match.startDate||match.matchDate||parsed.date||"").slice(0,10);
  if(day&&day!=="2026-11-07")throw Error("File is for "+day+", not Inkberrow on 7 Nov 2026.");
- let actual=takeSL(match);if(!actual.length)throw Error("No structured match events in file. The current GitHub API workflow returned HTTP 400, so it may not have captured an audit.");
+ let actual=takeSL(match);if(!actual.length)throw Error("No structured match events in this file.");
  const added=attachSL(actual);slImports=actual;
  document.getElementById("slStatus").textContent="Imported "+actual.length+" Southern League API entries from "+f.name+". "+added.joined+" joined existing branches; "+added.created+" new moments created.";
  document.getElementById("slHelp").textContent="Real imported event minutes remain alongside FWP, Darren and X reports. No fabricated Southern League events have been added.";
  filter="all";document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.filter==="all")));render();
  }catch(err){document.getElementById("slStatus").textContent="Import rejected: "+err.message;}
  ev.target.value="";
-});render();
+});
+async function loadVerifiedSouthernLeague(){
+ const status=document.getElementById("slStatus");
+ try{
+  const res=await fetch(SOUTHERN_SNAPSHOT+"?v=20261108-verified",{cache:"no-store"});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  const payload=await res.json();
+  if(payload.match?.date!=="2026-11-07"||payload.match?.apiId!=="6a5a1cc3ce9ef452b61f4489"||payload.match?.status!=="FullTime")
+   throw Error("Match identity or status does not match Inkberrow.");
+  if(payload.api!=="https://api.southern-football-league.co.uk/matches")throw Error("Snapshot source not recognised.");
+  const items=takeSL(payload.match);if(items.length!==11)throw Error("Expected 11 match events; received "+items.length+".");
+  const result=attachSL(items);slImports=items;
+  status.textContent="✓ SOUTHERN LEAGUE API VERIFIED: "+items.length+" actual events (both teams), "+result.joined+" added to existing yellow branches and "+result.created+" new moments. Archived "+payload.checkedAt+".";
+  document.getElementById("slHelp").textContent="Genuine historical Southern League API snapshot, independently attributed. Not live polling. Source: "+payload.source_url;
+  render();
+ }catch(e){
+  status.textContent="Southern League archive unavailable ("+e.message+"). Football Web Pages and social reports are still visible.";
+  render();
+ }
+}
+render();loadVerifiedSouthernLeague();
 })();
 </script></body></html>

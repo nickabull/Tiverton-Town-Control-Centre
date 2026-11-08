@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live v0.1 | Matchday Sandbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#ffdb00;--ink:#101010;--panel:#202124;--red:#ed4157;--green:#58dc9f;--blue:#69baff}*{box-sizing:border-box}
+body{margin:0;background:#e9eaed;color:#171717;font:14px/1.55 Inter,Arial,sans-serif}
+header{background:#101010;border-bottom:5px solid var(--yellow);color:#fff;padding:15px clamp(14px,3vw,36px);display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+h1,h2,h3,.brand,.matchscore,.minute{font-family:Antonio,Impact,sans-serif;letter-spacing:.2px}
+header .brand{font-size:28px;font-weight:700}header .brand b{color:var(--yellow)}
+header small{display:block;color:#ccc;font:12px Inter,Arial;margin-top:2px}header a{color:var(--yellow);font-weight:700}
+main{max-width:1440px;margin:auto;padding:20px clamp(12px,3vw,30px)}
+.banner{padding:11px 15px;border-left:5px solid #b48900;background:#fff6d1;margin-bottom:17px;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(290px,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid #d2d2d2;padding:18px;margin-bottom:16px}.panel h2{font-size:25px;margin:0 0 10px}.panel h3{font-size:19px;margin:0 0 8px}
+button,.button{background:var(--yellow);color:#111;border:1px solid #b49700;font-weight:800;padding:10px 14px;cursor:pointer;font:700 13px Inter,Arial}
+button.secondary,.button.secondary{background:#f5f5f5;border-color:#aaa}
+button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #dbab00}
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.bar>*{max-width:100%}
+label{font-size:12px;font-weight:bold;display:grid;gap:5px}
+input[type=file],select{padding:9px;border:1px solid #aaa;max-width:100%;background:#fff}
+.small{font-size:12px;color:#555}.notice{font-size:12px;color:#655000;background:#fff6d3;padding:9px;border-left:3px solid #dbb000}
+.livebox{background:#1d1d1d;color:#f8f8f8;border-top:6px solid var(--yellow);padding:18px;overflow:hidden}
+.livebar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.stamp{background:var(--yellow);color:#111;font:700 17px Antonio;padding:5px 9px}
+.mode{font-size:11px;letter-spacing:.05em;font-weight:800;color:#000;background:#d8d8d8;padding:5px 8px}.mode.demo{background:#ffb85c}.mode.archive{background:#97befa}
+.livebox h2{margin:13px 0;color:var(--yellow);font:700 19px Antonio}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding:13px 0 20px;border-bottom:1px solid #555}
+.club{font:700 clamp(18px,3vw,29px)/1.12 Antonio;text-transform:uppercase}.club:last-child{text-align:right}.matchscore{font-size:clamp(37px,6vw,67px);line-height:1;color:var(--yellow);white-space:nowrap}
+.meta{font-size:12px;color:#c8c8c8;margin:10px 0 18px}.events{display:grid;gap:0}
+.event{display:grid;grid-template-columns:50px 27px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid #414141;align-items:start}.minute{font-size:23px;color:var(--yellow)}.symbol{font-size:22px;text-align:center}.etype{font-weight:800;font-size:12px;letter-spacing:.04em}.event.goal .etype{color:var(--yellow)}.event.card .etype{color:#ffba6b}.event.red .etype{color:#ff7387}.event.sub .etype{color:var(--green)}.event.social .etype{color:var(--blue)}.event .name{font-size:15px}.event .source{font-size:11px;color:#ababab;margin-top:3px}
+.muted-dark{color:#bbb;font-size:12px}.nothing{padding:20px 0;text-align:center;color:#ccc}
+.sourcegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.source{border:1px solid #ddd;padding:10px;background:#fafafa}.source strong{display:block}.source small{font-size:11px;color:#555}.state{display:inline-block;font-size:10px;font-weight:900;padding:2px 6px;background:#f0e6c4;margin-top:6px}
+.state.ready{background:#d3ead4}.state.pending{background:#ffe9bc}
+.checks{display:grid;gap:9px}.checks label{display:flex;gap:9px;align-items:center;font-size:13px;font-weight:500}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.stats>div{background:#f2f2f2;padding:9px;text-align:center}.stats b{font:700 25px Antonio;display:block}
+#diagnostics{font:12px/1.6 monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:250px;overflow:auto;background:#111;color:#e3e3e3;padding:10px}
+a{color:#5d4a00}footer{margin-top:15px;color:#555;font-size:11px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}@media(max-width:550px){.panel,.livebox{padding:12px}.sourcegrid{grid-template-columns:1fr}.event{grid-template-columns:35px 22px 1fr;gap:7px}.teams{gap:5px}.club{font-size:18px}.matchscore{font-size:42px}.stats{gap:4px}}
+</style></head><body>
+<header><div><div class="brand"><b>TIVVY</b> LIVE <span style="font-size:15px;color:#aaa">v0.1</span></div><small>Matchday event explorer · Southern League + FWP + social sources</small></div><div class="bar"><a href="source-exploration-desk-v5.html">SOURCE DESK</a><a href="version-history.html">VERSION HISTORY</a><a href="editorial-inbox.html">EDITORIAL INBOX</a></div></header>
+<main><div class="banner"><strong>PRIVATE SANDBOX — NOT ON THE CLUB HOMEPAGE.</strong> Inkberrow replay uses recorded match events. Social examples are labelled fictional. This page does not yet deliver real-time scores, notifications or authenticated social posts.</div>
+<div class="layout">
+<div>
+<div class="panel"><h2>MATCHDAY CONTROL</h2><div class="bar"><button id="demo" type="button">↺ Replay Inkberrow</button><button id="next" type="button">▶ Next event</button><button id="all" type="button">Show full match</button><button id="reset" type="button" class="secondary">Reset replay</button></div><p class="small" id="modeDesc">Historical match replay. Advance an event at a time, or show the full report. No simulated event is presented as a live result.</p></div>
+<section class="livebox" aria-label="Tivvy Live match feed">
+<div class="livebar"><span class="stamp">TIVVY LIVE</span><span class="mode demo" id="mode">HISTORICAL REPLAY</span></div>
+<h2 id="competition">SOUTHERN LEAGUE DIVISION ONE SOUTH · 7 NOV 2026</h2>
+<div class="teams"><div class="club" id="home">Tiverton Town</div><div class="matchscore" id="score">0 – 0</div><div class="club" id="away">Sporting Club Inkberrow</div></div>
+<div class="meta" id="meta">Kick-off 15:00 · Slee Blackwell Solicitors Stadium</div>
+<div class="events" id="events"></div><p class="muted-dark" id="last">Historical replay · no live data connection</p>
+</section>
+<div class="panel"><h2>HOW THE TICKER WILL BE USED</h2><p>This is the expanded Match Centre view. Once verified, a compact version could be embedded on the Wix homepage, reusing the same event feed and source labels. Real match updates require a matchday collection/publishing job; our current GitHub checks are not yet sufficiently frequent.</p><button id="copyEmbed" class="secondary">Copy proposed homepage iframe</button><p id="embedStatus" class="small">Sandbox only; this button copies a link to this sandbox, not a live match ticker.</p></div>
+</div>
+<div>
+<section class="panel"><h2>DATA SOURCES</h2><div class="sourcegrid">
+<div class="source"><strong>Southern League</strong><small>Structured goals, cards, substitutions, match state</small><span class="state ready">Importer exists · matchday polling pending</span></div>
+<div class="source"><strong>Football Web Pages</strong><small>Independent score and fixture cross-check</small><span class="state pending">API key secured · live adapter pending</span></div>
+<div class="source"><strong>Tivvy X / Opposition X</strong><small>Official club reactions and news</small><span class="state pending">Authorised feed access pending</span></div>
+<div class="source"><strong>Darren Facebook</strong><small>Match notes with source attribution</small><span class="state pending">Permission/integration pending</span></div></div>
+<p class="small">Never expose the FWP API key in GitHub Pages. Never silently create a goal from an unverified social post.</p></section>
+<section class="panel"><h2>IMPORT A MATCH EVENT SNAPSHOT</h2><p class="small">Optional manual sandbox test: upload a local JSON export from our Southern League audit or a Tivvy Live snapshot. No upload is sent to a server; the file is read only in this browser.</p><input id="jsonFile" type="file" accept=".json,application/json"><div class="bar" style="margin-top:10px"><button id="snapshot" class="secondary">Load published fixture snapshot</button></div><p id="importStatus" class="small">No external feed connected to the ticker.</p><p class="notice">The published fixture snapshot confirms dates/opponents but does not contain minute-by-minute match events. It is deliberately not treated as a live event feed.</p></section>
+<section class="panel"><h2>SUPPORTER ALERTS · PREVIEW</h2><p class="small">Select which events a fan could receive. These settings are for design testing only: no registration, delivery service, email or push permission exists yet.</p>
+<div class="checks" id="preferences"><label><input type="checkbox" value="goal" checked> Goals for both teams</label><label><input type="checkbox" value="red" checked> Red cards</label><label><input type="checkbox" value="card"> Yellow cards</label><label><input type="checkbox" value="sub"> Substitutions</label><label><input type="checkbox" value="status" checked> Half-time and full-time</label><label><input type="checkbox" value="social"> Club updates</label></div>
+<div class="bar" style="margin-top:12px"><button id="previewAlerts">Preview selected alerts</button></div><p id="alertStatus" class="small">Not subscribed. No alerts will be sent.</p></section>
+<section class="panel"><h2>EVENT AUDIT</h2><div class="stats"><div><b id="visibleCount">0</b><small>Displayed</small></div><div><b id="uniqueCount">0</b><small>Unique</small></div><div><b id="duplicateCount">0</b><small>Duplicates hidden</small></div></div><div id="diagnostics">System ready.</div></section>
+</div></div><footer>Tivvy Live v0.1 · GitHub Pages sandbox · No active signup or real-time notifications · Neither the approved Match Centre nor live Wix homepage is changed.</footer>
+</main><script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fixture={date:"2026-11-07",home:"Tiverton Town",away:"Sporting Club Inkberrow",kickoff:"15:00",competition:"Southern League Division One South",venue:"Slee Blackwell Solicitors Stadium",status:"FT"};
+// Recorded football events, not an invented match. The event source for this first replay
+// is the reviewed Inkberrow match record; verify against official league event feed on final integration.
+const replay=[
+{id:"ink-goal-2",minute:2,type:"goal",team:"away",name:"Will Moore",source:"Match record"},
+{id:"ink-yellow-45",minute:45,type:"card",team:"home",name:"Corey Koerner",source:"Match record"},
+{id:"ink-red-48",minute:48,type:"red",team:"home",name:"Jack Kennell",source:"Match record"},
+{id:"ink-sub-53",minute:53,type:"sub",team:"home",name:"Dan Koita on · Toby Stephens off",source:"Match record"},
+{id:"ink-goal-59",minute:59,type:"goal",team:"home",name:"Matt Wood",source:"Match record"},
+{id:"ink-sub-85",minute:85,type:"sub",team:"home",name:"Finn Roberts on · Louis Jagger Cane off",source:"Match record"},
+{id:"ink-goal-85",minute:85,type:"goal",team:"away",name:"Louis Crook",source:"Match record"},
+{id:"ink-sub-89",minute:89,type:"sub",team:"home",name:"Ryan Keates on · Louie Slough off",source:"Match record"}
+];
+let match={...fixture},events=replay.slice(),cursor=0,mode="replay",audit=[];
+const scoreFor=items=>{let home=0,away=0;items.forEach(x=>{if(x.type==="goal")x.team==="home"?home++:away++});return home+" – "+away};
+function key(e){return e.id?e.id:String([e.minute,e.type,e.team,e.name].join("|")).toLowerCase().replace(/\s+/g," ")}
+function dedup(items){const seen=new Set(),list=[];let duplicates=0;for(const e of items){const k=key(e);if(seen.has(k)){duplicates++;continue}seen.add(k);list.push(e)}return {list,duplicates}}
+function diagnostic(msg){audit.unshift(new Date().toLocaleTimeString("en-GB")+" · "+msg);$("diagnostics").textContent=audit.slice(0,20).join("\n")}
+function paint(){
+ let chosen=mode==="replay"?events.slice(0,cursor):events.slice(),d=dedup(chosen);
+ $("home").textContent=match.home;$("away").textContent=match.away;$("score").textContent=scoreFor(d.list);
+ $("competition").textContent=match.competition.toUpperCase()+" · "+match.date.split("-").reverse().join("/");
+ $("meta").textContent=(mode==="replay"?"HISTORICAL REPLAY · ":"IMPORTED SNAPSHOT · ")+(match.kickoff?"Kick-off "+match.kickoff+" · ":"")+(match.venue||"Venue not supplied");
+ $("mode").textContent=mode==="replay"?"HISTORICAL REPLAY":"IMPORTED SNAPSHOT";$("mode").className="mode "+(mode==="replay"?"demo":"archive");
+ const types={goal:["⚽","GOAL"],card:["🟨","YELLOW CARD"],red:["🟥","RED CARD"],sub:["↕","SUBSTITUTION"],social:["▣","SOCIAL UPDATE"],status:["◷","MATCH STATUS"]};
+ $("events").innerHTML=d.list.length?d.list.slice().reverse().map(e=>{const t=types[e.type]||["•",e.type.toUpperCase()];return '<article class="event '+esc(e.type)+'"><span class="minute">'+esc(e.minute===null?"—":e.minute)+"′</span><span class="symbol">'+t[0]+'</span><div><div class="etype">'+esc(t[1])+' · '+esc(e.team==="home"?match.home:e.team==="away"?match.away:"MATCH")+'</div><div class="name">'+esc(e.name)+'</div><div class="source">'+esc(e.source||"Imported record")+'</div></div></article>'}).join(""):'<div class="nothing">No events shown yet. Select “Next event” to begin the historical replay.</div>';
+ $("visibleCount").textContent=d.list.length;$("uniqueCount").textContent=dedup(events).list.length;$("duplicateCount").textContent=d.duplicates;
+ $("last").textContent=mode==="replay"?(cursor>=events.length?"Full-time replay complete.":"Replay: "+cursor+" of "+events.length+" events shown. Not a live feed."):"Imported snapshot · no automatic refreshing or notifications";
+ $("next").disabled=mode!=="replay"||cursor>=events.length;$("all").disabled=mode!=="replay";
+}
+function eventType(e){if(e.cardType){return /red/i.test(String(e.cardType))?"red":"card"}return "goal"}
+function minute(e){let n=Number.parseInt(e.minute??e.time??e.onMinute??"",10);return Number.isFinite(n)?n:null}
+function fromSouthern(record){
+ const homeName=record.homeTeam?.fullName||record.homeTeamName||(record.venue==="H"?"Tiverton Town":record.opponent)||"Home",
+ awayName=record.awayTeam?.fullName||record.awayTeamName||(record.venue==="A"?"Tiverton Town":record.opponent)||"Away";
+ const homeIsTivvy=/tiverton/i.test(homeName),awayIsTivvy=/tiverton/i.test(awayName);
+ if(!homeIsTivvy&&!awayIsTivvy)throw Error("Match is not a Tiverton Town fixture");
+ const source=record.source||record.eventSource||"Southern League JSON audit";
+ const a=[];function add(rows,type,team){(rows||[]).forEach((e,i)=>{if(!e||typeof e!=="object")return;let m=minute(e);if(m===null)return;let name=type==="sub"?(e.personOnName||e.playerOnName||"Unknown")+" on · "+(e.personOffName||e.playerOffName||"Unknown")+" off":e.personName||e.scorerName||e.playerName||"Name not provided";
+ a.push({id:String(record.apiId||record._id||record.id||record.date||"match")+":"+type+":"+team+":"+m+":"+name,minute:m,type:type==="card"?eventType(e):type,team,name,source});});}
+ const sd=record.venue==="H"?"home":"away";
+ if(record.goals||record.cards||record.subs){add(record.goals||[],"goal",sd);add(record.cards||[],"card",sd);add(record.subs||[],"sub",sd);}
+ else{add(record.homeGoals||[],"goal","home");add(record.awayGoals||[],"goal","away");add(record.homeCards||[],"card","home");add(record.awayCards||[],"card","away");add(record.homeSubs||[],"sub","home");add(record.awaySubs||[],"sub","away");}
+ a.sort((x,y)=>x.minute-y.minute);
+ const date=String(record.date||record.startDate||record.matchDate||"").slice(0,10);
+ return {fixture:{date:date||"Date unavailable",home:homeName,away:awayName,kickoff:"",competition:"Southern League match snapshot",venue:"",status:String(record.status||"Unknown")},events:a};
+}
+function loadJSON(doc){
+ let records=Array.isArray(doc)?doc:Array.isArray(doc.tivertonMatches)?doc.tivertonMatches:Array.isArray(doc.items)?doc.items:Array.isArray(doc.matches)?doc.matches:doc.match?[doc.match]:doc.fixture?[doc.fixture]:[doc];
+ let possible=records.filter(r=>r&&typeof r==="object"&&(/tiverton/i.test(JSON.stringify([r.homeTeamName,r.awayTeamName,r.homeTeam?.fullName,r.awayTeam?.fullName,r.opponent]))||r.venue==="H"||r.venue==="A"));
+ if(possible.length!==1)throw Error("Expected exactly one Tiverton match. Found "+possible.length+". Choose a single-match audit/snapshot.");
+ const result=fromSouthern(possible[0]);if(!result.events.length)throw Error("No structured goal/card/substitution events in this record. A fixture list alone is not a live event feed.");
+ return result;
+}
+$("demo").onclick=()=>{match={...fixture};events=replay.slice();mode="replay";cursor=0;diagnostic("Inkberrow replay loaded; recorded events only.");paint()};
+$("next").onclick=()=>{cursor=Math.min(cursor+1,events.length);diagnostic("Replay advanced to "+cursor+"/"+events.length);paint()};
+$("all").onclick=()=>{cursor=events.length;diagnostic("Full match replay displayed.");paint()};
+$("reset").onclick=()=>{cursor=0;mode="replay";match={...fixture};events=replay.slice();paint()};
+$("jsonFile").onchange=async e=>{const file=e.target.files?.[0];if(!file)return;try{const parsed=JSON.parse(await file.text());const result=loadJSON(parsed);match=result.fixture;events=result.events;mode="import";cursor=events.length;$("importStatus").textContent="✓ Loaded "+events.length+" structured events from "+file.name+". Source is a manual snapshot, not live.";diagnostic("Imported "+file.name+" with "+events.length+" events.");paint()}catch(err){$("importStatus").textContent="Import rejected: "+err.message;diagnostic("Import rejected: "+err.message)}e.target.value=""};
+$("snapshot").onclick=async()=>{try{const url="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json";const res=await fetch(url+"?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error("HTTP "+res.status);const data=await res.json();const list=data.fixtures||[];$("importStatus").textContent="✓ Published fixture feed reached: "+list.length+" fixture rows. This feed contains fixtures/results, not live event timelines.";diagnostic("Read published fixture feed ("+list.length+" fixtures). Did not replace replay event data.")}catch(err){$("importStatus").textContent="Published fixture fetch unavailable: "+err.message;diagnostic("Published fixture fetch failed: "+err.message)}};
+$("previewAlerts").onclick=()=>{const prefs=[...document.querySelectorAll('#preferences input:checked')].map(e=>e.value);const items=dedup(events).list.filter(e=>prefs.includes(e.type));$("alertStatus").textContent="Preview: "+items.length+" event(s) would qualify for these preferences in the current "+(mode==="replay"?"replay":"snapshot")+". No alerts sent and no subscriptions created.";diagnostic("Alert eligibility preview: "+items.length+" events. No messages sent.");};
+$("copyEmbed").onclick=async()=>{const code='<iframe src="https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-v01.html" title="Tivvy Live sandbox" style="width:100%;height:860px;border:0"></iframe>';try{await navigator.clipboard.writeText(code);$("embedStatus").textContent="Copied sandbox iframe (not recommended for the public homepage until the live feed is validated).";}catch(e){$("embedStatus").textContent="Clipboard blocked by browser permissions.";}}
+diagnostic("Loaded historical Inkberrow timeline. Source integrations are not live.");paint();
+})();
+</script></body></html>

@@ -331,11 +331,11 @@
     {
       "id": "billy-tucker",
       "name": "Billy Tucker",
-      "status": "current",
+      "status": "on_loan",
       "position": "Midfielder",
       "shirt_number": null,
       "previous_club": null,
-      "notes": "",
+      "notes": "On loan; retain historical match statistics and sponsorship. Display in grey former/on-loan section. Editorial status update 8 November 2026.",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
       "status_verified": false,
       "sponsorships": {

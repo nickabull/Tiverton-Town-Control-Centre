@@ -83,10 +83,17 @@ function attachSL(items){
  groups.sort((a,b)=>a.sort-b.sort);
  return {joined,created};
 }
-function matchFormatting(value){
- // Keep the original words and reported minutes, but give football events their
- // established Match Centre colours. Escape source text before adding markup.
- let text=esc(value);
+function matchFormatting(value,source){
+ // Presentation-only editorial tidy-up for human-written social posts.
+ // Keep the archived source wording unchanged, including match facts and players.
+ let plain=String(value??"");
+ if(source==="facebook"||source==="x"){
+   plain=plain.replace(/\b(SC)(?=Inkberrow\b)/gi,"$1 ");
+   plain=plain.replace(/\b(Inkberrow)(?=[0-9]\b)/gi,"$1 ");
+   plain=plain.replace(/([!?])(?=[A-Za-z])/g,"$1 ");
+   plain=plain.replace(/ {2,}/g," ");
+ }
+ let text=esc(plain);
  // Existing club posts use blue down/up emojis: recolour only their glyphs.
  text=text.replace(/⬇️?/g,'<span class="player-off">▼</span>').replace(/⬆️?/g,'<span class="player-on">▲</span>');
  // Detect and colour plain-language substitutions from structured match data.
@@ -107,7 +114,7 @@ function eventIcon(title,body){
  if(/goal|scores|leveller|equalis/.test(t))return '<span class="incidentIcon goal-blue">⚽</span>';
  return '';
 }
-function entry(item){let [src,title,body,minute]=item;return '<div class="entry '+src+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":"data")+'"><span class="badgeIcon">'+icons[src]+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title)+'</div><p>'+matchFormatting(body)+'</p></div>'}
+function entry(item){let [src,title,body,minute]=item;return '<div class="entry '+src+'"><div class="meta"><span class="sourcePill '+(src==="facebook"?"fb":src==="x"?"tw":"data")+'"><span class="badgeIcon">'+icons[src]+'</span>'+names[src]+'</span><span class="origin">'+(typeof minute==="number"&&minute!==45.5&&minute<100?Math.floor(minute)+"′ · ":"")+'7 Nov 2026</span></div><div class="entrytitle">'+eventIcon(title,body)+matchFormatting(title,src)+'</div><p>'+matchFormatting(body,src)+'</p></div>'}
 function render(){let shown=0;let html=groups.map(g=>{let items=g.items.filter(i=>filter==="all"||i[0]===filter);if(!items.length)return"";shown+=items.length;return '<div class="group"><span class="junction"></span><div><span class="time">'+esc(g.minute)+'</span></div><div><h3 class="groupTitle">'+(kinds[g.icon]||"•")+' '+esc(g.title)+'</h3><div class="bundle">'+items.map(entry).join("")+'</div></div></div>'}).join("");document.getElementById("timeline").innerHTML=html||'<p class="empty">No matching posts.</p>';}
 document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll("[data-filter]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 document.getElementById("slFile").addEventListener("change",async ev=>{

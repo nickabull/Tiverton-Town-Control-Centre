@@ -128,6 +128,24 @@
       "summer_2026_tracking_source": "Editor-supplied closed-season signing spreadsheet screenshot; club column meaning not verified as former/current club"
     },
     {
+      "id": "steve-kingdon",
+      "name": "Steve Kingdon",
+      "status": "current",
+      "position": "Defender",
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Club editor supplied new signing details, 9 November 2026",
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
       "id": "josh-bissett",
       "name": "Josh Bissett",
       "status": "current",
@@ -432,6 +450,24 @@
       "previous_club": null,
       "notes": "",
       "source": "Canva CHATGPT LEAGUE TEMPLATE, page 52 (Tiverton Town column)",
+      "status_verified": false,
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": "",
+          "sponsor_url": "",
+          "logo_asset": ""
+        }
+      }
+    },
+    {
+      "id": "evander-grubb",
+      "name": "Evander Grubb",
+      "status": "current",
+      "position": "Attacker",
+      "shirt_number": null,
+      "previous_club": null,
+      "notes": "",
+      "source": "Club editor supplied new signing details, 9 November 2026",
       "status_verified": false,
       "sponsorships": {
         "2026/27": {

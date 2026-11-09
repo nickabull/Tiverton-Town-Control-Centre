@@ -70,17 +70,25 @@ def fetch_fwp():
   if teams:
    cells=[x.strip() for x in parser.parts if x.strip()]
    fixture=None
+   away_at=None
    for i in range(len(cells)-3):
-    if cells[i].casefold()=="plymouth parkway" and cells[i+3].casefold()=="berkhamsted":
-     fixture=i
-     break
+    if cells[i].casefold()=="plymouth parkway":
+     for j in range(i+3,min(i+8,len(cells))):
+      if cells[j].casefold()=="berkhamsted":
+       fixture=i
+       away_at=j
+       break
+    if fixture is not None:break
    if fixture is not None:
     prev=cells[fixture-1] if fixture>0 else ""
-    left,right=cells[fixture+1],cells[fixture+2]
-    if re.fullmatch(r"\\d{1,2}",left) and re.fullmatch(r"\\d{1,2}",right):
-     p["score"]={"home":int(left),"away":int(right)}
+    between=cells[fixture+1:away_at]
+    # FWP may add parenthesised half-time scores around the full score.
+    # Valid shapes: [0,0] or [(0),0,0,(0)].
+    score_cells=[x for x in between if re.fullmatch(r"\\d{1,2}",x)]
+    if len(score_cells)==2:
+     p["score"]={"home":int(score_cells[0]),"away":int(score_cells[1])}
      p["state"]="score-available"
-     p["message"]="Confirmed score from FWP fixture listing; incident details not available here."
+     p["message"]="Score reported by FWP fixture listing; no player-level incidents verified."
     if re.fullmatch(r"(?:\\d{1,3}(?:\\+\\d{1,2})?)['′]?",prev):
      p["matchMinute"]=prev
      p["progress"]="in-play"

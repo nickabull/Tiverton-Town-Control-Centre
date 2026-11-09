@@ -2,13 +2,13 @@
   "match": "Plymouth Parkway v Berkhamsted",
   "date": "2026-11-09",
   "kickoff": "19:30 Europe/London",
-  "checkedAt": "2026-11-09T21:14:45.507019+00:00",
+  "checkedAt": "2026-11-09T21:15:48.109661+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-09T21:14:45.507029+00:00",
+    "checkedAt": "2026-11-09T21:15:48.109672+00:00",
     "state": "found",
     "matchFound": true,
     "events": [],
@@ -25,7 +25,7 @@
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/fa-cup/20261109",
-    "checkedAt": "2026-11-09T21:14:46.065343+00:00",
+    "checkedAt": "2026-11-09T21:15:48.743009+00:00",
     "state": "score-available",
     "matchFound": true,
     "events": [],
@@ -34,8 +34,8 @@
       "home": 1,
       "away": 1
     },
-    "matchMinute": "88'",
+    "matchMinute": "89'",
     "progress": "in-play",
-    "fixtureExcerpt": "9/11/2026 | 88' | Plymouth Parkway | (0) | 1 | 1 | (0)"
+    "fixtureExcerpt": "9/11/2026 | 89' | Plymouth Parkway | (0) | 1 | 1 | (0)"
   }
 }

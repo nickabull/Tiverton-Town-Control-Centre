@@ -133,8 +133,8 @@
       "status": "current",
       "position": "Defender",
       "shirt_number": null,
-      "previous_club": null,
-      "notes": "",
+      "previous_club": "Shepton Mallet, Tiverton Town (previous spell)",
+      "notes": "Steve returns to Tiverton Town from Shepton Mallet, a decade after his previous spell in the Yellow and Black. Fondly remembered as 'The King', he captained the side during his first spell. A tough, uncompromising defender, he brings experience and leadership to Tivvy's back line and dressing room.",
       "source": "Club editor supplied new signing details, 9 November 2026",
       "status_verified": false,
       "sponsorships": {
@@ -143,7 +143,10 @@
           "sponsor_url": "",
           "logo_asset": ""
         }
-      }
+      },
+      "player_quote": "Buzzing to back. Not much has changed around the place from a decade ago and it’s great to see familiar faces with that too. I’m looking forward to bringing my qualities to the table and helping push the club forward",
+      "quote_review_note": "Original supplied wording 'Buzzing to back' retained verbatim; may be intended as 'Buzzing to be back'.",
+      "profile_source": "Club editor supplied signing announcement and quote on 9 November 2026"
     },
     {
       "id": "josh-bissett",
@@ -465,8 +468,8 @@
       "status": "current",
       "position": "Attacker",
       "shirt_number": null,
-      "previous_club": null,
-      "notes": "",
+      "previous_club": "Gloucester City, Bristol Manor Farm, Taunton Town, Salisbury",
+      "notes": "Evander joins Tiverton Town from Southern League Premier side Gloucester City. The young attacker developed in the academies at Huddersfield Town and Newport County and has also played for Bristol Manor Farm, Taunton Town and Salisbury. His pace and electric style of play add another attacking option alongside Josh Bissett, Louis Jagger Cane and Dan Koita.",
       "source": "Club editor supplied new signing details, 9 November 2026",
       "status_verified": false,
       "sponsorships": {
@@ -475,7 +478,13 @@
           "sponsor_url": "",
           "logo_asset": ""
         }
-      }
+      },
+      "academies": [
+        "Huddersfield Town",
+        "Newport County"
+      ],
+      "player_quote": "I’m excited to be joining the lads, we’ve got some good attacking players and I’m looking forward to playing alongside them. I love to play football and that’s what I’m here to do more than anything",
+      "profile_source": "Club editor supplied signing announcement and quote on 9 November 2026"
     },
     {
       "id": "ed-palmer",

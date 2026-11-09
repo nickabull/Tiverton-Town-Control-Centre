@@ -30,18 +30,19 @@ a{color:#ffdc45}button{background:var(--y);color:#111;font:700 15px Antonio,Impa
 <section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png"><div><h2>SOUTHERN LEAGUE</h2><div class="muted">Public match API</div></div></div><span class="state" id="slState">CHECKING</span></div><p class="meta" id="slChecked"></p><div class="details"><p id="slMessage">Waiting for API observation.</p><div id="slScore" class="scoreline"></div><div id="slEvents"></div></div></section>
 <section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png"><div><h2>FOOTBALL WEB PAGES</h2><div class="muted">Public fixture listing (API not yet connected)</div></div></div><span class="state" id="fwpState">CHECKING</span></div><p class="meta" id="fwpChecked"></p><div class="details"><p id="fwpMessage">Waiting for public-page observation.</p></div></section>
 </div>
-<div class="instruction"><h3>WHAT WE'RE TESTING</h3><p>Whether each source lists this FA Cup match, when its data changes, and how much of the match incident detail it exposes. <strong>A listed fixture is not a verified live score.</strong> No goals, scores or alerts will be invented to fill gaps.</p><p>This display checks a published GitHub diagnostic file every 15 seconds. The backend collector runs on its own schedule (approximately five-minute intervals during the match), subject to GitHub Actions delays. It is <strong>not</strong> a 15-second source poll.</p></div>
+<div class="instruction"><h3>WHAT WE'RE TESTING</h3><p>Whether each source lists this FA Cup match, when its data changes, and how much of the match incident detail it exposes. <strong>A listed fixture is not a verified live score.</strong> No goals, scores or alerts will be invented to fill gaps.</p><p>This display checks the latest committed GitHub diagnostic file every 15 seconds, with the GitHub Pages copy as backup. The backend collector runs on its own schedule (approximately five-minute intervals during the match), subject to GitHub Actions delays. It is <strong>not</strong> a 15-second source poll.</p></div>
 <p class="sources"><a href="https://www.footballwebpages.co.uk/fa-cup/20261109" target="_blank" rel="noopener">FWP public FA Cup listing</a> · <a href="https://www.southern-football-league.co.uk/" target="_blank" rel="noopener">Southern League</a></p>
 </main><script>
 (function(){
 "use strict";
-const url="data/live-test-parkway-berkhamsted.json";
+const url="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/live-test-parkway-berkhamsted.json";
 const el=id=>document.getElementById(id);
 const safe=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 let last="";
 async function check(){
  try{
-  const r=await fetch(url+"?t="+Date.now(),{cache:"no-store"});
+  let r=await fetch(url+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)r=await fetch("data/live-test-parkway-berkhamsted.json?t="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw Error("HTTP "+r.status);
   const d=await r.json();
   if(d.date!=="2026-11-09"||d.kind!=="READ_ONLY_SOURCE_DIAGNOSTIC")throw Error("Unexpected diagnostic data");

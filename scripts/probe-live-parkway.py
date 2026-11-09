@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Read-only two-source FA Cup probe. No fake live data, no credentials in web page."""
+"""Read-only two-source FA Cup probe. No fake live data, no credentials in web page.
+Match-night refresh: the GitHub Actions push trigger runs a fresh collection.
+"""
 import json,re
 from datetime import datetime,timezone
 from html import unescape

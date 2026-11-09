@@ -65,11 +65,32 @@ def fetch_fwp():
   p["matchFound"]=teams
   p["state"]="listed" if teams else "no-match"
   p["message"]="Fixture appears on FWP public FA Cup listing. No verified score or events parsed." if teams else "No matching fixture in public listing."
-  # Look only at a narrow excerpt of the fixture's text; don't infer a score from other games.
+  # Parse only the fixture's adjacent status and score cells, never unrelated games.
+  # FWP's text layout is: status | Plymouth Parkway | home score | away score | Berkhamsted
   if teams:
-   idx=txt.lower().find("plymouth parkway")
-   excerpt=txt[max(0,idx-80):idx+300]
-   p["fixtureExcerpt"]=excerpt[:310]
+   cells=[x.strip() for x in parser.parts if x.strip()]
+   fixture=None
+   for i in range(len(cells)-3):
+    if cells[i].casefold()=="plymouth parkway" and cells[i+3].casefold()=="berkhamsted":
+     fixture=i
+     break
+   if fixture is not None:
+    prev=cells[fixture-1] if fixture>0 else ""
+    left,right=cells[fixture+1],cells[fixture+2]
+    if re.fullmatch(r"\\d{1,2}",left) and re.fullmatch(r"\\d{1,2}",right):
+     p["score"]={"home":int(left),"away":int(right)}
+     p["state"]="score-available"
+     p["message"]="Confirmed score from FWP fixture listing; incident details not available here."
+    if re.fullmatch(r"(?:\\d{1,3}(?:\\+\\d{1,2})?)['′]?",prev):
+     p["matchMinute"]=prev
+     p["progress"]="in-play"
+    elif prev.casefold() in ("ht","half time","ft","full time","aet","pens","postponed","abandoned"):
+     p["progress"]=prev
+    p["fixtureExcerpt"]=" | ".join(cells[max(0,fixture-2):fixture+5])[:310]
+   else:
+    idx=txt.casefold().find("plymouth parkway")
+    p["fixtureExcerpt"]=txt[max(0,idx-80):idx+200] if idx>=0 else ""
+
  except Exception as e:p["message"]=type(e).__name__+": "+str(e)[:170]
  return p
 def main():

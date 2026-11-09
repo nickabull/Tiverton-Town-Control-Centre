@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tivvy Data Centre | Programme Distribution Desk</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
+<style>:root{--gold:#ffd800;--bg:#0f1113;--panel:#202226;--line:#45474b;--muted:#b9bfc6}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font:15px/1.45 Arial,sans-serif}header{background:#060708;border-bottom:5px solid var(--gold);padding:22px max(20px,calc((100vw - 1200px)/2))}h1{font:700 clamp(31px,4vw,45px) Antonio,Impact,sans-serif;margin:0}h2{font:700 25px Antonio,Impact,sans-serif;margin:0 0 12px;color:var(--gold)}h3{font:700 19px Antonio,Impact,sans-serif;margin:0 0 6px}p{margin:7px 0 13px}small,.muted{color:var(--muted)}main{max-width:1200px;margin:auto;padding:24px 20px}.top{background:#252419;border-left:5px solid var(--gold);padding:13px 17px;margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:20px}.field{margin-bottom:12px}label{display:block;font-weight:bold;margin:0 0 6px}input,textarea{width:100%;background:#131518;color:#fff;border:1px solid #73777e;border-radius:3px;padding:11px;font:15px Arial,sans-serif}input:focus,textarea:focus{outline:2px solid var(--gold)}textarea{min-height:150px;resize:vertical}button,.btn{display:inline-block;text-decoration:none;background:var(--gold);color:#080808;border:0;border-radius:4px;padding:11px 17px;font:700 17px Antonio,Impact,sans-serif;cursor:pointer}button.secondary,.btn.secondary{background:#34363a;border:1px solid #777;color:#fff}button:disabled{opacity:.4;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.check{display:flex;align-items:start;gap:9px;margin-top:12px}.check input{width:auto;margin-top:5px;accent-color:var(--gold)}.check label{font-weight:normal}a{color:#ffe25c}.status{border-left:4px solid #a5a5a5;background:#2c2d30;padding:12px;margin:15px 0}strong.gold{color:var(--gold)}.step{color:#111;background:var(--gold);display:inline-grid;place-items:center;border-radius:3px;width:28px;height:28px;font:700 20px Antonio;vertical-align:middle;margin-right:7px}.note{font-size:13px;color:#ced0d4}.full{grid-column:1/-1}@media(max-width:780px){.grid{grid-template-columns:1fr}.full{grid-column:auto}}@media print{header,button,.actions{display:none}}</style></head><body>
+<header><h1>TIVVY DATA CENTRE <span style="color:var(--gold)">· PROGRAMME DISTRIBUTION</span></h1><div class="muted">Private contacts · Human-approved emails · No automatic sending</div></header>
+<main><div class="top"><strong>Secure workflow, version 1.</strong> This webpage does not contain the secretary database, cannot download the private spreadsheet, and does not store recipient details. Open the private Google Sheet using your signed-in Google account; copy only the recipient needed for this edition. No email is sent by this page.</div>
+<div class="grid">
+<section class="card"><h2><span class="step">1</span> Select the edition</h2>
+<div class="field"><label for="club">Opposition</label><input id="club" placeholder="e.g. Bishop's Cleeve" autocomplete="off"></div>
+<div class="field"><label for="matchdate">Match date</label><input id="matchdate" type="date"></div>
+<div class="field"><label for="edition">Programme title</label><input id="edition" placeholder="Tiverton Town v Bishop's Cleeve"></div>
+<div class="field"><label for="pdf">PDF file name (for reference only)</label><input id="pdf" placeholder="Tiverton-Town-v-Bishops-Cleeve.pdf"></div>
+<p class="note">The PDF must be exported and checked in Programme Studio, then attached to the email yourself. This page cannot attach a file to Gmail or Outlook.</p>
+<a class="btn secondary" href="programme-studio.html" target="_blank" rel="noopener">↗ Open Programme Studio</a>
+</section>
+<section class="card"><h2><span class="step">2</span> Look up the recipient</h2>
+<p>Open our <strong class="gold">private 2026/27 fixture-secretary list</strong>. Confirm the club, secretary and email address before copying the email here.</p>
+<a class="btn" href="https://docs.google.com/spreadsheets/d/1K0gWvca5A-xLVy7DTO7UpCvV65wCGvocGakqcXEx5Ho/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer">↗ Open private Google contacts</a>
+<div class="field" style="margin-top:20px"><label for="recipient">Secretary email address</label><input id="recipient" type="email" placeholder="Copy from the private sheet" autocomplete="off" spellcheck="false"></div>
+<div class="field"><label for="recipientName">Secretary name (optional)</label><input id="recipientName" placeholder="From private sheet" autocomplete="off"></div>
+<p class="note">Neither address nor name is included in GitHub source code or passed to the programme website. A recipient you enter stays only in this tab until you close it. Avoid saving screenshots of private addresses to public folders.</p>
+</section>
+<section class="card full"><h2><span class="step">3</span> Review the message</h2>
+<div class="field"><label for="subject">Email subject</label><input id="subject"></div>
+<div class="field"><label for="message">Message</label><textarea id="message" rows="8"></textarea></div>
+<div class="check"><input id="approvedPdf" type="checkbox"><label for="approvedPdf">I've exported the <strong>final approved PDF</strong>, checked the edition, and have the file ready to attach.</label></div>
+<div class="check"><input id="verifiedRecipient" type="checkbox"><label for="verifiedRecipient">I've verified that the recipient matches the opposition using the private club contact sheet.</label></div>
+<div class="check"><input id="checkedAttachment" type="checkbox"><label for="checkedAttachment">I understand that the email draft will <strong>not include an attachment automatically</strong>; I will attach the PDF before sending.</label></div>
+<div class="status" id="state" role="status">Complete the edition and recipient fields, then tick the three approval checks.</div>
+<div class="actions"><button id="compose" disabled>Open email draft ↗</button><button class="secondary" id="copy">Copy message text</button><button class="secondary" id="copySubject">Copy subject</button></div>
+<p class="note">“Open email draft” uses your device's email application (mailto). It is not connected to Gmail's authenticated Drafts API; nothing is sent automatically. Verify recipient, subject and attachment again in your mail app before sending. The page deliberately keeps no delivery history or private recipient cache.</p></section>
+</div></main><script>
+(function(){'use strict';
+const $=id=>document.getElementById(id);
+const params=new URLSearchParams(location.search);
+$('club').value=params.get('opponent')||'';
+$('matchdate').value=/^\d{4}-\d\d-\d\d$/.test(params.get('date')||'')?params.get('date'):'';
+$('edition').value=params.get('edition')||'';
+const clean=s=>String(s||'').trim();
+let autoSubject='',autoMessage='';
+function draft(){
+ const club=clean($('club').value),ed=clean($('edition').value);
+ const subject='Tiverton Town FC | Matchday programme'+(club?' v '+club:'');
+ const date=$('matchdate').value;
+ const name=clean($('recipientName').value);
+ const greeting=name?'Dear '+name.split(/\s+/)[0]+',':'Hello,';
+ const message=greeting+'\n\nPlease find attached the matchday programme for '+(ed||('Tiverton Town v '+(club||'[opposition]')))+(date?' on '+new Date(date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'')+'.\n\nWith best wishes,\nTiverton Town FC';
+ if(!clean($('subject').value)||$('subject').value===autoSubject)$('subject').value=subject;
+ if(!clean($('message').value)||$('message').value===autoMessage)$('message').value=message;
+ autoSubject=subject;autoMessage=message;
+}
+function validEmail(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+function update(){const email=clean($('recipient').value),club=clean($('club').value),ready=Boolean(club&&validEmail(email)&&$('approvedPdf').checked&&$('verifiedRecipient').checked&&$('checkedAttachment').checked&&clean($('subject').value)&&clean($('message').value));
+ $('compose').disabled=!ready;
+ $('state').textContent=ready?'Ready to open a draft. Add the final PDF manually before sending.':!club?'Choose the opposition.':!validEmail(email)?'Copy and verify the secretary email from the private Google Sheet.':'Complete all three checks before creating the email draft.';}
+for(const id of ['club','edition','matchdate','recipientName'])$(id).addEventListener('input',()=>{draft();update()});
+for(const id of ['recipient','subject','message'])$(id).addEventListener('input',update);
+for(const id of ['approvedPdf','verifiedRecipient','checkedAttachment'])$(id).addEventListener('change',update);
+$('compose').addEventListener('click',()=>{update();if($('compose').disabled)return;const mailto='mailto:'+encodeURIComponent(clean($('recipient').value))+'?subject='+encodeURIComponent($('subject').value)+'&body='+encodeURIComponent($('message').value);window.location.href=mailto;});
+$('copy').addEventListener('click',()=>navigator.clipboard?.writeText($('message').value).then(()=>{$('state').textContent='Message copied. PDF must still be attached manually.'},()=>{$('message').select();$('state').textContent='Select and copy the message manually.'}));
+$('copySubject').addEventListener('click',()=>navigator.clipboard?.writeText($('subject').value).then(()=>{$('state').textContent='Subject copied.'},()=>{$('subject').select();$('state').textContent='Select and copy the subject manually.'}));
+draft();update();
+})();
+</script></body></html>

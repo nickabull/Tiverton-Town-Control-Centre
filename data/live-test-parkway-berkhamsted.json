@@ -1,0 +1,35 @@
+{
+  "match": "Plymouth Parkway v Berkhamsted",
+  "date": "2026-11-09",
+  "kickoff": "19:30 Europe/London",
+  "checkedAt": "2026-11-09T08:05:33.185282+00:00",
+  "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
+  "isLiveCollector": false,
+  "southernLeague": {
+    "source": "Southern League public match API",
+    "url": "https://api.southern-football-league.co.uk/matches",
+    "checkedAt": "2026-11-09T08:05:33.185293+00:00",
+    "state": "found",
+    "matchFound": true,
+    "events": [],
+    "matchesInspected": 3,
+    "status": "NotKickedOff",
+    "home": "Plymouth Parkway",
+    "away": "Berkhamsted",
+    "apiId": "6adb04e6d7ac1e8de23d7aa7",
+    "score": {
+      "home": 0,
+      "away": 0
+    }
+  },
+  "footballWebPages": {
+    "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
+    "url": "https://www.footballwebpages.co.uk/fa-cup/20261109",
+    "checkedAt": "2026-11-09T08:05:33.563533+00:00",
+    "state": "listed",
+    "matchFound": true,
+    "events": [],
+    "message": "Fixture appears on FWP public FA Cup listing. No verified score or events parsed.",
+    "fixtureExcerpt": " and Results | Date | Status | Home | Away | First Round | 9/11/2026 | 7.30pm | Plymouth Parkway | v | Berkhamsted | View all of November's Fixtures and Results | Rounds | Extra Preliminary Round | Extra Preliminary Round Replay | Preliminary Round | Preliminary Round Replay | First Qualifying Round | First Q"
+  }
+}

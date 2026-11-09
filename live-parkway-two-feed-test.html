@@ -19,12 +19,14 @@ p{margin:5px 0 10px}.muted{color:var(--sub)}.label{display:inline-block;backgrou
 .instruction{border-left:4px solid #ffd800;padding:12px 15px;background:#202125;margin-top:15px}.sources{font-size:12px;margin-top:15px;color:#c8c8c8;word-break:break-word}
 a{color:#ffdc45}button{background:var(--y);color:#111;font:700 15px Antonio,Impact,sans-serif;border:0;padding:9px 13px;cursor:pointer;border-radius:4px}
 @media(max-width:750px){.cols{grid-template-columns:1fr}}
+.quicklinks{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 18px}.quicklinks a{background:#32343a;color:#ffe16b;border:1px solid #8e7e35;text-decoration:none;padding:10px 12px;border-radius:5px;font-weight:bold}.quicklinks a:focus-visible{outline:3px solid white}.stale{border-color:#d78b39!important;background:#362619!important;color:#ffe3b0!important}.fresh{border-color:#398566!important;background:#1f3029!important;color:#c4f3d7!important}.scoreline{font:700 clamp(19px,4vw,30px) Antonio,Impact,sans-serif;color:white;margin:12px 0}.scoreline small{font:14px Arial;color:#c9cbd0}.eventlistnote{font-size:12px;color:#aeb2bb}
 </style></head><body>
 <header><b>TIVVY <em>LIVE</em> · TWO-SOURCE TEST</b><span class="test">DIAGNOSTIC ONLY · NOT FAN ALERTS</span></header>
 <main><div class="hero"><div><h1>PLYMOUTH PARKWAY <span style="color:var(--y)">v</span> BERKHAMSTED</h1><p class="muted">Emirates FA Cup · Monday 9 November 2026 · 19:30 · TNT Sports 1</p></div><button id="refresh" type="button">CHECK NOW ↻</button></div>
+<nav class="quicklinks" aria-label="Other verified match sources"><a href="https://www.thenpl.co.uk/match/6adb04e6d7ac1e8de23d7aa7" target="_blank" rel="noopener">⚽ Official match centre ↗</a><a href="https://www.tntsports.co.uk/football/the-emirates-fa-cup/2026-2027/live-plymouth-parkway-berkhamsted_mtc22039278/live-lineup.shtml" target="_blank" rel="noopener">👕 Teams / TNT Sports ↗</a><a href="https://www.footballwebpages.co.uk/fa-cup/20261109" target="_blank" rel="noopener">📋 Football Web Pages ↗</a></nav>
 <div class="status" id="health" role="status">Checking the published match-source audit…</div>
 <div class="cols">
-<section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png"><div><h2>SOUTHERN LEAGUE</h2><div class="muted">Public match API</div></div></div><span class="state" id="slState">CHECKING</span></div><p class="meta" id="slChecked"></p><div class="details"><p id="slMessage">Waiting for API observation.</p><div id="slEvents"></div></div></section>
+<section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png"><div><h2>SOUTHERN LEAGUE</h2><div class="muted">Public match API</div></div></div><span class="state" id="slState">CHECKING</span></div><p class="meta" id="slChecked"></p><div class="details"><p id="slMessage">Waiting for API observation.</p><div id="slScore" class="scoreline"></div><div id="slEvents"></div></div></section>
 <section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png"><div><h2>FOOTBALL WEB PAGES</h2><div class="muted">Public fixture listing (API not yet connected)</div></div></div><span class="state" id="fwpState">CHECKING</span></div><p class="meta" id="fwpChecked"></p><div class="details"><p id="fwpMessage">Waiting for public-page observation.</p></div></section>
 </div>
 <div class="instruction"><h3>WHAT WE'RE TESTING</h3><p>Whether each source lists this FA Cup match, when its data changes, and how much of the match incident detail it exposes. <strong>A listed fixture is not a verified live score.</strong> No goals, scores or alerts will be invented to fill gaps.</p><p>This display checks a published GitHub diagnostic file every 15 seconds. The backend collector runs on its own schedule (approximately five-minute intervals during the match), subject to GitHub Actions delays. It is <strong>not</strong> a 15-second source poll.</p></div>
@@ -43,16 +45,16 @@ async function check(){
   const d=await r.json();
   if(d.date!=="2026-11-09"||d.kind!=="READ_ONLY_SOURCE_DIAGNOSTIC")throw Error("Unexpected diagnostic data");
   const changed=last&&JSON.stringify(d)!==last;last=JSON.stringify(d);
-  el("health").textContent="Backend last checked: "+new Date(d.checkedAt).toLocaleString("en-GB")+" · Page check: "+new Date().toLocaleTimeString("en-GB")+(changed?" · New diagnostic fetched":" · No new diagnostic")+".";
+  const minutesOld=(Date.now()-new Date(d.checkedAt).getTime())/60000; const stale= !Number.isFinite(minutesOld)||minutesOld>15;el("health").className="status "+(stale?"stale":"fresh");el("health").textContent=(stale?"⚠️ STALE SOURCE DATA — not a live score. ":"✓ Recent backend snapshot. ")+"Backend checked: "+new Date(d.checkedAt).toLocaleString("en-GB")+" · Page checked: "+new Date().toLocaleTimeString("en-GB")+(changed?" · Updated":" · No new snapshot")+".";
   for(const [key,prefix] of [["southernLeague","sl"],["footballWebPages","fwp"]]){
    const x=d[key]||{};const state=x.state||"error";
    const badge=el(prefix+"State");badge.textContent=state==="no-match"?"NOT LISTED":state==="listed"?"FIXTURE LISTED":state==="found"?"MATCH FOUND":"CHECK FAILED";
    badge.className="state "+state;
    el(prefix+"Checked").textContent="Source checked "+(x.checkedAt?new Date(x.checkedAt).toLocaleString("en-GB"):"unknown");
    el(prefix+"Message").textContent=x.message||(x.matchFound?"Fixture returned by source. Status: "+(x.status||"not supplied"):"No verified match data available.");
-   if(prefix==="sl")el("slEvents").innerHTML=Array.isArray(x.events)?x.events.map(e=>'<div class="event"><b>'+safe(e.minute??"")+"′ "+safe(e.type||"event")+"</b> · "+safe(e.team||"")+" · "+safe(e.player||((e.on||"")+" on / "+(e.off||"")+" off"))+"</div>").join(""):"";
+   if(prefix==="sl"){const score=x.score;el("slScore").textContent=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)&&x.status!=="NotKickedOff"?"Reported score: "+score.home+"–"+score.away+" · "+(x.status||"status unconfirmed"):"";el("slEvents").innerHTML=Array.isArray(x.events)?x.events.map(e=>'<div class="event"><b>'+safe(e.minute??"")+"′ "+safe(e.type||"event")+"</b> · "+safe(e.team||"")+" · "+safe(e.player||((e.on||"")+" on / "+(e.off||"")+" off"))+"</div>").join(""):"";if(!x.events?.length)el("slEvents").innerHTML='<p class="eventlistnote">No verified goals, cards or substitutions in the latest snapshot.</p>';}
   }
- }catch(err){el("health").textContent="Diagnostic feed unavailable: "+err.message+". No live information is being claimed."}
+ }catch(err){el("health").className="status stale";el("health").textContent="Diagnostic feed unavailable: "+err.message+". No live information is being claimed."}
 }
 el("refresh").addEventListener("click",check);check();setInterval(check,15000);
 })();

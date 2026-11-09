@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tivvy Live | Parkway Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet"><style>
+:root{--y:#ffd800;--bg:#121315;--p:#232427;--line:#555760;--sub:#c2c5cb}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:white;font:14px/1.5 Arial,Helvetica,sans-serif}
+header{border-bottom:4px solid var(--y);padding:16px max(15px,3vw);background:#090a0b;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header b{font:700 clamp(23px,3vw,32px) Antonio,Impact,sans-serif}header b em{font-style:normal;color:var(--y)}
+.test{color:#111;background:var(--y);padding:5px 12px;font:700 14px Antonio,Impact,sans-serif}
+main{max-width:1500px;padding:18px clamp(12px,3vw,35px);margin:auto}.hero{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap}
+h1{font:700 clamp(28px,4.4vw,48px)/1.1 Antonio,Impact,sans-serif;margin:0 0 5px}
+h2{font:700 24px Antonio,Impact,sans-serif;color:var(--y);margin:0}h3{font:700 20px Antonio,Impact,sans-serif;margin:0}
+p{margin:5px 0 10px}.muted{color:var(--sub)}.label{display:inline-block;background:#373226;color:#ffe379;border:1px solid #95803d;border-radius:4px;padding:4px 9px;font:700 13px Antonio,Impact,sans-serif;letter-spacing:.4px}
+.status{padding:14px;border:1px solid #6b642f;background:#29271c;margin:15px 0;color:#ffe79b;border-radius:6px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.feed{border:1px solid var(--line);background:var(--p);border-top:4px solid var(--y);border-radius:8px;padding:16px;min-width:0}
+.feed .top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.feed .icon{width:46px;height:46px;border-radius:6px;padding:4px;background:#fff;object-fit:contain}
+.feedhead{display:flex;align-items:center;gap:10px}.state{font:700 14px Antonio,Impact,sans-serif;background:#404146;border:1px solid #67686b;padding:6px 10px;color:#eee}
+.state.found{background:#224232;border-color:#43996d;color:#c5f3d4}.state.listed{background:#39351f;border-color:#ac9042;color:#ffe39a}.state.error{background:#48272b;border-color:#a85561;color:#ffdade}
+.meta{margin:8px 0 0;color:#bcc1c8;font-size:12px}.details{border-top:1px solid #45464a;margin-top:13px;padding-top:12px}
+.event{border-left:4px solid var(--y);padding:8px 12px;margin:7px 0;background:#191a1d}
+.instruction{border-left:4px solid #ffd800;padding:12px 15px;background:#202125;margin-top:15px}.sources{font-size:12px;margin-top:15px;color:#c8c8c8;word-break:break-word}
+a{color:#ffdc45}button{background:var(--y);color:#111;font:700 15px Antonio,Impact,sans-serif;border:0;padding:9px 13px;cursor:pointer;border-radius:4px}
+@media(max-width:750px){.cols{grid-template-columns:1fr}}
+</style></head><body>
+<header><b>TIVVY <em>LIVE</em> · TWO-SOURCE TEST</b><span class="test">DIAGNOSTIC ONLY · NOT FAN ALERTS</span></header>
+<main><div class="hero"><div><h1>PLYMOUTH PARKWAY <span style="color:var(--y)">v</span> BERKHAMSTED</h1><p class="muted">Emirates FA Cup · Monday 9 November 2026 · 19:30 · TNT Sports 1</p></div><button id="refresh" type="button">CHECK NOW ↻</button></div>
+<div class="status" id="health" role="status">Checking the published match-source audit…</div>
+<div class="cols">
+<section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_4b5d7e04c467443ca0009a3094a34837~mv2.png"><div><h2>SOUTHERN LEAGUE</h2><div class="muted">Public match API</div></div></div><span class="state" id="slState">CHECKING</span></div><p class="meta" id="slChecked"></p><div class="details"><p id="slMessage">Waiting for API observation.</p><div id="slEvents"></div></div></section>
+<section class="feed"><div class="top"><div class="feedhead"><img class="icon" alt="" src="https://static.wixstatic.com/media/8aa829_462fdb07629443a68366fef20d237ca7~mv2.png"><div><h2>FOOTBALL WEB PAGES</h2><div class="muted">Public fixture listing (API not yet connected)</div></div></div><span class="state" id="fwpState">CHECKING</span></div><p class="meta" id="fwpChecked"></p><div class="details"><p id="fwpMessage">Waiting for public-page observation.</p></div></section>
+</div>
+<div class="instruction"><h3>WHAT WE'RE TESTING</h3><p>Whether each source lists this FA Cup match, when its data changes, and how much of the match incident detail it exposes. <strong>A listed fixture is not a verified live score.</strong> No goals, scores or alerts will be invented to fill gaps.</p><p>This display checks a published GitHub diagnostic file every 15 seconds. The backend collector runs on its own schedule (approximately five-minute intervals during the match), subject to GitHub Actions delays. It is <strong>not</strong> a 15-second source poll.</p></div>
+<p class="sources"><a href="https://www.footballwebpages.co.uk/fa-cup/20261109" target="_blank" rel="noopener">FWP public FA Cup listing</a> · <a href="https://www.southern-football-league.co.uk/" target="_blank" rel="noopener">Southern League</a></p>
+</main><script>
+(function(){
+"use strict";
+const url="data/live-test-parkway-berkhamsted.json";
+const el=id=>document.getElementById(id);
+const safe=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+let last="";
+async function check(){
+ try{
+  const r=await fetch(url+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();
+  if(d.date!=="2026-11-09"||d.kind!=="READ_ONLY_SOURCE_DIAGNOSTIC")throw Error("Unexpected diagnostic data");
+  const changed=last&&JSON.stringify(d)!==last;last=JSON.stringify(d);
+  el("health").textContent="Backend last checked: "+new Date(d.checkedAt).toLocaleString("en-GB")+" · Page check: "+new Date().toLocaleTimeString("en-GB")+(changed?" · New diagnostic fetched":" · No new diagnostic")+".";
+  for(const [key,prefix] of [["southernLeague","sl"],["footballWebPages","fwp"]]){
+   const x=d[key]||{};const state=x.state||"error";
+   const badge=el(prefix+"State");badge.textContent=state==="no-match"?"NOT LISTED":state==="listed"?"FIXTURE LISTED":state==="found"?"MATCH FOUND":"CHECK FAILED";
+   badge.className="state "+state;
+   el(prefix+"Checked").textContent="Source checked "+(x.checkedAt?new Date(x.checkedAt).toLocaleString("en-GB"):"unknown");
+   el(prefix+"Message").textContent=x.message||(x.matchFound?"Fixture returned by source. Status: "+(x.status||"not supplied"):"No verified match data available.");
+   if(prefix==="sl")el("slEvents").innerHTML=Array.isArray(x.events)?x.events.map(e=>'<div class="event"><b>'+safe(e.minute??"")+"′ "+safe(e.type||"event")+"</b> · "+safe(e.team||"")+" · "+safe(e.player||((e.on||"")+" on / "+(e.off||"")+" off"))+"</div>").join(""):"";
+  }
+ }catch(err){el("health").textContent="Diagnostic feed unavailable: "+err.message+". No live information is being claimed."}
+}
+el("refresh").addEventListener("click",check);check();setInterval(check,15000);
+})();
+</script></body></html>

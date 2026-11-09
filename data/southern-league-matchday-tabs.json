@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-09",
+  "checkedAt": "2026-11-09T12:23:41.443002+00:00",
+  "source": "Official Southern League match API",
+  "status": "ok",
+  "matches": [
+    {
+      "id": "6adb04e6d7ac1e8de23d7aa7",
+      "home": "Plymouth Parkway",
+      "away": "Berkhamsted",
+      "kickoff": "2026-11-09",
+      "status": "NotKickedOff",
+      "homeScore": 0,
+      "awayScore": 0,
+      "competition": "facup"
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f448c",
+      "home": "Swindon Supermarine",
+      "away": "Westbury United",
+      "kickoff": "2026-11-09",
+      "status": "NotKickedOff",
+      "homeScore": 0,
+      "awayScore": 0,
+      "competition": "onesouth"
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f448b",
+      "home": "Redditch United",
+      "away": "Peterborough Sports",
+      "kickoff": "2026-11-09",
+      "status": "NotKickedOff",
+      "homeScore": 0,
+      "awayScore": 0,
+      "competition": "premiercentral"
+    }
+  ],
+  "unclassified": [],
+  "apiMatches": 3
+}

@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tivvy Live | Around the Southern League</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#ffdc00;--bg:#101113;--card:#232427;--outline:#4f5259;--muted:#c1c4ca}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font:15px/1.45 Arial,Helvetica,sans-serif}a{color:#ffe154}
+header{padding:18px 24px;border-bottom:5px solid var(--yellow);background:#08090b;display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap}
+header strong{font:700 clamp(23px,3.4vw,33px)/1.1 Antonio,Impact,sans-serif;text-transform:uppercase}header em{font-style:normal;color:var(--yellow)}
+.tag{background:var(--yellow);color:#0a0a0a;font:700 13px Antonio,Impact,sans-serif;padding:5px 10px}
+main{max-width:1350px;margin:auto;padding:20px 23px}
+.headline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font:700 clamp(30px,5vw,44px)/1.08 Antonio,Impact,sans-serif;margin:0;text-transform:uppercase}
+.date{color:var(--muted);font-size:14px;margin:8px 0 18px}
+button{font:700 15px Antonio,Impact,sans-serif;border:0;cursor:pointer;border-radius:4px;padding:10px 14px}
+.reload{background:var(--yellow);color:#111}
+nav{display:flex;flex-wrap:wrap;gap:6px;border-bottom:2px solid #5e5d48;padding:0 0 9px;margin-top:8px}
+.tab{color:#f5f5f5;background:#303136;display:inline-flex;gap:10px;align-items:center;text-transform:uppercase;min-height:45px;border:1px solid #62646a}
+.tab[aria-selected="true"]{background:var(--yellow);color:#111;border-color:var(--yellow)}
+.count{border-radius:3px;font:700 14px Antonio,sans-serif;background:#55575c;color:#fff;padding:1px 6px}
+.tab[aria-selected="true"] .count{background:#111;color:#ffdc00}
+.summary{margin-top:14px;padding:11px 13px;background:#24251d;border:1px solid #71672f;color:#fbe498;border-radius:5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:space-between}
+.small{font-size:12px;color:var(--muted)}.warn{color:#ffbc8d}.good{color:#9ee2b2}
+#matches{margin-top:16px;display:grid;gap:10px}
+.match{display:grid;grid-template-columns:minmax(0,1fr) minmax(95px,140px) minmax(0,1fr);align-items:center;gap:12px;background:var(--card);border:1px solid var(--outline);border-left:5px solid var(--yellow);border-radius:6px;padding:17px 19px}
+.team{font:700 clamp(19px,2.5vw,25px)/1.2 Antonio,Impact,sans-serif;text-transform:uppercase;overflow-wrap:anywhere}.team.home{text-align:right}.team.away{text-align:left}
+.scoreblock{text-align:center;white-space:nowrap}
+.score{display:inline-block;background:#121315;border:1px solid #777a82;padding:6px 11px;border-radius:6px;min-width:86px;font:700 25px/1.15 Antonio,Impact,sans-serif}
+.score.live{background:#3e3020;border-color:#ffdc00;color:#ffdc00}
+.status{margin-top:5px;font:700 13px Antonio,Impact,sans-serif;text-transform:uppercase;color:#c9cbd0}
+.empty{border:1px dashed #797b81;background:#242427;color:#c7c8cd;padding:32px 20px;text-align:center;border-radius:7px}.empty b{display:block;font:700 26px Antonio,Impact,sans-serif;color:#fff;margin-bottom:5px}
+footer{margin:22px 0;color:#aaaeb5;font-size:12px;line-height:1.6}
+@media(max-width:660px){main{padding:15px 12px}header{padding:13px}.tab{flex:1 1 45%;justify-content:center;gap:6px;font-size:13px;padding:8px}.match{grid-template-columns:minmax(0,1fr) 86px minmax(0,1fr);gap:7px;padding:13px 9px}.team{font-size:17px}.score{font-size:21px;min-width:70px;padding:6px 4px}}
+</style></head><body>
+<header><strong>TIVVY <em>LIVE</em> · AROUND THE LEAGUE</strong><span class="tag">OFFICIAL SOUTHERN LEAGUE FEED</span></header>
+<main>
+<div class="headline"><h1>Tonight's fixtures &amp; results</h1><button id="check" class="reload" type="button">CHECK NOW ↻</button></div>
+<p id="date" class="date">Checking official matchday data…</p>
+<nav id="tabs" role="tablist" aria-label="Choose competition">
+<button class="tab" type="button" role="tab" aria-selected="true" data-comp="onesouth">Div One South <span class="count" data-count="onesouth">–</span></button>
+<button class="tab" type="button" role="tab" aria-selected="false" data-comp="onecentral">Div One Central <span class="count" data-count="onecentral">–</span></button>
+<button class="tab" type="button" role="tab" aria-selected="false" data-comp="premiercentral">Premier Central <span class="count" data-count="premiercentral">–</span></button>
+<button class="tab" type="button" role="tab" aria-selected="false" data-comp="premiersouth">Premier South <span class="count" data-count="premiersouth">–</span></button>
+<button class="tab" type="button" role="tab" aria-selected="false" data-comp="facup">FA Cup <span class="count" data-count="facup">–</span></button>
+</nav>
+<div class="summary" role="status"><span id="health">Waiting for first collection…</span><span id="last" class="small"></span></div>
+<section id="matches" aria-live="polite"><div class="empty">Loading matchday fixtures…</div></section>
+<footer>Showing match information supplied by the Southern League public match API only. There may be delays or omissions. An empty tab means no matching fixture was returned by this feed for the selected date, not that no football is being played. The page checks for updated published data every 15 seconds; the backend collector is scheduled at approximately 10-minute intervals in match windows, subject to GitHub Actions scheduling delays. No manual Wix publish is required for data changes. <a href="https://www.southern-football-league.co.uk/" target="_blank" rel="noopener">Official Southern League website ↗</a>.</footer>
+</main><script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const names={onesouth:"Division One South",onecentral:"Division One Central",premiercentral:"Premier Central",premiersouth:"Premier South",facup:"FA Cup"};
+const tabs=[...document.querySelectorAll("[data-comp]")];
+let current="onesouth",snapshot=null,lastSignature="",checking=false;
+function dateText(s){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return "Matchday not specified";
+ const n=new Date(s+"T12:00:00Z");
+ return new Intl.DateTimeFormat("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(n);
+}
+function isStarted(status){
+ const s=String(status||"").toLowerCase();
+ return /(live|progress|half|second|first|finished|complete|fulltime|full.time|ended|final|postponed|abandoned|suspended)/.test(s)&&!/(notkickedoff|scheduled|not.started)/.test(s);
+}
+function isLive(status){
+ const s=String(status||"").toLowerCase();
+ return /(live|progress|half|second|first)/.test(s)&&!/(notkickedoff|finished|complete|fulltime|ended|scheduled)/.test(s);
+}
+function scoreText(m){
+ if(isStarted(m.status)&&Number.isFinite(Number(m.homeScore))&&Number.isFinite(Number(m.awayScore))&&m.homeScore!==null&&m.awayScore!==null)return esc(m.homeScore)+" – "+esc(m.awayScore);
+ const d=String(m.kickoff||"");
+ const t=d.match(/T(\d\d):(\d\d)/);
+ if(t){const parsed=new Date(d);if(!Number.isNaN(parsed.getTime()))return parsed.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"});}
+ return "v";
+}
+function statusText(m){const raw=String(m.status||"");const map={NotKickedOff:"Scheduled",InProgress:"LIVE",HalfTime:"Half-time",Finished:"Full-time",FullTime:"Full-time",Postponed:"Postponed",Abandoned:"Abandoned"};return map[raw]||raw.replace(/([a-z])([A-Z])/g,"$1 $2")||"Status unknown"}
+function render(){
+ tabs.forEach(b=>{b.setAttribute("aria-selected",String(b.dataset.comp===current));const count=snapshot?.matches?.filter(m=>m.competition===b.dataset.comp).length??null;b.querySelector(".count").textContent=count===null?"–":String(count);});
+ if(!snapshot){$("matches").innerHTML='<div class="empty">Waiting for official fixtures…</div>';return;}
+ const rows=(snapshot.matches||[]).filter(m=>m.competition===current);
+ if(!rows.length){$("matches").innerHTML='<div class="empty"><b>No fixtures listed</b>No '+esc(names[current])+' games were returned by the official source for '+esc(dateText(snapshot.date))+'.</div>';return;}
+ $("matches").innerHTML=rows.map(m=>'<article class="match"><div class="team home">'+esc(m.home||"Home team")+'</div><div class="scoreblock"><div class="score'+(isLive(m.status)?' live':'')+'">'+scoreText(m)+'</div><div class="status">'+esc(statusText(m))+'</div></div><div class="team away">'+esc(m.away||"Away team")+'</div></article>').join("");
+}
+async function check(){
+ if(checking)return;checking=true;
+ try{
+  const res=await fetch("data/southern-league-matchday-tabs.json?_="+Date.now(),{cache:"no-store"});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  const data=await res.json();
+  if(data.status!=="ok"||!Array.isArray(data.matches)||!/^\d{4}-\d{2}-\d{2}$/.test(data.date||""))throw Error(data.error||"Unexpected matchday data");
+  const sig=JSON.stringify(data);
+  const changed=sig!==lastSignature;lastSignature=sig;
+  snapshot=data;
+  $("date").textContent=dateText(data.date)+" · "+data.matches.length+" fixture"+(data.matches.length===1?"":"s")+" across monitored competitions";
+  const updated=new Date(data.checkedAt);
+  const age=Date.now()-updated.getTime();
+  const hours=age/3600000;
+  const isToday=data.date===new Date().toLocaleDateString("en-CA",{timeZone:"Europe/London"});
+  $("health").textContent=!isToday?"Showing last collected matchday; today's feed has not been published yet.":hours>0.5?"Data is older than 30 minutes — check collector status.":changed?"Source snapshot refreshed.":"No new source snapshot yet.";
+  $("health").className=(hours>0.5||!isToday)?"warn":"good";
+  $("last").textContent="Backend checked "+updated.toLocaleString("en-GB",{timeZone:"Europe/London"})+" · Page checked "+new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/London"});
+  render();
+ }catch(e){$("health").className="warn";$("health").textContent="Matchday data unavailable: "+e.message+". Scores cannot be verified.";}
+ finally{checking=false;}
+}
+tabs.forEach(b=>b.addEventListener("click",()=>{current=b.dataset.comp;render()}));
+$("check").addEventListener("click",check);
+check();setInterval(check,15000);
+})();
+</script></body></html>

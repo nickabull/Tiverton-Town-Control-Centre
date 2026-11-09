@@ -1,0 +1,32 @@
+name: Tivvy Live FA Cup two-source trial
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/probe-live-parkway.py'
+      - '.github/workflows/live-parkway-trial.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 18-23 9 11 *'
+    - cron: '*/5 0 10 11 *'
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch observed source states
+        run: python scripts/probe-live-parkway.py
+      - name: Publish diagnostic JSON (only if content changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live-test-parkway-berkhamsted.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Update Parkway live-feed diagnostic [skip ci]"
+          git push

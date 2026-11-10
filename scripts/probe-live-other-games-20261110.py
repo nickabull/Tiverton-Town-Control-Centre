@@ -38,6 +38,7 @@ def main():
             status=str(m.get("status") or "unknown")
             event_fields={k:len(v) if isinstance(v,list) else type(v).__name__ for k,v in m.items() if any(word in k.lower() for word in ("goal","card","sub","event","incident","timeline"))}
             doc.setdefault("eventFieldDiagnostics",{})[home+" v "+away]={"availableFields":sorted(m.keys()),"eventRelatedFields":event_fields}
+            doc["eventFieldDiagnostics"][home+" v "+away]["eventSamples"]=[ev for ev in (m.get("events") or [])[:3] if isinstance(ev,dict]]
             doc["matches"].append({"id":str(m.get("_id") or m.get("id") or ""),"home":home,"away":away,"status":status,
                 "score":score if valid else None,"scoreVerified":bool(valid and status.lower() not in ("notkickedoff","scheduled")),
                 "eventsCount":sum(len(m.get(side+kind,[]) or []) for side in ("home","away") for kind in ("Goals","Cards","Subs"))})

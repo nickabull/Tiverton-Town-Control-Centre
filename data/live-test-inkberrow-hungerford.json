@@ -2,13 +2,13 @@
   "match": "Sporting Club Inkberrow v Hungerford Town",
   "date": "2026-11-10",
   "kickoff": "19:45 Europe/London",
-  "checkedAt": "2026-11-10T20:24:09.115367+00:00",
+  "checkedAt": "2026-11-10T20:25:11.801276+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-10T20:24:09.115378+00:00",
+    "checkedAt": "2026-11-10T20:25:11.801284+00:00",
     "state": "found",
     "matchFound": true,
     "events": [
@@ -29,12 +29,36 @@
           "id": "3bbfcd44-6ee9-11f0-aa15-02eebc336bd5",
           "name": "George Alston",
           "teamId": "6a0adf9eda5d0d0847a02457",
-          "createdAt": "2026-11-10T20:24:02.088Z",
-          "updatedAt": "2026-11-10T20:24:02.088Z",
+          "createdAt": "2026-11-10T20:25:02.066Z",
+          "updatedAt": "2026-11-10T20:25:02.066Z",
           "profileId": "6a95a419f3cafeb65052a82f"
         },
         "teamId": "6a0adf9eda5d0d0847a02457",
         "createdAt": "2026-11-10T20:21:01.741Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1cc3ce9ef452b61f44af",
+        "externalMatchId": "cd172a06-81d8-11f1-886a-0204f6006b57",
+        "minute": 35,
+        "phase": "FirstHalf",
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "kickOffDate": "2026-11-10",
+        "kickOffTime": "19:45",
+        "eventType": "GOAL",
+        "person": {
+          "id": "3c02146a-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Gregor Guy",
+          "teamId": "6a0adf9eda5d0d0847a02479",
+          "createdAt": "2026-11-10T20:25:02.066Z",
+          "updatedAt": "2026-11-10T20:25:02.066Z",
+          "profileId": "6a7b88e2f3cafeb6505244f2"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "createdAt": "2026-11-10T20:25:02.066Z"
       }
     ],
     "matchesInspected": 37,
@@ -43,7 +67,7 @@
     "away": "Hungerford Town",
     "apiId": "6a5a1cc3ce9ef452b61f44af",
     "score": {
-      "home": 0,
+      "home": 1,
       "away": 1
     },
     "eventFieldNames": [
@@ -64,17 +88,17 @@
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/20261110",
-    "checkedAt": "2026-11-10T20:24:09.904732+00:00",
+    "checkedAt": "2026-11-10T20:25:12.561537+00:00",
     "state": "score-available",
     "matchFound": true,
     "events": [],
     "message": "Score reported by FWP fixture listing; no player-level incidents verified.",
     "score": {
-      "home": 0,
+      "home": 1,
       "away": 1
     },
-    "matchMinute": "34'",
+    "matchMinute": "35'",
     "progress": "in-play",
-    "fixtureExcerpt": "10/11/2026 | 34' | Sporting Club Inkberrow | 0 | 1 | Hungerford Town | 10/11/2026"
+    "fixtureExcerpt": "10/11/2026 | 35' | Sporting Club Inkberrow | 1 | 1 | Hungerford Town | 10/11/2026"
   }
 }

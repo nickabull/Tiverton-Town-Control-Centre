@@ -39,12 +39,9 @@ def fetch_sfl():
    p.update(state="found",matchFound=True,status=str(match.get("status") or "unknown"),home=name(match,"home"),away=name(match,"away"),apiId=str(match.get("_id") or match.get("id") or ""))
    score=match.get("score") or {}
    p["score"]=score.get("current") if isinstance(score,dict) else None
-   for side in ("home","away"):
-    for kind,field in (("goal","Goals"),("card","Cards"),("sub","Subs")):
-     for ev in match.get(side+field,[]) or []:
-      if not isinstance(ev,dict):continue
-      p["events"].append({"side":side,"team":name(match,side),"type":kind,"minute":ev.get("minute"),
-         "player":ev.get("personName"),"on":ev.get("personOnName"),"off":ev.get("personOffName"),"cardType":ev.get("cardType")})
+   # The live API returns an events array; preserve its complete records for the verified timeline.
+   p["events"]=[ev for ev in (match.get("events") or []) if isinstance(ev,dict)]
+   p["eventFieldNames"]=sorted({key for ev in p["events"] for key in ev.keys()})
  except Exception as e:p["message"]=type(e).__name__+": "+str(e)[:170]
  return p
 class Text(HTMLParser):

@@ -39,12 +39,48 @@ small,.muted{color:var(--muted)}main{padding:12px;max-width:1600px;margin:auto}
 .foot{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:9px}
 button.reload{background:var(--y);color:#111;border:0;border-radius:3px;padding:7px 11px;font-weight:bold;cursor:pointer}
 a{color:#ffe179}
-@media(max-width:780px){
+/* Embed-first layout: container width inside Wix determines the breakpoints. */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+main{max-width:1280px;width:100%;padding:10px}
+.layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.panel{padding:12px;container-type:inline-size}
+.matchhead{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.teams{font-size:clamp(17px,2.2vw,27px)}
+.scroll{scrollbar-width:thin;scrollbar-color:#777b80 #202226;scroll-behavior:auto}
+.scroll::-webkit-scrollbar{width:7px;height:6px}
+.scroll::-webkit-scrollbar-track{background:#202226;border-radius:6px}
+.scroll::-webkit-scrollbar-thumb{background:#777b80;border-radius:6px}
+.scroll::-webkit-scrollbar-thumb:hover{background:#a3a5aa}
+.tabs{flex-wrap:wrap;overflow-x:visible}
+.tab{font-size:13px;padding:6px 8px}
+.event{padding:9px}.fixture{padding:8px}.fixture .line span{font-size:17px}
+.health{margin:7px 0 10px}
+@container (max-width:440px){
+.matchhead{gap:4px}.teams{font-size:16px}
+.score{font-size:22px;padding:4px 7px}
+.tabs{gap:4px}.tab{font-size:12px;padding:5px 7px}
+.event .name{font-size:13px}.event{padding:7px}
+.sub-pair{gap:5px 9px}
+.fixture .line span{font-size:14px}
+}
+@media(max-width:840px){
 header{padding:9px 11px}h1{font-size:24px}main{padding:7px}
-.layout{grid-template-columns:1fr;gap:8px}.panel{padding:9px}
-.matchhead{gap:4px}.teams{font-size:clamp(14px,4.2vw,21px)}.score{font-size:21px;padding:5px 7px}
-.scroll{height:340px}.fixture .line span{font-size:15px}.fixture strong{padding:4px}
-.tabs{gap:4px}.tab{font-size:12px;padding:6px 8px}
+.layout{grid-template-columns:minmax(0,1fr);gap:9px}
+.panel{padding:11px}
+.matchhead{gap:7px}.teams{font-size:clamp(17px,4.2vw,24px)}
+.scroll{height:330px}
+.tabs{gap:5px}.tab{font-size:13px;padding:7px 9px}
+}
+@media(max-width:480px){
+header{gap:3px}header small{font-size:10px}
+h1{font-size:22px}.panel{padding:9px}
+.teams{font-size:clamp(14px,4vw,19px)}.score{font-size:22px;padding:5px 7px}
+.scroll{height:305px}
+.event .top{gap:5px}.event .name{font-size:13px}
+.event-score{font-size:14px;padding:2px 7px}
+.fixture .line span{font-size:15px}
+.fixture .incident{font-size:11px}
+.foot{font-size:11px}
 }
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>COMBINED TEST · READ-ONLY · NOT FAN ALERTS</small></header>
@@ -76,7 +112,7 @@ header{padding:9px 11px}h1{font-size:24px}main{padding:7px}
 const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
 const paths={featured:"live-test-inkberrow-hungerford.json",other:"live-other-games-20261110.json",tabs:"southern-league-matchday-tabs.json"};
 const $=id=>document.getElementById(id);
-let chosen="onesouth",current={},previousEvents=new Set();
+let chosen="onesouth",current={};
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
 const fresh=d=>{let t=Date.parse(d?.checkedAt);return Number.isFinite(t)&&Date.now()-t<600000&&Date.now()-t>=-120000};
 const mk=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
@@ -102,7 +138,7 @@ const fb=b&&Number.isInteger(b.home)&&Number.isInteger(b.away);
 $("featureScore").textContent=can?a.home+" – "+a.away:fb?b.home+" – "+b.away:"– : –";
 $("featuredMeta").textContent=(x.status||"Status unavailable")+" · Official match data "+uk(x.checkedAt)+" · "+(fw.matchMinute?"Reported "+fw.matchMinute+"′ · ":"")+"Source: "+(can?"Southern League":fb?"Football Web Pages":"unverified");
 $("featureDiag").textContent=(fresh(d)?"RECENT":"STALE")+" snapshot · "+uk(d.checkedAt);
-const root=$("featuredEvents");root.replaceChildren();
+const root=$("featuredEvents");const previousScroll=root.scrollTop;root.replaceChildren();
 const events=Array.isArray(x.events)?[...x.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
 if(!events.length){root.append(mk("p","muted","No verified goal, card or substitution details supplied yet."));return;}
 for(const e of events.slice().reverse()){
@@ -113,13 +149,14 @@ if(eventType(e).includes("SUB")){if(team)box.append(mk("div","source",team));box
 else box.append(mk("div","name",person(e)+(team?" · "+team:"")));
 box.append(mk("div","source","Southern League API"));
 root.append(box)}
+root.scrollTop=previousScroll;
 }
 function renderRight(){
-const d=current.other,t=current.tabs;const root=$("leagueList");root.replaceChildren();
+const d=current.other,t=current.tabs;const root=$("leagueList");const previousScroll=root.scrollTop;root.replaceChildren();
 if(chosen==="facup"){$("leagueMeta").textContent="FA Cup · No verified fixture feed connected in this test";root.append(mk("p","muted","FA Cup integration reserved for the next test. No unverified scores shown."));return}
 const useLive=chosen==="onesouth"&&d&&d.status==="ok"&&Array.isArray(d.matches);
 const stamp=useLive?d.checkedAt:t?.checkedAt;
-$("leagueMeta").textContent=(useLive?"Other Games · ":"Competition fixture snapshot · ")+(fresh({checkedAt:stamp})?"Recent":"STALE / HISTORICAL")+" · "+uk(stamp);
+$("leagueMeta").textContent=(useLive?"Other Games · ":"Competition fixture snapshot · ")+(fresh({checkedAt:stamp})?"Recent":useLive?"Delayed — last update":"Historical / not live")+" · "+uk(stamp);
 const items=useLive?d.matches:(t?.matches||[]).filter(m=>m.competition===chosen&& !(chosen==="onesouth"&&initials(m.home)==="sporting club inkberrow"));
 if(!items.length){root.append(mk("p","muted","No verified fixtures in the selected competition snapshot."));return}
 for(const m of items){
@@ -135,6 +172,7 @@ if(useLive&&Array.isArray(m.events)){for(const e of m.events.slice().sort((a,b)=
 }}
 root.append(box);
 }
+root.scrollTop=previousScroll;
 }
 async function grab(file){let r=await fetch(base+file+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json()}
 async function refresh(){
@@ -143,7 +181,7 @@ let errors=[];values.forEach((v,i)=>{if(v.status==="fulfilled")current[keys[i]]=
 renderFeatured();renderRight();
 const mainOk=fresh(current.featured),otherOk=fresh(current.other);
 $("health").className="health "+(mainOk&&otherOk?"ok":"bad");
-$("health").textContent="Featured: "+(mainOk?"recent":"stale/missing")+" · Other Games: "+(otherOk?"recent":"stale/missing")+" · League tabs: "+uk(current.tabs?.checkedAt)+(errors.length?" · Errors: "+errors.join("; "):"");
+$("health").textContent="Featured: "+(mainOk?"recent":"delayed")+" ("+uk(current.featured?.checkedAt)+") · Other Games: "+(otherOk?"recent":"delayed")+" ("+uk(current.other?.checkedAt)+") · Other league tabs: historical fixture data, not live"+(errors.length?" · Errors: "+errors.join("; "):"");
 $("otherDiag").textContent="Last page check "+uk(new Date())+" · Updates checked every 15 seconds";
 }
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});

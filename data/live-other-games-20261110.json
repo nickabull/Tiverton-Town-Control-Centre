@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-10",
+  "checkedAt": "2026-11-10T12:13:41.634822+00:00",
+  "source": "Southern League public match API",
+  "status": "ok",
+  "matches": [
+    {
+      "id": "6a5a1cc3ce9ef452b61f44ae",
+      "home": "Hartpury FC",
+      "away": "Bishops Cleeve",
+      "status": "NotKickedOff",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "scoreVerified": false,
+      "eventsCount": 0
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f44ab",
+      "home": "Barnstaple Town",
+      "away": "Bristol Manor Farm",
+      "status": "NotKickedOff",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "scoreVerified": false,
+      "eventsCount": 0
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f44b1",
+      "home": "Worcester Raiders",
+      "away": "Melksham Town",
+      "status": "NotKickedOff",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "scoreVerified": false,
+      "eventsCount": 0
+    }
+  ],
+  "excludedFixture": "Sporting Club Inkberrow v Hungerford Town",
+  "apiMatchesInspected": 37
+}

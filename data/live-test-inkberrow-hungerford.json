@@ -2,13 +2,13 @@
   "match": "Sporting Club Inkberrow v Hungerford Town",
   "date": "2026-11-10",
   "kickoff": "19:45 Europe/London",
-  "checkedAt": "2026-11-10T20:47:06.864906+00:00",
+  "checkedAt": "2026-11-10T20:48:09.766054+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-10T20:47:06.864914+00:00",
+    "checkedAt": "2026-11-10T20:48:09.766062+00:00",
     "state": "found",
     "matchFound": true,
     "events": [
@@ -29,8 +29,8 @@
           "id": "3bbfcd44-6ee9-11f0-aa15-02eebc336bd5",
           "name": "George Alston",
           "teamId": "6a0adf9eda5d0d0847a02457",
-          "createdAt": "2026-11-10T20:47:01.795Z",
-          "updatedAt": "2026-11-10T20:47:01.795Z",
+          "createdAt": "2026-11-10T20:48:02.013Z",
+          "updatedAt": "2026-11-10T20:48:02.013Z",
           "profileId": "6a95a419f3cafeb65052a82f"
         },
         "teamId": "6a0adf9eda5d0d0847a02457",
@@ -53,8 +53,8 @@
           "id": "3c02146a-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Gregor Guy",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T20:47:01.795Z",
-          "updatedAt": "2026-11-10T20:47:01.795Z",
+          "createdAt": "2026-11-10T20:48:02.013Z",
+          "updatedAt": "2026-11-10T20:48:02.013Z",
           "profileId": "6a7b88e2f3cafeb6505244f2"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -88,7 +88,7 @@
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/20261110",
-    "checkedAt": "2026-11-10T20:47:08.010055+00:00",
+    "checkedAt": "2026-11-10T20:48:10.761897+00:00",
     "state": "score-available",
     "matchFound": true,
     "events": [],
@@ -97,6 +97,6 @@
       "home": 1,
       "away": 1
     },
-    "fixtureExcerpt": "10/11/2026 | 45+12' | Sporting Club Inkberrow | 1 | 1 | Hungerford Town | 10/11/2026"
+    "fixtureExcerpt": "10/11/2026 | 45+13' | Sporting Club Inkberrow | 1 | 1 | Hungerford Town | 10/11/2026"
   }
 }

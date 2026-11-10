@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "checkedAt": "2026-11-10T00:33:22.528410+00:00",
+  "checkedAt": "2026-11-10T22:08:59.951047+00:00",
   "source": "Official Southern League match API",
   "status": "ok",
   "matches": [
@@ -19,9 +19,9 @@
       "home": "Hartpury FC",
       "away": "Bishops Cleeve",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 5,
+      "awayScore": 1,
       "competition": "onesouth"
     },
     {
@@ -29,9 +29,9 @@
       "home": "Chertsey Town",
       "away": "Chichester City",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -39,9 +39,9 @@
       "home": "Hertford Town",
       "away": "Biggleswade FC",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 1,
       "competition": "onecentral"
     },
     {
@@ -49,9 +49,9 @@
       "home": "Haringey Borough",
       "away": "Flackwell Heath",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -99,9 +99,9 @@
       "home": "Rushall Olympic",
       "away": "Halesowen Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -109,8 +109,8 @@
       "home": "Anstey Nomads",
       "away": "Kettering Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
       "awayScore": 0,
       "competition": "premiercentral"
     },
@@ -119,9 +119,9 @@
       "home": "Bury Town",
       "away": "Bishop's Stortford",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -129,9 +129,9 @@
       "home": "Stratford Town",
       "away": "Banbury United",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -139,9 +139,9 @@
       "home": "Biggleswade Town",
       "away": "London Lions",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -169,9 +169,9 @@
       "home": "Leiston",
       "away": "Real Bedford",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 4,
       "competition": "premiercentral"
     },
     {
@@ -179,9 +179,9 @@
       "home": "Stourbridge FC",
       "away": "Alvechurch",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 2,
       "competition": "premiercentral"
     },
     {
@@ -189,9 +189,9 @@
       "home": "Gloucester City",
       "away": "Malvern Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 2,
       "competition": "premiersouth"
     },
     {
@@ -199,9 +199,9 @@
       "home": "Barnstaple Town",
       "away": "Bristol Manor Farm",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "onesouth"
     },
     {
@@ -209,9 +209,9 @@
       "home": "Evesham United ",
       "away": "Yate Town FC",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 3,
       "competition": "premiersouth"
     },
     {
@@ -219,9 +219,9 @@
       "home": "Barton Rovers",
       "away": "Winslow United",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -229,9 +229,9 @@
       "home": "Welwyn Garden City",
       "away": "St Albans City",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "unclassified"
     },
     {
@@ -239,9 +239,9 @@
       "home": "Uxbridge ",
       "away": "Hanwell Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 4,
+      "awayScore": 2,
       "competition": "premiersouth"
     },
     {
@@ -259,9 +259,9 @@
       "home": "Ware",
       "away": "Leverstock Green",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "onecentral"
     },
     {
@@ -269,9 +269,9 @@
       "home": "Hadley",
       "away": "Marlow",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 3,
       "competition": "onecentral"
     },
     {
@@ -279,9 +279,9 @@
       "home": "Leamington",
       "away": "Bromsgrove Sporting",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 3,
       "competition": "premiercentral"
     },
     {
@@ -289,7 +289,7 @@
       "home": "Stamford",
       "away": "Needham Market",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "premiercentral"
@@ -299,9 +299,9 @@
       "home": "Milton Keynes Irish",
       "away": "Didcot Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 4,
       "competition": "onecentral"
     },
     {
@@ -309,9 +309,9 @@
       "home": "Sholing FC",
       "away": "Chippenham Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -319,8 +319,8 @@
       "home": "Stotfold",
       "away": "Potters Bar Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
       "awayScore": 0,
       "competition": "onecentral"
     },
@@ -329,9 +329,9 @@
       "home": "Worcester City",
       "away": "Racing Club Warwick",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -339,9 +339,9 @@
       "home": "Worcester Raiders",
       "away": "Melksham Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 5,
       "competition": "onesouth"
     },
     {
@@ -349,9 +349,9 @@
       "home": "Sporting Club Inkberrow",
       "away": "Hungerford Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "onesouth"
     },
     {
@@ -359,9 +359,9 @@
       "home": "Bath City",
       "away": "Taunton Town",
       "kickoff": "2026-11-10",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 3,
       "competition": "premiersouth"
     },
     {
@@ -404,22 +404,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -448,22 +438,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -493,22 +473,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -539,22 +509,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -585,22 +545,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -630,22 +580,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -675,22 +615,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -719,22 +649,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     },
     {
@@ -763,22 +683,12 @@
         "status",
         "info",
         "currentMinute",
-        "homeLineup",
-        "awayLineup",
-        "homeSubs",
-        "awaySubs",
-        "homeGoals",
-        "awayGoals",
-        "homeCards",
-        "awayCards",
         "__v",
         "id",
         "isInternal",
         "stadium",
         "time",
-        "date",
-        "lineups",
-        "subs"
+        "date"
       ]
     }
   ],

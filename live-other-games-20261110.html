@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live | Other Games 10 November 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--yellow:#ffdb00;--dark:#121315;--panel:#242528;--border:#56575a;--muted:#bec0c6}
+*{box-sizing:border-box}body{margin:0;background:var(--dark);color:#fff;font:14px/1.5 Arial,Helvetica,sans-serif}
+header{border-bottom:4px solid var(--yellow);padding:16px 20px;background:#090a0b}
+h1,h2,.team,.score{font-family:Antonio,Impact,"Arial Narrow",sans-serif}
+h1{font-size:clamp(24px,4vw,34px);margin:0;line-height:1.2}em{color:var(--yellow);font-style:normal}
+main{max-width:1050px;margin:auto;padding:16px}.subtitle{color:var(--muted);margin:0 0 15px}
+.status{padding:10px 13px;border:1px solid #827033;border-radius:5px;background:#29261b;color:#ffe49a;margin-bottom:14px}
+.status.ok{background:#19362b;border-color:#4a9470;color:#b8f0ce}.status.warn{background:#3a291a;border-color:#a27639;color:#ffe5ad}.status.error{background:#49272b;border-color:#b35b63;color:#ffbac2}
+.fixture{border:1px solid var(--border);border-left:5px solid var(--yellow);background:var(--panel);border-radius:6px;padding:13px 16px;margin:10px 0}
+.fixture .line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+.team{font-size:clamp(19px,3.4vw,28px);line-height:1.12;overflow-wrap:anywhere}.team.away{text-align:right}
+.score{font-size:clamp(21px,3.5vw,31px);background:var(--yellow);color:#111;padding:4px 13px;min-width:70px;text-align:center;border-radius:2px;white-space:nowrap}
+.meta{font-size:12px;color:var(--muted);margin-top:8px}a{color:#ffe06a}
+.bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-size:12px;color:var(--muted);border-top:1px solid #45464a;margin-top:15px;padding-top:10px}
+button{background:var(--yellow);border:0;color:#111;border-radius:4px;padding:9px 12px;font:700 15px Antonio;cursor:pointer}
+@media(max-width:460px){.fixture{padding:10px}.fixture .line{gap:6px}.score{min-width:60px;padding:5px}}
+</style></head><body>
+<header><h1>TIVVY <em>LIVE</em> · OTHER GAMES</h1></header>
+<main>
+<p class="subtitle">Southern League Division One South · Tuesday 10 November 2026 · Inkberrow v Hungerford shown separately</p>
+<div id="health" class="status" role="status">Checking fixture data…</div>
+<div id="matches" aria-live="polite"><div class="fixture">Awaiting verified source data. No scores will be assumed.</div></div>
+<div class="bottom"><span id="diag">Page has not checked a snapshot</span><button id="refresh" type="button">CHECK NOW ↻</button></div>
+</main>
+<script>
+(function(){
+"use strict";
+const url="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/live-other-games-20261110.json";
+const allowed=[["barnstaple town","bristol manor farm"],["hartpury fc","bishops cleeve"],["worcester raiders","melksham town"]];
+const $=id=>document.getElementById(id);
+const format=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
+const norm=x=>String(x||"").toLowerCase().trim();
+const isAllowed=m=>allowed.some(([a,b])=>a===norm(m.home)&&b===norm(m.away));
+const matches={};let last=null;
+function element(tag,cls,content){let el=document.createElement(tag);if(cls)el.className=cls;if(content!==undefined)el.textContent=content;return el;}
+function draw(list,stale){const root=$("matches");root.replaceChildren();for(const m of list){const box=element("section","fixture");const line=element("div","line");line.append(element("span","team",m.home));const valid=m.scoreVerified===true&&Number.isInteger(m.score?.home)&&Number.isInteger(m.score?.away);line.append(element("strong","score",valid?m.score.home+" – "+m.score.away:"– : –"));line.append(element("span","team away",m.away));box.append(line);const status=element("div","meta",m.status||"Status unknown");if(stale)status.textContent+=" · STALE SNAPSHOT";else if(!valid)status.textContent+=" · No verified live score";status.textContent+=" · API event records: "+(Number.isInteger(m.eventsCount)?m.eventsCount:"unknown");box.append(status);root.append(box);}if(!list.length)root.append(element("div","fixture","No verified other-game fixtures returned by the collector."));}
+async function refresh(){try{const response=await fetch(url+"?t="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);const d=await response.json();if(d.date!=="2026-11-10"||!Array.isArray(d.matches))throw Error("Unexpected match snapshot");const valid=d.matches.filter(isAllowed);const age=(Date.now()-Date.parse(d.checkedAt))/60000;const stale=!Number.isFinite(age)||age< -2||age>10;const broken=d.status!=="ok";draw(valid,stale||broken);$("health").className="status "+(broken?"error":stale?"warn":"ok");$("health").textContent=broken?"Collector error: "+(d.error||"Source unavailable"):stale?"⚠ STALE DATA · Last successful collector check "+format(d.checkedAt):"✓ Recent Southern League API snapshot · "+format(d.checkedAt);$("diag").textContent="Page checked "+format(new Date())+" · Collector "+format(d.checkedAt)+" · "+valid.length+" other fixtures · "+(last===JSON.stringify(d)?"No new snapshot":"Snapshot received");last=JSON.stringify(d);
+}catch(e){$("health").className="status error";$("health").textContent="Feed unavailable: "+e.message+" · No live scores claimed";$("diag").textContent="Page checked "+format(new Date())+" · No verified collector snapshot";}}
+$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,15000);
+})();
+</script></body></html>

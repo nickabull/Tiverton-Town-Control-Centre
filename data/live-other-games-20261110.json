@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "checkedAt": "2026-11-10T20:03:06.191396+00:00",
+  "checkedAt": "2026-11-10T20:04:07.908480+00:00",
   "source": "Southern League public match API",
   "status": "ok",
   "matches": [
@@ -42,5 +42,106 @@
     }
   ],
   "excludedFixture": "Sporting Club Inkberrow v Hungerford Town",
-  "apiMatchesInspected": 37
+  "apiMatchesInspected": 37,
+  "eventFieldDiagnostics": {
+    "Hartpury FC v Bishops Cleeve": {
+      "availableFields": [
+        "__v",
+        "_id",
+        "attendance",
+        "awayTeam",
+        "awayTeamName",
+        "competition",
+        "currentMinute",
+        "date",
+        "dateTime",
+        "detailsRefreshedAt",
+        "events",
+        "externalId",
+        "externalMatchStatus",
+        "homeTeam",
+        "homeTeamName",
+        "id",
+        "info",
+        "isInternal",
+        "referee",
+        "round",
+        "score",
+        "stadium",
+        "stage",
+        "status",
+        "time",
+        "venue"
+      ],
+      "eventRelatedFields": {
+        "events": 1
+      }
+    },
+    "Barnstaple Town v Bristol Manor Farm": {
+      "availableFields": [
+        "__v",
+        "_id",
+        "attendance",
+        "awayTeam",
+        "awayTeamName",
+        "competition",
+        "currentMinute",
+        "date",
+        "dateTime",
+        "detailsRefreshedAt",
+        "events",
+        "externalId",
+        "externalMatchStatus",
+        "homeTeam",
+        "homeTeamName",
+        "id",
+        "info",
+        "isInternal",
+        "referee",
+        "round",
+        "score",
+        "stadium",
+        "stage",
+        "status",
+        "time",
+        "venue"
+      ],
+      "eventRelatedFields": {
+        "events": 1
+      }
+    },
+    "Worcester Raiders v Melksham Town": {
+      "availableFields": [
+        "__v",
+        "_id",
+        "attendance",
+        "awayTeam",
+        "awayTeamName",
+        "competition",
+        "currentMinute",
+        "date",
+        "dateTime",
+        "detailsRefreshedAt",
+        "events",
+        "externalId",
+        "externalMatchStatus",
+        "homeTeam",
+        "homeTeamName",
+        "id",
+        "info",
+        "isInternal",
+        "referee",
+        "round",
+        "score",
+        "stadium",
+        "stage",
+        "status",
+        "time",
+        "venue"
+      ],
+      "eventRelatedFields": {
+        "events": 2
+      }
+    }
+  }
 }

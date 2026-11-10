@@ -82,18 +82,38 @@ h1{font-size:22px}.panel{padding:9px}
 .fixture .incident{font-size:11px}
 .foot{font-size:11px}
 }
+
+/* Wix mobile iframe: switch panes instead of clipping stacked content. */
+.mobile-switch{display:none}
+@media(max-width:840px){
+.mobile-switch{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mobile-switch button{font:700 16px Antonio,Impact,Arial,sans-serif;color:#fff;background:#34363a;border:1px solid #707070;padding:10px 6px;border-radius:4px;cursor:pointer}
+.mobile-switch button[aria-selected="true"]{background:var(--y);color:#101010;border-color:var(--y)}
+#combinedLayout[data-active-panel="featured"] #leaguesPanel{display:none}
+#combinedLayout[data-active-panel="leagues"] #featuredPanel{display:none}
+.scroll{height:390px}
+}
+@media(max-width:480px){
+header small{display:none}
+header{padding:7px 10px}
+.health{font-size:11px;padding:7px 9px;margin:6px 0 8px}
+.scroll{height:335px}
+.panel{padding:9px}
+.mobile-switch button{padding:8px 5px;font-size:14px}
+}
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>COMBINED TEST · READ-ONLY · NOT FAN ALERTS</small></header>
 <main>
 <div id="health" class="health">Checking published source snapshots…</div>
-<div class="layout">
-<section class="panel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
+<div class="mobile-switch" role="tablist" aria-label="Mobile match centre section"><button type="button" data-panel="featured" aria-selected="true">FEATURED MATCH</button><button type="button" data-panel="leagues" aria-selected="false">OTHER LEAGUES</button></div>
+<div class="layout" id="combinedLayout" data-active-panel="featured">
+<section class="panel" id="featuredPanel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
 <div class="matchhead"><span class="teams">SPORTING CLUB INKBERROW</span><strong class="score" id="featureScore">– : –</strong><span class="teams">HUNGERFORD TOWN</span></div>
 <div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
 <h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
 <div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44af" target="_blank" rel="noopener">Official match centre</a></div>
 </section>
-<section class="panel" aria-label="Other competitions"><h2>AROUND THE LEAGUES</h2>
+<section class="panel" id="leaguesPanel" aria-label="Other competitions"><h2>AROUND THE LEAGUES</h2>
 <div class="tabs" id="tabs" role="tablist" aria-label="Select competition">
 <button class="tab" type="button" role="tab" data-tab="onesouth" aria-selected="true">D1 South</button>
 <button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
@@ -185,6 +205,11 @@ $("health").textContent="Featured: "+(mainOk?"recent":"delayed")+" ("+uk(current
 $("otherDiag").textContent="Last page check "+uk(new Date())+" · Updates checked every 15 seconds";
 }
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});
+document.querySelector(".mobile-switch").addEventListener("click",ev=>{
+ const button=ev.target.closest("button[data-panel]");if(!button)return;
+ $("combinedLayout").dataset.activePanel=button.dataset.panel;
+ for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
+});
 $("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,15000);
 })();
 </script></body></html>

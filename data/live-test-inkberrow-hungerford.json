@@ -2,13 +2,13 @@
   "match": "Sporting Club Inkberrow v Hungerford Town",
   "date": "2026-11-10",
   "kickoff": "19:45 Europe/London",
-  "checkedAt": "2026-11-10T20:21:01.203333+00:00",
+  "checkedAt": "2026-11-10T20:22:04.020711+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-10T20:21:01.203348+00:00",
+    "checkedAt": "2026-11-10T20:22:04.020724+00:00",
     "state": "found",
     "matchFound": true,
     "events": [],
@@ -19,13 +19,13 @@
     "apiId": "6a5a1cc3ce9ef452b61f44af",
     "score": {
       "home": 0,
-      "away": 0
+      "away": 1
     }
   },
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/20261110",
-    "checkedAt": "2026-11-10T20:21:02.088237+00:00",
+    "checkedAt": "2026-11-10T20:22:04.758881+00:00",
     "state": "score-available",
     "matchFound": true,
     "events": [],
@@ -34,8 +34,8 @@
       "home": 0,
       "away": 1
     },
-    "matchMinute": "31'",
+    "matchMinute": "32'",
     "progress": "in-play",
-    "fixtureExcerpt": "10/11/2026 | 31' | Sporting Club Inkberrow | 0 | 1 | Hungerford Town | 10/11/2026"
+    "fixtureExcerpt": "10/11/2026 | 32' | Sporting Club Inkberrow | 0 | 1 | Hungerford Town | 10/11/2026"
   }
 }

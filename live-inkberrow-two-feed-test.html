@@ -141,7 +141,18 @@ async function check(){
      const hasScore=sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away);
      el("matchProgress").innerHTML='<div class="pair"><span>SPORTING CLUB INKBERROW</span><strong>'+(hasScore?safe(sc.home)+" – "+safe(sc.away):"— : —")+'</strong><span>HUNGERFORD TOWN</span></div><div class="source">'+(x.matchMinute?'<span class="minute">'+safe(String(x.matchMinute).replace(/['′]+$/,""))+"′</span> · ":"")+(hasScore?"Score reported by Football Web Pages":"No verified score yet")+' · source checked '+safe(x.checkedAt?new Date(x.checkedAt).toLocaleTimeString("en-GB"):"unknown")+(stale?" · ⚠️ data may be outdated":"")+'</div>';
    }
-   if(prefix==="sl"){const score=x.score;el("slScore").textContent=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)&&x.status!=="NotKickedOff"?"Reported score: "+score.home+"–"+score.away+" · "+(x.status||"status unconfirmed"):"";el("slEvents").innerHTML=Array.isArray(x.events)?x.events.map(e=>'<div class="event"><b>'+safe(e.minute??"")+"′ "+safe(e.type||"event")+"</b> · "+safe(e.team||"")+" · "+safe(e.player||((e.on||"")+" on / "+(e.off||"")+" off"))+"</div>").join(""):"";if(!x.events?.length)el("slEvents").innerHTML='<p class="eventlistnote">No verified goals, cards or substitutions in the latest snapshot.</p>';}
+   if(prefix==="sl"){const score=x.score;el("slScore").textContent=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)&&x.status!=="NotKickedOff"?"Reported score: "+score.home+"–"+score.away+" · "+(x.status||"status unconfirmed"):"";el("slEvents").innerHTML=Array.isArray(x.events)?[...x.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)).map((e,i,arr)=>{
+const type=String(e.eventType||e.type||"EVENT").toUpperCase();
+const player=typeof e.person==="object"?(e.person?.name||""):String(e.person||e.player||"");
+const on=e.personOn?.name||e.personOnName||e.on||"";
+const off=e.personOff?.name||e.personOffName||e.off||"";
+const prev=i?arr[i-1].score:{home:0,away:0};
+let team=e.team||"";
+if(!team&&type==="GOAL"&&e.score&&prev){if(e.score.home>prev.home&&e.score.away===prev.away)team=x.home||"Home";else if(e.score.away>prev.away&&e.score.home===prev.home)team=x.away||"Away";}
+const label=type==="GOAL"?"⚽ GOAL":type.includes("SUB")?"↕ SUBSTITUTION":type.includes("CARD")?"CARD":type;
+const detail=type.includes("SUB")?[on?"ON "+on:"",off?"OFF "+off:""].filter(Boolean).join(" · "):(player||e.description||"Player not supplied");
+return '<div class="event"><b>'+safe(e.minute??"?")+"′ · "+safe(label)+"</b>"+(team?" · "+safe(team):"")+" · "+safe(detail)+"</div>";
+}).join(""):"";if(!x.events?.length)el("slEvents").innerHTML='<p class="eventlistnote">No verified goals, cards or substitutions in the latest snapshot.</p>';}
   }
  }catch(err){diagState("diagPage","ERROR","Cannot read a valid Inkberrow snapshot: "+err.message,"bad");diagState("diagCollector","UNKNOWN","No validated source timestamps available","bad");diagState("diagEvents","UNKNOWN","No validated incident information available","bad");el("diag").textContent="Page checked "+uk(new Date())+" · Snapshot unavailable.";el("health").className="status stale";el("health").textContent="Diagnostic feed unavailable: "+err.message+". No live information is being claimed."}
 }

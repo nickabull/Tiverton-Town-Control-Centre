@@ -33,6 +33,12 @@ h1{font-size:clamp(20px,6vw,28px);line-height:1.05}
 button{font-size:12px;padding:7px 8px}
 }
 
+
+.incidents{margin-top:9px;display:grid;gap:5px}
+.incident{background:#17181a;border-left:3px solid var(--yellow);padding:6px 9px;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+.incident b{color:#ffe178}
+.incident .incdetail{color:#dedfe3}
+@media(max-width:600px){.incidents{margin-top:6px;gap:4px}.incident{font-size:11px;padding:5px 7px}}
 </style></head><body>
 <header><h1>TIVVY <em>LIVE</em> · OTHER GAMES</h1></header>
 <main>
@@ -52,7 +58,25 @@ const norm=x=>String(x||"").toLowerCase().trim();
 const isAllowed=m=>allowed.some(([a,b])=>a===norm(m.home)&&b===norm(m.away));
 const matches={};let last=null;
 function element(tag,cls,content){let el=document.createElement(tag);if(cls)el.className=cls;if(content!==undefined)el.textContent=content;return el;}
-function draw(list,stale){const root=$("matches");root.replaceChildren();for(const m of list){const box=element("section","fixture");const line=element("div","line");line.append(element("span","team",m.home));const valid=m.scoreVerified===true&&Number.isInteger(m.score?.home)&&Number.isInteger(m.score?.away);line.append(element("strong","score",valid?m.score.home+" – "+m.score.away:"– : –"));line.append(element("span","team away",m.away));box.append(line);const status=element("div","meta",m.status||"Status unknown");if(stale)status.textContent+=" · STALE SNAPSHOT";else if(!valid)status.textContent+=" · No verified live score";status.textContent+=" · API event records: "+(Number.isInteger(m.eventsCount)?m.eventsCount:"unknown");box.append(status);root.append(box);}if(!list.length)root.append(element("div","fixture","No verified other-game fixtures returned by the collector."));}
+function draw(list,stale){const root=$("matches");root.replaceChildren();for(const m of list){const box=element("section","fixture");const line=element("div","line");line.append(element("span","team",m.home));const valid=m.scoreVerified===true&&Number.isInteger(m.score?.home)&&Number.isInteger(m.score?.away);line.append(element("strong","score",valid?m.score.home+" – "+m.score.away:"– : –"));line.append(element("span","team away",m.away));box.append(line);const status=element("div","meta",m.status||"Status unknown");if(stale)status.textContent+=" · STALE SNAPSHOT";else if(!valid)status.textContent+=" · No verified live score";status.textContent+=" · API event records: "+(Number.isInteger(m.eventsCount)?m.eventsCount:"unknown");box.append(status);
+const evs=Array.isArray(m.events)?[...m.events].filter(e=>e&&typeof e==="object").sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
+if(evs.length){
+ const holder=element("div","incidents");
+ for(const e of evs){
+  const type=String(e.eventType||e.type||"EVENT").toUpperCase();
+  const label=type==="GOAL"?"⚽ GOAL":type.includes("SUB")?"↕ SUBSTITUTION":type.includes("CARD")?"CARD":type;
+  const who=e.person&&typeof e.person==="object"?String(e.person.name||""):String(e.player||"");
+  const on=e.personOn?.name||e.personOnName||"";
+  const off=e.personOff?.name||e.personOffName||"";
+  const text=type.includes("SUB")?[on?"ON "+on:"",off?"OFF "+off:""].filter(Boolean).join(" · "):(who||"Player details not supplied");
+  const line=element("div","incident");
+  line.append(element("b","",String(e.minute??"?")+"′ · "+label+" · "));
+  line.append(element("span","incdetail",text));
+  holder.append(line);
+ }
+ box.append(holder);
+}
+root.append(box);}if(!list.length)root.append(element("div","fixture","No verified other-game fixtures returned by the collector."));}
 async function refresh(){try{const response=await fetch(url+"?t="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);const d=await response.json();if(d.date!=="2026-11-10"||!Array.isArray(d.matches))throw Error("Unexpected match snapshot");const valid=d.matches.filter(isAllowed);const age=(Date.now()-Date.parse(d.checkedAt))/60000;const stale=!Number.isFinite(age)||age< -2||age>10;const broken=d.status!=="ok";draw(valid,stale||broken);$("health").className="status "+(broken?"error":stale?"warn":"ok");$("health").textContent=broken?"Collector error: "+(d.error||"Source unavailable"):stale?"⚠ STALE DATA · Last successful collector check "+format(d.checkedAt):"✓ Recent Southern League API snapshot · "+format(d.checkedAt);$("diag").textContent="Page checked "+format(new Date())+" · Collector "+format(d.checkedAt)+" · "+valid.length+" other fixtures · "+(last===JSON.stringify(d)?"No new snapshot":"Snapshot received");last=JSON.stringify(d);
 }catch(e){$("health").className="status error";$("health").textContent="Feed unavailable: "+e.message+" · No live scores claimed";$("diag").textContent="Page checked "+format(new Date())+" · No verified collector snapshot";}}
 $("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,15000);

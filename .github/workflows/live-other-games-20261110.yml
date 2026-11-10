@@ -16,7 +16,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 9
+    timeout-minutes: 220
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,7 +27,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for attempt in 1 2 3 4; do
+          for attempt in $(seq 1 210); do
             python scripts/probe-live-other-games-20261110.py
             git add data/live-other-games-20261110.json
             if ! git diff --cached --quiet; then
@@ -39,5 +39,5 @@ jobs:
             start=$(date -u -d '2026-11-10 18:30:00' +%s)
             end=$(date -u -d '2026-11-10 22:45:00' +%s)
             if [ "$now" -lt "$start" ] || [ "$now" -ge "$end" ]; then break; fi
-            if [ "$attempt" -lt 4 ]; then sleep 60; fi
+            sleep 60
           done

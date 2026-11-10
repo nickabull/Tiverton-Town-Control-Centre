@@ -2,13 +2,13 @@
   "match": "Sporting Club Inkberrow v Hungerford Town",
   "date": "2026-11-10",
   "kickoff": "19:45 Europe/London",
-  "checkedAt": "2026-11-10T21:20:32.810979+00:00",
+  "checkedAt": "2026-11-10T21:21:35.619836+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-10T21:20:32.810986+00:00",
+    "checkedAt": "2026-11-10T21:21:35.619847+00:00",
     "state": "found",
     "matchFound": true,
     "events": [
@@ -29,8 +29,8 @@
           "id": "3bbfcd44-6ee9-11f0-aa15-02eebc336bd5",
           "name": "George Alston",
           "teamId": "6a0adf9eda5d0d0847a02457",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a95a419f3cafeb65052a82f"
         },
         "teamId": "6a0adf9eda5d0d0847a02457",
@@ -53,8 +53,8 @@
           "id": "3c02146a-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Gregor Guy",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb6505244f2"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -77,8 +77,8 @@
           "id": "3c022b27-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Ackeem  Stewart",
           "teamId": "6a0adf9eda5d0d0847a02457",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a775429f3cafeb650523e49"
         },
         "teamId": "6a0adf9eda5d0d0847a02457",
@@ -101,8 +101,8 @@
           "id": "3c021bcf-6ee9-11f0-aa15-02eebc336bd5",
           "name": "William Moore",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb6505244f0"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -125,16 +125,16 @@
           "id": "3bc179ba-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Thomas Nigel Owen",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb65052450e"
         },
         "personOff": {
           "id": "3c021bcf-6ee9-11f0-aa15-02eebc336bd5",
           "name": "William Moore",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb6505244f0"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -157,16 +157,16 @@
           "id": "3bfb5979-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Zachary Powell",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb6505244e4"
         },
         "personOff": {
           "id": "3be200c9-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Piers Walton",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7a2be1f3cafeb650523f7a"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -189,8 +189,8 @@
           "id": "de7aaa23-8b5a-11f1-b56e-0204f6006b57",
           "name": "Joshua Hurdman",
           "teamId": "6a0adf9eda5d0d0847a02479",
-          "createdAt": "2026-11-10T21:20:01.854Z",
-          "updatedAt": "2026-11-10T21:20:01.854Z",
+          "createdAt": "2026-11-10T21:21:01.909Z",
+          "updatedAt": "2026-11-10T21:21:01.909Z",
           "profileId": "6a7b88e2f3cafeb65052450c"
         },
         "teamId": "6a0adf9eda5d0d0847a02479",
@@ -225,7 +225,7 @@
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/20261110",
-    "checkedAt": "2026-11-10T21:20:33.645275+00:00",
+    "checkedAt": "2026-11-10T21:21:36.223873+00:00",
     "state": "score-available",
     "matchFound": true,
     "events": [],
@@ -234,8 +234,8 @@
       "home": 2,
       "away": 2
     },
-    "matchMinute": "71'",
+    "matchMinute": "72'",
     "progress": "in-play",
-    "fixtureExcerpt": "10/11/2026 | 71' | Sporting Club Inkberrow | (1) | 2 | 2 | (1)"
+    "fixtureExcerpt": "10/11/2026 | 72' | Sporting Club Inkberrow | (1) | 2 | 2 | (1)"
   }
 }

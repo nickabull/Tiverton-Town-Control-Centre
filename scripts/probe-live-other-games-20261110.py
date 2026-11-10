@@ -41,7 +41,7 @@ def main():
             doc["eventFieldDiagnostics"][home+" v "+away]["eventSamples"]=[ev for ev in (m.get("events") or [])[:3] if isinstance(ev,dict]]
             doc["matches"].append({"id":str(m.get("_id") or m.get("id") or ""),"home":home,"away":away,"status":status,
                 "score":score if valid else None,"scoreVerified":bool(valid and status.lower() not in ("notkickedoff","scheduled")),
-                "eventsCount":sum(len(m.get(side+kind,[]) or []) for side in ("home","away") for kind in ("Goals","Cards","Subs"))})
+                "eventsCount":len(m.get("events") or []),"events":m.get("events") or []})
         doc["status"]="ok"
     except Exception as exc:
         doc["error"]=type(exc).__name__+": "+str(exc)[:180]

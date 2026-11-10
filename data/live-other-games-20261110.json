@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "checkedAt": "2026-11-10T19:49:42.286266+00:00",
+  "checkedAt": "2026-11-10T19:50:44.007963+00:00",
   "source": "Southern League public match API",
   "status": "ok",
   "matches": [
@@ -10,7 +10,7 @@
       "away": "Bishops Cleeve",
       "status": "FirstHalf",
       "score": {
-        "home": 0,
+        "home": 1,
         "away": 0
       },
       "scoreVerified": true,

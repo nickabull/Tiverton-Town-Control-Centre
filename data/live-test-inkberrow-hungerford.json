@@ -2,13 +2,13 @@
   "match": "Sporting Club Inkberrow v Hungerford Town",
   "date": "2026-11-10",
   "kickoff": "19:45 Europe/London",
-  "checkedAt": "2026-11-10T19:47:23.379226+00:00",
+  "checkedAt": "2026-11-10T19:48:26.041797+00:00",
   "kind": "READ_ONLY_SOURCE_DIAGNOSTIC",
   "isLiveCollector": false,
   "southernLeague": {
     "source": "Southern League public match API",
     "url": "https://api.southern-football-league.co.uk/matches",
-    "checkedAt": "2026-11-10T19:47:23.379238+00:00",
+    "checkedAt": "2026-11-10T19:48:26.041807+00:00",
     "state": "found",
     "matchFound": true,
     "events": [],
@@ -25,11 +25,10 @@
   "footballWebPages": {
     "source": "Football Web Pages PUBLIC fixtures page (not authenticated API)",
     "url": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/20261110",
-    "checkedAt": "2026-11-10T19:47:24.187719+00:00",
-    "state": "listed",
-    "matchFound": true,
+    "checkedAt": "2026-11-10T19:48:26.862850+00:00",
+    "state": "no-match",
+    "matchFound": false,
     "events": [],
-    "message": "Fixture appears on FWP Southern League listing. No verified score or events parsed.",
-    "fixtureExcerpt": "m | 10/11/2026 | 1' | Hartpury | 0 | 0 | Bishops Cleeve | 10/11/2026 | 7.45pm | Sporting Club Inkberrow | v | Hungerford Town | 10/11/2026 | 7.45pm | Worcester Raiders | v | Melksham Town | View all of November's Fixtures and Results | League Table | Southern League - South Divis"
+    "message": "No matching fixture in public listing."
   }
 }

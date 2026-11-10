@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "checkedAt": "2026-11-10T19:57:56.631754+00:00",
+  "checkedAt": "2026-11-10T19:58:58.711702+00:00",
   "source": "Southern League public match API",
   "status": "ok",
   "matches": [
@@ -22,7 +22,7 @@
       "away": "Bristol Manor Farm",
       "status": "FirstHalf",
       "score": {
-        "home": 0,
+        "home": 1,
         "away": 0
       },
       "scoreVerified": true,

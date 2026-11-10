@@ -21,6 +21,45 @@ a{color:#ffdc45}button{background:var(--y);color:#111;font:700 15px Antonio,Impa
 @media(max-width:750px){.cols{grid-template-columns:1fr}}
 .quicklinks{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 18px}.quicklinks a{background:#32343a;color:#ffe16b;border:1px solid #8e7e35;text-decoration:none;padding:10px 12px;border-radius:5px;font-weight:bold}.quicklinks a:focus-visible{outline:3px solid white}.stale{border-color:#d78b39!important;background:#362619!important;color:#ffe3b0!important}.fresh{border-color:#398566!important;background:#1f3029!important;color:#c4f3d7!important}.scoreline{font:700 clamp(19px,4vw,30px) Antonio,Impact,sans-serif;color:white;margin:12px 0}.scoreline small{font:14px Arial;color:#c9cbd0}.eventlistnote{font-size:12px;color:#aeb2bb}.liveScore{border:1px solid #8c782e;background:#191919;padding:18px;margin:12px 0;border-radius:8px}.liveScore .pair{display:flex;gap:8px;justify-content:space-between;align-items:center;font:700 clamp(18px,4vw,29px) Antonio,Impact,sans-serif}.liveScore .pair strong{background:var(--y);color:#111;padding:6px 12px;white-space:nowrap}.liveScore .source{color:#c5c6cb;font-size:12px;margin-top:10px}.liveScore .minute{color:#ffe071;font:700 22px Antonio,Impact,sans-serif}.state.score-available{background:#224232;border-color:#43996d;color:#c5f3d4}
 .diaggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:10px}.diaggrid>div{border:1px solid #57585b;background:#161719;border-radius:5px;padding:10px;min-width:0}.diaggrid small,.diaggrid strong,.diaggrid span{display:block}.diaggrid small{color:#c9cbd0;font-size:11px;letter-spacing:.5px}.diaggrid strong{font:700 20px Antonio,Impact,sans-serif;margin:4px 0;color:#ffe179}.diaggrid strong.good{color:#72dfab}.diaggrid strong.warn{color:#ffe179}.diaggrid strong.bad{color:#ff8793}.diaggrid span{font-size:12px;color:#c9cbd0;overflow-wrap:anywhere}@media(max-width:650px){.diaggrid{grid-template-columns:1fr}}
+@media(max-width:600px){
+ html,body{width:100%;max-width:100%;overflow-x:hidden}
+ body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+ header{padding:9px 10px;gap:5px}
+ header b{font-size:19px;line-height:1.05}
+ .test{font-size:10px;padding:3px 6px}
+ main{padding:9px 8px}
+ .hero{gap:6px}
+ h1{font-size:clamp(20px,6vw,28px);line-height:1.06;overflow-wrap:anywhere}
+ .hero .muted{font-size:11px;line-height:1.3}
+ .hero button{font-size:12px;padding:6px 8px}
+ .quicklinks{gap:5px;margin:8px 0}
+ .quicklinks a{font-size:11px;padding:6px}
+ .liveScore{padding:10px 7px;margin:8px 0}
+ .liveScore .pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:5px;font-size:clamp(13px,4.1vw,19px);line-height:1.04}
+ .liveScore .pair span{min-width:0;overflow-wrap:anywhere;word-break:normal}
+ .liveScore .pair span:last-child{text-align:right}
+ .liveScore .pair strong{padding:5px 7px;font-size:clamp(16px,4vw,21px)}
+ .liveScore .source{font-size:11px;line-height:1.25;margin-top:6px}
+ .status{padding:7px 8px;margin:7px 0;font-size:11px;line-height:1.3}
+ .feed{padding:9px;border-radius:5px}
+ .feed h2{font-size:18px}
+ .feed .icon{width:29px;height:29px}
+ .feedhead{gap:6px}
+ .feed .top{gap:5px}
+ .feed .top .muted{font-size:10px}
+ .state{font-size:11px;padding:3px 5px}
+ .diaggrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:6px}
+ .diaggrid>div{padding:5px}
+ .diaggrid small{font-size:9px;line-height:1.15}
+ .diaggrid strong{font-size:14px;overflow-wrap:anywhere}
+ .diaggrid span{font-size:10px;line-height:1.2}
+ .cols{grid-template-columns:1fr;gap:7px}
+ .details{margin-top:6px;padding-top:6px}
+ .details p{margin:3px 0;font-size:11px}
+ .meta{font-size:10px;margin-top:4px}
+ .event{padding:5px 7px;margin:4px 0;font-size:11px}
+ .eventlistnote{font-size:10px}
+}
 </style></head><body>
 <header><b>TIVVY <em>LIVE</em> · TWO-SOURCE TEST</b><span class="test">DIAGNOSTIC ONLY · NOT FAN ALERTS</span></header>
 <main><div class="hero"><div><h1>SPORTING CLUB INKBERROW <span style="color:var(--y)">v</span> HUNGERFORD TOWN</h1><p class="muted">Tuesday 10 November 2026 · 19:45 · Southern League Division One South</p></div><button id="refresh" type="button">CHECK NOW ↻</button></div>

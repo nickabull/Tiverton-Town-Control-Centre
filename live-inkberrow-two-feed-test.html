@@ -149,11 +149,13 @@ const off=e.personOff?.name||e.personOffName||e.off||"";
 const prev=i?arr[i-1].score:{home:0,away:0};
 let team=e.team||"";
 if(!team&&e.teamId){
- const matchEvents=Array.isArray(x.events)?x.events:[];
- const homeGoal=matchEvents.find(z=>z.eventType==="GOAL"&&z.score?.home>0&&z.score?.away===0);
- const awayGoal=matchEvents.find(z=>z.eventType==="GOAL"&&z.score?.away>0&&z.score?.home===0);
- if(homeGoal&&e.teamId===homeGoal.teamId)team=x.home||"Home";
- if(awayGoal&&e.teamId===awayGoal.teamId)team=x.away||"Away";
+ const matchEvents=Array.isArray(x.events)?[...x.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
+ let prior={home:0,away:0};
+ for(const z of matchEvents){if(z.eventType==="GOAL"&&z.score&&z.teamId){
+   if(z.teamId===e.teamId&&z.score.home>prior.home)team=x.home||"Home";
+   if(z.teamId===e.teamId&&z.score.away>prior.away)team=x.away||"Away";
+  }if(z.score&&Number.isInteger(z.score.home)&&Number.isInteger(z.score.away))prior=z.score;
+ }
 }
 if(!team&&type==="GOAL"&&e.score&&prev){if(e.score.home>prev.home&&e.score.away===prev.away)team=x.home||"Home";else if(e.score.away>prev.away&&e.score.home===prev.home)team=x.away||"Away";}
 const label=type==="GOAL"?"⚽ GOAL":type==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":type==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":type==="RED_CARD"||type==="STRAIGHT_RED_CARD"?"🟥 RED CARD":type.includes("SUB")?"↕ SUBSTITUTION":type.includes("CARD")?"CARD":type;

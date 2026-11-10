@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live | Combined Match Centre Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#ffdb00;--black:#111214;--panel:#232529;--line:#555961;--muted:#c5c8ce;--green:#80e8ac;--red:#ff8b94}
+*{box-sizing:border-box}html,body{margin:0;background:var(--black);color:#fff;font:14px/1.4 Arial,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#080909;border-bottom:4px solid var(--y);padding:11px 18px}
+h1,h2,h3,.score,.teams,.tab{font-family:Antonio,Impact,Arial,sans-serif}h1{font-size:30px;margin:0}h1 em{color:var(--y);font-style:normal}h2{font-size:23px;color:var(--y);margin:0 0 8px}h3{font-size:19px;margin:0 0 8px}
+small,.muted{color:var(--muted)}main{padding:12px;max-width:1600px;margin:auto}
+.layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--y);border-radius:7px;padding:13px;min-width:0}
+.matchhead{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
+.teams{font-size:clamp(18px,2.8vw,29px);line-height:1.06;overflow-wrap:anywhere}.teams:last-child{text-align:right}
+.score{background:var(--y);color:#151515;font-size:clamp(20px,3vw,31px);padding:5px 12px;border-radius:3px;white-space:nowrap;text-align:center}
+.matchmeta{font-size:12px;color:var(--muted);margin:8px 0 10px}
+.scroll{height:470px;overflow:auto;overscroll-behavior:contain;padding-right:5px}
+.event{background:#17181a;border-left:4px solid var(--y);margin:7px 0;padding:10px;border-radius:3px;overflow-wrap:anywhere}
+.event .top{font-weight:bold;color:#fff}.event .name{font-size:15px}.event .source{font-size:11px;color:#bbb;margin-top:3px}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:8px}
+.tab{flex:0 0 auto;background:#36383b;color:#fff;border:1px solid #666;border-radius:4px;padding:7px 10px;font-size:14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--y);color:#111;border-color:var(--y)}
+.fixture{background:#191b1e;border-left:3px solid var(--y);padding:10px;margin:7px 0;border-radius:3px}
+.fixture .line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:7px}
+.fixture .line span:last-child{text-align:right}.fixture strong{color:#111;background:var(--y);padding:4px 7px;white-space:nowrap;border-radius:3px}
+.fixture .line span{min-width:0;overflow-wrap:anywhere;font-family:Antonio,Arial;font-size:18px}
+.fixture small{display:block;margin-top:4px}.fixture .incident{margin-top:5px;padding-top:5px;border-top:1px solid #444;font-size:12px}
+.health{border:1px solid #827237;background:#352f1d;color:#ffebb7;padding:9px 12px;border-radius:5px;margin:11px 0;font-size:12px}
+.health.ok{border-color:#397b5b;background:#203c2e;color:#c2f5d7}.health.bad{border-color:#ad555b;background:#46292d;color:#ffd0d0}
+.foot{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:9px}
+button.reload{background:var(--y);color:#111;border:0;border-radius:3px;padding:7px 11px;font-weight:bold;cursor:pointer}
+a{color:#ffe179}
+@media(max-width:780px){
+header{padding:9px 11px}h1{font-size:24px}main{padding:7px}
+.layout{grid-template-columns:1fr;gap:8px}.panel{padding:9px}
+.matchhead{gap:4px}.teams{font-size:clamp(14px,4.2vw,21px)}.score{font-size:21px;padding:5px 7px}
+.scroll{height:340px}.fixture .line span{font-size:15px}.fixture strong{padding:4px}
+.tabs{gap:4px}.tab{font-size:12px;padding:6px 8px}
+}
+</style></head>
+<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>COMBINED TEST · READ-ONLY · NOT FAN ALERTS</small></header>
+<main>
+<div id="health" class="health">Checking published source snapshots…</div>
+<div class="layout">
+<section class="panel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
+<div class="matchhead"><span class="teams">SPORTING CLUB INKBERROW</span><strong class="score" id="featureScore">– : –</strong><span class="teams">HUNGERFORD TOWN</span></div>
+<div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
+<h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
+<div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44af" target="_blank" rel="noopener">Official match centre</a></div>
+</section>
+<section class="panel" aria-label="Other competitions"><h2>AROUND THE LEAGUES</h2>
+<div class="tabs" id="tabs" role="tablist" aria-label="Select competition">
+<button class="tab" type="button" role="tab" data-tab="onesouth" aria-selected="true">D1 South</button>
+<button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
+<button class="tab" type="button" role="tab" data-tab="premiersouth" aria-selected="false">Premier South</button>
+<button class="tab" type="button" role="tab" data-tab="premiercentral" aria-selected="false">Premier Central</button>
+<button class="tab" type="button" role="tab" data-tab="facup" aria-selected="false">FA Cup</button>
+</div>
+<div id="leagueMeta" class="matchmeta">Checking data freshness…</div>
+<div class="scroll" id="leagueList" role="tabpanel" aria-live="polite">Loading fixtures…</div>
+<div class="foot"><span id="otherDiag">No snapshots checked yet</span><button class="reload" type="button" id="refresh">CHECK NOW ↻</button></div>
+</section>
+</div></main>
+<script>
+(function(){
+"use strict";
+const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
+const paths={featured:"live-test-inkberrow-hungerford.json",other:"live-other-games-20261110.json",tabs:"southern-league-matchday-tabs.json"};
+const $=id=>document.getElementById(id);
+let chosen="onesouth",current={},previousEvents=new Set();
+const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
+const fresh=d=>{let t=Date.parse(d?.checkedAt);return Number.isFinite(t)&&Date.now()-t<600000&&Date.now()-t>=-120000};
+const mk=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
+const initials=n=>String(n||"").toLowerCase().trim();
+function eventLabel(e){let t=String(e.eventType||e.type||"EVENT").toUpperCase();return t==="GOAL"?"⚽ GOAL":t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t;}
+function person(e){return e.person?.name||e.personName||e.player||e.personOn?.name||"Player not reported";}
+function teamFor(e,arr,home,away){if(!e.teamId)return e.team||"";
+let last={home:0,away:0};for(const x of arr){if(x.eventType==="GOAL"&&x.score&&x.teamId===e.teamId){if(x.score.home>last.home)return home;if(x.score.away>last.away)return away}if(x.score)last=x.score}return e.team||""}
+function renderFeatured(){
+const d=current.featured;if(!d)return;
+const x=d.southernLeague||{},fw=d.footballWebPages||{};
+const a=x.score,b=fw.score,can=a&&Number.isInteger(a.home)&&Number.isInteger(a.away)&&x.status!=="NotKickedOff";
+const fb=b&&Number.isInteger(b.home)&&Number.isInteger(b.away);
+$("featureScore").textContent=can?a.home+" – "+a.away:fb?b.home+" – "+b.away:"– : –";
+$("featuredMeta").textContent=(x.status||"Status unavailable")+" · Official match data "+uk(x.checkedAt)+" · "+(fw.matchMinute?"Reported "+fw.matchMinute+"′ · ":"")+"Source: "+(can?"Southern League":fb?"Football Web Pages":"unverified");
+$("featureDiag").textContent=(fresh(d)?"RECENT":"STALE")+" snapshot · "+uk(d.checkedAt);
+const root=$("featuredEvents");root.replaceChildren();
+const events=Array.isArray(x.events)?[...x.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
+if(!events.length){root.append(mk("p","muted","No verified goal, card or substitution details supplied yet."));return;}
+for(const e of events.slice().reverse()){
+let box=mk("div","event");box.append(mk("div","top",(e.minute??"?")+"′ · "+eventLabel(e)));
+const team=teamFor(e,events,x.home,x.away);
+box.append(mk("div","name",person(e)+(team?" · "+team:"")));
+box.append(mk("div","source","Southern League API"));
+root.append(box)}
+}
+function renderRight(){
+const d=current.other,t=current.tabs;const root=$("leagueList");root.replaceChildren();
+if(chosen==="facup"){$("leagueMeta").textContent="FA Cup · No verified fixture feed connected in this test";root.append(mk("p","muted","FA Cup integration reserved for the next test. No unverified scores shown."));return}
+const useLive=chosen==="onesouth"&&d&&d.status==="ok"&&Array.isArray(d.matches);
+const stamp=useLive?d.checkedAt:t?.checkedAt;
+$("leagueMeta").textContent=(useLive?"Other Games · ":"Competition fixture snapshot · ")+(fresh({checkedAt:stamp})?"Recent":"STALE / HISTORICAL")+" · "+uk(stamp);
+const items=useLive?d.matches:(t?.matches||[]).filter(m=>m.competition===chosen&& !(chosen==="onesouth"&&initials(m.home)==="sporting club inkberrow"));
+if(!items.length){root.append(mk("p","muted","No verified fixtures in the selected competition snapshot."));return}
+for(const m of items){
+const box=mk("div","fixture"),line=mk("div","line");
+const valid=useLive?m.scoreVerified&&Number.isInteger(m.score?.home)&&Number.isInteger(m.score?.away):fresh(t)&&m.status!=="NotKickedOff"&&m.status!=="Scheduled"&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore);
+line.append(mk("span","",m.home||"Home"));line.append(mk("strong","",valid?(useLive?m.score.home:m.homeScore)+" – "+(useLive?m.score.away:m.awayScore):"– : –"));line.append(mk("span","",m.away||"Away"));box.append(line);
+box.append(mk("small","",(m.status||"Status unknown")+(useLive?" · "+(m.events?.length??0)+" incidents":" · historical snapshot")));
+if(useLive&&Array.isArray(m.events)){for(const e of m.events.slice().sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0))){box.append(mk("div","incident",(e.minute??"?")+"′ · "+eventLabel(e)+" · "+person(e)))}}
+root.append(box);
+}
+}
+async function grab(file){let r=await fetch(base+file+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json()}
+async function refresh(){
+const keys=Object.keys(paths);const values=await Promise.allSettled(keys.map(k=>grab(paths[k])));
+let errors=[];values.forEach((v,i)=>{if(v.status==="fulfilled")current[keys[i]]=v.value;else errors.push(keys[i]+": "+v.reason.message)});
+renderFeatured();renderRight();
+const mainOk=fresh(current.featured),otherOk=fresh(current.other);
+$("health").className="health "+(mainOk&&otherOk?"ok":"bad");
+$("health").textContent="Featured: "+(mainOk?"recent":"stale/missing")+" · Other Games: "+(otherOk?"recent":"stale/missing")+" · League tabs: "+uk(current.tabs?.checkedAt)+(errors.length?" · Errors: "+errors.join("; "):"");
+$("otherDiag").textContent="Last page check "+uk(new Date())+" · Updates checked every 15 seconds";
+}
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});
+$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,15000);
+})();
+</script></body></html>

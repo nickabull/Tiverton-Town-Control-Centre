@@ -164,7 +164,7 @@ const box=mk("div","fixture"),line=mk("div","line");
 const valid=useLive?m.scoreVerified&&Number.isInteger(m.score?.home)&&Number.isInteger(m.score?.away):fresh(t)&&m.status!=="NotKickedOff"&&m.status!=="Scheduled"&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore);
 line.append(mk("span","",m.home||"Home"));line.append(mk("strong","",valid?(useLive?m.score.home:m.homeScore)+" – "+(useLive?m.score.away:m.awayScore):"– : –"));line.append(mk("span","",m.away||"Away"));box.append(line);
 box.append(mk("small","",(m.status||"Status unknown")+(useLive?" · "+(m.events?.length??0)+" incidents":" · historical snapshot")));
-if(useLive&&Array.isArray(m.events)){for(const e of m.events.slice().sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0))){
+if(useLive&&Array.isArray(m.events)){for(const e of m.events.slice().sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0))){
  const inc=mk("div","incident "+eventKind(e));const detail=mk("div","incident-content");
  detail.append(mk("span","event-badge",(e.minute??"?")+"′ · "+eventLabel(e)+" · "));
  if(eventType(e).includes("SUB"))detail.append(subDetails(e));else detail.append(mk("span","",person(e)));

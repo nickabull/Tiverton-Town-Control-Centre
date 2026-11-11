@@ -5,6 +5,7 @@ from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request,urlopen
+from urllib.error import HTTPError
 
 DATE="2026-11-11"
 OUT=Path("data/tivvy-live-20261111.json")
@@ -62,12 +63,18 @@ def run():
                     payload=json.load(response)
                 doc["queryVariant"]=variants.index(variant)+1
                 break
+            except HTTPError as err:
+                # Preserve the API's error description, but never expose credentials.
+                details=err.read(600).decode("utf-8","replace")
+                failures.append("HTTP "+str(err.code)+": "+details[:180])
             except Exception as err:
                 failures.append(type(err).__name__+": "+str(err)[:90])
         if payload is None:raise RuntimeError("; ".join(failures))
+        if failures:doc["rejectedQueries"]=failures[:3]
         raw=payload.get("items",[]) if isinstance(payload,dict) else []
         # Broad fallback queries can include other dates: never show them as today's matches.
-        raw=[m for m in raw if isinstance(m,dict) and str(m.get("date") or m.get("dateTime") or "").startswith(DATE)]
+        # Match objects can use kickOffDate rather than date or dateTime.
+        raw=[m for m in raw if isinstance(m,dict) and str(m.get("kickOffDate") or m.get("date") or m.get("dateTime") or m.get("kickoffDate") or "").startswith(DATE)]
         doc["apiMatchesInspected"]=len(raw)
         for m in raw:
             if not isinstance(m,dict):continue
@@ -89,7 +96,7 @@ def run():
         doc["status"]="ok"
         if doc["featured"] is None:doc["warning"]="Featured fixture missing from current official API response"
     except Exception as ex:
-        doc["error"]=type(ex).__name__+": "+str(ex)[:200]
+        doc["error"]=type(ex).__name__+": "+str(ex)[:1000]
         # Preserve the known schedule for display even if live API temporarily rejects queries.
         schedule=Path("data/southern-league-matchday-tabs.json")
         if schedule.exists():

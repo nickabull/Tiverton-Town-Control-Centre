@@ -1,50 +1,10 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T01:55:28.233258+00:00",
+  "checkedAt": "2026-11-11T23:18:33.184408+00:00",
   "source": "Official Southern League match API",
-  "status": "ok",
-  "matches": [
-    {
-      "id": "6a5a1cc3ce9ef452b61f44b2",
-      "home": "Willand Rovers",
-      "away": "Shaftesbury",
-      "kickoff": "2026-11-11",
-      "status": "Postponed",
-      "homeScore": 0,
-      "awayScore": 0,
-      "competition": "onesouth"
-    },
-    {
-      "id": "6a5a1cc3ce9ef452b61f44b6",
-      "home": "Paulton Rovers",
-      "away": "Tiverton Town",
-      "kickoff": "2026-11-11",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
-      "competition": "onesouth"
-    },
-    {
-      "id": "6a5a1cc3ce9ef452b61f44b3",
-      "home": "Frome Town",
-      "away": "Plymouth Parkway",
-      "kickoff": "2026-11-11",
-      "status": "Postponed",
-      "homeScore": 0,
-      "awayScore": 0,
-      "competition": "premiersouth"
-    },
-    {
-      "id": "6a5a1cc3ce9ef452b61f44b5",
-      "home": "Larkhall Athletic",
-      "away": "Slimbridge AFC",
-      "kickoff": "2026-11-11",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
-      "competition": "onesouth"
-    }
-  ],
+  "status": "error",
+  "matches": [],
   "unclassified": [],
-  "apiMatches": 4
+  "apiMatches": 0,
+  "error": "HTTPError: HTTP Error 400: Bad Request"
 }

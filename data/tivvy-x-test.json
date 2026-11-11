@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-11-11T15:07:07.408196+00:00",
+  "account": "@tivertontownfc",
+  "state": "ok",
+  "readOnly": true,
+  "posts": [
+    {
+      "id": "2120523923490021643",
+      "createdAt": "2026-11-11T14:27:55.000Z",
+      "url": "https://x.com/tivertontownfc/status/2120523923490021643"
+    },
+    {
+      "id": "2120139413237768533",
+      "createdAt": "2026-11-10T13:00:01.000Z",
+      "url": "https://x.com/tivertontownfc/status/2120139413237768533"
+    },
+    {
+      "id": "2120056363128615288",
+      "createdAt": "2026-11-10T07:30:00.000Z",
+      "url": "https://x.com/tivertontownfc/status/2120056363128615288"
+    },
+    {
+      "id": "2119837908161159415",
+      "createdAt": "2026-11-09T17:01:56.000Z",
+      "url": "https://x.com/tivertontownfc/status/2119837908161159415"
+    },
+    {
+      "id": "2119535434095083938",
+      "createdAt": "2026-11-08T21:00:01.000Z",
+      "url": "https://x.com/tivertontownfc/status/2119535434095083938"
+    }
+  ],
+  "userId": "244486255",
+  "displayName": "Tiverton Town FC",
+  "count": 5
+}

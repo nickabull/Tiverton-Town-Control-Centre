@@ -49,7 +49,7 @@ footer strong{color:#ffe174}
 .incident.club-post{border-left-color:#bb98ef;grid-template-columns:5.6vw minmax(0,1.1fr) minmax(0,2.3fr) 5.8vw}
 .club-post .incident-type{color:#dfbfff}
 .incident.club-post .incident-text{white-space:pre-wrap;font-size:1.12vw;line-height:1.2;overflow:hidden}
-.incident.grouped{box-shadow:inset .25vw 0 #bda0f7}
+.incident.grouped{box-shadow:inset .25vw 0 #bda0f7}.incident.demo-post{border:2px solid #ffdb00;border-left:.38vw solid #bda0f7}.demo-post .incident-type{color:#ffdb00}
 .incident.just-arrived{animation:arrival .55s ease-out}
 @keyframes arrival{from{background:#4c4427;opacity:.65}to{background:#131518;opacity:1}}
 .xpanel{border-color:#d5abff}
@@ -64,8 +64,8 @@ footer strong{color:#ffe174}
 .goal-celebration img{height:25%;width:auto;object-fit:contain}
 .demo-ribbon{position:absolute;z-index:10;top:1%;right:2%;font:700 1.5vw Antonio,Impact,sans-serif;color:#111;background:#ffdb00;padding:.2vw 1.2vw;display:none;transform:rotate(2deg)}
 .demo-controls{position:absolute;z-index:11;bottom:4%;right:3%;display:none}
-.demo-controls button{font:700 1.4vw Antonio,Impact,sans-serif;border:2px solid #ffdb00;color:#111;background:#ffdb00;padding:.6vw 1.5vw;cursor:pointer;border-radius:.4vw}
-body.demo .demo-ribbon,body.demo .demo-controls{display:block}
+.demo-controls{display:none;gap:.5vw}.demo-controls button{font:700 1.3vw Antonio,Impact,sans-serif;border:2px solid #ffdb00;color:#111;background:#ffdb00;padding:.55vw 1.1vw;cursor:pointer;border-radius:.4vw}
+body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .goal-celebration .demo-label{display:none;color:#111;background:#ffdb00;padding:.3vw 1.7vw;font:700 1.65vw Antonio,Impact,sans-serif;letter-spacing:.1em}
 .goal-celebration.demo .demo-label{display:block}
 </style></head><body><main id="tv">
@@ -82,7 +82,7 @@ body.demo .demo-ribbon,body.demo .demo-controls{display:block}
 <div class="xhead"><span id="spotlightTitle">TIVVY LIVE · MATCH MOMENT</span><span id="postCount">LATEST VERIFIED UPDATE</span></div>
 <div class="xbody"><div class="xtext" id="postText">Waiting for a verified post from @tivertontownfc.</div><img class="xmedia" id="postImage" style="display:none" alt="Image from official club post"></div>
 </section>
-<div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
+<div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button><button id="demoXButton" type="button">𝕏 DEMO CLUB POST</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
 <footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
 </main>
 <script>
@@ -118,7 +118,7 @@ function teamMap(match){
 }
 function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
 function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
-let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map();
+let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map(),demoXItem=null,demoXTimeout=null,demoXSequence=0;
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function postMinute(p){
  const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
@@ -145,6 +145,7 @@ function timelineItems(){
   items.push({kind:"post",minute:nearby.length?nearby[0]:claimed,claimedMinute:claimed,
    post:p,key:"x:"+String(p.id||p.url),grouped:nearby.length>0});
  }
+ if(demoMode&&demoXItem)items.push(demoXItem);
  // New arrivals go to the top of the TV without replaying old material.
  // First load retains match-minute order, with unnumbered club posts visible;
  // they are never assigned an invented match minute.
@@ -179,11 +180,11 @@ function incidentNode(item,m,map){
  return el;
 }
 function clubNode(item){
- const p=item.post,el=element("div","incident club-post"+(item.grouped?" grouped":""));
+ const p=item.post,el=element("div","incident club-post"+(item.grouped?" grouped":"")+(item.demo?" demo-post":""));
  el.append(element("div","minute",item.claimedMinute===null?"𝕏":item.claimedMinute+"′"));
- el.append(element("div","incident-type","𝕏 CLUB UPDATE"));
+ el.append(element("div","incident-type",item.demo?"𝕏 DEMO ARRIVAL":"𝕏 CLUB UPDATE"));
  const info=element("div","incident-text");
- info.append(element("div","","Tiverton Town FC · "+uk(p.createdAt)));
+ info.append(element("div","",item.demo?"DEMO REPLAY · ORIGINAL @tivertontownfc POST":"Tiverton Town FC · "+uk(p.createdAt)));
  info.append(element("div","",String(p.text||"")));
  el.append(info);
  el.append(element("div","incident-score","𝕏"));
@@ -227,9 +228,9 @@ function updateSpotlight(){
   $("postCount").textContent="AWAITING MATCH ACTION";
   return;
  }
- $("postCount").textContent="MOST RECENT REPORTED MOMENT";
+ $("postCount").textContent=node.demo?"DEMO REPLAY · NOT A NEW POST":"MOST RECENT REPORTED MOMENT";
  if(node.kind==="post"){
-  $("spotlightTitle").textContent="𝕏 · TIVERTON TOWN FC · CLUB COMMENTARY";
+  $("spotlightTitle").textContent=node.demo?"𝕏 · DEMO REPLAY OF AN EXISTING CLUB POST":"𝕏 · TIVERTON TOWN FC · CLUB COMMENTARY";
   $("postText").textContent=uk(node.post.createdAt)+" · "+String(node.post.text||"");
   const photo=(node.post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
   if(photo){img.src=photo.url;img.alt=photo.alt||"Official club photo";img.style.display="block";img.onerror=()=>{img.style.display="none"}}
@@ -255,9 +256,31 @@ function replayGoal(){
  if(date==="2026-11-11")showGoalCelebration("ASA HALL","39",true,true);
  else showGoalCelebration("TIVVY GOAL DEMO","--",false,true);
 }
+function replayClubPost(){
+ if(!demoMode)return;
+ const realPosts=postsForMatch();
+ if(!realPosts.length){
+  $("postText").textContent="DEMO: No verified Paulton X posts are available in the live collector. No club post has been invented.";
+  $("spotlightTitle").textContent="𝕏 · DEMO SOURCE UNAVAILABLE";
+  $("postCount").textContent="NO VERIFIED POSTS";
+  return;
+ }
+ const post=realPosts[0];
+ if(demoXTimeout)clearTimeout(demoXTimeout);
+ if(demoXItem)arrivalTimes.delete(demoXItem.key);
+ demoXItem={kind:"post",minute:postMinute(post),claimedMinute:postMinute(post),
+  grouped:false,post, key:"demo-x:"+String(++demoXSequence),demo:true};
+ arrivalTimes.set(demoXItem.key,Date.now()+1000);
+ drawTimeline();updateSpotlight();
+ demoXTimeout=setTimeout(()=>{
+  if(demoXItem){arrivalTimes.delete(demoXItem.key);demoXItem=null;drawTimeline();updateSpotlight();}
+ },24000);
+}
 if(demoMode){
  $("demoGoalButton").addEventListener("click",replayGoal);
+ $("demoXButton").addEventListener("click",replayClubPost);
  setTimeout(replayGoal,1800);
+ setTimeout(replayClubPost,12500);
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;

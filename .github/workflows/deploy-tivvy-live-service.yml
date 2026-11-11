@@ -9,6 +9,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Check collector and Saturday page JavaScript syntax
+        shell: bash
+        run: |
+          set -e
+          node --check live-collector/src/index.js
+          python3 - <<'PY'
+          from pathlib import Path
+          page=Path("tivvy-live-saturday-test.html").read_text()
+          js=page.split("<script>",1)[1].split("</script>",1)[0]
+          Path("/tmp/tivvy-saturday.js").write_text(js)
+          assert "2026-11-14" in js
+          assert "tivvy-live-collector.nickabull.workers.dev" in js
+          PY
+          node --check /tmp/tivvy-saturday.js
       - name: Deploy shared live collector to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
@@ -20,3 +34,11 @@ jobs:
             X_BEARER_TOKEN
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+      - name: Verify deployed Saturday source before declaring success
+        shell: bash
+        run: |
+          set -e
+          curl --retry 2 --max-time 25 -fsS https://tivvy-live-collector.nickabull.workers.dev/health | jq -e '.status == "ok"'
+          curl --retry 2 --max-time 35 -fsS 'https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-14' > /tmp/tivvy-saturday-live.json
+          jq -e '.status == "ok" and .matchday.date == "2026-11-14" and .matchday.featured.home == "Tiverton Town" and .matchday.featured.away == "Bishops Cleeve"' /tmp/tivvy-saturday-live.json > /dev/null
+          echo "Saturday featured match verified from Southern League API."

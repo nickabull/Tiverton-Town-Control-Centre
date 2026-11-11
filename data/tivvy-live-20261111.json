@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T08:44:30.481382+00:00",
+  "checkedAt": "2026-11-11T15:17:08.258170+00:00",
   "status": "schedule-only",
   "source": "Southern League public match API",
   "featured": {
@@ -55,5 +55,5 @@
   ],
   "unclassified": [],
   "apiMatchesInspected": 0,
-  "error": "RuntimeError: HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request"
+  "error": "RuntimeError: HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}"
 }

@@ -206,7 +206,7 @@ const root=$("featuredEvents"),scroll=root.scrollTop;root.replaceChildren();
 const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
 const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
-const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\\d{1,3})\\s*['’′”“]/);return hit?Number(hit[1]):null;};
+const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′”“]/);return hit?Number(hit[1]):null;};
 const groups=[];
 for(const e of events){
  const minute=Number.isFinite(Number(e.minute))?Number(e.minute):null;

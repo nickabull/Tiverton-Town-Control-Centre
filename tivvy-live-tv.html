@@ -129,13 +129,68 @@ body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .tv-cluster .incident-text .on,.tv-cluster .incident-text .off{font-size:1.4vw}
 .tv-cluster .incident-text .teamname{color:#e0e2e7;font-size:1.15vw;margin-bottom:.16vw}
 .tv-cluster .incident.demo-post{border:2px solid #ffdb00;border-left:.34vw solid #b6a3f9}
+
+/* 16:9 TV V9: broadcast strip + largest possible no-scroll featured-match timeline. */
+#tv{grid-template-rows:15% minmax(0,1fr) 2.5%;gap:.65%;padding:.8% 1.5% 1%;background:radial-gradient(ellipse at 75% -10%,#2d2c26 0,#141518 42%,#0a0a0b 100%)}
+.swoosh{right:-3%;top:-8%;height:11%;border-top:.35vw solid var(--gold);opacity:.85}
+.broadcastbar{display:grid;grid-template-columns:6.4% 13% minmax(0,1fr) 12%;grid-template-rows:1fr auto;column-gap:1%;row-gap:.15vw;align-items:center;min-height:0;min-width:0;background:#0c0d0e;border-bottom:.22vw solid var(--gold);border-radius:.4vw;padding:.3vw .8vw;position:relative;z-index:1}
+.broadcastbar .crest{height:100%;width:100%;max-width:none;object-fit:contain;grid-row:1/3}
+.brand{min-width:0;display:flex;flex-direction:column;gap:.12vw}
+.brand strong{font:700 2.3vw Antonio,Impact,Arial,sans-serif;white-space:nowrap}
+.brand strong span{color:var(--gold)}
+.brand small{font:600 .8vw Antonio,Impact,Arial,sans-serif;color:#bfc3ca;letter-spacing:.035em}
+.matchline{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto;align-items:center;column-gap:1%;min-width:0}
+.broadcastbar .club{font-size:2.15vw;line-height:1.05;white-space:normal;overflow-wrap:normal}
+.broadcastbar .club.away{justify-content:flex-end;text-align:right}
+.broadcastbar .score{font-size:3.1vw;padding:0 .65vw .18vw;border-radius:.35vw}
+.broadcastbar .match-state{max-width:none;font-size:1.32vw;padding-left:.5vw}
+.signal{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.3vw;min-width:0}
+.broadcastbar .statusbar{display:block;background:none;border:0;padding:0}
+.broadcastbar .status{font-size:1vw;color:#80e8ac}
+.broadcastbar .statusbar.bad .status{color:#ff9292}
+.broadcastbar .statusbar.warn .status{color:#ffe06c}
+.broadcastbar .clock{font-size:1.03vw;color:#c7cbd1}
+.broadcastbar .topline{grid-column:2/5;font-size:.95vw;color:#b8bbc2;line-height:1.1;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.timeline{grid-template-rows:auto minmax(0,1fr) auto;border:1px solid #555961;border-top:.3vw solid var(--gold);min-height:0;overflow:hidden;border-radius:.45vw;background:#232529}
+.sectionhead{padding:.32vw .9vw .25vw;font-size:1.48vw}
+.event-list{min-height:0;min-width:0;overflow:hidden !important;scrollbar-width:none;display:block;padding:.15vw 1vw .25vw 2.2vw}
+.tv-cluster{margin:0 0 .35vw .2vw;padding-left:1.15vw;border-left:.19vw solid var(--gold)}
+.tv-cluster:before{height:.6vw;width:.6vw;left:-.39vw;top:.5vw}
+.tv-cluster-head{min-height:1.55vw;margin-bottom:.15vw;gap:.5vw}
+.tv-cluster-minute{font-size:1.35vw;padding:.06vw .55vw}
+.tv-cluster-label{font-size:1.23vw}
+.tv-cluster .incident,.tv-cluster .incident.club-post{padding:.27vw .7vw;margin:.12vw 0 .22vw;min-height:0;background:#17181a;border-radius:.25vw}
+.tv-cluster .incident-type{font-size:1.27vw}
+.tv-cluster .incident-score{font-size:1.23vw;padding:.02vw .5vw}
+.tv-cluster .incident-text{font-size:1.12vw;line-height:1.3;margin-top:.13vw}
+.tv-cluster .incident-text .on,.tv-cluster .incident-text .off{font-size:1.17vw}
+.tv-cluster .incident-text .teamname{display:inline;color:#c8cbd1;font-size:1.04vw;margin-right:.7vw}
+.tv-cluster .incident-text .teamname:after{content:" · "}
+.tv-cluster .incident-text .post-head{font-size:1vw;margin:0 0 .15vw}
+.tv-cluster .incident-text .post-copy{font-size:1.12vw;line-height:1.29;white-space:pre-wrap;overflow-wrap:anywhere}
+.tv-cluster .incident-text .post-media{max-height:8vw;max-width:15vw}
+.tv-source{font-size:.82vw;margin-top:.08vw;color:#aeb1b8}
+.timelinefoot{background:#141516;border-top:1px solid #4a4e55;padding:.18vw .85vw;font-size:.82vw;line-height:1.2}
+footer{font-size:.77vw;line-height:1}
+.demo-controls{bottom:3%;right:2%;gap:.45vw}
+.demo-controls button{font-size:1vw;padding:.25vw .7vw}
+@media(max-aspect-ratio:16/9){.tv-cluster .incident,.tv-cluster .incident.club-post{min-height:0}.tv-cluster .incident-text{font-size:2vh}.tv-cluster-label{font-size:2.18vh}.tv-cluster .incident-type{font-size:2.22vh}.tv-cluster .incident-text .post-copy{font-size:2vh}}
+
+/* An exceptionally long club post gets its own readable region rather than
+   allowing subsequent updates or the source footer to overlap. */
+.tv-cluster.oversize-moment{height:100%;overflow:hidden}
+.tv-cluster.oversize-moment .incident-text .post-copy{font-size:1vw;line-height:1.18}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
-<header><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town official club crest"><h1>TIVVY <span>LIVE</span> · MATCH CENTRE TV</h1></header>
-<div class="statusbar warn" id="health"><span class="status" id="healthLabel">● CONNECTING</span><span class="topline" id="fixtureText">Connecting to official Southern League matchday source…</span><span class="clock" id="now">—</span></div>
-<div class="scoreboard"><div class="club" id="home">HOME</div><div class="score" id="score">– : –</div><div class="club away" id="away">TIVERTON TOWN</div><div class="match-state" id="state">CHECKING</div></div>
+<div class="broadcastbar">
+  <img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town club crest">
+  <div class="brand"><strong>TIVVY <span>LIVE</span></strong><small>SOUTHERN LEAGUE · MATCH CENTRE TV</small></div>
+  <div class="matchline"><div class="club" id="home">HOME</div><div class="score" id="score">– : –</div><div class="club away" id="away">TIVERTON TOWN</div><div class="match-state" id="state">CHECKING</div></div>
+  <div class="signal"><div class="statusbar warn" id="health"><span class="status" id="healthLabel">● CONNECTING</span></div><span class="clock" id="now">—</span></div>
+  <div class="topline" id="fixtureText">Connecting to official match source…</div>
+</div>
 <section class="timeline" aria-label="Verified Southern League match incidents">
-<div class="sectionhead">MATCH TIMELINE · SOUTHERN LEAGUE + CLUB COMMENTARY</div>
+<div class="sectionhead">MATCH TIMELINE · OFFICIAL INCIDENTS + CLUB COMMENTARY</div>
 <div id="events" class="event-list"><div class="unknown">Waiting for source-verified match data…</div></div>
 <div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
 </section>
@@ -273,11 +328,21 @@ function drawTimeline(){
    cluster.append(card);
   }
   root.append(cluster);
+  // Measure after layout: if this complete match moment cannot fit, remove it
+  // and all older moments. Full club post text is never truncated.
+  if(root.scrollHeight>root.clientHeight+1&&root.children.length>1){
+   cluster.remove();
+   break;
+  }
+  if(root.scrollHeight>root.clientHeight+1&&root.children.length===1){
+   // Unusually long standalone post: keep it, but never let it overlap the footer.
+   cluster.classList.add("oversize-moment");
+  }
  }
  if(!all.length)root.append(element("div","unknown","Awaiting verified incidents and club commentary."));
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent="MATCH MOMENTS · LATEST FIRST";
- root.scrollTop=0;
+ $("pageCount").textContent="LATEST MOMENTS · TV FIT · NO SCROLL";
+
  const newKeys=new Set(all.map(x=>x.key));
  for(const item of all){
   if(item.kind!=="incident"||kind(item.event)!=="goal")continue;
@@ -365,6 +430,7 @@ async function refresh(){
 function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
 clock();setInterval(clock,1000);
 refresh();setInterval(refresh,20000);
+window.addEventListener("resize",()=>{if(payload)drawTimeline()});
 setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);
 
 })();

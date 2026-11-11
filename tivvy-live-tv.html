@@ -9,7 +9,7 @@
 :root{--gold:#ffdb00;--ink:#0a0a0c;--panel:#17191c;--blue:#65b9ff;--green:#7deab0;--pink:#ff8795;--amber:#ffe06c;--purple:#d0acff;--muted:#b8bbc1}
 *{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;background:#000;color:white;overflow:hidden;font:1vw/1.3 Arial,sans-serif}
-#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:12% 6.5% 18% 1fr 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
+#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:11% 6% 17% 1fr 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
 h1,h2,.club,.score,.minute,.incident-type,.tag,.clock,.status,.topline,.x-label,.pagecount{font-family:Antonio,Impact,"Arial Narrow",Arial,sans-serif}
 .swoosh{position:absolute;right:-2%;top:-7%;width:55%;height:17%;border-top:.62vw solid var(--gold);transform:rotate(-7deg);border-radius:50%;pointer-events:none}
 header{display:flex;align-items:center;gap:1.5%;min-height:0;position:relative;z-index:1}
@@ -95,13 +95,47 @@ body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .incident-type{font-size:2.75vh}
 .incident.club-post .incident-text,.incident.club-post .incident-text .post-copy{font-size:2.15vh}
 }
+
+/* TV design taken from the featured-match left column: yellow minute spine and
+   explicit source cards, with no duplicate X panel or carousel. */
+#tv{background:radial-gradient(ellipse at 70% -15%,#30302a 0,#18191b 30%,#111214 75%)}
+#tv:after{content:"";position:absolute;pointer-events:none;right:-6%;bottom:1%;height:5%;width:50%;border-bottom:.42vw solid #ffdb00;transform:rotate(-5deg);border-radius:50%;opacity:.8}
+.scoreboard{background:#232529;border:1px solid #555961;border-top:.28vw solid var(--gold);border-radius:.45vw}
+.timeline{border:1px solid #555961;border-top:.3vw solid var(--gold);border-radius:.45vw;background:#232529}
+.sectionhead{width:100%;clip-path:none;background:none;color:var(--gold);padding:.5vw 1vw .2vw;font-size:1.85vw}
+.event-list{padding:.5vw 1.15vw 1.4vw 2.9vw;overflow:auto;scrollbar-width:none}
+.event-list:before{display:none}
+.tv-cluster{position:relative;border-left:.21vw solid var(--gold);padding-left:1.55vw;margin:0 0 .6vw .3vw}
+.tv-cluster:before{content:"";position:absolute;width:.8vw;height:.8vw;border-radius:50%;background:var(--gold);left:-.5vw;top:.75vw}
+.tv-cluster.goal-group{border-left-color:#339bff}.tv-cluster.goal-group:before{background:#339bff}
+.tv-cluster-head{display:flex;align-items:center;gap:.6vw;margin-bottom:.35vw;min-height:2.35vw}
+.tv-cluster-minute{font:700 1.8vw Antonio,Impact,Arial,sans-serif;background:var(--gold);color:#111;padding:.15vw .7vw;border-radius:.25vw}
+.goal-group .tv-cluster-minute{background:#339bff;color:#fff}
+.tv-cluster-label{font:700 1.62vw Antonio,Impact,Arial,sans-serif}
+.tv-cluster .incident,.tv-cluster .incident.club-post{min-height:0;margin:.3vw 0;padding:.68vw .95vw;display:block;border:1px solid #494b52;border-left:.34vw solid #69cf86;border-radius:.28vw;background:#17181a}
+.tv-cluster .incident:before{display:none}
+.tv-cluster .incident.goal{border-left-color:#339bff}
+.tv-cluster .incident.yellow{border-left-color:#ffd32a}
+.tv-cluster .incident.red{border-left-color:#ff4d58}
+.tv-cluster .incident.club-post{border-left-color:#b6a3f9}
+.tv-incident-head{display:flex;align-items:center;gap:.65vw;justify-content:space-between}
+.tv-cluster .incident-type{font-size:1.52vw}
+.tv-cluster .incident-score{font-size:1.5vw;padding:.1vw .65vw}
+.tv-cluster .incident-text{font-size:1.32vw;line-height:1.4;margin-top:.3vw;max-height:none;overflow:visible}
+.tv-cluster .incident-text .post-head{font-size:1.15vw}
+.tv-cluster .incident-text .post-copy{font-size:1.32vw;white-space:pre-wrap}
+.tv-cluster .incident-text .post-media{max-height:11vw;max-width:22vw}
+.tv-source{font-size:.93vw;color:#b8bbc1;font-weight:700;margin-top:.3vw}
+.tv-cluster .incident-text .on,.tv-cluster .incident-text .off{font-size:1.4vw}
+.tv-cluster .incident-text .teamname{color:#e0e2e7;font-size:1.15vw;margin-bottom:.16vw}
+.tv-cluster .incident.demo-post{border:2px solid #ffdb00;border-left:.34vw solid #b6a3f9}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <header><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town official club crest"><h1>TIVVY <span>LIVE</span> · MATCH CENTRE TV</h1></header>
 <div class="statusbar warn" id="health"><span class="status" id="healthLabel">● CONNECTING</span><span class="topline" id="fixtureText">Connecting to official Southern League matchday source…</span><span class="clock" id="now">—</span></div>
 <div class="scoreboard"><div class="club" id="home">HOME</div><div class="score" id="score">– : –</div><div class="club away" id="away">TIVERTON TOWN</div><div class="match-state" id="state">CHECKING</div></div>
 <section class="timeline" aria-label="Verified Southern League match incidents">
-<div class="sectionhead">LIVE MATCH TIMELINE · OFFICIAL INCIDENTS + CLUB POSTS</div>
+<div class="sectionhead">MATCH TIMELINE · SOUTHERN LEAGUE + CLUB COMMENTARY</div>
 <div id="events" class="event-list"><div class="unknown">Waiting for source-verified match data…</div></div>
 <div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
 </section>
@@ -154,96 +188,107 @@ function postsForMatch(){return (payload?.x?.posts||[]).filter(p=>{
  return v("year")+"-"+v("month")+"-"+v("day")===date;
  }).sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))}
 function timelineItems(){
- const match=payload?.matchday?.featured;
- if(!match)return [];
- const events=Array.isArray(match.events)?match.events:[];
- const items=events.map((event,i)=>({kind:"incident",minute:Number.isFinite(Number(event.minute))?Number(event.minute):null,event,
- key:"event:"+String(event._id||event.id||[event.minute,event.eventType,event.teamId,event.person?.name,event.personOff?.name].join("|"))}));
- const officialMinutes=items.filter(x=>x.minute!==null).map(x=>x.minute);
+ const match=payload?.matchday?.featured;if(!match)return [];
+ const entries=(match.events||[]).map((event,i)=>({
+  kind:"incident",minute:Number.isFinite(Number(event.minute))?Number(event.minute):null,event,
+  key:"event:"+String(event._id||event.id||[event.minute,event.eventType,event.teamId,event.person?.name,event.personOff?.name].join("|"))
+ }));
+ const minutes=entries.map(e=>e.minute).filter(m=>m!==null);
  for(const p of postsForMatch()){
   const claimed=postMinute(p);
-  // Textual match minute may link an official club post to its nearest incident.
-  // Never derive a match minute from the clock time of the X post.
-  const nearby=claimed===null?[]:officialMinutes.filter(m=>Math.abs(m-claimed)<=2).sort((x,y)=>Math.abs(x-claimed)-Math.abs(y-claimed));
-  items.push({kind:"post",minute:nearby.length?nearby[0]:claimed,claimedMinute:claimed,
-   post:p,key:"x:"+String(p.id||p.url),grouped:nearby.length>0});
+  const nearest=claimed===null?[]:minutes.filter(m=>Math.abs(m-claimed)<=2).sort((a,b)=>Math.abs(a-claimed)-Math.abs(b-claimed));
+  entries.push({kind:"post",minute:nearest.length?nearest[0]:claimed,claimedMinute:claimed,
+    post:p,key:"x:"+String(p.id||p.url),grouped:nearest.length>0});
  }
- if(demoMode&&demoXItem)items.push(demoXItem);
- // New arrivals go to the top of the TV without replaying old material.
- // First load retains match-minute order, with unnumbered club posts visible;
- // they are never assigned an invented match minute.
+ if(demoMode&&demoXItem)entries.push(demoXItem);
+ return entries;
+}
+function postMoment(p){
+ const matchStart=new Date(date+"T"+config.kickoff+":00Z").getTime();
+ const published=Date.parse(p.createdAt||"");
+ // Used only to place unnumbered X posts in approximate sequence; the UI
+ // labels these as 'Club post' and never represents this estimate as a minute.
+ if(!Number.isFinite(published))return -1;
+ return Math.max(-1,Math.min(130,(published-matchStart)/60000));
+}
+function timelineGroups(){
+ const items=timelineItems(),groups=new Map();
  for(const item of items){
-  if(!arrivalTimes.has(item.key))arrivalTimes.set(item.key,initialized?Date.now():0);
+  const ordering=item.minute!==null?item.minute:item.kind==="post"?postMoment(item.post):-1;
+  const key=item.minute!==null?"minute:"+item.minute:"post:"+item.key;
+  if(!groups.has(key))groups.set(key,{minute:item.minute,ordering,items:[]});
+  groups.get(key).items.push(item);
  }
- return items.sort((a,b)=>{
-  const ageA=arrivalTimes.get(a.key)||0,ageB=arrivalTimes.get(b.key)||0;
-  if(ageA!==ageB)return ageB-ageA;
-  if(a.minute===null&&b.minute!==null)return -1;
-  if(b.minute===null&&a.minute!==null)return 1;
-  if(a.minute!==null&&b.minute!==null&&a.minute!==b.minute)return b.minute-a.minute;
-  if(a.kind!==b.kind)return a.kind==="post"?-1:1;
-  return a.kind==="post"?Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt):0;
- });
+ return [...groups.values()].sort((a,b)=>b.ordering-a.ordering);
 }
 function incidentNode(item,m,map){
  const e=item.event,el=element("div","incident "+kind(e));
- el.append(element("div","minute",e.minute==null?"?":String(e.minute)+"′"));
- el.append(element("div","incident-type",label(e)));
+ const head=element("div","tv-incident-head");
+ head.append(element("div","incident-type",label(e)));
+ const score=e.score;
+ head.append(element("div","incident-score",score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?score.home+"–"+score.away:"—"));
+ el.append(head);
  const info=element("div","incident-text");
- info.append(element("div","",team(e,m,map)));
+ info.append(element("div","teamname",team(e,m,map)));
  if(kind(e)==="sub"){
   const incoming=person(e),outgoing=name(e.personOff?.name||e.personOffName);
-  info.append(element("span","on","▲ ON "+(incoming||"Name unavailable")));
+  info.append(element("span","on","▲ ON · "+(incoming||"Name unavailable")));
   info.append(element("span","","    "));
-  info.append(element("span","off","▼ OFF "+(outgoing||"Name unavailable")));
+  info.append(element("span","off","▼ OFF · "+(outgoing||"Name unavailable")));
  }else info.append(element("div","",person(e)||"Player unavailable"));
  el.append(info);
- const score=e.score;
- el.append(element("div","incident-score",score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?score.home+"–"+score.away:"—"));
+ el.append(element("div","tv-source","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));
  return el;
 }
 function clubNode(item){
- const p=item.post,el=element("div","incident club-post"+(item.grouped?" grouped":"")+(item.demo?" demo-post":""));
- el.append(element("div","minute",item.claimedMinute===null?"𝕏":item.claimedMinute+"′"));
- el.append(element("div","incident-type",item.demo?"𝕏 DEMO ARRIVAL":"𝕏 CLUB UPDATE"));
+ const p=item.post,el=element("div","incident club-post"+(item.demo?" demo-post":""));
+ const head=element("div","tv-incident-head");
+ head.append(element("div","incident-type",item.demo?"𝕏 DEMO REPLAY":"𝕏 TIVERTON TOWN FC · OFFICIAL CLUB POST"));
+ el.append(head);
  const info=element("div","incident-text");
- info.append(element("div","post-head",item.demo?"DEMO REPLAY · ORIGINAL @tivertontownfc POST":"TIVERTON TOWN FC · "+uk(p.createdAt)));
+ info.append(element("div","post-head",(item.demo?"DEMONSTRATION · ORIGINAL CLUB POST · ":"")+uk(p.createdAt)));
  info.append(element("div","post-copy",String(p.text||"")));
- const photo=(p.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
- if(photo){const pic=element("img","post-media");pic.src=photo.url;pic.alt=photo.alt||"Club post photo";info.append(pic)}
- el.append(info);
- el.append(element("div","incident-score","𝕏"));
- return el;
+ const photo=(p.media||[]).find(x=>x.type==="photo"&&/^https:\/\//i.test(x.url||""));
+ if(photo){const pic=element("img","post-media");pic.src=photo.url;pic.alt=photo.alt||"Official club photo";info.append(pic)}
+ el.append(info);return el;
 }
-function latest(items){return items}
 function drawTimeline(){
- const root=$("events");const oldTop=root.scrollTop;root.replaceChildren();
+ const root=$("events");root.replaceChildren();
  const match=payload?.matchday?.featured;
  if(!match){root.append(element("div","unknown","Waiting for a verified featured fixture."));return}
- const items=timelineItems(),map=teamMap(match);
- if(!items.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
- for(const item of latest(items)){
-  const node=item.kind==="incident"?incidentNode(item,match,map):clubNode(item);
-  if(initialized&&!knownKeys.has(item.key))node.classList.add("just-arrived");
-  root.append(node);
+ const groups=timelineGroups(),teamIds=teamMap(match),all=timelineItems();
+ for(const group of groups){
+  const cluster=element("section","tv-cluster");
+  if(group.items.some(x=>x.kind==="incident"&&kind(x.event)==="goal"))cluster.classList.add("goal-group");
+  const head=element("div","tv-cluster-head");
+  head.append(element("span","tv-cluster-minute",group.minute===null?"𝕏":group.minute+"′"));
+  const types=[...new Set(group.items.filter(x=>x.kind==="incident").map(x=>label(x.event)))];
+  if(group.items.some(x=>x.kind==="post"))types.push("𝕏 CLUB COMMENTARY");
+  head.append(element("span","tv-cluster-label",types.join(" · ")||"CLUB COMMENTARY"));
+  cluster.append(head);
+  // One moment can contain multiple official incidents and nearby club posts.
+  for(const item of group.items.sort((a,b)=>a.kind==="incident"?-1:1)){
+   const card=item.kind==="incident"?incidentNode(item,match,teamIds):clubNode(item);
+   if(initialized&&!knownKeys.has(item.key))card.classList.add("just-arrived");
+   cluster.append(card);
+  }
+  root.append(cluster);
  }
- const currentKeys=new Set(items.map(x=>x.key));
- $("eventFoot").textContent=items.filter(x=>x.kind==="incident").length+" official incidents · "+items.filter(x=>x.kind==="post").length+" official club posts";
- $("pageCount").textContent="LATEST FIRST · NEW UPDATES PUSH OLDER ONES DOWN";
+ if(!all.length)root.append(element("div","unknown","Awaiting verified incidents and club commentary."));
+ $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
+ $("pageCount").textContent="MATCH MOMENTS · LATEST FIRST";
  root.scrollTop=0;
- // Goal celebration is triggered only by a newly observed, verified Tiverton goal.
- const mapIds=teamMap(match);
- for(const item of items){
+ const newKeys=new Set(all.map(x=>x.key));
+ for(const item of all){
   if(item.kind!=="incident"||kind(item.event)!=="goal")continue;
-  const e=item.event,scorer=person(e);
-  const tivvyGoal=team(e,match,mapIds)==="Tiverton Town";
-  if(!tivvyGoal||!scorer)continue;
+  const scorer=person(item.event);
+  if(!scorer||team(item.event,match,teamIds)!=="Tiverton Town")continue;
   if(initialized&&!celebratedGoals.has(item.key)&&!knownKeys.has(item.key)){
-   showGoalCelebration(scorer,e.minute??"?",type(e).includes("PENALTY"),false);
+   showGoalCelebration(scorer,item.event.minute??"?",type(item.event).includes("PENALTY"),false);
   }
   celebratedGoals.add(item.key);
  }
- knownKeys=currentKeys;initialized=true;
+ knownKeys=newKeys;initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){
  const overlay=$("goalCelebration");

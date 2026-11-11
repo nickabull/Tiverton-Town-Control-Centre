@@ -110,7 +110,7 @@ function teamMap(match){
 }
 function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
 function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
-let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0;
+let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map();
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function postMinute(p){
  const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
@@ -137,12 +137,18 @@ function timelineItems(){
   items.push({kind:"post",minute:nearby.length?nearby[0]:claimed,claimedMinute:claimed,
    post:p,key:"x:"+String(p.id||p.url),grouped:nearby.length>0});
  }
- // Known-minute posts appear next to the relevant incidents; posts without a stated
- // match minute appear under a clearly marked 'Club update' heading below those items.
+ // New arrivals go to the top of the TV without replaying old material.
+ // First load retains match-minute order, with unnumbered club posts visible;
+ // they are never assigned an invented match minute.
+ for(const item of items){
+  if(!arrivalTimes.has(item.key))arrivalTimes.set(item.key,initialized?Date.now():0);
+ }
  return items.sort((a,b)=>{
-  if(a.minute===null)return b.minute===null?Date.parse(b.post?.createdAt||0)-Date.parse(a.post?.createdAt||0):1;
-  if(b.minute===null)return -1;
-  if(b.minute!==a.minute)return b.minute-a.minute;
+  const ageA=arrivalTimes.get(a.key)||0,ageB=arrivalTimes.get(b.key)||0;
+  if(ageA!==ageB)return ageB-ageA;
+  if(a.minute===null&&b.minute!==null)return -1;
+  if(b.minute===null&&a.minute!==null)return 1;
+  if(a.minute!==null&&b.minute!==null&&a.minute!==b.minute)return b.minute-a.minute;
   if(a.kind!==b.kind)return a.kind==="post"?-1:1;
   return a.kind==="post"?Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt):0;
  });

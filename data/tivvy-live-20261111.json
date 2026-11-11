@@ -1,7 +1,7 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T15:17:08.258170+00:00",
-  "status": "schedule-only",
+  "checkedAt": "2026-11-11T15:18:02.493179+00:00",
+  "status": "ok",
   "source": "Southern League public match API",
   "featured": {
     "id": "6a5a1cc3ce9ef452b61f44b6",
@@ -9,10 +9,12 @@
     "away": "Tiverton Town",
     "competition": "onesouth",
     "status": "NotKickedOff",
-    "score": null,
+    "score": {
+      "home": 0,
+      "away": 0
+    },
     "events": [],
-    "kickoff": "",
-    "scheduleOnly": true,
+    "kickoff": "19:30",
     "isFeatured": true
   },
   "matches": [
@@ -22,10 +24,12 @@
       "away": "Shaftesbury",
       "competition": "onesouth",
       "status": "Postponed",
-      "score": null,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
       "events": [],
-      "kickoff": "",
-      "scheduleOnly": true,
+      "kickoff": "19:30",
       "isFeatured": false
     },
     {
@@ -34,10 +38,12 @@
       "away": "Plymouth Parkway",
       "competition": "premiersouth",
       "status": "Postponed",
-      "score": null,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
       "events": [],
-      "kickoff": "",
-      "scheduleOnly": true,
+      "kickoff": "19:45",
       "isFeatured": false
     },
     {
@@ -46,14 +52,16 @@
       "away": "Slimbridge AFC",
       "competition": "onesouth",
       "status": "NotKickedOff",
-      "score": null,
+      "score": {
+        "home": 0,
+        "away": 0
+      },
       "events": [],
-      "kickoff": "",
-      "scheduleOnly": true,
+      "kickoff": "19:45",
       "isFeatured": false
     }
   ],
   "unclassified": [],
-  "apiMatchesInspected": 0,
-  "error": "RuntimeError: HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}; HTTP 400: {\"message\":[\"limit must not be greater than 100\"],\"error\":\"Bad Request\",\"statusCode\":400}"
+  "apiMatchesInspected": 4,
+  "queryVariant": 1
 }

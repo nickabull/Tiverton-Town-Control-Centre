@@ -9,7 +9,7 @@
 :root{--gold:#ffdb00;--ink:#0a0a0c;--panel:#17191c;--blue:#65b9ff;--green:#7deab0;--pink:#ff8795;--amber:#ffe06c;--purple:#d0acff;--muted:#b8bbc1}
 *{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;background:#000;color:white;overflow:hidden;font:1vw/1.3 Arial,sans-serif}
-#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:12% 6.5% 18% 1fr 17% 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
+#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:12% 6.5% 18% 1fr 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
 h1,h2,.club,.score,.minute,.incident-type,.tag,.clock,.status,.topline,.x-label,.pagecount{font-family:Antonio,Impact,"Arial Narrow",Arial,sans-serif}
 .swoosh{position:absolute;right:-2%;top:-7%;width:55%;height:17%;border-top:.62vw solid var(--gold);transform:rotate(-7deg);border-radius:50%;pointer-events:none}
 header{display:flex;align-items:center;gap:1.5%;min-height:0;position:relative;z-index:1}
@@ -68,6 +68,33 @@ footer strong{color:#ffe174}
 body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .goal-celebration .demo-label{display:none;color:#111;background:#ffdb00;padding:.3vw 1.7vw;font:700 1.65vw Antonio,Impact,sans-serif;letter-spacing:.1em}
 .goal-celebration.demo .demo-label{display:block}
+
+/* Single broadcast timeline: the gold spine, grouped incident cards, full X text. */
+.timeline{min-height:0;min-width:0}
+.event-list{display:block;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding:.5vw 1.1vw .7vw 2.8vw;position:relative}
+.event-list::-webkit-scrollbar{display:none}
+.event-list:before{content:"";position:sticky;display:block;float:left;margin-left:-1.8vw;width:.18vw;height:100%;background:var(--gold);pointer-events:none}
+.incident,.incident.club-post{display:grid;grid-template-columns:5.3vw minmax(0,1.1fr) minmax(0,2.3fr) 5.5vw;gap:.6vw;align-items:center;min-height:4vw;margin:.48vw 0;padding:.55vw .85vw;overflow:visible;position:relative;border:1px solid #50535b;border-left:.3vw solid #80e8ac;border-radius:.4vw;background:#17191d}
+.incident:before{content:"";width:.75vw;height:.75vw;border-radius:100%;background:var(--gold);position:absolute;left:-2.05vw;top:1.65vw;box-shadow:0 0 0 .2vw #17191d}
+.incident.goal{border-left-color:#65b9ff}.incident.yellow{border-left-color:#ffe06c}.incident.red{border-left-color:#ff8795}
+.incident.club-post{border-left-color:#bfa4f4;align-items:start;padding:.75vw 1vw;min-height:4.5vw}
+.incident.club-post .incident-text{font-size:1.18vw;white-space:pre-wrap;line-height:1.38;max-height:none;overflow:visible}
+.incident.club-post .incident-type{font-size:1.43vw;white-space:normal}
+.incident.club-post .incident-text .post-head{color:#d8c0fc;font-size:.98vw;font-weight:700;margin-bottom:.3vw}
+.incident.club-post .incident-text .post-copy{font-size:1.27vw;white-space:pre-wrap;overflow-wrap:anywhere}
+.incident.club-post .incident-text .post-media{max-width:11vw;max-height:8vw;object-fit:contain;margin-top:.4vw;border-radius:.3vw}
+.incident.club-post .incident-score{color:#e3d6fa;background:#342646}
+.incident-text{font-size:1.2vw;max-height:none;overflow:visible}
+.incident-type{font-size:1.55vw}
+.incident.demo-post{border:2px solid #ffdb00;border-left:.4vw solid #bfa4f4}
+.timelinefoot{background:#111215;border-top:1px solid #454545;padding:.36vw 1vw}
+.demo-controls{bottom:4.8%;right:3%}
+@media(max-aspect-ratio:16/9){
+.incident,.incident.club-post{min-height:7vh}
+.incident-text{font-size:2.12vh}
+.incident-type{font-size:2.75vh}
+.incident.club-post .incident-text,.incident.club-post .incident-text .post-copy{font-size:2.15vh}
+}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <header><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town official club crest"><h1>TIVVY <span>LIVE</span> · MATCH CENTRE TV</h1></header>
@@ -77,10 +104,6 @@ body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 <div class="sectionhead">LIVE MATCH TIMELINE · OFFICIAL INCIDENTS + CLUB POSTS</div>
 <div id="events" class="event-list"><div class="unknown">Waiting for source-verified match data…</div></div>
 <div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
-</section>
-<section class="xpanel" aria-label="Official club posts, full text">
-<div class="xhead"><span id="spotlightTitle">TIVVY LIVE · MATCH MOMENT</span><span id="postCount">LATEST VERIFIED UPDATE</span></div>
-<div class="xbody"><div class="xtext" id="postText">Waiting for a verified post from @tivertontownfc.</div><img class="xmedia" id="postImage" style="display:none" alt="Image from official club post"></div>
 </section>
 <div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button><button id="demoXButton" type="button">𝕏 DEMO CLUB POST</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
 <footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
@@ -184,15 +207,17 @@ function clubNode(item){
  el.append(element("div","minute",item.claimedMinute===null?"𝕏":item.claimedMinute+"′"));
  el.append(element("div","incident-type",item.demo?"𝕏 DEMO ARRIVAL":"𝕏 CLUB UPDATE"));
  const info=element("div","incident-text");
- info.append(element("div","",item.demo?"DEMO REPLAY · ORIGINAL @tivertontownfc POST":"Tiverton Town FC · "+uk(p.createdAt)));
- info.append(element("div","",String(p.text||"")));
+ info.append(element("div","post-head",item.demo?"DEMO REPLAY · ORIGINAL @tivertontownfc POST":"TIVERTON TOWN FC · "+uk(p.createdAt)));
+ info.append(element("div","post-copy",String(p.text||"")));
+ const photo=(p.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
+ if(photo){const pic=element("img","post-media");pic.src=photo.url;pic.alt=photo.alt||"Club post photo";info.append(pic)}
  el.append(info);
  el.append(element("div","incident-score","𝕏"));
  return el;
 }
-function latest(items){return items.slice(0,3)}
+function latest(items){return items}
 function drawTimeline(){
- const root=$("events");root.replaceChildren();
+ const root=$("events");const oldTop=root.scrollTop;root.replaceChildren();
  const match=payload?.matchday?.featured;
  if(!match){root.append(element("div","unknown","Waiting for a verified featured fixture."));return}
  const items=timelineItems(),map=teamMap(match);
@@ -204,7 +229,8 @@ function drawTimeline(){
  }
  const currentKeys=new Set(items.map(x=>x.key));
  $("eventFoot").textContent=items.filter(x=>x.kind==="incident").length+" official incidents · "+items.filter(x=>x.kind==="post").length+" official club posts";
- $("pageCount").textContent="LATEST 3 · NEW UPDATES PUSH OLDER ITEMS OFF SCREEN";
+ $("pageCount").textContent="LATEST FIRST · NEW UPDATES PUSH OLDER ONES DOWN";
+ root.scrollTop=0;
  // Goal celebration is triggered only by a newly observed, verified Tiverton goal.
  const mapIds=teamMap(match);
  for(const item of items){
@@ -218,26 +244,6 @@ function drawTimeline(){
   celebratedGoals.add(item.key);
  }
  knownKeys=currentKeys;initialized=true;
-}
-function updateSpotlight(){
- const items=timelineItems();
- const node=items[0];
- const img=$("postImage");img.style.display="none";img.removeAttribute("src");
- if(!node){
-  $("postText").textContent="Awaiting the first official match incident or club post.";
-  $("postCount").textContent="AWAITING MATCH ACTION";
-  return;
- }
- $("postCount").textContent=node.demo?"DEMO REPLAY · NOT A NEW POST":"MOST RECENT REPORTED MOMENT";
- if(node.kind==="post"){
-  $("spotlightTitle").textContent=node.demo?"𝕏 · DEMO REPLAY OF AN EXISTING CLUB POST":"𝕏 · TIVERTON TOWN FC · CLUB COMMENTARY";
-  $("postText").textContent=uk(node.post.createdAt)+" · "+String(node.post.text||"");
-  const photo=(node.post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
-  if(photo){img.src=photo.url;img.alt=photo.alt||"Official club photo";img.style.display="block";img.onerror=()=>{img.style.display="none"}}
- }else{
-  $("spotlightTitle").textContent="SOUTHERN LEAGUE · LATEST VERIFIED INCIDENT";
-  $("postText").textContent=(node.minute??"?")+"′ · "+label(node.event)+" · "+team(node.event,payload.matchday.featured,teamMap(payload.matchday.featured))+" · "+(person(node.event)||"Player not reported");
- }
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){
  const overlay=$("goalCelebration");
@@ -260,9 +266,7 @@ function replayClubPost(){
  if(!demoMode)return;
  const realPosts=postsForMatch();
  if(!realPosts.length){
-  $("postText").textContent="DEMO: No verified Paulton X posts are available in the live collector. No club post has been invented.";
-  $("spotlightTitle").textContent="𝕏 · DEMO SOURCE UNAVAILABLE";
-  $("postCount").textContent="NO VERIFIED POSTS";
+  $("pageCount").textContent="DEMO UNAVAILABLE · NO VERIFIED CLUB POST TO REPLAY";
   return;
  }
  const post=realPosts[0];
@@ -271,9 +275,9 @@ function replayClubPost(){
  demoXItem={kind:"post",minute:postMinute(post),claimedMinute:postMinute(post),
   grouped:false,post, key:"demo-x:"+String(++demoXSequence),demo:true};
  arrivalTimes.set(demoXItem.key,Date.now()+1000);
- drawTimeline();updateSpotlight();
+ drawTimeline();
  demoXTimeout=setTimeout(()=>{
-  if(demoXItem){arrivalTimes.delete(demoXItem.key);demoXItem=null;drawTimeline();updateSpotlight();}
+  if(demoXItem){arrivalTimes.delete(demoXItem.key);demoXItem=null;drawTimeline();}
  },24000);
 }
 if(demoMode){
@@ -305,7 +309,7 @@ async function refresh(){
  if(match.home?.toLowerCase()!==config.home.toLowerCase()||match.away?.toLowerCase()!==config.away.toLowerCase())throw Error("Featured fixture mismatch");
  payload=value;lastGood=Date.now();
  const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts});
- if(sig!==renderSig){drawTimeline();updateSpotlight();renderSig=sig}
+ if(sig!==renderSig){drawTimeline();renderSig=sig}
  updateHeader();
  }catch(err){
  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ DATA DELAYED";

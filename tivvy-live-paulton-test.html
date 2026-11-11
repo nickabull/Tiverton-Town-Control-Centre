@@ -211,7 +211,8 @@ $("featureScore").textContent=formatFixtureScore(m);
 $("featuredMeta").textContent=statusText(m)+" · Southern League source checked "+uk(d.checkedAt);
 const root=$("featuredEvents"),scroll=root.scrollTop;
 const oldWasAtTop=scroll<24;
-root.replaceChildren();
+const stage=document.createElement("div");
+if(root.firstChild?.nodeType===Node.TEXT_NODE)root.textContent="";
 const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
 const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
@@ -261,10 +262,15 @@ for(const group of groups){
   }
   cluster.append(card);
  }
- root.append(cluster);
+ stage.append(cluster);
 }
 if(!events.length&&!todayPosts.length)
- root.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
+ stage.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
+// Preserve unchanged cards, scroll, and expanded X posts across live updates.
+const existing=new Map([...root.children].filter(n=>n.dataset.timelineKey).map(n=>[n.dataset.timelineKey,n]));
+const wanted=[...stage.children].map(n=>existing.get(n.dataset.timelineKey)||n);
+wanted.forEach((node,i)=>{if(root.children[i]!==node)root.insertBefore(node,root.children[i]||null);});
+for(const node of [...root.children])if(!wanted.includes(node))node.remove();
 lastTimelineKeys=new Set([...root.querySelectorAll("[data-timeline-key]")].map(e=>e.dataset.timelineKey));
 hasRenderedTimeline=true;
 root.scrollTop=oldWasAtTop?0:scroll;

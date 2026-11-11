@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "checkedAt": "2026-11-10T22:42:48.250187+00:00",
+  "checkedAt": "2026-11-11T02:16:28.304007+00:00",
   "source": "Southern League public match API",
   "status": "ok",
   "matches": [
@@ -725,8 +725,8 @@
             "id": "3be3d26e-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Dawid Regula",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7751d1f3cafeb650523619"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -749,16 +749,16 @@
             "id": "15170c32-873c-11f1-886a-0204f6006b57",
             "name": "Ben Mangadjene Sanogo",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a808ccbf3cafeb650525bf3"
           },
           "personOff": {
             "id": "3ba08d54-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jordan Murphy",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a9c3b1bf3cafeb65052b4d3"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -781,16 +781,16 @@
             "id": "3be44cd9-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Thomas Dowell",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6aa9ac35f3cafeb65052d990"
           },
           "personOff": {
             "id": "3be31a61-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Orlando Jules Anker",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z"
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
           "createdAt": "2026-11-10T20:59:02.829Z"
@@ -812,8 +812,8 @@
             "id": "3bbf438a-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Daniel Paul Mcbeam",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7b8ac2f3cafeb650524bd5"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -836,8 +836,8 @@
             "id": "3bf56e27-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jake Hicks",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7b8ac2f3cafeb650524bd9"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -860,16 +860,16 @@
             "id": "3bfc1d69-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Cyrus Bruce",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "69940e861af52659555a7c69"
           },
           "personOff": {
             "id": "3be3fe2f-6ee9-11f0-aa15-02eebc336bd5",
             "name": "George William Hadley",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a808ccbf3cafeb650525c00"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -892,8 +892,8 @@
             "id": "3bfc1d69-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Cyrus Bruce",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "69940e861af52659555a7c69"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -916,8 +916,8 @@
             "id": "3bfc0140-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Leon Greenland",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7b8ac2f3cafeb650524bd8"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -940,16 +940,16 @@
             "id": "3be0925b-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Rueben Joseph Johnson",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6ae61e98f3cafeb65053e721"
           },
           "personOff": {
             "id": "3be20788-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jake Collins",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "69940e861af52659555a7318"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -972,16 +972,16 @@
             "id": "3bcf59b4-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Prince Henry",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "69940e861af52659555a71a8"
           },
           "personOff": {
             "id": "3be14ae4-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Emmanuel Olaloko",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a808ccbf3cafeb650525c01"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -1004,8 +1004,8 @@
             "id": "3be3d26e-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Dawid Regula",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7751d1f3cafeb650523619"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -1028,16 +1028,16 @@
             "id": "3bf3adff-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Joshua Terry",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6aca6055f3cafeb650537188"
           },
           "personOff": {
             "id": "3c022af7-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Samuel Lanre Francis",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6aca6055f3cafeb650537186"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -1060,8 +1060,8 @@
             "id": "434a3e26-924c-11f1-b56e-0204f6006b57",
             "name": "Samuel John Whitton",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6ae61e98f3cafeb65053e723"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -1084,8 +1084,8 @@
             "id": "3be3d26e-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Dawid Regula",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7751d1f3cafeb650523619"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -1369,8 +1369,8 @@
             "id": "3be3d26e-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Dawid Regula",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a7751d1f3cafeb650523619"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
@@ -1393,16 +1393,16 @@
             "id": "15170c32-873c-11f1-886a-0204f6006b57",
             "name": "Ben Mangadjene Sanogo",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a808ccbf3cafeb650525bf3"
           },
           "personOff": {
             "id": "3ba08d54-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jordan Murphy",
             "teamId": "6a14c55b3e95555bc5dd1a64",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6a9c3b1bf3cafeb65052b4d3"
           },
           "teamId": "6a14c55b3e95555bc5dd1a64",
@@ -1425,16 +1425,16 @@
             "id": "3be44cd9-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Thomas Dowell",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z",
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z",
             "profileId": "6aa9ac35f3cafeb65052d990"
           },
           "personOff": {
             "id": "3be31a61-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Orlando Jules Anker",
             "teamId": "6a0adf9eda5d0d0847a02425",
-            "createdAt": "2026-11-10T22:42:02.189Z",
-            "updatedAt": "2026-11-10T22:42:02.189Z"
+            "createdAt": "2026-11-10T23:59:03.067Z",
+            "updatedAt": "2026-11-10T23:59:03.067Z"
           },
           "teamId": "6a0adf9eda5d0d0847a02425",
           "createdAt": "2026-11-10T20:59:02.829Z"

@@ -1,0 +1,34 @@
+name: Refresh programme verified post-match data
+on:
+  schedule:
+    - cron: '12,27,42,57 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tivvy-programme-postmatch-export
+  cancel-in-progress: false
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate non-destructive official full-time programme exports
+        run: python3 scripts/export-tivvy-programme-postmatch.py
+      - name: Validate JSON exports
+        run: |
+          for f in data/tivvy-programme-postmatch-*.json; do
+            if [ -f "$f" ]; then python3 -m json.tool "$f" > /dev/null; fi
+          done
+      - name: Publish changed exports
+        run: |
+          git config user.name "tivvy-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tivvy-programme-postmatch-*.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish verified Tivvy post-match programme data"
+            git push
+          else
+            echo "No changes"
+          fi

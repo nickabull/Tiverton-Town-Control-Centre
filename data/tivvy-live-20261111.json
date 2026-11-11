@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T19:38:26.792173+00:00",
+  "checkedAt": "2026-11-11T20:13:57.493920+00:00",
   "status": "ok",
   "source": "Southern League public match API",
   "featured": {
@@ -11,9 +11,58 @@
     "status": "FirstHalf",
     "score": {
       "home": 0,
-      "away": 0
+      "away": 1
     },
-    "events": [],
+    "events": [
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1cc3ce9ef452b61f44b6",
+        "externalMatchId": "d02c76db-81d8-11f1-886a-0204f6006b57",
+        "minute": 33,
+        "phase": "FirstHalf",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-11",
+        "kickOffTime": "19:30",
+        "eventType": "FIRST_YELLOW_CARD",
+        "person": {
+          "id": "3be30d8d-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Tom Bradley",
+          "teamId": "6a0adf9eda5d0d0847a02427",
+          "createdAt": "2026-11-11T20:13:06.439Z",
+          "updatedAt": "2026-11-11T20:13:06.439Z",
+          "profileId": "6a7b8ac2f3cafeb650524be4"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02427",
+        "createdAt": "2026-11-11T20:04:06.392Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1cc3ce9ef452b61f44b6",
+        "externalMatchId": "d02c76db-81d8-11f1-886a-0204f6006b57",
+        "minute": 39,
+        "phase": "FirstHalf",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "kickOffDate": "2026-11-11",
+        "kickOffTime": "19:30",
+        "eventType": "GOAL_FROM_PENALTY",
+        "person": {
+          "id": "3b88fbb4-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Asa Hall",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-11T20:13:06.439Z",
+          "updatedAt": "2026-11-11T20:13:06.439Z",
+          "profileId": "6a775429f3cafeb650523e4e"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-11T20:10:06.548Z"
+      }
+    ],
     "kickoff": "19:30",
     "isFeatured": true
   },
@@ -51,12 +100,61 @@
       "home": "Larkhall Athletic",
       "away": "Slimbridge AFC",
       "competition": "onesouth",
-      "status": "NotKickedOff",
+      "status": "FirstHalf",
       "score": {
-        "home": 0,
+        "home": 1,
         "away": 0
       },
-      "events": [],
+      "events": [
+        {
+          "competition": "69d0bdf9b616bafb97331d41",
+          "match": "6a5a1cc3ce9ef452b61f44b5",
+          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
+          "minute": 11,
+          "phase": "FirstHalf",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "kickOffDate": "2026-11-11",
+          "kickOffTime": "19:45",
+          "eventType": "GOAL_FROM_PENALTY",
+          "person": {
+            "id": "3baafce9-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Ryan Beckinsale",
+            "teamId": "6a0adf9eda5d0d0847a02423",
+            "createdAt": "2026-11-11T20:13:06.422Z",
+            "updatedAt": "2026-11-11T20:13:06.422Z",
+            "profileId": "6a7cdad5f3cafeb650524e21"
+          },
+          "teamId": "6a0adf9eda5d0d0847a02423",
+          "createdAt": "2026-11-11T19:59:06.469Z"
+        },
+        {
+          "competition": "69d0bdf9b616bafb97331d41",
+          "match": "6a5a1cc3ce9ef452b61f44b5",
+          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
+          "minute": 15,
+          "phase": "FirstHalf",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "kickOffDate": "2026-11-11",
+          "kickOffTime": "19:45",
+          "eventType": "FIRST_YELLOW_CARD",
+          "person": {
+            "id": "3bcd0268-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Alex Bell",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-11T20:13:06.422Z",
+            "updatedAt": "2026-11-11T20:13:06.422Z",
+            "profileId": "6a861519f3cafeb65052772e"
+          },
+          "teamId": "6a0adf9eda5d0d0847a02428",
+          "createdAt": "2026-11-11T20:03:06.631Z"
+        }
+      ],
       "kickoff": "19:45",
       "isFeatured": false
     }

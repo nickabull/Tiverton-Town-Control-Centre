@@ -180,6 +180,38 @@ footer{font-size:.77vw;line-height:1}
    allowing subsequent updates or the source footer to overlap. */
 .tv-cluster.oversize-moment{height:100%;overflow:hidden}
 .tv-cluster.oversize-moment .incident-text .post-copy{font-size:1vw;line-height:1.18}
+
+/* V10: compact time-led television cards, never giant X cards. */
+.event-list{display:flex;flex-direction:column;gap:.42vw;overflow:hidden!important;padding:.4vw .8vw .5vw 1.2vw}
+.tv-moment{display:grid;grid-template-columns:5vw minmax(0,1fr);gap:.6vw;align-items:stretch;min-height:0;flex:none;position:relative}
+.tv-moment:before{content:"";position:absolute;left:2.32vw;top:0;bottom:-.45vw;width:.14vw;background:#ffdb00}
+.tv-moment:last-child:before{bottom:50%}
+.tv-moment-minute{position:relative;z-index:1;justify-self:center;align-self:start;margin-top:.25vw;background:var(--gold);color:#111;font:700 1.75vw Antonio,Impact,sans-serif;min-width:3.65vw;text-align:center;padding:.2vw .4vw;border-radius:.25vw}
+.tv-moment.goal-moment .tv-moment-minute{background:#339bff;color:white}
+.tv-moment-content{display:grid;grid-template-columns:minmax(0,1fr);gap:.45vw;min-width:0}
+.tv-moment-content.has-both{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tv-moment-incidents,.tv-moment-posts{display:flex;flex-direction:column;gap:.3vw;min-width:0}
+.tv-event,.tv-post{border:1px solid #54565d;border-left:.32vw solid #6bd58c;border-radius:.28vw;background:#17181b;padding:.45vw .65vw;min-height:0;min-width:0}
+.tv-event.goal{border-left-color:#339bff}.tv-event.yellow{border-left-color:#ffd32a}.tv-event.red{border-left-color:#ff4d58}
+.tv-event-main{display:flex;align-items:baseline;gap:.75vw;min-width:0}
+.tv-event-type{font:700 1.38vw Antonio,Impact,Arial,sans-serif;white-space:nowrap}
+.tv-event.goal .tv-event-type{color:#65b5ff}.tv-event.yellow .tv-event-type{color:#ffe16b}.tv-event.red .tv-event-type{color:#ff747c}
+.tv-event-team{font-size:1.07vw;color:#c8cbd1;overflow-wrap:anywhere}
+.tv-event-detail{font-size:1.2vw;line-height:1.3;display:flex;flex-wrap:wrap;gap:.3vw .65vw;margin-top:.1vw;align-items:center}
+.tv-event-detail .on{color:#80e8ac;font-weight:700}.tv-event-detail .off{color:#ff8b94;font-weight:700}
+.tv-mini-score{background:var(--gold);color:#111;font:700 1.2vw Antonio,Impact,Arial,sans-serif;padding:.07vw .48vw;border-radius:.2vw;margin-left:auto}
+.tv-post{border-left-color:#b6a3f9;padding:.5vw .7vw}
+.tv-post-label{font:700 1.05vw Antonio,Impact,Arial,sans-serif;color:#dfc2ff}
+.tv-post-copy{font-size:1.18vw;line-height:1.27;white-space:normal;overflow-wrap:anywhere;margin-top:.22vw}
+.tv-moment-content.only-post .tv-moment-posts{width:100%}
+.tv-moment-content.only-post .tv-post{display:grid;grid-template-columns:18% 1fr;gap:.8vw;align-items:start}
+.tv-moment-content.only-post .tv-post-copy{margin-top:0}
+.tv-moment-content.has-both .tv-post-copy{font-size:1.1vw}
+.event-list.tight .tv-post-copy{font-size:1.02vw;line-height:1.17}
+.event-list.tight .tv-event-detail{font-size:1.05vw}
+.tv-moment .demo-post{border:2px solid var(--gold);border-left:.34vw solid #b6a3f9}
+.timeline .sectionhead{padding:.3vw .9vw .22vw}
+@media(max-aspect-ratio:16/9){.tv-post-copy{font-size:2.1vh}.tv-event-type{font-size:2.45vh}.tv-event-detail{font-size:2.12vh}.tv-moment-minute{font-size:3vh}}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <div class="broadcastbar">
@@ -267,98 +299,104 @@ function postMoment(p){
  return Math.max(-1,Math.min(130,(published-matchStart)/60000));
 }
 function timelineGroups(){
- const items=timelineItems(),groups=new Map();
- for(const item of items){
-  // First load uses chronological match order. After that a genuinely new
-  // official incident or club post is placed first, even if its minute is older.
-  if(!arrivalTimes.has(item.key))arrivalTimes.set(item.key,initialized?Date.now():0);
-  const ordering=item.minute!==null?item.minute:item.kind==="post"?postMoment(item.post):-1;
-  const key=item.minute!==null?"minute:"+item.minute:"post:"+item.key;
-  if(!groups.has(key))groups.set(key,{minute:item.minute,ordering,items:[],arrival:0});
-  const group=groups.get(key);group.items.push(item);
-  group.arrival=Math.max(group.arrival,arrivalTimes.get(item.key)||0);
+ const items=timelineItems(),events=items.filter(x=>x.kind==="incident"),posts=items.filter(x=>x.kind==="post");
+ const grouped=new Map();
+ // Official incidents determine the minute structure: X must not crowd out football.
+ for(const item of events){
+  const key="minute:"+item.minute;
+  if(!grouped.has(key))grouped.set(key,{minute:item.minute,items:[],order:item.minute??-1});
+  grouped.get(key).items.push(item);
  }
- return [...groups.values()].sort((a,b)=>b.arrival-a.arrival||b.ordering-a.ordering);
+ const standalone=[];
+ for(const item of posts){
+  // Match only X posts explicitly identifying a minute close to an official
+  // event, as in the featured-match column. Never invent event minutes.
+  const nearby=item.claimedMinute===null?[]:[...grouped.values()].filter(g=>g.minute!==null&&Math.abs(g.minute-item.claimedMinute)<=2)
+    .sort((a,b)=>Math.abs(a.minute-item.claimedMinute)-Math.abs(b.minute-item.claimedMinute));
+  if(nearby.length){nearby[0].items.push(item);}
+  else standalone.push(item);
+ }
+ const groups=[...grouped.values()].sort((a,b)=>(b.minute??-1)-(a.minute??-1));
+ // One latest standalone club post gets a high-visibility moment; remaining
+ // unlinked posts must not monopolise the non-scrolling screen.
+ standalone.sort((a,b)=>Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt));
+ const standaloneCount=Math.min(2,standalone.length);
+ for(let i=0;i<standaloneCount;i++){
+  const p=standalone[i];
+  groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
+ }
+ // A simulated new X arrival is always first in demo mode.
+ return groups.sort((a,b)=>{
+  const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
+  if(aDemo!==bDemo)return aDemo?-1:1;
+  return (b.order??-1)-(a.order??-1);
+ });
 }
 function incidentNode(item,m,map){
- const e=item.event,el=element("div","incident "+kind(e));
- const head=element("div","tv-incident-head");
- head.append(element("div","incident-type",label(e)));
- const score=e.score;
- head.append(element("div","incident-score",score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?score.home+"–"+score.away:"—"));
- el.append(head);
- const info=element("div","incident-text");
- info.append(element("div","teamname",team(e,m,map)));
+ const e=item.event,el=element("div","tv-event "+kind(e));
+ const line=element("div","tv-event-main");
+ line.append(element("strong","tv-event-type",label(e)));
+ line.append(element("span","tv-event-team",team(e,m,map)));
+ el.append(line);
+ const detail=element("div","tv-event-detail");
  if(kind(e)==="sub"){
-  const incoming=person(e),outgoing=name(e.personOff?.name||e.personOffName);
-  info.append(element("span","on","▲ ON · "+(incoming||"Name unavailable")));
-  info.append(element("span","","    "));
-  info.append(element("span","off","▼ OFF · "+(outgoing||"Name unavailable")));
- }else info.append(element("div","",person(e)||"Player unavailable"));
- el.append(info);
- el.append(element("div","tv-source","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));
- return el;
+  detail.append(element("span","on","▲ ON · "+(person(e)||"Name unavailable")));
+  detail.append(element("span","","   "));
+  detail.append(element("span","off","▼ OFF · "+(name(e.personOff?.name||e.personOffName)||"Name unavailable")));
+ }else detail.append(element("span","",person(e)||"Player unavailable"));
+ const sc=e.score;
+ if(sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away))detail.append(element("span","tv-mini-score",sc.home+"–"+sc.away));
+ el.append(detail);return el;
 }
 function clubNode(item){
- const p=item.post,el=element("div","incident club-post"+(item.demo?" demo-post":""));
- const head=element("div","tv-incident-head");
- head.append(element("div","incident-type",item.demo?"𝕏 DEMO REPLAY":"𝕏 TIVERTON TOWN FC · OFFICIAL CLUB POST"));
- el.append(head);
- const info=element("div","incident-text");
- info.append(element("div","post-head",(item.demo?"DEMONSTRATION · ORIGINAL CLUB POST · ":"")+uk(p.createdAt)));
- info.append(element("div","post-copy",String(p.text||"")));
- const photo=(p.media||[]).find(x=>x.type==="photo"&&/^https:\/\//i.test(x.url||""));
- if(photo){const pic=element("img","post-media");pic.src=photo.url;pic.alt=photo.alt||"Official club photo";info.append(pic)}
- el.append(info);return el;
+ const p=item.post,el=element("div","tv-post"+(item.demo?" demo-post":""));
+ el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
+ const copy=String(p.text||"").replace(/\s+/g," ").trim();
+ el.append(element("div","tv-post-copy",copy));
+ return el;
+}
+function fitTimeline(){
+ const root=$("events");
+ // Put emphasis on at least three of the most recent official minutes.
+ // Use a genuinely fixed-height television layout. Whole moment rows are
+ // removed when they cannot fit; no invisible scrolling or overlapping text.
+ let count=0;
+ const clusters=[...root.querySelectorAll(".tv-moment")];
+ for(const group of clusters){
+  count++;
+  if(root.scrollHeight>root.clientHeight+1&&count>1)group.remove();
+ }
+ // Tighten only if a single exceptionally long item remains.
+ if(root.scrollHeight>root.clientHeight+1)root.classList.add("tight");
+ else root.classList.remove("tight");
 }
 function drawTimeline(){
- const root=$("events");root.replaceChildren();
+ const root=$("events");root.replaceChildren();root.classList.remove("tight");
  const match=payload?.matchday?.featured;
- if(!match){root.append(element("div","unknown","Waiting for a verified featured fixture."));return}
+ if(!match){root.append(element("div","unknown","Waiting for the verified featured fixture."));return}
  const groups=timelineGroups(),teamIds=teamMap(match),all=timelineItems();
  for(const group of groups){
-  const cluster=element("section","tv-cluster");
-  if(group.items.some(x=>x.kind==="incident"&&kind(x.event)==="goal"))cluster.classList.add("goal-group");
-  const head=element("div","tv-cluster-head");
-  head.append(element("span","tv-cluster-minute",group.minute===null?"𝕏":group.minute+"′"));
-  const types=[...new Set(group.items.filter(x=>x.kind==="incident").map(x=>label(x.event)))];
-  if(group.items.some(x=>x.kind==="post"))types.push("𝕏 CLUB COMMENTARY");
-  head.append(element("span","tv-cluster-label",types.join(" · ")||"CLUB COMMENTARY"));
-  cluster.append(head);
-  // One moment can contain multiple official incidents and nearby club posts.
-  for(const item of group.items.sort((a,b)=>a.kind==="incident"?-1:1)){
-   const card=item.kind==="incident"?incidentNode(item,match,teamIds):clubNode(item);
-   if(initialized&&!knownKeys.has(item.key))card.classList.add("just-arrived");
-   cluster.append(card);
-  }
-  root.append(cluster);
-  // Measure after layout: if this complete match moment cannot fit, remove it
-  // and all older moments. Full club post text is never truncated.
-  if(root.scrollHeight>root.clientHeight+1&&root.children.length>1){
-   cluster.remove();
-   break;
-  }
-  if(root.scrollHeight>root.clientHeight+1&&root.children.length===1){
-   // Unusually long standalone post: keep it, but never let it overlap the footer.
-   cluster.classList.add("oversize-moment");
-  }
+  const cluster=element("section","tv-moment");
+  if(group.items.some(x=>x.kind==="incident"&&kind(x.event)==="goal"))cluster.classList.add("goal-moment");
+  const minute=element("div","tv-moment-minute",group.minute===null?"𝕏":group.minute+"′");
+  const content=element("div","tv-moment-content");
+  const ev=group.items.filter(x=>x.kind==="incident"),posts=group.items.filter(x=>x.kind==="post");
+  const both=ev.length&&posts.length;
+  if(both)content.classList.add("has-both");
+  const left=element("div","tv-moment-incidents");
+  for(const item of ev)left.append(incidentNode(item,match,teamIds));
+  const right=element("div","tv-moment-posts");
+  for(const item of posts.slice(0,2))right.append(clubNode(item));
+  if(ev.length)content.append(left);
+  if(posts.length)content.append(right);
+  if(!ev.length)content.classList.add("only-post");
+  cluster.append(minute,content);root.append(cluster);
  }
- if(!all.length)root.append(element("div","unknown","Awaiting verified incidents and club commentary."));
+ if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
+ fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent="LATEST MOMENTS · TV FIT · NO SCROLL";
-
- const newKeys=new Set(all.map(x=>x.key));
- for(const item of all){
-  if(item.kind!=="incident"||kind(item.event)!=="goal")continue;
-  const scorer=person(item.event);
-  if(!scorer||team(item.event,match,teamIds)!=="Tiverton Town")continue;
-  if(initialized&&!celebratedGoals.has(item.key)&&!knownKeys.has(item.key)){
-   // Keep the live ticker visible while the TV layout is being finalised.
-   // The demonstration button can still show the goal graphic on demand.
-  }
-  celebratedGoals.add(item.key);
- }
- knownKeys=newKeys;initialized=true;
+ $("pageCount").textContent="MOST RECENT MATCH MOMENTS · NO SCROLL";
+ knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){
  const overlay=$("goalCelebration");

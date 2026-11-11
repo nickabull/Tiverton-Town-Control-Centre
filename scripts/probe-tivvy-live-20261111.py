@@ -48,8 +48,26 @@ def run():
         headers={"Accept":"application/json","User-Agent":"Mozilla/5.0 (TivvyLiveMatchdayTest/1.0)",
                  "X-TENANT-ID":"sfl","Origin":"https://www.southern-football-league.co.uk",
                  "Referer":"https://www.southern-football-league.co.uk/live"}
-        with urlopen(Request(URL+"?"+query,headers=headers),timeout=25) as response:payload=json.load(response)
+        variants=[
+            query,
+            urlencode({"withEvents":1,"period":"Today","limit":200,"status":"any"}),
+            urlencode({"period":"Custom","startDate":DATE,"endDate":DATE,"limit":200}),
+            urlencode({"limit":200}),
+        ]
+        failures=[]
+        payload=None
+        for variant in variants:
+            try:
+                with urlopen(Request(URL+"?"+variant,headers=headers),timeout=20) as response:
+                    payload=json.load(response)
+                doc["queryVariant"]=variants.index(variant)+1
+                break
+            except Exception as err:
+                failures.append(type(err).__name__+": "+str(err)[:90])
+        if payload is None:raise RuntimeError("; ".join(failures))
         raw=payload.get("items",[]) if isinstance(payload,dict) else []
+        # Broad fallback queries can include other dates: never show them as today's matches.
+        raw=[m for m in raw if isinstance(m,dict) and str(m.get("date") or m.get("dateTime") or "").startswith(DATE)]
         doc["apiMatchesInspected"]=len(raw)
         for m in raw:
             if not isinstance(m,dict):continue
@@ -72,6 +90,24 @@ def run():
         if doc["featured"] is None:doc["warning"]="Featured fixture missing from current official API response"
     except Exception as ex:
         doc["error"]=type(ex).__name__+": "+str(ex)[:200]
+        # Preserve the known schedule for display even if live API temporarily rejects queries.
+        schedule=Path("data/southern-league-matchday-tabs.json")
+        if schedule.exists():
+            try:
+                backup=json.loads(schedule.read_text(encoding="utf-8"))
+                if backup.get("date")==DATE:
+                    for m in backup.get("matches",[]):
+                        home,away=str(m.get("home") or ""),str(m.get("away") or "")
+                        item={"id":str(m.get("id") or ""),"home":home,"away":away,
+                              "competition":m.get("competition") or comp(m,home,away),
+                              "status":m.get("status") or "unknown","score":None,
+                              "events":[],"kickoff":"","scheduleOnly":True,
+                              "isFeatured":(home.casefold().strip(),away.casefold().strip())==FEATURED}
+                        if item["isFeatured"]:doc["featured"]=item
+                        elif item["competition"] in LABELS:doc["matches"].append(item)
+                    doc["status"]="schedule-only"
+            except Exception as backupError:
+                doc["scheduleError"]=str(backupError)[:130]
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(doc,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print(doc["status"],"featured:",bool(doc["featured"]),"matches:",len(doc["matches"]),"unclassified:",len(doc["unclassified"]))

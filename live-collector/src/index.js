@@ -16,7 +16,9 @@ const LEAGUE_TTL=20_000;
 const X_TTL=300_000; // 5 min X polling during matches, never at 20-second football rate
 const MAX_X_CALLS_PER_DAY=60; // fail closed on unexpected traffic / API costs
 function xAllowed(date){
- const today=new Date().toLocaleDateString("en-CA",{timeZone:"Europe/London"});
+ const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+ const get=k=>parts.find(p=>p.type===k)?.value||"";
+ const today=get("year")+"-"+get("month")+"-"+get("day");
  const clock=ukClock();
  return today===date&&clock>="12:00"&&clock<="19:00";
 }

@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T16:38:06.173399+00:00",
+  "checkedAt": "2026-11-11T19:38:26.792173+00:00",
   "status": "ok",
   "source": "Southern League public match API",
   "featured": {
@@ -8,7 +8,7 @@
     "home": "Paulton Rovers",
     "away": "Tiverton Town",
     "competition": "onesouth",
-    "status": "NotKickedOff",
+    "status": "FirstHalf",
     "score": {
       "home": 0,
       "away": 0

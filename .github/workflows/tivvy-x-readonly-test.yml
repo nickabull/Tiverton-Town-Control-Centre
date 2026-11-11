@@ -1,0 +1,32 @@
+name: Tivvy X - Read Only Trial
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tivvy-x-manual-trial
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query official Tivvy X account once
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+        run: python scripts/probe-tivvy-x.py
+      - name: Publish sanitised test result
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tivvy-x-test.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record Tivvy X read-only connectivity trial [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

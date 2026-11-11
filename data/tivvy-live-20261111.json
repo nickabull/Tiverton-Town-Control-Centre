@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-11",
+  "checkedAt": "2026-11-11T08:42:18.123288+00:00",
+  "status": "error",
+  "source": "Southern League public match API",
+  "featured": null,
+  "matches": [],
+  "unclassified": [],
+  "apiMatchesInspected": 0,
+  "error": "HTTPError: HTTP Error 400: Bad Request"
+}

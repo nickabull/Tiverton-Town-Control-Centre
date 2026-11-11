@@ -62,6 +62,12 @@ footer strong{color:#ffe174}
 .goal-celebration .scorer{font:700 6vw Antonio,Impact,sans-serif;color:#fff}
 .goal-celebration .details{font:700 2.5vw Antonio,Impact,sans-serif;color:var(--gold)}
 .goal-celebration img{height:25%;width:auto;object-fit:contain}
+.demo-ribbon{position:absolute;z-index:10;top:1%;right:2%;font:700 1.5vw Antonio,Impact,sans-serif;color:#111;background:#ffdb00;padding:.2vw 1.2vw;display:none;transform:rotate(2deg)}
+.demo-controls{position:absolute;z-index:11;bottom:4%;right:3%;display:none}
+.demo-controls button{font:700 1.4vw Antonio,Impact,sans-serif;border:2px solid #ffdb00;color:#111;background:#ffdb00;padding:.6vw 1.5vw;cursor:pointer;border-radius:.4vw}
+body.demo .demo-ribbon,body.demo .demo-controls{display:block}
+.goal-celebration .demo-label{display:none;color:#111;background:#ffdb00;padding:.3vw 1.7vw;font:700 1.65vw Antonio,Impact,sans-serif;letter-spacing:.1em}
+.goal-celebration.demo .demo-label{display:block}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <header><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town official club crest"><h1>TIVVY <span>LIVE</span> · MATCH CENTRE TV</h1></header>
@@ -76,13 +82,15 @@ footer strong{color:#ffe174}
 <div class="xhead"><span id="spotlightTitle">TIVVY LIVE · MATCH MOMENT</span><span id="postCount">LATEST VERIFIED UPDATE</span></div>
 <div class="xbody"><div class="xtext" id="postText">Waiting for a verified post from @tivertontownfc.</div><img class="xmedia" id="postImage" style="display:none" alt="Image from official club post"></div>
 </section>
-<div class="goal-celebration" id="goalCelebration" aria-live="polite"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
+<div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
 <footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
 </main>
 <script>
 (function(){
 "use strict";
 const params=new URLSearchParams(location.search);
+const demoMode=params.get("demo")==="1";
+if(demoMode)document.body.classList.add("demo");
 const date=params.get("date")==="2026-11-14"?"2026-11-14":"2026-11-11";
 const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"}};
 const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
@@ -204,9 +212,7 @@ function drawTimeline(){
   const tivvyGoal=team(e,match,mapIds)==="Tiverton Town";
   if(!tivvyGoal||!scorer)continue;
   if(initialized&&!celebratedGoals.has(item.key)&&!knownKeys.has(item.key)){
-   $("celebrationScorer").textContent=scorer;
-   $("celebrationDetail").textContent=String(e.minute??"?")+"′ · "+(type(e).includes("PENALTY")?"PENALTY":"TIVERTON TOWN");
-   $("goalCelebration").classList.add("active");celebrationUntil=Date.now()+7500;
+   showGoalCelebration(scorer,e.minute??"?",type(e).includes("PENALTY"),false);
   }
   celebratedGoals.add(item.key);
  }
@@ -231,6 +237,27 @@ function updateSpotlight(){
   $("spotlightTitle").textContent="SOUTHERN LEAGUE · LATEST VERIFIED INCIDENT";
   $("postText").textContent=(node.minute??"?")+"′ · "+label(node.event)+" · "+team(node.event,payload.matchday.featured,teamMap(payload.matchday.featured))+" · "+(person(node.event)||"Player not reported");
  }
+}
+function showGoalCelebration(scorer,minute,penalty,isDemo=false){
+ const overlay=$("goalCelebration");
+ overlay.classList.toggle("demo",isDemo);
+ $("celebrationScorer").textContent=scorer;
+ $("celebrationDetail").textContent=String(minute)+"′ · "+(penalty?"PENALTY":"TIVERTON TOWN");
+ overlay.classList.remove("active");
+ void overlay.offsetWidth;
+ overlay.classList.add("active");
+ celebrationUntil=Date.now()+8500;
+}
+function replayGoal(){
+ if(!demoMode)return;
+ // Match-specific, previously verified goal; this function NEVER alters the
+ // official feed, score, incident list or real goal alert state.
+ if(date==="2026-11-11")showGoalCelebration("ASA HALL","39",true,true);
+ else showGoalCelebration("TIVVY GOAL DEMO","--",false,true);
+}
+if(demoMode){
+ $("demoGoalButton").addEventListener("click",replayGoal);
+ setTimeout(replayGoal,1800);
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;

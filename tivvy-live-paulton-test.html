@@ -309,7 +309,7 @@ for(const m of items){
  const outcome=m.isBackup?(postponement(m)?"P–P":m.home?.toLowerCase()==="larkhall athletic"?"19:45":"KO"):formatFixtureScore(m);
  row.append(mk("strong","",outcome));
  row.append(mk("span","",a||"Away"));box.append(row);
- box.append(mk("small","",(m.isBackup?"Schedule · ":"Official · ")+statusText(m)+(m.isBackup?"": " · "+(m.events?.length||0)+" incidents")));
+ box.append(mk("small","",(m.isBackup?"Schedule · ":"Official · ")+(m.isBackup&&m.home?.toLowerCase()==="larkhall athletic"?"KICK-OFF 19:45":statusText(m))+(m.isBackup?"": " · "+(m.events?.length||0)+" incidents")));
  if(!m.isBackup&&Array.isArray(m.events)){
   const events=[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0));
   for(const e of events){
@@ -339,7 +339,7 @@ async function refresh(){
  $("health").className="health "+(upToDate?"ok":good?"":"bad");
  $("health").textContent=upToDate?"✓ Recent Southern League matchday snapshot · "+uk(d.checkedAt):
  good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
- backup?"⚠ Official live feed unavailable — confirmed fixture schedule only · "+(d.error||"source error"):d?.status==="error"?"⚠ Collector reported an error: "+(d.error||"source unavailable"):
+ backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt)+". Fixture schedule shown where available.":
  "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
  $("otherDiag").textContent="Last page check "+uk(new Date())+" · JSON polled every 15 seconds · Collector scheduled every 5 minutes";
 }

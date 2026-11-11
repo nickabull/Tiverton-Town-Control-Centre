@@ -60,7 +60,9 @@ function normaliseLeague(payload,date){
   const comp=competition(m,home,away);
   const score=m.score?.current;
   const cleanScore=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?{home:score.home,away:score.away}:null;
-  const item={id:String(m._id||m.id||""),home,away,competition:comp,
+  const item={id:String(m._id||m.id||""),home,away,
+   homeTeamId:String(m.homeTeam?._id||m.homeTeam?.id||m.homeTeamId||""),
+   awayTeamId:String(m.awayTeam?._id||m.awayTeam?.id||m.awayTeamId||""),competition:comp,
    status:String(m.status||"unknown"),score:cleanScore,
    events:Array.isArray(m.events)?m.events.filter(e=>e&&typeof e==="object"):[],
    kickoff:String(m.time||m.dateTime||""),isFeatured:String(m._id||m.id)===FIXTURES[doc.date].id||

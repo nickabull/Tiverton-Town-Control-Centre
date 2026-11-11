@@ -5,10 +5,21 @@
  * No X token is ever sent to a browser.
  */
 const LEAGUE_URL="https://api.southern-football-league.co.uk/matches";
-const DATE="2026-11-11";
-const MATCH_ID="6a5a1cc3ce9ef452b61f44b6";
+const FIXTURES={
+ "2026-11-11":{id:"6a5a1cc3ce9ef452b61f44b6",home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},
+ "2026-11-14":{id:"6a5a1cc3ce9ef452b61f44e0",home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"}
+};
+const validDate=date=>/^2026-11-(11|14)$/.test(date);
+const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour12:false,hour:"2-digit",minute:"2-digit"});
+
 const LEAGUE_TTL=20_000;
-const X_TTL=180_000; // paid service: deliberately slower than match polling
+const X_TTL=300_000; // 5 min X polling during matches, never at 20-second football rate
+const MAX_X_CALLS_PER_DAY=60; // fail closed on unexpected traffic / API costs
+function xAllowed(date){
+ const today=new Date().toLocaleDateString("en-CA",{timeZone:"Europe/London"});
+ const clock=ukClock();
+ return today===date&&clock>="12:00"&&clock<="19:00";
+}
 const stamp=()=>new Date().toISOString();
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{
  "content-type":"application/json; charset=utf-8","cache-control":"no-store",
@@ -33,14 +44,14 @@ function competition(m,home,away){
  if(v.includes("premier")&&v.includes("central"))return "premiercentral";
  return "unclassified";
 }
-function normaliseLeague(payload){
- const doc={date:DATE,checkedAt:stamp(),status:"ok",source:"Southern League public match API",
+function normaliseLeague(payload,date){
+ const doc={date,checkedAt:stamp(),status:"ok",source:"Southern League public match API",
   featured:null,matches:[],unclassified:[],apiMatchesInspected:0};
  const items=Array.isArray(payload.items)?payload.items:[];
  for(const m of items){
   if(!m||typeof m!=="object")continue;
   const date=String(m.kickOffDate||m.date||m.dateTime||m.kickoffDate||"");
-  if(!date.startsWith(DATE))continue;
+  if(!date.startsWith(doc.date))continue;
   doc.apiMatchesInspected++;
   const home=team(m,"home"),away=team(m,"away");
   if(!home||!away)continue;
@@ -50,8 +61,9 @@ function normaliseLeague(payload){
   const item={id:String(m._id||m.id||""),home,away,competition:comp,
    status:String(m.status||"unknown"),score:cleanScore,
    events:Array.isArray(m.events)?m.events.filter(e=>e&&typeof e==="object"):[],
-   kickoff:String(m.time||m.dateTime||""),isFeatured:String(m._id||m.id)===MATCH_ID||
-    (home.toLowerCase()==="paulton rovers"&&away.toLowerCase()==="tiverton town")};
+   kickoff:String(m.time||m.dateTime||""),isFeatured:String(m._id||m.id)===FIXTURES[doc.date].id||
+    (home.toLowerCase()===FIXTURES[doc.date].home.toLowerCase()&&
+     away.toLowerCase()===FIXTURES[doc.date].away.toLowerCase())};
   if(item.isFeatured)doc.featured=item;
   else if(comp==="unclassified")doc.unclassified.push({home,away});
   else doc.matches.push(item);
@@ -59,15 +71,15 @@ function normaliseLeague(payload){
  if(!doc.featured)doc.warning="Featured fixture missing from official response";
  return doc;
 }
-async function collectLeague(){
- const query=new URLSearchParams({withEvents:"1",period:"Custom",startDate:DATE+"T00:00:00.000Z",
-  endDate:DATE+"T23:59:59.999Z",limit:"100",status:"any"});
+async function collectLeague(date){
+ const query=new URLSearchParams({withEvents:"1",period:"Custom",startDate:date+"T00:00:00.000Z",
+  endDate:date+"T23:59:59.999Z",limit:"100",status:"any"});
  const response=await fetch(LEAGUE_URL+"?"+query,{headers:{"Accept":"application/json",
   "X-TENANT-ID":"sfl","Origin":"https://www.southern-football-league.co.uk",
   "Referer":"https://www.southern-football-league.co.uk/live",
   "User-Agent":"TivvyLive/2.0"},cache:"no-store"});
  if(!response.ok)throw new Error("Southern League HTTP "+response.status);
- return normaliseLeague(await response.json());
+ return normaliseLeague(await response.json(),date);
 }
 async function collectX(env){
  if(!env.X_BEARER_TOKEN)return null;
@@ -88,18 +100,20 @@ async function collectX(env){
 }
 export class MatchCache {
  constructor(state,env){this.state=state;this.env=env;this.pending=null;}
- async fetch(){
+ async fetch(request){
+  const url=new URL(request.url),date=url.searchParams.get("date")||"2026-11-11";
+  if(!validDate(date))return json({status:"error",message:"Unsupported matchday"},400);
   if(this.pending)return this.pending.then(value=>json(value));
-  this.pending=this.collect().finally(()=>{this.pending=null;});
+  this.pending=this.collect(date).finally(()=>{this.pending=null;});
   return this.pending.then(value=>json(value)).catch(e=>json({status:"error",message:String(e.message||e)},503));
  }
- async collect(){
+ async collect(date){
   const now=Date.now();
-  let record=await this.state.storage.get("cache")||{matchday:null,x:null,leagueAt:0,xAt:0,log:[]};
+  let record=await this.state.storage.get("cache")||{matchday:null,x:null,leagueAt:0,xAt:0,xCalls:0,log:[]};
   const log=(type,detail)=>{record.log.unshift({at:stamp(),type,detail});record.log=record.log.slice(0,150);};
   if(now-record.leagueAt>=LEAGUE_TTL){
    try{
-    const updated=await collectLeague();
+    const updated=await collectLeague(date);
     const previous=record.matchday;
     record.matchday=updated;record.leagueAt=Date.now();
     const changed=JSON.stringify(previous?.featured)!==JSON.stringify(updated.featured) ||
@@ -107,8 +121,9 @@ export class MatchCache {
     log("southern-league",changed?"Source updated; fixtures/incidents changed":"HTTP 200; no incident changes");
    }catch(e){record.leagueAt=Date.now();log("southern-league-error",String(e.message||e));}
   }
-  if(this.env.X_BEARER_TOKEN&&now-record.xAt>=X_TTL){
+  if(this.env.X_BEARER_TOKEN&&xAllowed(date)&&record.xCalls<MAX_X_CALLS_PER_DAY&&now-record.xAt>=X_TTL){
    try{
+    record.xCalls++;
     const next=await collectX(this.env);
     const merged=new Map((record.x?.posts||[]).map(p=>[p.id,p]));
     for(const p of next.posts)merged.set(p.id,p);
@@ -120,7 +135,9 @@ export class MatchCache {
   await this.state.storage.put("cache",record);
   return {status:record.matchday?"ok":"unavailable",matchday:record.matchday,x:record.x,
    lastLeagueCollection:record.matchday?.checkedAt||null,lastXCollection:record.x?.checkedAt||null,
-   eventLog:record.log.slice(0,30),mode:"shared-live-cache"};
+   eventLog:record.log.slice(0,30),mode:"shared-live-cache",date,
+   xRequestsToday:record.xCalls||0,xRequestCap:MAX_X_CALLS_PER_DAY,
+   xCollectionMode:xAllowed(date)?"matchday-window":"inactive"};
  }
 }
 export default {
@@ -130,7 +147,9 @@ export default {
   if(request.method!=="GET")return json({error:"method not allowed"},405);
   if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector"});
   if(url.pathname!=="/live")return json({error:"not found"},404);
-  const stub=env.MATCH_CACHE.get(env.MATCH_CACHE.idFromName("tivvy-live-"+DATE));
-  return stub.fetch("https://internal/live");
+  const date=url.searchParams.get("date")||"2026-11-11";
+  if(!validDate(date))return json({error:"Unsupported matchday"},400);
+  const stub=env.MATCH_CACHE.get(env.MATCH_CACHE.idFromName("tivvy-live-"+date));
+  return stub.fetch("https://internal/live?date="+date);
  }
 };

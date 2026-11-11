@@ -196,11 +196,11 @@ const playerNameOverrides={
 function displayPlayerName(name){
  const raw=String(name||"").trim();
  if(!raw)return "";
- const key=raw.replace(/\\s+/g," ").toLowerCase();
+ const key=raw.replace(/\s+/g," ").toLowerCase();
  if(playerNameOverrides[key])return playerNameOverrides[key];
  // Players with multiple forenames are typically known by first and surname.
  // Keep hyphenated surnames and other two-part names unchanged.
- const parts=raw.split(/\\s+/);
+ const parts=raw.split(/\s+/);
  return parts.length===3?parts[0]+" "+parts[2]:raw;
 }
 function person(e){return displayPlayerName(e.person?.name||e.personName||e.player)||"Player not reported";}

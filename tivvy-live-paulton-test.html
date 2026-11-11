@@ -181,7 +181,7 @@ function teamFor(e,arr,home,away){if(!e.teamId)return e.team||"";
 let last={home:0,away:0};for(const x of arr){if(x.eventType==="GOAL"&&x.score&&x.teamId===e.teamId){if(x.score.home>last.home)return home;if(x.score.away>last.away)return away}if(x.score)last=x.score}return e.team||""}
 const postponement=x=>/postponed|abandoned|cancelled/i.test(x?.status||"");
 const pregame=x=>/notkickedoff|scheduled|upcoming|fixture/i.test(x?.status||"");
-const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF 19:30":String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
+const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF "+(x?.kickoff&&/^\\d\\d:\\d\\d$/.test(x.kickoff)?x.kickoff:x?.isFeatured?"19:30":"TIME TBC"):String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
 function formatFixtureScore(m){
  if(postponement(m))return "P–P";
  if(pregame(m))return m?.isFeatured?"19:30": (/^\d\d:\d\d$/.test(m?.kickoff||"")?m.kickoff:"KO");

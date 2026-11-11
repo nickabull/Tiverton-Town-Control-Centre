@@ -13,3 +13,11 @@ Deployment from the folder `live-collector`:
 5. On the Match Centre use `?liveApi=https%3A%2F%2F<your-worker-host>%2Flive` to enable the new collector for a test, or set the URL in the frontend configuration once verified.
 
 The public Match Centre continues to work from GitHub JSON if the live Worker is unavailable. For now it remains a **test**; confirm Southern League API conditions and X API cost/rate limits before production use.
+
+## Deploy using GitHub Actions instead of local Wrangler
+
+An Actions workflow is now available: `.github/workflows/deploy-tivvy-live-service.yml`.
+
+Set repository **Actions secrets** `CLOUDFLARE_API_TOKEN` (Workers deployment permissions) and `CLOUDFLARE_ACCOUNT_ID` (your Cloudflare account ID). The existing `X_BEARER_TOKEN` secret is forwarded securely during deployment. Run **Deploy Tivvy Live collector** on `main`. Confirm the actual workers.dev URL in the deployment job output and test its `/health` then `/live` endpoints before activating it in the Match Centre. Do not put a Cloudflare API token in chat or code.
+
+If no Cloudflare Worker has been deployed, the Match Centre uses the existing GitHub snapshots and does **not** gain genuinely live polling simply from committing these files.

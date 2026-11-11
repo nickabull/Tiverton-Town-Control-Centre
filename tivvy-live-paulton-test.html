@@ -157,7 +157,7 @@ const pregame=x=>/notkickedoff|scheduled|upcoming|fixture/i.test(x?.status||"");
 const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF 19:30":String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
 function formatFixtureScore(m){
  if(postponement(m))return "P–P";
- if(pregame(m))return m?.isFeatured?"19:30": m?.kickoffTime || "KO";
+ if(pregame(m))return m?.isFeatured?"19:30": (/^\d\d:\d\d$/.test(m?.kickoff||"")?m.kickoff:"KO");
  return scoreText(m?.score);
 }
 function renderFeatured(){
@@ -236,7 +236,7 @@ async function refresh(){
  $("health").className="health "+(upToDate?"ok":good?"":"bad");
  $("health").textContent=upToDate?"✓ Recent Southern League matchday snapshot · "+uk(d.checkedAt):
  good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
- d?.status==="error"?"⚠ Collector reported an error: "+(d.error||"source unavailable"):
+ backup?"⚠ Official live feed unavailable — confirmed fixture schedule only · "+(d.error||"source error"):d?.status==="error"?"⚠ Collector reported an error: "+(d.error||"source unavailable"):
  "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
  $("otherDiag").textContent="Last page check "+uk(new Date())+" · JSON polled every 15 seconds · Collector scheduled every 5 minutes";
 }

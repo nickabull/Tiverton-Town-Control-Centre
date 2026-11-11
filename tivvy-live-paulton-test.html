@@ -129,6 +129,9 @@ header{padding:7px 10px}
 .x-post-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
 button.x-expand{border:1px solid #8474ac;background:#353040;color:#e6dcff;font:700 12px Antonio,Arial,sans-serif;padding:6px 10px;border-radius:4px;cursor:pointer}
 button.x-expand:hover{background:#554b6b}
+@keyframes tivvy-arrive{from{opacity:.3;transform:translateY(-9px)}to{opacity:1;transform:translateY(0)}}
+.timeline-cluster.new-arrival{animation:tivvy-arrive .5s ease-out}
+
 .x-post-actions .x-post-link{margin-top:0}
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>PAULTON v TIVVY · WEDNESDAY 11 NOVEMBER</small></header>
@@ -164,6 +167,10 @@ const matchdayPath="tivvy-live-20261111.json";
 const backupPath="southern-league-matchday-tabs.json";
 const xPath="tivvy-x-test.json";
 const EXPECTED_DATE="2026-11-11";
+// The optional separate collector must be deployed before it can supply live data.
+// ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
+const liveApi=new URLSearchParams(location.search).get("liveApi")||"";
+let liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
@@ -202,7 +209,9 @@ if(!m){
 }
 $("featureScore").textContent=formatFixtureScore(m);
 $("featuredMeta").textContent=statusText(m)+" · Southern League source checked "+uk(d.checkedAt);
-const root=$("featuredEvents"),scroll=root.scrollTop;root.replaceChildren();
+const root=$("featuredEvents"),scroll=root.scrollTop;
+const oldWasAtTop=scroll<24;
+root.replaceChildren();
 const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
 const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
@@ -226,6 +235,9 @@ for(const post of todayPosts){
 groups.sort((a,b)=>(b.minute??-1)-(a.minute??-1));
 for(const group of groups){
  const cluster=mk("section","timeline-cluster");
+ const timelineKey=String(group.minute??"unknown")+"|"+group.events.map(e=>e.eventType+":"+person(e)).join(",")+"|"+group.posts.map(p=>p.id).join(",");
+ cluster.dataset.timelineKey=timelineKey;
+ if(hasRenderedTimeline&&!lastTimelineKeys.has(timelineKey))cluster.classList.add("new-arrival");
  if(group.events.some(e=>eventKind(e)==="kind-goal"))cluster.classList.add("kind-goal-cluster");
  const header=mk("div","cluster-header");
  header.append(mk("span","cluster-minute",group.minute===null?"X":group.minute+"′"));
@@ -253,7 +265,9 @@ for(const group of groups){
 }
 if(!events.length&&!todayPosts.length)
  root.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
-root.scrollTop=scroll;
+lastTimelineKeys=new Set([...root.querySelectorAll("[data-timeline-key]")].map(e=>e.dataset.timelineKey));
+hasRenderedTimeline=true;
+root.scrollTop=oldWasAtTop?0:scroll;
 }
 const expandedXPosts=new Set();
 function makeXCard(post){
@@ -338,19 +352,43 @@ async function grab(file){
  return response.json();
 }
 async function refresh(){
- const results=await Promise.allSettled([grab(matchdayPath),grab(backupPath),grab(xPath)]);
- let errors=[];
- if(results[0].status==="fulfilled")current.matchday=results[0].value;else errors.push("Today's collector: "+results[0].reason.message);
- if(results[1].status==="fulfilled")current.backup=results[1].value;
- if(results[2].status==="fulfilled")current.x=results[2].value;
- renderFeatured();renderRight();
+ // Use the shared dedicated collector when configured; fall back to GitHub
+ // if it is not deployed or cannot be reached. Never expose the X token here.
+ let live=null,errors=[];
+ if(/^https:\/\//i.test(liveApi)){
+  try{
+   const response=await fetch(liveApi+(liveApi.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});
+   if(!response.ok)throw Error("HTTP "+response.status);
+   const value=await response.json();
+   if(!value.matchday||value.matchday.status!=="ok")throw Error("No current verified matchday data");
+   live=value;liveSource="live-service";
+  }catch(err){errors.push("Live collector: "+err.message);liveSource="github-fallback";}
+ }
+ if(live){
+  current.matchday=live.matchday;
+  if(live.x)current.x=live.x;
+  if(!current.backup){try{current.backup=await grab(backupPath)}catch(_){}}
+ }else{
+  const results=await Promise.allSettled([grab(matchdayPath),grab(backupPath),grab(xPath)]);
+  if(results[0].status==="fulfilled")current.matchday=results[0].value;else errors.push("Today's collector: "+results[0].reason.message);
+  if(results[1].status==="fulfilled")current.backup=results[1].value;
+  if(results[2].status==="fulfilled")current.x=results[2].value;
+ }
+ // Keep existing DOM (and open X cards) when no actual incident/post has changed.
+ // The old version rebuilt the whole timeline every 15s, disrupting users.
+ const signature=JSON.stringify({featured:current.matchday?.featured,matches:current.matchday?.matches,
+  posts:current.x?.posts,mode:liveSource,status:current.matchday?.status});
+ if(signature!==lastRenderSignature){renderFeatured();renderRight();lastRenderSignature=signature;}
  const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,backup=d?.status==="schedule-only",upToDate=good&&fresh(d);
  $("health").className="health "+(upToDate?"ok":good?"":"bad");
- $("health").textContent=upToDate?"✓ Recent Southern League matchday snapshot · "+uk(d.checkedAt):
- good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
- backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt)+". Fixture schedule shown where available.":
- "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
- $("otherDiag").textContent="Last page check "+uk(new Date())+" · JSON polled every 15 seconds · Collector scheduled every 5 minutes";
+ $("health").textContent=upToDate?"✓ "+(live?"LIVE COLLECTOR":"Recent Southern League snapshot")+" · "+uk(d.checkedAt):
+  good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
+  backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt):
+  "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
+ $("featureDiag").textContent=d?(good?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting collector";
+ if(chosen!=="xupdates")$("leagueMeta").textContent=good?"OFFICIAL MATCHDAY · "+(fresh(d)?"Recently checked":"Last successful check")+" · "+uk(d.checkedAt):"FIXTURE SCHEDULE ONLY · Awaiting live collector";
+ else $("leagueMeta").textContent="Official @tivertontownfc posts · "+(live?"shared collector":"manually refreshed")+" · checked "+uk(current.x?.checkedAt);
+ $("otherDiag").textContent="Last page check "+uk(new Date())+" · "+(live?"Shared live collector ~20s (X ~3 min)":"GitHub snapshots, collector scheduling unreliable")+" · display checks every 20 seconds";
 }
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});
 document.querySelector(".mobile-switch").addEventListener("click",ev=>{
@@ -358,6 +396,6 @@ document.querySelector(".mobile-switch").addEventListener("click",ev=>{
  $("combinedLayout").dataset.activePanel=button.dataset.panel;
  for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
 });
-$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,15000);
+$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,20000);
 })();
 </script></body></html>

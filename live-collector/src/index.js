@@ -13,8 +13,8 @@ const validDate=date=>/^2026-11-(11|14)$/.test(date);
 const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour12:false,hour:"2-digit",minute:"2-digit"});
 
 const LEAGUE_TTL=20_000;
-const X_TTL=300_000; // 5 min X polling during matches, never at 20-second football rate
-const MAX_X_CALLS_PER_DAY=60; // fail closed on unexpected traffic / API costs
+const X_TTL=600_000; // 10-minute X refresh; separate from ~20-second football updates
+const MAX_X_CALLS_PER_DAY=20; // hard cap on paid X requests per matchday
 function xAllowed(date){
  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
  const get=k=>parts.find(p=>p.type===k)?.value||"";
@@ -83,11 +83,13 @@ async function collectLeague(date){
  if(!response.ok)throw new Error("Southern League HTTP "+response.status);
  return normaliseLeague(await response.json(),date);
 }
-async function collectX(env){
+async function collectX(env,sinceId){
  if(!env.X_BEARER_TOKEN)return null;
  const url=new URL("https://api.x.com/2/users/244486255/tweets");
- url.search=new URLSearchParams({max_results:"20","tweet.fields":"created_at,author_id,attachments,entities,referenced_tweets",
-  expansions:"attachments.media_keys","media.fields":"type,url,preview_image_url,alt_text"}).toString();
+ const q=new URLSearchParams({max_results:"10","tweet.fields":"created_at,author_id,attachments,entities,referenced_tweets",
+  expansions:"attachments.media_keys","media.fields":"type,url,preview_image_url,alt_text"});
+ if(sinceId&&/^\d{5,20}$/.test(String(sinceId)))q.set("since_id",String(sinceId));
+ url.search=q.toString();
  const response=await fetch(url,{headers:{Authorization:"Bearer "+env.X_BEARER_TOKEN,
   Accept:"application/json","User-Agent":"TivvyLive/2.0"},cache:"no-store"});
  if(!response.ok)throw new Error("X HTTP "+response.status);
@@ -126,7 +128,8 @@ export class MatchCache {
   if(this.env.X_BEARER_TOKEN&&xAllowed(date)&&record.xCalls<MAX_X_CALLS_PER_DAY&&now-record.xAt>=X_TTL){
    try{
     record.xCalls++;
-    const next=await collectX(this.env);
+    const latestId=record.x?.posts?.[0]?.id||null;
+    const next=await collectX(this.env,latestId);
     const merged=new Map((record.x?.posts||[]).map(p=>[p.id,p]));
     for(const p of next.posts)merged.set(p.id,p);
     next.posts=[...merged.values()].sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,200);

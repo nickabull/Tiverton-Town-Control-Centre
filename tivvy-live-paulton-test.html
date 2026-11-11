@@ -118,6 +118,10 @@ header{padding:7px 10px}
 .cluster-title{font:700 17px Antonio,Impact,Arial,sans-serif;overflow-wrap:anywhere}
 .timeline-cluster .event{margin:6px 0;background:#18191c;border:1px solid #42444a;border-left-width:4px}
 .timeline-cluster .x-post{margin:6px 0;border-left-color:#b6a3f9}
+.timeline-cluster.kind-goal-cluster{border-left-color:#339bff}
+.timeline-cluster.kind-goal-cluster:before{background:#339bff}
+.timeline-cluster.kind-goal-cluster>.cluster-header .cluster-minute{background:#339bff;color:#fff}
+.x-source-minute{color:#c6a0ff;font-size:11px;font-weight:700;margin:3px 0}
 .source-label{font-size:11px;font-weight:bold;color:#bfc1c8;margin-bottom:5px}
 .matchday-x-note{color:#bfc1c8;font-size:11px}
 @container(max-width:440px){.timeline-cluster{margin-left:5px;padding-left:12px}.cluster-title{font-size:15px}.cluster-minute{font-size:15px;padding:2px 7px}}
@@ -167,8 +171,8 @@ const fresh=d=>{let t=Date.parse(d?.checkedAt);return Number.isFinite(t)&&Date.n
 const mk=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
 const initials=n=>String(n||"").toLowerCase().trim();
 function eventType(e){return String(e.eventType||e.type||"EVENT").toUpperCase()}
-function eventLabel(e){let t=eventType(e);return t==="GOAL"?"⚽ GOAL":t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t.includes("CAPTAIN")?"◆ CAPTAIN":t.replace(/_/g," ")}
-function eventKind(e){let t=eventType(e);return t==="GOAL"?"kind-goal":t.includes("YELLOW")?"kind-yellow":t.includes("RED_CARD")?"kind-red":t.includes("SUB")?"kind-sub":t.includes("CAPTAIN")?"kind-captain":""}
+function eventLabel(e){let t=eventType(e);return t.startsWith("GOAL")?"⚽ "+(t.includes("PENALTY")?"PENALTY GOAL":"GOAL"):t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t.includes("CAPTAIN")?"◆ CAPTAIN":t.replace(/_/g," ")}
+function eventKind(e){let t=eventType(e);return t.startsWith("GOAL")?"kind-goal":t.includes("YELLOW")?"kind-yellow":t.includes("RED_CARD")?"kind-red":t.includes("SUB")?"kind-sub":t.includes("CAPTAIN")?"kind-captain":""}
 function person(e){return e.person?.name||e.personName||e.player||"Player not reported";}
 function scoreText(sc){return sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away)?sc.home+" – "+sc.away:"— : —"}
 function scoreTag(sc,mini){return mk("strong","event-score"+(mini?" mini":""),scoreText(sc))}
@@ -178,7 +182,7 @@ function subDetails(e){const line=mk("div","sub-pair");const incoming=e.person?.
  if(!incoming&&!outgoing)line.append(mk("span","muted","Substitution players not supplied"));
  return line}
 function teamFor(e,arr,home,away){if(!e.teamId)return e.team||"";
-let last={home:0,away:0};for(const x of arr){if(x.eventType==="GOAL"&&x.score&&x.teamId===e.teamId){if(x.score.home>last.home)return home;if(x.score.away>last.away)return away}if(x.score)last=x.score}return e.team||""}
+let last={home:0,away:0};for(const x of arr){if(String(x.eventType||"").startsWith("GOAL")&&x.score&&x.teamId===e.teamId){if(x.score.home>last.home)return home;if(x.score.away>last.away)return away}if(x.score)last=x.score}return e.team||""}
 const postponement=x=>/postponed|abandoned|cancelled/i.test(x?.status||"");
 const pregame=x=>/notkickedoff|scheduled|upcoming|fixture/i.test(x?.status||"");
 const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF "+(x?.kickoff&&/^[0-9]{2}:[0-9]{2}$/.test(x.kickoff)?x.kickoff:x?.isFeatured?"19:30":"TIME TBC"):String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
@@ -199,46 +203,51 @@ if(!m){
 $("featureScore").textContent=formatFixtureScore(m);
 $("featuredMeta").textContent=statusText(m)+" · Southern League source checked "+uk(d.checkedAt);
 const root=$("featuredEvents"),scroll=root.scrollTop;root.replaceChildren();
-const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
-const groups=new Map();
+const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
+const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
+// A post's opening minute is attributed club commentary, never an official incident minute.
+const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\\d{1,3})\\s*['’′”“]/);return hit?Number(hit[1]):null;};
+const groups=[];
 for(const e of events){
- const minute=Number(e.minute);
- const key=Number.isFinite(minute)?String(minute):"unknown";
- if(!groups.has(key))groups.set(key,[]);
- groups.get(key).push(e);
+ const minute=Number.isFinite(Number(e.minute))?Number(e.minute):null;
+ let group=groups.find(g=>g.minute===minute&&g.events.length);
+ if(!group){group={minute,events:[],posts:[]};groups.push(group);}
+ group.events.push(e);
 }
-// Merge incidents only on the exact, source-supplied match minute. Never assign
-// a clock time or a match minute to an X post unless that association is verified.
-for(const [key,items] of [...groups.entries()].sort((a,b)=>Number(b[0])-Number(a[0]))){
+for(const post of todayPosts){
+ const minute=xMinute(post);
+ const nearby=minute===null?[]:groups.filter(g=>g.events.length&&g.minute!==null&&Math.abs(g.minute-minute)<=2);
+ nearby.sort((a,b)=>Math.abs(a.minute-minute)-Math.abs(b.minute-minute));
+ if(nearby.length){nearby[0].posts.push(post);continue;}
+ let group=groups.find(g=>g.minute===minute&&!g.events.length);
+ if(!group){group={minute,events:[],posts:[]};groups.push(group);}
+ group.posts.push(post);
+}
+groups.sort((a,b)=>(b.minute??-1)-(a.minute??-1));
+for(const group of groups){
  const cluster=mk("section","timeline-cluster");
+ if(group.events.some(e=>eventKind(e)==="kind-goal"))cluster.classList.add("kind-goal-cluster");
  const header=mk("div","cluster-header");
- header.append(mk("span","cluster-minute",key==="unknown"?"EVENT":key+"′"));
- const kinds=[...new Set(items.map(eventLabel))];
+ header.append(mk("span","cluster-minute",group.minute===null?"X":group.minute+"′"));
+ const kinds=[...new Set(group.events.map(eventLabel))];
+ if(group.posts.length)kinds.push("𝕏 CLUB COMMENTARY");
  header.append(mk("span","cluster-title",kinds.join(" · ")));
  cluster.append(header);
- for(const e of items){
+ for(const e of group.events){
   const box=mk("div","event "+eventKind(e)),top=mk("div","top");
   top.append(mk("span","event-badge",eventLabel(e)));top.append(scoreTag(e.score,false));box.append(top);
   const team=teamFor(e,events,m.home,m.away);
   if(eventType(e).includes("SUB")){if(team)box.append(mk("div","source",team));box.append(subDetails(e))}
   else box.append(mk("div","name",person(e)+(team?" · "+team:"")));
-  box.append(mk("div","source-label","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));
-  cluster.append(box);
+  box.append(mk("div","source-label","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));cluster.append(box);
  }
- root.append(cluster);
-}
-const matchDate=EXPECTED_DATE;
-const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[])
- .filter(p=>String(p.createdAt||"").startsWith(matchDate));
-if(todayPosts.length){
- const cluster=mk("section","timeline-cluster");
- const header=mk("div","cluster-header");
- header.append(mk("span","cluster-minute","X"));
- header.append(mk("span","cluster-title","CLUB UPDATES"));
- cluster.append(header);
- cluster.append(mk("p","matchday-x-note","Official club posts published today. Their timestamps are not assumed to be match minutes."));
- for(const post of todayPosts){
-  cluster.append(makeXCard(post));
+ for(const post of group.posts){
+  const card=makeXCard(post),minute=xMinute(post);
+  if(minute!==null&&minute!==group.minute){
+   const note=mk("div","x-source-minute","Club post says "+minute+"′ · grouped with nearby incident");
+   card.insertBefore(note,card.firstChild);
+  }
+  cluster.append(card);
  }
  root.append(cluster);
 }

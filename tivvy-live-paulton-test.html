@@ -121,6 +121,11 @@ header{padding:7px 10px}
 .source-label{font-size:11px;font-weight:bold;color:#bfc1c8;margin-bottom:5px}
 .matchday-x-note{color:#bfc1c8;font-size:11px}
 @container(max-width:440px){.timeline-cluster{margin-left:5px;padding-left:12px}.cluster-title{font-size:15px}.cluster-minute{font-size:15px;padding:2px 7px}}
+
+.x-post-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+button.x-expand{border:1px solid #8474ac;background:#353040;color:#e6dcff;font:700 12px Antonio,Arial,sans-serif;padding:6px 10px;border-radius:4px;cursor:pointer}
+button.x-expand:hover{background:#554b6b}
+.x-post-actions .x-post-link{margin-top:0}
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>PAULTON v TIVVY · WEDNESDAY 11 NOVEMBER</small></header>
 <main>
@@ -241,23 +246,40 @@ if(!events.length&&!todayPosts.length)
  root.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
 root.scrollTop=scroll;
 }
+const expandedXPosts=new Set();
 function makeXCard(post){
  const box=mk("article","x-post");
+ const id=String(post.id||post.url||"");
+ box.dataset.postId=id;
+ const opened=expandedXPosts.has(id);
  box.append(mk("div","x-post-header","𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB POST"));
  box.append(mk("div","x-post-time",uk(post.createdAt)));
- box.append(mk("p","x-post-text",post.text||"Post text unavailable; read the original on X."));
- for(const media of (post.media||[])){
-  if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
-   const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
-  }else if(media.type==="video"||media.type==="animated_gif"){
-   box.append(mk("div","x-post-time","Video available in original X post"));
+ const rawText=String(post.text||"Post text unavailable; read the original on X.");
+ const teaser=rawText.replace(/\s+/g," ").trim();
+ box.append(mk("p","x-post-text",opened?rawText:teaser.slice(0,155)+(teaser.length>155?"…":"")));
+ if(opened){
+  for(const media of (post.media||[])){
+   if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
+    const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
+   }else if(media.type==="video"||media.type==="animated_gif"){
+    box.append(mk("div","x-post-time","Video available in original X post"));
+   }
   }
  }
+ const actions=mk("div","x-post-actions");
+ const toggle=mk("button","x-expand",opened?"SHOW LESS ▲":"READ FULL POST ▼");
+ toggle.type="button";toggle.setAttribute("aria-expanded",String(opened));
+ toggle.addEventListener("click",()=>{
+  if(expandedXPosts.has(id))expandedXPosts.delete(id);else expandedXPosts.add(id);
+  const parent=box.parentNode;if(!parent)return;
+  parent.replaceChild(makeXCard(post),box);
+ });
+ actions.append(toggle);
  if(/^https:\/\/x\.com\/tivertontownfc\/status\/\d+$/.test(post.url||"")){
-  const link=mk("a","x-post-link","VIEW ORIGINAL ON X ↗");
-  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";box.append(link);
+  const link=mk("a","x-post-link","OPEN ON X ↗");
+  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";actions.append(link);
  }
- return box;
+ box.append(actions);return box;
 }
 function renderXUpdates(root){
  const d=current.x;

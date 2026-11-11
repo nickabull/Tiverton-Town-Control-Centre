@@ -14,13 +14,13 @@ const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/Lond
 
 const LEAGUE_TTL=20_000;
 const X_TTL=600_000; // 10-minute X refresh; separate from ~20-second football updates
-const MAX_X_CALLS_PER_DAY=20; // hard cap on paid X requests per matchday
+const MAX_X_CALLS_PER_DAY=30; // hard cap on paid X requests per matchday
 function xAllowed(date){
  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
  const get=k=>parts.find(p=>p.type===k)?.value||"";
  const today=get("year")+"-"+get("month")+"-"+get("day");
  const clock=ukClock();
- return today===date&&clock>="12:00"&&clock<="19:00";
+ return today===date&&clock>="14:00"&&clock<="18:30";
 }
 const stamp=()=>new Date().toISOString();
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{

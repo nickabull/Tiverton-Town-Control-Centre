@@ -45,15 +45,15 @@ def run():
          "featured":None,"matches":[],"unclassified":[],"apiMatchesInspected":0}
     try:
         query=urlencode({"withEvents":1,"period":"Custom","startDate":DATE+"T00:00:00.000Z",
-                         "endDate":DATE+"T23:59:59.999Z","limit":1000,"status":"any"})
+                         "endDate":DATE+"T23:59:59.999Z","limit":100,"status":"any"})
         headers={"Accept":"application/json","User-Agent":"Mozilla/5.0 (TivvyLiveMatchdayTest/1.0)",
                  "X-TENANT-ID":"sfl","Origin":"https://www.southern-football-league.co.uk",
                  "Referer":"https://www.southern-football-league.co.uk/live"}
         variants=[
             query,
-            urlencode({"withEvents":1,"period":"Today","limit":200,"status":"any"}),
-            urlencode({"period":"Custom","startDate":DATE,"endDate":DATE,"limit":200}),
-            urlencode({"limit":200}),
+            urlencode({"withEvents":1,"period":"Today","limit":100,"status":"any"}),
+            urlencode({"period":"Custom","startDate":DATE,"endDate":DATE,"limit":100}),
+            urlencode({"limit":100}),
         ]
         failures=[]
         payload=None

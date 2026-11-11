@@ -1,11 +1,59 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T08:42:18.123288+00:00",
-  "status": "error",
+  "checkedAt": "2026-11-11T08:44:30.481382+00:00",
+  "status": "schedule-only",
   "source": "Southern League public match API",
-  "featured": null,
-  "matches": [],
+  "featured": {
+    "id": "6a5a1cc3ce9ef452b61f44b6",
+    "home": "Paulton Rovers",
+    "away": "Tiverton Town",
+    "competition": "onesouth",
+    "status": "NotKickedOff",
+    "score": null,
+    "events": [],
+    "kickoff": "",
+    "scheduleOnly": true,
+    "isFeatured": true
+  },
+  "matches": [
+    {
+      "id": "6a5a1cc3ce9ef452b61f44b2",
+      "home": "Willand Rovers",
+      "away": "Shaftesbury",
+      "competition": "onesouth",
+      "status": "Postponed",
+      "score": null,
+      "events": [],
+      "kickoff": "",
+      "scheduleOnly": true,
+      "isFeatured": false
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f44b3",
+      "home": "Frome Town",
+      "away": "Plymouth Parkway",
+      "competition": "premiersouth",
+      "status": "Postponed",
+      "score": null,
+      "events": [],
+      "kickoff": "",
+      "scheduleOnly": true,
+      "isFeatured": false
+    },
+    {
+      "id": "6a5a1cc3ce9ef452b61f44b5",
+      "home": "Larkhall Athletic",
+      "away": "Slimbridge AFC",
+      "competition": "onesouth",
+      "status": "NotKickedOff",
+      "score": null,
+      "events": [],
+      "kickoff": "",
+      "scheduleOnly": true,
+      "isFeatured": false
+    }
+  ],
   "unclassified": [],
   "apiMatchesInspected": 0,
-  "error": "HTTPError: HTTP Error 400: Bad Request"
+  "error": "RuntimeError: HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request; HTTPError: HTTP Error 400: Bad Request"
 }

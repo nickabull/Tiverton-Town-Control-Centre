@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live | Tiverton Town v Bishops Cleeve | 14 November 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#ffdb00;--black:#111214;--panel:#232529;--line:#555961;--muted:#c5c8ce;--green:#80e8ac;--red:#ff8b94}
+*{box-sizing:border-box}html,body{margin:0;background:var(--black);color:#fff;font:14px/1.4 Arial,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#080909;border-bottom:4px solid var(--y);padding:11px 18px}
+h1,h2,h3,.score,.teams,.tab{font-family:Antonio,Impact,Arial,sans-serif}h1{font-size:30px;margin:0}h1 em{color:var(--y);font-style:normal}h2{font-size:23px;color:var(--y);margin:0 0 8px}h3{font-size:19px;margin:0 0 8px}
+small,.muted{color:var(--muted)}main{padding:12px;max-width:1600px;margin:auto}
+.layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--y);border-radius:7px;padding:13px;min-width:0}
+.matchhead{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
+.teams{font-size:clamp(18px,2.8vw,29px);line-height:1.06;overflow-wrap:anywhere}.teams:last-child{text-align:right}
+.score{background:var(--y);color:#151515;font-size:clamp(20px,3vw,31px);padding:5px 12px;border-radius:3px;white-space:nowrap;text-align:center}
+.matchmeta{font-size:12px;color:var(--muted);margin:8px 0 10px}
+.scroll{height:470px;overflow:auto;overscroll-behavior:contain;padding-right:5px}
+.event{background:#17181a;border-left:4px solid var(--y);margin:7px 0;padding:10px;border-radius:3px;overflow-wrap:anywhere}
+.event .top{font-weight:bold;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.event .name{font-size:15px}.event .source{font-size:11px;color:#bbb;margin-top:3px}
+.event.kind-goal{border-left-color:#339bff}.event.kind-yellow{border-left-color:#ffd32a}.event.kind-red{border-left-color:#ff4d58}.event.kind-sub{border-left-color:#69cf86}.event.kind-captain{border-left-color:#b982ff}
+.event-score{display:inline-block;background:var(--y);color:#111;font:700 16px Antonio,Arial,sans-serif;border-radius:3px;padding:2px 9px;white-space:nowrap}
+.event-score.mini{font-size:13px;padding:1px 6px}
+.event-badge{font-weight:700}.kind-goal .event-badge{color:#65b5ff}.kind-yellow .event-badge{color:#ffe16b}.kind-red .event-badge{color:#ff747c}.kind-captain .event-badge{color:#cba3ff}
+.sub-on{color:#80e8ac;font-weight:700}.sub-off{color:#ff8b94;font-weight:700}.sub-pair{display:flex;gap:6px 14px;flex-wrap:wrap}
+.fixture .incident{display:flex;gap:5px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.fixture .incident .incident-content{min-width:0;flex:1 1 180px}
+.fixture .incident.kind-goal{border-left:2px solid #339bff;padding-left:6px}.fixture .incident.kind-sub{border-left:2px solid #69cf86;padding-left:6px}
+.fixture .incident.kind-yellow{border-left:2px solid #ffd32a;padding-left:6px}.fixture .incident.kind-red{border-left:2px solid #ff4d58;padding-left:6px}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:8px}
+.tab{flex:0 0 auto;background:#36383b;color:#fff;border:1px solid #666;border-radius:4px;padding:7px 10px;font-size:14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--y);color:#111;border-color:var(--y)}
+.fixture{background:#191b1e;border-left:3px solid var(--y);padding:10px;margin:7px 0;border-radius:3px}
+.fixture .line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:7px}
+.fixture .line span:last-child{text-align:right}.fixture strong{color:#111;background:var(--y);padding:4px 7px;white-space:nowrap;border-radius:3px}
+.fixture .line span{min-width:0;overflow-wrap:anywhere;font-family:Antonio,Arial;font-size:18px}
+.fixture small{display:block;margin-top:4px}.fixture .incident{margin-top:5px;padding-top:5px;border-top:1px solid #444;font-size:12px}
+.health{border:1px solid #827237;background:#352f1d;color:#ffebb7;padding:9px 12px;border-radius:5px;margin:11px 0;font-size:12px}
+.health.ok{border-color:#397b5b;background:#203c2e;color:#c2f5d7}.health.bad{border-color:#ad555b;background:#46292d;color:#ffd0d0}
+.foot{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:9px}
+button.reload{background:var(--y);color:#111;border:0;border-radius:3px;padding:7px 11px;font-weight:bold;cursor:pointer}
+a{color:#ffe179}
+/* Embed-first layout: container width inside Wix determines the breakpoints. */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+main{max-width:1280px;width:100%;padding:10px}
+.layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.panel{padding:12px;container-type:inline-size}
+.matchhead{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.teams{font-size:clamp(17px,2.2vw,27px)}
+.scroll{scrollbar-width:thin;scrollbar-color:#777b80 #202226;scroll-behavior:auto}
+.scroll::-webkit-scrollbar{width:7px;height:6px}
+.scroll::-webkit-scrollbar-track{background:#202226;border-radius:6px}
+.scroll::-webkit-scrollbar-thumb{background:#777b80;border-radius:6px}
+.scroll::-webkit-scrollbar-thumb:hover{background:#a3a5aa}
+.tabs{flex-wrap:wrap;overflow-x:visible}
+.tab{font-size:13px;padding:6px 8px}
+.event{padding:9px}.fixture{padding:8px}.fixture .line span{font-size:17px}
+.health{margin:7px 0 10px}
+@container (max-width:440px){
+.matchhead{gap:4px}.teams{font-size:16px}
+.score{font-size:22px;padding:4px 7px}
+.tabs{gap:4px}.tab{font-size:12px;padding:5px 7px}
+.event .name{font-size:13px}.event{padding:7px}
+.sub-pair{gap:5px 9px}
+.fixture .line span{font-size:14px}
+}
+@media(max-width:840px){
+header{padding:9px 11px}h1{font-size:24px}main{padding:7px}
+.layout{grid-template-columns:minmax(0,1fr);gap:9px}
+.panel{padding:11px}
+.matchhead{gap:7px}.teams{font-size:clamp(17px,4.2vw,24px)}
+.scroll{height:330px}
+.tabs{gap:5px}.tab{font-size:13px;padding:7px 9px}
+}
+@media(max-width:480px){
+header{gap:3px}header small{font-size:10px}
+h1{font-size:22px}.panel{padding:9px}
+.teams{font-size:clamp(14px,4vw,19px)}.score{font-size:22px;padding:5px 7px}
+.scroll{height:305px}
+.event .top{gap:5px}.event .name{font-size:13px}
+.event-score{font-size:14px;padding:2px 7px}
+.fixture .line span{font-size:15px}
+.fixture .incident{font-size:11px}
+.foot{font-size:11px}
+}
+
+/* Wix mobile iframe: switch panes instead of clipping stacked content. */
+.mobile-switch{display:none}
+@media(max-width:840px){
+.mobile-switch{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.mobile-switch button{font:700 16px Antonio,Impact,Arial,sans-serif;color:#fff;background:#34363a;border:1px solid #707070;padding:10px 6px;border-radius:4px;cursor:pointer}
+.mobile-switch button[aria-selected="true"]{background:var(--y);color:#101010;border-color:var(--y)}
+#combinedLayout[data-active-panel="featured"] #leaguesPanel{display:none}
+#combinedLayout[data-active-panel="leagues"] #featuredPanel{display:none}
+.scroll{height:390px}
+}
+@media(max-width:480px){
+header small{display:none}
+header{padding:7px 10px}
+.health{font-size:11px;padding:7px 9px;margin:6px 0 8px}
+.scroll{height:335px}
+.panel{padding:9px}
+.mobile-switch button{padding:8px 5px;font-size:14px}
+}
+
+/* Official X posts, visibly separated from verified Southern League match incidents. */
+.x-post{background:#17181a;border-left:4px solid #c6a0ff;padding:10px;margin:8px 0;border-radius:4px;overflow-wrap:anywhere}
+.x-post-header{font-weight:700;color:#fff}
+.x-post-time{font-size:11px;color:#b8bbc1;margin-top:3px}
+.x-post-text{font-size:13px;line-height:1.5;margin:8px 0;white-space:pre-wrap}
+.x-photo{display:block;width:100%;max-height:210px;object-fit:contain;background:#090909;border-radius:5px;margin:7px 0}
+.x-post-link{display:inline-block;font-weight:700;color:#bfc5ff;margin-top:7px;font-size:12px}
+
+/* Broadcast-style timeline: one incident minute, separate attributed source cards. */
+.timeline-cluster{position:relative;margin:0 0 12px 11px;padding:0 0 5px 17px;border-left:3px solid #ffdb00}
+.timeline-cluster:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--y);left:-7px;top:9px}
+.cluster-header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.cluster-minute{font:700 17px Antonio,Impact,Arial,sans-serif;background:var(--y);color:#111;padding:3px 10px;border-radius:3px;white-space:nowrap}
+.cluster-title{font:700 17px Antonio,Impact,Arial,sans-serif;overflow-wrap:anywhere}
+.timeline-cluster .event{margin:6px 0;background:#18191c;border:1px solid #42444a;border-left-width:4px}
+.timeline-cluster .x-post{margin:6px 0;border-left-color:#b6a3f9}
+.timeline-cluster.kind-goal-cluster{border-left-color:#339bff}
+.timeline-cluster.kind-goal-cluster:before{background:#339bff}
+.timeline-cluster.kind-goal-cluster>.cluster-header .cluster-minute{background:#339bff;color:#fff}
+.x-source-minute{color:#c6a0ff;font-size:11px;font-weight:700;margin:3px 0}
+.source-label{font-size:11px;font-weight:bold;color:#bfc1c8;margin-bottom:5px}
+.matchday-x-note{color:#bfc1c8;font-size:11px}
+@container(max-width:440px){.timeline-cluster{margin-left:5px;padding-left:12px}.cluster-title{font-size:15px}.cluster-minute{font-size:15px;padding:2px 7px}}
+
+.x-post-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+button.x-expand{border:1px solid #8474ac;background:#353040;color:#e6dcff;font:700 12px Antonio,Arial,sans-serif;padding:6px 10px;border-radius:4px;cursor:pointer}
+button.x-expand:hover{background:#554b6b}
+@keyframes tivvy-arrive{from{opacity:.3;transform:translateY(-9px)}to{opacity:1;transform:translateY(0)}}
+.timeline-cluster.new-arrival{animation:tivvy-arrive .5s ease-out}
+
+.x-post-actions .x-post-link{margin-top:0}
+</style></head>
+<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>TIVVY v BISHOPS CLEEVE · SATURDAY 14 NOVEMBER</small></header>
+<main>
+<div id="health" class="health">Checking published source snapshots…</div>
+<div class="mobile-switch" role="tablist" aria-label="Mobile match centre section"><button type="button" data-panel="featured" aria-selected="true">FEATURED MATCH</button><button type="button" data-panel="leagues" aria-selected="false">OTHER LEAGUES</button></div>
+<div class="layout" id="combinedLayout" data-active-panel="featured">
+<section class="panel" id="featuredPanel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
+<div class="matchhead"><span class="teams">TIVERTON TOWN</span><strong class="score" id="featureScore">– : –</strong><span class="teams">BISHOPS CLEEVE</span></div>
+<div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
+<h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
+<div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44e0" target="_blank" rel="noopener">Official match centre</a></div>
+</section>
+<section class="panel" id="leaguesPanel" aria-label="Other competitions"><h2>AROUND THE LEAGUES</h2>
+<div class="tabs" id="tabs" role="tablist" aria-label="Select competition">
+<button class="tab" type="button" role="tab" data-tab="onesouth" aria-selected="true">D1 South</button>
+<button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
+<button class="tab" type="button" role="tab" data-tab="premiersouth" aria-selected="false">Premier South</button>
+<button class="tab" type="button" role="tab" data-tab="premiercentral" aria-selected="false">Premier Central</button>
+<button class="tab" type="button" role="tab" data-tab="xupdates" aria-selected="false">X Updates</button>
+
+</div>
+<div id="leagueMeta" class="matchmeta">Checking data freshness…</div>
+<div class="scroll" id="leagueList" role="tabpanel" aria-live="polite">Loading fixtures…</div>
+<div class="foot"><span id="otherDiag">No snapshots checked yet</span><button class="reload" type="button" id="refresh">CHECK NOW ↻</button></div>
+</section>
+</div></main>
+<script>
+(function(){
+"use strict";
+const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
+const matchdayPath="tivvy-live-20261114.json";
+const backupPath="southern-league-matchday-20261114.json";
+const xPath="tivvy-x-saturday.json";
+const EXPECTED_DATE="2026-11-14";
+// Saturday test uses the separately deployed collector by default.
+// ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
+const liveApi=new URLSearchParams(location.search).get("liveApi")||
+ "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-14";
+let liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
+const $=id=>document.getElementById(id);
+let chosen="onesouth",current={};
+const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
+const fresh=d=>{let t=Date.parse(d?.checkedAt);return Number.isFinite(t)&&Date.now()-t<600000&&Date.now()-t>=-120000};
+const mk=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
+const initials=n=>String(n||"").toLowerCase().trim();
+function eventType(e){return String(e.eventType||e.type||"EVENT").toUpperCase()}
+function eventLabel(e){let t=eventType(e);return t.startsWith("GOAL")?"⚽ "+(t.includes("PENALTY")?"PENALTY GOAL":"GOAL"):t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t.includes("CAPTAIN")?"◆ CAPTAIN":t.replace(/_/g," ")}
+function eventKind(e){let t=eventType(e);return t.startsWith("GOAL")?"kind-goal":t.includes("YELLOW")?"kind-yellow":t.includes("RED_CARD")?"kind-red":t.includes("SUB")?"kind-sub":t.includes("CAPTAIN")?"kind-captain":""}
+function person(e){return e.person?.name||e.personName||e.player||"Player not reported";}
+function scoreText(sc){return sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away)?sc.home+" – "+sc.away:"— : —"}
+function scoreTag(sc,mini){return mk("strong","event-score"+(mini?" mini":""),scoreText(sc))}
+function subDetails(e){const line=mk("div","sub-pair");const incoming=e.person?.name||e.personOn?.name||e.personOnName;const outgoing=e.personOff?.name||e.personOffName;
+ if(incoming)line.append(mk("span","sub-on","▲ ON · "+incoming));
+ if(outgoing)line.append(mk("span","sub-off","▼ OFF · "+outgoing));
+ if(!incoming&&!outgoing)line.append(mk("span","muted","Substitution players not supplied"));
+ return line}
+function teamFor(e,arr,home,away){if(!e.teamId)return e.team||"";
+let last={home:0,away:0};for(const x of arr){if(String(x.eventType||"").startsWith("GOAL")&&x.score&&x.teamId===e.teamId){if(x.score.home>last.home)return home;if(x.score.away>last.away)return away}if(x.score)last=x.score}return e.team||""}
+const postponement=x=>/postponed|abandoned|cancelled/i.test(x?.status||"");
+const pregame=x=>/notkickedoff|scheduled|upcoming|fixture/i.test(x?.status||"");
+const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF "+(x?.kickoff&&/^[0-9]{2}:[0-9]{2}$/.test(x.kickoff)?x.kickoff:x?.isFeatured?"15:00":"TIME TBC"):String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
+function formatFixtureScore(m){
+ if(postponement(m))return "P–P";
+ if(pregame(m))return m?.isFeatured?"15:00": (/^\d\d:\d\d$/.test(m?.kickoff||"")?m.kickoff:"KO");
+ return scoreText(m?.score);
+}
+function renderFeatured(){
+const d=current.matchday, m=d?.featured;
+$("featureDiag").textContent=d?(d.status==="ok"?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting today's collector";
+if(!m){
+ $("featureScore").textContent="15:00";
+ $("featuredMeta").textContent="Saturday 14 November · Tiverton Town v Bishops Cleeve · 15:00 kick-off";
+ const root=$("featuredEvents");root.replaceChildren();root.append(mk("p","muted",d?.status==="error"?"Official source unavailable: "+(d.error||"collector error"):d?.warning||"Awaiting today's official Southern League fixture data."));
+ return;
+}
+$("featureScore").textContent=formatFixtureScore(m);
+$("featuredMeta").textContent=statusText(m)+" · Southern League source checked "+uk(d.checkedAt);
+const root=$("featuredEvents"),scroll=root.scrollTop;
+const oldWasAtTop=scroll<24;
+const stage=document.createElement("div");
+if(root.firstChild?.nodeType===Node.TEXT_NODE)root.textContent="";
+const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
+const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
+// A post's opening minute is attributed club commentary, never an official incident minute.
+const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′”“]/);return hit?Number(hit[1]):null;};
+const groups=[];
+for(const e of events){
+ const minute=Number.isFinite(Number(e.minute))?Number(e.minute):null;
+ let group=groups.find(g=>g.minute===minute&&g.events.length);
+ if(!group){group={minute,events:[],posts:[]};groups.push(group);}
+ group.events.push(e);
+}
+for(const post of todayPosts){
+ const minute=xMinute(post);
+ const nearby=minute===null?[]:groups.filter(g=>g.events.length&&g.minute!==null&&Math.abs(g.minute-minute)<=2);
+ nearby.sort((a,b)=>Math.abs(a.minute-minute)-Math.abs(b.minute-minute));
+ if(nearby.length){nearby[0].posts.push(post);continue;}
+ let group=groups.find(g=>g.minute===minute&&!g.events.length);
+ if(!group){group={minute,events:[],posts:[]};groups.push(group);}
+ group.posts.push(post);
+}
+groups.sort((a,b)=>(b.minute??-1)-(a.minute??-1));
+for(const group of groups){
+ const cluster=mk("section","timeline-cluster");
+ const timelineKey=String(group.minute??"unknown")+"|"+group.events.map(e=>e.eventType+":"+person(e)).join(",")+"|"+group.posts.map(p=>p.id).join(",");
+ cluster.dataset.timelineKey=timelineKey;
+ if(hasRenderedTimeline&&!lastTimelineKeys.has(timelineKey))cluster.classList.add("new-arrival");
+ if(group.events.some(e=>eventKind(e)==="kind-goal"))cluster.classList.add("kind-goal-cluster");
+ const header=mk("div","cluster-header");
+ header.append(mk("span","cluster-minute",group.minute===null?"X":group.minute+"′"));
+ const kinds=[...new Set(group.events.map(eventLabel))];
+ if(group.posts.length)kinds.push("𝕏 CLUB COMMENTARY");
+ header.append(mk("span","cluster-title",kinds.join(" · ")));
+ cluster.append(header);
+ for(const e of group.events){
+  const box=mk("div","event "+eventKind(e)),top=mk("div","top");
+  top.append(mk("span","event-badge",eventLabel(e)));top.append(scoreTag(e.score,false));box.append(top);
+  const team=teamFor(e,events,m.home,m.away);
+  if(eventType(e).includes("SUB")){if(team)box.append(mk("div","source",team));box.append(subDetails(e))}
+  else box.append(mk("div","name",person(e)+(team?" · "+team:"")));
+  box.append(mk("div","source-label","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));cluster.append(box);
+ }
+ for(const post of group.posts){
+  const card=makeXCard(post),minute=xMinute(post);
+  if(minute!==null&&minute!==group.minute){
+   const note=mk("div","x-source-minute","Club post says "+minute+"′ · grouped with nearby incident");
+   card.insertBefore(note,card.firstChild);
+  }
+  cluster.append(card);
+ }
+ stage.append(cluster);
+}
+if(!events.length&&!todayPosts.length)
+ stage.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
+// Preserve unchanged cards, scroll, and expanded X posts across live updates.
+const existing=new Map([...root.children].filter(n=>n.dataset.timelineKey).map(n=>[n.dataset.timelineKey,n]));
+const wanted=[...stage.children].map(n=>existing.get(n.dataset.timelineKey)||n);
+wanted.forEach((node,i)=>{if(root.children[i]!==node)root.insertBefore(node,root.children[i]||null);});
+for(const node of [...root.children])if(!wanted.includes(node))node.remove();
+lastTimelineKeys=new Set([...root.querySelectorAll("[data-timeline-key]")].map(e=>e.dataset.timelineKey));
+hasRenderedTimeline=true;
+root.scrollTop=oldWasAtTop?0:scroll;
+}
+const expandedXPosts=new Set();
+function makeXCard(post){
+ const box=mk("article","x-post");
+ const id=String(post.id||post.url||"");
+ box.dataset.postId=id;
+ const opened=expandedXPosts.has(id);
+ box.append(mk("div","x-post-header","𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB POST"));
+ box.append(mk("div","x-post-time",uk(post.createdAt)));
+ const rawText=String(post.text||"Post text unavailable; read the original on X.");
+ const teaser=rawText.replace(/\s+/g," ").trim();
+ box.append(mk("p","x-post-text",opened?rawText:teaser.slice(0,155)+(teaser.length>155?"…":"")));
+ if(opened){
+  for(const media of (post.media||[])){
+   if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
+    const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
+   }else if(media.type==="video"||media.type==="animated_gif"){
+    box.append(mk("div","x-post-time","Video available in original X post"));
+   }
+  }
+ }
+ const actions=mk("div","x-post-actions");
+ const toggle=mk("button","x-expand",opened?"SHOW LESS ▲":"READ FULL POST ▼");
+ toggle.type="button";toggle.setAttribute("aria-expanded",String(opened));
+ toggle.addEventListener("click",()=>{
+  if(expandedXPosts.has(id))expandedXPosts.delete(id);else expandedXPosts.add(id);
+  const parent=box.parentNode;if(!parent)return;
+  parent.replaceChild(makeXCard(post),box);
+ });
+ actions.append(toggle);
+ if(/^https:\/\/x\.com\/tivertontownfc\/status\/\d+$/.test(post.url||"")){
+  const link=mk("a","x-post-link","OPEN ON X ↗");
+  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";actions.append(link);
+ }
+ box.append(actions);return box;
+}
+function renderXUpdates(root){
+ const d=current.x;
+ $("leagueMeta").textContent="Official @tivertontownfc posts · manually refreshed, not a live feed"+(d?.checkedAt?" · checked "+uk(d.checkedAt):"");
+ if(!d||d.state!=="ok"){root.append(mk("p","muted","X posts unavailable. Run the manual GitHub X test to refresh this panel."));return;}
+ if(!d.posts?.length){root.append(mk("p","muted","No public posts returned by X."));return;}
+ for(const post of d.posts)root.append(makeXCard(post));
+}
+function renderRight(){
+const root=$("leagueList"),scroll=root.scrollTop;root.replaceChildren();
+if(chosen==="xupdates"){renderXUpdates(root);return;}
+const d=current.matchday,backup=current.backup;
+const valid=d?.status==="ok"&&d.date===EXPECTED_DATE;
+let items=valid?(d.matches||[]).filter(m=>m.competition===chosen):[];
+// The matchday fixture file is a schedule fallback, NEVER a live score feed.
+if(!valid&&backup?.date===EXPECTED_DATE)items=(backup.matches||[]).filter(m=>m.competition===chosen&&!(m.home?.toLowerCase()==="tiverton town"&&m.away?.toLowerCase()==="bishops cleeve")).map(m=>({...m,score:null,events:[],kickoffTime:"",isBackup:true}));
+$("leagueMeta").textContent=valid?"OFFICIAL MATCHDAY · "+(fresh(d)?"Recently checked":"Last successful check")+" · "+uk(d.checkedAt):"FIXTURE SCHEDULE ONLY · Awaiting live collector";
+if(!items.length){
+ root.append(mk("p","muted",valid?"No fixtures from this division in today's verified API response.":"No confirmed fixtures available in this division yet."));
+ if(valid&&d.unclassified?.length)root.append(mk("p","muted",d.unclassified.length+" other API fixtures could not be classified; no division was guessed."));
+ return;
+}
+for(const m of items){
+ const box=mk("div","fixture"),row=mk("div","line");
+ const h=m.home,a=m.away;
+ row.append(mk("span","",h||"Home"));
+ const outcome=m.isBackup?(postponement(m)?"P–P":m.home?.toLowerCase()==="larkhall athletic"?"19:45":"KO"):formatFixtureScore(m);
+ row.append(mk("strong","",outcome));
+ row.append(mk("span","",a||"Away"));box.append(row);
+ box.append(mk("small","",(m.isBackup?"Schedule · ":"Official · ")+(m.isBackup&&m.home?.toLowerCase()==="larkhall athletic"?"KICK-OFF 19:45":statusText(m))+(m.isBackup?"": " · "+(m.events?.length||0)+" incidents")));
+ if(!m.isBackup&&Array.isArray(m.events)){
+  const events=[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0));
+  for(const e of events){
+   const inc=mk("div","incident "+eventKind(e)),detail=mk("div","incident-content");
+   detail.append(mk("span","event-badge",(e.minute??"?")+"′ · "+eventLabel(e)+" · "));
+   if(eventType(e).includes("SUB"))detail.append(subDetails(e));else detail.append(mk("span","",person(e)));
+   inc.append(detail);inc.append(scoreTag(e.score,true));box.append(inc);
+  }
+ }
+ root.append(box);
+}
+root.scrollTop=scroll;
+}
+async function grab(file){
+ const response=await fetch(base+file+"?t="+Date.now(),{cache:"no-store"});
+ if(!response.ok)throw Error("HTTP "+response.status);
+ return response.json();
+}
+async function refresh(){
+ // Use the shared dedicated collector when configured; fall back to GitHub
+ // if it is not deployed or cannot be reached. Never expose the X token here.
+ let live=null,errors=[];
+ if(/^https:\/\//i.test(liveApi)){
+  try{
+   const response=await fetch(liveApi+(liveApi.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});
+   if(!response.ok)throw Error("HTTP "+response.status);
+   const value=await response.json();
+   if(!value.matchday||value.matchday.status!=="ok")throw Error("No current verified matchday data");
+   live=value;liveSource="live-service";
+  }catch(err){errors.push("Live collector: "+err.message);liveSource="github-fallback";}
+ }
+ if(live){
+  current.matchday=live.matchday;
+  if(live.x)current.x=live.x;
+  if(!current.backup){try{current.backup=await grab(backupPath)}catch(_){}}
+ }else{
+  const results=await Promise.allSettled([grab(matchdayPath),grab(backupPath),grab(xPath)]);
+  if(results[0].status==="fulfilled")current.matchday=results[0].value;else errors.push("Today's collector: "+results[0].reason.message);
+  if(results[1].status==="fulfilled")current.backup=results[1].value;
+  if(results[2].status==="fulfilled")current.x=results[2].value;
+ }
+ // Keep existing DOM (and open X cards) when no actual incident/post has changed.
+ // The old version rebuilt the whole timeline every 15s, disrupting users.
+ const signature=JSON.stringify({featured:current.matchday?.featured,matches:current.matchday?.matches,
+  posts:current.x?.posts,mode:liveSource,status:current.matchday?.status});
+ if(signature!==lastRenderSignature){renderFeatured();renderRight();lastRenderSignature=signature;}
+ const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,backup=d?.status==="schedule-only",upToDate=good&&fresh(d);
+ $("health").className="health "+(upToDate?"ok":good?"":"bad");
+ $("health").textContent=upToDate?"✓ "+(live?"LIVE COLLECTOR":"Recent Southern League snapshot")+" · "+uk(d.checkedAt):
+  good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
+  backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt):
+  "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
+ $("featureDiag").textContent=d?(good?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting collector";
+ if(chosen!=="xupdates")$("leagueMeta").textContent=good?"OFFICIAL MATCHDAY · "+(fresh(d)?"Recently checked":"Last successful check")+" · "+uk(d.checkedAt):"FIXTURE SCHEDULE ONLY · Awaiting live collector";
+ else $("leagueMeta").textContent="Official @tivertontownfc posts · "+(live?"shared collector":"manually refreshed")+" · checked "+uk(current.x?.checkedAt);
+ $("otherDiag").textContent="Last page check "+uk(new Date())+" · "+(live?"Shared live collector ~20s (X ~3 min)":"GitHub snapshots, collector scheduling unreliable")+" · display checks every 20 seconds";
+}
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});
+document.querySelector(".mobile-switch").addEventListener("click",ev=>{
+ const button=ev.target.closest("button[data-panel]");if(!button)return;
+ $("combinedLayout").dataset.activePanel=button.dataset.panel;
+ for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
+});
+$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,20000);
+})();
+</script></body></html>

@@ -180,10 +180,33 @@ const initials=n=>String(n||"").toLowerCase().trim();
 function eventType(e){return String(e.eventType||e.type||"EVENT").toUpperCase()}
 function eventLabel(e){let t=eventType(e);return t.startsWith("GOAL")?"⚽ "+(t.includes("PENALTY")?"PENALTY GOAL":"GOAL"):t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t.includes("CAPTAIN")?"◆ CAPTAIN":t.replace(/_/g," ")}
 function eventKind(e){let t=eventType(e);return t.startsWith("GOAL")?"kind-goal":t.includes("YELLOW")?"kind-yellow":t.includes("RED_CARD")?"kind-red":t.includes("SUB")?"kind-sub":t.includes("CAPTAIN")?"kind-captain":""}
-function person(e){return e.person?.name||e.personName||e.player||"Player not reported";}
+// Display-only player names: preserve official names in the JSON for audit.
+const playerNameOverrides={
+ "joshua william bissett":"Josh Bissett",
+ "jacob robert wellington":"Jacob Wellington",
+ "corey hayden koerner":"Corey Koerner",
+ "matthew liam wood":"Matt Wood",
+ "evander marvin grubb":"Evander Grubb",
+ "stanley redge jenkins":"Stanley Jenkins",
+ "ryan richard keates":"Ryan Keates",
+ "jack william kennell":"Jack Kennell",
+ "louis jagger cane":"Louis Jagger Cane",
+ "louie slough":"Louie Slough"
+};
+function displayPlayerName(name){
+ const raw=String(name||"").trim();
+ if(!raw)return "";
+ const key=raw.replace(/\\s+/g," ").toLowerCase();
+ if(playerNameOverrides[key])return playerNameOverrides[key];
+ // Players with multiple forenames are typically known by first and surname.
+ // Keep hyphenated surnames and other two-part names unchanged.
+ const parts=raw.split(/\\s+/);
+ return parts.length===3?parts[0]+" "+parts[2]:raw;
+}
+function person(e){return displayPlayerName(e.person?.name||e.personName||e.player)||"Player not reported";}
 function scoreText(sc){return sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away)?sc.home+" – "+sc.away:"— : —"}
 function scoreTag(sc,mini){return mk("strong","event-score"+(mini?" mini":""),scoreText(sc))}
-function subDetails(e){const line=mk("div","sub-pair");const incoming=e.person?.name||e.personOn?.name||e.personOnName;const outgoing=e.personOff?.name||e.personOffName;
+function subDetails(e){const line=mk("div","sub-pair");const incoming=displayPlayerName(e.person?.name||e.personOn?.name||e.personOnName);const outgoing=displayPlayerName(e.personOff?.name||e.personOffName);
  if(incoming)line.append(mk("span","sub-on","▲ ON · "+incoming));
  if(outgoing)line.append(mk("span","sub-off","▼ OFF · "+outgoing));
  if(!incoming&&!outgoing)line.append(mk("span","muted","Substitution players not supplied"));

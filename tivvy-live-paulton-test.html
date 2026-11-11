@@ -191,17 +191,27 @@ const playerNameOverrides={
  "ryan richard keates":"Ryan Keates",
  "jack william kennell":"Jack Kennell",
  "louis jagger cane":"Louis Jagger Cane",
- "louie slough":"Louie Slough"
+ "louie slough":"Louie Slough",
+ "oliver milton richard sully":"Oliver Sully",
+ "theodore david browne":"Theodore Browne",
+ "gennaro leopoldo bifulco":"Gennaro Bifulco",
+ "william edward hawes":"William Hawes",
+ "joshua delano barclay":"Josh Barclay",
+ "haydn george evans":"Haydn Evans",
+ "casey george collins":"Casey Collins",
+ "harry luke messenger":"Harry Messenger",
+ "jack oliver dancey":"Jack Dancey",
+ "sidney james partridge":"Sidney Partridge",
+ "christopher james peck":"Christopher Peck"
 };
 function displayPlayerName(name){
  const raw=String(name||"").trim();
  if(!raw)return "";
  const key=raw.replace(/\s+/g," ").toLowerCase();
  if(playerNameOverrides[key])return playerNameOverrides[key];
- // Players with multiple forenames are typically known by first and surname.
- // Keep hyphenated surnames and other two-part names unchanged.
+ // Display-only fallback for three or more components; source JSON stays intact.
  const parts=raw.split(/\s+/);
- return parts.length===3?parts[0]+" "+parts[2]:raw;
+ return parts.length>2?parts[0]+" "+parts[parts.length-1]:raw;
 }
 function person(e){return displayPlayerName(e.person?.name||e.personName||e.player)||"Player not reported";}
 function scoreText(sc){return sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away)?sc.home+" – "+sc.away:"— : —"}

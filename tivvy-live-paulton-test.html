@@ -101,6 +101,14 @@ header{padding:7px 10px}
 .panel{padding:9px}
 .mobile-switch button{padding:8px 5px;font-size:14px}
 }
+
+/* Official X posts, visibly separated from verified Southern League match incidents. */
+.x-post{background:#17181a;border-left:4px solid #c6a0ff;padding:10px;margin:8px 0;border-radius:4px;overflow-wrap:anywhere}
+.x-post-header{font-weight:700;color:#fff}
+.x-post-time{font-size:11px;color:#b8bbc1;margin-top:3px}
+.x-post-text{font-size:13px;line-height:1.5;margin:8px 0;white-space:pre-wrap}
+.x-photo{display:block;width:100%;max-height:210px;object-fit:contain;background:#090909;border-radius:5px;margin:7px 0}
+.x-post-link{display:inline-block;font-weight:700;color:#bfc5ff;margin-top:7px;font-size:12px}
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>PAULTON v TIVVY · WEDNESDAY 11 NOVEMBER</small></header>
 <main>
@@ -119,6 +127,7 @@ header{padding:7px 10px}
 <button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
 <button class="tab" type="button" role="tab" data-tab="premiersouth" aria-selected="false">Premier South</button>
 <button class="tab" type="button" role="tab" data-tab="premiercentral" aria-selected="false">Premier Central</button>
+<button class="tab" type="button" role="tab" data-tab="xupdates" aria-selected="false">X Updates</button>
 
 </div>
 <div id="leagueMeta" class="matchmeta">Checking data freshness…</div>
@@ -132,6 +141,7 @@ header{padding:7px 10px}
 const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
 const matchdayPath="tivvy-live-20261111.json";
 const backupPath="southern-league-matchday-tabs.json";
+const xPath="tivvy-x-test.json";
 const EXPECTED_DATE="2026-11-11";
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
@@ -187,8 +197,32 @@ for(const e of events.slice().reverse()){
 }
 root.scrollTop=scroll;
 }
+function renderXUpdates(root){
+ const d=current.x;
+ $("leagueMeta").textContent="Official @tivertontownfc posts · manual API trial, NOT a live feed"+(d?.checkedAt?" · checked "+uk(d.checkedAt):"");
+ if(!d||d.state!=="ok"){root.append(mk("p","muted","X posts not available yet. Run the manual GitHub X test to refresh this panel."));return;}
+ if(!d.posts?.length){root.append(mk("p","muted","No public posts returned by X."));return;}
+ for(const post of d.posts){
+  const box=mk("article","x-post");
+  const head=mk("div","x-post-header","Tiverton Town FC · @tivertontownfc");
+  box.append(head);
+  box.append(mk("div","x-post-time",uk(post.createdAt)));
+  box.append(mk("p","x-post-text",post.text||"Post text not yet retrieved; open on X to read."));
+  for(const media of (post.media||[])){
+   if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
+    const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
+   }else if(media.type==="video"||media.type==="animated_gif"){
+    box.append(mk("div","x-post-time","Video available in original post"));
+   }
+  }
+  const link=mk("a","x-post-link","View original on X ↗");
+  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";box.append(link);
+  root.append(box);
+ }
+}
 function renderRight(){
 const root=$("leagueList"),scroll=root.scrollTop;root.replaceChildren();
+if(chosen==="xupdates"){renderXUpdates(root);return;}
 const d=current.matchday,backup=current.backup;
 const valid=d?.status==="ok"&&d.date===EXPECTED_DATE;
 let items=valid?(d.matches||[]).filter(m=>m.competition===chosen):[];
@@ -227,12 +261,13 @@ async function grab(file){
  return response.json();
 }
 async function refresh(){
- const results=await Promise.allSettled([grab(matchdayPath),grab(backupPath)]);
+ const results=await Promise.allSettled([grab(matchdayPath),grab(backupPath),grab(xPath)]);
  let errors=[];
  if(results[0].status==="fulfilled")current.matchday=results[0].value;else errors.push("Today's collector: "+results[0].reason.message);
  if(results[1].status==="fulfilled")current.backup=results[1].value;
+ if(results[2].status==="fulfilled")current.x=results[2].value;
  renderFeatured();renderRight();
- const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,upToDate=good&&fresh(d);
+ const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,backup=d?.status==="schedule-only",upToDate=good&&fresh(d);
  $("health").className="health "+(upToDate?"ok":good?"":"bad");
  $("health").textContent=upToDate?"✓ Recent Southern League matchday snapshot · "+uk(d.checkedAt):
  good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":

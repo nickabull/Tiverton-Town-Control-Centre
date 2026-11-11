@@ -26,20 +26,20 @@ header h1 span{color:var(--gold)}
 .match-state{font:700 1.45vw Antonio,Arial,sans-serif;color:var(--gold);border-left:.2vw solid var(--gold);padding-left:1.1vw;max-width:10vw;line-height:1.2;text-transform:uppercase}
 .timeline{border:.15vw solid var(--gold);border-radius:.6vw;overflow:hidden;min-height:0;display:grid;grid-template-rows:auto 1fr auto;background:rgba(24,25,28,.82)}
 .sectionhead{font:700 1.65vw Antonio,Arial,sans-serif;letter-spacing:.01em;background:var(--gold);color:#0d0d0d;padding:.3vw 1.3vw;width:max-content;max-width:100%;clip-path:polygon(0 0,100% 0,97% 100%,0 100%)}
-.event-list{min-height:0;padding:.5vw 1vw;display:grid;grid-auto-rows:minmax(0,1fr);gap:.3vw}
-.incident{border:1px solid #494d53;border-left:.36vw solid var(--gold);border-radius:.26vw;display:grid;grid-template-columns:5.6vw 1.6fr 1.9fr 5.8vw;gap:.65vw;align-items:center;padding:.2vw .75vw;background:#131518;min-height:0;font-size:1.15vw;line-height:1.14}
+.event-list{min-height:0;min-width:0;padding:.5vw 1vw;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:.45vw;overflow:hidden}
+.incident{border:1px solid #494d53;border-left:.36vw solid var(--gold);border-radius:.26vw;display:grid;grid-template-columns:5.6vw minmax(0,1.2fr) minmax(0,2.1fr) 5.8vw;gap:.65vw;align-items:center;padding:.35vw .75vw;background:#131518;min-height:0;min-width:0;overflow:hidden;font-size:1.15vw;line-height:1.14}
 .incident.goal{border-left-color:#4daaff}.incident.yellow{border-left-color:#f2d24c}.incident.red{border-left-color:#ff687d}.incident.sub{border-left-color:#79d6a0}
 .minute{border-radius:.3vw;background:var(--gold);color:#101010;font-size:1.62vw;font-weight:700;text-align:center;padding:.13vw .2vw}
-.incident-type{font-size:1.43vw;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.incident-type{font-size:1.35vw;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .goal .incident-type{color:var(--blue)}.yellow .incident-type{color:var(--amber)}.red .incident-type{color:var(--pink)}
-.incident-text{font-size:1.24vw;min-width:0;overflow-wrap:anywhere}.incident-text .on{color:var(--green);font-weight:bold}.incident-text .off{color:var(--pink);font-weight:bold}
+.incident-text{font-size:1.13vw;line-height:1.22;min-width:0;max-height:100%;overflow:hidden;overflow-wrap:anywhere}.incident-text .on{color:var(--green);font-weight:bold}.incident-text .off{color:var(--pink);font-weight:bold}
 .incident-score{font:700 1.5vw Antonio,Arial,sans-serif;color:#111;background:var(--gold);padding:.18vw .3vw;border-radius:.3vw;text-align:center}
 .unknown{color:var(--muted)}
 .timelinefoot{display:flex;justify-content:space-between;padding:.16vw 1vw .35vw;color:var(--muted);font-size:.89vw}
 .xpanel{border:.14vw solid #bb98ef;border-radius:.55vw;display:grid;grid-template-rows:auto 1fr;min-height:0;background:#121217;overflow:hidden}
 .xhead{background:#2b2037;color:#e9d9ff;padding:.25vw 1.2vw;font:700 1.5vw Antonio,Arial,sans-serif;display:flex;justify-content:space-between}
-.xbody{padding:.65vw 1.4vw;display:flex;gap:1.2vw;min-height:0;align-items:center}
-.xtext{white-space:pre-wrap;overflow-wrap:anywhere;flex:1;font-size:1.36vw;line-height:1.33;max-height:100%;overflow:hidden}
+.xbody{padding:.65vw 1.4vw;display:flex;gap:1.2vw;min-height:0;align-items:stretch;overflow:hidden}
+.xtext{white-space:pre-wrap;overflow-wrap:anywhere;flex:1;min-width:0;min-height:0;height:100%;font-size:1.33vw;line-height:1.28;overflow-y:auto;scrollbar-width:none}.xtext::-webkit-scrollbar{display:none}
 .xmedia{max-width:23%;max-height:100%;object-fit:contain;border-radius:.35vw}
 footer{display:flex;justify-content:space-between;gap:2%;font-size:.95vw;color:#b6bbc4;align-items:center}
 footer strong{color:#ffe174}
@@ -91,7 +91,7 @@ function teamMap(match){
 }
 function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
 function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
-let payload=null,eventPage=0,postPage=0,renderSig="",eventKeys=[],lastGood=0;
+let payload=null,eventPage=0,postPage=0,renderSig="",eventKeys=[],lastGood=0,postShownAt=0;
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function eventNode(e,m,map){
  const el=element("div","incident "+kind(e));
@@ -120,7 +120,7 @@ function drawEvents(){
  const root=$("events"),match=payload?.matchday?.featured;root.replaceChildren();
  if(!match){root.append(element("div","unknown","Awaiting the official fixture; no incidents will be fabricated."));return}
  const all=[...(match.events||[])].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0));
- const maxPerPage=5,pageTotal=Math.max(1,Math.ceil(all.length/maxPerPage));
+ const maxPerPage=3,pageTotal=Math.max(1,Math.ceil(all.length/maxPerPage));
  eventPage%=pageTotal;
  const list=all.slice(eventPage*maxPerPage,eventPage*maxPerPage+maxPerPage);
  const map=teamMap(match);
@@ -129,27 +129,15 @@ function drawEvents(){
  $("eventFoot").textContent=all.length+" official incident"+(all.length===1?"":"s")+" · latest first · showing verified events only";
  $("pageCount").textContent=all.length?"PAGE "+(eventPage+1)+" OF "+pageTotal+" · AUTOMATIC ROTATION":"";
 }
-function fitPost(){
- const box=$("postText");
- box.style.fontSize="";
- let size=parseFloat(getComputedStyle(box).fontSize)||24;
- for(let i=0;i<22&&box.scrollHeight>box.clientHeight+2;i++){
-  size=Math.max(11,size-1);box.style.fontSize=size+"px";
- }
- if(box.scrollHeight>box.clientHeight+2){
-  // Never silently truncate a long club message: reduce again to a readable floor.
-  box.style.fontSize="10px";
- }
-}
 function drawPosts(){
  const posts=postsForMatch(),count=posts.length;const img=$("postImage");img.style.display="none";img.removeAttribute("src");
  $("postCount").textContent=count?"POST "+((postPage%count)+1)+" OF "+count+" · AUTO-ROTATING":"NO MATCHDAY POSTS";
  if(!count){$("postText").textContent=payload?.x?.state==="ok"?"No official club posts available for this matchday.":"Official club commentary unavailable — waiting for X source.";return}
  const post=posts[postPage%count];
  $("postText").textContent=uk(post.createdAt)+" · "+String(post.text||"Post text unavailable");
- requestAnimationFrame(fitPost);
+ $("postText").scrollTop=0;postShownAt=Date.now();
  const photo=(post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
- if(photo){img.src=photo.url;img.alt=photo.alt||"Official club-post image";img.style.display="block";img.onload=fitPost;img.onerror=()=>{img.style.display="none";fitPost()}}
+ if(photo){img.src=photo.url;img.alt=photo.alt||"Official club-post image";img.style.display="block";img.onerror=()=>{img.style.display="none"}}
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;
@@ -186,6 +174,7 @@ function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZo
 clock();setInterval(clock,1000);
 refresh();setInterval(refresh,20000);
 setInterval(()=>{if(payload?.matchday?.featured){eventPage++;drawEvents()}},11000);
-setInterval(()=>{if(postsForMatch().length){postPage++;drawPosts()}},14000);
+setInterval(()=>{if(postsForMatch().length){postPage++;drawPosts()}},26000);
+setInterval(()=>{const box=$("postText");if(Date.now()-postShownAt>3500&&box.scrollHeight>box.clientHeight+1)box.scrollTop=Math.min(box.scrollTop+3,box.scrollHeight-box.clientHeight);},120);
 })();
 </script></body></html>

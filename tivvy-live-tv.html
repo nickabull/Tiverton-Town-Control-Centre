@@ -9,7 +9,7 @@
 :root{--gold:#ffdb00;--ink:#0a0a0c;--panel:#17191c;--blue:#65b9ff;--green:#7deab0;--pink:#ff8795;--amber:#ffe06c;--purple:#d0acff;--muted:#b8bbc1}
 *{box-sizing:border-box}
 html,body{width:100%;height:100%;margin:0;background:#000;color:white;overflow:hidden;font:1vw/1.3 Arial,sans-serif}
-#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:12% 6.5% 18% 1fr 22% 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
+#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:12% 6.5% 18% 1fr 17% 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
 h1,h2,.club,.score,.minute,.incident-type,.tag,.clock,.status,.topline,.x-label,.pagecount{font-family:Antonio,Impact,"Arial Narrow",Arial,sans-serif}
 .swoosh{position:absolute;right:-2%;top:-7%;width:55%;height:17%;border-top:.62vw solid var(--gold);transform:rotate(-7deg);border-radius:50%;pointer-events:none}
 header{display:flex;align-items:center;gap:1.5%;min-height:0;position:relative;z-index:1}
@@ -44,20 +44,39 @@ header h1 span{color:var(--gold)}
 footer{display:flex;justify-content:space-between;gap:2%;font-size:.95vw;color:#b6bbc4;align-items:center}
 footer strong{color:#ffe174}
 @media(max-aspect-ratio:16/9){html,body{font-size:1.778vh}header h1{font-size:6.93vh}.score{font-size:7.11vh}.club{font-size:4.44vh}.match-state{font-size:2.58vh}.statusbar,.clock{font-size:2.05vh}.topline{font-size:2.4vh}.sectionhead{font-size:2.94vh}.incident{font-size:2.05vh}.minute{font-size:2.88vh}.incident-type{font-size:2.54vh}.incident-text{font-size:2.2vh}.incident-score{font-size:2.66vh}.xhead{font-size:2.66vh}.xtext{font-size:2.42vh}.timelinefoot,footer{font-size:1.67vh}}
+
+/* Chronological latest-first TV ticker: no replay of historical updates. */
+.incident.club-post{border-left-color:#bb98ef;grid-template-columns:5.6vw minmax(0,1.1fr) minmax(0,2.3fr) 5.8vw}
+.club-post .incident-type{color:#dfbfff}
+.incident.club-post .incident-text{white-space:pre-wrap;font-size:1.12vw;line-height:1.2;overflow:hidden}
+.incident.grouped{box-shadow:inset .25vw 0 #bda0f7}
+.incident.just-arrived{animation:arrival .55s ease-out}
+@keyframes arrival{from{background:#4c4427;opacity:.65}to{background:#131518;opacity:1}}
+.xpanel{border-color:#d5abff}
+.xhead{background:#292038}
+.xbody{align-items:center}
+.xtext{font-size:1.35vw;line-height:1.35}
+.goal-celebration{display:none;position:absolute;z-index:8;inset:11% 4% 6%;border:.5vw solid var(--gold);border-radius:1.2vw;background:radial-gradient(circle at 80% 50%,#33300c 0,#050505 72%);padding:3%;box-shadow:0 0 0 8vw #000b;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:2%}
+.goal-celebration.active{display:flex;animation:arrival .35s ease-out}
+.goal-celebration .big{font:700 10vw Antonio,Impact,sans-serif;color:var(--gold);line-height:1}
+.goal-celebration .scorer{font:700 6vw Antonio,Impact,sans-serif;color:#fff}
+.goal-celebration .details{font:700 2.5vw Antonio,Impact,sans-serif;color:var(--gold)}
+.goal-celebration img{height:25%;width:auto;object-fit:contain}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <header><img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town official club crest"><h1>TIVVY <span>LIVE</span> · MATCH CENTRE TV</h1></header>
 <div class="statusbar warn" id="health"><span class="status" id="healthLabel">● CONNECTING</span><span class="topline" id="fixtureText">Connecting to official Southern League matchday source…</span><span class="clock" id="now">—</span></div>
 <div class="scoreboard"><div class="club" id="home">HOME</div><div class="score" id="score">– : –</div><div class="club away" id="away">TIVERTON TOWN</div><div class="match-state" id="state">CHECKING</div></div>
 <section class="timeline" aria-label="Verified Southern League match incidents">
-<div class="sectionhead">OFFICIAL MATCH TIMELINE · ALL INCIDENTS</div>
+<div class="sectionhead">LIVE MATCH TIMELINE · OFFICIAL INCIDENTS + CLUB POSTS</div>
 <div id="events" class="event-list"><div class="unknown">Waiting for source-verified match data…</div></div>
 <div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
 </section>
 <section class="xpanel" aria-label="Official club posts, full text">
-<div class="xhead"><span>𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB COMMENTARY</span><span id="postCount">WAITING FOR POSTS</span></div>
+<div class="xhead"><span id="spotlightTitle">TIVVY LIVE · MATCH MOMENT</span><span id="postCount">LATEST VERIFIED UPDATE</span></div>
 <div class="xbody"><div class="xtext" id="postText">Waiting for a verified post from @tivertontownfc.</div><img class="xmedia" id="postImage" style="display:none" alt="Image from official club post"></div>
 </section>
+<div class="goal-celebration" id="goalCelebration" aria-live="polite"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
 <footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
 </main>
 <script>
@@ -91,24 +110,11 @@ function teamMap(match){
 }
 function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
 function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
-let payload=null,eventPage=0,postPage=0,renderSig="",eventKeys=[],lastGood=0,postShownAt=0;
+let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0;
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
-function eventNode(e,m,map){
- const el=element("div","incident "+kind(e));
- el.append(element("div","minute",e.minute==null?"?":String(e.minute)+"′"));
- el.append(element("div","incident-type",label(e)));
- const info=element("div","incident-text");
- const attribution=team(e,m,map);
- info.append(element("div","",attribution));
- if(kind(e)==="sub"){
- const incoming=person(e),outgoing=name(e.personOff?.name||e.personOffName);
- info.append(element("span","on","▲ ON "+(incoming||"Name unavailable")));
- info.append(element("span","", "    "));
- info.append(element("span","off","▼ OFF "+(outgoing||"Name unavailable")));
- }else{info.append(element("div","",person(e)||"Player unavailable"))}
- el.append(info);
- const s=e.score;el.append(element("div","incident-score",s&&Number.isInteger(s.home)&&Number.isInteger(s.away)?s.home+"–"+s.away:"—"));
- return el;
+function postMinute(p){
+ const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
+ return hit?Number(hit[1]):null;
 }
 function postsForMatch(){return (payload?.x?.posts||[]).filter(p=>{
  if(!p.createdAt)return false;
@@ -116,28 +122,109 @@ function postsForMatch(){return (payload?.x?.posts||[]).filter(p=>{
  const v=k=>parts.find(part=>part.type===k)?.value||"";
  return v("year")+"-"+v("month")+"-"+v("day")===date;
  }).sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))}
-function drawEvents(){
- const root=$("events"),match=payload?.matchday?.featured;root.replaceChildren();
- if(!match){root.append(element("div","unknown","Awaiting the official fixture; no incidents will be fabricated."));return}
- const all=[...(match.events||[])].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0));
- const maxPerPage=3,pageTotal=Math.max(1,Math.ceil(all.length/maxPerPage));
- eventPage%=pageTotal;
- const list=all.slice(eventPage*maxPerPage,eventPage*maxPerPage+maxPerPage);
- const map=teamMap(match);
- if(!list.length)root.append(element("div","unknown","No official incidents reported yet. The screen will update automatically."));
- for(const e of list)root.append(eventNode(e,match,map));
- $("eventFoot").textContent=all.length+" official incident"+(all.length===1?"":"s")+" · latest first · showing verified events only";
- $("pageCount").textContent=all.length?"PAGE "+(eventPage+1)+" OF "+pageTotal+" · AUTOMATIC ROTATION":"";
+function timelineItems(){
+ const match=payload?.matchday?.featured;
+ if(!match)return [];
+ const events=Array.isArray(match.events)?match.events:[];
+ const items=events.map((event,i)=>({kind:"incident",minute:Number.isFinite(Number(event.minute))?Number(event.minute):null,event,
+ key:"event:"+String(event._id||event.id||[event.minute,event.eventType,event.teamId,event.person?.name,event.personOff?.name].join("|"))}));
+ const officialMinutes=items.filter(x=>x.minute!==null).map(x=>x.minute);
+ for(const p of postsForMatch()){
+  const claimed=postMinute(p);
+  // Textual match minute may link an official club post to its nearest incident.
+  // Never derive a match minute from the clock time of the X post.
+  const nearby=claimed===null?[]:officialMinutes.filter(m=>Math.abs(m-claimed)<=2).sort((x,y)=>Math.abs(x-claimed)-Math.abs(y-claimed));
+  items.push({kind:"post",minute:nearby.length?nearby[0]:claimed,claimedMinute:claimed,
+   post:p,key:"x:"+String(p.id||p.url),grouped:nearby.length>0});
+ }
+ // Known-minute posts appear next to the relevant incidents; posts without a stated
+ // match minute appear under a clearly marked 'Club update' heading below those items.
+ return items.sort((a,b)=>{
+  if(a.minute===null)return b.minute===null?Date.parse(b.post?.createdAt||0)-Date.parse(a.post?.createdAt||0):1;
+  if(b.minute===null)return -1;
+  if(b.minute!==a.minute)return b.minute-a.minute;
+  if(a.kind!==b.kind)return a.kind==="post"?-1:1;
+  return a.kind==="post"?Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt):0;
+ });
 }
-function drawPosts(){
- const posts=postsForMatch(),count=posts.length;const img=$("postImage");img.style.display="none";img.removeAttribute("src");
- $("postCount").textContent=count?"POST "+((postPage%count)+1)+" OF "+count+" · AUTO-ROTATING":"NO MATCHDAY POSTS";
- if(!count){$("postText").textContent=payload?.x?.state==="ok"?"No official club posts available for this matchday.":"Official club commentary unavailable — waiting for X source.";return}
- const post=posts[postPage%count];
- $("postText").textContent=uk(post.createdAt)+" · "+String(post.text||"Post text unavailable");
- $("postText").scrollTop=0;postShownAt=Date.now();
- const photo=(post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
- if(photo){img.src=photo.url;img.alt=photo.alt||"Official club-post image";img.style.display="block";img.onerror=()=>{img.style.display="none"}}
+function incidentNode(item,m,map){
+ const e=item.event,el=element("div","incident "+kind(e));
+ el.append(element("div","minute",e.minute==null?"?":String(e.minute)+"′"));
+ el.append(element("div","incident-type",label(e)));
+ const info=element("div","incident-text");
+ info.append(element("div","",team(e,m,map)));
+ if(kind(e)==="sub"){
+  const incoming=person(e),outgoing=name(e.personOff?.name||e.personOffName);
+  info.append(element("span","on","▲ ON "+(incoming||"Name unavailable")));
+  info.append(element("span","","    "));
+  info.append(element("span","off","▼ OFF "+(outgoing||"Name unavailable")));
+ }else info.append(element("div","",person(e)||"Player unavailable"));
+ el.append(info);
+ const score=e.score;
+ el.append(element("div","incident-score",score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?score.home+"–"+score.away:"—"));
+ return el;
+}
+function clubNode(item){
+ const p=item.post,el=element("div","incident club-post"+(item.grouped?" grouped":""));
+ el.append(element("div","minute",item.claimedMinute===null?"𝕏":item.claimedMinute+"′"));
+ el.append(element("div","incident-type","𝕏 CLUB UPDATE"));
+ const info=element("div","incident-text");
+ info.append(element("div","","Tiverton Town FC · "+uk(p.createdAt)));
+ info.append(element("div","",String(p.text||"")));
+ el.append(info);
+ el.append(element("div","incident-score","𝕏"));
+ return el;
+}
+function latest(items){return items.slice(0,3)}
+function drawTimeline(){
+ const root=$("events");root.replaceChildren();
+ const match=payload?.matchday?.featured;
+ if(!match){root.append(element("div","unknown","Waiting for a verified featured fixture."));return}
+ const items=timelineItems(),map=teamMap(match);
+ if(!items.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
+ for(const item of latest(items)){
+  const node=item.kind==="incident"?incidentNode(item,match,map):clubNode(item);
+  if(initialized&&!knownKeys.has(item.key))node.classList.add("just-arrived");
+  root.append(node);
+ }
+ const currentKeys=new Set(items.map(x=>x.key));
+ $("eventFoot").textContent=items.filter(x=>x.kind==="incident").length+" official incidents · "+items.filter(x=>x.kind==="post").length+" official club posts";
+ $("pageCount").textContent="LATEST 3 · NEW UPDATES PUSH OLDER ITEMS OFF SCREEN";
+ // Goal celebration is triggered only by a newly observed, verified Tiverton goal.
+ const mapIds=teamMap(match);
+ for(const item of items){
+  if(item.kind!=="incident"||kind(item.event)!=="goal")continue;
+  const e=item.event,scorer=person(e);
+  const tivvyGoal=team(e,match,mapIds)==="Tiverton Town";
+  if(!tivvyGoal||!scorer)continue;
+  if(initialized&&!celebratedGoals.has(item.key)&&!knownKeys.has(item.key)){
+   $("celebrationScorer").textContent=scorer;
+   $("celebrationDetail").textContent=String(e.minute??"?")+"′ · "+(type(e).includes("PENALTY")?"PENALTY":"TIVERTON TOWN");
+   $("goalCelebration").classList.add("active");celebrationUntil=Date.now()+7500;
+  }
+  celebratedGoals.add(item.key);
+ }
+ knownKeys=currentKeys;initialized=true;
+}
+function updateSpotlight(){
+ const items=timelineItems();
+ const node=items[0];
+ const img=$("postImage");img.style.display="none";img.removeAttribute("src");
+ if(!node){
+  $("postText").textContent="Awaiting the first official match incident or club post.";
+  $("postCount").textContent="AWAITING MATCH ACTION";
+  return;
+ }
+ $("postCount").textContent="MOST RECENT REPORTED MOMENT";
+ if(node.kind==="post"){
+  $("spotlightTitle").textContent="𝕏 · TIVERTON TOWN FC · CLUB COMMENTARY";
+  $("postText").textContent=uk(node.post.createdAt)+" · "+String(node.post.text||"");
+  const photo=(node.post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
+  if(photo){img.src=photo.url;img.alt=photo.alt||"Official club photo";img.style.display="block";img.onerror=()=>{img.style.display="none"}}
+ }else{
+  $("spotlightTitle").textContent="SOUTHERN LEAGUE · LATEST VERIFIED INCIDENT";
+  $("postText").textContent=(node.minute??"?")+"′ · "+label(node.event)+" · "+team(node.event,payload.matchday.featured,teamMap(payload.matchday.featured))+" · "+(person(node.event)||"Player not reported");
+ }
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;
@@ -162,7 +249,7 @@ async function refresh(){
  if(match.home?.toLowerCase()!==config.home.toLowerCase()||match.away?.toLowerCase()!==config.away.toLowerCase())throw Error("Featured fixture mismatch");
  payload=value;lastGood=Date.now();
  const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts});
- if(sig!==renderSig){eventPage=0;postPage=0;drawEvents();drawPosts();renderSig=sig}
+ if(sig!==renderSig){drawTimeline();updateSpotlight();renderSig=sig}
  updateHeader();
  }catch(err){
  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ DATA DELAYED";
@@ -173,8 +260,7 @@ async function refresh(){
 function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
 clock();setInterval(clock,1000);
 refresh();setInterval(refresh,20000);
-setInterval(()=>{if(payload?.matchday?.featured){eventPage++;drawEvents()}},11000);
-setInterval(()=>{if(postsForMatch().length){postPage++;drawPosts()}},26000);
-setInterval(()=>{const box=$("postText");if(Date.now()-postShownAt>3500&&box.scrollHeight>box.clientHeight+1)box.scrollTop=Math.min(box.scrollTop+3,box.scrollHeight-box.clientHeight);},120);
+setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);
+
 })();
 </script></body></html>

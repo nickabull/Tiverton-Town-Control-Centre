@@ -24,15 +24,25 @@ def main():
         if not uid:raise RuntimeError("User lookup returned no user ID")
         result["userId"]=uid
         result["displayName"]=obj.get("name","")
-        qs=urlencode({"max_results":5,"tweet.fields":"created_at,author_id"})
+        qs=urlencode({"max_results":5,"tweet.fields":"created_at,author_id,attachments,entities,referenced_tweets","expansions":"attachments.media_keys","media.fields":"type,url,preview_image_url,alt_text"})
         data=call("/2/users/"+quote(str(uid))+"/tweets?"+qs)
+        media={str(m.get("media_key")):m for m in (data.get("includes") or {}).get("media",[]) if m.get("media_key")}
         for item in data.get("data",[]):
             ident=str(item.get("id") or "")
             if ident:
+                keys=(item.get("attachments") or {}).get("media_keys") or []
+                pictures=[]
+                for key in keys:
+                    record=media.get(str(key),{})
+                    pictures.append({"type":record.get("type","unknown"),
+                        "url":record.get("url") or record.get("preview_image_url"),
+                        "alt":record.get("alt_text") or ""})
                 result["posts"].append({"id":ident,"createdAt":item.get("created_at"),
+                    "text":item.get("text",""),"media":pictures,
                     "url":"https://x.com/"+HANDLE+"/status/"+ident})
         result["state"]="ok"
         result["count"]=len(result["posts"])
+        result["contentRetrieved"]=True
     except HTTPError as e:
         result["state"]="http-error"
         result["httpStatus"]=e.code

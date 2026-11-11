@@ -129,14 +129,27 @@ function drawEvents(){
  $("eventFoot").textContent=all.length+" official incident"+(all.length===1?"":"s")+" · latest first · showing verified events only";
  $("pageCount").textContent=all.length?"PAGE "+(eventPage+1)+" OF "+pageTotal+" · AUTOMATIC ROTATION":"";
 }
+function fitPost(){
+ const box=$("postText");
+ box.style.fontSize="";
+ let size=parseFloat(getComputedStyle(box).fontSize)||24;
+ for(let i=0;i<22&&box.scrollHeight>box.clientHeight+2;i++){
+  size=Math.max(11,size-1);box.style.fontSize=size+"px";
+ }
+ if(box.scrollHeight>box.clientHeight+2){
+  // Never silently truncate a long club message: reduce again to a readable floor.
+  box.style.fontSize="10px";
+ }
+}
 function drawPosts(){
  const posts=postsForMatch(),count=posts.length;const img=$("postImage");img.style.display="none";img.removeAttribute("src");
  $("postCount").textContent=count?"POST "+((postPage%count)+1)+" OF "+count+" · AUTO-ROTATING":"NO MATCHDAY POSTS";
  if(!count){$("postText").textContent=payload?.x?.state==="ok"?"No official club posts available for this matchday.":"Official club commentary unavailable — waiting for X source.";return}
  const post=posts[postPage%count];
  $("postText").textContent=uk(post.createdAt)+" · "+String(post.text||"Post text unavailable");
+ requestAnimationFrame(fitPost);
  const photo=(post.media||[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
- if(photo){img.src=photo.url;img.alt=photo.alt||"Official club-post image";img.style.display="block"}
+ if(photo){img.src=photo.url;img.alt=photo.alt||"Official club-post image";img.style.display="block";img.onload=fitPost;img.onerror=()=>{img.style.display="none";fitPost()}}
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;

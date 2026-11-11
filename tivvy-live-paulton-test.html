@@ -109,6 +109,18 @@ header{padding:7px 10px}
 .x-post-text{font-size:13px;line-height:1.5;margin:8px 0;white-space:pre-wrap}
 .x-photo{display:block;width:100%;max-height:210px;object-fit:contain;background:#090909;border-radius:5px;margin:7px 0}
 .x-post-link{display:inline-block;font-weight:700;color:#bfc5ff;margin-top:7px;font-size:12px}
+
+/* Broadcast-style timeline: one incident minute, separate attributed source cards. */
+.timeline-cluster{position:relative;margin:0 0 12px 11px;padding:0 0 5px 17px;border-left:3px solid #ffdb00}
+.timeline-cluster:before{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:var(--y);left:-7px;top:9px}
+.cluster-header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.cluster-minute{font:700 17px Antonio,Impact,Arial,sans-serif;background:var(--y);color:#111;padding:3px 10px;border-radius:3px;white-space:nowrap}
+.cluster-title{font:700 17px Antonio,Impact,Arial,sans-serif;overflow-wrap:anywhere}
+.timeline-cluster .event{margin:6px 0;background:#18191c;border:1px solid #42444a;border-left-width:4px}
+.timeline-cluster .x-post{margin:6px 0;border-left-color:#b6a3f9}
+.source-label{font-size:11px;font-weight:bold;color:#bfc1c8;margin-bottom:5px}
+.matchday-x-note{color:#bfc1c8;font-size:11px}
+@container(max-width:440px){.timeline-cluster{margin-left:5px;padding-left:12px}.cluster-title{font-size:15px}.cluster-minute{font-size:15px;padding:2px 7px}}
 </style></head>
 <body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>PAULTON v TIVVY · WEDNESDAY 11 NOVEMBER</small></header>
 <main>
@@ -183,42 +195,76 @@ $("featureScore").textContent=formatFixtureScore(m);
 $("featuredMeta").textContent=statusText(m)+" · Southern League source checked "+uk(d.checkedAt);
 const root=$("featuredEvents"),scroll=root.scrollTop;root.replaceChildren();
 const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(a.minute)||0)-(Number(b.minute)||0)):[];
-if(!events.length){
- root.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified player-level events supplied yet."));
- return;
+const groups=new Map();
+for(const e of events){
+ const minute=Number(e.minute);
+ const key=Number.isFinite(minute)?String(minute):"unknown";
+ if(!groups.has(key))groups.set(key,[]);
+ groups.get(key).push(e);
 }
-for(const e of events.slice().reverse()){
- const box=mk("div","event "+eventKind(e)),top=mk("div","top");
- top.append(mk("span","event-badge",(e.minute??"?")+"′ · "+eventLabel(e)));top.append(scoreTag(e.score,false));box.append(top);
- const team=teamFor(e,events,m.home,m.away);
- if(eventType(e).includes("SUB")){if(team)box.append(mk("div","source",team));box.append(subDetails(e))}
- else box.append(mk("div","name",person(e)+(team?" · "+team:"")));
- box.append(mk("div","source","Southern League API"));root.append(box);
+// Merge incidents only on the exact, source-supplied match minute. Never assign
+// a clock time or a match minute to an X post unless that association is verified.
+for(const [key,items] of [...groups.entries()].sort((a,b)=>Number(b[0])-Number(a[0]))){
+ const cluster=mk("section","timeline-cluster");
+ const header=mk("div","cluster-header");
+ header.append(mk("span","cluster-minute",key==="unknown"?"EVENT":key+"′"));
+ const kinds=[...new Set(items.map(eventLabel))];
+ header.append(mk("span","cluster-title",kinds.join(" · ")));
+ cluster.append(header);
+ for(const e of items){
+  const box=mk("div","event "+eventKind(e)),top=mk("div","top");
+  top.append(mk("span","event-badge",eventLabel(e)));top.append(scoreTag(e.score,false));box.append(top);
+  const team=teamFor(e,events,m.home,m.away);
+  if(eventType(e).includes("SUB")){if(team)box.append(mk("div","source",team));box.append(subDetails(e))}
+  else box.append(mk("div","name",person(e)+(team?" · "+team:"")));
+  box.append(mk("div","source-label","SOUTHERN LEAGUE · OFFICIAL MATCH INCIDENT"));
+  cluster.append(box);
+ }
+ root.append(cluster);
 }
+const matchDate=EXPECTED_DATE;
+const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[])
+ .filter(p=>String(p.createdAt||"").startsWith(matchDate));
+if(todayPosts.length){
+ const cluster=mk("section","timeline-cluster");
+ const header=mk("div","cluster-header");
+ header.append(mk("span","cluster-minute","X"));
+ header.append(mk("span","cluster-title","CLUB UPDATES"));
+ cluster.append(header);
+ cluster.append(mk("p","matchday-x-note","Official club posts published today. Their timestamps are not assumed to be match minutes."));
+ for(const post of todayPosts){
+  cluster.append(makeXCard(post));
+ }
+ root.append(cluster);
+}
+if(!events.length&&!todayPosts.length)
+ root.append(mk("p","muted",postponement(m)?"Fixture postponed — no live events.":pregame(m)?"Awaiting kick-off. Goals, bookings and substitutions will appear here when reported by the official API.":"No verified match incidents or today's club posts available."));
 root.scrollTop=scroll;
+}
+function makeXCard(post){
+ const box=mk("article","x-post");
+ box.append(mk("div","x-post-header","𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB POST"));
+ box.append(mk("div","x-post-time",uk(post.createdAt)));
+ box.append(mk("p","x-post-text",post.text||"Post text unavailable; read the original on X."));
+ for(const media of (post.media||[])){
+  if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
+   const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
+  }else if(media.type==="video"||media.type==="animated_gif"){
+   box.append(mk("div","x-post-time","Video available in original X post"));
+  }
+ }
+ if(/^https:\/\/x\.com\/tivertontownfc\/status\/\d+$/.test(post.url||"")){
+  const link=mk("a","x-post-link","VIEW ORIGINAL ON X ↗");
+  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";box.append(link);
+ }
+ return box;
 }
 function renderXUpdates(root){
  const d=current.x;
- $("leagueMeta").textContent="Official @tivertontownfc posts · manual API trial, NOT a live feed"+(d?.checkedAt?" · checked "+uk(d.checkedAt):"");
- if(!d||d.state!=="ok"){root.append(mk("p","muted","X posts not available yet. Run the manual GitHub X test to refresh this panel."));return;}
+ $("leagueMeta").textContent="Official @tivertontownfc posts · manually refreshed, not a live feed"+(d?.checkedAt?" · checked "+uk(d.checkedAt):"");
+ if(!d||d.state!=="ok"){root.append(mk("p","muted","X posts unavailable. Run the manual GitHub X test to refresh this panel."));return;}
  if(!d.posts?.length){root.append(mk("p","muted","No public posts returned by X."));return;}
- for(const post of d.posts){
-  const box=mk("article","x-post");
-  const head=mk("div","x-post-header","Tiverton Town FC · @tivertontownfc");
-  box.append(head);
-  box.append(mk("div","x-post-time",uk(post.createdAt)));
-  box.append(mk("p","x-post-text",post.text||"Post text not yet retrieved; open on X to read."));
-  for(const media of (post.media||[])){
-   if(media.url&&/^https:\/\//i.test(media.url)&&media.type==="photo"){
-    const pic=mk("img","x-photo");pic.src=media.url;pic.alt=media.alt||"Image attached to official Tivvy X post";pic.loading="lazy";box.append(pic);
-   }else if(media.type==="video"||media.type==="animated_gif"){
-    box.append(mk("div","x-post-time","Video available in original post"));
-   }
-  }
-  const link=mk("a","x-post-link","View original on X ↗");
-  link.href=post.url;link.target="_blank";link.rel="noopener noreferrer";box.append(link);
-  root.append(box);
- }
+ for(const post of d.posts)root.append(makeXCard(post));
 }
 function renderRight(){
 const root=$("leagueList"),scroll=root.scrollTop;root.replaceChildren();

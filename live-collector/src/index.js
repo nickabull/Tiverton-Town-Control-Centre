@@ -160,9 +160,13 @@ export class MatchCache {
   if(!validDate(date))return json({status:"error",message:"Unsupported matchday"},400);
   if(url.pathname==="/log"){
    const r=await this.state.storage.get("cache")||{};
+   const nextAlarm=await this.state.storage.getAlarm();
+   const kickoff=await this.state.storage.get("matchKickoff")||FIXTURES[date]?.kickoff;
    return json({status:"ok",date,events:r.audit||[],recentChecks:r.log||[],
     retained:(r.audit||[]).length,lastLeagueCollection:r.matchday?.checkedAt||null,
-    xRequestsToday:r.xCalls||0,pollIntervalSeconds:20,pollingActive:inLiveWindow(date,(await this.state.storage.get("matchKickoff"))||FIXTURES[date]?.kickoff)});
+    xRequestsToday:r.xCalls||0,pollIntervalSeconds:20,
+    pollingActive:nextAlarm!==null&&inLiveWindow(date,kickoff),
+    nextAlarmAt:nextAlarm?new Date(nextAlarm).toISOString():null,kickoff:kickoff||null});
   }
   if(url.pathname==="/start"){
    const kickoff=url.searchParams.get("kickoff")||FIXTURES[date]?.kickoff;
@@ -255,7 +259,7 @@ export default {
   const url=new URL(request.url);
   if(request.method==="OPTIONS")return json({});
   if(request.method!=="GET")return json({error:"method not allowed"},405);
-  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector"});
+  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector",version:"2026.11.12-audit20",features:["autonomous-20-second-poll","simultaneous-matches","persistent-log","fixture-discovery"]});
   if(url.pathname!=="/live"&&url.pathname!=="/log")return json({error:"not found"},404);
   const date=url.searchParams.get("date")||"2026-11-11";
   if(!validDate(date))return json({error:"Unsupported matchday"},400);

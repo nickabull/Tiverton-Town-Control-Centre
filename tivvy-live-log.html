@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tivvy Live · Collector Log</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffdb00;--bg:#101113;--card:#1b1d20;--line:#40444a;--dim:#aeb5c1}
+*{box-sizing:border-box}body{background:var(--bg);color:#f7f7f7;margin:0;font:15px/1.5 system-ui,Arial,sans-serif}
+header{padding:26px max(22px,calc((100vw - 1160px)/2));background:linear-gradient(115deg,#0b0b0b,#2b2820);border-bottom:5px solid var(--gold)}
+h1,h2,.metric strong,.tag{font-family:Antonio,Impact,Arial,sans-serif}h1{font-size:clamp(34px,5vw,54px);margin:0}h1 span{color:var(--gold)}
+header p{color:#d5d7dc;margin:3px 0}
+main{max-width:1200px;margin:auto;padding:20px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 16px}
+a,button,select{font:inherit}button,select,.nav{background:var(--gold);border:0;border-radius:5px;padding:10px 14px;font-weight:bold;color:#111;cursor:pointer;text-decoration:none}
+.nav{background:#292c32;color:white;border:1px solid #5b5e65}
+.pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:#8fe9a9;margin-right:7px}
+#state.error .pulse{background:#ff8b94}.muted{color:var(--dim)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.metric{background:var(--card);padding:16px;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:8px}
+.metric strong{display:block;font-size:32px;color:var(--gold)}
+.metric span{color:var(--dim);font-size:13px}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;margin-bottom:15px}
+h2{font-size:26px;color:var(--gold);margin:0 0 10px}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{text-align:left;color:var(--gold);font-size:13px;border-bottom:1px solid var(--line);padding:10px}
+td{padding:11px 10px;border-bottom:1px solid #32353a;vertical-align:top;overflow-wrap:anywhere}
+th:first-child{width:175px}th:nth-child(2){width:185px}
+.tag{font-size:17px;font-weight:700}.tag.incident{color:#80e8ac}.tag.score{color:#65b5ff}.tag.error{color:#ff878c}.tag.club-post{color:#d0b3ff}
+.filter{min-width:130px}.notice{background:#312811;border-left:4px solid var(--gold);padding:12px 15px;border-radius:4px;margin-bottom:13px}
+code{color:#ffdb00}footer{margin:22px 0;color:var(--dim);font-size:13px}
+@media(max-width:700px){th:first-child{width:105px}th:nth-child(2){width:100px}th,td{padding:8px 5px;font-size:12px}.tag{font-size:14px}}
+</style></head><body>
+<header><h1>TIVVY <span>LIVE</span> · COLLECTOR LOG</h1><p>Read-only matchday audit · Southern League matches, score changes, incident arrivals, official X posts and source errors.</p></header>
+<main>
+<div class="controls">
+ <a class="nav" href="project-hub.html">← PROJECT HUB</a>
+ <a class="nav" href="tivvy-live-tv.html?date=2026-11-14">MATCH CENTRE TV</a>
+ <label for="date">Matchday</label><select id="date"><option value="2026-11-14">Sat 14 Nov · Bishops Cleeve</option><option value="2026-11-11">Wed 11 Nov · Paulton Rovers</option></select>
+ <button id="reload">REFRESH NOW</button><button id="download">EXPORT CSV</button>
+ <span id="state" class="muted"><i class="pulse"></i>Waiting for source…</span>
+</div>
+<div class="notice">The audit records **observed updates**, not a retrospective reconstruction. It starts recording when the updated collector is deployed and next polls. The separate X feed keeps its rate-limited schedule.</div>
+<div class="metrics">
+<div class="metric"><strong id="count">–</strong><span>Recorded audit entries</span></div>
+<div class="metric"><strong id="last">–</strong><span>Last Southern League collection</span></div>
+<div class="metric"><strong id="poll">20s</strong><span>Target polling interval during active matches</span></div>
+<div class="metric"><strong id="xcount">–</strong><span>Paid X requests this matchday</span></div>
+</div>
+<section><h2>Event history</h2><table><thead><tr><th>UK TIME</th><th>SOURCE / EVENT</th><th>DETAIL</th></tr></thead><tbody id="events"><tr><td colspan="3" class="muted">Connecting…</td></tr></tbody></table></section>
+<section><h2>Collector checks</h2><p class="muted">Recent HTTP polls, no-change checks and errors. The compact event history above logs significant changes only.</p><table><thead><tr><th>UK TIME</th><th>TYPE</th><th>RESULT</th></tr></thead><tbody id="checks"></tbody></table></section>
+<footer>Source: Cloudflare Durable Object persistent storage. Refreshes automatically every 20 seconds while this page is open. Times shown in Europe/London. Not an official league match report.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const api="https://tivvy-live-collector.nickabull.workers.dev/log?date=";
+const t=t=>{if(!t)return"—";const d=new Date(t);return isNaN(+d)?"—":d.toLocaleString("en-GB",{timeZone:"Europe/London",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})};
+let last=null,loading=false;
+const cell=(row,text,cls="")=>{const c=document.createElement("td");c.textContent=String(text??"");if(cls)c.className=cls;row.append(c)};
+function render(){
+ if(!last)return;
+ $("count").textContent=(last.events||[]).length;
+ $("last").textContent=t(last.lastLeagueCollection);
+ $("xcount").textContent=last.xRequestsToday??0;
+ $("poll").textContent=last.pollingActive?"20s LIVE":"20s STANDBY";
+ function fill(id,entries,map){
+ const root=$(id);root.replaceChildren();
+ if(!entries?.length){const row=document.createElement("tr");cell(row,"Nothing recorded yet");root.append(row);return}
+ for(const e of entries){const row=document.createElement("tr");cell(row,t(e.at));const type=document.createElement("td");
+ const badge=document.createElement("span");badge.className="tag "+String(e.type||"").replace(/[^a-z-]/g,"");badge.textContent=e.source?e.source+" · "+e.type:e.type;type.append(badge);row.append(type);cell(row,e.detail);root.append(row)}
+ }
+ fill("events",last.events);fill("checks",(last.recentChecks||[]).slice(0,60));
+}
+async function load(){
+ if(loading)return;loading=true;
+ try{const r=await fetch(api+encodeURIComponent($("date").value)+"&t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("Collector returned HTTP "+r.status);
+ const o=await r.json();if(o.status!=="ok"||!Array.isArray(o.events))throw Error("Log endpoint not yet deployed");
+ last=o;render();$("state").className="";$("state").innerHTML='<i class="pulse"></i>'+(o.pollingActive?"BACKGROUND POLLING ACTIVE":"WAITING FOR MATCH WINDOW");
+ }catch(err){$("state").className="error";$("state").innerHTML='<i class="pulse"></i> '+String(err.message);if(!last)$("events").textContent="The updated collector is not yet available."}
+ finally{loading=false}
+}
+function csvCell(value){return '"'+String(value??"").replace(/"/g,'""').replace(/^[=+\-@]/,"'$&")+'"'}
+function download(){
+ const rows=[["UK time","UTC time","Source","Event","Details"],...(last?.events||[]).map(x=>[t(x.at),x.at,x.source,x.type,x.detail])];
+ const csv=rows.map(row=>row.map(csvCell).join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="tivvy-live-audit-"+$("date").value+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$("reload").onclick=load;$("date").onchange=()=>{last=null;load()};
+$("download").onclick=download;
+load();setInterval(load,20000);
+</script></body></html>

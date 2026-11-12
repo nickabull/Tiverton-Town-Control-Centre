@@ -112,8 +112,12 @@ function normaliseLeague(payload,date){
     (home.toLowerCase()===FIXTURES[doc.date].home.toLowerCase()&&
      away.toLowerCase()===FIXTURES[doc.date].away.toLowerCase())};
   if(item.isFeatured)doc.featured=item;
-  else if(comp==="unclassified")doc.unclassified.push({home,away});
-  else doc.matches.push(item);
+  else {
+   // Preserve *all* simultaneous Southern League fixtures, even where the
+   // public API doesn't provide a competition label we can classify.
+   doc.matches.push(item);
+   if(comp==="unclassified")doc.unclassified.push({home,away});
+  }
  }
  if(!doc.featured)doc.warning="Featured fixture missing from official response";
  return doc;

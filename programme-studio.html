@@ -567,7 +567,7 @@ function renderLeague(d){
 function renderMatrix(d){
  let out=band(d.title,d.subtitle)+'<section class="panel"><p class="caption">EDITABLE MATRIX · HOME TEAMS ACROSS · AWAY TEAMS DOWN</p><div class="matrixWrap"><table class="matrix"><thead><tr><th class="side">A/H</th>';
  codes.forEach(c=>out+='<th>'+c+'</th>');out+='</tr></thead><tbody>';
- codes.forEach((away,i)=>{out+='<tr><th class="side">'+away+'</th>';codes.forEach((home,j)=>{let key=away+':'+home,v=d.scores[key]||'';out+='<td data-cell="'+key+'" contenteditable="'+(i!==j)+'" class="'+(i===j?'diag':(away==="TIV"||home==="TIV"?'tiv':''))+'">'+esc(v)+'</td>';});out+='</tr>';});
+ codes.forEach((away,i)=>{out+='<tr><th class="side">'+away+'</th>';codes.forEach((home,j)=>{let key=home+':'+away,v=d.scores[key]||'';out+='<td data-cell="'+key+'" contenteditable="'+(i!==j)+'" class="'+(i===j?'diag':(away==="TIV"||home==="TIV"?'tiv':''))+'">'+esc(v)+'</td>';});out+='</tr>';});
  out+='</tbody></table></div><p class="caption">The full 22 × 22 grid is editable. Scores shown are an initial subset only; the remaining source-matrix scores still need importing and verification.</p></section><div class="bottomBand"></div>';
  return out;
 }
@@ -1255,7 +1255,45 @@ $("downloadBackup").onclick=()=>downloadJSON("tivvy-programme-backup.json",{expo
 $("downloadAudit").onclick=()=>downloadJSON("tivvy-programme-change-log.json",{exportedAt:new Date().toISOString(),events:audit});
 
 [["cover","1 · Front Cover"],["news","6 · Latest News"],["squad","29–33 · Squad"],["editorial","Editorial · Report / Preview"],["opposition","Opposition · Artwork"],["around","17 · Around the League"],["league","18 · League Table"],["matrix","13 · Results Matrix"]].forEach(pair=>{let b=document.createElement("button");b.className="pageOption";b.dataset.page=pair[0];b.innerHTML="<strong>"+pair[1]+"</strong><br><small>"+(pair[0]==="editorial"?"Approved documents · A4 flow":pair[0]==="cover"?"Opponent · featured player · image":pair[0]==="squad"?"Player statuses & inclusion":pair[0]==="around"?"Shared live fixtures · print snapshot":pair[0]==="league"?"22 club rows · editable":pair[0]==="matrix"?"22 × 22 editable cells":pair[0]==="opposition"?"Crest · swashes · text":"6 stories · 2 photo slots")+"</small><span class=\"pageReady\"></span>";b.onclick=()=>{page=pair[0];render();if(page==="around"&&mode==="edition"&&!edition.around.frozen&&(!edition.around.fetchedAt||edition.around.date!==issueDate()))refreshAround();};$("pageButtons").append(b);});
+// Populate every confirmed 22-by-22 matrix result from the same published
+// match-grid feed as the live Programme Centre. Never alter CSS, page geometry,
+// club ordering, editorial text, photos, or archived programme editions.
+async function refreshFullLeagueMatrix(){
+ try{
+  const response=await fetch("https://nickabull.github.io/Tiverton-Town-Get-Results/data.json?programme-sync="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("Results feed "+response.status);
+  const data=await response.json();
+  if(!Array.isArray(data.results)||data.results.length<30||!data.codes)throw Error("Incomplete match-grid feed");
+  const next={},seen=new Set();
+  for(const r of data.results){
+   const home=data.codes[r.home],away=data.codes[r.away];
+   if(!home||!away||home===away||!codes.includes(home)||!codes.includes(away))continue;
+   if(!/^\\d+[-–]\\d+$/.test(String(r.score||"")))continue;
+   const key=home+":"+away;
+   if(seen.has(key)&&next[key]!==r.score)throw Error("Conflicting result for "+key);
+   seen.add(key);next[key]=String(r.score).replace("–","-");
+  }
+  // A full feed is required. The fallback remains intact if a source is stale.
+  if(Object.keys(next).length<30||next["PAU:TIV"]!=="0-1"||next["TIV:SPO"]!=="1-2")throw Error("Unverified 11 November scores in results feed");
+  let changed=false;
+  for(const d of [master,editions["bishops-cleeve"]]){
+   if(!d||!d.matrix)continue;
+   const prior=d.matrix._officialFeedUpdated||"";
+   if(prior===data.updated)continue;
+   d.matrix.scores={...d.matrix.scores,...next};
+   d.matrix._officialFeedUpdated=data.updated||"";
+   d.matrix.subtitle="SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 11/11/26)";
+   changed=true;
+  }
+  if(changed){
+   if(activeEdition==="bishops-cleeve")edition=editions["bishops-cleeve"];
+   persist();
+   if(page==="matrix"&&!document.activeElement?.isContentEditable)render();
+  }
+ }catch(error){console.warn("Programme matrix kept its last verified data:",error.message)}
+}
 populateEditionPicker();render();paintRestorePoints();drawAudit();updateHistoryButtons();
+refreshFullLeagueMatrix();
 })();
 </script><script>
 (function(){

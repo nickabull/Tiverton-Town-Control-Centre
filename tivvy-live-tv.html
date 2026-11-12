@@ -212,6 +212,10 @@ footer{font-size:.77vw;line-height:1}
 .tv-moment .demo-post{border:2px solid var(--gold);border-left:.34vw solid #b6a3f9}
 .timeline .sectionhead{padding:.3vw .9vw .22vw}
 @media(max-aspect-ratio:16/9){.tv-post-copy{font-size:2.1vh}.tv-event-type{font-size:2.45vh}.tv-event-detail{font-size:2.12vh}.tv-moment-minute{font-size:3vh}}
+.historical-focus .event-list{gap:.28vw;padding-top:.24vw}
+.historical-focus .tv-event,.historical-focus .tv-post{padding:.3vw .56vw}
+.historical-focus .tv-post-copy{font-size:1.03vw;line-height:1.18}
+.historical-focus .tv-moment.goal-moment{background:rgba(51,155,255,.07);border-radius:.25vw}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <div class="broadcastbar">
@@ -236,6 +240,7 @@ const params=new URLSearchParams(location.search);
 const demoMode=params.get("demo")==="1";
 // Read-only historical TV preview: start the visible ticker at a real match minute.
 const focusMinute=params.get("focus")==="39"?39:null;
+if(focusMinute!==null)document.body.classList.add("historical-focus");
 if(demoMode)document.body.classList.add("demo");
 const date=params.get("date")==="2026-11-14"?"2026-11-14":"2026-11-11";
 const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"}};
@@ -327,8 +332,9 @@ function timelineGroups(){
   const p=standalone[i];
   groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
  }
- // Preview is read-only: show the chosen historical minute and earlier match moments.
- const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute<=focusMinute);
+ // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
+ // Standalone X posts are excluded to keep the goal and surrounding action visible.
+ const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-19&&g.minute<=focusMinute+32);
  // A simulated new X arrival is always first in demo mode.
  return displayGroups.sort((a,b)=>{
   const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
@@ -388,7 +394,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · FROM "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · AROUND "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){

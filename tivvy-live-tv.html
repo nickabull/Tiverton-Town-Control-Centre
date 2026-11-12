@@ -260,7 +260,8 @@ const demoMode=params.get("demo")==="1";
 const focusMinute=params.get("focus")==="39"?39:null;
 if(focusMinute!==null)document.body.classList.add("historical-focus");
 if(demoMode)document.body.classList.add("demo");
-const date=params.get("date")==="2026-11-14"?"2026-11-14":"2026-11-11";
+// Keep this default match date in sync with tivvy-live-saturday-test.html when preparing each matchday.
+const date=params.get("date")==="2026-11-11"?"2026-11-11":"2026-11-14";
 const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"}};
 const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
 const $=id=>document.getElementById(id);

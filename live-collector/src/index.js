@@ -13,6 +13,8 @@ const validDate=date=>/^2026-11-(11|14)$/.test(date);
 const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour12:false,hour:"2-digit",minute:"2-digit"});
 
 const LEAGUE_TTL=20_000;
+const MATCH_POLL_MS=20_000;
+const AUDIT_LIMIT=1800;
 const X_TTL=600_000; // 10-minute X refresh; separate from ~20-second football updates
 const MAX_X_CALLS_PER_DAY=30; // hard cap on paid X requests per matchday
 function xAllowed(date){
@@ -23,6 +25,47 @@ function xAllowed(date){
  return today===date&&clock>="14:00"&&clock<="18:30";
 }
 const stamp=()=>new Date().toISOString();
+function ukNow(){
+ const dt=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+ const part=k=>dt.find(x=>x.type===k)?.value||"";
+ return {date:part("year")+"-"+part("month")+"-"+part("day"),clock:part("hour")+":"+part("minute")};
+}
+const inLiveWindow=date=>{
+ const n=ukNow();const fixture=FIXTURES[date];
+ if(!fixture||n.date!==date)return false;
+ const [h,m]=fixture.kickoff.split(":").map(Number);
+ const start=Math.max(0,h*60+m-30),end=Math.min(1439,h*60+m+210);
+ const [nh,nm]=n.clock.split(":").map(Number),t=nh*60+nm;
+ return t>=start&&t<=end;
+};
+function recordAudit(record,source,type,detail){
+ record.audit=Array.isArray(record.audit)?record.audit:[];
+ record.audit.unshift({at:stamp(),source,type,detail});
+ if(record.audit.length>AUDIT_LIMIT)record.audit.length=AUDIT_LIMIT;
+}
+const eventKey=e=>String(e._id||e.id||[e.minute,e.eventType,e.teamId,e.person?.name,e.personOff?.name].join("|"));
+function auditLeagueChange(record,before,after){
+ const oldMatches=[before?.featured,...(before?.matches||[])].filter(Boolean);
+ const newMatches=[after?.featured,...(after?.matches||[])].filter(Boolean);
+ const prev=new Map(oldMatches.map(m=>[m.id||m.home+"|"+m.away,m]));
+ if(!before){recordAudit(record,"southern-league","initial-snapshot",
+   "Baseline: "+newMatches.length+" matches, "+newMatches.reduce((n,m)=>n+(m.events?.length||0),0)+" incidents");return}
+ for(const m of newMatches){
+  const earlier=prev.get(m.id||m.home+"|"+m.away);
+  const fixture=m.home+" v "+m.away;
+  if(!earlier){recordAudit(record,"southern-league","fixture-added",fixture);continue}
+  const score=x=>x?x.home+"-"+x.away:"not-reported";
+  if(score(m.score)!==score(earlier.score))recordAudit(record,"southern-league","score",
+    fixture+" · "+score(earlier.score)+" -> "+score(m.score));
+  if(m.status!==earlier.status)recordAudit(record,"southern-league","status",
+    fixture+" · "+earlier.status+" -> "+m.status);
+  const beforeEvents=new Set((earlier.events||[]).map(eventKey));
+  for(const e of m.events||[])if(!beforeEvents.has(eventKey(e)))
+   recordAudit(record,"southern-league","incident",
+    fixture+" · "+String(e.minute??"?")+"' · "+String(e.eventType||"EVENT")+
+    (e.person?.name?" · "+e.person.name:""));
+ }
+}
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{
  "content-type":"application/json; charset=utf-8","cache-control":"no-store",
  "access-control-allow-origin":"*","access-control-allow-methods":"GET, OPTIONS",
@@ -109,23 +152,47 @@ export class MatchCache {
  async fetch(request){
   const url=new URL(request.url),date=url.searchParams.get("date")||"2026-11-11";
   if(!validDate(date))return json({status:"error",message:"Unsupported matchday"},400);
+  if(url.pathname==="/log"){
+   const r=await this.state.storage.get("cache")||{};
+   return json({status:"ok",date,events:r.audit||[],recentChecks:r.log||[],
+    retained:(r.audit||[]).length,lastLeagueCollection:r.matchday?.checkedAt||null,
+    xRequestsToday:r.xCalls||0,pollIntervalSeconds:20,pollingActive:inLiveWindow(date)});
+  }
+  if(url.pathname==="/start"){
+   if(inLiveWindow(date)){
+    // Cloudflare Cron starts the matchday without waiting for any browser.
+    const alarm=await this.state.storage.getAlarm();
+    if(!alarm)await this.state.storage.setAlarm(Date.now()+1000);
+    return json({status:"ok",scheduled:true,date});
+   }
+   return json({status:"ok",scheduled:false,date,reason:"outside-match-window"});
+  }
   if(this.pending)return this.pending.then(value=>json(value));
   this.pending=this.collect(date).finally(()=>{this.pending=null;});
   return this.pending.then(value=>json(value)).catch(e=>json({status:"error",message:String(e.message||e)},503));
  }
+ async alarm(){
+  const date=await this.state.storage.get("matchDate");
+  if(!validDate(date)||!inLiveWindow(date))return;
+  try{await this.collect(date);}
+  finally{if(inLiveWindow(date))await this.state.storage.setAlarm(Date.now()+MATCH_POLL_MS);}
+ }
  async collect(date){
   const now=Date.now();
-  let record=await this.state.storage.get("cache")||{matchday:null,x:null,leagueAt:0,xAt:0,xCalls:0,log:[]};
+  await this.state.storage.put("matchDate",date);
+  let record=await this.state.storage.get("cache")||{matchday:null,x:null,leagueAt:0,xAt:0,xCalls:0,log:[],audit:[]};
+  if(!Array.isArray(record.audit))record.audit=[];
   const log=(type,detail)=>{record.log.unshift({at:stamp(),type,detail});record.log=record.log.slice(0,150);};
   if(now-record.leagueAt>=LEAGUE_TTL){
    try{
     const updated=await collectLeague(date);
     const previous=record.matchday;
+    auditLeagueChange(record,previous,updated);
     record.matchday=updated;record.leagueAt=Date.now();
     const changed=JSON.stringify(previous?.featured)!==JSON.stringify(updated.featured) ||
      JSON.stringify(previous?.matches)!==JSON.stringify(updated.matches);
     log("southern-league",changed?"Source updated; fixtures/incidents changed":"HTTP 200; no incident changes");
-   }catch(e){record.leagueAt=Date.now();log("southern-league-error",String(e.message||e));}
+   }catch(e){record.leagueAt=Date.now();log("southern-league-error",String(e.message||e));recordAudit(record,"southern-league","error",String(e.message||e));}
   }
   if(this.env.X_BEARER_TOKEN&&xAllowed(date)&&record.xCalls<MAX_X_CALLS_PER_DAY&&now-record.xAt>=X_TTL){
    try{
@@ -133,30 +200,41 @@ export class MatchCache {
     const latestId=record.x?.posts?.[0]?.id||null;
     const next=await collectX(this.env,latestId);
     const merged=new Map((record.x?.posts||[]).map(p=>[p.id,p]));
-    for(const p of next.posts)merged.set(p.id,p);
+    for(const p of next.posts){
+     if(!merged.has(p.id))recordAudit(record,"x","club-post",p.id+" · "+String(p.text||"").slice(0,180));
+     merged.set(p.id,p);
+    }
     next.posts=[...merged.values()].sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,200);
     record.x=next;record.xAt=Date.now();
     log("x","HTTP 200; "+next.posts.length+" retained posts");
-   }catch(e){record.xAt=Date.now();log("x-error",String(e.message||e));}
+   }catch(e){record.xAt=Date.now();log("x-error",String(e.message||e));recordAudit(record,"x","error",String(e.message||e));}
   }
   await this.state.storage.put("cache",record);
   return {status:record.matchday?"ok":"unavailable",matchday:record.matchday,x:record.x,
    lastLeagueCollection:record.matchday?.checkedAt||null,lastXCollection:record.x?.checkedAt||null,
-   eventLog:record.log.slice(0,30),mode:"shared-live-cache",date,
+   eventLog:record.log.slice(0,30),auditSummary:{entries:record.audit.length,latest:record.audit[0]||null},mode:"shared-live-cache",date,
    xRequestsToday:record.xCalls||0,xRequestCap:MAX_X_CALLS_PER_DAY,
    xCollectionMode:xAllowed(date)?"matchday-window":"inactive"};
  }
 }
 export default {
+ async scheduled(event,env,ctx){
+  // Once per minute, seed the Durable Object's autonomous 20-second alarms.
+  const n=ukNow();
+  if(!inLiveWindow(n.date))return;
+  const stub=env.MATCH_CACHE.get(env.MATCH_CACHE.idFromName("tivvy-live-"+n.date));
+  ctx.waitUntil(stub.fetch("https://internal/start?date="+n.date));
+ },
  async fetch(request,env){
   const url=new URL(request.url);
   if(request.method==="OPTIONS")return json({});
   if(request.method!=="GET")return json({error:"method not allowed"},405);
   if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector"});
-  if(url.pathname!=="/live")return json({error:"not found"},404);
+  if(url.pathname!=="/live"&&url.pathname!=="/log")return json({error:"not found"},404);
   const date=url.searchParams.get("date")||"2026-11-11";
   if(!validDate(date))return json({error:"Unsupported matchday"},400);
   const stub=env.MATCH_CACHE.get(env.MATCH_CACHE.idFromName("tivvy-live-"+date));
-  return stub.fetch("https://internal/live?date="+date);
+  return stub.fetch("https://internal"+url.pathname+"?date="+date);
+
  }
 };

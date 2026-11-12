@@ -234,6 +234,8 @@ footer{font-size:.77vw;line-height:1}
 "use strict";
 const params=new URLSearchParams(location.search);
 const demoMode=params.get("demo")==="1";
+// Read-only historical TV preview: start the visible ticker at a real match minute.
+const focusMinute=params.get("focus")==="39"?39:null;
 if(demoMode)document.body.classList.add("demo");
 const date=params.get("date")==="2026-11-14"?"2026-11-14":"2026-11-11";
 const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"}};
@@ -325,8 +327,10 @@ function timelineGroups(){
   const p=standalone[i];
   groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
  }
+ // Preview is read-only: show the chosen historical minute and earlier match moments.
+ const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute<=focusMinute);
  // A simulated new X arrival is always first in demo mode.
- return groups.sort((a,b)=>{
+ return displayGroups.sort((a,b)=>{
   const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
   if(aDemo!==bDemo)return aDemo?-1:1;
   return (b.order??-1)-(a.order??-1);
@@ -384,7 +388,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent="MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · FROM "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){

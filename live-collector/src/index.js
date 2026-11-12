@@ -241,7 +241,7 @@ export default {
     const data=await response.json();
     const match=(data.fixtures||[]).find(f=>f.date===n.date&&
      !String(f.result||"").trim()&&
-     /^([0-2]\\d):([0-5]\\d)$/.test(String(f.kickOff||""))&&
+     /^([0-2]\d):([0-5]\d)$/.test(String(f.kickOff||""))&&
      f.competition!=="PSF");
     if(!match)return;
     kickoff=match.kickOff;

@@ -434,7 +434,6 @@ async function refresh(){
   "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
  $("featureDiag").textContent=d?(good?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting collector";
  // renderRight owns the selected competition status and schedule/live distinctions.
- else $("leagueMeta").textContent="Official @tivertontownfc posts · "+(live?"shared collector":"manually refreshed")+" · checked "+uk(current.x?.checkedAt);
  $("otherDiag").textContent="Last page check "+uk(new Date())+" · "+(live?"Shared live collector ~20s (X ~3 min)":"GitHub snapshots, collector scheduling unreliable")+" · display checks every 20 seconds";
 }
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(!b)return;chosen=b.dataset.tab;for(const x of $("tabs").querySelectorAll("button"))x.setAttribute("aria-selected",String(x===b));renderRight()});
@@ -443,6 +442,10 @@ document.querySelector(".mobile-switch").addEventListener("click",ev=>{
  $("combinedLayout").dataset.activePanel=button.dataset.panel;
  for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
 });
-$("refresh").addEventListener("click",refresh);refresh();setInterval(refresh,20000);
+$("refresh").addEventListener("click",refresh);
+// Draw the known 14 November fixtures before any network request completes.
+renderFeatured();renderRight();
+$("health").textContent="Fixture schedule loaded · checking official live data…";
+refresh();setInterval(refresh,20000);
 })();
 </script></body></html>

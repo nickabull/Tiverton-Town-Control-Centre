@@ -32,16 +32,48 @@ table{width:100%;border-collapse:collapse;table-layout:fixed}th,td{border-bottom
 const SRC='https://nickabull.github.io/Tiverton-Town-Get-Results/data.json';
 const CRESTS='data/crest-assets.json';
 const TIV='Tiverton Town';
-const SITES={
-'Barnstaple Town':'barnstapletownfc.co.uk','Bideford':'bidefordafc.com','Bishops Cleeve':'bishopscleevefc.co.uk','Bristol Manor Farm':'bristolmanorfarm.com','Dorchester':'dorchestertownfc.co.uk','Dorchester Town':'dorchestertownfc.co.uk','Exmouth Town':'exmouth-townfc.co.uk','Falmouth Town':'falmouthtownafc.co.uk','Hartpury':'hartpury.ac.uk','Hungerford':'hungerfordtown.com','Hungerford Town':'hungerfordtown.com','Larkhall Athletic':'larkhallathletic.com','Melksham Town':'melkshamtownfc.net','Paulton Rovers':'paultonrovers.co.uk','Portland Utd':'portlandunitedfc.uk','Portland United':'portlandunitedfc.uk','Shaftesbury':'shaftesburyfc.co.uk','Slimbridge AFC':'slimbridgeafc.co.uk','Slimbridge':'slimbridgeafc.co.uk','Sporting Club Inkberrow':'inkberrowfootballclub.co.uk','Swindon SM':'swindonsupermarinefc.com','Swindon Supermarine':'swindonsupermarinefc.com','Tiverton Town':'tivertontownfc.co.uk','Westbury':'westburyunited.co.uk','Westbury United':'westburyunited.co.uk','Weymouth FC':'theterras.com','Weymouth':'theterras.com','Willand Rovers':'willandrovers.co.uk','Worcester Raiders':'worcesterraidersfc.com'
+const CREST_ORIGIN='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/';
+const CREST_SLUGS={
+ "Barnstaple Town": "barnstapletown",
+ "Bideford": "bideford",
+ "Bishops Cleeve": "bishopscleeve",
+ "Bristol Manor Farm": "bristolmanorfarm",
+ "Dorchester": "dorchestertown",
+ "Dorchester Town": "dorchestertown",
+ "Exmouth Town": "exmouthtown",
+ "Falmouth Town": "falmouthtown",
+ "Hartpury": "hartpury",
+ "Hungerford": "hungerfordtown",
+ "Hungerford Town": "hungerfordtown",
+ "Larkhall Athletic": "larkhallathletic",
+ "Melksham Town": "melkshamtown",
+ "Paulton Rovers": "paultonrovers",
+ "Portland Utd": "portlandunited",
+ "Portland United": "portlandunited",
+ "Shaftesbury": "shaftesbury",
+ "Slimbridge AFC": "slimbridge",
+ "Slimbridge": "slimbridge",
+ "Sporting Club Inkberrow": "scinkberrow",
+ "SC Inkberrow": "scinkberrow",
+ "Swindon SM": "swindonsupermarine",
+ "Swindon Supermarine": "swindonsupermarine",
+ "Tiverton Town": "tivertontown",
+ "Westbury": "westburyunited",
+ "Westbury United": "westburyunited",
+ "Weymouth FC": "weymouth",
+ "Weymouth": "weymouth",
+ "Willand Rovers": "willandrovers",
+ "Worcester Raiders": "worcesterraiders"
 };
+
 const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 function rankClass(pos,n){if(pos===1)return'auto';if(pos>=2&&pos<=5)return'playoff';if(n>=4&&pos>=n-3&&pos<=n-2)return'relplay';if(n>=2&&pos>=n-1)return'relegation';return''}
 function crest(team,assetId){
- const domain=SITES[team]||'';
- const src=domain?'https://www.google.com/s2/favicons?domain='+encodeURIComponent(domain)+'&sz=64':'';
+ const slug=CREST_SLUGS[String(team||'').trim()]||'';
  const initials=(team||'').split(/\s+/).map(x=>x[0]).join('').slice(0,3).toUpperCase();
- return src?'<img class="logo" src="'+src+'" title="Canva asset '+esc(assetId||'unmapped')+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline-flex\'"><span class="fallback" style="display:none">'+esc(initials)+'</span>':'<span class="fallback">'+esc(initials)+'</span>';
+ // Use the club-approved, locked badge library, never unrelated website favicons.
+ // The existing logo box, dimensions and fallback typography remain unchanged.
+ return slug?'<img class="logo" src="'+CREST_ORIGIN+slug+'.png" title="Approved club crest: '+esc(team)+'" alt="'+esc(team)+' crest" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline-flex\'"><span class="fallback" style="display:none">'+esc(initials)+'</span>':'<span class="fallback">'+esc(initials)+'</span>';
 }
 async function load(){
  const st=document.getElementById('status'); st.textContent='Refreshing…';

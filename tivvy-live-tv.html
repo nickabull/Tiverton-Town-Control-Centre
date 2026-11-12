@@ -234,8 +234,28 @@ footer{font-size:.77vw;line-height:1}
 .historical-focus .tv-moment{gap:.28vw}
 .historical-focus .tv-moment-minute{font-size:1.65vw;padding:.09vw .34vw}
 .historical-focus .tv-event-detail{font-size:1.15vw}
+
+/* V13: restrained broadcast gold ribbons framing the TV canvas. */
+.swoosh{display:none}
+.broadcast-ribbon{position:absolute;left:0;width:100%;pointer-events:none;z-index:3;overflow:visible;filter:drop-shadow(0 .09vw .19vw rgba(255,203,0,.30))}
+.broadcast-ribbon.top{top:-.6%;height:8.8%}
+.broadcast-ribbon.bottom{bottom:-1.25%;height:7.6%}
+.broadcast-ribbon path.core{fill:none;stroke:url(#broadcastGold);stroke-width:4.5;stroke-linecap:round}
+.broadcast-ribbon path.light{fill:none;stroke:url(#broadcastGold);stroke-width:1.4;stroke-linecap:round;opacity:.85}
+.broadcast-ribbon path.glow{fill:none;stroke:#ffdc00;stroke-width:10;opacity:.09;filter:blur(3px)}
+.broadcastbar,.timeline,footer{position:relative;z-index:1}
 </style></head><body><main id="tv">
-<div class="swoosh"></div>
+<svg class="broadcast-ribbon top" viewBox="0 0 1600 88" preserveAspectRatio="none" aria-hidden="true">
+<defs><linearGradient id="broadcastGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bd8600" stop-opacity="0"/><stop offset="31%" stop-color="#ffdb00"/><stop offset="53%" stop-color="#fff5a3"/><stop offset="76%" stop-color="#ffd000"/><stop offset="100%" stop-color="#b27d00" stop-opacity="0"/></linearGradient></defs>
+<path class="glow" d="M360 27 C560 76 730 30 900 16 S1160 2 1400 28"/>
+<path class="core" d="M360 27 C560 76 730 30 900 16 S1160 2 1400 28"/>
+<path class="light" d="M330 21 C545 68 710 24 900 11 S1180 -3 1420 22"/>
+</svg>
+<svg class="broadcast-ribbon bottom" viewBox="0 0 1600 76" preserveAspectRatio="none" aria-hidden="true">
+<path class="glow" d="M210 47 C380 82 600 69 790 43 S1100 24 1300 41 S1480 54 1600 20"/>
+<path class="core" d="M210 47 C380 82 600 69 790 43 S1100 24 1300 41 S1480 54 1600 20"/>
+<path class="light" d="M180 41 C370 76 590 63 790 37 S1110 18 1300 35 S1480 48 1600 15"/>
+</svg>
 <div class="broadcastbar">
   <img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town club crest">
   <div class="brand"><strong>TIVVY <span>LIVE</span></strong><small>SOUTHERN LEAGUE · MATCH CENTRE TV</small></div>

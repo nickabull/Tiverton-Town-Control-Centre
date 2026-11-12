@@ -151,6 +151,7 @@ button.x-expand:hover{background:#554b6b}
 <button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
 <button class="tab" type="button" role="tab" data-tab="premiersouth" aria-selected="false">Premier South</button>
 <button class="tab" type="button" role="tab" data-tab="premiercentral" aria-selected="false">Premier Central</button>
+<button class="tab" type="button" role="tab" data-tab="fatrophy" aria-selected="false">FA Trophy</button>
 <button class="tab" type="button" role="tab" data-tab="xupdates" aria-selected="false">X Updates</button>
 
 </div>
@@ -167,6 +168,13 @@ const matchdayPath="tivvy-live-20261114.json";
 const backupPath="southern-league-matchday-20261114.json";
 const xPath="tivvy-x-saturday.json";
 const EXPECTED_DATE="2026-11-14";
+// Saturday 14 November fixture board, transcribed from the supplied Southern League listing.
+// Kick-off and P-P markers are a schedule reference, never verified live scores.
+const fixtureBoard={"onesouth":[["Barnstaple Town","Westbury United"],["Dorchester Town","Larkhall Athletic"],["Exmouth Town","Bristol Manor Farm"],["Hartpury FC","Falmouth Town"],["Hungerford Town","Shaftesbury"],["Paulton Rovers","Willand Rovers"],["Slimbridge AFC","Melksham Town"],["Swindon Supermarine","Portland United"],["Tiverton Town","Bishops Cleeve"],["Weymouth FC","Sporting Club Inkberrow","P-P"],["Worcester Raiders","Bideford AFC"]],"premiercentral":[["Alvechurch","Hitchin Town"],["Anstey Nomads","Worcester City"],["Bury Town","Rushall Olympic"],["Leamington","Leiston"],["Leighton Town","Stratford Town"],["Needham Market","Banbury United"],["Redditch United","Stamford","P-P"]],"premiersouth":[["Basingstoke Town","Chippenham Town"],["Bath City","Berkhamsted","P-P"],["Bracknell Town","Uxbridge","P-P"],["Chertsey Town","Wimborne Town","P-P"],["Evesham United","Gosport Borough"],["Frome Town","Hanworth Villa"],["Gloucester City","Sholing FC"],["Hanwell Town","Plymouth Parkway"],["Havant & Waterlooville","Yate Town FC"],["Malvern Town","Chichester City","P-P"],["Poole Town","Taunton Town"]],"onecentral":[["Aylesbury United","Biggleswade FC"],["Barton Rovers","Haringey Borough"],["Beaconsfield Town","Biggleswade Town"],["Hertford Town","Hadley"],["Leverstock Green","Stotfold"],["Milton Keynes Irish","Welwyn Garden City"],["Potters Bar Town","Winslow United"],["Royston Town","Flackwell Heath"],["Thame United","London Lions"],["Ware","Waltham Abbey","P-P"]],"fatrophy":[["Bath City","Truro City"],["Billericay Town","Waltham Abbey"],["Bourne Town","Bromsgrove Sporting"],["Braintree Town","Kettering Town"],["Didcot Town","Slough Town"],["Eastbourne Borough","Chertsey Town"],["Halesowen Town","Redditch United"],["King's Lynn Town","Stourbridge FC"],["Salisbury","Chichester City"],["Weymouth FC","Hampton & Richmond Borough"],["Wimborne Town","Uxbridge"]]};
+const normalizeTeam=n=>String(n||"").toLowerCase().replace(/\b(fc|afc)\b/g,"").replace(/[^a-z0-9]+/g," ").trim();
+const matchKey=(h,a)=>normalizeTeam(h)+"|"+normalizeTeam(a);
+const featuredKey=matchKey("Tiverton Town","Bishops Cleeve");
+
 // Saturday test uses the separately deployed collector by default.
 // ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
 const liveApi=new URLSearchParams(location.search).get("liveApi")||
@@ -344,41 +352,46 @@ function renderXUpdates(root){
  for(const post of d.posts)root.append(makeXCard(post));
 }
 function renderRight(){
-const root=$("leagueList"),scroll=root.scrollTop;root.replaceChildren();
-if(chosen==="xupdates"){renderXUpdates(root);return;}
-const d=current.matchday,backup=current.backup;
-const valid=d?.status==="ok"&&d.date===EXPECTED_DATE;
-let items=valid?(d.matches||[]).filter(m=>m.competition===chosen):[];
-// The matchday fixture file is a schedule fallback, NEVER a live score feed.
-if(!valid&&backup?.date===EXPECTED_DATE)items=(backup.matches||[]).filter(m=>m.competition===chosen&&!(m.home?.toLowerCase()==="tiverton town"&&m.away?.toLowerCase()==="bishops cleeve")).map(m=>({...m,score:null,events:[],kickoffTime:"",isBackup:true}));
-$("leagueMeta").textContent=valid?"OFFICIAL MATCHDAY · "+(fresh(d)?"Recently checked":"Last successful check")+" · "+uk(d.checkedAt):"FIXTURE SCHEDULE ONLY · Awaiting live collector";
-if(!items.length){
- root.append(mk("p","muted",valid?"No fixtures from this division in today's verified API response.":"No confirmed fixtures available in this division yet."));
- if(valid&&d.unclassified?.length)root.append(mk("p","muted",d.unclassified.length+" other API fixtures could not be classified; no division was guessed."));
- return;
-}
-for(const m of items){
- const box=mk("div","fixture"),row=mk("div","line");
- const h=m.home,a=m.away;
- row.append(mk("span","",h||"Home"));
- const outcome=m.isBackup?(postponement(m)?"P–P":m.home?.toLowerCase()==="larkhall athletic"?"19:45":"KO"):formatFixtureScore(m);
- row.append(mk("strong","",outcome));
- row.append(mk("span","",a||"Away"));box.append(row);
- box.append(mk("small","",(m.isBackup?"Schedule · ":"Official · ")+(m.isBackup&&m.home?.toLowerCase()==="larkhall athletic"?"KICK-OFF 19:45":statusText(m))+(m.isBackup?"": " · "+(m.events?.length||0)+" incidents")));
- if(!m.isBackup&&Array.isArray(m.events)){
-  const events=[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0));
-  const teamMap=eventTeamMap(m);
-  for(const e of events){
-   const inc=mk("div","incident "+eventKind(e)),detail=mk("div","incident-content");
-   const team=teamFor(e,m,teamMap);
-   detail.append(mk("span","event-badge",(e.minute??"?")+"′ · "+eventLabel(e)+(team?" · "+team:"")+" · "));
-   if(eventType(e).includes("SUB"))detail.append(subDetails(e));else detail.append(mk("span","",person(e)));
-   inc.append(detail);inc.append(scoreTag(e.score,true));box.append(inc);
+ const root=$("leagueList"),scroll=root.scrollTop;root.replaceChildren();
+ if(chosen==="xupdates"){renderXUpdates(root);return;}
+ const d=current.matchday;
+ const verified=d?.status==="ok"&&d.date===EXPECTED_DATE&&Array.isArray(d.matches);
+ const liveMatches=verified?d.matches.filter(m=>m.competition===chosen):[];
+ const byKey=new Map(liveMatches.map(m=>[matchKey(m.home,m.away),m]));
+ const planned=(fixtureBoard[chosen]||[]).filter(([h,a])=>matchKey(h,a)!==featuredKey);
+ // Show every scheduled match even if the collector omits it; add any genuinely
+ // verified API fixture not in the schedule without assuming its competition.
+ const entries=planned.map(([home,away,scheduledStatus])=>({home,away,scheduledStatus,live:byKey.get(matchKey(home,away))||null}));
+ const scheduledKeys=new Set(entries.map(e=>matchKey(e.home,e.away)));
+ for(const m of liveMatches)if(!scheduledKeys.has(matchKey(m.home,m.away))&&matchKey(m.home,m.away)!==featuredKey)
+  entries.push({home:m.home,away:m.away,scheduledStatus:null,live:m});
+ const liveCount=entries.filter(e=>e.live).length;
+ const trophy=chosen==="fatrophy";
+ $("leagueMeta").textContent=(trophy?"FA TROPHY · ":"SAT 14 NOV · ")+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only")+(trophy&&liveCount===0?" · Trophy live feed not connected":"");
+ if(!entries.length){root.append(mk("p","muted","No listed fixtures available in this competition."));return;}
+ for(const item of entries){
+  const m=item.live,box=mk("div","fixture"),row=mk("div","line");
+  row.append(mk("span","",item.home));
+  let result;
+  if(m)result=formatFixtureScore(m);
+  else result=item.scheduledStatus==="P-P"?"P–P":"15:00";
+  row.append(mk("strong","",result));
+  row.append(mk("span","",item.away));box.append(row);
+  const label=m?"OFFICIAL · "+statusText(m)+" · "+(m.events?.length||0)+" incidents":
+   item.scheduledStatus==="P-P"?"SCHEDULE · Postponed":"SCHEDULE · 15:00 · no verified live score";
+  box.append(mk("small","",label));
+  if(m&&Array.isArray(m.events)){
+   const events=[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)),teamMap=eventTeamMap(m);
+   for(const e of events){
+    const inc=mk("div","incident "+eventKind(e)),detail=mk("div","incident-content"),team=teamFor(e,m,teamMap);
+    detail.append(mk("span","event-badge",(e.minute??"?")+"′ · "+eventLabel(e)+(team?" · "+team:"")+" · "));
+    if(eventType(e).includes("SUB"))detail.append(subDetails(e));else detail.append(mk("span","",person(e)));
+    inc.append(detail);inc.append(scoreTag(e.score,true));box.append(inc);
+   }
   }
+  root.append(box);
  }
- root.append(box);
-}
-root.scrollTop=scroll;
+ root.scrollTop=scroll;
 }
 async function grab(file){
  const response=await fetch(base+file+"?t="+Date.now(),{cache:"no-store"});
@@ -420,7 +433,7 @@ async function refresh(){
   backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt):
   "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
  $("featureDiag").textContent=d?(good?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting collector";
- if(chosen!=="xupdates")$("leagueMeta").textContent=good?"OFFICIAL MATCHDAY · "+(fresh(d)?"Recently checked":"Last successful check")+" · "+uk(d.checkedAt):"FIXTURE SCHEDULE ONLY · Awaiting live collector";
+ // renderRight owns the selected competition status and schedule/live distinctions.
  else $("leagueMeta").textContent="Official @tivertontownfc posts · "+(live?"shared collector":"manually refreshed")+" · checked "+uk(current.x?.checkedAt);
  $("otherDiag").textContent="Last page check "+uk(new Date())+" · "+(live?"Shared live collector ~20s (X ~3 min)":"GitHub snapshots, collector scheduling unreliable")+" · display checks every 20 seconds";
 }

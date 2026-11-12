@@ -4,7 +4,7 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-11T21:57:24.586Z",
+  "sourceCheckedAt": "2026-11-12T03:10:22.633Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44b6",
   "competition": "SLD1S",
   "home": "Paulton Rovers",
@@ -20,94 +20,103 @@
       {
         "minute": 39,
         "player": "Asa Hall",
-        "eventType": "GOAL_FROM_PENALTY",
+        "teamId": "6a0adf9eda5d0d0847a02400",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "GOAL_FROM_PENALTY"
       }
     ],
     "yellowCards": [
       {
         "minute": 33,
         "player": "Tom Bradley",
-        "eventType": "FIRST_YELLOW_CARD",
+        "teamId": "6a0adf9eda5d0d0847a02427",
         "score": {
           "home": 0,
           "away": 0
-        }
+        },
+        "eventType": "FIRST_YELLOW_CARD"
       },
       {
         "minute": 41,
         "player": "Ewan Mcmillan",
-        "eventType": "FIRST_YELLOW_CARD",
+        "teamId": "6a0adf9eda5d0d0847a02427",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "FIRST_YELLOW_CARD"
       }
     ],
     "redCards": [],
     "substitutions": [
       {
         "minute": 60,
-        "player": "Evander Grubb",
-        "off": "Jacob Wellington",
-        "eventType": "SUBSTITUTION",
+        "player": "Evander Marvin Grubb",
+        "teamId": "6a0adf9eda5d0d0847a02400",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Jacob Robert Wellington"
       },
       {
         "minute": 71,
         "player": "Lenny Johnson",
-        "off": "Tom Symons",
-        "eventType": "SUBSTITUTION",
+        "teamId": "6a0adf9eda5d0d0847a02427",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Tom Symons"
       },
       {
         "minute": 79,
         "player": "Stanley Redge Jenkins",
-        "off": "Cameron Allen",
-        "eventType": "SUBSTITUTION",
+        "teamId": "6a0adf9eda5d0d0847a02427",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Cameron Allen"
       },
       {
         "minute": 83,
         "player": "Dylan Gould",
-        "off": "Martin Lenihan",
-        "eventType": "SUBSTITUTION",
+        "teamId": "6a0adf9eda5d0d0847a02427",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Martin Lenihan"
       },
       {
         "minute": 83,
         "player": "Louis Jagger Cane",
-        "off": "Dan Koita",
-        "eventType": "SUBSTITUTION",
+        "teamId": "6a0adf9eda5d0d0847a02400",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Dan Koita"
       },
       {
         "minute": 88,
         "player": "Toby Stephens",
-        "off": "Josh Bissett",
-        "eventType": "SUBSTITUTION",
+        "teamId": "6a0adf9eda5d0d0847a02400",
         "score": {
           "home": 0,
           "away": 1
-        }
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Joshua William Bissett"
       }
     ],
     "other": []

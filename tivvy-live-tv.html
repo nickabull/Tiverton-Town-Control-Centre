@@ -353,10 +353,18 @@ function timelineGroups(){
  // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
  // Standalone X posts are excluded to keep the goal and surrounding action visible.
  const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
- // A simulated new X arrival is always first in demo mode.
+ // Historical TV demo anchors the penalty and surrounding action (33'-71')
+ // before showing later 79'-88' substitutions. Otherwise late subs push
+ // the confirmed X post linked to 33' off the no-scroll screen.
+ // Normal live TV retains its chronological newest-first ordering.
  return displayGroups.sort((a,b)=>{
   const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
   if(aDemo!==bDemo)return aDemo?-1:1;
+  if(focusMinute!==null){
+   const aCore=a.minute!==null&&a.minute<=71&&a.minute>=31;
+   const bCore=b.minute!==null&&b.minute<=71&&b.minute>=31;
+   if(aCore!==bCore)return aCore?-1:1;
+  }
   return (b.order??-1)-(a.order??-1);
  });
 }
@@ -402,7 +410,7 @@ function drawTimeline(){
   if(ev.length)content.append(left);
   if(posts.length){
    const under=element("div","tv-moment-posts");
-   for(const item of posts.slice(0,1))under.append(clubNode(item));
+   for(const item of posts.slice(0,focusMinute===null?1:2))under.append(clubNode(item));
    content.append(under);
   }
   if(!ev.length)content.classList.add("only-post");
@@ -414,7 +422,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · 31′–88′ AROUND "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){

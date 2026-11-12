@@ -119,20 +119,273 @@ select,input[type="number"],input[type="text"]{width:100%;padding:8px;border:1px
 "use strict";
 const ORIGIN="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/assets/locked-crests/";
 const teams=[
-["Weymouth",14,12,1,1,37,11,26,37,"weymouth"],["Swindon Supermarine",16,12,1,3,34,16,18,37,"swindonsupermarine"],
-["Dorchester Town",15,11,1,3,33,19,14,34,"dorchestertown"],["Westbury United",16,9,2,5,27,18,9,29,"westburyunited"],
-["Hungerford Town",14,8,2,4,24,10,14,26,"hungerfordtown"],["Falmouth Town",15,7,4,4,24,20,4,25,"falmouthtown"],
-["Hartpury",15,7,3,5,26,19,7,24,"hartpury"],["Bishops Cleeve",14,7,2,5,24,17,7,23,"bishopscleeve"],
-["Worcester Raiders",17,5,8,4,18,18,0,23,"worcesterraiders"],["SC Inkberrow",14,6,3,5,25,22,3,21,"scinkberrow"],
-["Portland United",14,6,3,5,23,25,-2,21,"portlandunited"],["Tiverton Town",14,5,4,5,24,22,2,19,"tivertontown"],
-["Willand Rovers",14,5,3,6,20,24,-4,18,"willandrovers"],["Barnstaple Town",16,5,1,10,23,26,-3,16,"barnstapletown"],
-["Shaftesbury",16,5,1,10,26,36,-10,16,"shaftesbury"],["Exmouth Town",13,4,3,6,17,26,-9,15,"exmouthtown"],
-["Bideford",15,3,5,7,22,30,-8,14,"bideford"],["Paulton Rovers",13,2,6,5,11,19,-8,12,"paultonrovers"],
-["Larkhall Athletic",15,3,3,9,19,28,-9,12,"larkhallathletic"],["Slimbridge",14,3,2,9,16,33,-17,11,"slimbridge"],
-["Bristol Manor Farm",16,1,7,8,11,28,-17,10,"bristolmanorfarm"],["Melksham Town",14,2,3,9,11,28,-17,9,"melkshamtown"]
+ [
+  "Weymouth",
+  15,
+  13,
+  1,
+  1,
+  42,
+  11,
+  31,
+  40,
+  "weymouth"
+ ],
+ [
+  "Swindon Supermarine",
+  17,
+  12,
+  1,
+  4,
+  34,
+  20,
+  14,
+  37,
+  "swindonsupermarine"
+ ],
+ [
+  "Westbury United",
+  18,
+  11,
+  2,
+  5,
+  33,
+  19,
+  14,
+  35,
+  "westburyunited"
+ ],
+ [
+  "Dorchester Town",
+  16,
+  11,
+  1,
+  4,
+  34,
+  21,
+  13,
+  34,
+  "dorchestertown"
+ ],
+ [
+  "Hungerford Town",
+  16,
+  9,
+  3,
+  4,
+  28,
+  12,
+  16,
+  30,
+  "hungerfordtown"
+ ],
+ [
+  "Hartpury",
+  17,
+  8,
+  3,
+  6,
+  31,
+  22,
+  9,
+  27,
+  "hartpury"
+ ],
+ [
+  "SC Inkberrow",
+  16,
+  7,
+  4,
+  5,
+  29,
+  25,
+  4,
+  25,
+  "scinkberrow"
+ ],
+ [
+  "Falmouth Town",
+  16,
+  7,
+  4,
+  5,
+  25,
+  22,
+  3,
+  25,
+  "falmouthtown"
+ ],
+ [
+  "Portland United",
+  15,
+  7,
+  3,
+  5,
+  25,
+  25,
+  0,
+  24,
+  "portlandunited"
+ ],
+ [
+  "Bishops Cleeve",
+  15,
+  7,
+  2,
+  6,
+  25,
+  22,
+  3,
+  23,
+  "bishopscleeve"
+ ],
+ [
+  "Worcester Raiders",
+  19,
+  5,
+  8,
+  6,
+  19,
+  25,
+  -6,
+  23,
+  "worcesterraiders"
+ ],
+ [
+  "Tiverton Town",
+  16,
+  6,
+  4,
+  6,
+  26,
+  24,
+  2,
+  22,
+  "tivertontown"
+ ],
+ [
+  "Willand Rovers",
+  15,
+  6,
+  3,
+  6,
+  22,
+  24,
+  -2,
+  21,
+  "willandrovers"
+ ],
+ [
+  "Barnstaple Town",
+  18,
+  6,
+  2,
+  10,
+  26,
+  28,
+  -2,
+  20,
+  "barnstapletown"
+ ],
+ [
+  "Exmouth Town",
+  14,
+  5,
+  3,
+  6,
+  19,
+  26,
+  -7,
+  18,
+  "exmouthtown"
+ ],
+ [
+  "Shaftesbury",
+  17,
+  5,
+  2,
+  10,
+  27,
+  37,
+  -10,
+  17,
+  "shaftesbury"
+ ],
+ [
+  "Bideford",
+  16,
+  3,
+  6,
+  7,
+  22,
+  30,
+  -8,
+  15,
+  "bideford"
+ ],
+ [
+  "Melksham Town",
+  16,
+  4,
+  3,
+  9,
+  18,
+  30,
+  -12,
+  15,
+  "melkshamtown"
+ ],
+ [
+  "Slimbridge",
+  16,
+  4,
+  2,
+  10,
+  19,
+  39,
+  -20,
+  14,
+  "slimbridge"
+ ],
+ [
+  "Larkhall Athletic",
+  17,
+  3,
+  4,
+  10,
+  20,
+  31,
+  -11,
+  13,
+  "larkhallathletic"
+ ],
+ [
+  "Paulton Rovers",
+  15,
+  2,
+  6,
+  7,
+  11,
+  22,
+  -11,
+  12,
+  "paultonrovers"
+ ],
+ [
+  "Bristol Manor Farm",
+  18,
+  1,
+  7,
+  10,
+  12,
+  32,
+  -20,
+  10,
+  "bristolmanorfarm"
+ ]
 ];
 const codes=["BAR","BID","BIS","BRI","DOR","EXM","FAL","HAR","HUN","LAR","MEL","PAU","POR","SHA","SLI","SPO","SWI","TIV","WES","WEY","WIL","WOR"];
-const scoreSeeds={"TIV:DOR":"2-1","TIV:EXM":"2-1","TIV:HUN":"1-1","TIV:LAR":"1-3","TIV:POR":"1-4","TIV:WES":"1-0","TIV:WEY":"1-2","TIV:BAR":"1-0"};
+const scoreSeeds={"TIV:DOR":"2-1","TIV:EXM":"2-1","TIV:HUN":"1-1","TIV:LAR":"1-3","TIV:POR":"1-4","TIV:WES":"1-0","TIV:WEY":"1-2","TIV:BAR":"1-0","LAR:SLI":"1-3","PAU:TIV":"0-1","BAR:BRI":"2-1","HAR:BIS":"5-1","SPO:HUN":"2-2","WOR:MEL":"1-5","SWI:WES":"0-4","TIV:SPO":"1-2"};
 const news=[
 {title:"ACT OF REMEMBRANCE",body:"A minute’s silence will be held before today’s Inkberrow game to remember those who gave their lives in conflict."},
 {title:"CLUB REPORTED TO THE FA",body:"Match officials had to report an allegation of homophobic language by a supporter during the Hartpury game. Tiverton has responded to the FA and awaits its decision; a fine is possible. The club would like to stress that discriminatory language will not be tolerated and warns that any further incidents could lead to a supporter ban. Respect for officials, players and fellow fans is essential."},
@@ -142,7 +395,7 @@ const news=[
 {title:"MERCH SHOP MANAGER WANTED",body:"A volunteer is needed to run the shop DURING home matches. Training is provided and stock ordering is handled separately."}
 ];
 const clone=x=>JSON.parse(JSON.stringify(x));
-const defaultMaster={cover:{title:"TIVERTON TOWN",subtitle:"MATCHDAY PROGRAMME",featuredPlayer:"",photo:"",photoCredit:"",photoSource:null,overrides:{}},squad:{title:"FIRST TEAM SQUAD",overrides:{}},around:{title:"AROUND THE LEAGUE",fixtures:[],date:"",fetchedAt:"",frozen:false,frozenAt:"",overrides:{}},league:{title:"LEAGUE TABLE",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH (UP TO 03/11/26)",teams:clone(teams),overrides:{}},matrix:{title:"THE LEAGUE SO FAR",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 03/11/26)",scores:clone(scoreSeeds),overrides:{}},news:{title:"LATEST NEWS",items:clone(news),footer:"WE WILL REMEMBER THEM",photos:["",""],captions:["Billy Tucker heads to North Devon for a month. Photo: Tiverton Town FC","Pool returns to the Sports Bar. Photo: Tiverton Town FC"],overrides:{}}};
+const defaultMaster={cover:{title:"TIVERTON TOWN",subtitle:"MATCHDAY PROGRAMME",featuredPlayer:"",photo:"",photoCredit:"",photoSource:null,overrides:{}},squad:{title:"FIRST TEAM SQUAD",overrides:{}},around:{title:"AROUND THE LEAGUE",fixtures:[],date:"",fetchedAt:"",frozen:false,frozenAt:"",overrides:{}},league:{title:"LEAGUE TABLE",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH (UP TO 11/11/26)",teams:clone(teams),overrides:{}},matrix:{title:"THE LEAGUE SO FAR",subtitle:"SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 11/11/26)",scores:clone(scoreSeeds),overrides:{}},news:{title:"LATEST NEWS",items:clone(news),footer:"WE WILL REMEMBER THEM",photos:["",""],captions:["Billy Tucker heads to North Devon for a month. Photo: Tiverton Town FC","Pool returns to the Sports Bar. Photo: Tiverton Town FC"],overrides:{}}};
 let master,edition,page="cover",mode="edition",selected=null,editionName="Inkberrow · 7 Nov 2026",editions={},activeEdition="inkberrow";
 const KEY="tivvy-programme-studio-v02";
 const CLUB_LIBRARY={
@@ -175,7 +428,23 @@ try{
  edition=editions[activeEdition]||editions["bishops-cleeve"];
  editionName=saved&&saved.names&&saved.names[activeEdition]||(activeEdition==="inkberrow"?(legacy&&legacy.editionName||"Inkberrow · 7 Nov 2026"):"Bishops Cleeve · 14 Nov 2026");
 }catch(e){master=clone(defaultMaster);editions={inkberrow:initialInk,"bishops-cleeve":newBishopsEdition(master)};activeEdition="bishops-cleeve";edition=editions[activeEdition];editionName="Bishops Cleeve · 14 Nov 2026";}
-if(!master.opposition)master.opposition=clone(initialInk.opposition);
+// Data-only weekly refresh (12 Nov 2026). Do not disturb old edition layout,
+ // editorial overrides, page geometry or archived Inkberrow statistics.
+ const weekDataStamp="2026-11-12-standings-and-matrix";
+ function refreshWeekNumbers(d){
+  if(!d||d._weekDataStamp===weekDataStamp)return;
+  if(!d.league)d.league=clone(defaultMaster.league);
+  if(!d.matrix)d.matrix=clone(defaultMaster.matrix);
+  d.league.teams=clone(teams);
+  d.league.subtitle="SOUTHERN LEAGUE DIVISION ONE SOUTH (UP TO 11/11/26)";
+  d.matrix.scores={...(d.matrix.scores||{}),...clone(scoreSeeds)};
+  d.matrix.subtitle="SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS (UP TO 11/11/26)";
+  d._weekDataStamp=weekDataStamp;
+ }
+ refreshWeekNumbers(master);
+ refreshWeekNumbers(editions["bishops-cleeve"]);
+ if(activeEdition==="bishops-cleeve")edition=editions["bishops-cleeve"];
+ if(!master.opposition)master.opposition=clone(initialInk.opposition);
 if(!master.around)master.around=clone(defaultMaster.around);
 if(!master.cover)master.cover=clone(defaultMaster.cover);
 if(!master.squad)master.squad=clone(defaultMaster.squad);
@@ -288,7 +557,7 @@ function attr(k){return ' data-field="'+k+'" contenteditable="true" spellcheck="
 function band(title,sub){return '<div class="topBand" data-field="band" style="cursor:pointer"><h1 data-field="title" contenteditable="true">'+esc(title)+'</h1>'+(sub?'<div class="subhead" data-field="subtitle" contenteditable="true">'+esc(sub)+'</div>':'')+'</div>';}
 function renderLeague(d){
  let out=band(d.title,d.subtitle)+'<section class="panel"><table class="leagueTable"><colgroup><col style="width:27px"><col style="width:29px"><col style="width:154px">'+Array(8).fill('<col>').join('')+'</colgroup><thead><tr>'+["POS","", "TEAM","P","W","D","L","GF","GA","GD","PTS"].map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
- d.teams.forEach((t,i)=>{const c=i===11?"tivvy":i===0?"band-green":i<5?"band-blue":i>=18?"band-red":"";
+ d.teams.forEach((t,i)=>{const c=t[0]==="Tiverton Town"?"tivvy":i===0?"band-green":i<5?"band-blue":i>=18?"band-red":"";
  out+='<tr class="'+c+'" data-row="'+i+'" data-name="'+esc(t[0])+'"><td>'+(i+1)+'</td><td><img src="'+ORIGIN+encodeURIComponent(t[9])+'.png" alt=""></td><td contenteditable="true" data-cell="'+i+':0">'+esc(t[0])+'</td>';
  for(let j=1;j<=8;j++){let n=t[j];out+='<td data-cell="'+i+':'+j+'" contenteditable="true">'+(j===7&&n>0?'+':'')+esc(n)+'</td>';}
  out+='</tr>';});

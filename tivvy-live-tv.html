@@ -320,7 +320,7 @@ function timelineGroups(){
  // One latest standalone club post gets a high-visibility moment; remaining
  // unlinked posts must not monopolise the non-scrolling screen.
  standalone.sort((a,b)=>Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt));
- const standaloneCount=Math.min(2,standalone.length);
+ const standaloneCount=Math.min(1,standalone.length);
  for(let i=0;i<standaloneCount;i++){
   const p=standalone[i];
   groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
@@ -355,21 +355,7 @@ function clubNode(item){
  el.append(element("div","tv-post-copy",copy));
  return el;
 }
-function fitTimeline(){
- const root=$("events");
- // Put emphasis on at least three of the most recent official minutes.
- // Use a genuinely fixed-height television layout. Whole moment rows are
- // removed when they cannot fit; no invisible scrolling or overlapping text.
- let count=0;
- const clusters=[...root.querySelectorAll(".tv-moment")];
- for(const group of clusters){
-  count++;
-  if(root.scrollHeight>root.clientHeight+1&&count>1)group.remove();
- }
- // Tighten only if a single exceptionally long item remains.
- if(root.scrollHeight>root.clientHeight+1)root.classList.add("tight");
- else root.classList.remove("tight");
-}
+function fitTimeline(){const root=$("events");root.classList.toggle("tight",root.scrollHeight>root.clientHeight+1)}
 function drawTimeline(){
  const root=$("events");root.replaceChildren();root.classList.remove("tight");
  const match=payload?.matchday?.featured;
@@ -391,6 +377,9 @@ function drawTimeline(){
   if(posts.length)content.append(right);
   if(!ev.length)content.classList.add("only-post");
   cluster.append(minute,content);root.append(cluster);
+  // Fit content incrementally. A later huge post must never hide earlier
+  // compact official incident rows; zero manual scrolling.
+  if(root.scrollHeight>root.clientHeight+1){cluster.remove();break}
  }
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();

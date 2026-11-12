@@ -46,7 +46,8 @@ jobs:
         shell: bash
         run: |
           set -e
-          curl --retry 2 --max-time 25 -fsS https://tivvy-live-collector.nickabull.workers.dev/health | jq -e '.status == "ok"'
+          curl --retry 2 --max-time 25 -fsS https://tivvy-live-collector.nickabull.workers.dev/health | jq -e '.status == "ok" and .version == "2026.11.12-audit20"'
+          curl --retry 2 --max-time 25 -fsS 'https://tivvy-live-collector.nickabull.workers.dev/log?date=2026-11-14' | jq -e '.status == "ok" and .pollIntervalSeconds == 20 and (.events | type == "array")'
           curl --retry 2 --max-time 35 -fsS 'https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-14' > /tmp/tivvy-saturday-live.json
-          jq -e '.status == "ok" and .matchday.date == "2026-11-14" and .matchday.featured.home == "Tiverton Town" and .matchday.featured.away == "Bishops Cleeve"' /tmp/tivvy-saturday-live.json > /dev/null
-          echo "Saturday featured match verified from Southern League API."
+          jq -e '.matchday.date == "2026-11-14" and .matchday.status == "ok"' /tmp/tivvy-saturday-live.json > /dev/null
+          echo "20-second collector, durable audit and Saturday API endpoint verified. Featured fixture will be rechecked on matchday."

@@ -216,6 +216,24 @@ footer{font-size:.77vw;line-height:1}
 .historical-focus .tv-event,.historical-focus .tv-post{padding:.3vw .56vw}
 .historical-focus .tv-post-copy{font-size:1.03vw;line-height:1.18}
 .historical-focus .tv-moment.goal-moment{background:rgba(51,155,255,.07);border-radius:.25vw}
+
+/* V12: single-column, compact match incidents and X commentary beneath them. */
+.tv-moment-content.has-both,.tv-moment-content{grid-template-columns:minmax(0,1fr)}
+.tv-moment-incidents,.tv-moment-posts{width:100%}
+.tv-moment-posts{margin-top:.08vw}
+.tv-post{display:grid;grid-template-columns:15% minmax(0,1fr);gap:.75vw;align-items:start}
+.tv-post-label{font-size:1.03vw;line-height:1.15}
+.tv-post-copy{font-size:1.1vw;line-height:1.23;margin:0}
+.tv-event{padding:.29vw .65vw}
+.tv-event-main{gap:.7vw}
+.tv-event-detail{margin-top:0;font-size:1.18vw}
+.tv-moment{gap:.34vw}
+.event-list{gap:.24vw}
+.historical-focus .tv-post{padding:.27vw .6vw}
+.historical-focus .tv-event{padding:.28vw .6vw}
+.historical-focus .tv-moment{gap:.28vw}
+.historical-focus .tv-moment-minute{font-size:1.65vw;padding:.09vw .34vw}
+.historical-focus .tv-event-detail{font-size:1.15vw}
 </style></head><body><main id="tv">
 <div class="swoosh"></div>
 <div class="broadcastbar">
@@ -334,7 +352,7 @@ function timelineGroups(){
  }
  // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
  // Standalone X posts are excluded to keep the goal and surrounding action visible.
- const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-19&&g.minute<=focusMinute+32);
+ const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
  // A simulated new X arrival is always first in demo mode.
  return displayGroups.sort((a,b)=>{
   const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
@@ -377,14 +395,16 @@ function drawTimeline(){
   const minute=element("div","tv-moment-minute",group.minute===null?"𝕏":group.minute+"′");
   const content=element("div","tv-moment-content");
   const ev=group.items.filter(x=>x.kind==="incident"),posts=group.items.filter(x=>x.kind==="post");
-  const both=ev.length&&posts.length;
-  if(both)content.classList.add("has-both");
+  // Match Centre presentation: an incident occupies the FULL width.
+  // Club commentary belongs immediately beneath it, never in a right column.
   const left=element("div","tv-moment-incidents");
   for(const item of ev)left.append(incidentNode(item,match,teamIds));
-  const right=element("div","tv-moment-posts");
-  for(const item of posts.slice(0,2))right.append(clubNode(item));
   if(ev.length)content.append(left);
-  if(posts.length)content.append(right);
+  if(posts.length){
+   const under=element("div","tv-moment-posts");
+   for(const item of posts.slice(0,1))under.append(clubNode(item));
+   content.append(under);
+  }
   if(!ev.length)content.classList.add("only-post");
   cluster.append(minute,content);root.append(cluster);
   // Fit content incrementally. A later huge post must never hide earlier
@@ -394,7 +414,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · AROUND "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · 31′–88′ AROUND "+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){

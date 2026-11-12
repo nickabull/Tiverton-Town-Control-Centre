@@ -1,6 +1,6 @@
 {
   "date": "2026-11-11",
-  "checkedAt": "2026-11-11T23:02:30.152105+00:00",
+  "checkedAt": "2026-11-12T03:45:15.675810+00:00",
   "status": "ok",
   "source": "Southern League public match API",
   "featured": {
@@ -31,8 +31,8 @@
           "id": "3be30d8d-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Tom Bradley",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7b8ac2f3cafeb650524be4"
         },
         "teamId": "6a0adf9eda5d0d0847a02427",
@@ -55,8 +55,8 @@
           "id": "3b88fbb4-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Asa Hall",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a775429f3cafeb650523e4e"
         },
         "teamId": "6a0adf9eda5d0d0847a02400",
@@ -79,8 +79,8 @@
           "id": "3bf2a5d9-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Ewan Mcmillan",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a9c3adff3cafeb65052b3c1"
         },
         "teamId": "6a0adf9eda5d0d0847a02427",
@@ -103,15 +103,16 @@
           "id": "3bf40a79-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Evander Marvin Grubb",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z"
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
+          "profileId": "6ab2e895f3cafeb65052fdd7"
         },
         "personOff": {
           "id": "3bf408de-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Jacob Robert Wellington",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a775429f3cafeb650523e50"
         },
         "teamId": "6a0adf9eda5d0d0847a02400",
@@ -134,16 +135,16 @@
           "id": "3bd289b8-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Lenny Johnson",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a9c3adff3cafeb65052b3c0"
         },
         "personOff": {
           "id": "3bdc6dee-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Tom Symons",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7b8c29f3cafeb650524c20"
         },
         "teamId": "6a0adf9eda5d0d0847a02427",
@@ -166,16 +167,16 @@
           "id": "3bed8b6e-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Stanley Redge Jenkins",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6ab7ea9ff3cafeb6505307bc"
         },
         "personOff": {
           "id": "3bab6f98-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Cameron Allen",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6aaafae1f3cafeb65052e41f"
         },
         "teamId": "6a0adf9eda5d0d0847a02427",
@@ -198,16 +199,16 @@
           "id": "3be7a03e-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Dylan Gould",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7b8a0ef3cafeb650524ae1"
         },
         "personOff": {
           "id": "3be2ccae-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Martin Lenihan",
           "teamId": "6a0adf9eda5d0d0847a02427",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7b8a0ef3cafeb650524ae8"
         },
         "teamId": "6a0adf9eda5d0d0847a02427",
@@ -230,16 +231,16 @@
           "id": "3b941f13-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Louis Jagger Cane",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a775429f3cafeb650523e30"
         },
         "personOff": {
           "id": "3be2ecb5-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Dan Koita",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7751d2f3cafeb6505237a2"
         },
         "teamId": "6a0adf9eda5d0d0847a02400",
@@ -262,16 +263,16 @@
           "id": "3bbbd95d-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Toby Stephens",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6aca6018f3cafeb650536fb5"
         },
         "personOff": {
           "id": "3be3c18f-6ee9-11f0-aa15-02eebc336bd5",
           "name": "Joshua William Bissett",
           "teamId": "6a0adf9eda5d0d0847a02400",
-          "createdAt": "2026-11-11T23:02:01.591Z",
-          "updatedAt": "2026-11-11T23:02:01.591Z",
+          "createdAt": "2026-11-11T23:59:01.588Z",
+          "updatedAt": "2026-11-11T23:59:01.588Z",
           "profileId": "6a7b88e2f3cafeb650524503"
         },
         "teamId": "6a0adf9eda5d0d0847a02400",
@@ -338,12 +339,13 @@
             "id": "3baafce9-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Ryan Beckinsale",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e21"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T19:59:06.469Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -362,44 +364,13 @@
             "id": "3bcd0268-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Alex Bell",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a861519f3cafeb65052772e"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T20:03:06.631Z"
-        },
-        {
-          "competition": "69d0bdf9b616bafb97331d41",
-          "match": "6a5a1cc3ce9ef452b61f44b5",
-          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
-          "minute": 29,
-          "phase": "FirstHalf",
-          "score": {
-            "home": 1,
-            "away": 0
-          },
-          "kickOffDate": "2026-11-11",
-          "kickOffTime": "19:45",
-          "eventType": "SUBSTITUTION",
-          "person": {
-            "id": "3be4384e-6ee9-11f0-aa15-02eebc336bd5",
-            "name": "Kieran Moore",
-            "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
-            "profileId": "6aca608ff3cafeb65053732f"
-          },
-          "personOff": {
-            "id": "3bdbffa2-6ee9-11f0-aa15-02eebc336bd5",
-            "name": "Luke William Bence",
-            "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
-            "profileId": "6a861519f3cafeb65052772a"
-          },
-          "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T20:18:06.571Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -418,12 +389,46 @@
             "id": "0e82e5b1-86ab-11f1-886a-0204f6006b57",
             "name": "Casey George Collins",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a95a509f3cafeb65052af1e"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T20:17:06.379Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
+        },
+        {
+          "competition": "69d0bdf9b616bafb97331d41",
+          "match": "6a5a1cc3ce9ef452b61f44b5",
+          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
+          "minute": 29,
+          "phase": "FirstHalf",
+          "score": {
+            "home": 1,
+            "away": 1
+          },
+          "kickOffDate": "2026-11-11",
+          "kickOffTime": "19:45",
+          "eventType": "SUBSTITUTION",
+          "person": {
+            "id": "3be4384e-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Kieran Moore",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6aca608ff3cafeb65053732f"
+          },
+          "personOff": {
+            "id": "3bdbffa2-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Luke William Bence",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6a861519f3cafeb65052772a"
+          },
+          "teamId": "6a0adf9eda5d0d0847a02428",
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -442,12 +447,13 @@
             "id": "4237dedd-7628-11f1-886a-0204f6006b57",
             "name": "Ben Cleary",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e30"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T20:21:06.754Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -466,19 +472,46 @@
             "id": "3bb6a7c7-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Harvey Flippance",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z"
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6af4e256f3cafeb65054189d"
           },
           "personOff": {
             "id": "4237dedd-7628-11f1-886a-0204f6006b57",
             "name": "Ben Cleary",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e30"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T20:58:06.553Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
+        },
+        {
+          "competition": "69d0bdf9b616bafb97331d41",
+          "match": "6a5a1cc3ce9ef452b61f44b5",
+          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
+          "minute": 48,
+          "phase": "FirstHalf",
+          "score": {
+            "home": 1,
+            "away": 2
+          },
+          "kickOffDate": "2026-11-11",
+          "kickOffTime": "19:45",
+          "eventType": "GOAL",
+          "person": {
+            "id": "3bbbd395-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Leighton Tom Blacker",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6aef56fcf3cafeb65053f83f"
+          },
+          "teamId": "6a0adf9eda5d0d0847a02428",
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -488,7 +521,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -497,20 +530,21 @@
             "id": "3be30976-6ee9-11f0-aa15-02eebc336bd5",
             "name": "James Payton",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a95a454f3cafeb65052a9e1"
           },
           "personOff": {
             "id": "3bf2b50b-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jack Goodall",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a95a454f3cafeb65052a9e0"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T21:09:06.514Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -520,7 +554,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -529,20 +563,21 @@
             "id": "b19349d4-8998-11f1-b56e-0204f6006b57",
             "name": "Josh Morgan",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e2d"
           },
           "personOff": {
             "id": "3b8e2826-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Jack Camm",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e29"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T21:22:06.582Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -552,7 +587,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -561,20 +596,21 @@
             "id": "0a4842f3-8cf7-11f1-b56e-0204f6006b57",
             "name": "Theodore David Browne",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a861519f3cafeb650527733"
           },
           "personOff": {
             "id": "3bbbd395-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Leighton Tom Blacker",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6aef56fcf3cafeb65053f83f"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:26:06.610Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -584,7 +620,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -593,12 +629,13 @@
             "id": "3bd2f094-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Haydn George Evans",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a861519f3cafeb65052772f"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:28:01.492Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -608,7 +645,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -617,20 +654,21 @@
             "id": "691dd92b-a6e7-11f1-b56e-0204f6006b57",
             "name": "Joshua Delano Barclay",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6ae612a4f3cafeb65053d74a"
           },
           "personOff": {
             "id": "3bc67c51-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Gennaro Leopoldo Bifulco",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6abd732af3cafeb650534966"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:30:01.652Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -640,7 +678,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
+            "away": 2
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -649,20 +687,21 @@
             "id": "3bfb63b0-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Stan Wyatt",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a7cdad5f3cafeb650524e2f"
           },
           "personOff": {
             "id": "3baacac1-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Alex Camm",
             "teamId": "6a0adf9eda5d0d0847a02423",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6aaafedef3cafeb65052e4a2"
           },
           "teamId": "6a0adf9eda5d0d0847a02423",
-          "createdAt": "2026-11-11T21:30:01.652Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -672,38 +711,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 1
-          },
-          "kickOffDate": "2026-11-11",
-          "kickOffTime": "19:45",
-          "eventType": "SUBSTITUTION",
-          "person": {
-            "id": "3be1ed7f-6ee9-11f0-aa15-02eebc336bd5",
-            "name": "William Edward Hawes",
-            "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z"
-          },
-          "personOff": {
-            "id": "3bbb866f-6ee9-11f0-aa15-02eebc336bd5",
-            "name": "Oliver Milton Richard Sully",
-            "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
-            "profileId": "6a861519f3cafeb650527724"
-          },
-          "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:41:01.582Z"
-        },
-        {
-          "competition": "69d0bdf9b616bafb97331d41",
-          "match": "6a5a1cc3ce9ef452b61f44b5",
-          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
-          "minute": 91,
-          "phase": "SecondHalf",
-          "score": {
-            "home": 1,
-            "away": 2
+            "away": 3
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -712,12 +720,46 @@
             "id": "0e82e5b1-86ab-11f1-886a-0204f6006b57",
             "name": "Casey George Collins",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a95a509f3cafeb65052af1e"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:41:01.582Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
+        },
+        {
+          "competition": "69d0bdf9b616bafb97331d41",
+          "match": "6a5a1cc3ce9ef452b61f44b5",
+          "externalMatchId": "cfa7fb15-81d8-11f1-886a-0204f6006b57",
+          "minute": 91,
+          "phase": "SecondHalf",
+          "score": {
+            "home": 1,
+            "away": 3
+          },
+          "kickOffDate": "2026-11-11",
+          "kickOffTime": "19:45",
+          "eventType": "SUBSTITUTION",
+          "person": {
+            "id": "3be1ed7f-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "William Edward Hawes",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6af4e256f3cafeb65054189e"
+          },
+          "personOff": {
+            "id": "3bbb866f-6ee9-11f0-aa15-02eebc336bd5",
+            "name": "Oliver Milton Richard Sully",
+            "teamId": "6a0adf9eda5d0d0847a02428",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
+            "profileId": "6a861519f3cafeb650527724"
+          },
+          "teamId": "6a0adf9eda5d0d0847a02428",
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         },
         {
           "competition": "69d0bdf9b616bafb97331d41",
@@ -727,7 +769,7 @@
           "phase": "SecondHalf",
           "score": {
             "home": 1,
-            "away": 2
+            "away": 3
           },
           "kickOffDate": "2026-11-11",
           "kickOffTime": "19:45",
@@ -736,12 +778,13 @@
             "id": "3bd2d046-6ee9-11f0-aa15-02eebc336bd5",
             "name": "Theo Lynden",
             "teamId": "6a0adf9eda5d0d0847a02428",
-            "createdAt": "2026-11-11T23:02:01.560Z",
-            "updatedAt": "2026-11-11T23:02:01.560Z",
+            "createdAt": "2026-11-12T02:40:12.633Z",
+            "updatedAt": "2026-11-12T02:40:12.633Z",
             "profileId": "6a861519f3cafeb650527728"
           },
           "teamId": "6a0adf9eda5d0d0847a02428",
-          "createdAt": "2026-11-11T21:45:01.657Z"
+          "createdAt": "2026-11-12T02:40:12.633Z",
+          "updatedAt": "2026-11-12T02:40:12.633Z"
         }
       ],
       "kickoff": "19:45",

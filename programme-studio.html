@@ -1268,7 +1268,7 @@ async function refreshFullLeagueMatrix(){
   for(const r of data.results){
    const home=data.codes[r.home],away=data.codes[r.away];
    if(!home||!away||home===away||!codes.includes(home)||!codes.includes(away))continue;
-   if(!/^\\d+[-–]\\d+$/.test(String(r.score||"")))continue;
+   if(!/^\d+[-–]\d+$/.test(String(r.score||"")))continue;
    const key=home+":"+away;
    if(seen.has(key)&&next[key]!==r.score)throw Error("Conflicting result for "+key);
    seen.add(key);next[key]=String(r.score).replace("–","-");

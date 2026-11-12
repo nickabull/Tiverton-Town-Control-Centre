@@ -1,6 +1,11 @@
 name: Deploy Tivvy Live collector
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'live-collector/**'
+      - '.github/workflows/deploy-tivvy-live-service.yml'
 permissions:
   contents: read
 jobs:
@@ -14,6 +19,9 @@ jobs:
         run: |
           set -e
           node --check live-collector/src/index.js
+          grep -q 'async alarm()' live-collector/src/index.js
+          grep -q 'async scheduled(event,env,ctx)' live-collector/src/index.js
+          grep -q 'crons = ' live-collector/wrangler.toml
           python3 - <<'PY'
           from pathlib import Path
           page=Path("tivvy-live-saturday-test.html").read_text()

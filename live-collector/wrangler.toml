@@ -10,4 +10,4 @@ tag = "v1"
 new_sqlite_classes = ["MatchCache"]
 
 [triggers]
-crons = ["* 13-22 * * *"]
+crons = ["*/5 10-22 * * *"]

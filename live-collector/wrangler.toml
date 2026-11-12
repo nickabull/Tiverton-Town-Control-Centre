@@ -8,3 +8,6 @@ bindings = [{ name = "MATCH_CACHE", class_name = "MatchCache" }]
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["MatchCache"]
+
+[triggers]
+crons = ["* 13-22 * * *"]

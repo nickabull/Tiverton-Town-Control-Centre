@@ -243,7 +243,10 @@ footer{font-size:.77vw;line-height:1}
 .broadcast-ribbon path.core{fill:none;stroke:url(#broadcastGold);stroke-width:4.5;stroke-linecap:round}
 .broadcast-ribbon path.light{fill:none;stroke:url(#broadcastGold);stroke-width:1.4;stroke-linecap:round;opacity:.85}
 .broadcast-ribbon path.glow{fill:none;stroke:#ffdc00;stroke-width:10;opacity:.09;filter:blur(3px)}
-.broadcastbar,.timeline,footer{position:relative;z-index:1}
+.broadcastbar,.timeline{position:relative;z-index:1}
+/* Keep the gold ribbon below the information layer; footer masks it cleanly. */
+footer{position:relative;z-index:5;background:#080909;padding:0 .35vw;border-top:1px solid #303135}
+.broadcast-ribbon.bottom{z-index:2}
 </style></head><body><main id="tv">
 <svg class="broadcast-ribbon top" viewBox="0 0 1600 88" preserveAspectRatio="none" aria-hidden="true">
 <defs><linearGradient id="broadcastGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bd8600" stop-opacity="0"/><stop offset="31%" stop-color="#ffdb00"/><stop offset="53%" stop-color="#fff5a3"/><stop offset="76%" stop-color="#ffd000"/><stop offset="100%" stop-color="#b27d00" stop-opacity="0"/></linearGradient></defs>

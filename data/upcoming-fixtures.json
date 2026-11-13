@@ -1,39 +1,7 @@
 {
-  "programme_match_date": "2026-10-31",
-  "checked_on": "2026-10-31",
+  "programme_match_date": "2026-11-14",
+  "checked_on": "2026-11-13",
   "fixtures": [
-    {
-      "date": "2026-10-31",
-      "opponent": "Weymouth",
-      "venue": "A",
-      "competition": "Southern League Division One South",
-      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json",
-      "crest_url": "https://www.southern-football-league.co.uk/img/master/logos/wfc-crest-2026-b54afa99-aebb-4c03-942f-47019e29a2e6.png?variant=detail_s&fit=contain"
-    },
-    {
-      "date": "2026-11-07",
-      "opponent": "SPORTING CLUB INKBERROW",
-      "venue": "H",
-      "competition": "Southern League Division One South",
-      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json",
-      "crest_url": "https://www.southern-football-league.co.uk/img/teams/sporting_club_inkberrow_f.c._logo-7380b5a5-0cb4-4e2c-9e9d-9fd9ddfc93db.png?variant=detail_s&fit=contain"
-    },
-    {
-      "date": "2026-11-11",
-      "opponent": "Paulton Rovers",
-      "venue": "A",
-      "competition": "Southern League Division One South",
-      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json",
-      "crest_url": "https://www.southern-football-league.co.uk/img/teams/paulton-rovers-a8da5c5a-788d-4000-84c4-9f2d40abedb9.png?variant=detail_s&fit=contain"
-    },
-    {
-      "date": "2026-11-14",
-      "opponent": "BISHOPS CLEEVE",
-      "venue": "H",
-      "competition": "Southern League Division One South",
-      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json",
-      "crest_url": "https://www.southern-football-league.co.uk/img/teams/bishops_cleeve_logo-9ad688fd-0908-4922-bca6-8d8b83c88248.png?variant=detail_s&fit=contain"
-    },
     {
       "date": "2026-11-21",
       "opponent": "Melksham Town",
@@ -97,6 +65,34 @@
       "competition": "Southern League Division One South",
       "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json",
       "crest_url": "https://static.wixstatic.com/media/8aa829_b4cc913ef31345aabfac3ebba6b7df54~mv2.png"
+    },
+    {
+      "date": "2027-01-09",
+      "opponent": "SHAFTESBURY",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json"
+    },
+    {
+      "date": "2027-01-16",
+      "opponent": "Worcester Raiders",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json"
+    },
+    {
+      "date": "2027-01-23",
+      "opponent": "FALMOUTH TOWN",
+      "venue": "H",
+      "competition": "Southern League Division One South",
+      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json"
+    },
+    {
+      "date": "2027-01-30",
+      "opponent": "Portland United",
+      "venue": "A",
+      "competition": "Southern League Division One South",
+      "source_url": "https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json"
     }
   ]
 }

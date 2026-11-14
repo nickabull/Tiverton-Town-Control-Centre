@@ -90,6 +90,21 @@ function competition(m,home,away){
  if(v.includes("premier")&&v.includes("central"))return "premiercentral";
  return "unclassified";
 }
+// A verified Southern League GOAL event may carry a newer score than
+// m.score.current. Promote that official event score only when it is a
+// non-decreasing advance; never infer goals from X text or guess a score.
+function latestVerifiedScore(current,events){
+ let best=current, bestTotal=current?current.home+current.away:-1;
+ for(const e of events){
+  if(!/^GOAL/i.test(String(e.eventType||e.type||"")))continue;
+  const p=e.score;
+  if(!p||!Number.isInteger(p.home)||!Number.isInteger(p.away)||p.home<0||p.away<0)continue;
+  if(best&&(p.home<best.home||p.away<best.away))continue;
+  const total=p.home+p.away;
+  if(total>bestTotal){best={home:p.home,away:p.away};bestTotal=total;}
+ }
+ return best;
+}
 function normaliseLeague(payload,date){
  const doc={date,checkedAt:stamp(),status:"ok",source:"Southern League public match API",
   featured:null,matches:[],unclassified:[],apiMatchesInspected:0};
@@ -103,13 +118,15 @@ function normaliseLeague(payload,date){
   if(!home||!away)continue;
   const comp=competition(m,home,away);
   const score=m.score?.current;
-  const cleanScore=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?{home:score.home,away:score.away}:null;
+  const reportedScore=score&&Number.isInteger(score.home)&&Number.isInteger(score.away)?{home:score.home,away:score.away}:null;
+  const events=Array.isArray(m.events)?m.events.filter(e=>e&&typeof e==="object"):[];
+  const cleanScore=latestVerifiedScore(reportedScore,events);
   const selected=FIXTURES[doc.date];
   const item={id:String(m._id||m.id||""),home,away,
    homeTeamId:String(m.homeTeam?._id||m.homeTeam?.id||m.homeTeamId||""),
    awayTeamId:String(m.awayTeam?._id||m.awayTeam?.id||m.awayTeamId||""),competition:comp,
    status:String(m.status||"unknown"),score:cleanScore,
-   events:Array.isArray(m.events)?m.events.filter(e=>e&&typeof e==="object"):[],
+   events,
    kickoff:String(m.time||m.dateTime||""),isFeatured:
     (selected&&String(m._id||m.id)===selected.id)||
     (selected&&home.toLowerCase()===selected.home.toLowerCase()&&away.toLowerCase()===selected.away.toLowerCase())||

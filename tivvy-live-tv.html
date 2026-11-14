@@ -247,6 +247,19 @@ footer{font-size:.77vw;line-height:1}
 /* Keep the gold ribbon below the information layer; footer masks it cleanly. */
 footer{position:relative;z-index:5;background:#080909;padding:0 .35vw;border-top:1px solid #303135}
 .broadcast-ribbon.bottom{z-index:2}
+
+/* X media: render real attachments from the official club post, never AI recreations. */
+.tv-post.has-media{grid-template-columns:14% minmax(0,1fr) minmax(0,43%);align-items:center}
+.tv-moment-content.only-post .tv-post.has-media{grid-template-columns:14% minmax(0,1fr) minmax(0,43%);align-items:center}
+.tv-post-artwork{display:block;width:100%;max-height:44vh;min-height:0;object-fit:contain;background:#0a0a0b;border:1px solid #505159;border-radius:.3vw;cursor:zoom-in}
+.tv-post-art-wrap{min-width:0;display:flex;flex-direction:column;gap:.25vw;align-items:stretch}
+.tv-post-viewhint{font-size:.9vw;color:#dfc2ff;text-align:center}
+.tv-image-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.97);display:none;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw}
+.tv-image-lightbox.open{display:flex}
+.tv-image-lightbox img{max-width:96vw;max-height:88vh;width:auto;height:auto;object-fit:contain}
+.tv-image-close{position:absolute;top:1vh;right:2vw;background:var(--gold);color:#111;border:0;border-radius:.3vw;font-size:1.5vw;font-weight:900;padding:.4vw 1vw;cursor:pointer}
+.tv-image-caption{font-size:1.15vw;color:#ddd;max-width:94vw;text-align:center}
+@media(max-aspect-ratio:16/9){.tv-post-artwork{max-height:44vh}.tv-post-viewhint{font-size:1.5vh}.tv-image-close{font-size:2.5vh}.tv-image-caption{font-size:2vh}}
 </style></head><body><main id="tv">
 <svg class="broadcast-ribbon top" viewBox="0 0 1600 88" preserveAspectRatio="none" aria-hidden="true">
 <defs><linearGradient id="broadcastGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bd8600" stop-opacity="0"/><stop offset="31%" stop-color="#ffdb00"/><stop offset="53%" stop-color="#fff5a3"/><stop offset="76%" stop-color="#ffd000"/><stop offset="100%" stop-color="#b27d00" stop-opacity="0"/></linearGradient></defs>
@@ -413,7 +426,39 @@ function clubNode(item){
  el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
  const copy=String(p.text||"").replace(/\s+/g," ").trim();
  el.append(element("div","tv-post-copy",copy));
+ const photo=(Array.isArray(p.media)?p.media:[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
+ if(photo){
+  el.classList.add("has-media");
+  const wrap=element("div","tv-post-art-wrap");
+  const pic=element("img","tv-post-artwork");
+  pic.src=photo.url;pic.alt=photo.alt||"Official Tiverton Town FC post artwork";pic.loading="eager";pic.decoding="async";
+  pic.title="Select to enlarge official club artwork";pic.tabIndex=0;
+  const show=()=>openClubArtwork(photo.url,pic.alt,copy);
+  pic.addEventListener("click",show);
+  pic.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show()}});
+  wrap.append(pic,element("div","tv-post-viewhint","SELECT IMAGE TO ENLARGE"));
+  el.append(wrap);
+ }else if((p.media||[]).some(m=>m.type==="photo")){
+  const link=element("a","tv-post-viewhint","VIEW ORIGINAL IMAGE ON X ↗");
+  link.href=p.url;link.target="_blank";link.rel="noopener noreferrer";el.append(link);
+ }
  return el;
+}
+function openClubArtwork(src,alt,caption){
+ let viewer=$("clubArtworkViewer");
+ if(!viewer){
+  viewer=element("div","tv-image-lightbox");viewer.id="clubArtworkViewer";
+  viewer.setAttribute("role","dialog");viewer.setAttribute("aria-label","Club artwork full-screen");
+  const close=element("button","tv-image-close","CLOSE ×");close.type="button";
+  close.addEventListener("click",()=>viewer.classList.remove("open"));
+  viewer.append(close,element("img"),element("div","tv-image-caption"));
+  viewer.addEventListener("click",e=>{if(e.target===viewer)viewer.classList.remove("open")});
+  document.body.append(viewer);
+ }
+ viewer.querySelector("img").src=src;
+ viewer.querySelector("img").alt=alt;
+ viewer.querySelector(".tv-image-caption").textContent=caption;
+ viewer.classList.add("open");
 }
 function fitTimeline(){const root=$("events");root.classList.toggle("tight",root.scrollHeight>root.clientHeight+1)}
 function drawTimeline(){

@@ -14,6 +14,7 @@ const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/Lond
 
 const LEAGUE_TTL=20_000;
 const MATCH_POLL_MS=20_000;
+const FWP_TTL=20_000; // one shared FootballWebPages request / 20 seconds (3/min, below 10/min limit)
 const AUDIT_LIMIT=1800;
 const X_TTL=60_000; // 1-minute X refresh in the live match window; separate from 20-second football updates
 const MAX_X_CALLS_PER_DAY=210; // hard cap on paid X requests per matchday (about 3.5 hours at 1/min)
@@ -153,6 +154,54 @@ async function collectX(env,sinceId){
  return {checkedAt:stamp(),account:"@tivertontownfc",state:"ok",readOnly:true,
   posts,userId:"244486255",count:posts.length,contentRetrieved:true};
 }
+
+/* Optional, server-only FootballWebPages integration. Keep API key out of browser HTML.
+ * FWP_COMP_ID is the division ID issued/identified for the club.
+ * Never replace an official Southern League event with an unverified FWP item.
+ */
+function fwpRows(value){
+ if(Array.isArray(value))return value;
+ for(const key of ["matches","fixtures","fixturesResults","fixtures_results","results","items","data"]){
+  const v=value?.[key];if(Array.isArray(v))return v;
+  if(v&&typeof v==="object"){const nested=fwpRows(v);if(nested.length)return nested;}
+ }
+ return [];
+}
+function fwpTeam(value){
+ if(typeof value==="string")return value.trim();
+ if(value&&typeof value==="object")return String(value.name||value.fullName||value.teamName||value.title||"").trim();
+ return "";
+}
+function normaliseFWP(value,date){
+ const rows=fwpRows(value),matches=[];
+ for(const row of rows){
+  if(!row||typeof row!=="object")continue;
+  const stamp=String(row.date||row.matchDate||row.kickoff||row.kickOff||row.datetime||row.match_date||"");
+  if(stamp&&!stamp.startsWith(date))continue;
+  const home=fwpTeam(row.homeTeam||row.home_team||row.home||row.homeName);
+  const away=fwpTeam(row.awayTeam||row.away_team||row.away||row.awayName);
+  if(!home||!away)continue;
+  const sh=row.homeScore??row.home_score??row.score?.home;
+  const sa=row.awayScore??row.away_score??row.score?.away;
+  const score=sh!==null&&sh!==undefined&&sa!==null&&sa!==undefined&&
+   String(sh).trim()!==""&&String(sa).trim()!==""&&
+   /^\\d+$/.test(String(sh))&&/^\\d+$/.test(String(sa))?
+   {home:Number(sh),away:Number(sa)}:null;
+  matches.push({home,away,score,status:String(row.status||row.matchStatus||row.match_status||"unknown"),source:"FootballWebPages"});
+ }
+ return {status:"ok",checkedAt:new Date().toISOString(),date,matches,rowsInspected:rows.length,
+  warning:rows.length&&!matches.length?"FWP response received; match fields need verification":null};
+}
+async function collectFWP(env,date){
+ if(!env.FWP_API_KEY||!env.FWP_COMP_ID)return {status:"not-configured",date,matches:[],
+  warning:"FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"};
+ const comp=String(env.FWP_COMP_ID);
+ if(!/^\\d+$/.test(comp))return {status:"configuration-error",date,matches:[],warning:"FWP_COMP_ID must be numeric"};
+ const url="https://api.footballwebpages.co.uk/v2/fixtures-results.json?comp="+encodeURIComponent(comp);
+ const response=await fetch(url,{headers:{"FWP-API-Key":env.FWP_API_KEY,"Accept":"application/json"},cache:"no-store"});
+ if(!response.ok)throw Error("FWP HTTP "+response.status);
+ return normaliseFWP(await response.json(),date);
+}
 export class MatchCache {
  constructor(state,env){this.state=state;this.env=env;this.pending=null;}
  async fetch(request){
@@ -194,7 +243,7 @@ export class MatchCache {
   const now=Date.now();
   await this.state.storage.put("matchDate",date);
   const kickoff=await this.state.storage.get("matchKickoff")||FIXTURES[date]?.kickoff;
-  let record=await this.state.storage.get("cache")||{matchday:null,x:null,leagueAt:0,xAt:0,xCalls:0,log:[],audit:[]};
+  let record=await this.state.storage.get("cache")||{matchday:null,x:null,fwp:null,leagueAt:0,fwpAt:0,xAt:0,xCalls:0,log:[],audit:[]};
   if(!Array.isArray(record.audit))record.audit=[];
   const log=(type,detail)=>{record.log.unshift({at:stamp(),type,detail});record.log=record.log.slice(0,150);};
   if(now-record.leagueAt>=LEAGUE_TTL){
@@ -207,6 +256,18 @@ export class MatchCache {
      JSON.stringify(previous?.matches)!==JSON.stringify(updated.matches);
     log("southern-league",changed?"Source updated; fixtures/incidents changed":"HTTP 200; no incident changes");
    }catch(e){record.leagueAt=Date.now();log("southern-league-error",String(e.message||e));recordAudit(record,"southern-league","error",String(e.message||e));}
+  }
+  if(now-(record.fwpAt||0)>=FWP_TTL){
+   try{
+    record.fwp=await collectFWP(this.env,date);
+    record.fwpAt=Date.now();
+    if(record.fwp.status==="ok")log("fwp","HTTP 200; "+record.fwp.matches.length+" matching fixtures");
+    else log("fwp-config",record.fwp.warning||record.fwp.status);
+   }catch(e){
+    record.fwpAt=Date.now();
+    record.fwp={status:"error",date,matches:[],warning:String(e.message||e)};
+    log("fwp-error",String(e.message||e));
+   }
   }
   if(this.env.X_BEARER_TOKEN&&xAllowed(date,kickoff)&&record.xCalls<MAX_X_CALLS_PER_DAY&&now-record.xAt>=X_TTL){
    try{
@@ -224,7 +285,7 @@ export class MatchCache {
    }catch(e){record.xAt=Date.now();log("x-error",String(e.message||e));recordAudit(record,"x","error",String(e.message||e));}
   }
   await this.state.storage.put("cache",record);
-  return {status:record.matchday?"ok":"unavailable",matchday:record.matchday,x:record.x,
+  return {status:record.matchday?"ok":"unavailable",matchday:record.matchday,x:record.x,fwp:record.fwp||{status:"pending",date,matches:[]},
    lastLeagueCollection:record.matchday?.checkedAt||null,lastXCollection:record.x?.checkedAt||null,
    eventLog:record.log.slice(0,30),auditSummary:{entries:record.audit.length,latest:record.audit[0]||null},mode:"shared-live-cache",date,
    xRequestsToday:record.xCalls||0,xRequestCap:MAX_X_CALLS_PER_DAY,
@@ -259,7 +320,7 @@ export default {
   const url=new URL(request.url);
   if(request.method==="OPTIONS")return json({});
   if(request.method!=="GET")return json({error:"method not allowed"},405);
-  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector",version:"2026.11.12-audit20",features:["autonomous-20-second-poll","simultaneous-matches","persistent-log","fixture-discovery"]});
+  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector",version:"2026.11.12-audit20",features:["autonomous-20-second-poll","simultaneous-matches","persistent-log","fixture-discovery","optional-fwp-20-second-crosscheck"]});
   if(url.pathname!=="/live"&&url.pathname!=="/log")return json({error:"not found"},404);
   const date=url.searchParams.get("date")||"2026-11-11";
   if(!validDate(date))return json({error:"Unsupported matchday"},400);

@@ -15,8 +15,8 @@ const ukClock=date=>new Date().toLocaleTimeString("en-GB",{timeZone:"Europe/Lond
 const LEAGUE_TTL=20_000;
 const MATCH_POLL_MS=20_000;
 const AUDIT_LIMIT=1800;
-const X_TTL=600_000; // 10-minute X refresh; separate from ~20-second football updates
-const MAX_X_CALLS_PER_DAY=30; // hard cap on paid X requests per matchday
+const X_TTL=60_000; // 1-minute X refresh in the live match window; separate from 20-second football updates
+const MAX_X_CALLS_PER_DAY=210; // hard cap on paid X requests per matchday (about 3.5 hours at 1/min)
 function xAllowed(date,kickoff){
  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
  const get=k=>parts.find(p=>p.type===k)?.value||"";

@@ -243,5 +243,33 @@
       }
     ],
     "cards": []
+  },
+  "2026-11-14": {
+    "source_url": "https://www.southern-football-league.co.uk/live",
+    "retrieved_date": "2026-11-14",
+    "goals": [
+      {
+        "personName": "Louis Jagger Cane",
+        "minute": 16,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Louis Jagger Cane",
+        "minute": 35,
+        "goalType": "normal"
+      },
+      {
+        "personName": "Dan Koita",
+        "minute": 40,
+        "goalType": "normal"
+      }
+    ],
+    "cards": [
+      {
+        "personName": "Corey Hayden Koerner",
+        "minute": 26,
+        "cardType": "first_yellow_card"
+      }
+    ]
   }
 }

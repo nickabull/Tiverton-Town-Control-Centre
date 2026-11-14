@@ -1,0 +1,695 @@
+{
+  "schemaVersion": 1,
+  "matchDate": "2026-11-14",
+  "status": "FullTime",
+  "verified": true,
+  "source": "Official Southern League results, standings and match-sheet screenshots supplied 14 November 2026",
+  "sourceCheckedAt": "2026-11-14",
+  "competition": "SLD1S",
+  "fixture": {
+    "date": "2026-11-14",
+    "venue": "H",
+    "opponent": "Bishops Cleeve",
+    "opponentLogoUrl": "",
+    "result": "3-1",
+    "goalscorers": "Louis Jagger Cane 16', 35'; Dan Koita 40'",
+    "starters": [
+      "Louis Smith",
+      "Mason Winter",
+      "Corey Koerner",
+      "Louie Slough",
+      "Matt Wood",
+      "Josh Bissett",
+      "Asa Hall",
+      "Dan Koita",
+      "Louis Jagger Cane",
+      "Toby Stephens",
+      "Aaron Wellington"
+    ],
+    "subs": [
+      "Jacob Wellington",
+      "Finn Roberts",
+      "Evander Grubb",
+      "Aiden Horne",
+      "Ryan Keates"
+    ],
+    "starterDetails": [
+      {
+        "name": "Louis Smith",
+        "number": 1,
+        "captain": false,
+        "position": "GK",
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Mason Winter",
+        "number": 2,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Corey Koerner",
+        "number": 3,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "81",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": [
+          {
+            "type": "yellow",
+            "minute": "26"
+          }
+        ]
+      },
+      {
+        "name": "Louie Slough",
+        "number": 4,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Matt Wood",
+        "number": 5,
+        "captain": true,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Josh Bissett",
+        "number": 7,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "55",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Asa Hall",
+        "number": 8,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Dan Koita",
+        "number": 9,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "90+2",
+        "goalCount": 1,
+        "goalMinutes": [
+          "40"
+        ],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Louis Jagger Cane",
+        "number": 10,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "75",
+        "goalCount": 2,
+        "goalMinutes": [
+          "16",
+          "35"
+        ],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Toby Stephens",
+        "number": 15,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "88",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Aaron Wellington",
+        "number": 21,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      }
+    ],
+    "subDetails": [
+      {
+        "name": "Jacob Wellington",
+        "number": 11,
+        "captain": false,
+        "position": null,
+        "onMinute": "75",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Finn Roberts",
+        "number": 12,
+        "captain": false,
+        "position": null,
+        "onMinute": "81",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Evander Grubb",
+        "number": 14,
+        "captain": false,
+        "position": null,
+        "onMinute": "55",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Aiden Horne",
+        "number": 17,
+        "captain": false,
+        "position": null,
+        "onMinute": "90+2",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Ryan Keates",
+        "number": 30,
+        "captain": false,
+        "position": null,
+        "onMinute": "88",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      }
+    ],
+    "players": [
+      "Louis Smith",
+      "Mason Winter",
+      "Corey Koerner",
+      "Louie Slough",
+      "Matt Wood",
+      "Josh Bissett",
+      "Asa Hall",
+      "Dan Koita",
+      "Louis Jagger Cane",
+      "Toby Stephens",
+      "Aaron Wellington",
+      "Jacob Wellington",
+      "Finn Roberts",
+      "Evander Grubb",
+      "Aiden Horne",
+      "Ryan Keates"
+    ],
+    "squadUrl": "",
+    "fwpUrl": "",
+    "officialReportUrl": "",
+    "upcoming": false,
+    "attendance": 194,
+    "attendanceSource": "Official Southern League match sheet supplied 14 Nov 2026",
+    "notes": "HT 3-1, FT 3-1. Bishops Cleeve scorer Jake Lee 26'. Tiverton yellow card Corey Koerner 26'.",
+    "verificationNotes": "Verified from official match-sheet and score screenshots provided 14 Nov 2026. 3-1 final; goal scorers Cane 16',35' and Koita 40'."
+  },
+  "leaguePosition": 8,
+  "leagueStats": {
+    "played": 17,
+    "won": 7,
+    "drawn": 4,
+    "lost": 6,
+    "goalsFor": 29,
+    "goalsAgainst": 25,
+    "goalDifference": 4,
+    "points": 25
+  },
+  "standings": [
+    {
+      "pos": 1,
+      "team": "Weymouth FC",
+      "p": 15,
+      "w": 13,
+      "d": 1,
+      "l": 1,
+      "gf": 42,
+      "ga": 11,
+      "gd": 31,
+      "pts": 40
+    },
+    {
+      "pos": 2,
+      "team": "Westbury United",
+      "p": 19,
+      "w": 12,
+      "d": 2,
+      "l": 5,
+      "gf": 35,
+      "ga": 20,
+      "gd": 15,
+      "pts": 38
+    },
+    {
+      "pos": 3,
+      "team": "Swindon Supermarine",
+      "p": 18,
+      "w": 12,
+      "d": 2,
+      "l": 4,
+      "gf": 34,
+      "ga": 20,
+      "gd": 14,
+      "pts": 38
+    },
+    {
+      "pos": 4,
+      "team": "Dorchester Town",
+      "p": 17,
+      "w": 12,
+      "d": 1,
+      "l": 4,
+      "gf": 37,
+      "ga": 21,
+      "gd": 16,
+      "pts": 37
+    },
+    {
+      "pos": 5,
+      "team": "Hungerford Town",
+      "p": 17,
+      "w": 10,
+      "d": 3,
+      "l": 4,
+      "gf": 31,
+      "ga": 13,
+      "gd": 18,
+      "pts": 33
+    },
+    {
+      "pos": 6,
+      "team": "Hartpury FC",
+      "p": 18,
+      "w": 9,
+      "d": 3,
+      "l": 6,
+      "gf": 34,
+      "ga": 22,
+      "gd": 12,
+      "pts": 30
+    },
+    {
+      "pos": 7,
+      "team": "Sporting Club Inkberrow",
+      "p": 16,
+      "w": 7,
+      "d": 4,
+      "l": 5,
+      "gf": 29,
+      "ga": 25,
+      "gd": 4,
+      "pts": 25
+    },
+    {
+      "pos": 8,
+      "team": "Tiverton Town",
+      "p": 17,
+      "w": 7,
+      "d": 4,
+      "l": 6,
+      "gf": 29,
+      "ga": 25,
+      "gd": 4,
+      "pts": 25
+    },
+    {
+      "pos": 9,
+      "team": "Falmouth Town",
+      "p": 17,
+      "w": 7,
+      "d": 4,
+      "l": 6,
+      "gf": 25,
+      "ga": 25,
+      "gd": 0,
+      "pts": 25
+    },
+    {
+      "pos": 10,
+      "team": "Portland United",
+      "p": 16,
+      "w": 7,
+      "d": 4,
+      "l": 5,
+      "gf": 25,
+      "ga": 25,
+      "gd": 0,
+      "pts": 25
+    },
+    {
+      "pos": 11,
+      "team": "Willand Rovers",
+      "p": 16,
+      "w": 7,
+      "d": 3,
+      "l": 6,
+      "gf": 23,
+      "ga": 24,
+      "gd": -1,
+      "pts": 24
+    },
+    {
+      "pos": 12,
+      "team": "Worcester Raiders",
+      "p": 20,
+      "w": 5,
+      "d": 9,
+      "l": 6,
+      "gf": 19,
+      "ga": 25,
+      "gd": -6,
+      "pts": 24
+    },
+    {
+      "pos": 13,
+      "team": "Bishops Cleeve",
+      "p": 16,
+      "w": 7,
+      "d": 2,
+      "l": 7,
+      "gf": 26,
+      "ga": 25,
+      "gd": 1,
+      "pts": 23
+    },
+    {
+      "pos": 14,
+      "team": "Exmouth Town",
+      "p": 15,
+      "w": 6,
+      "d": 3,
+      "l": 6,
+      "gf": 24,
+      "ga": 26,
+      "gd": -2,
+      "pts": 21
+    },
+    {
+      "pos": 15,
+      "team": "Barnstaple Town",
+      "p": 19,
+      "w": 6,
+      "d": 2,
+      "l": 11,
+      "gf": 27,
+      "ga": 30,
+      "gd": -3,
+      "pts": 20
+    },
+    {
+      "pos": 16,
+      "team": "Melksham Town",
+      "p": 17,
+      "w": 5,
+      "d": 3,
+      "l": 9,
+      "gf": 22,
+      "ga": 32,
+      "gd": -10,
+      "pts": 18
+    },
+    {
+      "pos": 17,
+      "team": "Shaftesbury",
+      "p": 18,
+      "w": 5,
+      "d": 2,
+      "l": 11,
+      "gf": 28,
+      "ga": 40,
+      "gd": -12,
+      "pts": 17
+    },
+    {
+      "pos": 18,
+      "team": "Bideford AFC",
+      "p": 17,
+      "w": 3,
+      "d": 7,
+      "l": 7,
+      "gf": 22,
+      "ga": 30,
+      "gd": -8,
+      "pts": 16
+    },
+    {
+      "pos": 19,
+      "team": "Slimbridge AFC",
+      "p": 17,
+      "w": 4,
+      "d": 2,
+      "l": 11,
+      "gf": 21,
+      "ga": 43,
+      "gd": -22,
+      "pts": 14
+    },
+    {
+      "pos": 20,
+      "team": "Larkhall Athletic",
+      "p": 18,
+      "w": 3,
+      "d": 4,
+      "l": 11,
+      "gf": 20,
+      "ga": 34,
+      "gd": -14,
+      "pts": 13
+    },
+    {
+      "pos": 21,
+      "team": "Paulton Rovers",
+      "p": 16,
+      "w": 2,
+      "d": 6,
+      "l": 8,
+      "gf": 11,
+      "ga": 23,
+      "gd": -12,
+      "pts": 12
+    },
+    {
+      "pos": 22,
+      "team": "Bristol Manor Farm",
+      "p": 19,
+      "w": 1,
+      "d": 7,
+      "l": 11,
+      "gf": 12,
+      "ga": 37,
+      "gd": -25,
+      "pts": 10
+    }
+  ],
+  "divisionResults": [
+    {
+      "date": "2026-11-14",
+      "home": "Barnstaple Town",
+      "away": "Westbury United",
+      "score": "1-2"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Dorchester Town",
+      "away": "Larkhall Athletic",
+      "score": "3-0"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Exmouth Town",
+      "away": "Bristol Manor Farm",
+      "score": "5-0"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Hartpury FC",
+      "away": "Falmouth Town",
+      "score": "3-0"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Hungerford Town",
+      "away": "Shaftesbury",
+      "score": "3-1"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Paulton Rovers",
+      "away": "Willand Rovers",
+      "score": "0-1"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Slimbridge AFC",
+      "away": "Melksham Town",
+      "score": "2-4"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Swindon Supermarine",
+      "away": "Portland United",
+      "score": "0-0"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Tiverton Town",
+      "away": "Bishops Cleeve",
+      "score": "3-1"
+    },
+    {
+      "date": "2026-11-14",
+      "home": "Worcester Raiders",
+      "away": "Bideford AFC",
+      "score": "0-0"
+    }
+  ],
+  "postponed": [
+    {
+      "date": "2026-11-14",
+      "home": "Weymouth FC",
+      "away": "Sporting Club Inkberrow",
+      "status": "P-P"
+    }
+  ],
+  "goalMinutes": [
+    {
+      "minute": 16,
+      "player": "Louis Jagger Cane",
+      "team": "Tiverton Town"
+    },
+    {
+      "minute": 26,
+      "player": "Jake Lee",
+      "team": "Bishops Cleeve"
+    },
+    {
+      "minute": 35,
+      "player": "Louis Jagger Cane",
+      "team": "Tiverton Town"
+    },
+    {
+      "minute": 40,
+      "player": "Dan Koita",
+      "team": "Tiverton Town"
+    }
+  ],
+  "yellowCards": [
+    {
+      "minute": 26,
+      "player": "Corey Koerner",
+      "team": "Tiverton Town"
+    }
+  ],
+  "substitutions": [
+    {
+      "minute": "55",
+      "on": "Evander Grubb",
+      "off": "Josh Bissett"
+    },
+    {
+      "minute": "75",
+      "on": "Jacob Wellington",
+      "off": "Louis Jagger Cane"
+    },
+    {
+      "minute": "81",
+      "on": "Finn Roberts",
+      "off": "Corey Koerner"
+    },
+    {
+      "minute": "88",
+      "on": "Ryan Keates",
+      "off": "Toby Stephens"
+    },
+    {
+      "minute": "90+2",
+      "on": "Aiden Horne",
+      "off": "Dan Koita"
+    }
+  ],
+  "nextFixture": {
+    "date": "2026-11-21",
+    "opponent": "Melksham Town",
+    "venue": "A"
+  },
+  "canvaStatus": "SOURCE_DATA_READY__NATIVE_PAGES_NOT_EDITED",
+  "notes": "Do not alter approved Canva master. Latest full-time standings from editor screenshots; no fixture awarded for postponed Weymouth–Inkberrow."
+}

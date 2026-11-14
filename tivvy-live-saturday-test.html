@@ -189,10 +189,13 @@ const initials=n=>String(n||"").toLowerCase().trim();
 function eventType(e){return String(e.eventType||e.type||"EVENT").toUpperCase()}
 function eventLabel(e){let t=eventType(e);return t.startsWith("GOAL")?"⚽ "+(t.includes("PENALTY")?"PENALTY GOAL":"GOAL"):t==="FIRST_YELLOW_CARD"?"🟨 YELLOW CARD":t==="SECOND_YELLOW_CARD"?"🟨 SECOND YELLOW":t.includes("RED_CARD")?"🟥 RED CARD":t.includes("SUB")?"↕ SUBSTITUTION":t.includes("CAPTAIN")?"◆ CAPTAIN":t.replace(/_/g," ")}
 function eventKind(e){let t=eventType(e);return t.startsWith("GOAL")?"kind-goal":t.includes("YELLOW")?"kind-yellow":t.includes("RED_CARD")?"kind-red":t.includes("SUB")?"kind-sub":t.includes("CAPTAIN")?"kind-captain":""}
-function person(e){return e.person?.name||e.personName||e.player||"Player not reported";}
+// Broadcast-friendly player names. Full names remain intact in the source data.
+const displayNames={"joshua william bissett":"Josh Bissett","jacob robert wellington":"Jacob Wellington","matthew liam wood":"Matt Wood","corey hayden koerner":"Corey Koerner","louis jagger cane":"Louis Jagger Cane","evander marvin grubb":"Evander Grubb","jack william kennell":"Jack Kennell"};
+function shortPlayerName(raw){const value=String(raw||"").trim();const key=value.toLowerCase().replace(/\s+/g," ");if(displayNames[key])return displayNames[key];const words=value.split(/\s+/);return words.length>2?words[0]+" "+words[words.length-1]:value;}
+function person(e){return shortPlayerName(e.person?.name||e.personName||e.player)||"Player not reported";}
 function scoreText(sc){return sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away)?sc.home+" – "+sc.away:"— : —"}
 function scoreTag(sc,mini){return mk("strong","event-score"+(mini?" mini":""),scoreText(sc))}
-function subDetails(e){const line=mk("div","sub-pair");const incoming=e.person?.name||e.personOn?.name||e.personOnName;const outgoing=e.personOff?.name||e.personOffName;
+function subDetails(e){const line=mk("div","sub-pair");const incoming=shortPlayerName(e.person?.name||e.personOn?.name||e.personOnName);const outgoing=shortPlayerName(e.personOff?.name||e.personOffName);
  if(incoming)line.append(mk("span","sub-on","▲ ON · "+incoming));
  if(outgoing)line.append(mk("span","sub-off","▼ OFF · "+outgoing));
  if(!incoming&&!outgoing)line.append(mk("span","muted","Substitution players not supplied"));

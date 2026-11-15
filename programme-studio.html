@@ -588,7 +588,7 @@ function visibleAround(d){
  return {date:earliest,rows:all.filter(m=>m.date===earliest)};
 }
 function renderAround(d){
- const {date,rows}=visibleAround(d),actual=d.date===(mode==="edition"?issueDate():d.date),out='<div class="aroundHead"><h1 data-field="title" contenteditable="true">'+esc(d.title||"AROUND THE LEAGUE")+'</h1></div>';
+ let {date,rows}=visibleAround(d),actual=d.date===(mode==="edition"?issueDate():d.date),out='<div class="aroundHead"><h1 data-field="title" contenteditable="true">'+esc(d.title||"AROUND THE LEAGUE")+'</h1></div>';
  out+='<div class="aroundDate">'+esc(longDate(date))+' · Excluding Tiverton Town</div>';
  out+='<div class="aroundStrip">'+(rows.length?(rows.every(m=>/^(FT|AET|PEN)$/i.test(m.status||""))?"MATCHDAY RESULTS":"OTHER LEAGUE FIXTURES"):"OTHER LEAGUE FIXTURES")+'</div>';
  if(d.frozen&&actual)out+='<div class="aroundSnapshot">APPROVED PRINT SNAPSHOT · '+esc(d.frozenAt||"")+'</div>';
@@ -1243,10 +1243,10 @@ $("refreshLeagueFeed").onclick=refreshAround;
 $("freezeLeagueFeed").onclick=()=>{const d=edition.around;if(mode!=="edition"||d.frozen||!d.fetchedAt||d.date!==issueDate())return;
  if(!d.fixtures.length&&!confirm("The feed returned zero fixtures. Freeze an empty page?"))return;
  if(!confirm("Approve these Page 17 fixtures for print? They will stay fixed until you deliberately unlock them."))return;
- const before=snapshot();makeRestorePoint("Before freezing Page 17 · "+issueDate());d.frozen=true;d.frozenAt=new Date().toISOString();persist();commitChange(before,"Approve print snapshot","Page 17","Draft feed","Frozen "+d.fixtures.length+" fixtures");render();
+ const before=snapshot();makeRestorePoint("Before freezing Page 17 · "+issueDate());d._approvedDate=visibleAround(d).date;d.frozen=true;d.frozenAt=new Date().toISOString();persist();commitChange(before,"Approve print snapshot","Page 17","Draft feed","Frozen "+d.fixtures.length+" fixtures");render();
 };
 $("unfreezeLeagueFeed").onclick=()=>{const d=edition.around;if(mode!=="edition"||!d.frozen||!confirm("Unlock approved Page 17 data for editing and refreshing?"))return;
- const before=snapshot();makeRestorePoint("Before unlocking Page 17 · "+issueDate());d.frozen=false;d.frozenAt="";persist();commitChange(before,"Unlock print snapshot","Page 17","Frozen","Draft");render();
+ const before=snapshot();makeRestorePoint("Before unlocking Page 17 · "+issueDate());d.frozen=false;d.frozenAt="";delete d._approvedDate;persist();commitChange(before,"Unlock print snapshot","Page 17","Frozen","Draft");render();
 };
 $("editionName").onchange=e=>{const before=snapshot(),old=editionName;editionName=e.target.value;persist();commitChange(before,"Rename edition","Edition",old,editionName);};
 $("undo").onclick=undo;$("redo").onclick=redo;

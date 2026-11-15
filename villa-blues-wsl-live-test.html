@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Villa v Blues · WSL Live Feed Lab · Tivvy Data Centre</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffdb00;--bg:#101013;--panel:#222327;--line:#48484d;--purple:#b99bff;--green:#83e5ad}
+*{box-sizing:border-box}body{margin:0;color:#f6f6f6;background:#151519;font:16px/1.5 Arial,sans-serif}
+header{padding:22px max(20px,calc((100vw - 1200px)/2));background:#09090b;border-bottom:5px solid var(--gold)}
+h1,h2,h3,button,.score,.team,.minute{font-family:Antonio,Impact,sans-serif;text-transform:uppercase}
+header h1{color:var(--gold);font-size:clamp(31px,4.8vw,52px);margin:0}header p{margin:4px 0 0;color:#ccc}
+main{max-width:1200px;margin:auto;padding:22px 18px 70px}.eyebrow{font-size:12px;letter-spacing:.11em;font-weight:700;color:var(--purple)}
+.board{background:#242429;border:1px solid #57575e;border-top:5px solid var(--gold);padding:24px;text-align:center}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}.team{font-size:clamp(24px,4vw,46px);line-height:1.12}
+.score{color:#131313;background:var(--gold);padding:4px 22px;font-size:clamp(39px,6vw,68px)}.matchstatus{color:#ddd;margin-top:12px}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:15px 0 22px}
+button{background:var(--gold);color:#151515;border:2px solid var(--gold);font-size:19px;padding:9px 17px;cursor:pointer}
+button:hover{filter:brightness(1.1)}.secondary{background:#242429;color:var(--gold)}
+a{color:var(--gold)}.chip{background:#31323a;border:1px solid #555763;padding:8px 12px;font-size:13px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{background:var(--panel);padding:18px;border:1px solid #55565a}
+h2{font-size:28px;color:var(--gold);margin:0 0 13px}.lineups{margin:0;padding:0;list-style:none}
+.lineups li{padding:7px 0;border-bottom:1px solid #4b4b50}.lineups li:last-child{border:0}
+.number{display:inline-block;min-width:32px;color:var(--gold);font-family:Antonio,Impact,sans-serif;font-size:20px}
+.note{color:#b6b9c5;font-size:14px}.timeline{border-left:3px solid var(--gold);margin:22px 0 0 18px;padding:0 0 0 25px}
+.incident{margin-bottom:12px;padding:12px 14px;background:#242429;border-left:5px solid var(--gold);position:relative}
+.incident:before{content:"";position:absolute;left:-35px;top:15px;background:var(--gold);width:16px;height:16px;border-radius:100%}
+.minute{font-size:23px;color:var(--gold)}.eventtype{font-family:Antonio,Impact,sans-serif;color:#9bd5fc;font-size:22px}
+.source{font-size:12px;color:#bbb;margin-top:6px}details{background:#25252b;border:1px solid #55565a;margin-top:18px;padding:10px}
+summary{cursor:pointer;font-weight:700}pre{white-space:pre-wrap;word-break:break-word;max-height:350px;overflow:auto;font-size:12px}
+.statusok{color:var(--green)}.statusbad{color:#ff8c98} .probe{font-family:monospace;font-size:12px;color:#ddd}
+@media(max-width:700px){.row{grid-template-columns:1fr}.teams{gap:5px}.board{padding:13px}.score{padding:2px 8px}.controls{align-items:stretch}.chip{flex:1}}
+</style></head>
+<body>
+<header><div class="eyebrow">TIVVY DATA CENTRE / EXPERIMENTAL DATA TEST</div><h1>VILLA v BLUES · LIVE FEED LAB</h1><p>Sunday 15 November 2026 · 14:00 GMT · Villa Park · Barclays Women's Super League</p></header>
+<main>
+<section class="board"><div class="eyebrow">WOMEN'S SUPER LEAGUE · SOURCE TEST ONLY</div><div class="teams"><div class="team">ASTON VILLA</div><div class="score" id="score">— : —</div><div class="team">BIRMINGHAM CITY</div></div><div class="matchstatus" id="matchstatus">Awaiting verified match data</div></section>
+<div class="controls"><button id="refresh">REFRESH FEED ↻</button><button class="secondary" id="auto" aria-pressed="true">AUTO: ON · 60 SECONDS</button><span class="chip" id="lastcheck">Not checked</span><span class="chip" id="health">Checking source availability…</span></div>
+<p class="note">This is an independent experiment, not the Tiverton Town live ticker. ESPN's public match-data service is being probed. Predictions and previous starting XIs are never displayed as today's confirmed lineup. No posts, scores, or incidents are invented.</p>
+<div class="row"><section class="card"><h2>ASTON VILLA XI</h2><ol id="villa" class="lineups"><li class="note">Awaiting confirmed team sheet</li></ol><p id="villaBench" class="note">Substitutes not available.</p></section><section class="card"><h2>BIRMINGHAM CITY XI</h2><ol id="blues" class="lineups"><li class="note">Awaiting confirmed team sheet</li></ol><p id="bluesBench" class="note">Substitutes not available.</p></section></div>
+<section class="card" style="margin-top:22px"><h2>AS IT HAPPENS</h2><div class="note" id="eventStatus">Waiting for a verified incident source.</div><div class="timeline" id="timeline"></div></section>
+<details><summary>DIAGNOSTICS · what can we actually retrieve?</summary><p class="note">These probes are deliberately displayed so a blank feed can be diagnosed. The data supplier may block browser-origin requests; that is a finding, not a successful feed.</p><div class="probe" id="probe">Starting…</div><pre id="raw">No response yet.</pre><p><a id="espnLink" href="https://www.espn.com/soccer/league/_/name/eng.w.1" target="_blank" rel="noopener">ESPN Women's Super League ↗</a> · <a href="https://www.wslfootball.com/fixtures" target="_blank" rel="noopener">Official WSL fixtures ↗</a> · <a href="https://www.avfc.co.uk/" target="_blank" rel="noopener">Villa website ↗</a></p></details>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const DATE='20261115',ROOT='https://site.api.espn.com/apis/site/v2/sports/soccer/eng.w.1/';
+let pending=false,auto=true,lastEventId='';
+function message(id,s){$(id).textContent=s}
+function arr(x){return Array.isArray(x)?x:[]}
+function text(x){return typeof x==='string'?x:''}
+function matchTeam(x,name){const n=text(x).toLowerCase().replace(/[^a-z]+/g,' ');return name==='villa'?n.includes('aston villa'):n.includes('birmingham')}
+function getComp(event){return arr(event?.competitions)[0]||{}}
+function getSides(event){const teams=arr(getComp(event).competitors);return {villa:teams.find(x=>matchTeam(x?.team?.displayName||x?.team?.name||x?.team?.shortDisplayName,'villa')),blues:teams.find(x=>matchTeam(x?.team?.displayName||x?.team?.name||x?.team?.shortDisplayName,'blues'))}}
+function findEvent(list){return arr(list).find(e=>{const s=getSides(e);return s.villa&&s.blues})}
+function compactStatus(c){return text(c?.status?.type?.detail)||text(c?.status?.type?.description)||text(c?.status?.type?.name)||'Fixture found'}
+function rosterFromSummary(summary){const lists=arr(summary?.rosters).concat(arr(summary?.boxscore?.players));return lists}
+function selectRoster(summary,which){return rosterFromSummary(summary).find(x=>matchTeam(x?.team?.displayName||x?.team?.name||x?.team?.shortDisplayName,which))}
+function parsePlayers(roster){const candidates=arr(roster?.roster).length?roster.roster:arr(roster?.statistics).length?roster.statistics.flatMap(x=>arr(x.athletes).map(a=>a.athlete||a)):arr(roster?.athletes);
+ return candidates.map(item=>{const athlete=item.athlete||item;return{name:text(athlete?.displayName||athlete?.fullName||athlete?.name||item?.displayName),number:athlete?.jersey||item?.jersey||'',starter:item?.starter===true||item?.subbedIn===false&&item?.starter===true,sub:item?.starter===false}}).filter(x=>x.name)}
+function renderRoster(where,benchId,data){const players=parsePlayers(data);const starters=players.filter(x=>x.starter),bench=players.filter(x=>x.sub);
+ const box=$(where);box.replaceChildren();
+ if(!starters.length){const li=document.createElement('li');li.className='note';li.textContent=players.length?'Player list available, but starters NOT identified. Showing no predicted XI.':'Confirmed starting XI not available from source.';box.append(li)}
+ else for(const p of starters){const li=document.createElement('li');const n=document.createElement('span');n.className='number';n.textContent=p.number;li.append(n,document.createTextNode(p.name));box.append(li)}
+ message(benchId,bench.length?'SUBSTITUTES: '+bench.map(x=>(x.number?x.number+' ':'')+x.name).join(' · '):'Substitutes not confirmed by source.');
+ return {players:players.length,starters:starters.length,bench:bench.length};
+}
+function eventsFromSummary(summary){const sources=[...arr(summary?.keyEvents),...arr(summary?.details),...arr(summary?.plays),...arr(summary?.commentary?.comments)];const unique=new Map();for(const entry of sources){const id=entry.id||entry.sequence||JSON.stringify(entry).slice(0,250);if(!unique.has(id))unique.set(id,entry)}return [...unique.values()]}
+function eventInfo(e){let minute=e.clock?.displayValue||e.clock?.value||e.displayClock||e.minute||e.time?.displayValue||'—';
+ const type=text(e.type?.text||e.type?.displayName||e.type?.name||e.type||e.play?.type?.text||e.headline||e.title)||'MATCH UPDATE';
+ const description=text(e.text||e.shortText||e.description||e.play?.text||e.comment)||text(e.athlete?.displayName);
+ return {minute:String(minute),type,description}}
+function renderEvents(raw){const events=eventsFromSummary(raw),container=$('timeline');container.replaceChildren();
+ for(const e of events.slice(-80).reverse()){const {minute,type,description}=eventInfo(e);if(!description&&!type)continue;const div=document.createElement('div');div.className='incident';const m=document.createElement('div');m.className='minute';m.textContent=minute;const t=document.createElement('div');t.className='eventtype';t.textContent=type;const p=document.createElement('div');p.textContent=description;div.append(m,t,p);container.append(div)}
+ message('eventStatus',events.length?events.length+' source event records returned; chronology based on supplied order.':'No incident records exposed by the source yet.');
+ return events.length}
+async function fetchJson(url){const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12000);try{const r=await fetch(url,{cache:'no-store',signal:ctrl.signal,headers:{Accept:'application/json'}});if(!r.ok)throw Error('HTTP '+r.status);return r.json()}finally{clearTimeout(timer)}}
+async function check(){if(pending)return;pending=true;$('refresh').disabled=true;message('health','Checking ESPN feed…');const checks=[];
+ try{
+  const scoreboard=await fetchJson(ROOT+'scoreboard?dates='+DATE);
+  const found=findEvent(scoreboard.events);checks.push('Scoreboard reachable; '+arr(scoreboard.events).length+' events returned.');
+  if(!found){message('health','Match not found in ESPN feed');message('matchstatus','Villa v Blues not present in this ESPN response');message('probe',checks.join('\n'));message('raw',JSON.stringify({league:scoreboard.leagues?.[0]?.name,events:arr(scoreboard.events).map(e=>({id:e.id,name:e.name,date:e.date}))},null,2));return}
+  lastEventId=String(found.id||'');
+  const sides=getSides(found);message('score',String(sides.villa?.score??'—')+' : '+String(sides.blues?.score??'—'));
+  message('matchstatus',compactStatus(found.competitions?.[0])+' · '+compactStatus(found));
+  checks.push('Identified fixture ID '+lastEventId+'.');
+  let summary={};
+  if(lastEventId){try{summary=await fetchJson(ROOT+'summary?event='+encodeURIComponent(lastEventId));checks.push('Match summary endpoint reachable.')}catch(e){checks.push('Summary fetch blocked: '+e.message)}}
+  const v=renderRoster('villa','villaBench',selectRoster(summary,'villa')),b=renderRoster('blues','bluesBench',selectRoster(summary,'blues')),events=renderEvents(summary);
+  checks.push('Villa starter IDs: '+v.starters+'; Blues starter IDs: '+b.starters+'; events: '+events+'.');
+  message('health','Source reachable · '+(events||v.starters||b.starters?'some match detail':'scoreboard only'));
+  message('probe',checks.join('\n'));message('raw',JSON.stringify({eventId:lastEventId,summaryTopLevelKeys:Object.keys(summary),rosterCounts:{villa:v,blues:b},events},null,2));
+ }catch(e){message('health','Source unavailable or blocked');message('probe','Fetch failed: '+String(e.message||e)+'\nPossible provider CORS restrictions or ESPN not serving this fixture.');message('raw','No data returned. This is a browser-origin test; a GitHub Actions collector can be the next fallback.')}
+ finally{pending=false;$('refresh').disabled=false;message('lastcheck','Last probe: '+new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/London'}))}
+}
+$('refresh').onclick=check;
+$('auto').onclick=()=>{auto=!auto;$('auto').textContent='AUTO: '+(auto?'ON · 60 SECONDS':'OFF');$('auto').setAttribute('aria-pressed',String(auto))};
+setInterval(()=>{if(auto&&!document.hidden)check()},60000);check();
+</script></body></html>

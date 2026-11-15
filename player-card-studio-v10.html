@@ -112,7 +112,18 @@ body.previewMode .poster{box-shadow:0 18px 48px #0009}
 .artwork-only #matchDataEditor{display:none}
 .empty-squad .poster{opacity:.45}
 @media(max-width:650px){.squad-tabs{padding:0 12px;gap:5px}.squad-tab{font-size:18px;padding:9px 5px}}
-.template-quick-access{background:#fff8d7;border:2px solid #111;padding:12px;margin:13px 0 15px}.template-quick-access h3{font:600 22px Antonio,Impact,sans-serif;margin:0 0 6px}.template-quick-access .btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.template-quick-access .btns button{font-size:14px;line-height:1.2;min-height:45px}.template-quick-access .help{display:block;margin-top:6px}@media(max-width:410px){.template-quick-access .btns{grid-template-columns:1fr}}</style></head><body>
+.template-quick-access{background:#fff8d7;border:2px solid #111;padding:12px;margin:13px 0 15px}.template-quick-access h3{font:600 22px Antonio,Impact,sans-serif;margin:0 0 6px}.template-quick-access .btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.template-quick-access .btns button{font-size:14px;line-height:1.2;min-height:45px}.template-quick-access .help{display:block;margin-top:6px}@media(max-width:410px){.template-quick-access .btns{grid-template-columns:1fr}}
+/* Artwork-only squad previews keep the exact same hero-to-details cut-off
+   boundary as the men's finished card. This guide is editor-only, never art. */
+.artwork-cutoff-guide{display:none}
+.artwork-only .artwork-cutoff-guide{
+ display:flex;align-items:flex-start;justify-content:center;position:relative;z-index:3;
+ height:86px;background:linear-gradient(145deg,#141414,#242424 55%,#161616);
+ border:8px solid var(--yellow);box-shadow:0 8px 24px #0004;
+}
+.artwork-cutoff-guide .cutoff-caption{font:600 11px Arial,sans-serif;letter-spacing:.07em;color:#e8e8e8;padding:9px 5px;text-align:center}
+@media print{.artwork-cutoff-guide{display:none!important}}
+</style></head><body>
 <header><div><h1>Tivvy Player Card Studio · V10 · Template Right</h1><small>Editable concept · no changes to the live Match Centre</small></div><a href="mens-first-team-preview-v10.html">Back to First Team V10</a></header>
 <div class="toolbar"><button id="togglePreview" type="button">FULL-SIZE PREVIEW ↗</button><button id="showEditor" type="button" hidden>BACK TO EDITOR ✎</button><span>The concept image was an illustration; this preview is the actual editable page.</span></div><nav class="squad-tabs" aria-label="Squad"><button type="button" data-squad="men" class="squad-tab active" aria-pressed="true">MEN</button><button type="button" data-squad="women" class="squad-tab" aria-pressed="false">WOMEN</button><button type="button" data-squad="under18" class="squad-tab" aria-pressed="false">UNDER-18s</button></nav><div class="layout" id="studioLayout"><aside class="editor"><h2>Card editor</h2><p>Choose Dan or Finn, change the text or move their portraits, and see everything update immediately. Your drafts stay in this browser until you export them.</p>
 <div class="field"><label for="player">Player</label><select id="player"><option value="dan-koita">Dan Koita</option></select></div>
@@ -135,6 +146,7 @@ body.previewMode .poster{box-shadow:0 18px 48px #0009}
 <div class="btns"><button class="action" id="save">Save draft</button><button id="export">Export JSON</button><button id="import">Import JSON</button><button id="print">Print / PDF</button><button id="reset">Reset player</button></div><input id="importFile" type="file" accept="application/json,.json" hidden><p id="status" role="status">Loading squad and match data…</p><div class="smallstatus">This is a separate design studio. Save draft stores only this browser's edits; Export JSON gives you a portable backup. It does not change GitHub, Wix or Canva.</div>
 </aside><main><div class="previewframe"><article class="poster" id="poster">
 <section class="hero"><img class="paintArt" id="paintArt" alt="" aria-hidden="true" hidden><div id="brushPrompt" class="brushPrompt">UPLOAD A TIVVY BRUSH PNG FOR THE APPROVED PAINTED LOOK</div><div class="titlebar"><h2 id="outName">Dan Koita</h2></div><div class="positionbar" id="outPosition">FORWARD</div><div class="imagehint" id="imageHint" hidden aria-hidden="true"></div><img id="outPhoto" class="playerpic" alt="" hidden></section>
+<div class="artwork-cutoff-guide" aria-label="Preview cut-off: artwork above this line; details panel begins below"><span class="cutoff-caption">ARTWORK CUT-OFF — DETAILS PANEL STARTS HERE</span></div>
 <section class="panel" id="playerDataPreview">
 
 <div class="sectitle">Player details</div><div class="statgrid" id="outStats"></div>

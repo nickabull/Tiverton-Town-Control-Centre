@@ -1,0 +1,288 @@
+{
+  "team": "women",
+  "season": "2026/27",
+  "source": "Club editor verified names from women player sponsorship cards 15 Nov 2026",
+  "positionNotes": "Only Carly Kelland is confirmed as goalkeeper; all other positions require club confirmation. Do not conflate aliases from historic FA records.",
+  "players": [
+    {
+      "id": "women-amy-needs",
+      "name": "Amy Needs",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-ana-curtis",
+      "name": "Ana Curtis",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-madi-walker",
+      "name": "Madi Walker",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-chloe-curtis",
+      "name": "Chloe Curtis",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-ella-mae-crocker",
+      "name": "Ella Mae Crocker",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-emmie-curtis",
+      "name": "Emmie Curtis",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-freya-harris",
+      "name": "Freya Harris",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-grace-woodman",
+      "name": "Grace Woodman",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-immy-luke",
+      "name": "Immy Luke",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-india-woodman",
+      "name": "India Woodman",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-isla-findlay",
+      "name": "Isla Findlay",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-jemma-murphy",
+      "name": "Jemma Murphy",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-liv-tron",
+      "name": "Liv Tron",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-lilly-mearns",
+      "name": "Lilly Mearns",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-maddison-ridgewell",
+      "name": "Maddison Ridgewell",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-niamh-poole",
+      "name": "Niamh Poole",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-ruby-toogood",
+      "name": "Ruby Toogood",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-bea-tidball",
+      "name": "Bea Tidball",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-lacey-saunders",
+      "name": "Lacey Saunders",
+      "position": "Position to confirm",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "women-carly-kelland",
+      "name": "Carly Kelland",
+      "position": "Goalkeeper",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    }
+  ]
+}

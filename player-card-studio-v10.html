@@ -278,7 +278,7 @@ function populateSquad(requested){
  }
  selected=squad.some(p=>p.id===requested)?requested:(selectedTeam==='men'&&squad.some(p=>p.id==='dan-koita')?'dan-koita':squad[0].id);
  $('player').value=selected;setPlayer(selected);
- $('status').textContent=selectedTeam==='men'?'Loaded '+squad.length+' men player records and '+fixtures.length+' fixtures.':'Loaded '+squad.length+' '+(selectedTeam==='under18'?'Under-18':'women')+' names for artwork-only cards. No statistics are assumed.';
+ $('status').textContent=selectedTeam==='men'?'Loaded '+squad.length+' men player records and '+fixtures.length+' fixtures.':'Loaded '+squad.length+' '+(selectedTeam==='under18'?'Under-18':'women')+' names for artwork-only cards. Positions marked to confirm where unknown; no statistics assumed.';
 }
 function selectSquad(team,requested){
  if(!Object.prototype.hasOwnProperty.call(squadLists,team))return;
@@ -293,11 +293,12 @@ document.querySelectorAll('.squad-tab').forEach(button=>button.onclick=()=>selec
 Promise.all([
  fetch('data/men-squad.json?studio=signings-20261109-v2',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Men squad '+r.status);return r.json()}),
  fetch(DATA,{cache:'no-store'}).then(r=>r.json()).catch(()=>({fixtures:[]})),
- fetch('data/u18-squad.json?studio=20261115',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('U18 squad '+r.status);return r.json()})
-]).then(([men,match,u18])=>{
+ fetch('data/u18-squad.json?studio=20261115',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('U18 squad '+r.status);return r.json()}),
+ fetch('data/women-squad.json?studio=20261115',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Women squad '+r.status);return r.json()})
+]).then(([men,match,u18,women])=>{
  squadLists.men=(men.players||[]).filter(p=>p.status!=='review');
  for(const player of NEW_SIGNINGS){if(!squadLists.men.some(p=>p.id===player.id))squadLists.men.push({...player,status:'current',sponsorships:{'2026/27':{sponsor_name:''}}})}
- squadLists.under18=u18.players||[];fixtures=match.fixtures||[];
+ squadLists.under18=u18.players||[];squadLists.women=women.players||[];fixtures=match.fixtures||[];
  const params=new URLSearchParams(location.search);const team=params.get('squad');
  selectSquad(['men','women','under18'].includes(team)?team:'men',params.get('player'));
 }).catch(e=>{$('status').textContent='Source data unavailable: '+e.message;});

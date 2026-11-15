@@ -1,0 +1,301 @@
+{
+  "team": "under18",
+  "season": "2026/27",
+  "source": "Squad names and position groups supplied by the club editor, 15 November 2026",
+  "players": [
+    {
+      "id": "u18-theo-spivvy",
+      "name": "Theo Spivvy",
+      "position": "Goalkeeper",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-james-dawes",
+      "name": "James Dawes",
+      "position": "Goalkeeper",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-alex-barnett",
+      "name": "Alex Barnett",
+      "position": "Defender",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-george-arscott",
+      "name": "George Arscott",
+      "position": "Defender",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-omar-sherif",
+      "name": "Omar Sherif",
+      "position": "Defender",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-elliot-fullarton",
+      "name": "Elliot Fullarton",
+      "position": "Defender",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-harry-piper",
+      "name": "Harry Piper",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-jake-woodman",
+      "name": "Jake Woodman",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-lewis-piper",
+      "name": "Lewis Piper",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-charlie-king",
+      "name": "Charlie King",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-joe-ward",
+      "name": "Joe Ward",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-freddie-avery",
+      "name": "Freddie Avery",
+      "position": "Midfielder",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-seb-roche",
+      "name": "Seb Roche",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-lucas-clow",
+      "name": "Lucas Clow",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-george-fielder",
+      "name": "George Fielder",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-isaac-zeleke-heramo",
+      "name": "Isaac Zeleke Heramo",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-owen-phillips",
+      "name": "Owen Phillips",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-archie-balchin",
+      "name": "Archie Balchin",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-fin-barrass",
+      "name": "Fin Barrass",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-jack-norrish",
+      "name": "Jack Norrish",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    },
+    {
+      "id": "u18-zak-cheriet",
+      "name": "Zak Cheriet",
+      "position": "Forward",
+      "status": "current",
+      "shirt_number": null,
+      "photo_url": "",
+      "notes": "",
+      "sponsorships": {
+        "2026/27": {
+          "sponsor_name": ""
+        }
+      }
+    }
+  ]
+}

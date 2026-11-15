@@ -25,6 +25,7 @@ h1{font:700 clamp(27px,3vw,37px)/1.1 Antonio,Impact,'Arial Narrow',sans-serif;ma
 .score{text-align:center;font:700 29px/1.1 Arial,sans-serif}
 .kickoff{display:block;font:14px Arial,sans-serif;margin-top:7px}
 .awayName{font:700 clamp(20px,2.3vw,30px)/1.18 Arial,sans-serif;overflow-wrap:anywhere}
+.away-mini-crest{display:none}
  .team a,.team a:visited{color:#111;text-decoration:none}
 .team a:hover,.team a:focus-visible{text-decoration:underline;text-underline-offset:4px}
 .foot{background:#111;color:#ddd;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 20px;font-size:12px}
@@ -49,7 +50,9 @@ h1{font:700 clamp(27px,3vw,37px)/1.1 Antonio,Impact,'Arial Narrow',sans-serif;ma
  .game>.detail{grid-area:detail;align-self:end;padding:0;min-width:0;gap:5px}
  .game>.meta{display:none}
  .game>.score{grid-area:score;align-self:center;text-align:center;font-size:clamp(22px,3vw,29px);min-width:0;white-space:nowrap}
- .game>.awayName{grid-area:away;align-self:start;min-width:0}
+ .game>.awayName{grid-area:away;align-self:start;min-width:0;display:flex;align-items:center;gap:7px}
+ .game>.awayName .away-mini-crest{display:block;width:28px;height:28px;object-fit:contain;flex:none}
+ .game>.awayName a{min-width:0;overflow-wrap:normal;word-break:normal}
  .game>.awayName:before{content:"v ";font-weight:400}
  .game .date{font-size:clamp(12px,1.7vw,16px);font-weight:600;white-space:normal}
  .game .homeName,.game .awayName{font:700 clamp(16px,2.35vw,22px)/1.25 Arial,Helvetica,sans-serif;overflow-wrap:normal;word-break:normal;hyphens:none}
@@ -60,6 +63,8 @@ h1{font:700 clamp(27px,3vw,37px)/1.1 Antonio,Impact,'Arial Narrow',sans-serif;ma
  .game{grid-template-columns:47px minmax(0,1fr) 57px;column-gap:9px;padding:12px 8px;min-height:100px}
  .game>.crest,.game>.crest-fallback{max-height:47px}
  .game .homeName,.game .awayName{font-size:15px}
+ .game>.awayName .away-mini-crest{width:23px;height:23px}
+ .game>.awayName{gap:5px}
  .game .date{font-size:12px}
  .game>.score{font-size:21px}
  .game .kickoff{font-size:10px}
@@ -168,6 +173,20 @@ window.tivvyFixturesReady=function(data){
   when.textContent=scored?"FULL TIME":(/^(P|P-P|POST)$/i.test(m.status||"")?"POSTPONED":m.time||"15:00");
   score.append(when);
   var away=teamLink(m.away,"awayName");
+  var awayLogo=crestFor(m.away);
+  if(awayLogo){
+   var awayBadge=document.createElement("img");
+   awayBadge.className="away-mini-crest";
+   awayBadge.src=awayLogo;
+   awayBadge.alt="";
+   awayBadge.loading="lazy";
+   awayBadge.onerror=function(){
+    if(this.dataset.fallback){this.remove();return;}
+    this.dataset.fallback="1";
+    this.src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/assets/locked-crests/"+crestMap[String(m.away||"").toLowerCase().trim()]+".png";
+   };
+   away.prepend(awayBadge);
+  }
   row.append(badge,detail,meta,score,away);list.append(row);
  });
  document.getElementById("source").textContent="Football Web Pages · Updated periodically";

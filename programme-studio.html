@@ -597,7 +597,7 @@ function renderAround(d){
   let crest=AROUND_CRESTS[String(m.home||"").toLowerCase().trim()],awayCrest=AROUND_CRESTS[String(m.away||"").toLowerCase().trim()],score=/^(FT|AET|PEN)$/i.test(m.status||"")&&m.homeScore!=null&&m.awayScore!=null?m.homeScore+"–"+m.awayScore:"—";
   out+='<div class="aroundGame" data-row="'+i+'" data-name="'+esc(m.home+" v "+m.away)+'"><div>'+(crest?'<img src="'+ORIGIN+esc(crest)+'.png" alt="'+esc(m.home)+' crest">':'')+'</div><div class="agDate">'+esc(m.date.slice(8,10)+" "+new Date(m.date+"T12:00:00Z").toLocaleDateString("en-GB",{month:"short",timeZone:"Europe/London"}))+'<span class="agSmall">'+esc(m.home)+'</span></div><div><strong>HOME</strong><span class="agSmall">Southern League<br>Div 1 South</span></div><div class="agScore">'+esc(score)+'<span class="agSmall">'+esc(score==="—"?(m.time||"15:00"):"FULL TIME")+'</span></div><div class="agAway">'+(awayCrest?'<img src="'+ORIGIN+esc(awayCrest)+'.png" alt="'+esc(m.away)+' crest" loading="lazy">':'')+'<span>'+esc(m.away)+'</span></div></div>';
  });
- out+='<div class="aroundFooter">FOOTBALL WEB PAGES · '+esc(d.frozen?"APPROVED FOR PRINT":d.fetchedAt?"DRAFT DATA · CHECK BEFORE PRINT":"AWAITING FEED")+'</div>';
+ out+='<div class="aroundFooter">FOOTBALL WEB PAGES · '+esc(d.frozen?"APPROVED FOR PRINT":rows.some(m=>m.source)?"DRAFT · REFERENCE FIXTURES TO REVIEW":d.fetchedAt?"DRAFT DATA · CHECK BEFORE PRINT":"AWAITING FEED")+'</div>';
  return out;
 }
 function updateFeedUI(){
@@ -629,7 +629,24 @@ async function refreshAround(){
   const today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
   // Collect all upcoming matchdays through the programme edition, not Saturday alone.
   const matched=fixtures.filter(m=>m&&m.date>=today&&m.date<=date&&!/tiverton/i.test(String(m.home||"")+" "+String(m.away||""))).sort((a,b)=>a.date.localeCompare(b.date)||(a.time||"").localeCompare(b.time));
-  const before=snapshot(),old=edition.around.fixtures.length,clean=matched.map(m=>({date:m.date,time:m.time||"",home:m.home||"",away:m.away||"",homeScore:m.homeScore,awayScore:m.awayScore,status:m.status||""}));
+  // One-time published fixture reference for 17-18 Nov, used only when the
+  // shared feed omits these fixtures. Never manufacture a result or overwrite a feed match.
+  // https://www.footballwebpages.co.uk/southern-football-league-division-one-south/fixtures-results
+  const midweekReference=[
+   ["2026-11-17","19:45","Barnstaple Town","Dorchester Town"],
+   ["2026-11-17","19:45","Falmouth Town","Portland United"],
+   ["2026-11-17","19:45","Hungerford Town","Larkhall Athletic"],
+   ["2026-11-17","19:45","Weymouth","Exmouth Town"],
+   ["2026-11-18","19:45","Slimbridge","Paulton Rovers"]
+  ];
+  const nameKey=x=>String(x||"").toLowerCase().replace(/\b(afc|fc)\b/g,"").replace(/[^a-z0-9]/g,"");
+  for(const [d,t,home,away] of midweekReference){
+   if(d<today||d>date)continue;
+   if(matched.some(m=>m.date===d&&nameKey(m.home)===nameKey(home)&&nameKey(m.away)===nameKey(away)))continue;
+   matched.push({date:d,time:t,home,away,status:"SCHEDULED",source:"FootballWebPages fixture reference · 15 Nov 2026"});
+  }
+  matched.sort((a,b)=>a.date.localeCompare(b.date)||(a.time||"").localeCompare(b.time));
+  const before=snapshot(),old=edition.around.fixtures.length,clean=matched.map(m=>({date:m.date,time:m.time||"",home:m.home||"",away:m.away||"",homeScore:m.homeScore,awayScore:m.awayScore,status:m.status||"",source:m.source||""}));
   edition.around.fixtures=clean;edition.around.date=date;edition.around.fetchedAt=new Date().toISOString();edition.around._windowCheckedOn=today;edition.around.frozen=false;
   persist();commitChange(before,"Refresh Around the League","Page 17",old+" fixtures",clean.length+" fixtures on "+date);
   if(page==="around")render();else updateFeedUI();

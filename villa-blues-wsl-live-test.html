@@ -33,7 +33,7 @@ summary{cursor:pointer;font-weight:700}pre{white-space:pre-wrap;word-break:break
 <header><div class="eyebrow">TIVVY DATA CENTRE / EXPERIMENTAL DATA TEST</div><h1>VILLA v BLUES · LIVE FEED LAB</h1><p>Sunday 15 November 2026 · 14:00 GMT · Villa Park · Barclays Women's Super League</p></header>
 <main>
 <section class="board"><div class="eyebrow">WOMEN'S SUPER LEAGUE · SOURCE TEST ONLY</div><div class="teams"><div class="team">ASTON VILLA</div><div class="score" id="score">— : —</div><div class="team">BIRMINGHAM CITY</div></div><div class="matchstatus" id="matchstatus">Awaiting verified match data</div></section>
-<div class="controls"><button id="refresh">REFRESH FEED ↻</button><button class="secondary" id="auto" aria-pressed="true">AUTO: ON · 60 SECONDS</button><span class="chip" id="lastcheck">Not checked</span><span class="chip" id="health">Checking source availability…</span></div>
+<div class="controls"><button id="refresh">REFRESH FEED ↻</button><button class="secondary" id="auto" aria-pressed="true">AUTO: ON · 20 SECONDS</button><span class="chip" id="lastcheck">Not checked</span><span class="chip" id="health">Checking source availability…</span></div>
 <p class="note">This is an independent experiment, not the Tiverton Town live ticker. ESPN's public match-data service is being probed. Predictions and previous starting XIs are never displayed as today's confirmed lineup. No posts, scores, or incidents are invented.</p>
 <div class="row"><section class="card"><h2>ASTON VILLA XI</h2><ol id="villa" class="lineups"><li class="note">Awaiting confirmed team sheet</li></ol><p id="villaBench" class="note">Substitutes not available.</p></section><section class="card"><h2>BIRMINGHAM CITY XI</h2><ol id="blues" class="lineups"><li class="note">Awaiting confirmed team sheet</li></ol><p id="bluesBench" class="note">Substitutes not available.</p></section></div>
 <section class="card" style="margin-top:22px"><h2>AS IT HAPPENS</h2><div class="note" id="eventStatus">Waiting for a verified incident source.</div><div class="timeline" id="timeline"></div></section>
@@ -92,6 +92,6 @@ async function check(){if(pending)return;pending=true;$('refresh').disabled=true
  finally{pending=false;$('refresh').disabled=false;message('lastcheck','Last probe: '+new Date().toLocaleTimeString('en-GB',{timeZone:'Europe/London'}))}
 }
 $('refresh').onclick=check;
-$('auto').onclick=()=>{auto=!auto;$('auto').textContent='AUTO: '+(auto?'ON · 60 SECONDS':'OFF');$('auto').setAttribute('aria-pressed',String(auto))};
-setInterval(()=>{if(auto&&!document.hidden)check()},60000);check();
+$('auto').onclick=()=>{auto=!auto;$('auto').textContent='AUTO: '+(auto?'ON · 20 SECONDS':'OFF');$('auto').setAttribute('aria-pressed',String(auto))};
+setInterval(()=>{if(auto&&!document.hidden)check()},20000);check();
 </script></body></html>

@@ -102,9 +102,19 @@ body.previewMode .poster{box-shadow:0 18px 48px #0009}
   .matchmeta .events{flex-wrap:wrap;font-size:11px}
   .match .opponent{font-size:13px}
 }
+
+.squad-tabs{max-width:1600px;margin:14px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.squad-tab{border:2px solid #111;background:#ffda00;color:#111;padding:11px 15px;font:600 23px Antonio,Impact,sans-serif;min-height:50px}
+.squad-tab.active{background:#111;color:#ffda00}
+.squad-tab:focus-visible{outline:3px solid #167bdd;outline-offset:2px}
+.artwork-only #playerDataPreview{display:none}
+.artwork-only .poster{min-height:520px}
+.artwork-only #matchDataEditor{display:none}
+.empty-squad .poster{opacity:.45}
+@media(max-width:650px){.squad-tabs{padding:0 12px;gap:5px}.squad-tab{font-size:18px;padding:9px 5px}}
 </style></head><body>
 <header><div><h1>Tivvy Player Card Studio · V10 · Template Right</h1><small>Editable concept · no changes to the live Match Centre</small></div><a href="mens-first-team-preview-v10.html">Back to First Team V10</a></header>
-<div class="toolbar"><button id="togglePreview" type="button">FULL-SIZE PREVIEW ↗</button><button id="showEditor" type="button" hidden>BACK TO EDITOR ✎</button><span>The concept image was an illustration; this preview is the actual editable page.</span></div><div class="layout" id="studioLayout"><aside class="editor"><h2>Card editor</h2><p>Choose Dan or Finn, change the text or move their portraits, and see everything update immediately. Your drafts stay in this browser until you export them.</p>
+<div class="toolbar"><button id="togglePreview" type="button">FULL-SIZE PREVIEW ↗</button><button id="showEditor" type="button" hidden>BACK TO EDITOR ✎</button><span>The concept image was an illustration; this preview is the actual editable page.</span></div><nav class="squad-tabs" aria-label="Squad"><button type="button" data-squad="men" class="squad-tab active" aria-pressed="true">MEN</button><button type="button" data-squad="women" class="squad-tab" aria-pressed="false">WOMEN</button><button type="button" data-squad="under18" class="squad-tab" aria-pressed="false">UNDER-18s</button></nav><div class="layout" id="studioLayout"><aside class="editor"><h2>Card editor</h2><p>Choose Dan or Finn, change the text or move their portraits, and see everything update immediately. Your drafts stay in this browser until you export them.</p>
 <div class="field"><label for="player">Player</label><select id="player"><option value="dan-koita">Dan Koita</option></select></div>
 <div class="field"><label for="name">Name</label><input id="name"></div><div class="field"><label for="position">Position</label><input id="position"></div>
 <details open><summary>Portrait and sponsor</summary>
@@ -114,7 +124,7 @@ body.previewMode .poster{box-shadow:0 18px 48px #0009}
 <details open><summary>Biography and career</summary>
 <div class="field"><label for="bio">About this player</label><textarea id="bio"></textarea></div>
 <div class="field"><label for="reference">Previous clubs</label><textarea id="reference" rows="2" placeholder="Separate club names with commas"></textarea><span class="help">Only include previous clubs that have been confirmed. This is editable for every player.</span></div></details>
-<details open><summary>Match data and statistics</summary><label class="check"><input type="checkbox" id="liveStats" checked> Use live calculated stats</label><span class="help">Switch off to edit totals and individual matches manually for this preview only. This does not change the master data.</span>
+<details open id="matchDataEditor"><summary>Match data and statistics</summary><label class="check"><input type="checkbox" id="liveStats" checked> Use live calculated stats</label><span class="help">Switch off to edit totals and individual matches manually for this preview only. This does not change the master data.</span>
 <div class="statfields"><div class="field"><label for="apps">Apps</label><input type="number" id="apps" min="0"></div><div class="field"><label for="starts">Starts</label><input type="number" id="starts" min="0"></div><div class="field"><label for="goals">Goals</label><input type="number" id="goals" min="0"></div><div class="field"><label for="minutes">Minutes played (estimated)</label><input type="number" id="minutes" min="0"></div><div class="field"><label for="yellowCards">Yellow cards</label><input type="number" id="yellowCards" min="0"></div><div class="field"><label for="redCards">Red cards</label><input type="number" id="redCards" min="0"></div></div>
 <div class="field"><label for="matches">Last five matches (JSON array)</label><textarea id="matches" rows="7" spellcheck="false"></textarea><span class="help">Each row: date, opponent, venue (H/A), result (W/D/L), goals, onMinute, offMinute. Editable when live mode is off. Live scores are Tivvy-first in the source.</span></div></details>
 <details><summary>Layout and options</summary><div class="field"><label for="templateChoice">Swoosh template</label><select id="templateChoice"><option value="right">Right · yellow</option><option value="centre">Centre</option><option value="goalkeeper">Goalkeeper · purple</option></select></div>
@@ -124,7 +134,7 @@ body.previewMode .poster{box-shadow:0 18px 48px #0009}
 <div class="btns"><button class="action" id="save">Save draft</button><button id="export">Export JSON</button><button id="import">Import JSON</button><button id="print">Print / PDF</button><button id="reset">Reset player</button></div><input id="importFile" type="file" accept="application/json,.json" hidden><p id="status" role="status">Loading squad and match data…</p><div class="smallstatus">This is a separate design studio. Save draft stores only this browser's edits; Export JSON gives you a portable backup. It does not change GitHub, Wix or Canva.</div>
 </aside><main><div class="previewframe"><article class="poster" id="poster">
 <section class="hero"><img class="paintArt" id="paintArt" alt="" aria-hidden="true" hidden><div id="brushPrompt" class="brushPrompt">UPLOAD A TIVVY BRUSH PNG FOR THE APPROVED PAINTED LOOK</div><div class="titlebar"><h2 id="outName">Dan Koita</h2></div><div class="positionbar" id="outPosition">FORWARD</div><div class="imagehint" id="imageHint" hidden aria-hidden="true"></div><img id="outPhoto" class="playerpic" alt="" hidden></section>
-<section class="panel">
+<section class="panel" id="playerDataPreview">
 
 <div class="sectitle">Player details</div><div class="statgrid" id="outStats"></div>
 <div class="sectitle">Last five appearances</div><div class="matches" id="outMatches"></div>
@@ -138,20 +148,20 @@ const DATA='https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player
 const $=id=>document.getElementById(id);
 const keys=['name','position','photo','photoScale','photoX','photoY','brushSize','brushX','brushY','nameX','nameY','positionX','positionY','panelY','sponsor','bio','reference','apps','starts','goals','minutes','yellowCards','redCards','matches','yellow','showBio','showSponsor','liveStats'];
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let squad=[],fixtures=[],selected='dan-koita',localPhoto='',currentDraft=null,localBrush='';const sessionPhotos=Object.create(null),sessionBrushes=Object.create(null);
+let squad=[],fixtures=[],selected='dan-koita',selectedTeam='men',squadLists={men:[],women:[],under18:[]},localPhoto='',currentDraft=null,localBrush='';const sessionPhotos=Object.create(null),sessionBrushes=Object.create(null);
 const bios={
 'Dan Koita':'Dan brings energy, quality and hunger back to the Yellow and Black. Coming through at neighbouring Elmore, he has played for Crediton United, Tavistock and Okehampton Argyle, and previously scored a memorable bicycle-kick winner for Tivvy in the M5 derby.',
 'Finn Roberts':'Roberts joined the Yellows from Bideford ahead of 2026/27. An energetic young midfielder, he brings composure and a willingness to work hard. He previously scored more than 12 goals in a season for Bideford from the left wing.'
 };
 const storekey=id=>'tivvy-card-studio-v10:'+id;
 function resultLetter(f){const m=String(f.result||'').match(/^(\d+)\s*[-–]\s*(\d+)$/);if(!m)return '?';return +m[1]>+m[2]?'W':+m[1]<+m[2]?'L':'D';}
-function statsFor(name){let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,rows=[];for(const f of fixtures){if(f.upcoming)continue;const x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(p=>p.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const mval=v=>{const a=String(v??'').match(/^(\d+)(?:\+(\d+))?/);return a?Math.min(130,Number(a[1])+Number(a[2]||0)):null;};const on=x.sub?mval(x.onMinute):0,off=mval(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const c of x.cards||[]){const t=String(c.type||'').toLowerCase();if(t.includes('yellow'))yellowCards++;if(t.includes('red')||t.includes('sending_off'))redCards++;}rows.push({date:f.date,opponent:f.opponent,venue:f.venue,result:resultLetter(f),goals:Number(x.goalCount||0),goalMinutes:x.goalMinutes||[],onMinute:x.onMinute||'',offMinute:x.offMinute||''});}rows.sort((a,b)=>b.date.localeCompare(a.date));return{apps,starts,goals,minutes,yellowCards,redCards,matches:rows.slice(0,5)};}
-function defaults(p){const st=statsFor(p.name),s=p.sponsorships?.['2026/27']||{};return{name:p.name,position:p.position||(p.id==='dan-koita'?'Forward':p.id==='finn-roberts'?'Midfielder':'Position to confirm'),photo:p.photo_url||'',photoScale:100,photoX:0,photoY:0,brushSize:115,brushX:0,brushY:-20,nameX:0,nameY:0,positionX:0,positionY:0,panelY:0,sponsor:s.sponsor_name||'',bio:bios[p.name]||(p.notes?(p.notes+(p.player_quote?'\n\n“'+p.player_quote+'”':'')):''),reference:({ 'dan-koita':'Elmore, Crediton United, Tavistock, Okehampton Argyle', 'finn-roberts':'Bideford' }[p.id]||p.previous_club||''),apps:st.apps,starts:st.starts,goals:st.goals,minutes:st.minutes,yellowCards:st.yellowCards,redCards:st.redCards,matches:st.matches,yellow:'#ffda00',showBio:true,showSponsor:true,liveStats:true};}
+function statsFor(name){if(selectedTeam!=='men')return {apps:0,starts:0,goals:0,minutes:0,yellowCards:0,redCards:0,matches:[]};let apps=0,starts=0,goals=0,minutes=0,yellowCards=0,redCards=0,rows=[];for(const f of fixtures){if(f.upcoming)continue;const x=[...(f.starterDetails||[]),...(f.subDetails||[])].find(p=>p.name===name);if(!x||x.used===false)continue;apps++;if(!x.sub)starts++;const mval=v=>{const a=String(v??'').match(/^(\d+)(?:\+(\d+))?/);return a?Math.min(130,Number(a[1])+Number(a[2]||0)):null;};const on=x.sub?mval(x.onMinute):0,off=mval(x.offMinute)??90;if(on!==null)minutes+=Math.max(0,off-on);goals+=Number(x.goalCount||0);for(const c of x.cards||[]){const t=String(c.type||'').toLowerCase();if(t.includes('yellow'))yellowCards++;if(t.includes('red')||t.includes('sending_off'))redCards++;}rows.push({date:f.date,opponent:f.opponent,venue:f.venue,result:resultLetter(f),goals:Number(x.goalCount||0),goalMinutes:x.goalMinutes||[],onMinute:x.onMinute||'',offMinute:x.offMinute||''});}rows.sort((a,b)=>b.date.localeCompare(a.date));return{apps,starts,goals,minutes,yellowCards,redCards,matches:rows.slice(0,5)};}
+function defaults(p){const st=statsFor(p.name),s=p.sponsorships?.['2026/27']||{};return{name:p.name,position:p.position||(p.id==='dan-koita'?'Forward':p.id==='finn-roberts'?'Midfielder':'Position to confirm'),photo:p.photo_url||'',photoScale:100,photoX:0,photoY:0,brushSize:115,brushX:0,brushY:-20,nameX:0,nameY:0,positionX:0,positionY:0,panelY:0,sponsor:s.sponsor_name||'',bio:bios[p.name]||(p.notes?(p.notes+(p.player_quote?'\n\n“'+p.player_quote+'”':'')):''),reference:({ 'dan-koita':'Elmore, Crediton United, Tavistock, Okehampton Argyle', 'finn-roberts':'Bideford' }[p.id]||p.previous_club||''),apps:st.apps,starts:st.starts,goals:st.goals,minutes:st.minutes,yellowCards:st.yellowCards,redCards:st.redCards,matches:st.matches,yellow:'#ffda00',showBio:true,showSponsor:true,liveStats:selectedTeam==='men'};}
 function read(){const x={};for(const key of keys){const el=$(key);x[key]=el.type==='checkbox'?el.checked:(key==='matches'?el.value:el.value);}return x;}
 function apply(d){currentDraft=d;for(const key of keys){const el=$(key);if(!el)continue;if(el.type==='checkbox')el.checked=!!d[key];else if(key==='matches')el.value=typeof d[key]==='string'?d[key]:JSON.stringify(d[key]||[],null,2);else el.value=d[key]??'';}paint();}
-function setPlayer(id){selected=id;localPhoto=sessionPhotos[id]||'';restorePlayerPhoto(id);restorePlayerBrush(id);const p=squad.find(x=>x.id===id);if(!p)return;let d=defaults(p);try{const saved=localStorage.getItem(storekey(id))||localStorage.getItem('tivvy-card-studio-v9:'+id)||localStorage.getItem('tivvy-card-studio-v8:'+id)||localStorage.getItem('tivvy-card-studio-v7:'+id)||localStorage.getItem('tivvy-card-studio-v6:'+id)||localStorage.getItem('tivvy-card-studio-v4:'+id)||localStorage.getItem('tivvy-card-studio-v3:'+id)||localStorage.getItem('tivvy-card-studio-v2:'+id);if(saved)d={...d,...JSON.parse(saved)};}catch{}apply(d);}
+function setPlayer(id){selected=id;localPhoto=sessionPhotos[id]||'';restorePlayerPhoto(id);restorePlayerBrush(id);const p=squad.find(x=>x.id===id);if(!p)return;let d=defaults(p);try{const saved=localStorage.getItem(storekey(id))||(selectedTeam==='men'?localStorage.getItem('tivvy-card-studio-v9:'+id):null)||localStorage.getItem('tivvy-card-studio-v8:'+id)||localStorage.getItem('tivvy-card-studio-v7:'+id)||localStorage.getItem('tivvy-card-studio-v6:'+id)||localStorage.getItem('tivvy-card-studio-v4:'+id)||localStorage.getItem('tivvy-card-studio-v3:'+id)||localStorage.getItem('tivvy-card-studio-v2:'+id);if(saved)d={...d,...JSON.parse(saved)};}catch{}apply(d);}
 function validPhoto(url){return /^https:\/\/[^\s"'<>]+$/i.test(url);}
-function paint(){const d=read();const p=squad.find(x=>x.id===selected);const live=statsFor(p?.name||d.name);if(d.liveStats){for(const k of ['apps','starts','goals','minutes','yellowCards','redCards']){$(k).value=live[k];$(k).disabled=true;}$('matches').value=JSON.stringify(live.matches,null,2);$('matches').disabled=true;}else{for(const k of ['apps','starts','goals','minutes','yellowCards','redCards','matches'])$(k).disabled=false;}
+function paint(){document.body.classList.toggle('artwork-only',selectedTeam!=='men');const d=read();const p=squad.find(x=>x.id===selected);const live=statsFor(p?.name||d.name);if(d.liveStats&&selectedTeam==='men'){for(const k of ['apps','starts','goals','minutes','yellowCards','redCards']){$(k).value=live[k];$(k).disabled=true;}$('matches').value=JSON.stringify(live.matches,null,2);$('matches').disabled=true;}else{for(const k of ['apps','starts','goals','minutes','yellowCards','redCards','matches'])$(k).disabled=false;}
 $('poster').style.setProperty('--posterYellow',d.yellow||'#ffda00');$('outName').textContent=d.name;$('outPosition').textContent=d.position;$('outSponsor').textContent=d.sponsor||'SPONSORSHIP AVAILABLE';$('sponsorRow').hidden=!d.showSponsor;
 const src=localPhoto||(validPhoto(d.photo)?d.photo:'');$('outPhoto').hidden=!src;$('imageHint').hidden=!!src;if(src&&$('outPhoto').src!==src)$('outPhoto').src=src;const art=$('paintArt');art.hidden=!localBrush;$('brushPrompt').hidden=!!localBrush;if(localBrush&&art.src!==localBrush)art.src=localBrush;art.style.transform='translate('+Number(d.brushX||0)+'px,'+Number(d.brushY||0)+'px) scale('+(Number(d.brushSize||100)/100)+')';document.querySelector('.titlebar').style.transform='translate('+Number(d.nameX||0)+'px,'+Number(d.nameY||0)+'px)';document.querySelector('.positionbar').style.transform='translate('+Number(d.positionX||0)+'px,'+Number(d.positionY||0)+'px) skewX(-12deg)';document.querySelector('.panel').style.transform='translateY('+Number(d.panelY||0)+'px)';$('outPhoto').style.transform='translate('+Number(d.photoX||0)+'px,'+Number(d.photoY||0)+'px) scale('+(Number(d.photoScale||100)/100)+')';
 $('outBio').textContent=d.bio;$('aboutTitle').textContent='About '+d.name;$('aboutSection').hidden=!d.showBio;$('previousSection').hidden=!d.reference.trim();$('outReference').textContent=d.reference;
@@ -249,7 +259,47 @@ $('applyLayout').onclick=async()=>{
 refreshTemplateChoices();
 $('print').onclick=()=>window.print();
 $('reset').onclick=()=>{if(!confirm('Reset edits for this player?'))return;localStorage.removeItem(storekey(selected));localStorage.removeItem('tivvy-card-studio-v2:'+selected);delete sessionPhotos[selected];delete sessionBrushes[selected];setPlayer(selected);$('status').textContent='Reset to source values.';};
-// Cache-busted squad fetch, with minimal new-signing shells if a stale CDN copy arrives.
+
 const NEW_SIGNINGS=[{id:"steve-kingdon",name:"Steve Kingdon",position:"Defender"},{id:"evander-grubb",name:"Evander Grubb",position:"Attacker"}];
-Promise.all([fetch('data/men-squad.json?studio=signings-20261109-v2',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Squad HTTP '+r.status);return r.json()}),fetch(DATA,{cache:'no-store'}).then(r=>r.json()).catch(()=>({fixtures:[]}))]).then(([d,m])=>{squad=(d.players||[]).filter(p=>p.status!=='review');for(const p of NEW_SIGNINGS){if(!squad.some(x=>x.id===p.id)){squad.push({...p,status:"current",shirt_number:null,previous_club:null,notes:"",sponsorships:{"2026/27":{sponsor_name:""}}})}}fixtures=m.fixtures||[];$('player').innerHTML=squad.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>').join('');const requested=new URLSearchParams(location.search).get('player');selected=squad.some(p=>p.id===requested)?requested:(squad.some(p=>p.id==='dan-koita')?'dan-koita':squad[0].id);$('player').value=selected;setPlayer(selected);$('status').textContent='Loaded '+squad.length+' player records (including Kingdon and Grubb) and '+fixtures.length+' fixtures. Editing is local only.';}).catch(e=>{$('status').textContent='Source data could not load: '+e.message;});
+function populateSquad(requested){
+ squad=squadLists[selectedTeam]||[];
+ if(!squad.length){
+  $('player').innerHTML='<option value="">Squad list awaiting confirmation</option>';$('player').disabled=true;
+  $('status').textContent='Women squad roster awaiting confirmation; no player details have been invented.';
+  document.body.classList.add('artwork-only','empty-squad');
+  return;
+ }
+ $('player').disabled=false;document.body.classList.remove('empty-squad');
+ if(selectedTeam==='under18'){
+  const groups=['Goalkeeper','Defender','Midfielder','Forward'];
+  $('player').innerHTML=groups.map(group=>'<optgroup label="'+esc(group)+'">'+squad.filter(p=>p.position===group).map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>').join('')+'</optgroup>').join('');
+ }else{
+  $('player').innerHTML=squad.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.name)+'</option>').join('');
+ }
+ selected=squad.some(p=>p.id===requested)?requested:(selectedTeam==='men'&&squad.some(p=>p.id==='dan-koita')?'dan-koita':squad[0].id);
+ $('player').value=selected;setPlayer(selected);
+ $('status').textContent=selectedTeam==='men'?'Loaded '+squad.length+' men player records and '+fixtures.length+' fixtures.':'Loaded '+squad.length+' '+(selectedTeam==='under18'?'Under-18':'women')+' names for artwork-only cards. No statistics are assumed.';
+}
+function selectSquad(team,requested){
+ if(!Object.prototype.hasOwnProperty.call(squadLists,team))return;
+ selectedTeam=team;
+ document.querySelectorAll('.squad-tab').forEach(b=>{const active=b.dataset.squad===team;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+ document.body.classList.toggle('artwork-only',team!=='men');
+ $('matchDataEditor').hidden=team!=='men';
+ populateSquad(requested);
+ const u=new URL(location.href);u.searchParams.set('squad',team);u.searchParams.delete('player');history.replaceState(null,'',u);
+}
+document.querySelectorAll('.squad-tab').forEach(button=>button.onclick=()=>selectSquad(button.dataset.squad));
+Promise.all([
+ fetch('data/men-squad.json?studio=signings-20261109-v2',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Men squad '+r.status);return r.json()}),
+ fetch(DATA,{cache:'no-store'}).then(r=>r.json()).catch(()=>({fixtures:[]})),
+ fetch('data/u18-squad.json?studio=20261115',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('U18 squad '+r.status);return r.json()})
+]).then(([men,match,u18])=>{
+ squadLists.men=(men.players||[]).filter(p=>p.status!=='review');
+ for(const player of NEW_SIGNINGS){if(!squadLists.men.some(p=>p.id===player.id))squadLists.men.push({...player,status:'current',sponsorships:{'2026/27':{sponsor_name:''}}})}
+ squadLists.under18=u18.players||[];fixtures=match.fixtures||[];
+ const params=new URLSearchParams(location.search);const team=params.get('squad');
+ selectSquad(['men','women','under18'].includes(team)?team:'men',params.get('player'));
+}).catch(e=>{$('status').textContent='Source data unavailable: '+e.message;});
+
 </script></body></html>

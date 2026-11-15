@@ -31,7 +31,39 @@ h1{font:700 clamp(27px,3vw,37px)/1.1 Antonio,Impact,'Arial Narrow',sans-serif;ma
 .foot a{font:700 16px Antonio,Impact,sans-serif;color:var(--yellow);text-decoration:none}
 .message{padding:22px;background:var(--yellow);text-align:center}
 @media(max-width:900px){.game{grid-template-columns:80px minmax(140px,1fr) 97px 48px minmax(120px,1.25fr);gap:8px;min-height:119px;padding:13px 12px}.crest,.crest-fallback{width:73px;height:73px}.date{font-size:17px}.meta,.meta strong{font-size:14px}.homeName{font-size:16px}.awayName{font-size:20px}.score{font-size:24px}}
-@media(max-width:600px){.head{padding:14px}.strip{padding:10px 9px;font-size:15px}.strip small{font-size:12px}.datebar{padding:0 9px 10px;font-size:12px}.game{grid-template-columns:56px minmax(0,1.1fr) 47px minmax(0,1.15fr);gap:7px;min-height:91px;padding:10px 7px}.crest,.crest-fallback{width:53px;height:53px}.detail{padding:2px 0;gap:6px}.date{font-size:13px}.homeName{font-size:13px}.meta{display:none}.score{font-size:21px}.kickoff{font-size:10px;margin-top:3px}.awayName{font-size:14px}.foot{padding:12px}}
+/* Compact cards for Wix mobile embeds. The iframe can be wider than the phone's
+   actual visible area, so switch before the old five-column grid gets cramped. */
+@media(max-width:900px){
+ .head{padding:14px 15px}
+ h1{font-size:clamp(27px,5vw,37px)}
+ .strip{padding:10px 12px;font-size:clamp(17px,3vw,23px)}
+ .strip small{font-size:13px;white-space:nowrap}
+ .datebar{padding:4px 12px 11px;font-size:13px;line-height:1.35}
+ .game{
+  grid-template-columns:clamp(54px,11vw,74px) minmax(0,1fr) minmax(64px,auto);
+  grid-template-areas:"crest detail score" "crest away score";
+  column-gap:14px;row-gap:5px;min-height:112px;padding:14px 13px;
+  align-items:center
+ }
+ .game>.crest,.game>.crest-fallback{grid-area:crest;width:100%;height:auto;max-height:72px;aspect-ratio:1;align-self:center}
+ .game>.detail{grid-area:detail;align-self:end;padding:0;min-width:0;gap:5px}
+ .game>.meta{display:none}
+ .game>.score{grid-area:score;align-self:center;text-align:center;font-size:clamp(22px,3vw,29px);min-width:0;white-space:nowrap}
+ .game>.awayName{grid-area:away;align-self:start;min-width:0}
+ .game>.awayName:before{content:"v ";font-weight:400}
+ .game .date{font-size:clamp(12px,1.7vw,16px);font-weight:600;white-space:normal}
+ .game .homeName,.game .awayName{font:700 clamp(16px,2.35vw,22px)/1.25 Arial,Helvetica,sans-serif;overflow-wrap:normal;word-break:normal;hyphens:none}
+ .game .kickoff{font-size:12px;margin-top:5px;white-space:nowrap}
+ .foot{padding:12px}
+}
+@media(max-width:420px){
+ .game{grid-template-columns:47px minmax(0,1fr) 57px;column-gap:9px;padding:12px 8px;min-height:100px}
+ .game>.crest,.game>.crest-fallback{max-height:47px}
+ .game .homeName,.game .awayName{font-size:15px}
+ .game .date{font-size:12px}
+ .game>.score{font-size:21px}
+ .game .kickoff{font-size:10px}
+}
 </style></head><body>
 <section class="widget" aria-label="Other Southern League Division One South fixtures">
 <header class="head"><div class="headCopy"><h1>AROUND THE LEAGUE</h1></div></header><div class="datebar" id="matchDate">Checking the next matchday…</div>

@@ -56,26 +56,49 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 #referenceCanvas.cropActive{cursor:crosshair;touch-action:none}
 #cropSelection{position:absolute;border:2px dashed #ffd800;background:#ffd80033;pointer-events:none}
 #cropHelp{max-width:595px;margin:12px auto;padding:10px;color:#ffda00;border:1px solid #a18b26;line-height:1.5}
+
+/* V3.5.8 compact composition; old working controls remain available. */
+header{min-height:48px;height:48px!important;padding:4px 12px;flex-wrap:nowrap;gap:8px}
+.brand{font:700 19px Antonio,Impact,sans-serif;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand strong{color:#fff}.brand small{display:inline;font:10px Arial,sans-serif;color:#aeb0b7}
+.headmeta{gap:5px;flex-wrap:nowrap}.headmeta .chip{padding:5px 7px;font-size:10px;white-space:nowrap}.headmeta .btn{padding:6px 8px;font-size:11px}
+#togglePages{font:700 11px Arial,sans-serif;padding:7px 9px;white-space:nowrap}
+.main{grid-template-columns:235px minmax(0,1fr)}
+body.nav-collapsed .main{grid-template-columns:0 minmax(0,1fr)}
+body.nav-collapsed #pageNavigation{display:none}
+.navtop{padding:9px}.navtop h2{font-size:20px}.navtop .issue{font-size:14px}
+.navtop .controls{margin-top:6px;gap:4px}.navtop .controls button{min-height:28px;padding:5px;font-size:10px}
+#pageList{padding:5px}.page{padding:5px 6px;margin:2px 0;gap:5px;grid-template-columns:25px minmax(0,1fr) 25px}
+.page .details{display:none}.page .index{font-size:16px}
+.bar{min-height:34px;padding:3px 8px;gap:5px}
+.bar .btn{padding:5px 8px;font-size:10px}.bar small{font-size:10px}
+.workspace-menu{position:relative;z-index:200}.workspace-menu summary{list-style:none;cursor:pointer;user-select:none}.workspace-menu summary::-webkit-details-marker{display:none}
+.workspace-menu[open] summary{background:#ffd800;color:#111}
+.workspace-menu-panel{position:absolute;right:0;top:calc(100% + 6px);display:flex;flex-direction:column;gap:5px;background:#26282b;border:1px solid #6d7076;box-shadow:0 12px 36px #000b;padding:9px;min-width:170px;border-radius:5px}
+.workspace-menu-panel .btn{width:100%;white-space:nowrap}
+@media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.5.7 · EXPLICIT RECOVERY OPTIONS · NO CLOUD SAVE</small></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.5.8 · WORKSPACE</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
- <button class="btn" id="importBtn">IMPORT 54 PAGES</button><input id="importFile" type="file" accept=".zip,application/zip" hidden><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
+ <button class="btn" id="backupBtn">BACKUP JSON</button>
+ <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div></details>
+ <input id="importFile" type="file" accept=".zip,application/zip" hidden></div>
 </header>
 <div class="main">
-<nav>
- <div class="navtop"><h2>PROGRAMME PAGES</h2><div class="issue">Tiverton Town v Bishops Cleeve</div><div class="muted">Issue 14 · 14 November 2026 · Source: 54-page programme PDF</div>
+<nav id="pageNavigation">
+ <div class="navtop"><h2>PROGRAMME PAGES</h2><div class="issue">Tiverton Town v Bishops Cleeve</div>
  <div class="controls">
  <button class="btn" id="addPage">+ ADD PAGE</button><button class="btn" id="duplicatePage">DUPLICATE</button>
  <button class="btn" id="renamePage">RENAME</button><button class="btn" id="includePage">EXCLUDE</button>
  <button class="btn" id="moveUp">↑ MOVE UP</button><button class="btn" id="moveDown">↓ MOVE DOWN</button>
  <button class="btn" id="deletePage">DELETE PAGE</button><button class="btn" id="restorePage">RESTORE PAGE</button>
- </div><p class="muted">Drag pages to reorder. Excluded pages remain editable and don't appear in the export list.</p>
+ </div>
  </div><div id="pageList" aria-label="Programme page list"></div>
- <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
+ 
 </nav>
 <div id="workspace">
- <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><div class="bar-actions"><span class="muted" id="artState">Reference not imported</span><button class="btn" id="cropBtn">EXTRACT ARTWORK</button><button class="btn" id="originalBtn">ORIGINAL PAGE</button><button class="btn gold" id="editBtn">EDIT LAYERS</button></div></div>
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><div class="bar-actions"><span class="muted" id="artState" hidden>Reference not imported</span><button class="btn" id="cropBtn">EXTRACT ARTWORK</button><button class="btn" id="originalBtn">ORIGINAL PAGE</button><button class="btn gold" id="editBtn">EDIT LAYERS</button></div></div>
  <div id="referenceView"><div id="referenceLabel">ORIGINAL PRINTED PAGE · READ ONLY · NOT AN EDITABLE LAYER</div><div id="referenceCanvas"><img id="referenceImage" draggable="false" alt="Original programme page"><div id="cropSelection" hidden></div></div><div id="cropHelp" hidden>Drag over an area to create an image layer. Rectangular crops include their original background. Press Escape to cancel.</div><div id="referenceEmpty">Import the 54-page reference ZIP to see this page's original artwork.</div></div>
  <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
 </div></div>
@@ -102,6 +125,10 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 <script>
 (()=>{
 "use strict";
+const NAV_PREF='tivvy-v3-ui-navcollapsed';
+function setPagesCollapsed(on){document.body.classList.toggle('nav-collapsed',on);const b=document.getElementById('togglePages');b.setAttribute('aria-expanded',String(!on));b.textContent=on?'☰ SHOW PAGES':'☰ HIDE PAGES';try{localStorage.setItem(NAV_PREF,on?'1':'0')}catch(e){}}
+document.getElementById('togglePages').onclick=()=>setPagesCollapsed(!document.body.classList.contains('nav-collapsed'));
+try{setPagesCollapsed(localStorage.getItem(NAV_PREF)==='1')}catch(e){}
 const KEY="tivvy-v3-shell-pages-issue14",LOG_KEY="tivvy-v3-shell-activity-issue14",PREFIX="tivvy-v3-draft-page-";
 const $=id=>document.getElementById(id),frame=$("pageEditor");
 let pages=[],trash=[],active=null,log=[],changing=false,dragged=null,switching=false,loadedEditorPage=null,editorSaveFailed=false,pendingArtwork=null;
@@ -136,7 +163,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.7").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.8").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -182,7 +209,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.7";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.8";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -431,7 +458,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.7";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.8";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

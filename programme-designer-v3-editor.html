@@ -120,7 +120,14 @@ function resetData(){
   }
  }
 }
-try{const data=JSON.parse(localStorage.getItem(V3_STORE_KEY)||'null',v3Revive);layers=Array.isArray(data)?data:null}catch(e){}
+let initialDraftError=null,hasInitialDraft=false;
+try{
+ const raw=localStorage.getItem(V3_STORE_KEY);
+ hasInitialDraft=raw!==null;
+ const data=JSON.parse(raw||'null',v3Revive);
+ layers=Array.isArray(data)&&data.length?data:null;
+ if(hasInitialDraft&&!layers)initialDraftError='Existing local draft is empty or invalid; it has NOT been overwritten.';
+}catch(e){initialDraftError='Cannot read existing local draft ('+e.message+'); it has NOT been overwritten.'}
 if(!layers)resetData();
 selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
 const current=()=>layers.find(x=>x.id===selected);
@@ -129,6 +136,107 @@ let editingId=null,activeEditor=null,rememberedRange=null;
 // lives in this tab; the latest state remains browser-autosaved as before.
 const undoStack=[],redoStack=[],MAX_HISTORY=100;
 let lastSavedSnapshot=v3Pack(),lastHistoryAt=0,lastHistoryKey="",restoring=false;
+const V3_DRAFT_DB='tivvy-v3-drafts-idb-v1',V3_DRAFT_STORE='pageDrafts';
+let draftDb=null,draftReady=false,saveBlocked=false,queuedSnapshot=null,saveRunning=false,saveRequest=0,saveTimer=null,saveError=null;
+const sleepMessage=()=>''; // Separate status helpers; no automatic loss of prior drafts.
+function draftStatus(text,failed=false){
+ const el=$('saveStatus');el.textContent=text;el.style.color=failed?'#fff':'';
+ el.style.background=failed?'#9b1b1b':'';
+ el.style.padding=failed?'8px':'';
+ window.parent.postMessage({type:'tivvy-v3-storage',pageId:V3_PAGE_ID,ok:!failed,detail:text},location.origin);
+}
+function openDraftDb(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(V3_DRAFT_DB,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(V3_DRAFT_STORE))req.result.createObjectStore(V3_DRAFT_STORE)};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||Error('Browser draft database unavailable'));
+ });
+}
+function readDraftRecord(db){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(V3_DRAFT_STORE,'readonly'),req=tx.objectStore(V3_DRAFT_STORE).get(V3_STORE_KEY);
+  req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error||Error('Read failed'));
+ });
+}
+function writeDraftRecord(db,snapshot){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(V3_DRAFT_STORE,'readwrite');
+  tx.objectStore(V3_DRAFT_STORE).put({snapshot,savedAt:new Date().toISOString(),layerCount:layers.length},V3_STORE_KEY);
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error||Error('Write failed'));tx.onabort=()=>reject(tx.error||Error('Write aborted'));
+ });
+}
+function fallbackSmallDraft(snapshot){
+ // Keep a compatibility copy only when it fits, never remove the previous local draft if not.
+ if(snapshot.length>750000)return;
+ try{localStorage.setItem(V3_STORE_KEY,snapshot)}catch(e){}
+}
+async function drainDraftSaves(){
+ if(saveRunning||!draftReady||saveBlocked)return;
+ saveRunning=true;
+ try{
+  while(queuedSnapshot!==null){
+   const snapshot=queuedSnapshot,request=saveRequest;queuedSnapshot=null;
+   try{
+    if(!draftDb)throw Error('IndexedDB is unavailable');
+    await writeDraftRecord(draftDb,snapshot);
+    fallbackSmallDraft(snapshot);
+    if(request===saveRequest){
+     saveError=null;
+     draftStatus('SAVED IN THIS BROWSER (IndexedDB) · '+new Date().toLocaleTimeString('en-GB'));
+    }
+   }catch(e){
+    saveError=e;
+    // Never claim success when a write is rejected. Keep current canvas and show how to export.
+    queuedSnapshot=queuedSnapshot??snapshot;
+    draftStatus('SAVE FAILED — DO NOT CLOSE THIS TAB. Use EXPORT JSON immediately. '+e.message,true);
+    break;
+   }
+  }
+ }finally{saveRunning=false}
+}
+function queueDraftSave(snapshot,immediate=false){
+ if(saveBlocked){draftStatus('SAVE BLOCKED — an existing draft needs recovery. Export before continuing.',true);return}
+ queuedSnapshot=snapshot;saveRequest++;
+ draftStatus('SAVING locally…');
+ clearTimeout(saveTimer);
+ if(immediate)drainDraftSaves();
+ else saveTimer=setTimeout(drainDraftSaves,250);
+}
+async function flushDraft(){
+ clearTimeout(saveTimer);
+ await drainDraftSaves();
+ while(saveRunning)await new Promise(resolve=>setTimeout(resolve,30));
+ return !saveError&&queuedSnapshot===null;
+}
+async function initializeDraftRecovery(){
+ try{
+  draftDb=await openDraftDb();
+  const existing=await readDraftRecord(draftDb);
+  if(existing?.snapshot){
+   const restored=JSON.parse(existing.snapshot,v3Revive);
+   if(!Array.isArray(restored)||!restored.length)throw Error('Stored IndexedDB draft is invalid');
+   layers=restored;lastSavedSnapshot=v3Pack();
+   selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
+   multiSelected.clear();saveBlocked=false;
+   draftReady=true;
+   draftStatus('RECOVERED '+layers.length+' LAYERS FROM BROWSER BACKUP · '+existing.savedAt);
+  }else if(initialDraftError){
+   saveBlocked=true;draftReady=true;
+   draftStatus(initialDraftError+' Export JSON; do not reset.',true);
+  }else{
+   draftReady=true;
+   if(hasInitialDraft){
+    await writeDraftRecord(draftDb,lastSavedSnapshot);
+    draftStatus('EXISTING LOCAL DRAFT SAFELY COPIED TO INDEXEDDB');
+   }else{
+    draftStatus('NEW PAGE · IndexedDB ready');
+   }
+  }
+ }catch(e){
+  draftReady=true;saveBlocked=true;
+  draftStatus('BROWSER SAVE UNAVAILABLE — DO NOT CLOSE THIS TAB. EXPORT JSON. '+e.message,true);
+ }
+}
 function historyCounter(){
  $('undo').disabled=!undoStack.length;$('redo').disabled=!redoStack.length;
  $('undo').textContent='↶ UNDO ('+undoStack.length+')';$('redo').textContent='↷ REDO ('+redoStack.length+')';
@@ -137,7 +245,6 @@ function save(key='edit'){
  const next=v3Pack(),now=Date.now();
  if(next!==lastSavedSnapshot){
   if(!restoring){
-   // A slider gesture is one undo, not 30 tiny snapshots.
    const grouped=(key==='slider'||key==='typing'||key==='nudge')&&lastHistoryKey===key&&now-lastHistoryAt<(key==='typing'?900:key==='nudge'?450:650);
    if(!grouped){undoStack.push(lastSavedSnapshot);if(undoStack.length>MAX_HISTORY)undoStack.shift()}
    redoStack.length=0;lastHistoryAt=now;lastHistoryKey=key;
@@ -145,8 +252,9 @@ function save(key='edit'){
   lastSavedSnapshot=next;
  }
  historyCounter();
- try{localStorage.setItem(V3_STORE_KEY,next);window.parent.postMessage({type:'tivvy-v3-change',pageId:V3_PAGE_ID,action:key,layerId:selected,layerName:current()?.name||'',layerCount:layers.length,when:new Date().toISOString()},location.origin);$('saveStatus').textContent='Saved in this browser at '+new Date().toLocaleTimeString('en-GB')}catch(e){$('saveStatus').textContent='Browser storage full: export JSON to preserve changes'}
+ queueDraftSave(next,key==='page-switch'||key==='artwork-extract');
 }
+
 function restoreHistory(source,destination){
  if(!source.length)return;
  destination.push(v3Pack());if(destination.length>MAX_HISTORY)destination.shift();
@@ -593,8 +701,16 @@ $('pagebox').addEventListener('pointerdown',e=>{if(e.target===$('pagebox'))desel
 // The grey stage surrounds the A4 page; clicking its empty area should clear blue selection handles.
 document.querySelector('.stage').addEventListener('pointerdown',e=>{if(e.target===e.currentTarget)deselectLayers()});
 $('paper').addEventListener('pointerdown',e=>{if(e.target===paper)deselectLayers()});
-$('snapEnabled').addEventListener('change',clearSnapGuides);if(V3_PAGE_ID==='issue-20261114-p14'){const activeMatrix=ensureMatrix();updateMatrixSubtitle(activeMatrix.matrixDate);save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false)}
-else{paint();updateFormatButtons()}
+$('snapEnabled').addEventListener('change',clearSnapGuides);
+(async()=>{
+ await initializeDraftRecovery();
+ if(V3_PAGE_ID==='issue-20261114-p14'){
+  const activeMatrix=ensureMatrix();updateMatrixSubtitle(activeMatrix.matrixDate);
+  save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false);
+ }else{paint();updateFormatButtons()}
+ window.parent.postMessage({type:'tivvy-v3-ready',pageId:V3_PAGE_ID,layerCount:layers.length},location.origin);
+})();
+
 window.addEventListener('message',event=>{if(event.origin!==location.origin)return;
  if(event.data?.type==='tivvy-v3-import-artwork'&&event.data.pageId===V3_PAGE_ID){
   const d=event.data;
@@ -606,8 +722,7 @@ window.addEventListener('message',event=>{if(event.origin!==location.origin)retu
  if(event.data?.type==='tivvy-v3-flush'){
   if(activeEditor)endEdit(false);
   save('page-switch');
-  window.parent.postMessage({type:'tivvy-v3-flushed',pageId:V3_PAGE_ID},location.origin);
+  flushDraft().then(ok=>window.parent.postMessage({type:'tivvy-v3-flushed',pageId:V3_PAGE_ID,ok},location.origin));
  }
 });
-window.parent.postMessage({type:'tivvy-v3-ready',pageId:V3_PAGE_ID,layerCount:layers.length},location.origin);
 </script></body></html>

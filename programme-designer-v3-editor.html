@@ -713,7 +713,7 @@ function renderResizeOverlay(){
  if(!overlay)return;
  overlay.replaceChildren();
  const chosen=current();
- if(!chosen||chosen.locked||chosen.hidden||!['text','image','shape'].includes(chosen.type)||selectionIds().length!==1)return;
+ if(!chosen||chosen.locked||chosen.hidden||!['text','image','shape','matrix'].includes(chosen.type)||selectionIds().length!==1)return;
  const element=[...paper.querySelectorAll('.artlayer')].find(n=>n.dataset.id===chosen.id);
  if(!element)return;
  const rect=element.getBoundingClientRect(),page=$('pagebox').getBoundingClientRect();

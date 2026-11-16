@@ -64,13 +64,14 @@ header{min-height:48px;height:48px!important;padding:4px 12px;flex-wrap:nowrap;g
 .headmeta{gap:5px;flex-wrap:nowrap}.headmeta .chip{padding:5px 7px;font-size:10px;white-space:nowrap}.headmeta .btn{padding:6px 8px;font-size:11px}
 #togglePages{font:700 11px Arial,sans-serif;padding:7px 9px;white-space:nowrap}
 .main{grid-template-columns:235px minmax(0,1fr)}
-body.nav-collapsed .main{grid-template-columns:0 minmax(0,1fr)}
+body.nav-collapsed .main{grid-template-columns:minmax(0,1fr)}
+body.nav-collapsed #workspace{grid-column:1;width:100%;min-width:0}
 body.nav-collapsed #pageNavigation{display:none}
 .navtop{padding:9px}.navtop h2{font-size:20px}.navtop .issue{font-size:14px}
 .navtop .controls{margin-top:6px;gap:4px}.navtop .controls button{min-height:28px;padding:5px;font-size:10px}
 #pageList{padding:5px}.page{padding:5px 6px;margin:2px 0;gap:5px;grid-template-columns:25px minmax(0,1fr) 25px}
 .page .details{display:none}.page .index{font-size:16px}
-.bar{min-height:34px;padding:3px 8px;gap:5px}
+.bar{min-height:28px;padding:2px 8px;gap:6px;flex-wrap:nowrap}.bar>div:first-child{min-width:0;flex:1}.bar #currentName{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:70%}.bar .bar-actions{flex-wrap:nowrap;white-space:nowrap}
 .bar .btn{padding:5px 8px;font-size:10px}.bar small{font-size:10px}
 .workspace-menu{position:relative;z-index:200}.workspace-menu summary{list-style:none;cursor:pointer;user-select:none}.workspace-menu summary::-webkit-details-marker{display:none}
 .workspace-menu[open] summary{background:#ffd800;color:#111}
@@ -79,7 +80,7 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.5.8 · WORKSPACE</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.5.9 · CANVAS FIRST</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
  <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div></details>
@@ -163,7 +164,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.8").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.9").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -209,7 +210,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.8";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.9";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -458,7 +459,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.8";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.9";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

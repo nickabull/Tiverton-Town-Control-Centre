@@ -38,7 +38,45 @@ const SNAPSHOT=[
 [21,"PAU","Paulton Rovers",16,2,6,8,11,23,12],
 [22,"BRI","Bristol Manor Farm",19,1,7,11,12,37,10]
 ];
-function makeRows(){return SNAPSHOT.map(([rank,code,club,p,w,d,l,gf,ga,pts])=>({rank,code,club,p,w,d,l,gf,ga,gd:gf-ga,pts}));}
+// The original printed page 19 is already saved locally as a reference JPEG.
+ // It contains every club badge. Use a small crop only when a live crest URL is broken.
+ const REFERENCE_CREST_ORDER=["WEY","SWI","WES","DOR","HUN","HAR","SPO","FAL","POR","BIS","WOR","TIV","WIL","BAR","EXM","SHA","BID","MEL","SLI","LAR","PAU","BRI"];
+ let referenceCrestPromise=null;
+ function fromOriginalPrintedPage(){
+  if(referenceCrestPromise)return referenceCrestPromise;
+  referenceCrestPromise=new Promise(resolve=>{
+   try{
+    const req=indexedDB.open("tivvy-v3-reference-art-v1",1);
+    req.onerror=()=>resolve({});
+    req.onsuccess=()=>{
+     const db=req.result;
+     if(!db.objectStoreNames.contains("images")){db.close();resolve({});return}
+     const tx=db.transaction("images","readonly"),read=tx.objectStore("images").get("page-19");
+     read.onerror=()=>{db.close();resolve({})};
+     read.onsuccess=()=>{
+      const blob=read.result;db.close();
+      if(!(blob instanceof Blob)){resolve({});return}
+      const url=URL.createObjectURL(blob),im=new Image();
+      im.onload=()=>{
+       URL.revokeObjectURL(url);
+       const output={},ratio=im.naturalWidth/804;
+       REFERENCE_CREST_ORDER.forEach((code,i)=>{
+        const cv=document.createElement("canvas");cv.width=40;cv.height=40;
+        const cx=cv.getContext("2d"),y=(273.5+i*(685/21));
+        try{cx.drawImage(im,95*ratio,(y-16)*ratio,31*ratio,32*ratio,0,0,40,40);output[code]=cv.toDataURL("image/png")}
+        catch(e){}
+       });
+       resolve(output);
+      };
+      im.onerror=()=>{URL.revokeObjectURL(url);resolve({})};
+      im.src=url;
+     };
+    };
+   }catch(e){resolve({})}
+  });
+  return referenceCrestPromise;
+ }
+ function makeRows(){return SNAPSHOT.map(([rank,code,club,p,w,d,l,gf,ga,pts])=>({rank,code,club,p,w,d,l,gf,ga,gd:gf-ga,pts}));}
 function editable(td,row,key,save){
  const editable=document.createElement("span");editable.className="v3-standings-field";
  editable.textContent=String(row[key]);editable.contentEditable="true";editable.spellcheck=false;
@@ -82,7 +120,14 @@ function draw(div,layer,save){
   // Try both the original matrix crest name and the team short code before falling back.
   const candidates=[CREST_ROOT+(CRESTS[row.code]||row.code.toLowerCase())+".png",CREST_ROOT+row.code.toLowerCase()+".png"];
   let attempt=0;
-  img.onerror=()=>{attempt++;if(attempt<candidates.length){img.src=candidates[attempt]}else{img.style.display="none";fallback.style.display="inline-flex";badge.title=row.club+" — crest not found in the current library"}};
+  img.onerror=async()=>{
+   attempt++;
+   if(attempt<candidates.length){img.src=candidates[attempt];return}
+   const crops=await fromOriginalPrintedPage();
+   if(crops[row.code]){img.onerror=null;img.src=crops[row.code];img.style.display="inline-block";return}
+   img.style.display="none";fallback.style.display="inline-flex";
+   badge.title=row.club+" — crest not found in available sources";
+  };
   img.src=candidates[0];
   badge.append(img,fallback);tr.append(badge);
   for(const key of ["club","p","w","d","l","gf","ga","gd","pts"]){

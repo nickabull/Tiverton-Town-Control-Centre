@@ -27,6 +27,21 @@ Store `include_in_export: true` independently of `visible_in_editor`. Excluded p
 
 Log create/duplicate/rename/reorder/exclude/include/delete/restore events with previous and new values in the DETAILS audit trail.
 
+## V3.0.0 Shell Implementation — 16 November 2026
+
+**Independent development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.0.0
+
+- Created `programme-designer-v3.html`: the full issue shell with all 54 PDF-based page titles/IDs, page counts, publish inclusion, drag-to-reorder, move up/down, add/duplicate/rename/delete/restore page actions, export-order preview, all-issue JSON backup and a searchable/filterable/exportable **local-only** DETAILS activity log.
+- Created `programme-designer-v3-editor.html`: a separate copy of the proven V2.9.2 layer engine, with per-page browser draft keys `tivvy-v3-draft-page-<id>` and the existing text, graphics, image, matrix, pointer/keyboard alignment and editor tools. It sends local change events to the shell.
+- Starter content is intentionally limited: **PDF page 6** starts with the Latest News editor example; **page 14** starts with the editable matrix; **other pages** currently display a blank map-backed editing canvas for reconstruction. Source PDF artwork has **not** been uploaded or faithfully migrated yet. This is a *shell*, not a completed programme.
+- Built-in art `map/header/footer` is deduplicated in stored JSON using reference tokens to reduce browser localStorage exhaustion. User-added images still remain data URLs in this prototype; production requires object storage.
+- Existing V2 and the three experimental test files were not edited. The 52-page old Canva registry was not used as V3 page-order authority.
+- This shell is **NOT secure cloud saving**. All draft state and the log remain browser localStorage. It is not safe to treat it as a multi-user system or authoritative audit history. Backup JSON downloads are local; there is no backend, Google integration, durable asset upload, PDF output, or reliable other-device sync yet.
+- **QA:** both new inline JS scripts passed JavaScript syntax compilation checks. Full browser interaction, source-layout fidelity, and cross-browser testing remain pending. Critical first checks: page switching persistence, page 6 versus page 14 independence, duplicate and hide, reorder, local backup and restoration.
+- Commits: page-editor `be0053d6f9acad8c83921e35df8e5a2c99386d03`, compact asset patch `bc001d8fb65ac80055a008815dc3171319c9ff06`; shell `c94030c2b775be8f622613560ebbc0862c735511`, initial page/log fix `29068fa2bc143be94d2c61ea976e6420aa26c079`.
+
+**Next gate:** test the V3 shell in-browser, resolve any runtime issues, then design D1/R2/identity/server audit storage before reconstructing the remaining pages.
+
 ## Rebuild sequence
 
 1. **V3 safe shell:** new `programme-designer-v3.html` development entrypoint; 54-page navigation; current page canvas; strong SAVE, DUPLICATE PAGE, ADD PAGE, RENAME PAGE, REMOVE PAGE controls; separate V3 browser storage; import/export; no impact on V2 or tests.

@@ -13,6 +13,10 @@ V3 becomes the single full-programme, multipage editor, using Test 2 V2.9.2 as t
 
 **Retain Programme Centre strengths:** mapped pages, reusable club assets, current league data, scheduled updating, Darren report handling, proofing rules, approval/protected artwork, output gates and final print checks.
 
+## Protected artwork is replaceable (confirmed 16 November)
+
+**Fixed = protected by default, NOT impossible to edit.** A protected advert (e.g. Diamond Estate Agents) enters the editor as a locked **image layer**. Editors can select **Unlock artwork**, receive an explicit confirmation identifying the page and advertiser, then **Replace Image** using an approved uploaded image. Replacement defaults to preserving original X/Y/width/height/crop and overall page position, with an option to adjust after replacement. The original remains available via version history/restore. Record actor, time, advertiser/page, previous asset ID, replacement asset ID and reason in the DETAILS log. Prevent ordinary accidental drag/delete/edit while locked. Treat sponsor approval and access checks as production backend responsibilities. Do not bake fixed pages irreversibly into static page backgrounds.
+
 ## Fundamental page model
 
 Each of the 54 source PDF pages has a permanent ID in `data/programme-v3-page-manifest.json`. A page holds ordered independent editable layer objects; existing image assets may be referenced as locked photographic/artwork layers. Native tables are stored as data structures with cell values and formatting, not screenshots. A page can be **fixed**, **hybrid**, **editable**, or **data-driven** (definitions in manifest).

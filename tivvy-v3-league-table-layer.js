@@ -76,8 +76,15 @@ function draw(div,layer,save){
   const pos=document.createElement("td");pos.textContent=String(row.rank);tr.append(pos);
   const badge=document.createElement("td");const img=document.createElement("img");img.className="v3-standings-crest";
   img.src=CREST_ROOT+(CRESTS[row.code]||row.code.toLowerCase())+".png";img.alt=row.club+" crest";
-  img.onerror=()=>{img.style.display="none";badge.title=row.club+" crest unavailable"};
-  badge.append(img);tr.append(badge);
+  const fallback=document.createElement("span");fallback.className="v3-standings-crest-fallback";
+  fallback.textContent=row.code;fallback.title=row.club+" — crest image not available";
+  fallback.style.display="none";
+  // Try both the original matrix crest name and the team short code before falling back.
+  const candidates=[CREST_ROOT+(CRESTS[row.code]||row.code.toLowerCase())+".png",CREST_ROOT+row.code.toLowerCase()+".png"];
+  let attempt=0;
+  img.onerror=()=>{attempt++;if(attempt<candidates.length){img.src=candidates[attempt]}else{img.style.display="none";fallback.style.display="inline-flex";badge.title=row.club+" — crest not found in the current library"}};
+  img.src=candidates[0];
+  badge.append(img,fallback);tr.append(badge);
   for(const key of ["club","p","w","d","l","gf","ga","gd","pts"]){
    const td=document.createElement("td");if(key==="club")td.className="v3-standings-club";
    if(key==="pts")td.classList.add("v3-standings-points");

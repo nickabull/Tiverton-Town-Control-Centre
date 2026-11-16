@@ -6,8 +6,8 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 ## READ THIS FIRST — working target and guardrails
 
 **ACTIVE EXPERIMENT:** `tivvy-latest-news-layer-test.html`.
-**Current labelled test version:** **V2.7.3**.
-**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.3
+**Current labelled test version:** **V2.7.4**.
+**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.4
 
 **DO NOT MODIFY `programme-designer-v2.html`**, `programme-studio.html`, the master production templates, or other programme files unless explicitly requested. The Latest News experiment is deliberately isolated. Despite the page's "V2" branding, it is NOT the same file as `programme-designer-v2.html`. When changing chats, inspect the actual file and recent commits before touching code; never infer the target from a generic phrase like "the designer".
 
@@ -16,6 +16,10 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, testing it against the **Latest News** layout first, before any decision to integrate into wider programme production. Preserve the existing artwork, typography and safe master workflow.
 
 ## Latest work (16 November 2026)
+
+- **V2.7.4:** Added non-destructive colour and 0–30px width controls for an image-layer silhouette stroke using a browser SVG alpha-dilation filter; default stroke 0px. A transparent PNG is required for a player outline rather than an outline around a rectangular opaque photo. Commit `4dbd12ba182efc14f0866fe174c1b2ec53179c00`. Browser QA still pending; Remove Background itself is *not* yet implemented.
+- **Verified by user:** V2.7.3 multi-selection is working well (16 November 2026). Retain this behaviour in future versions.
+
 
 - **V2.7.3:** Added Shift+click selection of multiple layers from canvas or sidebar, visual selection for each layer, and dragging selected unlocked/visible layers together. Normal click selects one; double click still edits text. Commit `c9013ed257f29bc7862b6a30b55fdebe13e226ac`. Browser QA pending. Selection is not persisted as a layer property. Group resize is not yet implemented. User has also asked whether a "Remove Background" feature could be offered for images; feasibility discussion pending, do not claim it is built.
 
@@ -46,7 +50,7 @@ Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, tes
 
 ## Next steps
 
-1. Ask user to test V2.7.3's three resize handles on the blue selected text box; check that each moves only the intended dimension, and that handles work at varying zoom.
+1. Ask user to test V2.7.4's three resize handles on the blue selected text box; check that each moves only the intended dimension, and that handles work at varying zoom.
 2. If issues appear, change **only** `tivvy-latest-news-layer-test.html`, then supply a new cache-busted version URL.
 3. Continue refining text-format active state, alignment controls and matching slider/numeric boxes as feedback requires.
 4. Update this handover after every significant edit, including exact filenames, versions, commits, pass/fail findings, and outstanding issues.

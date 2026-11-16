@@ -101,9 +101,10 @@ async function saveIssue(env,actor,issueId,request){
   env.DB.prepare("UPDATE programme_issues SET current_version=?,updated_at=? WHERE id=? AND current_version=? AND EXISTS(SELECT 1 FROM issue_revisions WHERE id=?)").bind(ver,time,issueId,expected,rev),
   env.DB.prepare("INSERT INTO activity_events(id,issue_id,revision_id,actor,action,target_page_id,target_layer_id,detail_json,created_at) SELECT ?,?,?,?,?,?,?,?,? FROM issue_revisions WHERE id=?").bind(event,issueId,rev,actor,"issue.save",targetPage,targetLayer,JSON.stringify({summary,from_version:expected,to_version:ver}),time,rev)
  ]);
+ const ownRevision=await env.DB.prepare("SELECT id FROM issue_revisions WHERE id=? AND issue_id=?").bind(rev,issueId).first();
  const check=await env.DB.prepare("SELECT current_version FROM programme_issues WHERE id=?").bind(issueId).first();
  if(!check)return failure("Issue not found",404);
- if(check.current_version!==ver)return json({ok:false,error:"Version conflict: another editor saved newer changes",current_version:check.current_version},409);
+ if(!ownRevision)return json({ok:false,error:"Version conflict: another editor saved newer changes",current_version:check.current_version},409);
  return json({ok:true,id:issueId,version:ver,revision_id:rev,saved_at:time});
 }
 async function restoreIssue(env,actor,id,version,request){

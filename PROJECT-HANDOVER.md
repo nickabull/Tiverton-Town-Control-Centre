@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.5.5 — SAVE-DIAGNOSTIC VISIBILITY + TEXT TOOLBAR TIDY (16 NOVEMBER 2026)
+
+**Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.5
+
+- User reported **SAVE FAILED** in the main header on V3.5.4 before starting the redesigned page 7. Screenshot displays red parent badge, but does not expose underlying iframe storage error. Cause **not yet established**; do not say the browser save is fixed.
+- V3.5.5 parent shell now labels failed state **SAVE FAILED — CLICK FOR DETAILS** and makes badge clickable to display the precise `tivvy-v3-storage.detail` diagnostic from the page editor. This is diagnostic-only; it does not reset/clear/migrate drafts or modify local storage. Commit: `e79411f9189fdbb5fb2e49931f8c7b538ee74c3a`.
+- User also requested the floating/sticky **EDIT TEXT** bar be tidied because controls overflowed horizontally and yellow explanatory text was too long. Reworked into compact **two rows**: edit and inline formatting/alignment in row one; 14pt body, 18pt heading, custom size and apply in row two; concise help underneath. Existing control IDs/JS commands preserved. Toolbar constrained to available stage width and allowed to wrap instead of horizontal scrolling. Editor commit: `1cf12ed8a33e09a47f7443b72e4f5b54b53999aa`.
+- Inline script syntax verified, real browser QA **pending** for toolbar and error display. **Next step:** user should click red diagnostic badge and report the exact message; do not encourage further design work until error diagnosed or user has exported a verified backup. Preserve all existing V3 browser drafts; no changes to V2/production.
+
+
 ## V3.5.4 — SHAPE HANDLES / ACCESSIBLE RESIZING OUTSIDE A4 (16 NOVEMBER 2026)
 
 **Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.4

@@ -271,7 +271,7 @@ async function backup(){
 async function createPage14ShirtTrial(){
  const original7=pages.find(p=>p.source===7),original14=pages.find(p=>p.source===14);
  if(!original7||!original14){alert('Both PDF reference pages 7 and 14 must exist in this programme.');return}
- if(!confirm('Create a separate PAGE 14 DESIGN TRIAL from saved page 7 artwork, keeping page 14’s editable matrix and legend?\\n\\nThis trial will be EXCLUDED from programme export. Original pages 7 and 14 will remain unchanged.'))return;
+ if(!confirm('Create a separate PAGE 14 DESIGN TRIAL from saved page 7 artwork, keeping page 14’s editable matrix and legend?\n\nThis trial will be EXCLUDED from programme export. Original pages 7 and 14 will remain unchanged.'))return;
  const button=$('trialP14Btn');button.disabled=true;
  let db=null;
  try{
@@ -304,12 +304,12 @@ async function createPage14ShirtTrial(){
    delete oldHeading.richHtml;
   }else contents.push({id:'p14trial-heading-'+stamp,name:'THE LEAGUE SO FAR · White Heading',type:'text',text:'THE LEAGUE SO FAR',x:25,y:20,w:525,h:70,z:160,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:44,weight:'700',color:'#ffffff',align:'left',base:false});
   // Preserve exact saved matrix date; do not fabricate newer results.
-  const iso=String(liveMatrix.matrixDate||'2026-11-14'),dt=iso.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/),dateText=dt?dt[3]+'/'+dt[2]+'/'+dt[1]:'CHECK RESULTS DATE';
+  const iso=String(liveMatrix.matrixDate||'2026-11-14'),dt=iso.match(/^(\d{4})-(\d{2})-(\d{2})$/),dateText=dt?dt[3]+'/'+dt[2]+'/'+dt[1]:'CHECK RESULTS DATE';
   const subtitle=contents.find(l=>l.id==='subtitle'||/results date|up to/i.test(String(l.name||'')+String(l.text||'')));
   if(subtitle){subtitle.name='RESULTS DATE · Editable';subtitle.text='SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS · UP TO '+dateText;subtitle.x=39;subtitle.y=148;subtitle.w=515;subtitle.h=29;subtitle.font=12;subtitle.color='#111111';subtitle.align='center';subtitle.rotate=0;subtitle.z=140;subtitle.locked=false;delete subtitle.richHtml}
   const keyLayer={id:'p14trial-clubkey-'+stamp,name:'CLUB KEY · Editable / Movable',type:'matrix',legendOnly:true,legendNames:{},x:16,y:690,w:563,h:142,z:150,locked:false,hidden:false,transparency:0,scale:100,rotate:0,base:false,matrixScores:{},matrixManual:{},matrixDate:iso};
   const trialLayers=[...art,...contents,keyLayer];
-  if(!confirm('Ready to create the trial?\\n\\nArtwork: '+art.length+' independent image/colour layers (bottom black removed).\\nExisting page 14 content: '+contents.length+' editable layers, including the results matrix.\\nClub key: separate movable/editable layer.\\nDate: '+dateText+'.\\n\\nYour ORIGINAL pages stay unchanged.'))return;
+  if(!confirm('Ready to create the trial?\n\nArtwork: '+art.length+' independent image/colour layers (bottom black removed).\nExisting page 14 content: '+contents.length+' editable layers, including the results matrix.\nClub key: separate movable/editable layer.\nDate: '+dateText+'.\n\nYour ORIGINAL pages stay unchanged.'))return;
   // Portable, complete safety copies are downloaded BEFORE creating the new page.
   download('tivvy-page7-and-page14-safety-before-trial.json',JSON.stringify({format:'tivvy-v3-page14-trial-safety',created:new Date().toISOString(),page7:{id:original7.id,layers:src7},page14:{id:original14.id,layers:src14}},null,2),'application/json');
   const trial={id:newId(),name:'PAGE 14 · SHIRT DESIGN TRIAL',source:null,mode:'editable',include:false};
@@ -320,7 +320,7 @@ async function createPage14ShirtTrial(){
   change('page14-trial','Made non-exporting editable test from page 7 artwork and page 14 matrix; originals unchanged',trial.id);
   await openPage(trial.id);
   message('Page 14 shirt-design trial created. Check the editable matrix and moveable key.');
- }catch(e){alert('PAGE 14 TRIAL NOT CREATED: '+e.message+'\\n\\nNo original page was deliberately changed.')}finally{db?.close();button.disabled=false}
+ }catch(e){alert('PAGE 14 TRIAL NOT CREATED: '+e.message+'\n\nNo original page was deliberately changed.')}finally{db?.close();button.disabled=false}
 }
 function preview(){
  $("exportSummary").textContent=pages.filter(p=>p.include).length+" pages included · "+pages.filter(p=>!p.include).length+" excluded · "+pages.length+" editor pages";

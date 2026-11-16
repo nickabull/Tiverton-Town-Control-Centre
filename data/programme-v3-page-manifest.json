@@ -1,0 +1,509 @@
+{
+  "schema_version": 1,
+  "source": {
+    "title": "Tiverton Town v Bishops Cleeve – Official Programme 14 November 2026",
+    "pdf_filename": "Tiverton v Bishops Cleeve League 141126.pdf",
+    "page_count": 54,
+    "source_issue": "26/27 No.14",
+    "note": "Source PDF is a reference asset supplied in conversation; not yet published to the repository."
+  },
+  "guidance": {
+    "fixed": "Locked high-fidelity source artwork; optional editable captions/overlays only.",
+    "hybrid": "Keep approved photography/graphics but rebuild headings, reports, captions and tables as editable layers.",
+    "editable": "Recreate typography and content as independent editable layers.",
+    "data": "Rebuild native editable tables/text, connect authoritative Programme Centre feed; never flatten."
+  },
+  "pages": [
+    {
+      "id": "issue-20261114-p01",
+      "pdf_page": 1,
+      "name": "Cover – Louis Smith",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 1
+    },
+    {
+      "id": "issue-20261114-p02",
+      "pdf_page": 2,
+      "name": "Pitching In volunteer advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 2
+    },
+    {
+      "id": "issue-20261114-p03",
+      "pdf_page": 3,
+      "name": "Tivvy website promotion",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 3
+    },
+    {
+      "id": "issue-20261114-p04",
+      "pdf_page": 4,
+      "name": "Today in 60 Seconds",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 4
+    },
+    {
+      "id": "issue-20261114-p05",
+      "pdf_page": 5,
+      "name": "Slee Blackwell solicitors advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 5
+    },
+    {
+      "id": "issue-20261114-p06",
+      "pdf_page": 6,
+      "name": "Latest News",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 6
+    },
+    {
+      "id": "issue-20261114-p07",
+      "pdf_page": 7,
+      "name": "A Hundred for Hall",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 7
+    },
+    {
+      "id": "issue-20261114-p08",
+      "pdf_page": 8,
+      "name": "Club Officials and Honours",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 8
+    },
+    {
+      "id": "issue-20261114-p09",
+      "pdf_page": 9,
+      "name": "PST Sport advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 9
+    },
+    {
+      "id": "issue-20261114-p10",
+      "pdf_page": 10,
+      "name": "League So Far – match details 1",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 10
+    },
+    {
+      "id": "issue-20261114-p11",
+      "pdf_page": 11,
+      "name": "League So Far – match details 2",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 11
+    },
+    {
+      "id": "issue-20261114-p12",
+      "pdf_page": 12,
+      "name": "League So Far – match details 3",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 12
+    },
+    {
+      "id": "issue-20261114-p13",
+      "pdf_page": 13,
+      "name": "Diamond Estate Agents advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 13
+    },
+    {
+      "id": "issue-20261114-p14",
+      "pdf_page": 14,
+      "name": "League So Far – results matrix",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 14
+    },
+    {
+      "id": "issue-20261114-p15",
+      "pdf_page": 15,
+      "name": "VX3 partner advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 15
+    },
+    {
+      "id": "issue-20261114-p16",
+      "pdf_page": 16,
+      "name": "Around the League",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 16
+    },
+    {
+      "id": "issue-20261114-p17",
+      "pdf_page": 17,
+      "name": "Southern League column 1",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 17
+    },
+    {
+      "id": "issue-20261114-p18",
+      "pdf_page": 18,
+      "name": "Southern League column 2",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 18
+    },
+    {
+      "id": "issue-20261114-p19",
+      "pdf_page": 19,
+      "name": "League Table",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 19
+    },
+    {
+      "id": "issue-20261114-p20",
+      "pdf_page": 20,
+      "name": "Tivvy at a Glance",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 20
+    },
+    {
+      "id": "issue-20261114-p21",
+      "pdf_page": 21,
+      "name": "Last Time Out – Paulton report 1",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 21
+    },
+    {
+      "id": "issue-20261114-p22",
+      "pdf_page": 22,
+      "name": "Ellie's Sports and Massage advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 22
+    },
+    {
+      "id": "issue-20261114-p23",
+      "pdf_page": 23,
+      "name": "Last Time Out – Paulton report 2",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 23
+    },
+    {
+      "id": "issue-20261114-p24",
+      "pdf_page": 24,
+      "name": "Match photo and Van Man advert",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 24
+    },
+    {
+      "id": "issue-20261114-p25",
+      "pdf_page": 25,
+      "name": "Last Time Out – Paulton report 3",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 25
+    },
+    {
+      "id": "issue-20261114-p26",
+      "pdf_page": 26,
+      "name": "Last Time Out – Paulton report 4",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 26
+    },
+    {
+      "id": "issue-20261114-p27",
+      "pdf_page": 27,
+      "name": "Last Time Out – Paulton report 5",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 27
+    },
+    {
+      "id": "issue-20261114-p28",
+      "pdf_page": 28,
+      "name": "Man Down advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 28
+    },
+    {
+      "id": "issue-20261114-p29",
+      "pdf_page": 29,
+      "name": "Matt Le Tissier event advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 29
+    },
+    {
+      "id": "issue-20261114-p30",
+      "pdf_page": 30,
+      "name": "Your Tivvy – players 1",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 30
+    },
+    {
+      "id": "issue-20261114-p31",
+      "pdf_page": 31,
+      "name": "Your Tivvy – players 2",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 31
+    },
+    {
+      "id": "issue-20261114-p32",
+      "pdf_page": 32,
+      "name": "Your Tivvy – players 3",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 32
+    },
+    {
+      "id": "issue-20261114-p33",
+      "pdf_page": 33,
+      "name": "Your Tivvy – players 4",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 33
+    },
+    {
+      "id": "issue-20261114-p34",
+      "pdf_page": 34,
+      "name": "Your Tivvy – players 5",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 34
+    },
+    {
+      "id": "issue-20261114-p35",
+      "pdf_page": 35,
+      "name": "VX3 replica kit advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 35
+    },
+    {
+      "id": "issue-20261114-p36",
+      "pdf_page": 36,
+      "name": "Commercial Opportunities",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 36
+    },
+    {
+      "id": "issue-20261114-p37",
+      "pdf_page": 37,
+      "name": "Club partners and sponsors",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 37
+    },
+    {
+      "id": "issue-20261114-p38",
+      "pdf_page": 38,
+      "name": "On This Day",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 38
+    },
+    {
+      "id": "issue-20261114-p39",
+      "pdf_page": 39,
+      "name": "Meet the Opposition – introduction",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 39
+    },
+    {
+      "id": "issue-20261114-p40",
+      "pdf_page": 40,
+      "name": "AS Paving and match photo",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 40
+    },
+    {
+      "id": "issue-20261114-p41",
+      "pdf_page": 41,
+      "name": "Meet the Opposition – history 1",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 41
+    },
+    {
+      "id": "issue-20261114-p42",
+      "pdf_page": 42,
+      "name": "Meet the Opposition – history 2",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 42
+    },
+    {
+      "id": "issue-20261114-p43",
+      "pdf_page": 43,
+      "name": "Opposition player profiles 1",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 43
+    },
+    {
+      "id": "issue-20261114-p44",
+      "pdf_page": 44,
+      "name": "Opposition player profiles 2",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 44
+    },
+    {
+      "id": "issue-20261114-p45",
+      "pdf_page": 45,
+      "name": "Opposition player profiles 3",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 45
+    },
+    {
+      "id": "issue-20261114-p46",
+      "pdf_page": 46,
+      "name": "Opposition player profiles 4",
+      "mode": "editable",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 46
+    },
+    {
+      "id": "issue-20261114-p47",
+      "pdf_page": 47,
+      "name": "Opposition player profiles 5",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 47
+    },
+    {
+      "id": "issue-20261114-p48",
+      "pdf_page": 48,
+      "name": "Construction and RGB adverts",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 48
+    },
+    {
+      "id": "issue-20261114-p49",
+      "pdf_page": 49,
+      "name": "Opposition Preview",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 49
+    },
+    {
+      "id": "issue-20261114-p50",
+      "pdf_page": 50,
+      "name": "Dyno-Rod and partner adverts",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 50
+    },
+    {
+      "id": "issue-20261114-p51",
+      "pdf_page": 51,
+      "name": "Market Carpets advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 51
+    },
+    {
+      "id": "issue-20261114-p52",
+      "pdf_page": 52,
+      "name": "James Pryce Tractors advert",
+      "mode": "fixed",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 52
+    },
+    {
+      "id": "issue-20261114-p53",
+      "pdf_page": 53,
+      "name": "Next Away Trip – Melksham",
+      "mode": "hybrid",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 53
+    },
+    {
+      "id": "issue-20261114-p54",
+      "pdf_page": 54,
+      "name": "Matchday team sheet",
+      "mode": "data",
+      "status": "not_started",
+      "qa": "not_verified",
+      "source_pdf_page": 54
+    }
+  ],
+  "notes": [
+    "Old Canva programme registry has 52 active master pages; this PDF has 54 pages. Do not map by ordinal position. Preserve legacy master as read-only.",
+    "Page 6 Latest News and page 14 results matrix have successful isolated editing prototypes, but need visual regression before V3 acceptance.",
+    "Sponsor adverts and externally supplied art should be retained unchanged until explicit replacement approval."
+  ]
+}

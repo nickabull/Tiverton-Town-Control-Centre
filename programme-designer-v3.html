@@ -80,10 +80,10 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.2 · TRANSPARENT MATRIX CELLS</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.3 · PAGE 19 LEAGUE TABLE TRIAL</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
- <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button></div></details>
+ <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button></div></details>
  <input id="importFile" type="file" accept=".zip,application/zip" hidden></div>
 </header>
 <div class="main">
@@ -171,7 +171,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.2").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.3").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -217,7 +217,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.2";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.3";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -322,6 +322,45 @@ async function createPage14ShirtTrial(){
   message('Page 14 shirt-design trial created. Check the editable matrix and moveable key.');
  }catch(e){alert('PAGE 14 TRIAL NOT CREATED: '+e.message+'\n\nNo original page was deliberately changed.')}finally{db?.close();button.disabled=false}
 }
+async function createPage19StandingsTrial(){
+ const p7=pages.find(p=>p.source===7),p19=pages.find(p=>p.source===19);
+ if(!p7||!p19){alert('Programme PDF pages 7 and 19 could not be found.');return}
+ if(!confirm('Build a separate PAGE 19 LEAGUE TABLE TRIAL with your live page 7 artwork and verified table AFTER Saturday 14 November 2026?\n\nThe new trial will not be included in the published programme. Original pages 7 and 19 remain unchanged.'))return;
+ const button=$('trialP19Btn');button.disabled=true;let db=null;
+ try{
+  if(loadedEditorPage&&!await flushEditor())throw Error('Current page save is not verified. Export its JSON before continuing.');
+  db=await openBackupDb();
+  const raw7=(await getBackup(db,PREFIX+p7.id))||localStorage.getItem(PREFIX+p7.id);
+  const raw19=(await getBackup(db,PREFIX+p19.id))||localStorage.getItem(PREFIX+p19.id);
+  if(!raw7)throw Error('Page 7 has no saved layers. Open its EDIT LAYERS view and check BROWSER SAVE VERIFIED.');
+  const source=JSON.parse(raw7);
+  if(!Array.isArray(source)||!source.length)throw Error('Page 7 saved layers are invalid.');
+  const rawArt=source.filter(l=>['image','shape'].includes(l.type)&&!l.hidden);
+  const artwork=rawArt.filter(l=>!(/bottom|footer/i.test(String(l.name||''))||Number(l.y)>675));
+  if(!artwork.some(l=>/shirt|background/i.test(String(l.name||'')))||!artwork.some(l=>/paint|stain|top|brush/i.test(String(l.name||''))))
+   throw Error('The saved page 7 shirt background and top brush artwork could not be identified.');
+  const page19Existing=raw19?JSON.parse(raw19):[];
+  if(!Array.isArray(page19Existing))throw Error('The current page 19 draft was not readable; export or repair it before converting.');
+  if(!window.confirm('Ready to generate the page 19 test?\n\nSource: 14 November 2026 full-time league standings, Tivvy eighth (17 played, 25 points).\nWhite title, copied shirt and top brush artwork, transparent ordinary rows, coloured promotion/play-off/relegation bands, club crests.\n\nThe league table will be individually editable and both source pages will be backed up.'))return;
+  const stamp=Date.now().toString(36);
+  const art=artwork.map((l,i)=>({...structuredClone(l),id:'p19trial-art-'+stamp+'-'+i,z:i,base:false,locked:true}));
+  const headlineStyle=source.filter(l=>l.type==='text'&&Number(l.y)<130&&!l.hidden).sort((a,b)=>Number(a.y)-Number(b.y))[0]||{};
+  const title={id:'p19trial-title-'+stamp,name:'LEAGUE TABLE · White Title',type:'text',text:'LEAGUE TABLE',x:Number(headlineStyle.x??22),y:Number(headlineStyle.y??15),w:Math.max(420,Number(headlineStyle.w)||530),h:Math.max(54,Number(headlineStyle.h)||72),z:101,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:Math.max(40,Number(headlineStyle.font)||42),weight:'700',color:'#ffffff',align:'left',base:false};
+  const date={id:'p19trial-date-'+stamp,name:'TABLE DATE · Editable',type:'text',text:'SOUTHERN LEAGUE DIVISION ONE SOUTH · TABLE AS AT 14 NOVEMBER 2026',x:36,y:133,w:523,h:34,z:102,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:14,weight:'700',color:'#111111',align:'center',base:false};
+  const standings={id:'p19trial-table-'+stamp,name:'SOUTHERN LEAGUE TABLE · Editable + Crests',type:'standings',x:14,y:187,w:567,h:550,z:103,locked:false,hidden:false,transparency:0,scale:100,rotate:0,base:false,tableDate:'2026-11-14'};
+  const zones={id:'p19trial-key-'+stamp,name:'Promotion and Play-Off Colour Key · Editable',type:'text',text:'PROMOTION    PLAY-OFFS    RELEGATION',x:38,y:760,w:522,h:35,z:104,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:13,weight:'700',color:'#111111',align:'center',base:false};
+  const snapshot=JSON.stringify([...art,title,date,standings,zones]);
+  // These safety snapshots include the complete existing browser data for both originals.
+  download('tivvy-page7-and-page19-safety-before-trial.json',JSON.stringify({format:'tivvy-v3-page19-trial-safety',created:new Date().toISOString(),page7:{id:p7.id,layers:source},page19:{id:p19.id,layers:page19Existing}},null,2),'application/json');
+  const trial={id:newId(),name:'PAGE 19 · SHIRT LEAGUE TABLE TRIAL',source:null,mode:'editable',include:false};
+  await putTrialDraft(db,PREFIX+trial.id,snapshot);
+  const index=pages.indexOf(p19);pages.splice(index+1,0,trial);
+  change('page19-trial','Created independent updated 14 Nov league table with club crests and coloured rows',trial.id);
+  await openPage(trial.id);
+  message('Page 19 shirt-design table trial created — check positions, crests and editability.');
+ }catch(e){alert('PAGE 19 TRIAL NOT CREATED: '+e.message+'\n\nYour original pages remain unchanged.')}
+ finally{db?.close();button.disabled=false}
+}
 function preview(){
  $("exportSummary").textContent=pages.filter(p=>p.include).length+" pages included · "+pages.filter(p=>!p.include).length+" excluded · "+pages.length+" editor pages";
  const list=$("exportPreviewList");list.replaceChildren();pages.filter(p=>p.include).forEach((p,i)=>{const li=document.createElement("li");li.textContent="Page "+(i+1)+" — "+p.name;list.append(li)});
@@ -354,6 +393,7 @@ $("addPage").onclick=addPage;$("duplicatePage").onclick=duplicatePage;$("renameP
 $("includePage").onclick=()=>toggleInclude(active);$("moveUp").onclick=()=>move(-1);$("moveDown").onclick=()=>move(1);
 $("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;
 $("trialP14Btn").onclick=createPage14ShirtTrial;
+$("trialP19Btn").onclick=createPage19StandingsTrial;
 $("previewBtn").onclick=preview;$("closePreview").onclick=()=>$("exportDialog").close();
 $("detailsBtn").onclick=openLog;$("closeDetails").onclick=()=>$("detailsDialog").close();
 $("logSearch").oninput=drawLog;$("logAction").onchange=drawLog;$("logPage").onchange=drawLog;$("downloadCsv").onclick=csv;
@@ -521,7 +561,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.2";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.3";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

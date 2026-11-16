@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.5.4 — SHAPE HANDLES / ACCESSIBLE RESIZING OUTSIDE A4 (16 NOVEMBER 2026)
+
+**Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.4
+
+- User designing the reusable V3 page-7 master directly with existing artwork. They found that **colour block/shape** layers lacked blue resize controls and that handles were unreachable when objects touched or extended beyond the A4 page into the grey workspace.
+- Replaced clipped, per-layer resize handles with a dedicated `#resizeOverlay` sibling of the printed `.paper` in `.pagebox` (z-index 10000, pointer events only on the handle nodes). This leaves actual printed artwork clipped to A4 while making three blue handles accessible above the grey stage. Supports unlocked text, image **and shape/colour block** layers; width, height and corner handles; image-corner Shift-drag proportional scaling; honors 1600×2200 layer limits.
+- Overlay positions follow selected layer's real on-screen geometry and update on drag and zoom. At print time overlay is hidden. Locked and hidden layers get no handles; inspector numeric dimensions remain available.
+- Changed `programme-designer-v3-editor.html` in commit `247924d7763b6373669f93a1e3d8f947103fea66`, shell `programme-designer-v3.html` in commit `80355057f7fabb25326efbfde71fd6c02da3afaa`. Inline JavaScript syntax checks passed; **real browser QA still required**. Ask user to check block handles, edge crossing into grey, text/image handles, save verification and refresh. Never touch V2 or production.
+- Caveat: positioning uses selected layer's bounding rectangle, so rotated/scaled layers may show handles on their screen-aligned bounding box rather than geometrically rotated corners. If user reports that, refine this separately.
+
+
 ## V3.5.3 — IMAGE RESIZE HANDLES / V3-NATIVE MASTER (16 NOVEMBER 2026)
 
 **Dev URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.3

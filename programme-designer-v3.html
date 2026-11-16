@@ -38,7 +38,7 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
 @media(max-width:800px){.main{grid-template-columns:220px minmax(0,1fr)}.brand{font-size:19px}header{gap:5px}.headmeta{gap:4px}.chip{padding:5px;font-size:10px}nav .controls{grid-template-columns:1fr}.page{grid-template-columns:26px minmax(0,1fr) 27px}}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>54-PAGE REBUILD · DEVELOPMENT SHELL</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>54-PAGE REBUILD · DEVELOPMENT SHELL · LOCAL ONLY</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
@@ -87,9 +87,9 @@ function record(action,detail,pageId,category="page"){
 async function initialize(){
  try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.0.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
-  if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
-  else{pages=data.pages.map(p=>({id:p.id,name:p.name,source:p.pdf_page,mode:p.mode,include:p.include_in_export!==false}));active=pages[0]?.id;record("issue-created","54 reference pages registered",active)}
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
+  if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
+  else{pages=data.pages.map(p=>({id:p.id,name:p.name,source:p.pdf_page,mode:p.mode,include:p.include_in_export!==false}));active=pages.find(p=>p.source===6)?.id||pages[0]?.id;record("issue-created","54 reference pages registered",active)}
   if(!pages.some(p=>p.id===active))active=pages[0]?.id||null;
   persist();render();openPage(active);
  }catch(e){message("Cannot initialise programme manifest: "+e.message);$("counts").textContent="Failed to load programme"}

@@ -6,8 +6,8 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 ## READ THIS FIRST — working target and guardrails
 
 **ACTIVE EXPERIMENT:** `tivvy-latest-news-layer-test.html`.
-**Current labelled test version:** **V2.7.5**.
-**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.5
+**Current labelled test version:** **V2.8.0** (three separate tests).
+**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.8.0
 
 **DO NOT MODIFY `programme-designer-v2.html`**, `programme-studio.html`, the master production templates, or other programme files unless explicitly requested. The Latest News experiment is deliberately isolated. Despite the page's "V2" branding, it is NOT the same file as `programme-designer-v2.html`. When changing chats, inspect the actual file and recent commits before touching code; never infer the target from a generic phrase like "the designer".
 
@@ -16,6 +16,16 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, testing it against the **Latest News** layout first, before any decision to integrate into wider programme production. Preserve the existing artwork, typography and safe master workflow.
 
 ## Latest work (16 November 2026)
+
+- **V2.8.0 three-test structure:** User approved finished formatting proof and requests future work on chat integration, Darren's report, and an editable movable table. The left sidebar now links three separate HTML test files:
+  - Test 1 · Formatting: `tivvy-latest-news-layer-test.html?v=2.8.0` (original browser autosave key preserved: `tivvy-v2-actual-artwork-test`).
+  - Test 2 · Chat Add-In: `tivvy-latest-news-chat-test.html?v=2.8.0` (isolated autosave: `tivvy-v2-actual-artwork-chat-test`).
+  - Test 3 · Darren Report: `tivvy-latest-news-darren-report-test.html?v=2.8.0` (isolated autosave: `tivvy-v2-actual-artwork-darren-report-test`).
+  - Tests 2/3 clone the Test 1 layer state **the first time they open in the same browser**; they then save independently. They do not import browser-local state from other devices.
+  - Keyboard shortcuts outside edit fields: Ctrl/Cmd+Z undo; Ctrl+Y or Ctrl/Cmd+Shift+Z redo; Ctrl/Cmd+A selects every visible unlocked layer. Shift-click selection and red guides retained.
+  - Commit refs: Test 1 `6f7610812a7b3c542c5a78ee0d2f520c12d8e88a`; Test 2 `f32e7f3da28cef561ee54b6bf917bd8a97918ad8`; Test 3 `06535d9901d2084032ba281c487decfd5cea6ccf`.
+  - Test 1 considered user-approved visually from screenshot (16 Nov 2026); no claim of pixel-perfect QA. Tests 2/3 are cloned workspaces ONLY — chat integration, Darren-report import, and editable/movable table have NOT been built yet. Browser QA for shortcuts and test switching pending.
+
 
 - **V2.7.5:** User reported red snapping guides stopped working after multi-select. Root cause: group dragging bypassed `snapPosition()` and called `clearSnapGuides()` every move. Restored snap positioning for single and grouped drags, excluding all moving selected layers from snap targets; Alt still bypasses snapping. Commit `0c8eaf3dcd2a7d7e35c9c0f1e13532bc89739807`. Browser verification needed.
 

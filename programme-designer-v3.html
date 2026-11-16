@@ -80,10 +80,10 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.0 · COMPACT TOOLBAR</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.1 · PAGE 14 DESIGN TRIAL</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
- <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div></details>
+ <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button></div></details>
  <input id="importFile" type="file" accept=".zip,application/zip" hidden></div>
 </header>
 <div class="main">
@@ -149,6 +149,13 @@ function openBackupDb(){
   r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('pageDrafts'))r.result.createObjectStore('pageDrafts')};
   r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error||Error('Cannot open draft database'))});
 }
+function putTrialDraft(db,key,snapshot){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction('pageDrafts','readwrite');
+  tx.objectStore('pageDrafts').put({snapshot,savedAt:new Date().toISOString(),layerCount:JSON.parse(snapshot).length,source:'page-7-to-page-14-trial'},key);
+  tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||Error('Draft write failed'));tx.onabort=()=>reject(tx.error||Error('Draft transaction aborted'));
+ });
+}
 function getBackup(db,key){
  return new Promise((resolve,reject)=>{const r=db.transaction('pageDrafts','readonly').objectStore('pageDrafts').get(key);
   r.onsuccess=()=>resolve(r.result?.snapshot||null);r.onerror=()=>reject(r.error||Error('Cannot read page backup'))});
@@ -164,7 +171,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.1").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -210,7 +217,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.0";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.1";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -261,6 +268,60 @@ async function backup(){
  }catch(e){message('BACKUP FAILED: '+e.message)}finally{db?.close()}
 }
 
+async function createPage14ShirtTrial(){
+ const original7=pages.find(p=>p.source===7),original14=pages.find(p=>p.source===14);
+ if(!original7||!original14){alert('Both PDF reference pages 7 and 14 must exist in this programme.');return}
+ if(!confirm('Create a separate PAGE 14 DESIGN TRIAL from saved page 7 artwork, keeping page 14’s editable matrix and legend?\\n\\nThis trial will be EXCLUDED from programme export. Original pages 7 and 14 will remain unchanged.'))return;
+ const button=$('trialP14Btn');button.disabled=true;
+ let db=null;
+ try{
+  if(loadedEditorPage&&!await flushEditor())throw Error('The current page has not confirmed its save. Export its layers JSON before continuing.');
+  db=await openBackupDb();
+  const raw7=(await getBackup(db,PREFIX+original7.id))||localStorage.getItem(PREFIX+original7.id);
+  const raw14=(await getBackup(db,PREFIX+original14.id))||localStorage.getItem(PREFIX+original14.id);
+  if(!raw7||!raw14)throw Error('Page 7 or 14 has no saved draft yet. Open each page in EDIT LAYERS, confirm its save, and try again.');
+  const src7=JSON.parse(raw7),src14=JSON.parse(raw14);
+  if(!Array.isArray(src7)||!Array.isArray(src14))throw Error('One of the source drafts is not a valid layer array.');
+  const matrix=src14.find(l=>l.type==='matrix');
+  if(!matrix||!matrix.matrixScores)throw Error('Page 14 does not have a SAVED editable results matrix. Open page 14 in EDIT LAYERS so its matrix is created and saved first.');
+  const page7Artwork=src7.filter(l=>['image','shape'].includes(l.type)&&!l.hidden);
+  const topArtwork=page7Artwork.filter(l=>!(/bottom|footer/i.test(String(l.name||''))||Number(l.y)>675));
+  if(!topArtwork.some(l=>/shirt|background/i.test(String(l.name||''))))throw Error('Could not identify the named shirt/background artwork in saved page 7. Check that you are using the latest saved design.');
+  if(!topArtwork.some(l=>/paint|stain|top|brush/i.test(String(l.name||''))))throw Error('Could not identify the page 7 top brush-stroke artwork.');
+  const stamp=Date.now().toString(36);
+  const art=topArtwork.map((l,i)=>({...structuredClone(l),id:'p14trial-art-'+stamp+'-'+i,z:i,base:false,name:String(l.name||'Master artwork')}));
+  // The old PDF/map decoration is deliberately excluded. No page-14 content is flattened.
+  const contents=src14.filter(l=>l.type!=='image'&&l.type!=='shape').map((l,i)=>({...structuredClone(l),z:100+i}));
+  const liveMatrix=contents.find(l=>l.type==='matrix');
+  liveMatrix.name='EDITABLE RESULTS TABLE';liveMatrix.hideLegend=true;
+  liveMatrix.x=16;liveMatrix.y=190;liveMatrix.w=563;liveMatrix.h=Math.max(440,Number(liveMatrix.h)||550);
+  liveMatrix.z=120;liveMatrix.locked=false;
+  const oldHeading=contents.find(l=>l.id==='heading'||(/league so far/i.test(String(l.name||'')+String(l.text||''))&&l.type==='text'));
+  const page7Heading=src7.filter(l=>l.type==='text'&&Number(l.y)<110).sort((a,b)=>Number(a.y)-Number(b.y))[0];
+  if(oldHeading){
+   const title=page7Heading||{};
+   Object.assign(oldHeading,{name:'THE LEAGUE SO FAR · White Heading',text:'THE LEAGUE SO FAR',x:Number(title.x??24),y:Number(title.y??18),w:Math.max(440,Number(title.w)||525),h:Math.max(58,Number(title.h)||74),font:Number(title.font)||44,weight:'700',color:'#ffffff',align:'left',rotate:Number(title.rotate)||0,scale:100,locked:false,hidden:false,z:160});
+   delete oldHeading.richHtml;
+  }else contents.push({id:'p14trial-heading-'+stamp,name:'THE LEAGUE SO FAR · White Heading',type:'text',text:'THE LEAGUE SO FAR',x:25,y:20,w:525,h:70,z:160,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:44,weight:'700',color:'#ffffff',align:'left',base:false});
+  // Preserve exact saved matrix date; do not fabricate newer results.
+  const iso=String(liveMatrix.matrixDate||'2026-11-14'),dt=iso.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/),dateText=dt?dt[3]+'/'+dt[2]+'/'+dt[1]:'CHECK RESULTS DATE';
+  const subtitle=contents.find(l=>l.id==='subtitle'||/results date|up to/i.test(String(l.name||'')+String(l.text||'')));
+  if(subtitle){subtitle.name='RESULTS DATE · Editable';subtitle.text='SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS · UP TO '+dateText;subtitle.x=39;subtitle.y=148;subtitle.w=515;subtitle.h=29;subtitle.font=12;subtitle.color='#111111';subtitle.align='center';subtitle.rotate=0;subtitle.z=140;subtitle.locked=false;delete subtitle.richHtml}
+  const keyLayer={id:'p14trial-clubkey-'+stamp,name:'CLUB KEY · Editable / Movable',type:'matrix',legendOnly:true,legendNames:{},x:16,y:690,w:563,h:142,z:150,locked:false,hidden:false,transparency:0,scale:100,rotate:0,base:false,matrixScores:{},matrixManual:{},matrixDate:iso};
+  const trialLayers=[...art,...contents,keyLayer];
+  if(!confirm('Ready to create the trial?\\n\\nArtwork: '+art.length+' independent image/colour layers (bottom black removed).\\nExisting page 14 content: '+contents.length+' editable layers, including the results matrix.\\nClub key: separate movable/editable layer.\\nDate: '+dateText+'.\\n\\nYour ORIGINAL pages stay unchanged.'))return;
+  // Portable, complete safety copies are downloaded BEFORE creating the new page.
+  download('tivvy-page7-and-page14-safety-before-trial.json',JSON.stringify({format:'tivvy-v3-page14-trial-safety',created:new Date().toISOString(),page7:{id:original7.id,layers:src7},page14:{id:original14.id,layers:src14}},null,2),'application/json');
+  const trial={id:newId(),name:'PAGE 14 · SHIRT DESIGN TRIAL',source:null,mode:'editable',include:false};
+  const snapshot=JSON.stringify(trialLayers);
+  await putTrialDraft(db,PREFIX+trial.id,snapshot);
+  const idx=pages.findIndex(p=>p.id===original14.id);
+  pages.splice(idx+1,0,trial);
+  change('page14-trial','Made non-exporting editable test from page 7 artwork and page 14 matrix; originals unchanged',trial.id);
+  await openPage(trial.id);
+  message('Page 14 shirt-design trial created. Check the editable matrix and moveable key.');
+ }catch(e){alert('PAGE 14 TRIAL NOT CREATED: '+e.message+'\\n\\nNo original page was deliberately changed.')}finally{db?.close();button.disabled=false}
+}
 function preview(){
  $("exportSummary").textContent=pages.filter(p=>p.include).length+" pages included · "+pages.filter(p=>!p.include).length+" excluded · "+pages.length+" editor pages";
  const list=$("exportPreviewList");list.replaceChildren();pages.filter(p=>p.include).forEach((p,i)=>{const li=document.createElement("li");li.textContent="Page "+(i+1)+" — "+p.name;list.append(li)});
@@ -292,6 +353,7 @@ $("storageBackupBtn").onclick=()=>{backup();$("storageDialog").close()};
 $("addPage").onclick=addPage;$("duplicatePage").onclick=duplicatePage;$("renamePage").onclick=renamePage;
 $("includePage").onclick=()=>toggleInclude(active);$("moveUp").onclick=()=>move(-1);$("moveDown").onclick=()=>move(1);
 $("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;
+$("trialP14Btn").onclick=createPage14ShirtTrial;
 $("previewBtn").onclick=preview;$("closePreview").onclick=()=>$("exportDialog").close();
 $("detailsBtn").onclick=openLog;$("closeDetails").onclick=()=>$("detailsDialog").close();
 $("logSearch").oninput=drawLog;$("logAction").onchange=drawLog;$("logPage").onchange=drawLog;$("downloadCsv").onclick=csv;
@@ -459,7 +521,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.0";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.1";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

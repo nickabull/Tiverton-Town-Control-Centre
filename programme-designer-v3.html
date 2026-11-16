@@ -80,7 +80,7 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.1 · PAGE 14 DESIGN TRIAL</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.2 · TRANSPARENT MATRIX CELLS</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
  <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button></div></details>
@@ -171,7 +171,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.1").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.2").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -217,7 +217,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.1";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.2";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -521,7 +521,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.1";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.2";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

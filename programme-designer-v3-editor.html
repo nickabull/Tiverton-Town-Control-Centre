@@ -87,40 +87,81 @@
 .editor-help-dialog .help-future{color:#aaa;font-size:11px}
 .editor-help-dialog details{font-size:11px;line-height:1.5}
 @media print{.editor-help-dialog,.formatbar .help-button{display:none!important}.layout,.layout.hide-layers,.layout.hide-inspector,.layout.hide-layers.hide-inspector{display:block!important;height:auto!important}.stage{padding:0!important;overflow:visible!important}.stage .pagebox{margin:0!important}.sidebar,.inspector{display:none!important}}
-</style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="On-page text formatting">
+
+/* V3.6.0: strict two-row floating tool strip. Secondary tools are in an overlay menu. */
+.stage{padding-top:2px!important}
+.stage .formatbar{display:flex;flex-direction:column;gap:2px;padding:3px 6px;margin-bottom:3px;min-width:0;width:100%;max-width:100%;overflow:visible}
+.stage .formatbar .formatrow{display:flex;align-items:center;flex-wrap:nowrap;gap:3px;min-height:27px;max-width:100%;width:100%;overflow:visible}
+.stage .formatbar .formatrow-primary{border-bottom:1px solid #424448;padding-bottom:2px}
+.stage .formatbar button{padding:4px 6px;min-width:25px;line-height:16px;font-size:11px;white-space:nowrap}
+.stage .formatbar .format-title{font:700 14px Antonio,Impact,sans-serif;margin-right:4px;white-space:nowrap;flex-shrink:0}
+.stage .formatbar .format-divider{height:17px;margin:0 3px;flex-shrink:0}
+.stage .formatbar .history-btn{font:700 10px Arial,sans-serif;padding:4px 5px;white-space:nowrap}
+.stage .formatbar .snap-toggle{margin:0 0 0 1px;padding:2px 5px;font:700 10px Arial,sans-serif;min-height:24px;white-space:nowrap}
+.stage .formatbar .snap-toggle input{width:13px;height:13px;margin:0}
+.stage .formatbar .formatrow-label{font:700 10px Arial,sans-serif;padding-right:3px}
+.stage .formatbar .formatrow-size button{padding:3px 7px;min-height:24px}
+.stage .formatbar .formatrow-size label{font-size:10px}
+.stage .formatbar .formatrow-size label input{width:49px;padding:3px}
+.stage .formatbar .size-indicator{display:none!important}
+.stage .formatbar .format-help{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.stage .formatbar .zoom-control{margin-left:auto;gap:5px;white-space:nowrap}
+.stage .formatbar .zoom-control input{width:75px;padding:0}
+.stage .formatbar .zoom-control span{display:inline-block;min-width:32px}
+.stage .formatbar .editor-tools-menu{position:relative;margin-left:7px;z-index:200;flex:0 0 auto}
+.stage .formatbar .editor-tools-menu summary{list-style:none;cursor:pointer;background:#323438;border:1px solid #777;border-radius:3px;color:#ffda00;padding:5px 8px;font:700 10px Arial,sans-serif;white-space:nowrap}
+.stage .formatbar .editor-tools-menu summary::-webkit-details-marker{display:none}
+.stage .formatbar .editor-tools-menu[open] summary{background:#ffda00;color:#111}
+.stage .formatbar .editor-tools-panel{position:absolute;right:0;top:calc(100% + 4px);width:220px;max-width:calc(100vw - 30px);background:#292b2e;border:1px solid #777;box-shadow:0 12px 32px #000c;border-radius:5px;padding:8px;display:flex;flex-direction:column;gap:6px;z-index:500;white-space:normal}
+.stage .formatbar .editor-tools-panel button{width:100%;padding:7px;text-align:left;white-space:normal}
+.stage .formatbar .editor-tools-panel .tools-divider{border-top:1px solid #5d6064;margin:3px 0}
+.stage .formatbar .editor-tools-panel .tool-trace,.stage .formatbar .editor-tools-panel .tool-trace-opacity{display:flex;align-items:center;gap:6px;font:700 10px Arial,sans-serif;white-space:nowrap}
+.stage .formatbar .editor-tools-panel input[type=checkbox]{width:15px;height:15px;accent-color:#ffda00}
+.stage .formatbar .editor-tools-panel input[type=range]{width:80px;accent-color:#ffda00}
+.stage .formatbar .editor-tools-panel .tools-help{margin-top:1px;color:#ffda00;font-weight:700}
+.stage .pagebox{margin-top:4px}
+@media(max-width:700px){.stage .formatbar .formatrow{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}.stage .formatbar .formatrow-size{overflow:visible}.stage .formatbar .zoom-control input{width:58px}}
+@media print{.editor-tools-menu{display:none!important}}
+</style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
-  <button id="toggleLayersPanel" class="view-toggle" title="Hide/show layer panel" aria-pressed="false">☰ LAYERS</button>
-  <button id="toggleInspectorPanel" class="view-toggle" title="Hide/show layer inspector" aria-pressed="false">⚙ INSPECTOR</button>
-  <span class="format-divider" aria-hidden="true"></span>
   <strong class="format-title">EDIT TEXT</strong>
-  <button id="richEdit" type="button" title="Edit the currently selected text box">✎ EDIT</button>
+  <button id="richEdit" type="button" title="Edit selected text box">✎ EDIT</button>
   <span class="format-divider" aria-hidden="true"></span>
   <button data-rich="bold" type="button" title="Bold selected words">B</button>
   <button data-rich="underline" type="button" title="Underline selected words"><u>U</u></button>
   <button data-rich="strikeThrough" type="button" title="Strike through selected words"><s>S</s></button>
   <span class="format-divider" aria-hidden="true"></span>
-  <button data-rich="justifyLeft" type="button" aria-label="Align paragraph left" title="Align selected paragraph left"><span class="align-glyph left"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
-  <button data-rich="justifyCenter" type="button" aria-label="Centre paragraph" title="Centre selected paragraph"><span class="align-glyph center"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
-  <button data-rich="justifyRight" type="button" aria-label="Align paragraph right" title="Align selected paragraph right"><span class="align-glyph right"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
-  <button data-rich="justifyFull" type="button" aria-label="Justify paragraph" title="Fully justify selected paragraph"><span class="align-glyph justify"><i></i><i></i><i></i><i></i></span></button>
+  <button data-rich="justifyLeft" type="button" aria-label="Left alignment" title="Align paragraph left"><span class="align-glyph left"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
+  <button data-rich="justifyCenter" type="button" aria-label="Centre alignment" title="Centre paragraph"><span class="align-glyph center"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
+  <button data-rich="justifyRight" type="button" aria-label="Right alignment" title="Align paragraph right"><span class="align-glyph right"><i></i><i class="short"></i><i></i><i class="short"></i></span></button>
+  <button data-rich="justifyFull" type="button" aria-label="Justify paragraph" title="Fully justify paragraph"><span class="align-glyph justify"><i></i><i></i><i></i><i></i></span></button>
   <span class="format-divider" aria-hidden="true"></span>
   <button class="history-btn" id="undo" title="Undo Ctrl+Z">↶ UNDO (0)</button>
   <button class="history-btn" id="redo" title="Redo Ctrl+Shift+Z">↷ REDO (0)</button>
-  <label class="snap-toggle" title="Toggle red alignment guides"><input type="checkbox" id="snapEnabled" checked><span>SNAP</span></label>
+  <label class="snap-toggle" title="Toggle alignment snapping"><input type="checkbox" id="snapEnabled" checked><span>SNAP</span></label>
  </div>
  <div class="formatrow formatrow-size">
-  <span class="formatrow-label">TEXT SIZE</span>
-  <button id="richSize14" type="button" class="size-preset" title="Apply standard 14pt body size to highlighted words">14pt BODY</button>
-  <button id="richSize18" type="button" class="size-preset" title="Apply standard 18pt heading size to highlighted words">18pt HEADING</button>
-  <label title="Custom text size in points">CUSTOM <input id="richSize" type="number" min="6" max="100" value="14" title="Font size in points for selected text"></label>
-  <button id="richApplySize" type="button" title="Apply custom size to highlighted words">APPLY</button>
+  <span class="formatrow-label">SIZE</span>
+  <button id="richSize14" type="button" class="size-preset" title="Apply 14pt body size to highlighted words">14pt BODY</button>
+  <button id="richSize18" type="button" class="size-preset" title="Apply 18pt heading size to highlighted words">18pt HEAD</button>
+  <label title="Custom font size in points">CUSTOM <input id="richSize" type="number" min="6" max="100" value="14" title="Selected text size"></label>
+  <button id="richApplySize" type="button" title="Apply custom font size to highlighted words">APPLY</button>
   <span class="size-indicator" id="richSizeIndicator" title="Current text size">14pt / 18pt</span>
   <label class="zoom-control">ZOOM <input id="zoom" type="range" min="55" max="400" value="85" step="5"><span id="zoomPct">85%</span></label>
-  <details class="advanced-view" id="viewOptions"><summary title="Show optional tracing controls">VIEW ▾</summary>
-   <div class="advanced-view-panel"><label><input type="checkbox" id="traceToggle"> ORIGINAL TRACE</label><label>TRACE OPACITY <input id="traceOpacity" type="range" min="5" max="100" step="5" value="40"><span id="tracePct">40%</span></label></div>
+  <details class="editor-tools-menu" id="editorToolsMenu">
+   <summary aria-label="Open workspace tools">⚙ TOOLS ▾</summary>
+   <div class="editor-tools-panel">
+    <button id="toggleLayersPanel" class="view-toggle" type="button" aria-pressed="false">☰ LAYERS</button>
+    <button id="toggleInspectorPanel" class="view-toggle" type="button" aria-pressed="false">⚙ INSPECTOR</button>
+    <div class="tools-divider"></div>
+    <label class="tool-trace"><input type="checkbox" id="traceToggle"> ORIGINAL TRACE</label>
+    <label class="tool-trace-opacity">TRACE OPACITY <input id="traceOpacity" type="range" min="5" max="100" step="5" value="40"><span id="tracePct">40%</span></label>
+    <div class="tools-divider"></div>
+    <button type="button" id="editorHelpBtn" class="tools-help" title="Open designer guide">? HELP &amp; GUIDE</button>
+   </div>
   </details>
  </div>
- <span class="format-help" id="richStatus" aria-live="polite">Double-click text to edit</span><button type="button" id="editorHelpBtn" class="help-button" title="Open designer guide" aria-label="Open designer help">?</button>
+ <span class="format-help" id="richStatus" aria-live="polite">Double-click text to edit</span>
 </div><div class="pagebox" id="pagebox"><div class="paper" id="paper"></div><div id="resizeOverlay" class="v3-resize-overlay" aria-label="Layer resize controls"></div></div></main><aside class="inspector"><details class="editor-utilities"><summary>⚙ PAGE ACTIONS ▾</summary><div class="righttools"><button class="button" id="reset">RESET DEMO</button><button class="button" id="export">EXPORT LAYERS JSON</button><button class="button gold" id="print">PRINT / SAVE PDF</button></div></details><h2>LAYER INSPECTOR</h2><div id="selTitle" class="floating">Select a layer</div><div class="layer-rename-box"><label for="layerName">LAYER NAME</label><input type="text" id="layerName" class="layer-name-edit" maxlength="90" placeholder="Name this layer"><div class="layer-actions"><button id="applyLayerName" type="button" class="button">RENAME</button><button id="duplicateInspector" type="button" class="button">⧉ COPY</button></div></div><div class="layouttools"><button id="toggleLock">🔓 UNLOCK</button><button id="toggleVisible">👁 HIDE</button></div><div class="group"><h3>POSITION &amp; SIZE</h3><div class="row2"><label>X POSITION <span id="xVal"></span><input id="x" type="range" min="-200" max="595"><input id="xExact" class="precise-val" type="number" aria-label="Exact x value"></label><label>Y POSITION <span id="yVal"></span><input id="y" type="range" min="-200" max="842"><input id="yExact" class="precise-val" type="number" aria-label="Exact y value"></label><label>WIDTH <span id="wVal"></span><input id="w" type="range" min="10" max="1600"><input id="wExact" class="precise-val" type="number" aria-label="Exact w value"></label><label>HEIGHT <span id="hVal"></span><input id="h" type="range" min="10" max="2200"><input id="hExact" class="precise-val" type="number" aria-label="Exact h value"></label><label>SCALE <span id="scaleVal"></span><input id="scale" type="range" min="20" max="600"><input id="scaleExact" class="precise-val" type="number" aria-label="Exact scale value"></label><label>ROTATION <span id="rotateVal"></span><input id="rotate" type="range" min="-180" max="180"><input id="rotateExact" class="precise-val" type="number" aria-label="Exact rotate value"></label></div></div><div class="group"><h3>TRANSPARENCY</h3><label>TRANSPARENCY <span id="transparencyVal"></span><input id="transparency" type="range" min="0" max="100" value="0"><input id="transparencyExact" class="precise-val" type="number" aria-label="Exact transparency value"></label><p class="hint">0% = fully visible · 100% = invisible. Each image and text layer has its own setting.</p></div><div class="group hide" id="textControls"><h3>TEXT BOX OPTIONS (LEGACY FALLBACK)</h3><label>EDIT WORDING<textarea id="content"></textarea></label><div class="format-tools"><button id="boldSelection" type="button" title="Select words inside Edit Wording, then click here">B · BOLD SELECTION</button><small>Select just the words you want bold. **Markers** indicate inline bold in the editor.</small></div><div class="row2"><label>WHOLE TEXT SIZE (pt)<input id="font" type="number" min="6" max="150" step="1" title="Changes font size for the whole text box; retains bold, underline and paragraph alignment"></label><label>WEIGHT<select id="weight"><option value="400">Regular</option><option value="500">Medium</option><option value="600">Semi-bold</option><option value="700">Bold</option></select></label><label>COLOUR<input id="color" type="color"></label><label>ALIGNMENT<select id="align"><option value="left">Left</option><option value="center">Centre</option><option value="right">Right</option><option value="justify">Full justification</option></select></label></div></div><div class="group" id="blockControls"><h3>COLOUR BLOCK</h3><label>FILL COLOUR<input id="fill" type="color"></label></div><div class="group hide" id="matrixControls"><h3>RESULTS MATRIX</h3><p class="hint">A single movable table layer. Click a score to edit it; the home team is across the top, away team down the side. The club key and crests move with the table.</p><button class="button" id="matrixRefresh" type="button">REFRESH PROGRAMME RESULTS</button><p class="hint" id="matrixStatus">Includes verified results through 14 November. Manual cell edits are retained on refresh.</p></div><div class="group" id="imageControls"><h3>IMAGE OPTIONS</h3><label>CROP / FIT<select id="fit"><option value="contain">Entire image</option><option value="cover">Crop to frame</option><option value="fill">Stretch</option></select></label><label>OUTLINE / STROKE WIDTH <span id="strokeWidthVal">0 px</span><input id="strokeWidth" type="range" min="0" max="30" step="1" value="0"><input id="strokeWidthExact" class="precise-val" type="number" min="0" max="30" step="1" value="0" aria-label="Stroke width in pixels"></label><label>STROKE COLOUR<input id="strokeColor" type="color" value="#ffffff"></label><p class="hint">Stroke follows the visible silhouette of a transparent image. Set 0 px for no outline. The original image is preserved.</p></div><div class="status" id="saveStatus">Checking browser draft storage…</div><div id="v3RecoveryActions" class="status" style="display:none;border:2px solid #ffda00;background:#29220c;padding:12px"><strong style="color:#ffda00">PAGE DRAFT NEEDS RECOVERY</strong><p id="v3RecoveryExplanation">The previous draft could not be read. Its stored copy has been archived.</p><button type="button" id="v3RecoveryExport" class="button">DOWNLOAD SAVED-RECORD DIAGNOSTICS</button><button type="button" id="v3RecoveryStart" class="button gold" style="margin-top:7px">START NEW PAGE 7 DRAFT</button><p style="font-size:11px">Only use Start New if you are happy to start this page over. The invalid backup is not deleted.</p></div></aside></div>
 <dialog id="editorHelpDialog" class="editor-help-dialog" aria-labelledby="editorHelpTitle">
  <h2 id="editorHelpTitle">TIVVY DESIGNER · QUICK GUIDE</h2>

@@ -151,7 +151,7 @@ button.x-expand:hover{background:#554b6b}
 <button class="tab" type="button" role="tab" data-tab="onecentral" aria-selected="false">D1 Central</button>
 <button class="tab" type="button" role="tab" data-tab="premiersouth" aria-selected="false">Premier South</button>
 <button class="tab" type="button" role="tab" data-tab="premiercentral" aria-selected="false">Premier Central</button>
-<button class="tab" type="button" role="tab" data-tab="fatrophy" aria-selected="false">FA Trophy</button>
+
 <button class="tab" type="button" role="tab" data-tab="xupdates" aria-selected="false">X Updates</button>
 
 </div>
@@ -164,21 +164,21 @@ button.x-expand:hover{background:#554b6b}
 (function(){
 "use strict";
 const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
-const matchdayPath="tivvy-live-20261114.json";
-const backupPath="southern-league-matchday-20261114.json";
-const xPath="tivvy-x-saturday.json";
-const EXPECTED_DATE="2026-11-14";
+const matchdayPath="tivvy-live-20261121.json";
+const backupPath="southern-league-matchday-20261121.json";
+const xPath="tivvy-x-melksham.json";
+const EXPECTED_DATE="2026-11-21";
 // Saturday 14 November fixture board, transcribed from the supplied Southern League listing.
 // Kick-off and P-P markers are a schedule reference, never verified live scores.
-const fixtureBoard={"onesouth":[["Barnstaple Town","Westbury United"],["Dorchester Town","Larkhall Athletic"],["Exmouth Town","Bristol Manor Farm"],["Hartpury FC","Falmouth Town"],["Hungerford Town","Shaftesbury"],["Paulton Rovers","Willand Rovers"],["Slimbridge AFC","Melksham Town"],["Swindon Supermarine","Portland United"],["Tiverton Town","Bishops Cleeve"],["Weymouth FC","Sporting Club Inkberrow","P-P"],["Worcester Raiders","Bideford AFC"]],"premiercentral":[["Alvechurch","Hitchin Town"],["Anstey Nomads","Worcester City"],["Bury Town","Rushall Olympic"],["Leamington","Leiston"],["Leighton Town","Stratford Town"],["Needham Market","Banbury United"],["Redditch United","Stamford","P-P"]],"premiersouth":[["Basingstoke Town","Chippenham Town"],["Bath City","Berkhamsted","P-P"],["Bracknell Town","Uxbridge","P-P"],["Chertsey Town","Wimborne Town","P-P"],["Evesham United","Gosport Borough"],["Frome Town","Hanworth Villa"],["Gloucester City","Sholing FC"],["Hanwell Town","Plymouth Parkway"],["Havant & Waterlooville","Yate Town FC"],["Malvern Town","Chichester City","P-P"],["Poole Town","Taunton Town"]],"onecentral":[["Aylesbury United","Biggleswade FC"],["Barton Rovers","Haringey Borough"],["Beaconsfield Town","Biggleswade Town"],["Hertford Town","Hadley"],["Leverstock Green","Stotfold"],["Milton Keynes Irish","Welwyn Garden City"],["Potters Bar Town","Winslow United"],["Royston Town","Flackwell Heath"],["Thame United","London Lions"],["Ware","Waltham Abbey","P-P"]],"fatrophy":[["Bath City","Truro City"],["Billericay Town","Waltham Abbey"],["Bourne Town","Bromsgrove Sporting"],["Braintree Town","Kettering Town"],["Didcot Town","Slough Town"],["Eastbourne Borough","Chertsey Town"],["Halesowen Town","Redditch United"],["King's Lynn Town","Stourbridge FC"],["Salisbury","Chichester City"],["Weymouth FC","Hampton & Richmond Borough"],["Wimborne Town","Uxbridge"]]};
+const fixtureBoard={"onesouth":[["Bideford","Weymouth"],["Bishops Cleeve","Exmouth Town"],["Bristol Manor Farm","Hungerford Town"],["Falmouth Town","Dorchester Town"],["Larkhall Athletic","Hartpury"],["Melksham Town","Tiverton Town"],["Portland United","Barnstaple Town"],["Shaftesbury","Paulton Rovers"],["Sporting Club Inkberrow","Swindon Supermarine"],["Westbury United","Slimbridge"],["Willand Rovers","Worcester Raiders"]],"onecentral":[],"premiersouth":[],"premiercentral":[]};
 const normalizeTeam=n=>String(n||"").toLowerCase().replace(/\b(fc|afc)\b/g,"").replace(/[^a-z0-9]+/g," ").trim();
 const matchKey=(h,a)=>normalizeTeam(h)+"|"+normalizeTeam(a);
-const featuredKey=matchKey("Tiverton Town","Bishops Cleeve");
+const featuredKey=matchKey("Melksham Town","Tiverton Town");
 
 // Saturday test uses the separately deployed collector by default.
 // ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
 const liveApi=new URLSearchParams(location.search).get("liveApi")||
- "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-14";
+ "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-21";
 let liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
@@ -369,8 +369,8 @@ function renderRight(){
  for(const m of liveMatches)if(!scheduledKeys.has(matchKey(m.home,m.away))&&matchKey(m.home,m.away)!==featuredKey)
   entries.push({home:m.home,away:m.away,scheduledStatus:null,live:m});
  const liveCount=entries.filter(e=>e.live).length;
- const trophy=chosen==="fatrophy";
- $("leagueMeta").textContent=(trophy?"FA TROPHY · ":"SAT 14 NOV · ")+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only")+(trophy&&liveCount===0?" · Trophy live feed not connected":"");
+ 
+ $("leagueMeta").textContent="SAT 21 NOV · "+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only");
  if(!entries.length){root.append(mk("p","muted","No listed fixtures available in this competition."));return;}
  for(const item of entries){
   const m=item.live,box=mk("div","fixture"),row=mk("div","line");

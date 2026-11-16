@@ -282,9 +282,9 @@ window.addEventListener("message",event=>{
   }
  }
  if(d.type==="tivvy-v3-storage"&&d.pageId===active){
-  editorSaveFailed=!d.ok;
-  $("saveBadge").textContent=d.ok?"BROWSER SAVE VERIFIED · NO CLOUD SAVE":"SAVE FAILED — EXPORT PAGE JSON";
-  $("saveBadge").style.background=d.ok?"#5e4210":"#a11c1c";
+  editorSaveFailed=d.phase==='failed';
+  $("saveBadge").textContent=d.phase==='failed'?"SAVE FAILED — EXPORT PAGE JSON":d.phase==='saved'?"BROWSER SAVE VERIFIED · NO CLOUD SAVE":"SAVING / LOADING LOCAL DRAFT · NO CLOUD SAVE";
+  $("saveBadge").style.background=d.phase==='failed'?"#a11c1c":"#5e4210";
  }
 });
 

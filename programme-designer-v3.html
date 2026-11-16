@@ -58,7 +58,7 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 #cropHelp{max-width:595px;margin:12px auto;padding:10px;color:#ffda00;border:1px solid #a18b26;line-height:1.5}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.5.6 · SAFE DRAFT RECOVERY · NO CLOUD SAVE</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.5.7 · EXPLICIT RECOVERY OPTIONS · NO CLOUD SAVE</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="importBtn">IMPORT 54 PAGES</button><input id="importFile" type="file" accept=".zip,application/zip" hidden><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
@@ -136,7 +136,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.6").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.7").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -182,7 +182,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.6";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.7";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -431,7 +431,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.6";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.7";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

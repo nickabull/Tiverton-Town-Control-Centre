@@ -1535,7 +1535,7 @@ $("v2Backup").onclick=()=>{const blob=new Blob([JSON.stringify(store,null,2)],{t
 $("v2Import").onclick=()=>$("v2ImportInput").click();
 $("v2ImportInput").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const v=JSON.parse(String(r.result));if(v.version!==2||!v.editionPages||!confirm("Replace existing V2 layer data with this backup? V1 remains untouched."))return;store=v;remember();sync()}catch(err){alert("Not a valid V2 layer backup: "+err.message)}};r.readAsText(f)};
 paper.addEventListener("click",e=>{const el=e.target.closest("[data-v2-id],[data-field],[data-row],[data-asset],.topBand,.bottomBand,.aroundFooter,.squadHeader,.coverMast,.editorialArticleFoot,.newsFooter");if(!el||!paper.contains(el))return;const n=currentNodes.find(n=>n.el===el);if(n)select(n.id)},true);
-const observer=new MutationObserver(records=>{if(records.some(r=>r.type==="childList"&&r.target===paper))sync()});
+const observer=new MutationObserver(records=>{if(records.some(r=>r.type==="childList"&&r.target===paper&&[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&!n.hasAttribute("data-v2-id"))))sync()});
 observer.observe(paper,{childList:true});
 $("editionPicker").addEventListener("change",()=>setTimeout(sync,0));
 document.querySelectorAll(".pageOption").forEach(x=>x.addEventListener("click",()=>setTimeout(sync,0)));

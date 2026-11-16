@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.3 — USER CONFIRMED PAGE 19 VISUAL SUCCESS; CRESTS/KEY FOLLOW-UP (16 NOV 2026, 23:37 GMT)
+
+- User tested **PAGE 19 · SHIRT LEAGUE TABLE TRIAL** in V3.6.3 and sent full-page screenshot. Visual design highly approved ("OOOOHHH.. and ANOTHER shoot to win!"). White LEAGUE TABLE title, black-and-yellow header brush, shirt-fabric background, transparent standard rows, pale green automatic promotion row, blue play-off rows, pink relegation rows and Tivvy in yellow 8th position all visible.
+- **Follow-up defects reported:** a few club crest images are missing (determine exact team names and correct existing locked-crest asset paths or fallback), and the **legend/key is broken**: currently plain words "PROMOTION PLAY-OFFS RELEGATION" instead of the supplied example with three coloured swatches and labels **Automatic promotion** (green), **Promotion play-offs** (blue), **Relegation** (pink). User supplied a separate reference image for legend. Rebuild the key as a proper independent, movable, editable native layer; do not flatten into a bitmap. Ensure colours reflect actual zones on current table.
+- These defects **are not yet fixed**. Preserve existing browser-local trial page and original PDF page 19. Before editing, check saved artwork and date source, and use the V3 development code only.
+- This completes the key proof of concept of reusable page-7 aesthetic across editorial page 7, editable results matrix page 14 and editable standings page 19. Do not bulk-propagate until user defines final master variations.
+
+
 ## V3.6.3 — PAGE 19 EDITABLE SHIRT-STYLE LEAGUE TABLE TRIAL (16 NOV 2026, 23:31 GMT)
 
 **Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.3

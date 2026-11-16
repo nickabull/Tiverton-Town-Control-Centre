@@ -6,8 +6,8 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 ## READ THIS FIRST — working target and guardrails
 
 **ACTIVE EXPERIMENT:** `tivvy-latest-news-layer-test.html`.
-**Current labelled test version:** **V2.7.4**.
-**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.4
+**Current labelled test version:** **V2.7.5**.
+**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.5
 
 **DO NOT MODIFY `programme-designer-v2.html`**, `programme-studio.html`, the master production templates, or other programme files unless explicitly requested. The Latest News experiment is deliberately isolated. Despite the page's "V2" branding, it is NOT the same file as `programme-designer-v2.html`. When changing chats, inspect the actual file and recent commits before touching code; never infer the target from a generic phrase like "the designer".
 
@@ -16,6 +16,9 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, testing it against the **Latest News** layout first, before any decision to integrate into wider programme production. Preserve the existing artwork, typography and safe master workflow.
 
 ## Latest work (16 November 2026)
+
+- **V2.7.5:** User reported red snapping guides stopped working after multi-select. Root cause: group dragging bypassed `snapPosition()` and called `clearSnapGuides()` every move. Restored snap positioning for single and grouped drags, excluding all moving selected layers from snap targets; Alt still bypasses snapping. Commit `0c8eaf3dcd2a7d7e35c9c0f1e13532bc89739807`. Browser verification needed.
+
 
 - **V2.7.4:** Added non-destructive colour and 0–30px width controls for an image-layer silhouette stroke using a browser SVG alpha-dilation filter; default stroke 0px. A transparent PNG is required for a player outline rather than an outline around a rectangular opaque photo. Commit `4dbd12ba182efc14f0866fe174c1b2ec53179c00`. Browser QA still pending; Remove Background itself is *not* yet implemented.
 - **Verified by user:** V2.7.3 multi-selection is working well (16 November 2026). Retain this behaviour in future versions.

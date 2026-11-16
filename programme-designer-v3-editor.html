@@ -138,12 +138,12 @@ const undoStack=[],redoStack=[],MAX_HISTORY=100;
 let lastSavedSnapshot=v3Pack(),lastHistoryAt=0,lastHistoryKey="",restoring=false;
 const V3_DRAFT_DB='tivvy-v3-drafts-idb-v1',V3_DRAFT_STORE='pageDrafts';
 let draftDb=null,draftReady=false,saveBlocked=false,queuedSnapshot=null,saveRunning=false,saveRequest=0,saveTimer=null,saveError=null;
-const sleepMessage=()=>''; // Separate status helpers; no automatic loss of prior drafts.
 function draftStatus(text,failed=false){
  const el=$('saveStatus');el.textContent=text;el.style.color=failed?'#fff':'';
  el.style.background=failed?'#9b1b1b':'';
  el.style.padding=failed?'8px':'';
- window.parent.postMessage({type:'tivvy-v3-storage',pageId:V3_PAGE_ID,ok:!failed,detail:text},location.origin);
+ const confirmed=/^(SAVED IN THIS BROWSER|RECOVERED |EXISTING LOCAL DRAFT SAFELY COPIED)/.test(text);
+ window.parent.postMessage({type:'tivvy-v3-storage',pageId:V3_PAGE_ID,ok:!failed,phase:failed?'failed':confirmed?'saved':'pending',detail:text},location.origin);
 }
 function openDraftDb(){
  return new Promise((resolve,reject)=>{
@@ -206,7 +206,7 @@ async function flushDraft(){
  clearTimeout(saveTimer);
  await drainDraftSaves();
  while(saveRunning)await new Promise(resolve=>setTimeout(resolve,30));
- return !saveError&&queuedSnapshot===null;
+ return !saveBlocked&&!!draftDb&&!saveError&&queuedSnapshot===null;
 }
 async function initializeDraftRecovery(){
  try{

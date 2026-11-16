@@ -1,0 +1,25 @@
+# Copy to wrangler.toml AFTER creating your own resources.
+# Never commit credentials or Access tokens.
+name = "tivvy-programme-v3-api"
+main = "src/index.js"
+compatibility_date = "2026-11-16"
+workers_dev = false
+
+[vars]
+# Example: myteam.cloudflareaccess.com (without https://).
+ACCESS_TEAM_DOMAIN = "REPLACE_WITH_TEAM.cloudflareaccess.com"
+# Cloudflare Access application AUD tag.
+ACCESS_AUD = "REPLACE_WITH_ACCESS_AUD"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tivvy-programme-v3"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "tivvy-programme-v3-assets"
+
+# Deploy behind an Access-protected Custom Domain.
+# Do not enable a public workers.dev endpoint for the private write API.

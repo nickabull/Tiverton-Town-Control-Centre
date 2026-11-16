@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.5.6 — INVALID INDEXEDDB DRAFT RECOVERY (16 NOVEMBER 2026)
+
+**Dev:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.6
+
+- User opened V3.5.5 diagnostics. Exact browser warning: **"BROWSER SAVE UNAVAILABLE — DO NOT CLOSE THIS TAB. EXPORT JSON. Stored IndexedDB draft is invalid"**. Root cause: recovery code threw whenever IndexedDB snapshot parsed as an empty/non-array draft; its outer catch blocked all saving even where a valid older localStorage draft could be available. Why the IndexedDB snapshot is invalid is still unknown; do not assert storage quota as confirmed.
+- New recovery checks IndexedDB draft validity, **archives invalid IndexedDB record in the same object store under `recovery-archive:<original-key>:<timestamp>:<random>`**, then attempts to restore any valid legacy localStorage layers without deleting the original. On valid legacy recovery it writes a verified IndexedDB snapshot and displays recovery status; otherwise saving stays blocked with a clear archive/protection message (no silent reset/overwriting).
+- Kept original `tivvy-v3-draft-page-*` browser keys, page artwork, and reference database. Shell save-error popup now has proper line breaks rather than literal backslash-n text.
+- Commits editor `b45b0f08cab73717575c3e6f94b418e93c302c1c` and shell `234ed525b8f90fc090c465af19d071ab16b70ef3`; inline script syntax checks passed. Browser QA still pending: ask user to open V3.5.6 and report status. If warning remains, **do not reset, clear site data, or edit in that tab**; investigate archived record and explicit recovery path. Existing backup/export mechanisms should be scrutinised for malformed IndexedDB records.
+- V3.5.5 text toolbar two-row improvement retained; V3-native page-7 master redesign remains the design goal, but persistence takes precedence.
+
+
 ## V3.5.5 — SAVE-DIAGNOSTIC VISIBILITY + TEXT TOOLBAR TIDY (16 NOVEMBER 2026)
 
 **Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.5

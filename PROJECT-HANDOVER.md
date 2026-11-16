@@ -1,5 +1,17 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.0 — TWO-ROW COMPACT EDITOR + TOOLS MENU (16 NOV 2026)
+
+**Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.0
+
+- User screenshot of V3.5.9 showed the editor floating toolbar still occupying too much height: Snap checkbox wrapped onto a standalone line, LAYERS and INSPECTOR pushed typography controls rightward, VIEW dropdown displayed an oversized cut-off box, yellow standard-size explanation took space, and the yellow ? button floated at the bottom. User explicitly requested reclaiming ~5–6 rows so more of the actual page is visible.
+- **Before modification, archived current V3.5.9 GUI code** on GitHub branch `archive/programme-designer-v3-5-9-gui-20261116` from main. Earlier archive branches for V3.5.7 and V3.5.8 also retained. **Note**: archive branches store source code only, not user's browser-local art/layer drafts.
+- V3.6.0 editor reformats sticky toolbar as **two fixed non-wrapping rows** on desktop: (1) compact EDIT TEXT controls, B/U/S, four alignment options, UNDO, REDO, and tiny SNAP checkbox directly beside REDO; (2) BODY/HEAD font presets, custom font size, APPLY, Zoom, plus **⚙ TOOLS**. Removed LAYERS/INSPECTOR from primary toolbar and moved them to dropdown. Moved Original Trace toggle and opacity into same menu, with **? HELP & GUIDE** at its bottom. The formerly visible oversized VIEW panel is gone. The long yellow font-size status indicator is visually hidden but retained as DOM/state for existing JS; editor status is screen-reader-only. Existing element IDs and actions preserved, with editor draft persistence untouched.
+- Dropdown is positioned as an overlay under its own narrow TOOLS trigger and right-aligned, not an inline block consuming a new toolbar row. Print CSS hides the dropdown. Focus is screen estate while retaining black/yellow Tivvy design.
+- Editor commit `98d5b82ef4600802bfbbaed4bac02a0948d52f43`; V3 shell commit `ce684e37fc7f04dd2be7784bca9eacba59006bed`. Inline JS syntax checks passed; unique HTML IDs verified. **Interactive browser QA pending:** verify toolbar exactly two rows at the user's screen width; Snap directly after Redo; TOOLS dropdown opens without clipping and its LAYERS, INSPECTOR, TRACE and HELP controls work; toolbar remains sticky; existing editor layers, undo/redo, save and reference PDF unaffected. If wrapping persists at a very narrow editor width, further responsive refinements needed.
+- User page 7 master with Tiverton shirt artwork, black/yellow brush strokes and placeholder text remains browser-only. **Do not clear, reset, overwrite or migrate page data** as part of cosmetic UI changes.
+
+
 ## V3.5.9 — SINGLE CANVAS-FIRST TOOLBAR + COLLAPSE BUG FIX (16 NOV 2026)
 
 **Test URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.9

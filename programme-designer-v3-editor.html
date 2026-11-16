@@ -227,30 +227,58 @@ async function flushDraft(){
  while(saveRunning)await new Promise(resolve=>setTimeout(resolve,30));
  return !saveBlocked&&!!draftDb&&!saveError&&queuedSnapshot===null;
 }
+function validDraftLayers(snapshot){
+ if(typeof snapshot!=='string')return null;
+ try{
+  const value=JSON.parse(snapshot,v3Revive);
+  return Array.isArray(value)&&value.length&&value.every(l=>l&&typeof l==='object'&&typeof l.id==='string'&&typeof l.type==='string')?value:null;
+ }catch(e){return null}
+}
+function preserveBadDraft(db,record){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(V3_DRAFT_STORE,'readwrite');
+  const key='recovery-archive:'+V3_STORE_KEY+':'+new Date().toISOString()+':'+Math.random().toString(36).slice(2,8);
+  tx.objectStore(V3_DRAFT_STORE).put({originalPageKey:V3_STORE_KEY,reason:'unreadable or empty draft',preservedAt:new Date().toISOString(),originalRecord:record},key);
+  tx.oncomplete=()=>resolve(key);tx.onerror=()=>reject(tx.error||Error('Unable to archive bad draft'));tx.onabort=()=>reject(tx.error||Error('Unable to archive bad draft'));
+ });
+}
 async function initializeDraftRecovery(){
  try{
   draftDb=await openDraftDb();
   const existing=await readDraftRecord(draftDb);
-  if(existing?.snapshot){
-   const restored=JSON.parse(existing.snapshot,v3Revive);
-   if(!Array.isArray(restored)||!restored.length)throw Error('Stored IndexedDB draft is invalid');
-   layers=restored;lastSavedSnapshot=v3Pack();
-   selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
-   multiSelected.clear();saveBlocked=false;
-   draftReady=true;
-   draftStatus('RECOVERED '+layers.length+' LAYERS FROM BROWSER BACKUP · '+existing.savedAt);
-  }else if(initialDraftError){
-   saveBlocked=true;draftReady=true;
-   draftStatus(initialDraftError+' Export JSON; do not reset.',true);
-  }else{
-   draftReady=true;
-   if(hasInitialDraft){
-    await writeDraftRecord(draftDb,lastSavedSnapshot);
-    draftStatus('EXISTING LOCAL DRAFT SAFELY COPIED TO INDEXEDDB');
-   }else{
-    draftStatus('NEW PAGE · IndexedDB ready');
-   }
+  const indexed=validDraftLayers(existing?.snapshot);
+  if(indexed){
+   layers=indexed;lastSavedSnapshot=v3Pack();selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
+   multiSelected.clear();saveBlocked=false;draftReady=true;
+   draftStatus('RECOVERED '+layers.length+' LAYERS FROM BROWSER BACKUP · '+(existing.savedAt||'date unknown'));
+   return;
   }
+  // Never discard an unreadable IndexedDB record. Archive it before replacing its key.
+  let archived=false;
+  if(existing!==null){
+   await preserveBadDraft(draftDb,existing);
+   archived=true;
+  }
+  // The old localStorage draft is kept untouched and used for recovery when valid.
+  let legacyRaw=null;
+  try{legacyRaw=localStorage.getItem(V3_STORE_KEY)}catch(e){}
+  const legacy=validDraftLayers(legacyRaw);
+  if(legacy){
+   layers=legacy;lastSavedSnapshot=v3Pack();selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
+   multiSelected.clear();
+   await writeDraftRecord(draftDb,lastSavedSnapshot);
+   saveBlocked=false;draftReady=true;
+   draftStatus('RECOVERED '+layers.length+' LAYERS FROM OLDER LOCAL DRAFT'+(archived?' · invalid IndexedDB copy archived':''));
+   return;
+  }
+  if(existing!==null||initialDraftError){
+   // Do not replace the user's only draft with the starter layout automatically.
+   saveBlocked=true;draftReady=true;
+   draftStatus('OLD DRAFT ARCHIVED BUT NO VALID LAYERS FOUND — saving paused to prevent data loss. Export page JSON; ask for recovery options.',true);
+   return;
+  }
+  draftReady=true;
+  draftStatus('NEW PAGE · IndexedDB ready');
  }catch(e){
   draftReady=true;saveBlocked=true;
   draftStatus('BROWSER SAVE UNAVAILABLE — DO NOT CLOSE THIS TAB. EXPORT JSON. '+e.message,true);

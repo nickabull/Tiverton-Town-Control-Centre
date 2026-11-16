@@ -58,7 +58,7 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 #cropHelp{max-width:595px;margin:12px auto;padding:10px;color:#ffda00;border:1px solid #a18b26;line-height:1.5}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.5.1 · IMAGE SCALE + TYPOGRAPHY FIX · LOCAL ONLY</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.5.2 · RECOVERABLE LOCAL DRAFTS · NO CLOUD SAVE</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="importBtn">IMPORT 54 PAGES</button><input id="importFile" type="file" accept=".zip,application/zip" hidden><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
@@ -104,7 +104,27 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 "use strict";
 const KEY="tivvy-v3-shell-pages-issue14",LOG_KEY="tivvy-v3-shell-activity-issue14",PREFIX="tivvy-v3-draft-page-";
 const $=id=>document.getElementById(id),frame=$("pageEditor");
-let pages=[],trash=[],active=null,log=[],changing=false,dragged=null;
+let pages=[],trash=[],active=null,log=[],changing=false,dragged=null,switching=false,loadedEditorPage=null,editorSaveFailed=false;
+function flushEditor(){
+ if(!loadedEditorPage||!frame.contentWindow)return Promise.resolve(true);
+ return new Promise(resolve=>{
+  let settled=false;
+  function done(ok){if(settled)return;settled=true;clearTimeout(timer);window.removeEventListener('message',onMessage);resolve(ok)}
+  function onMessage(e){if(e.origin===location.origin&&e.source===frame.contentWindow&&e.data?.type==='tivvy-v3-flushed')done(e.data.ok===true)}
+  const timer=setTimeout(()=>done(false),12000);
+  window.addEventListener('message',onMessage);
+  try{frame.contentWindow.postMessage({type:'tivvy-v3-flush'},location.origin)}catch(e){done(false)}
+ });
+}
+function openBackupDb(){
+ return new Promise((resolve,reject)=>{const r=indexedDB.open('tivvy-v3-drafts-idb-v1',1);
+  r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('pageDrafts'))r.result.createObjectStore('pageDrafts')};
+  r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error||Error('Cannot open draft database'))});
+}
+function getBackup(db,key){
+ return new Promise((resolve,reject)=>{const r=db.transaction('pageDrafts','readonly').objectStore('pageDrafts').get(key);
+  r.onsuccess=()=>resolve(r.result?.snapshot||null);r.onerror=()=>reject(r.error||Error('Cannot read page backup'))});
+}
 const newId=()=>("v3-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8));
 const current=()=>pages.find(p=>p.id===active);
 const name=id=>pages.find(p=>p.id===id)?.name||trash.find(p=>p.id===id)?.name||id;
@@ -116,7 +136,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.5.2").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -150,16 +170,26 @@ function render(){
  $("moveUp").disabled=!c||pages.indexOf(c)===0;$("moveDown").disabled=!c||pages.indexOf(c)===pages.length-1;
  $("deletePage").disabled=!c||pages.length<=1;$("restorePage").disabled=!trash.length;
 }
-function openPage(id){
- if(!pages.some(p=>p.id===id))return;
- if(active!==id&&frame.contentWindow)frame.contentWindow.postMessage({type:"tivvy-v3-flush"},location.origin);
- active=id;persist();render();
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.1";
- if(!frame.src.endsWith(next))frame.src=next;
- stopCrop();
- if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
- else if(referenceMode)renderReference();
+async function openPage(id){
+ if(!pages.some(p=>p.id===id)||switching)return;
+ if(loadedEditorPage===id&&active===id){render();return}
+ switching=true;
+ try{
+  if(loadedEditorPage&&loadedEditorPage!==id){
+   if(!await flushEditor()){
+    editorSaveFailed=true;$('saveBadge').textContent='SAVE NOT CONFIRMED — STAY ON THIS PAGE';
+    message('Save not confirmed. Export JSON in EDIT LAYERS before switching.');return;
+   }
+  }
+  active=id;persist();render();loadedEditorPage=null;
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.5.2";
+  if(!frame.src.endsWith(next))frame.src=next;
+  stopCrop();
+  if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
+  else if(referenceMode)renderReference();
+ }finally{switching=false}
 }
+
 function change(action,detail,id){record(action,detail,id);persist();render()}
 function addPage(){
  const at=pages.findIndex(p=>p.id===active);const p={id:newId(),name:"New Programme Page",source:null,mode:"editable",include:true};
@@ -181,11 +211,28 @@ function deletePage(){const c=current();if(!c||pages.length<=1)return;if(!confir
  const at=pages.indexOf(c);trash.push({...c,deletedAt:new Date().toISOString()});pages.splice(at,1);active=pages[Math.min(at,pages.length-1)].id;change("page-delete","Moved to recovery area",c.id);openPage(active)}
 function restorePage(){if(!trash.length)return;const p=trash.pop();delete p.deletedAt;pages.push(p);change("page-restore","Restored from recovery",p.id);openPage(p.id)}
 function download(name,content,mime){const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),800)}
-function backup(){
- const layerData={};for(const p of [...pages,...trash]){const raw=localStorage.getItem(PREFIX+p.id);if(raw){try{layerData[p.id]=JSON.parse(raw)}catch(e){}}}
- download("tivvy-programme-v3-issue14-local-backup.json",JSON.stringify({format:"tivvy-v3-draft-v1",created:new Date().toISOString(),issue:"Bishops Cleeve · 2026-11-14",pages,trash,active,layerData,activity:log,storage:"browser only; NOT a cloud backup"},null,2),"application/json");
- record("draft-backup","Downloaded local JSON project backup",active);message("Local project JSON backup downloaded")
+async function backup(){
+ if(loadedEditorPage&&!await flushEditor()){
+  editorSaveFailed=true;$('saveBadge').textContent='CURRENT PAGE SAVE NOT CONFIRMED';
+  message('Export the current page JSON inside EDIT LAYERS before leaving.');return;
+ }
+ let db=null;
+ try{
+  db=await openBackupDb();
+  const layerData={};
+  for(const p of [...pages,...trash]){
+   const raw=(await getBackup(db,PREFIX+p.id))||localStorage.getItem(PREFIX+p.id);
+   if(raw){try{layerData[p.id]=JSON.parse(raw)}catch(e){throw Error('Invalid stored draft for '+p.name)}}
+  }
+  download('tivvy-programme-v3-issue14-local-backup.json',JSON.stringify({
+   format:'tivvy-v3-draft-v2',created:new Date().toISOString(),issue:'Bishops Cleeve · 2026-11-14',
+   pages,trash,active,layerData,activity:log,storage:'IndexedDB/browser only; no cloud backup'
+  },null,2),'application/json');
+  record('draft-backup','Downloaded IndexedDB and legacy local draft backup',active);
+  message('Full programme backup downloaded');
+ }catch(e){message('BACKUP FAILED: '+e.message)}finally{db?.close()}
 }
+
 function preview(){
  $("exportSummary").textContent=pages.filter(p=>p.include).length+" pages included · "+pages.filter(p=>!p.include).length+" excluded · "+pages.length+" editor pages";
  const list=$("exportPreviewList");list.replaceChildren();pages.filter(p=>p.include).forEach((p,i)=>{const li=document.createElement("li");li.textContent="Page "+(i+1)+" — "+p.name;list.append(li)});
@@ -225,9 +272,14 @@ window.addEventListener("message",event=>{
  const d=event.data||{};
  if(d.type==="tivvy-v3-change"&&pages.some(p=>p.id===d.pageId)){
   record(d.action,"Layer: "+(d.layerName||d.layerId||"unknown")+" · "+(d.layerCount||0)+" layers",d.pageId,"layer");
-  $("saveBadge").textContent="LOCAL DRAFT SAVED · NO CLOUD SAVE";
+  if(!editorSaveFailed)$("saveBadge").textContent="LOCAL DRAFT CHANGED · VERIFYING SAVE";
  }
- if(d.type==="tivvy-v3-ready"){$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE"}
+ if(d.type==="tivvy-v3-ready"){loadedEditorPage=d.pageId;if(!editorSaveFailed)$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE"}
+ if(d.type==="tivvy-v3-storage"&&d.pageId===active){
+  editorSaveFailed=!d.ok;
+  $("saveBadge").textContent=d.ok?"BROWSER SAVE VERIFIED · NO CLOUD SAVE":"SAVE FAILED — EXPORT PAGE JSON";
+  $("saveBadge").style.background=d.ok?"#5e4210":"#a11c1c";
+ }
 });
 
 const REF_DB="tivvy-v3-reference-art-v1",REF_STORE="images";

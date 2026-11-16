@@ -540,6 +540,8 @@ $('remove').onclick=deleteSelectedLayer;
 $('zoom').oninput=e=>{zoom=Number(e.target.value)/100;$('paper').style.transform=`scale(${zoom})`;$('pagebox').style.width=(595*zoom)+'px';$('pagebox').style.height=(842*zoom)+'px';$('zoomPct').textContent=Math.round(zoom*100)+'%'};$('zoom').dispatchEvent(new Event('input'));
 $('reset').onclick=()=>{if(!confirm('Reset this V3 page to its starter layout? Your edits to this page will be lost.'))return;resetData();selected='heading';paint();save()};$('print').onclick=()=>{const old=zoom;$('zoom').value=100;$('zoom').dispatchEvent(new Event('input'));window.print();$('zoom').value=old*100;$('zoom').dispatchEvent(new Event('input'))};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:2,source:'V3 page '+V3_PAGE_ID,layers},null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='tivvy-v3-'+V3_PAGE_ID+'-layers.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),700)};
 $('pagebox').addEventListener('pointerdown',e=>{if(e.target===$('pagebox'))deselectLayers()});
+// The grey stage surrounds the A4 page; clicking its empty area should clear blue selection handles.
+document.querySelector('.stage').addEventListener('pointerdown',e=>{if(e.target===e.currentTarget)deselectLayers()});
 $('paper').addEventListener('pointerdown',e=>{if(e.target===paper)deselectLayers()});
 $('snapEnabled').addEventListener('change',clearSnapGuides);if(V3_PAGE_ID==='issue-20261114-p14'){const activeMatrix=ensureMatrix();updateMatrixSubtitle(activeMatrix.matrixDate);save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false)}
 else{paint();updateFormatButtons()}

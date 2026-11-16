@@ -6,8 +6,8 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 ## READ THIS FIRST — working target and guardrails
 
 **ACTIVE EXPERIMENT:** `tivvy-latest-news-layer-test.html`.
-**Current labelled test version:** **V2.7.1**.
-**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.1
+**Current labelled test version:** **V2.7.2**.
+**Open:** https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-latest-news-layer-test.html?v=2.7.2
 
 **DO NOT MODIFY `programme-designer-v2.html`**, `programme-studio.html`, the master production templates, or other programme files unless explicitly requested. The Latest News experiment is deliberately isolated. Despite the page's "V2" branding, it is NOT the same file as `programme-designer-v2.html`. When changing chats, inspect the actual file and recent commits before touching code; never infer the target from a generic phrase like "the designer".
 
@@ -16,6 +16,9 @@ Repository: `nickabull/Tiverton-Town-Control-Centre`
 Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, testing it against the **Latest News** layout first, before any decision to integrate into wider programme production. Preserve the existing artwork, typography and safe master workflow.
 
 ## Latest work (16 November 2026)
+
+- **V2.7.2:** Fixed inconsistent rich-text size interpretation in the Latest News test. Layer font sizes render at 0.84 of design-point values, and selection formatting now follows the same factor rather than creating oversized words. Added two clear toolbar presets (**14pt BODY** and **18pt HEADING**) and a contrasting **CUSTOM · MODIFIED** indication for other sizes. Commit `1a5c29d99e0ff60cfbb25a6fef965ce7ab0b3ec5`. Browser testing is still needed; pre-existing saved oversized spans are not silently rewritten. A user can select their wording and apply the standard size explicitly. Next request: test inserting three article images using existing image buttons, without changing the page template.
+
 
 - The user requested three independent blue resize handles for selected text boxes:
   - **Bottom centre:** vertical (height only).
@@ -40,7 +43,7 @@ Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, tes
 
 ## Next steps
 
-1. Ask user to test V2.7.1's three resize handles on the blue selected text box; check that each moves only the intended dimension, and that handles work at varying zoom.
+1. Ask user to test V2.7.2's three resize handles on the blue selected text box; check that each moves only the intended dimension, and that handles work at varying zoom.
 2. If issues appear, change **only** `tivvy-latest-news-layer-test.html`, then supply a new cache-busted version URL.
 3. Continue refining text-format active state, alignment controls and matching slider/numeric boxes as feedback requires.
 4. Update this handover after every significant edit, including exact filenames, versions, commits, pass/fail findings, and outstanding issues.

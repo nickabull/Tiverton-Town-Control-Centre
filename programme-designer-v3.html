@@ -44,9 +44,20 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
 #referenceEmpty{margin:30px auto;max-width:500px;line-height:1.6}
 #importStatus{font-size:11px;color:#e2e2e2;margin:8px 0}
 #referenceLabel{font-size:11px;color:#d4d5d6;margin:0 0 9px}
+
+header{height:auto;min-height:77px;flex-wrap:wrap}
+.main{height:calc(100vh - 94px)}
+.headmeta{justify-content:flex-end}
+.bar{height:auto;min-height:49px;flex-wrap:wrap}
+.bar-actions{flex-wrap:wrap;justify-content:flex-end}
+#referenceCanvas{position:relative;display:inline-block;max-width:100%;line-height:0;user-select:none}
+#referenceCanvas img{display:block;max-width:100%;user-select:none}
+#referenceCanvas.cropActive{cursor:crosshair;touch-action:none}
+#cropSelection{position:absolute;border:2px dashed #ffd800;background:#ffd80033;pointer-events:none}
+#cropHelp{max-width:595px;margin:12px auto;padding:10px;color:#ffda00;border:1px solid #a18b26;line-height:1.5}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.3.0 · 54-PAGE REFERENCE IMPORT · LOCAL ONLY</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.4.0 · ARTWORK EXTRACTION · LOCAL ONLY</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="importBtn">IMPORT 54 PAGES</button><input id="importFile" type="file" accept=".zip,application/zip" hidden><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
@@ -63,8 +74,8 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
  <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
 </nav>
 <div id="workspace">
- <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><div class="bar-actions"><span class="muted" id="artState">Reference not imported</span><button class="btn" id="originalBtn">ORIGINAL PAGE</button><button class="btn gold" id="editBtn">EDIT LAYERS</button></div></div>
- <div id="referenceView"><div id="referenceLabel">ORIGINAL PRINTED PAGE · READ ONLY · NOT AN EDITABLE LAYER</div><img id="referenceImage" alt="Original programme page"><div id="referenceEmpty">Import the 54-page reference ZIP to see this page's original artwork.</div></div>
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><div class="bar-actions"><span class="muted" id="artState">Reference not imported</span><button class="btn" id="cropBtn">EXTRACT ARTWORK</button><button class="btn" id="originalBtn">ORIGINAL PAGE</button><button class="btn gold" id="editBtn">EDIT LAYERS</button></div></div>
+ <div id="referenceView"><div id="referenceLabel">ORIGINAL PRINTED PAGE · READ ONLY · NOT AN EDITABLE LAYER</div><div id="referenceCanvas"><img id="referenceImage" draggable="false" alt="Original programme page"><div id="cropSelection" hidden></div></div><div id="cropHelp" hidden>Drag over an area to create an image layer. Rectangular crops include their original background. Press Escape to cancel.</div><div id="referenceEmpty">Import the 54-page reference ZIP to see this page's original artwork.</div></div>
  <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
 </div></div>
 <dialog id="importDialog"><h3>IMPORT ORIGINAL 54 PROGRAMME PAGES</h3>
@@ -104,7 +115,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.2.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.4.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -142,8 +153,9 @@ function openPage(id){
  if(!pages.some(p=>p.id===id))return;
  if(active!==id&&frame.contentWindow)frame.contentWindow.postMessage({type:"tivvy-v3-flush"},location.origin);
  active=id;persist();render();
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.2.0";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.4.0";
  if(!frame.src.endsWith(next))frame.src=next;
+ stopCrop();
  if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
  else if(referenceMode)renderReference();
 }
@@ -314,6 +326,54 @@ openReferenceDb().then(async db=>{
  if(hasReference&&current()?.source&&!([6,14].includes(current().source)))setReferenceMode(true);
 }).catch(()=>{$("artState").textContent="Reference storage unavailable"});
 
+
+let cropMode=false,cropStart=null;
+const cropCanvas=$("referenceCanvas"),cropOutline=$("cropSelection");
+function stopCrop(){
+ cropMode=false;cropStart=null;cropCanvas.classList.remove("cropActive");cropOutline.hidden=true;
+ $("cropHelp").hidden=true;$("cropBtn").classList.remove("gold");
+}
+$("cropBtn").onclick=()=>{
+ if(!referenceMode)setReferenceMode(true);
+ if(!hasReference||!current()?.source){message("Import the original PDF artwork first");return}
+ if(cropMode){stopCrop();return}
+ cropMode=true;cropCanvas.classList.add("cropActive");$("cropHelp").hidden=false;$("cropBtn").classList.add("gold");
+};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&cropMode)stopCrop()});
+cropCanvas.addEventListener("pointerdown",e=>{
+ if(!cropMode||e.target!==$("referenceImage"))return;
+ e.preventDefault();const r=$("referenceImage").getBoundingClientRect();
+ cropStart={x:Math.max(0,Math.min(r.width,e.clientX-r.left)),y:Math.max(0,Math.min(r.height,e.clientY-r.top)),pageId:active};
+ cropCanvas.setPointerCapture(e.pointerId);cropOutline.hidden=false;
+});
+cropCanvas.addEventListener("pointermove",e=>{
+ if(!cropStart)return;
+ const r=$("referenceImage").getBoundingClientRect();
+ const x=Math.max(0,Math.min(r.width,e.clientX-r.left)),y=Math.max(0,Math.min(r.height,e.clientY-r.top));
+ Object.assign(cropOutline.style,{left:Math.min(x,cropStart.x)+"px",top:Math.min(y,cropStart.y)+"px",width:Math.abs(x-cropStart.x)+"px",height:Math.abs(y-cropStart.y)+"px"});
+});
+cropCanvas.addEventListener("pointerup",e=>{
+ if(!cropStart)return;
+ const start=cropStart;cropStart=null;cropOutline.hidden=true;
+ const img=$("referenceImage"),r=img.getBoundingClientRect();
+ const x=Math.max(0,Math.min(r.width,e.clientX-r.left)),y=Math.max(0,Math.min(r.height,e.clientY-r.top));
+ const left=Math.min(x,start.x),top=Math.min(y,start.y),w=Math.abs(x-start.x),h=Math.abs(y-start.y);
+ if(w<8||h<8||start.pageId!==active){message("Select a larger area on the same page");return}
+ if(!img.complete||!img.naturalWidth){message("Artwork is still loading");return}
+ const sx=img.naturalWidth/r.width,sy=img.naturalHeight/r.height;
+ const cv=document.createElement("canvas");cv.width=Math.max(1,Math.round(w*sx));cv.height=Math.max(1,Math.round(h*sy));
+ cv.getContext("2d").drawImage(img,left*sx,top*sy,w*sx,h*sy,0,0,cv.width,cv.height);
+ const src=cv.toDataURL("image/png");
+ const nm=prompt("Name this new artwork layer:","Page "+current().source+" artwork");
+ if(nm===null)return;
+ const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
+ stopCrop();setReferenceMode(false);
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.4.0";
+ if(!frame.src.endsWith(next)){frame.onload=()=>{frame.onload=null;frame.contentWindow.postMessage(data,location.origin)};frame.src=next}
+ else frame.contentWindow.postMessage(data,location.origin);
+ record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");
+ message("Added extracted artwork to EDIT LAYERS");
+});
 initialize();
 })();
 </script></body></html>

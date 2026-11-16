@@ -8,12 +8,13 @@
     "note": "Source PDF is a reference asset supplied in conversation; not yet published to the repository."
   },
   "guidance": {
-    "fixed": "Locked high-fidelity source artwork; optional editable captions/overlays only.",
+    "fixed": "Protected full-page image layer by default, but replaceable after explicit Unlock Artwork confirmation. Preserve original source, position, dimensions and crop. Track replacement in DETAILS audit and version history.",
     "hybrid": "Keep approved photography/graphics but rebuild headings, reports, captions and tables as editable layers.",
     "editable": "Recreate typography and content as independent editable layers.",
     "data": "Rebuild native editable tables/text, connect authoritative Programme Centre feed; never flatten.",
     "page_management": "Issue page count is flexible. Add, duplicate, rename, reorder, exclude from export, include, delete and restore pages without modifying the source PDF inventory.",
-    "page_numbering": "Sequential export page numbers are recalculated from ordered pages with include_in_export=true; IDs never derive from position."
+    "page_numbering": "Sequential export page numbers are recalculated from ordered pages with include_in_export=true; IDs never derive from position.",
+    "protection": "Fixed is not permanent or flattened into the canvas background; locked image layers have confirm-to-unlock and replace-image workflow."
   },
   "pages": [
     {

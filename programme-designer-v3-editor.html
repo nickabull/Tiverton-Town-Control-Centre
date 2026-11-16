@@ -549,6 +549,13 @@ $('paper').addEventListener('pointerdown',e=>{if(e.target===paper)deselectLayers
 $('snapEnabled').addEventListener('change',clearSnapGuides);if(V3_PAGE_ID==='issue-20261114-p14'){const activeMatrix=ensureMatrix();updateMatrixSubtitle(activeMatrix.matrixDate);save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false)}
 else{paint();updateFormatButtons()}
 window.addEventListener('message',event=>{if(event.origin!==location.origin)return;
+ if(event.data?.type==='tivvy-v3-import-artwork'&&event.data.pageId===V3_PAGE_ID){
+  const d=event.data;
+  if(typeof d.src!=='string'||!d.src.startsWith('data:image/png;base64,')||d.src.length>2500000)return;
+  if(activeEditor)endEdit(false);
+  const layer={id:'extracted-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),name:String(d.name||'Extracted artwork').slice(0,90),type:'image',src:d.src,x:Math.max(0,Math.min(595,Number(d.x)||0)),y:Math.max(0,Math.min(842,Number(d.y)||0)),w:Math.max(5,Math.min(595,Number(d.w)||100)),h:Math.max(5,Math.min(842,Number(d.h)||100)),z:Math.max(0,...layers.map(l=>Number(l.z)||0))+1,locked:false,hidden:false,transparency:0,scale:100,rotate:0,fit:'fill',base:false};
+  layers.push(layer);selected=layer.id;multiSelected.clear();multiSelected.add(layer.id);paint();save('artwork-extract');
+ }
  if(event.data?.type==='tivvy-v3-flush'){
   if(activeEditor)endEdit(false);
   save('page-switch');

@@ -391,6 +391,21 @@ $('boldSelection').onclick=()=>{
 $('toggleLock').onclick=()=>{const l=current();if(l){l.locked=!l.locked;paint();save()}};$('toggleVisible').onclick=()=>{const l=current();if(l){l.hidden=!l.hidden;paint();save()}};
 for(const id of ['strokeWidth','strokeWidthExact','strokeColor'])$(id).addEventListener('input',e=>{const l=current();if(!l||l.type!=='image'||l.locked)return;if(id==='strokeColor'){l.strokeColor=e.target.value}else{l.strokeWidth=Math.max(0,Math.min(30,Math.round(Number(e.target.value)||0)))}paint();save(id==='strokeColor'?'stroke-color':'slider')});
 function add(type,src){const max=Math.max(...layers.map(l=>l.z));const id='custom-'+Date.now();const l={id,name:type==='text'?'NEW TEXT BOX':type==='shape'?'NEW YELLOW BLOCK':'NEW IMAGE',type,x:85,y:320,w:340,h:type==='text'?72:180,z:max+1,locked:false,hidden:false,transparency:0,scale:100,rotate:0,font:24,weight:'700',color:'#111111',align:'left',text:'YOUR TEXT HERE',fill:'#ffda00',fit:'contain',strokeWidth:0,strokeColor:'#ffffff',src:src||'',base:false};layers.push(l);selected=id;paint();save()}
+function updateMatrixSubtitle(date){
+ const found=String(date||'2026-11-14').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+ const when=found?found[3]+'/'+found[2]+'/'+found[1].slice(2):'14/11/26';
+ let changed=false;
+ for(const layer of layers){
+  if(layer.type!=='text')continue;
+  const text=String(layer.text||''),html=String(layer.richHtml||'');
+  if(!/SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS/i.test(text+' '+html))continue;
+  const regexp=/UP TO \d{1,2}\/\d{1,2}\/\d{2,4}/gi;
+  const nextText=text.replace(regexp,'UP TO '+when),nextHtml=html.replace(regexp,'UP TO '+when);
+  if(nextText!==text){layer.text=nextText;changed=true}
+  if(nextHtml!==html){layer.richHtml=nextHtml;changed=true}
+ }
+ return changed;
+}
 function ensureMatrix(){
  let matrix=layers.find(l=>l.type==='matrix');
  if(matrix)return matrix;
@@ -403,7 +418,7 @@ async function syncMatrix(matrix,confirmFirst){
  const info=$('matrixStatus');if(info)info.textContent='Checking Programme Centre results...';
  try{
   const result=await window.TivvyMatrix.refresh(matrix,save,confirmFirst);
-  if(result){paint();if($('matrixStatus'))$('matrixStatus').textContent='Results through '+result.date+' · '+result.count+' verified/baseline cells · '+result.loaded+' live-feed entries'}
+  if(result){updateMatrixSubtitle(result.date);paint();save('matrix-date');if($('matrixStatus'))$('matrixStatus').textContent='Results through '+result.date+' · '+result.count+' verified/baseline cells · '+result.loaded+' live-feed entries'}
  }catch(error){if($('matrixStatus'))$('matrixStatus').textContent='Could not refresh: '+error.message}
 }
 $('addMatrix').onclick=()=>{
@@ -451,5 +466,5 @@ $('front').onclick=()=>{const l=current();if(!l||l.locked)return;l.z=Math.max(..
 $('remove').onclick=deleteSelectedLayer;
 $('zoom').oninput=e=>{zoom=Number(e.target.value)/100;$('paper').style.transform=`scale(${zoom})`;$('pagebox').style.width=(595*zoom)+'px';$('pagebox').style.height=(842*zoom)+'px';$('zoomPct').textContent=Math.round(zoom*100)+'%'};$('zoom').dispatchEvent(new Event('input'));
 $('reset').onclick=()=>{if(!confirm('Reset only this independent Latest News demo?'))return;resetData();selected='heading';paint();save()};$('print').onclick=()=>{const old=zoom;$('zoom').value=100;$('zoom').dispatchEvent(new Event('input'));window.print();$('zoom').value=old*100;$('zoom').dispatchEvent(new Event('input'))};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:2,source:'Latest News page',layers},null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='tivvy-latest-news-v2-layers.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),700)};
-$('snapEnabled').addEventListener('change',clearSnapGuides);const activeMatrix=ensureMatrix();save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false);
+$('snapEnabled').addEventListener('change',clearSnapGuides);const activeMatrix=ensureMatrix();updateMatrixSubtitle(activeMatrix.matrixDate);save('matrix-add');paint();updateFormatButtons();syncMatrix(activeMatrix,false);
 </script></body></html>

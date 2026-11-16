@@ -1,5 +1,18 @@
 # Tivvy Programme Designer — project handover
 
+## V3.5.9 — SINGLE CANVAS-FIRST TOOLBAR + COLLAPSE BUG FIX (16 NOV 2026)
+
+**Test URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.9
+
+- User screenshot of V3.5.8 indicated **SHOW PAGES button / collapsed navigation broken**, with the workspace shrinking into a thin left column. Root cause: `body.nav-collapsed .main` retained a zero-width first grid column while `nav` was display:none, causing `#workspace` to be auto-placed in that zero-width track. Corrected the collapsed grid to **one full-width column**, explicitly assigning `#workspace` to grid-column:1, and tightened the page-title bar.
+- Independently, V3 editor `.layout.hide-layers` / `.layout.hide-inspector` had the same grid-auto-placement risk when hiding sidebars. Explicitly set `.stage` grid-column for each visibility state; sidebar/inspector toggles now preserve the canvas track.
+- User asked to remove `V3.1 EDITABLE PAGE A4` stagebar, take Original Trace out of the always-visible row, place **Undo/Redo and RED GUIDES + SNAP** inside sticky EDIT TEXT bar, and move it just below the programme page label. V3.5.9 **removes stagebar**, places layer/inspector toggle buttons plus EDIT TEXT formatting, Undo, Redo, Snap in compact primary row; second row retains text sizes, Zoom and a small **VIEW** dropdown housing Original Trace toggle/opacity. All original inputs and JS bindings retained; no duplicate HTML ids.
+- Redundant lengthy white help below the page was already removed in V3.5.8 source; V3.5.9 cache-buster forces a reload of the editor. The yellow `?` Quick Guide remains. Keep storage diagnostics, IndexedDB save controls, reference art, locked layers, matrix, and print styling unchanged.
+- **Archived V3.5.8 GUI** first as branch `archive/programme-designer-v3-5-8-gui-20261116` (earlier V3.5.7 archive remains). Current shell commit `c4d36ce0ecde394df54c0493907b9eef231352a6`; editor commit `48f3136faed3e0032609c24053ac892e08a7ddc8`. Both inline scripts checked with JavaScript parser and editor duplicate HTML IDs checked (none). **No browser QA yet.**
+- User page 7 contains the Tivvy shirt yellow fabric background and two black/yellow brush-stroke straps, editable titles and placeholders. These page layers remain **browser-only** and NOT archived by GitHub branches. User should keep BACKUP JSON; do not reset or overwrite page 7.
+- Test: SHOW/HIDE PAGES should reveal a usable full-width editor; independent LAYERS and INSPECTOR buttons work; toolbar remains just below programme page name; Undo/Redo work; toggle SNAP, VIEW trace, Zoom; help `?`; verify the page still saves and appears after refresh. If any trouble, stop edits and use the archived V3.5.8 code or backup to recover the interface.
+
+
 ## V3.5.8 — ARCHIVED ORIGINAL GUI + SPACE-SAVING WORKSPACE (16 NOVEMBER 2026)
 
 **New test URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.8

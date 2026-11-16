@@ -96,6 +96,15 @@ function showExactNudgeGuides(){
 }
 const V3_PAGE_ID=new URLSearchParams(location.search).get('page')||'issue-20261114-p06';
 const V3_STORE_KEY='tivvy-v3-draft-page-'+V3_PAGE_ID;
+const V3_EMBEDDED_ASSETS={map:ASSETS.map,header:ASSETS.header,footer:ASSETS.footer};
+function v3Pack(){return JSON.stringify(layers,(key,value)=>{
+ if(key==='src'&&typeof value==='string')for(const [name,src] of Object.entries(V3_EMBEDDED_ASSETS))if(value===src)return '__v3_builtin_'+name;
+ return value;
+})}
+function v3Revive(key,value){
+ if(key==='src'&&typeof value==='string'&&value.startsWith('__v3_builtin_'))return V3_EMBEDDED_ASSETS[value.slice(13)]||value;
+ return value;
+}
 function resetData(){
  if(V3_PAGE_ID==='issue-20261114-p06'){layers=structuredClone(DEFAULT)}
  else{
@@ -106,7 +115,7 @@ function resetData(){
   }
  }
 }
-try{const data=JSON.parse(localStorage.getItem(V3_STORE_KEY)||'null');layers=Array.isArray(data)?data:null}catch(e){}
+try{const data=JSON.parse(localStorage.getItem(V3_STORE_KEY)||'null',v3Revive);layers=Array.isArray(data)?data:null}catch(e){}
 if(!layers)resetData();
 selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
 const current=()=>layers.find(x=>x.id===selected);
@@ -114,13 +123,13 @@ let editingId=null,activeEditor=null,rememberedRange=null;
 // V2.1 history: 100 reversible design actions. Images can be large so history
 // lives in this tab; the latest state remains browser-autosaved as before.
 const undoStack=[],redoStack=[],MAX_HISTORY=100;
-let lastSavedSnapshot=JSON.stringify(layers),lastHistoryAt=0,lastHistoryKey="",restoring=false;
+let lastSavedSnapshot=v3Pack(),lastHistoryAt=0,lastHistoryKey="",restoring=false;
 function historyCounter(){
  $('undo').disabled=!undoStack.length;$('redo').disabled=!redoStack.length;
  $('undo').textContent='↶ UNDO ('+undoStack.length+')';$('redo').textContent='↷ REDO ('+redoStack.length+')';
 }
 function save(key='edit'){
- const next=JSON.stringify(layers),now=Date.now();
+ const next=v3Pack(),now=Date.now();
  if(next!==lastSavedSnapshot){
   if(!restoring){
    // A slider gesture is one undo, not 30 tiny snapshots.
@@ -135,9 +144,9 @@ function save(key='edit'){
 }
 function restoreHistory(source,destination){
  if(!source.length)return;
- destination.push(JSON.stringify(layers));if(destination.length>MAX_HISTORY)destination.shift();
+ destination.push(v3Pack());if(destination.length>MAX_HISTORY)destination.shift();
  const snapshot=source.pop();restoring=true;
- try{layers=JSON.parse(snapshot);lastSavedSnapshot=snapshot;lastHistoryKey='';lastHistoryAt=0;
+ try{layers=JSON.parse(snapshot,v3Revive);lastSavedSnapshot=snapshot;lastHistoryKey='';lastHistoryAt=0;
   if(!layers.some(l=>l.id===selected))selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id;
   multiSelected.clear();
   paint();save('history');
@@ -177,7 +186,7 @@ document.addEventListener('keydown',e=>{
  }
 });
 historyCounter();
-try{if(!localStorage.getItem(V3_STORE_KEY))localStorage.setItem(V3_STORE_KEY,JSON.stringify(layers))}catch(e){}
+try{if(!localStorage.getItem(V3_STORE_KEY))localStorage.setItem(V3_STORE_KEY,v3Pack())}catch(e){}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&gt;','>':'&gt;','"':'&quot;'}[c]))}
 function renderInlineBold(node,raw){
  // Only a deliberately bounded **selection** becomes bold. Never interpret HTML.

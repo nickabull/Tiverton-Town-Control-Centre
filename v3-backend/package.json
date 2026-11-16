@@ -1,0 +1,15 @@
+{
+  "name": "tivvy-programme-v3-storage",
+  "private": true,
+  "version": "3.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 migrations apply tivvy-programme-v3 --local",
+    "migrate:remote": "wrangler d1 migrations apply tivvy-programme-v3 --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

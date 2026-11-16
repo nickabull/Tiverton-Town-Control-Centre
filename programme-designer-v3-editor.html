@@ -122,6 +122,15 @@
 .stage .pagebox{margin-top:4px}
 @media(max-width:700px){.stage .formatbar .formatrow{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}.stage .formatbar .formatrow-size{overflow:visible}.stage .formatbar .zoom-control input{width:58px}}
 @media print{.editor-tools-menu{display:none!important}}
+
+/* V3.6.1: matrix grid + club key can be separate, individually editable layers. */
+.artlayer.v3-matrix-hide-key .mx-legend{display:none!important}
+.artlayer.v3-matrix-key-only .mx-grid,.artlayer.v3-matrix-key-only .mx-handle{display:none!important}
+.artlayer.v3-matrix-key-only .mx-legend{margin-top:0;gap:5px 4px;grid-template-columns:repeat(7,minmax(0,1fr))}
+.artlayer.v3-matrix-key-only .mx-legenditem{min-height:29px}
+.artlayer.v3-matrix-key-only .mx-legenditem small{cursor:text;user-select:text;pointer-events:auto;min-height:13px;overflow-wrap:anywhere}
+.artlayer.v3-matrix-key-only .mx-legenditem small:focus{outline:1px solid #0079fc;background:#fff6af;color:#111}
+.artlayer.v3-matrix-key-only .mx-legenditem strong{pointer-events:none}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -801,7 +810,34 @@ function clearEmbeddedFontSizes(markup){
  }
  return root.innerHTML;
 }
-function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='matrix')window.TivvyMatrix.draw(div,l,save);if(l.type==='image'){const img=document.createElement('img');img.src=l.src;img.style.objectFit=l.fit||'contain';img.alt=l.name;div.append(img);imageStroke(img,l)}if(l.type==='text'){const body=document.createElement('div');body.className='textbox';body.style.cssText=`font-family:Antonio,Impact,Arial Narrow,sans-serif;font-size:${Math.round((l.font||18)*0.84*100)/100}pt;font-weight:${l.weight||400};color:${l.color||'#111'};text-align:${l.align||'left'}`;body.innerHTML=cleanRichMarkup(l.richHtml||makeLegacyMarkup(l.text));div.append(body)}if(l.type==='shape'){div.style.background=l.fill||'#ffda00'}
+function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='matrix'){
+ window.TivvyMatrix.draw(div,l,save);
+ if(l.hideLegend)div.classList.add('v3-matrix-hide-key');
+ if(l.legendOnly){
+  div.classList.add('v3-matrix-key-only');
+  const names=window.TivvyMatrix.NAMES||{},codes=window.TivvyMatrix.ORDER||[];
+  div.querySelectorAll('.mx-legenditem').forEach((item,i)=>{
+   const code=codes[i],label=item.querySelector('small');
+   if(!code||!label)return;
+   l.legendNames=l.legendNames||{};
+   label.textContent=l.legendNames[code]??names[code]??code;
+   label.contentEditable=String(!l.locked);
+   label.spellcheck=false;
+   label.title='Click to edit club name in this editable key';
+   label.setAttribute('aria-label','Club key name for '+code);
+   label.addEventListener('pointerdown',event=>event.stopPropagation());
+   label.addEventListener('dblclick',event=>event.stopPropagation());
+   label.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();label.blur()}});
+   label.addEventListener('blur',()=>{
+    if(l.locked)return;
+    const next=label.textContent.trim().replace(/\\s+/g,' ').slice(0,80);
+    const previous=l.legendNames[code]??names[code]??code;
+    if(!next){label.textContent=previous;return}
+    if(next!==previous){l.legendNames[code]=next;save('legend-edit')}
+   });
+  });
+ }
+}if(l.type==='image'){const img=document.createElement('img');img.src=l.src;img.style.objectFit=l.fit||'contain';img.alt=l.name;div.append(img);imageStroke(img,l)}if(l.type==='text'){const body=document.createElement('div');body.className='textbox';body.style.cssText=`font-family:Antonio,Impact,Arial Narrow,sans-serif;font-size:${Math.round((l.font||18)*0.84*100)/100}pt;font-weight:${l.weight||400};color:${l.color||'#111'};text-align:${l.align||'left'}`;body.innerHTML=cleanRichMarkup(l.richHtml||makeLegacyMarkup(l.text));div.append(body)}if(l.type==='shape'){div.style.background=l.fill||'#ffda00'}
 
 div.addEventListener('dblclick',e=>{if(l.type==='text'&&!l.locked){e.preventDefault();e.stopPropagation();startEdit(l.id)}});
 div.addEventListener('pointerdown',e=>{

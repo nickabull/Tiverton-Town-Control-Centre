@@ -104,7 +104,7 @@ header{height:auto;min-height:77px;flex:0 0 auto;flex-wrap:wrap}
 "use strict";
 const KEY="tivvy-v3-shell-pages-issue14",LOG_KEY="tivvy-v3-shell-activity-issue14",PREFIX="tivvy-v3-draft-page-";
 const $=id=>document.getElementById(id),frame=$("pageEditor");
-let pages=[],trash=[],active=null,log=[],changing=false,dragged=null,switching=false,loadedEditorPage=null,editorSaveFailed=false;
+let pages=[],trash=[],active=null,log=[],changing=false,dragged=null,switching=false,loadedEditorPage=null,editorSaveFailed=false,pendingArtwork=null;
 function flushEditor(){
  if(!loadedEditorPage||!frame.contentWindow)return Promise.resolve(true);
  return new Promise(resolve=>{
@@ -274,7 +274,13 @@ window.addEventListener("message",event=>{
   record(d.action,"Layer: "+(d.layerName||d.layerId||"unknown")+" · "+(d.layerCount||0)+" layers",d.pageId,"layer");
   if(!editorSaveFailed)$("saveBadge").textContent="LOCAL DRAFT CHANGED · VERIFYING SAVE";
  }
- if(d.type==="tivvy-v3-ready"){loadedEditorPage=d.pageId;if(!editorSaveFailed)$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE"}
+ if(d.type==="tivvy-v3-ready"){
+  loadedEditorPage=d.pageId;
+  if(!editorSaveFailed)$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE";
+  if(pendingArtwork&&pendingArtwork.pageId===d.pageId){
+   frame.contentWindow.postMessage(pendingArtwork,location.origin);pendingArtwork=null;
+  }
+ }
  if(d.type==="tivvy-v3-storage"&&d.pageId===active){
   editorSaveFailed=!d.ok;
   $("saveBadge").textContent=d.ok?"BROWSER SAVE VERIFIED · NO CLOUD SAVE":"SAVE FAILED — EXPORT PAGE JSON";
@@ -421,9 +427,9 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.4.0";
- if(!frame.src.endsWith(next)){frame.onload=()=>{frame.onload=null;frame.contentWindow.postMessage(data,location.origin)};frame.src=next}
- else frame.contentWindow.postMessage(data,location.origin);
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.5.2";
+ if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
+ else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");
  message("Added extracted artwork to EDIT LAYERS");
 });

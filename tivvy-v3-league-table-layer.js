@@ -47,13 +47,13 @@ function editable(td,row,key,save){
  editable.addEventListener("dblclick",e=>e.stopPropagation());
  editable.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();editable.blur()}});
  editable.addEventListener("blur",()=>{
-  const old=row[key],value=editable.textContent.trim().replace(/\\s+/g," ");
+  const old=row[key],value=editable.textContent.trim().replace(/\s+/g," ");
   if(key==="club"){if(!value){editable.textContent=old;return}row.club=value.slice(0,80)}
   else if(key==="gd"){
-   if(!/^-?\\d{1,4}$/.test(value)){editable.textContent=old;return}
+   if(!/^-?\d{1,4}$/.test(value)){editable.textContent=old;return}
    row.gd=Number(value);
   }else{
-   if(!/^\\d{1,4}$/.test(value)){editable.textContent=old;return}
+   if(!/^\d{1,4}$/.test(value)){editable.textContent=old;return}
    row[key]=Number(value);
   }
   editable.textContent=String(row[key]);

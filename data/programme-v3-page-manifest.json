@@ -11,7 +11,9 @@
     "fixed": "Locked high-fidelity source artwork; optional editable captions/overlays only.",
     "hybrid": "Keep approved photography/graphics but rebuild headings, reports, captions and tables as editable layers.",
     "editable": "Recreate typography and content as independent editable layers.",
-    "data": "Rebuild native editable tables/text, connect authoritative Programme Centre feed; never flatten."
+    "data": "Rebuild native editable tables/text, connect authoritative Programme Centre feed; never flatten.",
+    "page_management": "Issue page count is flexible. Add, duplicate, rename, reorder, exclude from export, include, delete and restore pages without modifying the source PDF inventory.",
+    "page_numbering": "Sequential export page numbers are recalculated from ordered pages with include_in_export=true; IDs never derive from position."
   },
   "pages": [
     {
@@ -21,7 +23,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 1
+      "source_pdf_page": 1,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 1,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p02",
@@ -30,7 +37,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 2
+      "source_pdf_page": 2,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 2,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p03",
@@ -39,7 +51,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 3
+      "source_pdf_page": 3,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 3,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p04",
@@ -48,7 +65,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 4
+      "source_pdf_page": 4,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 4,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p05",
@@ -57,7 +79,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 5
+      "source_pdf_page": 5,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 5,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p06",
@@ -66,7 +93,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 6
+      "source_pdf_page": 6,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 6,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p07",
@@ -75,7 +107,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 7
+      "source_pdf_page": 7,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 7,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p08",
@@ -84,7 +121,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 8
+      "source_pdf_page": 8,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 8,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p09",
@@ -93,7 +135,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 9
+      "source_pdf_page": 9,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 9,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p10",
@@ -102,7 +149,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 10
+      "source_pdf_page": 10,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 10,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p11",
@@ -111,7 +163,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 11
+      "source_pdf_page": 11,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 11,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p12",
@@ -120,7 +177,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 12
+      "source_pdf_page": 12,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 12,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p13",
@@ -129,7 +191,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 13
+      "source_pdf_page": 13,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 13,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p14",
@@ -138,7 +205,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 14
+      "source_pdf_page": 14,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 14,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p15",
@@ -147,7 +219,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 15
+      "source_pdf_page": 15,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 15,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p16",
@@ -156,7 +233,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 16
+      "source_pdf_page": 16,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 16,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p17",
@@ -165,7 +247,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 17
+      "source_pdf_page": 17,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 17,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p18",
@@ -174,7 +261,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 18
+      "source_pdf_page": 18,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 18,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p19",
@@ -183,7 +275,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 19
+      "source_pdf_page": 19,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 19,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p20",
@@ -192,7 +289,12 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 20
+      "source_pdf_page": 20,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 20,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p21",
@@ -201,7 +303,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 21
+      "source_pdf_page": 21,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 21,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p22",
@@ -210,7 +317,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 22
+      "source_pdf_page": 22,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 22,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p23",
@@ -219,7 +331,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 23
+      "source_pdf_page": 23,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 23,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p24",
@@ -228,7 +345,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 24
+      "source_pdf_page": 24,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 24,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p25",
@@ -237,7 +359,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 25
+      "source_pdf_page": 25,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 25,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p26",
@@ -246,7 +373,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 26
+      "source_pdf_page": 26,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 26,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p27",
@@ -255,7 +387,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 27
+      "source_pdf_page": 27,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 27,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p28",
@@ -264,7 +401,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 28
+      "source_pdf_page": 28,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 28,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p29",
@@ -273,7 +415,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 29
+      "source_pdf_page": 29,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 29,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p30",
@@ -282,7 +429,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 30
+      "source_pdf_page": 30,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 30,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p31",
@@ -291,7 +443,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 31
+      "source_pdf_page": 31,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 31,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p32",
@@ -300,7 +457,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 32
+      "source_pdf_page": 32,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 32,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p33",
@@ -309,7 +471,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 33
+      "source_pdf_page": 33,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 33,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p34",
@@ -318,7 +485,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 34
+      "source_pdf_page": 34,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 34,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p35",
@@ -327,7 +499,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 35
+      "source_pdf_page": 35,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 35,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p36",
@@ -336,7 +513,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 36
+      "source_pdf_page": 36,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 36,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p37",
@@ -345,7 +527,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 37
+      "source_pdf_page": 37,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 37,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p38",
@@ -354,7 +541,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 38
+      "source_pdf_page": 38,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 38,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p39",
@@ -363,7 +555,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 39
+      "source_pdf_page": 39,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 39,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p40",
@@ -372,7 +569,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 40
+      "source_pdf_page": 40,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 40,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p41",
@@ -381,7 +583,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 41
+      "source_pdf_page": 41,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 41,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p42",
@@ -390,7 +597,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 42
+      "source_pdf_page": 42,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 42,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p43",
@@ -399,7 +611,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 43
+      "source_pdf_page": 43,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 43,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p44",
@@ -408,7 +625,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 44
+      "source_pdf_page": 44,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 44,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p45",
@@ -417,7 +639,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 45
+      "source_pdf_page": 45,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 45,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p46",
@@ -426,7 +653,12 @@
       "mode": "editable",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 46
+      "source_pdf_page": 46,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 46,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p47",
@@ -435,7 +667,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 47
+      "source_pdf_page": 47,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 47,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p48",
@@ -444,7 +681,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 48
+      "source_pdf_page": 48,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 48,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p49",
@@ -453,7 +695,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 49
+      "source_pdf_page": 49,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 49,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p50",
@@ -462,7 +709,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 50
+      "source_pdf_page": 50,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 50,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p51",
@@ -471,7 +723,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 51
+      "source_pdf_page": 51,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 51,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p52",
@@ -480,7 +737,12 @@
       "mode": "fixed",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 52
+      "source_pdf_page": 52,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 52,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p53",
@@ -489,7 +751,12 @@
       "mode": "hybrid",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 53
+      "source_pdf_page": 53,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 53,
+      "origin": "source_pdf",
+      "deleted": false
     },
     {
       "id": "issue-20261114-p54",
@@ -498,12 +765,26 @@
       "mode": "data",
       "status": "not_started",
       "qa": "not_verified",
-      "source_pdf_page": 54
+      "source_pdf_page": 54,
+      "include_in_export": true,
+      "visible_in_editor": true,
+      "order": 54,
+      "origin": "source_pdf",
+      "deleted": false
     }
   ],
   "notes": [
     "Old Canva programme registry has 52 active master pages; this PDF has 54 pages. Do not map by ordinal position. Preserve legacy master as read-only.",
     "Page 6 Latest News and page 14 results matrix have successful isolated editing prototypes, but need visual regression before V3 acceptance.",
     "Sponsor adverts and externally supplied art should be retained unchanged until explicit replacement approval."
-  ]
+  ],
+  "page_management": {
+    "rebuild_source_count": 54,
+    "editor_page_count_is_dynamic": true,
+    "duplicate_requires_new_id": true,
+    "exclude_from_export_is_non_destructive": true,
+    "delete_requires_confirmation_and_recovery": true,
+    "export_preview_required": true,
+    "report_continuations_allowed": true
+  }
 }

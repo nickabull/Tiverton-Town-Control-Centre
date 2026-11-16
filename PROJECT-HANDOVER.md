@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.2 — PAGE 14 TRIAL TRANSPARENT TABLE / AUTOMATION ROADMAP (16 NOV 2026, 23:21 GMT)
+
+**URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.2
+
+- User approved page 14 shirt-design experiment (screenshot and enthusiastic confirmation) and now requested **all normal matrix cells transparent**, retaining solid **yellow diagonal / Tivvy heading** and **grey Tivvy bands**. Implemented in development editor with a CSS class applied only to separate-legend matrix copies on `v3-` trial pages. Ordinary axis/score cells allow Tivvy shirt texture to show; yellow/grey retain colours; focused score-edit cell keeps a pale yellow edit background. Existing matrix data and editable cell handlers unchanged. Existing original page 14 and standard matrices are not recoloured. Commit editor `89df5be1b06180e39c5302b9ce0645d8a0056251`, narrow class guard `bdd710786b01246c23aee93466b1f5a2d0b6f6c2`; shell cache/version `0f355a7e6dde6fff5400b1acab4fd8b922a0bfaa`. JavaScript syntax checked; **browser QA pending**.
+- User plans to apply page 7 visual language to most existing pages next, preserving their editable text/tables; exceptions: front cover and club honours. Page 14 demonstrates a variant without bottom black footer. This is NOT yet a one-click universal page converter; each page's content needs sensible type-based conversion and layout checks. Before bulk changes, back up/download JSON and take a single-page sample for each major layout family.
+- User asked about **text quality alerts** (repeated phrases e.g. `the the`, spelling, grammar, punctuation), **automatic intake of Darren's reports from Gmail**, **Viv's image discovery/selection**, and eventually sweep updates across all pages. **Do NOT imply those have been implemented** in V3 as of this handover: need staged integration, source rights/access checks, review queue, draft/preflight checks, and explicit publish approval. Club auto-update workflows are broader than the V3 designer. The user asked if the remaining work is around a day: give a grounded qualification, avoiding fixed delivery ETA.
+- Next visual QA: open V3.6.2 trial, verify shirt texture visible behind the matrix with score text readable, yellow/grey cells opaque, key remains independent/editable. Key bottom edge and tiny title can be tuned next.
+
+
 ## V3.6.1 — BROWSER TRIAL SUCCESS CONFIRMED (16 NOV 2026 23:15 GMT)
 
 - User ran the first **PAGE 14 · SHIRT DESIGN TRIAL** based on page 7's browser-local decorative artwork. Screenshot in chat confirms visually successful **THE LEAGUE SO FAR** layout: white title in the black/yellow paint-stroke header, shirt fabric background, a full results matrix with Tivvy highlighted scores, date strap `SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS · UP TO 14/11/2026`, and 22-club key/crests below. Bottom black brush/footer is absent as specifically requested.

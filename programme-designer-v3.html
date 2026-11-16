@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Programme Designer V3 · Development Shell</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffd800;--panel:#222428;--edge:#4a4d52;--ink:#f3f3f5;--muted:#b8bbc3}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#131416;color:var(--ink);font:13px Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.35;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+header{height:77px;display:flex;align-items:center;gap:14px;justify-content:space-between;background:#08090a;border-bottom:4px solid var(--gold);padding:10px 15px}
+.brand{font:700 26px Antonio,Impact,sans-serif;color:var(--gold);white-space:nowrap}.brand small{display:block;color:#b8bac0;font:11px Arial,sans-serif;letter-spacing:.05em}
+.headmeta{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.chip{background:#26292d;border:1px solid #414449;padding:8px 10px;border-radius:5px;font-weight:700}.chip.draft{background:#5e4210;color:#ffe2a7;border-color:#9a751d}
+.btn{border:1px solid #62656c;background:#303238;color:#fff;padding:8px 10px;border-radius:4px;font-weight:700}.btn.gold{background:var(--gold);border-color:var(--gold);color:#111}.btn:hover{filter:brightness(1.15)}
+.main{display:grid;grid-template-columns:300px minmax(0,1fr);height:calc(100vh - 77px)}
+nav{display:flex;flex-direction:column;background:var(--panel);border-right:1px solid #4b4c50;min-height:0}
+.navtop{padding:14px 13px 10px;border-bottom:1px solid var(--edge)}
+h2{font:700 23px Antonio,Impact,sans-serif;color:var(--gold);margin:0 0 9px}h3{font:700 21px Antonio,sans-serif;margin:0 0 10px}
+.issue{font:700 17px Antonio,sans-serif;margin-bottom:5px}.muted{font-size:11px;color:var(--muted);line-height:1.4}
+.controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:12px}.controls button{min-height:34px}
+#pageList{overflow-y:auto;flex:1;padding:8px 9px}.page{display:grid;grid-template-columns:36px minmax(0,1fr) 35px;align-items:center;gap:8px;margin:3px 0;padding:8px 7px;border:1px solid #464951;border-radius:4px;background:#2e3034;cursor:pointer}
+.page.active{background:#55470f;border-color:var(--gold)}.page.exclude{opacity:.57;border-style:dashed}
+.page .index{font:700 18px Antonio,sans-serif;color:var(--gold);text-align:center}
+.page .name{font:700 12px Arial,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.page .details{font:10px Arial,sans-serif;color:#c0c2c7;margin-top:3px}.page .eye{border:0;background:transparent;color:#fff;font-size:16px;padding:7px 0}
+.page[draggable=true]{user-select:none}.page.dragover{outline:2px dashed var(--gold)}
+#workspace{min-width:0;display:flex;flex-direction:column;height:100%}
+.bar{height:49px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 12px;background:#252629;border-bottom:1px solid #484a4f}
+#currentName{font-weight:700}.bar small{color:#c5c6c9}
+iframe{flex:1;border:0;width:100%;min-height:0;background:#141518}
+#toast{position:fixed;bottom:20px;right:20px;background:#242627;border:1px solid #555;padding:11px 14px;border-radius:5px;display:none;max-width:390px;z-index:100}
+dialog{width:min(920px,95vw);max-height:88vh;overflow:auto;background:#222428;color:#fff;border:1px solid #777;border-radius:7px;padding:19px}
+dialog::backdrop{background:rgba(0,0,0,.75)}dialog button{margin-right:6px}
+.logtools{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.logtools input,.logtools select{padding:8px;background:#111;border:1px solid #777;color:#fff}
+table{width:100%;border-collapse:collapse;font-size:11px}th,td{border-bottom:1px solid #555;padding:7px;text-align:left;vertical-align:top}
+tr:hover td{background:#35383b}
+#exportPreviewList{max-height:55vh;overflow:auto;padding-left:25px;columns:2}#exportPreviewList li{break-inside:avoid;margin:6px 0}
+footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
+@media(max-width:800px){.main{grid-template-columns:220px minmax(0,1fr)}.brand{font-size:19px}header{gap:5px}.headmeta{gap:4px}.chip{padding:5px;font-size:10px}nav .controls{grid-template-columns:1fr}.page{grid-template-columns:26px minmax(0,1fr) 27px}}
+</style></head><body>
+<header>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>54-PAGE REBUILD · DEVELOPMENT SHELL</small></div>
+ <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
+ <button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
+</header>
+<div class="main">
+<nav>
+ <div class="navtop"><h2>PROGRAMME PAGES</h2><div class="issue">Tiverton Town v Bishops Cleeve</div><div class="muted">Issue 14 · 14 November 2026 · Source: 54-page programme PDF</div>
+ <div class="controls">
+ <button class="btn" id="addPage">+ ADD PAGE</button><button class="btn" id="duplicatePage">DUPLICATE</button>
+ <button class="btn" id="renamePage">RENAME</button><button class="btn" id="includePage">EXCLUDE</button>
+ <button class="btn" id="moveUp">↑ MOVE UP</button><button class="btn" id="moveDown">↓ MOVE DOWN</button>
+ <button class="btn" id="deletePage">DELETE PAGE</button><button class="btn" id="restorePage">RESTORE PAGE</button>
+ </div><p class="muted">Drag pages to reorder. Excluded pages remain editable and don't appear in the export list.</p>
+ </div><div id="pageList" aria-label="Programme page list"></div>
+ <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
+</nav>
+<div id="workspace">
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V2.9.2 layer tools · independent page drafts</span></div>
+ <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
+</div></div>
+<dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
+ <p class="muted">Prototype log: stored only in this browser. Actor identification, durable history and server-side audit security are not connected yet.</p>
+ <div class="logtools"><input id="logSearch" placeholder="Search activity or layer"><select id="logAction"><option value="">All actions</option><option value="page">Page actions</option><option value="layer">Layer edits</option></select><select id="logPage"><option value="">All pages</option></select><button class="btn" id="downloadCsv">EXPORT CSV</button><button class="btn" id="closeDetails">CLOSE</button></div>
+ <table><thead><tr><th>When (UK)</th><th>Page</th><th>Action</th><th>Detail</th></tr></thead><tbody id="logRows"></tbody></table>
+</dialog>
+<dialog id="exportDialog"><h3>EXPORT PAGE PREVIEW</h3>
+ <p class="muted">This previews page order and inclusion only. Print-ready PDF and Google Drive publishing are not connected yet.</p>
+ <div id="exportSummary"></div><ol id="exportPreviewList"></ol><button class="btn" id="closePreview">CLOSE</button>
+</dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{
+"use strict";
+const KEY="tivvy-v3-shell-pages-issue14",LOG_KEY="tivvy-v3-shell-activity-issue14",PREFIX="tivvy-v3-draft-page-";
+const $=id=>document.getElementById(id),frame=$("pageEditor");
+let pages=[],trash=[],active=null,log=[],changing=false,dragged=null;
+const newId=()=>("v3-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8));
+const current=()=>pages.find(p=>p.id===active);
+const name=id=>pages.find(p=>p.id===id)?.name||trash.find(p=>p.id===id)?.name||id;
+function message(s){$("toast").textContent=s;$("toast").style.display="block";clearTimeout(message.timer);message.timer=setTimeout(()=>$("toast").style.display="none",3200)}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify({pages,trash,active}));$("saveBadge").textContent="LOCAL DRAFT SAVED · NO CLOUD SAVE"}catch(e){$("saveBadge").textContent="LOCAL STORAGE FAILED — BACKUP NEEDED";message("Browser storage is full. Export a backup now.")}}
+function record(action,detail,pageId,category="page"){
+ log.push({id:newId(),at:new Date().toISOString(),action,detail,pageId:pageId||active,category,actor:"Local editor (unverified)"});
+ if(log.length>8000)log=log.slice(-8000);
+ try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
+}
+async function initialize(){
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.0.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+  const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+  if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
+  else{pages=data.pages.map(p=>({id:p.id,name:p.name,source:p.pdf_page,mode:p.mode,include:p.include_in_export!==false}));active=pages[0]?.id;record("issue-created","54 reference pages registered",active)}
+  log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
+  if(!pages.some(p=>p.id===active))active=pages[0]?.id||null;
+  persist();render();openPage(active);
+ }catch(e){message("Cannot initialise programme manifest: "+e.message);$("counts").textContent="Failed to load programme"}
+}
+function render(){
+ $("counts").textContent=pages.length+" pages in editor · "+pages.filter(p=>p.include).length+" in export";
+ const c=current();$("currentName").textContent=c?c.name:"No page selected";
+ $("pageSource").textContent=c?(c.source?" · PDF page "+c.source:" · New V3 page")+(c.include?"":" · EXCLUDED"):"";
+ $("includePage").textContent=c&&c.include?"EXCLUDE":"INCLUDE";
+ const list=$("pageList");list.replaceChildren();
+ let exportIndex=0;
+ pages.forEach((p,i)=>{
+  if(p.include)exportIndex++;
+  const row=document.createElement("div");row.className="page"+(p.id===active?" active":"")+(p.include?"":" exclude");row.draggable=true;row.dataset.id=p.id;
+  const index=document.createElement("div");index.className="index";index.textContent=p.include?String(exportIndex):"—";
+  const label=document.createElement("div");const text=document.createElement("div");text.className="name";text.title=p.name;text.textContent=p.name;
+  const details=document.createElement("div");details.className="details";details.textContent=(p.source?"PDF "+p.source+" · ":"")+ (p.include?"IN EXPORT":"EXCLUDED") +" · "+p.mode.toUpperCase();label.append(text,details);
+  const eye=document.createElement("button");eye.className="eye";eye.title=p.include?"Exclude from export":"Include in export";eye.textContent=p.include?"◉":"○";eye.onclick=e=>{e.stopPropagation();toggleInclude(p.id)};
+  row.append(index,label,eye);row.addEventListener("click",()=>openPage(p.id));
+  row.addEventListener("dragstart",e=>{dragged=p.id;e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",p.id)});
+  row.addEventListener("dragover",e=>{e.preventDefault();row.classList.add("dragover")});
+  row.addEventListener("dragleave",()=>row.classList.remove("dragover"));
+  row.addEventListener("drop",e=>{e.preventDefault();row.classList.remove("dragover");const src=dragged||e.dataTransfer.getData("text/plain");reorder(src,p.id);dragged=null});
+  list.append(row);
+ });
+ const chosen=list.querySelector(".page.active");if(chosen)chosen.scrollIntoView({block:"nearest"});
+ $("moveUp").disabled=!c||pages.indexOf(c)===0;$("moveDown").disabled=!c||pages.indexOf(c)===pages.length-1;
+ $("deletePage").disabled=!c||pages.length<=1;$("restorePage").disabled=!trash.length;
+}
+function openPage(id){
+ if(!pages.some(p=>p.id===id))return;
+ if(active!==id&&frame.contentWindow)frame.contentWindow.postMessage({type:"tivvy-v3-flush"},location.origin);
+ active=id;persist();render();
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.0.0";
+ if(!frame.src.endsWith(next))frame.src=next;
+}
+function change(action,detail,id){record(action,detail,id);persist();render()}
+function addPage(){
+ const at=pages.findIndex(p=>p.id===active);const p={id:newId(),name:"New Programme Page",source:null,mode:"editable",include:true};
+ pages.splice(at+1,0,p);change("page-add",p.name,p.id);openPage(p.id);
+}
+function duplicatePage(){
+ const c=current();if(!c)return;
+ // The editor writes each committed edit immediately to its isolated page key.
+ const copy={...c,id:newId(),name:"Copy of "+c.name,source:null,mode:c.mode,include:true};
+ const original=localStorage.getItem(PREFIX+c.id);
+ if(original){try{localStorage.setItem(PREFIX+copy.id,original)}catch(e){message("Unable to duplicate page data: browser storage full");return}}
+ const at=pages.indexOf(c);pages.splice(at+1,0,copy);change("page-duplicate","Copied from "+c.id,copy.id);openPage(copy.id);
+}
+function renamePage(){const c=current();if(!c)return;const n=prompt("Rename page:",c.name);if(n===null)return;const name=n.trim().slice(0,120);if(!name)return;const before=c.name;c.name=name;change("page-rename",before+" → "+name,c.id)}
+function toggleInclude(id){const p=pages.find(p=>p.id===id);if(!p)return;p.include=!p.include;change(p.include?"page-include":"page-exclude",p.include?"Included in export":"Kept in editor, omitted from export",id)}
+function move(delta){const at=pages.findIndex(p=>p.id===active),to=at+delta;if(at<0||to<0||to>=pages.length)return;const [p]=pages.splice(at,1);pages.splice(to,0,p);change("page-reorder","Moved from "+(at+1)+" to "+(to+1),p.id)}
+function reorder(fromId,toId){if(!fromId||fromId===toId)return;const from=pages.findIndex(p=>p.id===fromId),to=pages.findIndex(p=>p.id===toId);if(from<0||to<0)return;const [p]=pages.splice(from,1);pages.splice(to,0,p);change("page-reorder","Moved from "+(from+1)+" to "+(to+1),p.id)}
+function deletePage(){const c=current();if(!c||pages.length<=1)return;if(!confirm("Remove “"+c.name+"” from this draft? It will remain recoverable in Restore Page."))return;
+ const at=pages.indexOf(c);trash.push({...c,deletedAt:new Date().toISOString()});pages.splice(at,1);active=pages[Math.min(at,pages.length-1)].id;change("page-delete","Moved to recovery area",c.id);openPage(active)}
+function restorePage(){if(!trash.length)return;const p=trash.pop();delete p.deletedAt;pages.push(p);change("page-restore","Restored from recovery",p.id);openPage(p.id)}
+function download(name,content,mime){const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),800)}
+function backup(){
+ const layerData={};for(const p of [...pages,...trash]){const raw=localStorage.getItem(PREFIX+p.id);if(raw){try{layerData[p.id]=JSON.parse(raw)}catch(e){}}}
+ download("tivvy-programme-v3-issue14-local-backup.json",JSON.stringify({format:"tivvy-v3-draft-v1",created:new Date().toISOString(),issue:"Bishops Cleeve · 2026-11-14",pages,trash,active,layerData,activity:log,storage:"browser only; NOT a cloud backup"},null,2),"application/json");
+ record("draft-backup","Downloaded local JSON project backup",active);message("Local project JSON backup downloaded")
+}
+function preview(){
+ $("exportSummary").textContent=pages.filter(p=>p.include).length+" pages included · "+pages.filter(p=>!p.include).length+" excluded · "+pages.length+" editor pages";
+ const list=$("exportPreviewList");list.replaceChildren();pages.filter(p=>p.include).forEach((p,i)=>{const li=document.createElement("li");li.textContent="Page "+(i+1)+" — "+p.name;list.append(li)});
+ $("exportDialog").showModal();
+}
+function drawLog(){
+ const q=$("logSearch").value.toLowerCase().trim(),type=$("logAction").value,page=$("logPage").value;
+ const body=$("logRows");body.replaceChildren();
+ const filtered=log.filter(e=>(!type||e.category===type)&&(!page||e.pageId===page)&&(!q||(e.action+" "+e.detail+" "+name(e.pageId)).toLowerCase().includes(q)));
+ for(const item of filtered.slice(-500).reverse()){
+  const tr=document.createElement("tr");const values=[new Date(item.at).toLocaleString("en-GB",{timeZone:"Europe/London"}),name(item.pageId),item.action,item.detail];
+  for(const v of values){const td=document.createElement("td");td.textContent=v;tr.append(td)}
+  tr.style.cursor="pointer";tr.title="Jump to page";tr.onclick=()=>{if(pages.some(p=>p.id===item.pageId)){openPage(item.pageId);$("detailsDialog").close()}};body.append(tr);
+ }
+}
+function openLog(){
+ const pageSelect=$("logPage");pageSelect.replaceChildren();const all=document.createElement("option");all.value="";all.textContent="All pages";pageSelect.append(all);
+ for(const p of pages){const opt=document.createElement("option");opt.value=p.id;opt.textContent=p.name;pageSelect.append(opt)}
+ drawLog();$("detailsDialog").showModal()
+}
+function csv(){
+ const q='"',quote=v=>q+String(v??"").replaceAll('"','""')+q;
+ const rows=[["timestamp_utc","actor","page_id","page_name","action","category","detail"],...log.map(e=>[e.at,e.actor,e.pageId,name(e.pageId),e.action,e.category,e.detail])];
+ download("tivvy-v3-local-activity.csv",rows.map(row=>row.map(quote).join(",")).join("\r\n"),"text/csv;charset=utf-8");record("audit-export","Exported local activity as CSV",active)
+}
+$("addPage").onclick=addPage;$("duplicatePage").onclick=duplicatePage;$("renamePage").onclick=renamePage;
+$("includePage").onclick=()=>toggleInclude(active);$("moveUp").onclick=()=>move(-1);$("moveDown").onclick=()=>move(1);
+$("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;
+$("previewBtn").onclick=preview;$("closePreview").onclick=()=>$("exportDialog").close();
+$("detailsBtn").onclick=openLog;$("closeDetails").onclick=()=>$("detailsDialog").close();
+$("logSearch").oninput=drawLog;$("logAction").onchange=drawLog;$("logPage").onchange=drawLog;$("downloadCsv").onclick=csv;
+window.addEventListener("message",event=>{
+ if(event.origin!==location.origin||event.source!==frame.contentWindow)return;
+ const d=event.data||{};
+ if(d.type==="tivvy-v3-change"&&pages.some(p=>p.id===d.pageId)){
+  record(d.action,"Layer: "+(d.layerName||d.layerId||"unknown")+" · "+(d.layerCount||0)+" layers",d.pageId,"layer");
+  $("saveBadge").textContent="LOCAL DRAFT SAVED · NO CLOUD SAVE";
+ }
+ if(d.type==="tivvy-v3-ready"){$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE"}
+});
+initialize();
+})();
+</script></body></html>

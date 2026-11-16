@@ -131,6 +131,9 @@
 .artlayer.v3-matrix-key-only .mx-legenditem small{cursor:text;user-select:text;pointer-events:auto;min-height:13px;overflow-wrap:anywhere}
 .artlayer.v3-matrix-key-only .mx-legenditem small:focus{outline:1px solid #0079fc;background:#fff6af;color:#111}
 .artlayer.v3-matrix-key-only .mx-legenditem strong{pointer-events:none}
+/* V3.6.2 page 14 trial: reveal shirt texture through ordinary score and axis cells, preserve yellow and grey highlighting. */
+.artlayer.v3-matrix-shirt-transparent .mx-cell:not(.mx-diag):not(.mx-tivhead):not(.mx-tivband){background:transparent}
+.artlayer.v3-matrix-shirt-transparent .mx-cell.mx-score:focus{background:#fff2ae}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -813,6 +816,7 @@ function clearEmbeddedFontSizes(markup){
 function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='matrix'){
  window.TivvyMatrix.draw(div,l,save);
  if(l.hideLegend)div.classList.add('v3-matrix-hide-key');
+ if(l.hideLegend&&String(l.id||'').includes('matrix-20261114')&&V3_PAGE_ID.startsWith('v3-'))div.classList.add('v3-matrix-shirt-transparent');
  if(l.legendOnly){
   div.classList.add('v3-matrix-key-only');
   const names=window.TivvyMatrix.NAMES||{},codes=window.TivvyMatrix.ORDER||[];

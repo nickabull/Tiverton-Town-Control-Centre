@@ -19,6 +19,14 @@ Each of the 54 source PDF pages has a permanent ID in `data/programme-v3-page-ma
 
 **Caution:** The older Canva registry currently describes a **52-page master**. The uploaded Bishops Cleeve issue has **54 pages**. Never use an old page number as an ID, and do not rewrite or migrate the master in place.
 
+## Flexible page management and export rules (confirmed 16 Nov 2026)
+
+A programme issue must support **any number of pages**, not be fixed to the 54-page Bishops Cleeve reference. Add blank pages before/after any selected page; duplicate all layers and layout while issuing a *new stable page ID*; rename; reorder by drag/drop or keyboard controls; delete only with confirmation and reversible history; and **exclude a page from export without deleting it or its draft**.
+
+Store `include_in_export: true` independently of `visible_in_editor`. Excluded pages remain accessible, can still be edited and are displayed clearly as *EXCLUDED* in the page sidebar. A deleted page goes to a recoverable issue-level recycle area rather than being immediately destroyed. Numbering is derived from the visible export sequence, not static page positions; allow additional report continuation pages (Darren) without overwriting the source page. Show both **total editor pages** and **exportable pages** in the header, and provide an explicit preview of the exact ordered export set before PDF generation.
+
+Log create/duplicate/rename/reorder/exclude/include/delete/restore events with previous and new values in the DETAILS audit trail.
+
 ## Rebuild sequence
 
 1. **V3 safe shell:** new `programme-designer-v3.html` development entrypoint; 54-page navigation; current page canvas; strong SAVE, DUPLICATE PAGE, ADD PAGE, RENAME PAGE, REMOVE PAGE controls; separate V3 browser storage; import/export; no impact on V2 or tests.

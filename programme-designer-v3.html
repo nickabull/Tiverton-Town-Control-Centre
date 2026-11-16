@@ -38,9 +38,9 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
 @media(max-width:800px){.main{grid-template-columns:220px minmax(0,1fr)}.brand{font-size:19px}header{gap:5px}.headmeta{gap:4px}.chip{padding:5px;font-size:10px}nav .controls{grid-template-columns:1fr}.page{grid-template-columns:26px minmax(0,1fr) 27px}}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.1.0 · DEVELOPMENT SHELL · LOCAL ONLY</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.2.0 · STORAGE FOUNDATION · LOCAL ONLY</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
- <button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
+ <button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
 <div class="main">
 <nav>
@@ -55,9 +55,14 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
  <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
 </nav>
 <div id="workspace">
- <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V3.1.0 layer tools · independent page drafts</span></div>
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V3.2.0 layer tools · independent page drafts</span></div>
  <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
 </div></div>
+<dialog id="storageDialog"><h3>STORAGE &amp; RECOVERY · V3.2 FOUNDATION</h3>
+<p><strong>Cloud saving is not connected.</strong> Your artwork is still saved in this browser. Do not clear browser storage before downloading a JSON backup.</p>
+<p>A secure Worker API, D1 database migration, R2 artwork-storage design and revision-history endpoints have been committed to GitHub. The database, bucket, Access login and Worker must still be provisioned and tested before activation.</p>
+<p><a style="color:#ffda00" href="https://github.com/nickabull/Tiverton-Town-Control-Centre/blob/main/v3-backend/README.md" target="_blank" rel="noopener noreferrer">View V3.2 storage deployment notes</a></p>
+<button class="btn gold" id="storageBackupBtn">DOWNLOAD LOCAL BACKUP</button><button class="btn" id="closeStorage">CLOSE</button></dialog>
 <dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
  <p class="muted">Prototype log: stored only in this browser. Actor identification, durable history and server-side audit security are not connected yet.</p>
  <div class="logtools"><input id="logSearch" placeholder="Search activity or layer"><select id="logAction"><option value="">All actions</option><option value="page">Page actions</option><option value="layer">Layer edits</option></select><select id="logPage"><option value="">All pages</option></select><button class="btn" id="downloadCsv">EXPORT CSV</button><button class="btn" id="closeDetails">CLOSE</button></div>
@@ -85,7 +90,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.1.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.2.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -123,7 +128,7 @@ function openPage(id){
  if(!pages.some(p=>p.id===id))return;
  if(active!==id&&frame.contentWindow)frame.contentWindow.postMessage({type:"tivvy-v3-flush"},location.origin);
  active=id;persist();render();
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.1.0";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.2.0";
  if(!frame.src.endsWith(next))frame.src=next;
 }
 function change(action,detail,id){record(action,detail,id);persist();render()}
@@ -177,6 +182,9 @@ function csv(){
  const rows=[["timestamp_utc","actor","page_id","page_name","action","category","detail"],...log.map(e=>[e.at,e.actor,e.pageId,name(e.pageId),e.action,e.category,e.detail])];
  download("tivvy-v3-local-activity.csv",rows.map(row=>row.map(quote).join(",")).join("\r\n"),"text/csv;charset=utf-8");record("audit-export","Exported local activity as CSV",active)
 }
+$("storageBtn").onclick=()=>$("storageDialog").showModal();
+$("closeStorage").onclick=()=>$("storageDialog").close();
+$("storageBackupBtn").onclick=()=>{backup();$("storageDialog").close()};
 $("addPage").onclick=addPage;$("duplicatePage").onclick=duplicatePage;$("renamePage").onclick=renamePage;
 $("includePage").onclick=()=>toggleInclude(active);$("moveUp").onclick=()=>move(-1);$("moveDown").onclick=()=>move(1);
 $("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;

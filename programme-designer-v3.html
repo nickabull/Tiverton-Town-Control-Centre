@@ -38,7 +38,7 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
 @media(max-width:800px){.main{grid-template-columns:220px minmax(0,1fr)}.brand{font-size:19px}header{gap:5px}.headmeta{gap:4px}.chip{padding:5px;font-size:10px}nav .controls{grid-template-columns:1fr}.page{grid-template-columns:26px minmax(0,1fr) 27px}}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>54-PAGE REBUILD · DEVELOPMENT SHELL · LOCAL ONLY</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.1.0 · DEVELOPMENT SHELL · LOCAL ONLY</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
@@ -55,7 +55,7 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
  <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
 </nav>
 <div id="workspace">
- <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V2.9.2 layer tools · independent page drafts</span></div>
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V3.1.0 layer tools · independent page drafts</span></div>
  <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
 </div></div>
 <dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
@@ -85,7 +85,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.0.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.1.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -123,7 +123,7 @@ function openPage(id){
  if(!pages.some(p=>p.id===id))return;
  if(active!==id&&frame.contentWindow)frame.contentWindow.postMessage({type:"tivvy-v3-flush"},location.origin);
  active=id;persist();render();
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.0.0";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.1.0";
  if(!frame.src.endsWith(next))frame.src=next;
 }
 function change(action,detail,id){record(action,detail,id);persist();render()}

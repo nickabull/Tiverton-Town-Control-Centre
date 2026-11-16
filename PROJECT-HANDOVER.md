@@ -1,5 +1,18 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.3 — PAGE 19 EDITABLE SHIRT-STYLE LEAGUE TABLE TRIAL (16 NOV 2026, 23:31 GMT)
+
+**Development URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.3
+
+- User requested one more test before bed: convert original **PDF page 19** to the exact saved **page 7 shirt/background and black/yellow top brush design**, white league-table title, dated to the **Saturday 14 November 2026** completed league round, all 22 crests repositioned with standings, Tiverton Town **8th** with yellow row, ordinary formerly-white rows **transparent** showing shirt fabric, preserve promotion/play-off/relegation colour bands, and keep standings individually editable.
+- Verified 22-team league table with Football Web Pages `https://www.footballwebpages.co.uk/southern-football-league-division-one-south` (timestamp updated **14 Nov 2026 17:22:57**) and full statistics W/D/L/GF/GA on `https://www.nonleagueranking.com/leaguerank.php?League=SL+1S&view=table`, consistent with NonLeagueMatters `https://www.nonleaguematters.co.uk/divisions/9/`. Tiverton: rank 8, P17 W7 D4 L6 GF29 GA25 GD+4 Pts25. Important distinction: this is a **dated snapshot**, not yet live automatic updating.
+- Added `tivvy-v3-league-table-layer.js`: structured 22-row standings data with editable (click and edit) team names/stat fields, crests from existing locked club assets, with yellow Tivvy row, green promotion, blue play-off and red relegation category highlights, transparent ordinary rows. Scores and all table data remain HTML DOM text and JSON, not a flattened image. Initial new-file commit `0274257ef9349cd5ce29bd7a02b4e22386457c53`, regex correction `e13c336ab026240c74491b0e23507a1fba1ee92d`.
+- Editor `programme-designer-v3-editor.html` commit `601e85202d626725d5f6d5270794f2a196fafe18`: load external league table script and render `standings` layer; blue resize handles; CSS rows and crests. No changes to shared live matrix renderer.
+- Shell `programme-designer-v3.html` commit `f8b3e7060306dd8c005016f152051f08093a69c8`: new menu action **MORE TOOLS > TRY PAGE 7 LOOK ON PAGE 19**, with two confirmations. On user click, reads saved page 7 artwork from IndexedDB, filters out bottom/footer art, captures existing page 19 layer draft if present, downloads complete safety JSON for original pages 7 and 19, creates new **PAGE 19 · SHIRT LEAGUE TABLE TRIAL**, `include:false` (not in programme export), after original p19, with shirt brush art, white title, date, and new editable standings layer. **Never overwrites original pages 7 or 19.** New layer draft verified via IndexedDB write before adding trial page entry. Code checks: inline scripts parse, HTML ids unique, all 22 W/D/L/GF/GA/Pts rows arithmetic valid.
+- **Interactive browser QA not yet confirmed**, and screenshot received from user around 23:31 during development may be an in-progress screen; clarify any errors they show. Need inspect layout, column legibility at 95% zoom, all 22 crests, Tivvy yellow and promotion/play-off/relegation bands, and transparent rows. Only declare success after user tests. The category colour bands represent intended visual labels; confirm actual league promotion rules before live publishing.
+- Previous approved V3.6.0 compact toolbar and V3.6.2 matrix transparency remain; server/cloud not deployed and browser draft JSON backup still important.
+
+
 ## V3.6.2 — PAGE 14 TRIAL TRANSPARENT TABLE / AUTOMATION ROADMAP (16 NOV 2026, 23:21 GMT)
 
 **URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.2

@@ -155,6 +155,15 @@
 .v3-standings .v3-standings-field{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:15px;line-height:16px;cursor:text;user-select:text;pointer-events:auto}
 .v3-standings .v3-standings-field:focus{outline:1px solid #0079fc;background:#fff4b1;color:#111}
 @media print{.v3-standings .v3-standings-field:focus{outline:0}}
+.v3-standings-legend-layer{display:flex;align-items:center;justify-content:space-around;gap:8px;overflow:visible!important}
+.v3-standings-key-entry{display:flex;align-items:center;gap:6px;min-width:0;white-space:nowrap}
+.v3-standings-key-swatch{appearance:none;width:20px;height:20px;padding:1px;border:1px solid #444;background:#fff;flex-shrink:0;cursor:pointer}
+.v3-standings-key-swatch::-webkit-color-swatch-wrapper{padding:0}
+.v3-standings-key-swatch::-webkit-color-swatch{border:0}
+.v3-standings-key-label{font:500 13px Antonio,Impact,'Arial Narrow',sans-serif;color:#181818;min-width:0;cursor:text}
+.v3-standings-key-label:focus{outline:1px solid #0079fc;background:#fff3b3}
+.v3-standings-crest-fallback{font:700 8px Arial,sans-serif;color:#111;background:#f4dfa0;border:1px solid #333;border-radius:50%;width:18px;height:18px;align-items:center;justify-content:center;vertical-align:middle}
+@media print{.v3-standings-key-swatch{border:1px solid #555}}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -737,7 +746,7 @@ function renderResizeOverlay(){
  if(!overlay)return;
  overlay.replaceChildren();
  const chosen=current();
- if(!chosen||chosen.locked||chosen.hidden||!['text','image','shape','matrix','standings'].includes(chosen.type)||selectionIds().length!==1)return;
+ if(!chosen||chosen.locked||chosen.hidden||!['text','image','shape','matrix','standings','standingsLegend'].includes(chosen.type)||selectionIds().length!==1)return;
  const element=[...paper.querySelectorAll('.artlayer')].find(n=>n.dataset.id===chosen.id);
  if(!element)return;
  const rect=element.getBoundingClientRect(),page=$('pagebox').getBoundingClientRect();
@@ -834,7 +843,28 @@ function clearEmbeddedFontSizes(markup){
  }
  return root.innerHTML;
 }
-function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='standings'){window.TivvyV3Standings.draw(div,l,save)}
+function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='standingsLegend'){
+ div.classList.add('v3-standings-legend-layer');
+ l.legendItems=l.legendItems||[
+  {label:'Automatic promotion',color:'#9edcb5'},
+  {label:'Promotion play-offs',color:'#abd8ed'},
+  {label:'Relegation',color:'#e6b5b5'}
+ ];
+ for(let i=0;i<l.legendItems.length;i++){
+  const item=l.legendItems[i],entry=document.createElement('div');entry.className='v3-standings-key-entry';
+  const colour=document.createElement('input');colour.type='color';colour.className='v3-standings-key-swatch';colour.value=item.color;
+  colour.disabled=!!l.locked;colour.title='Edit '+item.label+' colour';
+  colour.addEventListener('pointerdown',event=>event.stopPropagation());
+  colour.addEventListener('input',()=>{item.color=colour.value;save('key-colour')});
+  const label=document.createElement('span');label.className='v3-standings-key-label';label.textContent=item.label;
+  label.contentEditable=String(!l.locked);label.spellcheck=false;
+  label.addEventListener('pointerdown',event=>event.stopPropagation());
+  label.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();label.blur()}});
+  label.addEventListener('blur',()=>{const value=label.textContent.trim().replace(/\s+/g,' ').slice(0,85);if(!value){label.textContent=item.label;return}if(value!==item.label){item.label=value;save('key-text')}});
+  entry.append(colour,label);div.append(entry);
+ }
+}
+if(l.type==='standings'){window.TivvyV3Standings.draw(div,l,save)}
 if(l.type==='matrix'){
  window.TivvyMatrix.draw(div,l,save);
  if(l.hideLegend)div.classList.add('v3-matrix-hide-key');

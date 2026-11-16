@@ -1550,7 +1550,7 @@ function sync(){
  // editions or data. Rebuild only the V2 sidecar in response.
  const id=currentPage();
  const previous=selection;
- paper.querySelectorAll("[data-v2-id]").forEach(el=>el.remove());
+ paper.querySelectorAll(".v2-asset[data-v2-id]").forEach(el=>el.remove());
  currentNodes=entries();
  pageToken=id;
  selection=currentNodes.some(n=>n.id===previous)?previous:"";

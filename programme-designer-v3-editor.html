@@ -816,7 +816,7 @@ function clearEmbeddedFontSizes(markup){
 function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='matrix'){
  window.TivvyMatrix.draw(div,l,save);
  if(l.hideLegend)div.classList.add('v3-matrix-hide-key');
- if(l.hideLegend&&String(l.id||'').includes('matrix-20261114')&&V3_PAGE_ID.startsWith('v3-'))div.classList.add('v3-matrix-shirt-transparent');
+ if(l.hideLegend&&V3_PAGE_ID.startsWith('v3-'))div.classList.add('v3-matrix-shirt-transparent');
  if(l.legendOnly){
   div.classList.add('v3-matrix-key-only');
   const names=window.TivvyMatrix.NAMES||{},codes=window.TivvyMatrix.ORDER||[];

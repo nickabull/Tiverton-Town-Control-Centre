@@ -36,11 +36,19 @@ tr:hover td{background:#35383b}
 #exportPreviewList{max-height:55vh;overflow:auto;padding-left:25px;columns:2}#exportPreviewList li{break-inside:avoid;margin:6px 0}
 footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
 @media(max-width:800px){.main{grid-template-columns:220px minmax(0,1fr)}.brand{font-size:19px}header{gap:5px}.headmeta{gap:4px}.chip{padding:5px;font-size:10px}nav .controls{grid-template-columns:1fr}.page{grid-template-columns:26px minmax(0,1fr) 27px}}
+
+/* V3.3 source-art reference: stored separately in this browser's IndexedDB. */
+.bar .bar-actions{display:flex;align-items:center;gap:5px}
+#referenceView{flex:1;min-height:0;overflow:auto;background:#121316;padding:18px;text-align:center;display:none}
+#referenceImage{max-width:100%;width:auto;height:auto;box-shadow:0 12px 35px #0009}
+#referenceEmpty{margin:30px auto;max-width:500px;line-height:1.6}
+#importStatus{font-size:11px;color:#e2e2e2;margin:8px 0}
+#referenceLabel{font-size:11px;color:#d4d5d6;margin:0 0 9px}
 </style></head><body>
 <header>
- <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.2.0 · STORAGE FOUNDATION · LOCAL ONLY</small></div>
+ <div class="brand">TIVVY PROGRAMME DESIGNER V3<small>V3.3.0 · 54-PAGE REFERENCE IMPORT · LOCAL ONLY</small></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
- <button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
+ <button class="btn" id="importBtn">IMPORT 54 PAGES</button><input id="importFile" type="file" accept=".zip,application/zip" hidden><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn" id="backupBtn">BACKUP JSON</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button></div>
 </header>
 <div class="main">
 <nav>
@@ -55,12 +63,18 @@ footer{padding:9px 12px;border-top:1px solid #444;font:11px Arial;color:#c5c5c5}
  <footer>Original PDF page numbers are retained as source references. Published page numbers are calculated from included pages only.</footer>
 </nav>
 <div id="workspace">
- <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><span class="muted">V3.2.0 layer tools · independent page drafts</span></div>
+ <div class="bar"><div><span id="currentName">Choose a page</span> <small id="pageSource"></small></div><div class="bar-actions"><span class="muted" id="artState">Reference not imported</span><button class="btn" id="originalBtn">ORIGINAL PAGE</button><button class="btn gold" id="editBtn">EDIT LAYERS</button></div></div>
+ <div id="referenceView"><div id="referenceLabel">ORIGINAL PRINTED PAGE · READ ONLY · NOT AN EDITABLE LAYER</div><img id="referenceImage" alt="Original programme page"><div id="referenceEmpty">Import the 54-page reference ZIP to see this page's original artwork.</div></div>
  <iframe id="pageEditor" title="Tivvy V3 page layer editor"></iframe>
 </div></div>
+<dialog id="importDialog"><h3>IMPORT ORIGINAL 54 PROGRAMME PAGES</h3>
+<p>This imports the <strong>Tivvy V3 Programme Reference 54 Pages.zip</strong> package into this browser's separate reference library. It does <strong>not</strong> replace page layers, delete drafts, or upload anything to Cloudflare.</p>
+<p class="muted">Download the reference ZIP from the chat, then select it below. The 54 original pages will be browsable in the ORIGINAL PAGE view; choose EDIT LAYERS to keep working on native text, images and tables.</p>
+<p id="importStatus" aria-live="polite">No file selected.</p>
+<button class="btn gold" id="chooseZip">CHOOSE REFERENCE ZIP</button><button class="btn" id="closeImport">CLOSE</button></dialog>
 <dialog id="storageDialog"><h3>STORAGE &amp; RECOVERY · V3.2 FOUNDATION</h3>
 <p><strong>Cloud saving is not connected.</strong> Your artwork is still saved in this browser. Do not clear browser storage before downloading a JSON backup.</p>
-<p>A secure Worker API, D1 database migration, R2 artwork-storage design and revision-history endpoints have been committed to GitHub. The database, bucket, Access login and Worker must still be provisioned and tested before activation.</p>
+<p>A secure Worker API, D1 database migration, R2 artwork-storage design and revision-history endpoints have been committed to GitHub. D1 database tables and R2 bucket have been created. Access login and the Worker still need deployment/testing before cloud save. Reference artwork imported in V3.3 stays in this browser.</p>
 <p><a style="color:#ffda00" href="https://github.com/nickabull/Tiverton-Town-Control-Centre/blob/main/v3-backend/README.md" target="_blank" rel="noopener noreferrer">View V3.2 storage deployment notes</a></p>
 <button class="btn gold" id="storageBackupBtn">DOWNLOAD LOCAL BACKUP</button><button class="btn" id="closeStorage">CLOSE</button></dialog>
 <dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
@@ -130,6 +144,8 @@ function openPage(id){
  active=id;persist();render();
  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.2.0";
  if(!frame.src.endsWith(next))frame.src=next;
+ if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
+ else if(referenceMode)renderReference();
 }
 function change(action,detail,id){record(action,detail,id);persist();render()}
 function addPage(){
@@ -200,6 +216,104 @@ window.addEventListener("message",event=>{
  }
  if(d.type==="tivvy-v3-ready"){$("saveBadge").textContent="LOCAL DRAFT LOADED · NO CLOUD SAVE"}
 });
+
+const REF_DB="tivvy-v3-reference-art-v1",REF_STORE="images";
+let refDb=null,hasReference=false,referenceMode=false,referenceURL=null,referenceRequest=0;
+function openReferenceDb(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(REF_DB,1);
+  req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(REF_STORE))req.result.createObjectStore(REF_STORE)};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+ });
+}
+function refGet(key){
+ return new Promise((resolve,reject)=>{
+  const tx=refDb.transaction(REF_STORE,"readonly"),req=tx.objectStore(REF_STORE).get(key);
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+ });
+}
+function refPutAll(images){
+ return new Promise((resolve,reject)=>{
+  const tx=refDb.transaction(REF_STORE,"readwrite"),store=tx.objectStore(REF_STORE);
+  for(const [key,blob] of images)store.put(blob,key);
+  tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);
+ });
+}
+function setReferenceMode(on){
+ referenceMode=!!on;
+ $("referenceView").style.display=referenceMode?"block":"none";
+ frame.style.display=referenceMode?"none":"block";
+ $("originalBtn").classList.toggle("gold",referenceMode);
+ $("editBtn").classList.toggle("gold",!referenceMode);
+ if(referenceMode)renderReference();
+}
+async function renderReference(){
+ const token=++referenceRequest,source=current()?.source;
+ if(referenceURL){URL.revokeObjectURL(referenceURL);referenceURL=null}
+ $("referenceImage").removeAttribute("src");
+ $("referenceImage").style.display="none";
+ $("referenceEmpty").style.display="block";
+ if(!source){$("referenceEmpty").textContent="This is a new or duplicated page without an original PDF page number. Use EDIT LAYERS.";return}
+ if(!refDb){$("referenceEmpty").textContent="Import the 54-page reference ZIP to see the original artwork.";return}
+ try{
+  const blob=await refGet("page-"+String(source).padStart(2,"0"));
+  if(token!==referenceRequest)return;
+  if(!blob){$("referenceEmpty").textContent="No original artwork is stored for this page.";return}
+  referenceURL=URL.createObjectURL(blob);
+  $("referenceImage").src=referenceURL;$("referenceImage").style.display="inline-block";
+  $("referenceEmpty").style.display="none";
+  $("referenceLabel").textContent="SOURCE PDF PAGE "+source+" · READ ONLY · EDITABLE LAYERS REMAIN SEPARATE";
+ }catch(e){$("referenceEmpty").textContent="Unable to load reference page: "+e.message}
+}
+async function zipLibrary(){
+ if(window.JSZip)return window.JSZip;
+ await new Promise((resolve,reject)=>{
+  const sc=document.createElement("script");sc.src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js";
+  sc.onload=resolve;sc.onerror=()=>reject(Error("Cannot load ZIP reader; check your connection"));
+  document.head.append(sc);
+ });
+ if(!window.JSZip)throw Error("ZIP reader unavailable");
+ return window.JSZip;
+}
+async function importZip(file){
+ if(!file)return;
+ const status=$("importStatus");$("chooseZip").disabled=true;
+ try{
+  if(file.size>75_000_000)throw Error("Reference ZIP is unexpectedly large");
+  status.textContent="Reading reference ZIP...";
+  const JSZip=await zipLibrary(),zip=await JSZip.loadAsync(file);
+  const items=[];
+  for(let n=1;n<=54;n++){
+   const key="page-"+String(n).padStart(2,"0");
+   const entry=zip.file("pages/"+key+".jpg");
+   if(!entry)throw Error("Missing original artwork for page "+n+". No changes saved.");
+   items.push([key,new Blob([await entry.async("uint8array")],{type:"image/jpeg"})]);
+   if(n%9===0)status.textContent="Checked "+n+" / 54 original pages...";
+  }
+  if(!refDb)refDb=await openReferenceDb();
+  status.textContent="Saving all 54 reference pages in this browser...";
+  await refPutAll(items);
+  hasReference=true;
+  $("artState").textContent="54 original pages imported · LOCAL";
+  record("reference-import","Stored 54 read-only original PDF page images in browser IndexedDB",active);
+  status.textContent="Success: 54 originals imported. Your editable drafts were not changed.";
+  setReferenceMode(true);render();
+  message("All 54 original pages are available in the Original Page view");
+ }catch(e){status.textContent="Import not completed: "+e.message;message("Reference import failed; existing drafts unchanged")}
+ finally{$("chooseZip").disabled=false;$("importFile").value=""}
+}
+$("importBtn").onclick=()=>$("importDialog").showModal();
+$("chooseZip").onclick=()=>$("importFile").click();
+$("importFile").onchange=e=>importZip(e.target.files?.[0]);
+$("closeImport").onclick=()=>$("importDialog").close();
+$("originalBtn").onclick=()=>setReferenceMode(true);
+$("editBtn").onclick=()=>setReferenceMode(false);
+openReferenceDb().then(async db=>{
+ refDb=db;hasReference=!!(await refGet("page-54"));
+ $("artState").textContent=hasReference?"54 original pages available · LOCAL":"Reference not imported";
+ if(hasReference&&current()?.source&&!([6,14].includes(current().source)))setReferenceMode(true);
+}).catch(()=>{$("artState").textContent="Reference storage unavailable"});
+
 initialize();
 })();
 </script></body></html>

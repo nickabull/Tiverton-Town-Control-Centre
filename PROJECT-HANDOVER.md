@@ -1,5 +1,18 @@
 # Tivvy Programme Designer — project handover
 
+## V3.5.7 — EXPLICIT RECOVERY / START NEW DRAFT (16 NOVEMBER 2026)
+
+**Dev URL:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.7
+
+- User's V3.5.6 screenshot shows **"OLD DRAFT ARCHIVED BUT NO VALID LAYERS FOUND — saving paused to prevent data loss"**. This confirms V3 found an invalid IndexedDB record and no valid legacy localStorage page draft. Automatic recovery cannot restore missing/lost artwork. The archive was retained in IndexedDB.
+- Added an **explicit user-controlled recovery panel** in the V3 page editor's right inspector whenever saved data is unusable. Actions:
+  1. **DOWNLOAD SAVED-RECORD DIAGNOSTICS** downloads the unreadable stored record as JSON; includes archive key when available, not guaranteed to be a usable page.
+  2. **START NEW DRAFT ON PAGE 7** (dynamic page number) requires a confirmation, preserves unreadable archived draft, resets that one page to its default starter layout, persists a verified new draft to IndexedDB before unblocking, and displays a confirmed saved status. Does not clear browser data or other pages. **Only advise this if user is comfortable abandoning the unreadable draft.** Never claim a lost original can be recovered by this action.
+- Commit editor `c9ce0c9472cd821ce32bd6ca8976358b9b0e4beb`, shell `b23477f655121c27740911ef781084b0d45de5f1`. JS syntax checks passed; browser test not yet done.
+- User explicitly stated no new design was made since the failure and planned to replace page-7 Asa article with a new reusable editorial master. This is why an informed fresh page-7 draft is a reasonable option. Do not reset any page automatically.
+- Further work: clean up old blank/invalid drafts when authorised, ensure duplicate-page handling uses IndexedDB instead of only localStorage, and verify backups/imports fully preserve large assets. Cloud backend still undeployed.
+
+
 ## V3.5.6 — INVALID INDEXEDDB DRAFT RECOVERY (16 NOVEMBER 2026)
 
 **Dev:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.5.6

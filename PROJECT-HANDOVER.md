@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.1 — BROWSER TRIAL SUCCESS CONFIRMED (16 NOV 2026 23:15 GMT)
+
+- User ran the first **PAGE 14 · SHIRT DESIGN TRIAL** based on page 7's browser-local decorative artwork. Screenshot in chat confirms visually successful **THE LEAGUE SO FAR** layout: white title in the black/yellow paint-stroke header, shirt fabric background, a full results matrix with Tivvy highlighted scores, date strap `SOUTHERN LEAGUE DIVISION ONE SOUTH RESULTS · UP TO 14/11/2026`, and 22-club key/crests below. Bottom black brush/footer is absent as specifically requested.
+- User reacted enthusiastically (`YESSSSSSSSSSS!!`) — **visual design concept accepted as successful**. Do not yet claim interactive testing of individual matrix scores or legend editing beyond the existence of their editable-layer architecture; verify these separately if requested.
+- This conversion is an **experiment**, NOT approval to impose a final master on all pages. Preserve original page 7, original page 14, trial page and browser drafts; await user design guidance for the broader template. Potential polish: heading prominence and key clearance from bottom edge, but do not change without user direction.
+- Source changes for V3.6.1 were previously recorded above. No additional production pages or artwork altered by this handover update.
+
+
 ## V3.6.1 — FIRST PAGE-14 CONVERSION FROM LIVE PAGE-7 ARTWORK (16 NOV 2026)
 
 **Development link:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.1

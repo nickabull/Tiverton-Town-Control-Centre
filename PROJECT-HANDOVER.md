@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.17 — AUTOMATIC PAGE 39 SWINDON CONTENT TRIAL (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.17
+
+- User supplied both 57-page audit (43 drafts, 10 stale references on Page 39, 4 proposed fact replacements, zero errors) and the full 168MB programme JSON backup, which was inspected: page 39 contains 15 layers, including 8 image layers and exactly three old Bishops Cleeve content boxes (`Text Box 1`, `Text Box 2`, `Text Box 3`). Cover and honours pages are preserved. The backup also revealed review-only typos: `Solictors` in the cover stadium line, and `Commercail Manager` in honours; neither master should be silently changed.
+- V3.6.17 now has MORE TOOLS -> **CREATE SWINDON PAGE 39 TRIAL**. It reads the CURRENT browser IndexedDB page 39, loads `data/swindon-supermarine-page39-trial-patch.json`, verifies source ID and unique target text boxes, clones all layers, replaces ONLY the three editorial text boxes with Swindon facts and history, verifies 8 image sources are byte-for-byte unchanged, and after user confirmation writes a new independent IndexedDB page record. New page is `include:false` (excluded from output). Existing Page 39 and master artwork are untouched.
+- The copied images include a Bishops Cleeve photograph and unverified kits: these require explicit image replacement and licensing check. The original layout can have overflow and must be browser-QA'd. The `2025/26` final league position has NOT been invented. Neither complete issue conversion nor PDF publishing is finished.
+- Created optional external, self-contained fallback `tivvy-swindon-opposition-P39-TRIAL-2026-11-17.json` (46.7MB) and a review diff file from supplied backup in the working container, not committed to GitHub. The GitHub in-app workflow is preferable because it uses the user's current saved draft instead of a stale snapshot.
+- Browser interaction and save/reopen of the new trial page still require QA; full simulation, Darren report error-detection workflow, print PDF and cloud persistence remain pending.
+
+
 ## V3.6.16 — 5 DEC SWINDON SUPERMARINE AUTOMATION DRY-RUN STARTED (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.16

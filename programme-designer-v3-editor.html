@@ -965,6 +965,36 @@ for(const id of ['x','y','w','h','scale','rotate','transparency']){
  observer.observe(input,{attributes:true,attributeFilter:['disabled']});
  minus.disabled=plus.disabled=input.disabled;
 }
+// Fine-grained pointer dragging on the wide-range position/size sliders.
+// Unlike native absolute tracking, a drag starts from the current value and
+// moves in small relative increments; keyboard, number fields and +/- are unchanged.
+for(const id of ['x','y','w','h','scale','rotate','transparency']){
+ const slider=$(id);
+ slider.style.touchAction='none';
+ let gesture=null;
+ slider.addEventListener('pointerdown',event=>{
+  if(slider.disabled||event.button!==0||!event.isPrimary)return;
+  const l=current();if(!l||l.locked)return;
+  event.preventDefault();
+  gesture={pointerId:event.pointerId,startX:event.clientX,startValue:Number(l[id]),layerId:l.id};
+  slider.setPointerCapture(event.pointerId);
+ });
+ slider.addEventListener('pointermove',event=>{
+  if(!gesture||event.pointerId!==gesture.pointerId)return;
+  const l=current();if(!l||l.id!==gesture.layerId||l.locked)return;
+  // 0.2 units per physical screen pixel; Shift provides even finer 0.05 units.
+  const unitsPerPx=event.shiftKey?0.05:0.2;
+  const min=Number(slider.min),max=Number(slider.max);
+  const next=Math.round(Math.max(min,Math.min(max,gesture.startValue+(event.clientX-gesture.startX)*unitsPerPx)));
+  if(next===Number(l[id]))return;
+  slider.value=String(next);
+  slider.dispatchEvent(new Event('input',{bubbles:true}));
+ });
+ const endGesture=event=>{if(gesture&&event.pointerId===gesture.pointerId)gesture=null};
+ slider.addEventListener('pointerup',endGesture);
+ slider.addEventListener('pointercancel',endGesture);
+ slider.addEventListener('lostpointercapture',()=>{gesture=null});
+}
 for(const id of ['x','y','w','h','scale','rotate','transparency']){
  const slider=$(id),exact=$(id+'Exact');
  const min=Number(slider.min),max=Number(slider.max);

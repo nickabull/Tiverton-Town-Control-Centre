@@ -1,0 +1,75 @@
+{
+  "schema": "tivvy-opposition-sweep-v1",
+  "status": "dry-run-only",
+  "fixture": {
+    "home": "Tiverton Town",
+    "away": "Swindon Supermarine",
+    "competition": "Southern League Division One South",
+    "date": "2026-12-05",
+    "kickoff": "15:00",
+    "verification": "https://www.footballwebpages.co.uk/southern-football-league-division-one-south/fixtures-results/december"
+  },
+  "opposition": {
+    "name": "Swindon Supermarine FC",
+    "nickname": "The Marine",
+    "founded": 1992,
+    "league": "Southern League Division One South",
+    "ground": "The Imagine Cruising Stadium",
+    "address": "Supermarine Road, Swindon, Wiltshire, SN3 4BZ",
+    "manager": "Bobby Wilkinson",
+    "background": "Founded in 1992 when Swindon Athletic and Supermarine merged; the Supermarine side grew out of the Vickers Armstrong works team established in 1946.",
+    "season2025_26": "Rebuilt following relegation from the Southern Premier Division; official club review reported a significantly improved second half of the season.",
+    "clubColours": "Blue and white",
+    "theme": {
+      "primary": "#204f8c",
+      "background": "#ffffff"
+    },
+    "sources": [
+      "https://swindonsupermarinefc.com/club-history",
+      "https://swindonsupermarinefc.com/about-us",
+      "https://swindonsupermarinefc.com/visitors-information",
+      "https://swindonsupermarinefc.com/management-staff",
+      "https://swindonsupermarinefc.com/blog/-a-review-of-the-2025-26-season-from-pete-crockett"
+    ]
+  },
+  "approvedFactReplacements": [
+    {
+      "find": "BISHOPS CLEEVE FC",
+      "replace": "SWINDON SUPERMARINE FC"
+    },
+    {
+      "find": "Nickname: The Mitres",
+      "replace": "Nickname: The Marine"
+    },
+    {
+      "find": "Home ground: Kayte Lane, Bishops Cleeve",
+      "replace": "Home ground: The Imagine Cruising Stadium, Swindon"
+    },
+    {
+      "find": "Last season: 6th of 22 (2025/26)",
+      "replace": "Last season: Rebuilding campaign in Division One South (2025/26)"
+    }
+  ],
+  "article": {
+    "headline": "Swindon Supermarine: from works team to Southern League",
+    "paragraphs": [
+      "Club roots: The modern Swindon Supermarine club was founded in 1992 through the merger of Swindon Athletic and Supermarine, two clubs with Hellenic League histories.",
+      "An aviation connection: The Supermarine side grew from the Vickers Armstrong works social club in 1946, a name connected with the aircraft manufacturer famous for the Spitfire.",
+      "Moving forward: After progressing through local football, the merged club built a sustained Southern League presence. A memorable promotion in 2017/18 took Marine back to Premier Division South.",
+      "Back at Step Four: Following relegation from the Southern Premier Division in 2024/25, Marine returned to Division One South and began a rebuilding programme under Bobby Wilkinson.",
+      "A changing home: The ground in South Marston was known for years as Webbswood Stadium, but its current sponsored name is the Imagine Cruising Stadium.",
+      "Building again: The club's 2025/26 review described an improved second half of the season after a difficult start, with development of younger players a particular positive."
+    ]
+  },
+  "flags": [
+    "Replace Bishops Cleeve photo with licensed Swindon Supermarine image",
+    "Replace home and away kit illustrations only after verifying 2026/27 official colours",
+    "Verify last-season finishing position before reporting a numerical place",
+    "Check current 2026/27 squad and player names near 3 December",
+    "All historical Bishops Cleeve article paragraphs require editorial replacement rather than simple club-name substitution",
+    "Never alter designer masters or live production pages"
+  ],
+  "created": "2026-11-17",
+  "simulationAsOf": "2026-12-03",
+  "notes": "Fixture snapshot is a simulation, not a claim that future Nov/Dec matches have occurred. User's browser layers are not present in repository. This content pack is a non-destructive research asset and not automatically applied."
+}

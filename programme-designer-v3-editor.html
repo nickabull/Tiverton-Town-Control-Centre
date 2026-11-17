@@ -225,6 +225,9 @@
 #textControls .v3-text-stepper input[type=number]{width:100%!important;min-width:0!important;margin:0!important;text-align:center;appearance:textfield;-moz-appearance:textfield;padding:5px 2px}
 #textControls input[type=number]::-webkit-inner-spin-button,#textControls input[type=number]::-webkit-outer-spin-button,
 #imageControls input[type=number]::-webkit-inner-spin-button,#imageControls input[type=number]::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
+/* V3.6.13: strip the browser's tiny up/down arrows; keep explicit +/- buttons. */
+input[type=number]{appearance:textfield;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -247,7 +250,7 @@
   <span class="formatrow-label">SIZE</span>
   <button id="richSize14" type="button" class="size-preset" title="Apply 14pt body size to highlighted words">14pt BODY</button>
   <button id="richSize18" type="button" class="size-preset" title="Apply 18pt heading size to highlighted words">18pt HEAD</button>
-  <label title="Custom font size in points">CUSTOM <input id="richSize" type="number" min="6" max="100" value="14" title="Selected text size"></label>
+  <label title="Custom font size in points">CUSTOM <input id="richSize" type="number" min="6" max="150" value="14" title="Selected text size"></label>
   <button id="richApplySize" type="button" title="Apply custom font size to highlighted words">APPLY</button>
   <span class="size-indicator" id="richSizeIndicator" title="Current text size">14pt / 18pt</span>
   <label class="zoom-control">ZOOM <input id="zoom" type="range" min="25" max="400" value="85" step="1"><input id="zoomExact" type="number" min="25" max="400" step="1" value="85" aria-label="Exact zoom percentage" title="Enter precise zoom percentage">%</label><button id="zoomFit" class="zoom-fit-button" type="button" title="Fit the whole programme page into the available workspace">FIT PAGE</button>
@@ -817,37 +820,66 @@ function updateSizeIndicator(){
  indicator.textContent=size===null?'Standard sizes: 14pt body · 18pt heading':standard?size+'pt · STANDARD':'CUSTOM '+size+'pt · MODIFIED';
  for(const preset of [14,18])$('richSize'+preset).setAttribute('aria-pressed',String(size===preset));
 }
-function applyRichSize(override){
- if(!activeEditor){setEditorStatus('Click EDIT on a text layer first');return}
- const size=Math.max(6,Math.min(100,Number(override??$('richSize').value)||14));
- $('richSize').value=size;
- restoreRange();activeEditor.focus();restoreRange();
- const sel=window.getSelection();if(!sel?.rangeCount||sel.isCollapsed){setEditorStatus('Highlight the exact words to resize first');return}
- // Mark pre-existing browser size tags so applying a second size does not resize
- // unrelated text in the same layer. Convert only new wrappers this operation creates.
- const existing=[...activeEditor.querySelectorAll('font[size="7"],span')];
- const marked=existing.filter(n=>n.matches('font[size="7"]')||n.style.fontSize==='xxx-large');
- marked.forEach(n=>n.dataset.fontBeforeResize='yes');
- document.execCommand('fontSize',false,'7');
- const candidates=[...activeEditor.querySelectorAll('font[size="7"],span')];
- let changed=0;
- for(const node of candidates){
-  if(node.dataset.fontBeforeResize==='yes')continue;
-  if(node.matches('font[size="7"]')||node.style.fontSize==='xxx-large'){
-   node.removeAttribute('size');node.style.fontSize=designPt(size)+'pt';changed++;
-  }
+function v3SafeFontSize(value){
+ const n=Number(value);return Math.round(Math.max(6,Math.min(150,Number.isFinite(n)?n:14)));
+}
+function v3SelectedRange(){
+ if(!activeEditor||!rememberedRange||rememberedRange.collapsed)return null;
+ const range=rememberedRange.cloneRange();
+ return activeEditor.contains(range.commonAncestorContainer)?range:null;
+}
+function v3LiveWholeTextSize(size){
+ const layer=current();
+ if(!layer||layer.type!=='text'||layer.locked)return false;
+ layer.font=size;
+ // Whole-layer size overrides stale per-word font sizes, but retains bold, alignment and colour.
+ if(layer.richHtml)layer.richHtml=clearEmbeddedFontSizes(layer.richHtml);
+ const body=[...paper.querySelectorAll('.artlayer')].find(el=>el.dataset.id===layer.id)?.querySelector('.textbox');
+ if(body){
+  body.style.fontSize=designPt(size)+'pt';
+  const cleaned=clearEmbeddedFontSizes(body.innerHTML);
+  if(body.innerHTML!==cleaned)body.innerHTML=cleaned;
  }
- marked.forEach(n=>delete n.dataset.fontBeforeResize);
- // If browser replaced its wrapper unexpectedly, do not commit bogus font data.
- if(!changed){setEditorStatus('No text size changed — please highlight the wording again');return}
- commitEditor();captureRange();updateSizeIndicator();
- setEditorStatus('Applied '+size+'pt '+(size===14||size===18?'standard':'CUSTOM')+' to highlighted wording');
+ $('font').value=size;
+ save('slider');
+ return true;
+}
+function applyRichSize(override){
+ const size=v3SafeFontSize(override??$('richSize').value);
+ $('richSize').value=size;
+ const range=v3SelectedRange();
+ if(!range){
+  if(v3LiveWholeTextSize(size))setEditorStatus('Whole layer size: '+size+'pt · live and saved');
+  else setEditorStatus('Select an unlocked text layer first');
+  updateSizeIndicator();return;
+ }
+ // Explicit span styling, avoiding execCommand fontSize=7 (which caused tiny text).
+ try{
+  const fragment=range.extractContents();
+  if(fragment.querySelectorAll)for(const el of fragment.querySelectorAll('[style]')){
+   el.style.removeProperty('font-size');
+   if(!el.getAttribute('style')?.trim())el.removeAttribute('style');
+  }
+  const span=document.createElement('span');span.style.fontSize=designPt(size)+'pt';span.append(fragment);
+  range.insertNode(span);
+  const selected=document.createRange();selected.selectNodeContents(span);
+  const selection=window.getSelection();selection.removeAllRanges();selection.addRange(selected);
+  rememberedRange=selected.cloneRange();
+  commitEditor();updateSizeIndicator();
+  setEditorStatus('Selected text set to '+size+'pt');
+ }catch(e){setEditorStatus('Could not size selection: '+e.message)}
 }
 $('richEdit').onclick=()=>{if(activeEditor)endEdit();else startEdit(selected)};
 $('richApplySize').onclick=()=>applyRichSize();
 $('richSize14').onclick=()=>applyRichSize(14);
 $('richSize18').onclick=()=>applyRichSize(18);
-$('richSize').addEventListener('input',()=>{const size=Number($('richSize').value);const label=$('richSizeIndicator');label.classList.toggle('modified',size!==14&&size!==18);label.textContent=size===14||size===18?'Selected standard: '+size+'pt':'CUSTOM '+size+'pt · MODIFIED'});
+$('richSize').addEventListener('input',()=>{
+ const n=Number($('richSize').value);if(!Number.isFinite(n)||n<6||n>150)return;
+ const label=$('richSizeIndicator');label.classList.toggle('modified',n!==14&&n!==18);
+ label.textContent=(n===14||n===18?'STANDARD ':'CUSTOM ')+n+'pt';
+ if(v3SelectedRange()){setEditorStatus('Selected wording: click APPLY to resize');return}
+ if(v3LiveWholeTextSize(v3SafeFontSize(n)))setEditorStatus('Whole text size previewed: '+n+'pt · saved');
+});
 $('richToolbar').addEventListener('mousedown',e=>{if(e.target.closest('button')){captureRange();e.preventDefault()}});
 $('richToolbar').addEventListener('click',e=>{const btn=e.target.closest('button[data-rich]');if(btn)applyRichCommand(btn.dataset.rich)});
 document.addEventListener('pointerdown',e=>{if(activeEditor&&!e.target.closest('.artlayer')&&!e.target.closest('#richToolbar'))endEdit()},true);
@@ -1310,7 +1342,18 @@ $('zoomFit').onclick=()=>{
  stage.scrollTo({top:0,left:0,behavior:'instant'});
 };
 $('zoom').dispatchEvent(new Event('input'));
-$('reset').onclick=()=>{if(!confirm('Reset this V3 page to its starter layout? Your edits to this page will be lost.'))return;resetData();selected='heading';paint();save()};$('print').onclick=()=>{const old=zoom;$('zoom').value=100;$('zoom').dispatchEvent(new Event('input'));window.print();$('zoom').value=old*100;$('zoom').dispatchEvent(new Event('input'))};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:2,source:'V3 page '+V3_PAGE_ID,layers},null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='tivvy-v3-'+V3_PAGE_ID+'-layers.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),700)};
+$('reset').onclick=()=>{if(!confirm('Reset this V3 page to its starter layout? Your edits to this page will be lost.'))return;resetData();selected='heading';paint();save()};$('print').onclick=()=>{const old=zoom;$('zoom').value=100;$('zoom').dispatchEvent(new Event('input'));window.print();$('zoom').value=old*100;$('zoom').dispatchEvent(new Event('input'))};function v3Timestamp(date=new Date()){
+ const pad=n=>String(n).padStart(2,'0');
+ return date.getFullYear()+'-'+pad(date.getMonth()+1)+'-'+pad(date.getDate())+'_'+pad(date.getHours())+'-'+pad(date.getMinutes())+'-'+pad(date.getSeconds());
+}
+$('export').onclick=()=>{
+ const date=new Date(),stamp=v3Timestamp(date);
+ const payload={version:3,source:'V3 page '+V3_PAGE_ID,pageId:V3_PAGE_ID,exportedAt:date.toISOString(),exportedLocal:date.toLocaleString('en-GB'),layers};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+ const a=document.createElement('a'),url=URL.createObjectURL(blob);
+ a.href=url;a.download='tivvy-v3-'+V3_PAGE_ID+'-'+stamp+'-layers.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),700);
+};
 $('pagebox').addEventListener('pointerdown',e=>{if(e.target===$('pagebox'))deselectLayers()});
 // The grey stage surrounds the A4 page; clicking its empty area should clear blue selection handles.
 document.querySelector('.stage').addEventListener('pointerdown',e=>{if(e.target===e.currentTarget)deselectLayers()});

@@ -192,6 +192,31 @@
 .tracking-reset:not([hidden]){display:inline-block!important;width:auto!important;margin-top:5px;padding:5px 9px!important;background:#393939;color:#ffda00;border:1px solid #a58b16;border-radius:3px;font:700 10px Arial,sans-serif;cursor:pointer}
 #letterSpacingLabel.tracking-changed{color:#ffda00}
 #letterSpacingExact.tracking-changed{border-color:#ffda00!important;box-shadow:0 0 0 1px #ffda00}
+
+/* V3.6.11: repair text inspector's two-column form without overflowing the narrow inspector. */
+#textControls{min-width:0;overflow-x:hidden}
+#textControls .format-tools{display:flex;align-items:center;gap:8px}
+#textControls .format-tools button{flex:0 0 125px;max-width:125px;min-width:0;white-space:normal;line-height:1.2;overflow-wrap:normal;font-size:11px;padding:7px 5px}
+#textControls .format-tools small{flex:1 1 0;min-width:0;overflow-wrap:anywhere}
+#textControls .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:10px;row-gap:10px;align-items:start}
+#textControls .row2>label{display:flex;flex-direction:column;align-items:stretch;gap:5px;min-width:0;white-space:normal!important;overflow-wrap:normal;font-size:10px;line-height:1.3}
+#textControls .row2>label>input,#textControls .row2>label>select{width:100%!important;max-width:100%;min-width:0;box-sizing:border-box;margin-top:0}
+#textControls .row2>label>input[type=number]{height:34px}
+#textControls .row2>label>input[type=color]{height:34px}
+#textControls .row2>label>select{height:34px;padding:5px 2px}
+#textControls #letterSpacingLabel{display:block;white-space:normal!important;min-width:0}
+#textControls .tracking-stepper{grid-template-columns:28px minmax(0,1fr) 28px;width:100%}
+#textControls .tracking-stepper button{width:28px;min-width:28px;min-height:31px;font-size:16px}
+#textControls .tracking-stepper input{width:100%!important;min-width:0!important}
+.snap-guide.spacing-arrow{height:0!important;width:auto!important;background:transparent!important;border-top:1px dashed #ec4b4b;box-shadow:none;pointer-events:none;z-index:9999}
+.snap-guide.spacing-arrow:before,.snap-guide.spacing-arrow:after{position:absolute;top:-5px;color:#e62239;font:700 10px Arial,sans-serif}
+.snap-guide.spacing-arrow:before{content:'‹';left:-1px}
+.snap-guide.spacing-arrow:after{content:'›';right:-1px}
+.snap-guide.spacing-label{position:absolute;height:auto!important;width:auto!important;background:#fff9e9!important;color:#b5262b;font:700 9px Arial,sans-serif;padding:2px 3px;transform:translate(-50%,-50%);border:1px solid #e62239;box-shadow:none;white-space:nowrap}
+.snap-guide.spacing-vertical{width:0!important;height:auto!important;background:transparent!important;border-left:1px dashed #ec4b4b;box-shadow:none}
+.snap-guide.spacing-vertical:before,.snap-guide.spacing-vertical:after{position:absolute;left:-4px;color:#e62239;font:700 10px Arial,sans-serif}
+.snap-guide.spacing-vertical:before{content:'⌃';top:-6px}
+.snap-guide.spacing-vertical:after{content:'⌄';bottom:-6px}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -289,6 +314,47 @@ function pickLayer(id,shift){
 const snapRange=6;
 function clearSnapGuides(){paper.querySelectorAll('.snap-guide').forEach(x=>x.remove())}
 function displaySnapGuides(x,y){clearSnapGuides();if(x!==null){let line=document.createElement('div');line.className='snap-guide x';line.style.left=x+'px';paper.append(line)}if(y!==null){let line=document.createElement('div');line.className='snap-guide y';line.style.top=y+'px';paper.append(line)}}
+// Equal-gap feedback for three page elements. Red double-ended gap lines appear
+// only when the selected middle layer is evenly spaced between nearby neighbours.
+// This is a visual helper; it doesn't change the saved geometry or snap movement.
+function displayEqualGapGuides(moved,excludedIds=new Set()){
+ if(!$('snapEnabled').checked||!moved)return;
+ const scale=o=>(Number(o.scale)||100)/100;
+ const rect=o=>({left:Number(o.x),top:Number(o.y),right:Number(o.x)+Number(o.w)*scale(o),bottom:Number(o.y)+Number(o.h)*scale(o)});
+ const me=rect(moved);
+ const others=layers.filter(o=>o.id!==moved.id&&!excludedIds.has(o.id)&&!o.hidden).map(o=>({o,r:rect(o)}));
+ const overlap=(a1,a2,b1,b2)=>Math.min(a2,b2)-Math.max(a1,b1)>Math.min(a2-a1,b2-b1)*0.3;
+ const left=others.filter(x=>x.r.right<=me.left&&overlap(x.r.top,x.r.bottom,me.top,me.bottom)).sort((a,b)=>b.r.right-a.r.right)[0];
+ const right=others.filter(x=>x.r.left>=me.right&&overlap(x.r.top,x.r.bottom,me.top,me.bottom)).sort((a,b)=>a.r.left-b.r.left)[0];
+ function line(cls,x,y,size,label){
+  const d=document.createElement('div');d.className='snap-guide '+cls;d.style.left=x+'px';d.style.top=y+'px';
+  if(cls==='spacing-arrow')d.style.width=Math.max(0,size)+'px';
+  if(cls==='spacing-vertical')d.style.height=Math.max(0,size)+'px';
+  if(label)d.textContent=label;
+  paper.append(d);
+ }
+ if(left&&right){
+  const a=me.left-left.r.right,b=right.r.left-me.right;
+  if(a>=4&&b>=4&&Math.abs(a-b)<=2){
+   const centerY=Math.max(0,(Math.max(left.r.top,right.r.top,me.top)+Math.min(left.r.bottom,right.r.bottom,me.bottom))/2);
+   line('spacing-arrow',left.r.right,centerY,a);line('spacing-arrow',me.right,centerY,b);
+   line('spacing-label',(left.r.right+me.left)/2,centerY-11,0,Math.round((a+b)/2)+' px');
+   line('spacing-label',(me.right+right.r.left)/2,centerY-11,0,Math.round((a+b)/2)+' px');
+  }
+ }
+ const above=others.filter(x=>x.r.bottom<=me.top&&overlap(x.r.left,x.r.right,me.left,me.right)).sort((a,b)=>b.r.bottom-a.r.bottom)[0];
+ const below=others.filter(x=>x.r.top>=me.bottom&&overlap(x.r.left,x.r.right,me.left,me.right)).sort((a,b)=>a.r.top-b.r.top)[0];
+ if(above&&below){
+  const a=me.top-above.r.bottom,b=below.r.top-me.bottom;
+  if(a>=4&&b>=4&&Math.abs(a-b)<=2){
+   const centerX=(me.left+me.right)/2;
+   line('spacing-vertical',centerX,above.r.bottom,a);
+   line('spacing-vertical',centerX,me.bottom,b);
+   line('spacing-label',centerX+23,(above.r.bottom+me.top)/2,0,Math.round((a+b)/2)+' px');
+   line('spacing-label',centerX+23,(me.bottom+below.r.top)/2,0,Math.round((a+b)/2)+' px');
+  }
+ }
+}
 function snapPosition(l,x,y,free,excludedIds=new Set()){if(free||!$('snapEnabled').checked){clearSnapGuides();return{x,y}}
  const px=[{v:0,p:0},{v:595,p:0},{v:297.5,p:.5}],py=[{v:0,p:0},{v:842,p:0},{v:421,p:.5}];
  for(const o of layers){if(o.id===l.id||excludedIds.has(o.id)||o.hidden)continue;const ox=o.x,oy=o.y,ow=o.w*o.scale/100,oh=o.h*o.scale/100;for(const p of [0,.5,1]){px.push({v:ox+ow*p,p});py.push({v:oy+oh*p,p})}}
@@ -968,6 +1034,7 @@ div.addEventListener('pointermove',e=>{
   const element=[...paper.querySelectorAll('.artlayer')].find(el=>el.dataset.id===item.id);
   if(element){element.style.left=item.x+'px';element.style.top=item.y+'px'}
  }
+ displayEqualGapGuides(reference,excluded);
  renderResizeOverlay();
 });
 div.addEventListener('pointerup',()=>{if(drag?.owner===l.id){const moved=drag.moved;drag=null;clearSnapGuides();if(moved)save('group-drag');refreshPanel();renderResizeOverlay()}});

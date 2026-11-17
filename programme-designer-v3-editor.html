@@ -228,7 +228,7 @@
 /* V3.6.13: strip the browser's tiny up/down arrows; keep explicit +/- buttons. */
 input[type=number]{appearance:textfield;-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
-</style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
+</style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="copyAcrossPages" type="button" title="Copy selected layers to paste on another V3 page">⧉ COPY SELECTED</button><button id="pasteAcrossPages" type="button" title="Paste copied layers onto this page">↳ PASTE LAYERS</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div id="transferNotice" class="status" role="status" aria-live="polite">Select one or several layers, click COPY SELECTED, open another page, then PASTE LAYERS.</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
   <button id="richEdit" type="button" title="Edit selected text box">✎ EDIT</button>
@@ -274,7 +274,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
  <p>Make the canvas your workspace. Use the <strong>LAYERS</strong> and <strong>INSPECTOR</strong> buttons above the page to show or hide the side panels.</p>
  <h3>ARRANGE ARTWORK</h3><p>Select any unlocked layer, then drag to move it. Use blue handles to resize, or set exact values in the inspector. Shift-click to select more than one layer.</p>
  <h3>EDIT TYPE</h3><p>Double-click the text or select it and press EDIT. Highlight words before using bold, underline, alignment or font sizes.</p>
- <h3>KEYBOARD &amp; STORAGE</h3><p>Ctrl+C copies selected layers; Ctrl+V duplicates them. Use Undo for recent changes. The save indicator must confirm <strong>SAVED IN THIS BROWSER</strong>. Download a JSON backup regularly; cloud saving is not connected.</p>
+ <h3>KEYBOARD &amp; STORAGE</h3><p>Ctrl+C copies selected layers; Ctrl+V pastes them here or on a different page. COPY SELECTED and PASTE LAYERS are also in the left sidebar. Use Undo for recent changes. The save indicator must confirm <strong>SAVED IN THIS BROWSER</strong>. Download a JSON backup regularly; cloud saving is not connected.</p>
  <h3>ORIGINAL REFERENCE</h3><p>ORIGINAL TRACE is a visual reference only and is not exported as page artwork. Lock your background and brush strokes when your master looks right.</p>
  <details><summary>More detailed editor notes</summary><p>Ctrl+C copies selected layers; Ctrl+V pastes duplicates. Click grey space outside the page to clear selection. Shift+click layers in the canvas or layer list to select several, then drag them together. Drag the blue bottom handle for height, right handle for width, or corner for both. The exact WIDTH and HEIGHT values also remain available in the inspector. Double-click a text layer to edit directly on the page, or select it and press EDIT in the toolbar above. Formatting affects selected wording or the selected paragraph. This is a proof of the editor and layer model, not yet an exact typeset reproduction. Your actual original artwork is used. Text is editable, images retain individual transparency, and no changes go to V1 or Canva.</p></details>
  <p class="help-future">Illustrated screenshots and a complete manual can be added as the master template workflow settles.</p>
@@ -312,7 +312,89 @@ updateEditorPanels();
 $('editorHelpBtn').onclick=()=>$('editorHelpDialog').showModal();
 $('closeEditorHelp').onclick=()=>$('editorHelpDialog').close();
 
+// Cross-page clipboard is independent from draft storage; never modifies source drafts.
 const V3_LAYER_CLIPBOARD='tivvy-v3-layer-clipboard';
+const V3_TRANSFER_DB='tivvy-v3-cross-page-transfer-v1';
+function v3TransferDatabase(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open(V3_TRANSFER_DB,1);
+  request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('clipboard'))request.result.createObjectStore('clipboard')};
+  request.onsuccess=()=>resolve(request.result);
+  request.onerror=()=>reject(request.error||Error('Transfer clipboard not available'));
+ });
+}
+async function v3ClipboardSet(payload){
+ const db=await v3TransferDatabase();
+ try{
+  await new Promise((resolve,reject)=>{
+   const tx=db.transaction('clipboard','readwrite');
+   tx.objectStore('clipboard').put(payload,'selected-layers');
+   tx.oncomplete=resolve;
+   tx.onerror=()=>reject(tx.error||Error('Clipboard save failed'));
+   tx.onabort=()=>reject(tx.error||Error('Clipboard save cancelled'));
+  });
+ }finally{db.close()}
+}
+async function v3ClipboardGet(){
+ const db=await v3TransferDatabase();
+ try{
+  return await new Promise((resolve,reject)=>{
+   const tx=db.transaction('clipboard','readonly');
+   const req=tx.objectStore('clipboard').get('selected-layers');
+   req.onsuccess=()=>resolve(req.result||null);
+   req.onerror=()=>reject(req.error||Error('Clipboard read failed'));
+  });
+ }finally{db.close()}
+}
+function v3TransferStatus(message,error=false){
+ const el=$('transferNotice');el.textContent=message;
+ el.style.color=error?'#ffbdbd':'#f3e3a6';
+}
+async function v3CopySelectedLayers(){
+ if(activeEditor)endEdit(false);
+ const chosen=selectionIds().map(id=>layers.find(l=>l.id===id)).filter(l=>l&&!l.hidden);
+ if(!chosen.length){v3TransferStatus('Select at least one visible layer before copying.',true);return}
+ // Clone preserves all image data, colours, shapes, fonts and exact coordinates.
+ const payload={version:1,sourcePage:V3_PAGE_ID,copiedAt:new Date().toISOString(),layers:structuredClone(chosen)};
+ try{
+  await v3ClipboardSet(payload);
+  // Compatibility with earlier V3 shortcuts; omit overly large localStorage payloads.
+  try{const raw=JSON.stringify(payload);if(raw.length<900000)sessionStorage.setItem(V3_LAYER_CLIPBOARD,raw)}catch(e){}
+  v3TransferStatus(chosen.length+' layer'+(chosen.length===1?'':'s')+' copied from '+V3_PAGE_ID+'. Open your destination page and choose PASTE LAYERS.');
+ }catch(error){v3TransferStatus('Nothing copied: '+error.message,true)}
+}
+async function v3PasteCopiedLayers(){
+ if(saveBlocked){v3TransferStatus('Page has an unresolved storage error. Export a safety copy before pasting.',true);return}
+ let data;
+ try{data=await v3ClipboardGet()}catch(e){v3TransferStatus('Cannot read copied layers: '+e.message,true);return}
+ if(!data?.layers?.length){
+  try{
+   const older=JSON.parse(sessionStorage.getItem(V3_LAYER_CLIPBOARD)||'null');
+   if(Array.isArray(older))data={version:0,sourcePage:'earlier selection',layers:older};
+   else if(older?.layers) data=older;
+  }catch(e){}
+ }
+ if(!data?.layers?.length){v3TransferStatus('No copied layers. Go to the source page and choose COPY SELECTED.',true);return}
+ if(activeEditor)endEdit(false);
+ const maxZ=Math.max(0,...layers.map(l=>Number(l.z)||0));
+ const stamp=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+ const pasted=data.layers.map((source,i)=>{
+  const l=structuredClone(source);
+  l.id='xpage-'+stamp+'-'+i;
+  l.name='Copy of '+(source.name||'Layer');
+  // Preserve exact source position for cross-page layout work; offset when duplicating same page.
+  const offset=data.sourcePage===V3_PAGE_ID?15:0;
+  l.x=(Number(source.x)||0)+offset;l.y=(Number(source.y)||0)+offset;
+  l.z=maxZ+1+i;l.locked=false;l.hidden=false;l.base=false;
+  return l;
+ });
+ layers.push(...pasted);
+ multiSelected.clear();pasted.forEach(l=>multiSelected.add(l.id));selected=pasted[0].id;
+ paint();save('paste-layer');
+ v3TransferStatus('Pasted '+pasted.length+' layer'+(pasted.length===1?'':'s')+' from '+(data.sourcePage||'another page')+'. Originals untouched. Undo is available.');
+}
+$('copyAcrossPages').onclick=()=>{void v3CopySelectedLayers()};
+$('pasteAcrossPages').onclick=()=>{void v3PasteCopiedLayers()};
 function deselectLayers(){if(activeEditor)endEdit(false);selected='';multiSelected.clear();paint();}
 function selectionIds(){return multiSelected.size?[...multiSelected]:[selected]}
 function pickLayer(id,shift){
@@ -656,21 +738,10 @@ document.addEventListener('keydown',e=>{
  // Preserve standard typing, input editing and in-canvas text editing.
  if(e.target.closest('textarea,input,select,[contenteditable]')||activeEditor)return;
  if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.key.toLowerCase()==='c'||e.key.toLowerCase()==='v')){
-  if(e.key.toLowerCase()==='c'){
-   const chosen=selectionIds().map(id=>layers.find(l=>l.id===id)).filter(Boolean);
-   if(!chosen.length)return;
-   e.preventDefault();
-   try{sessionStorage.setItem(V3_LAYER_CLIPBOARD,JSON.stringify(chosen));$('saveStatus').textContent=chosen.length+' layer'+(chosen.length===1?'':'s')+' copied — Ctrl+V to paste';}catch(error){$('saveStatus').textContent='Could not copy layers: clipboard storage unavailable';}
-   return;
-  }
-  let copied=null;
-  try{copied=JSON.parse(sessionStorage.getItem(V3_LAYER_CLIPBOARD)||'null')}catch(error){}
-  if(!Array.isArray(copied)||!copied.length)return;
   e.preventDefault();
-  const maxZ=Math.max(0,...layers.map(l=>Number(l.z)||0));
-  const stamp=Date.now()+'-'+Math.random().toString(36).slice(2,7);
-  const next=copied.map((src,i)=>{const l=structuredClone(src);l.id='paste-'+stamp+'-'+i;l.name='Copy of '+(src.name||'Layer');l.x=(Number(src.x)||0)+15;l.y=(Number(src.y)||0)+15;l.z=maxZ+1+i;l.locked=false;l.hidden=false;l.base=false;return l});
-  layers.push(...next);multiSelected.clear();next.forEach(l=>multiSelected.add(l.id));selected=next[0].id;paint();save('paste-layer');return;
+  if(e.key.toLowerCase()==='c')void v3CopySelectedLayers();
+  else void v3PasteCopiedLayers();
+  return;
  }
  const arrows={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
  if(!e.ctrlKey&&!e.metaKey&&!e.altKey&&arrows[e.key]){

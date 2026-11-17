@@ -245,7 +245,15 @@ function reorder(fromId,toId){if(!fromId||fromId===toId)return;const from=pages.
 function deletePage(){const c=current();if(!c||pages.length<=1)return;if(!confirm("Remove “"+c.name+"” from this draft? It will remain recoverable in Restore Page."))return;
  const at=pages.indexOf(c);trash.push({...c,deletedAt:new Date().toISOString()});pages.splice(at,1);active=pages[Math.min(at,pages.length-1)].id;change("page-delete","Moved to recovery area",c.id);openPage(active)}
 function restorePage(){if(!trash.length)return;const p=trash.pop();delete p.deletedAt;pages.push(p);change("page-restore","Restored from recovery",p.id);openPage(p.id)}
-function download(name,content,mime){const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),800)}
+function download(name,content,mime){
+ const now=new Date(),pad=n=>String(n).padStart(2,'0');
+ const stamp=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'_'+pad(now.getHours())+'-'+pad(now.getMinutes())+'-'+pad(now.getSeconds());
+ // Every downloaded JSON, including complete issue backups and conversion safety copies,
+ // gets a sortable local timestamp without changing its recovery payload.
+ const filename=/\.json$/i.test(name)?name.replace(/\.json$/i,'-'+stamp+'.json'):name;
+ const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),800);
+}
 async function backup(){
  if(loadedEditorPage&&!await flushEditor()){
   editorSaveFailed=true;$('saveBadge').textContent='CURRENT PAGE SAVE NOT CONFIRMED';

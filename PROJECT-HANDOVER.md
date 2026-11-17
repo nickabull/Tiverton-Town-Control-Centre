@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.8 — COMPACT STEPPERS + WIDER ZOOM SLIDER (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.8
+
+- User's visual QA screenshot revealed V3.6.6 +/- controls were too wide, clipped numbers at 3+ digits, and left X/Y label/slider rows misaligned. CSS updated inspector's two-column layout to use narrower 22px +/- buttons, a flexible full-width readable input with tabular digits, compact labels kept on one line, and consistent top-alignment for X/Y and all other paired controls.
+- User also asked for the zoom slider to match the physical length of inspector sliders. Toolbar zoom now uses flexible width up to 190px while shrinking gracefully at narrower workspace widths, preserving exact percent field and FIT PAGE. Existing two-row toolbar and page content remain intact.
+- Only editor CSS and V3 dev shell cache version changed. Editor commit `a36630d71cb862c86d7242e93974b365a6d31fc6`, shell commit `4a75ac6337b8dd999de310503694682609555fe0`. Browser QA needed on user's browser/viewport for 100, 223, -180 and 1000 values; ensure rows align, number field isn't clipped, and toolbar doesn't wrap.
+- User reduced shirt background opacity in their browser and appreciates visual continuity with Ryan's social designs; browser master artwork remains user-controlled and was not modified in GitHub.
+
+
 ## V3.6.7 — SLOWER PRECISION SLIDERS (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.7

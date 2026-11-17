@@ -1,5 +1,17 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.13 — TIMESTAMPED JSON + FONT SIZE CORRECTION + NUMERIC SPINNERS (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.13
+
+- User requested identifiable date/time JSON backups; native spinner removal; live reliable text sizing instead of text unexpectedly becoming tiny on APPLY.
+- Editor per-page EXPORT LAYERS JSON now includes page ID and browser-local YYYY-MM-DD_HH-mm-ss in filename. Payload includes UTC exportedAt, local exportedLocal, pageId, and existing layers. The full V3 shell backup and trial safety JSON downloads also get timestamped filenames via a shared download helper.
+- Native browser numeric spinner arrows hidden throughout V3 editor. Existing independently clickable +/- controls kept on inspector inputs.
+- Replaced execCommand fontSize=7 conversion with direct span styling on selected text. CUSTOM field now live-previews whole text layer size or selected words; selection formatting reuses same span while values change. APPLY and 14/18pt presets kept. Whole-layer size clears stale embedded font sizes. Uses existing 0.84 rendering ratio; bounds 6 to 150pt.
+- Editor commits a0a705872da5ca3083cb2946349bab095ff4c3ed and 94bcb82148034b4140637bbc61d4027039bca644; shell commits aa50cb3ddb9b744169d10f9c43e04f4729ffda45 and a9a1757d9e32d7d79cf3563c7ae325d3dd9776b8.
+- Inline editor/shell script syntax verified through V8 parse. Browser QA still necessary: numerical changes, selection edits, APPLY, undo, PDF output, no native arrows, timestamped downloads and reload integrity. No browser drafts, cover artwork, other versions or production pages edited.
+
+
 ## V3.6.12 — TEXT OUTLINE SNAP + REMAINING NATIVE NUMBER ARROWS (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.12

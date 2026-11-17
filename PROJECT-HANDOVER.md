@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare Access end-to-end placeholder login PASS — 17 November 2026, 22:51 GMT
+
+- User signed in through the Cloudflare Access challenge and captured a screenshot of `https://tivvy-programme-v3-storage.nickabull.workers.dev` returning the exact response **Hello World!**. The signed-in browser successfully reached the newly deployed protected Worker. Previously, an unauthenticated incognito browser received the Cloudflare Access login form, team `quiet-bird-5421.cloudflareaccess.com`. Hence *Access-protected placeholder deployment and successful authorised login have been visually verified*.
+- This is **not** proof the custom production API, staff D1 allowlist, JWT verification, session/API-origin behaviour or editor sync are configured or working. No D1/R2 bindings existed in the initial deployment screenshot; only stock Hello World is deployed.
+- The user's next action: Worker dashboard > **Bindings > Add a binding**; inspect D1 options, choose the correct existing database once confirmed and bind as `DB`; similarly R2 as `ASSETS`. Run remote migrations with Cloudflare tooling, configure Access team domain and AUD in worker environment, bootstrap authorised staff and deploy/test the backend from GitHub. Confirm unauthorised requests denied and complete save/read/revision/restore/asset round trip before any production data migration. Preserve original IndexedDB backups and avoid changes to existing unrelated Workers.
+
+
 ## Cloudflare Access login checkpoint — 17 November 2026, 22:50 GMT
 
 - User confirmed the new fifth Worker `tivvy-programme-v3-storage` exists and shows deployment ready at `https://tivvy-programme-v3-storage.nickabull.workers.dev`; dashboard topology reports **Domains 1**, **Bindings 0**, Worker Logs enabled. It is still the stock **Hello World** placeholder, not the programme storage API.

@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.11 — TEXT INSPECTOR LAYOUT FIX + EQUAL SPACING GUIDES (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.11
+
+- User screenshot showed severely overlapping labels/values in TEXT BOX OPTIONS (WHOLE TEXT SIZE, WEIGHT, COLOUR, ALIGNMENT) and old tracking control squeezed/partly hidden. Applied scoped `#textControls` CSS with two equal minmax(0,1fr) columns, stacked labels/fields, safe wrapping, compact bold-selection button, consistent 34px field height, and full-width tracking +/- stepper. Does not alter page objects or text itself.
+- User wants smart spacing feedback like red double-ended arrows in supplied example: when dragging a middle object between two neighbours, with sufficient cross-axis overlap and matching left/right gaps within 2 canvas px, draw paired red dashed gap lines with arrowheads and numeric equal-distance labels; analogous vertical above/below spacing. This supplements existing red alignment snap guides; never changes layer geometry or persists guides in artwork. Only shown with SNAP enabled during layer drag. Single central moving layer only; rotated objects use simple unrotated bounding boxes (limitation).
+- Editor commit `96b7280b43b51c0039565844d46ef4af4cfba815`, shell cache version commit `580819e011561ba702d3a1a07bed6e32a1eea962`. Browser QA pending: verify text settings no overlap on user viewport; tracking controls visible; equal-gap feedback shows for three boxes when exactly balanced, disappears otherwise and on drag release; existing alignment/snap save remains intact.
+- Development only, preserve browser drafts and cover artwork, other versions, Wix, Canva and production pages.
+
+
 ## V3.6.10 — TRACKING CONTROL MATCHES NUMERIC STEPPERS (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.10

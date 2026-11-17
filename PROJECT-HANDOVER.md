@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare Access team variable confirmed — 17 November 2026, 23:15 GMT
+
+- User screenshot of dedicated Worker production Settings confirms `ACCESS_TEAM_DOMAIN` is successfully saved as plain text `quiet-bird-5421.cloudflareaccess.com`. The same screenshot confirms both resource bindings remain intact: D1 `DB` → `tivvy-programme-v3`, R2 `ASSETS` → `tivvy-programme-v3-assets`.
+- The **application-specific `ACCESS_AUD` is still missing** and must not be guessed. Next user action: Cloudflare Zero Trust → Access → Applications → the `tivvy-programme-v3-storage - Cloudflare Workers` app → find/copy Application Audience (AUD) Tag; set `ACCESS_AUD` on this Worker's production variables, then verify settings. No live API deployment yet, protected placeholder remains Hello World. No issue/cloud-save claim yet.
+
+
 ## First programme administrator verified — 17 November 2026, 23:09 GMT
 
 - User executed initial authorised-user SQL in D1 `tivvy-programme-v3` for their normal Cloudflare account email (email was **not** shared in conversation). Follow-up aggregate query `SELECT role, active, COUNT(*) AS users FROM programme_members GROUP BY role, active;` returned **admin | 1 | 1**, confirmed by screenshot. Hence exactly one active administrator is currently present in programme_members.

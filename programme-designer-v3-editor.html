@@ -217,6 +217,14 @@
 .snap-guide.spacing-vertical:before,.snap-guide.spacing-vertical:after{position:absolute;left:-4px;color:#e62239;font:700 10px Arial,sans-serif}
 .snap-guide.spacing-vertical:before{content:'⌃';top:-6px}
 .snap-guide.spacing-vertical:after{content:'⌄';bottom:-6px}
+
+/* V3.6.12: consistent compact steppers for font and stroke inputs. */
+#textControls .v3-text-stepper,#imageControls .v3-text-stepper{display:grid;grid-template-columns:26px minmax(0,1fr) 26px;gap:4px;width:100%;min-width:0}
+#textControls .v3-text-stepper button,#imageControls .v3-text-stepper button{width:26px;min-width:26px;min-height:32px;font-size:15px;padding:0!important;line-height:1}
+#textControls .v3-text-stepper .precise-val,#imageControls .v3-text-stepper .precise-val{width:100%!important;min-width:0!important;margin:0!important}
+#textControls .v3-text-stepper input[type=number]{width:100%!important;min-width:0!important;margin:0!important;text-align:center;appearance:textfield;-moz-appearance:textfield;padding:5px 2px}
+#textControls input[type=number]::-webkit-inner-spin-button,#textControls input[type=number]::-webkit-outer-spin-button,
+#imageControls input[type=number]::-webkit-inner-spin-button,#imageControls input[type=number]::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -355,11 +363,33 @@ function displayEqualGapGuides(moved,excludedIds=new Set()){
   }
  }
 }
+// Text glyph visual-edge anchors (including the rendered outline) supplement frame-edge snapping.
+// The layer frame remains authoritative for storage and resizing; only guides/snapping use these anchors.
+function visibleTextAnchors(layer){
+ if(!layer||layer.type!=='text'||Math.abs(Number(layer.rotate)||0)>0.01)return null;
+ const element=[...paper.querySelectorAll('.artlayer')].find(el=>el.dataset.id===layer.id);
+ const body=element?.querySelector('.textbox');if(!body||!body.textContent.trim())return null;
+ const range=document.createRange();range.selectNodeContents(body);
+ const bounds=range.getBoundingClientRect(),canvas=paper.getBoundingClientRect();
+ const factor=Math.max(0.01,zoom),stroke=Math.max(0,Number(layer.textStrokeWidth)||0)/2;
+ if(!bounds.width||!bounds.height)return null;
+ const absolute={left:(bounds.left-canvas.left)/factor-stroke,right:(bounds.right-canvas.left)/factor+stroke,top:(bounds.top-canvas.top)/factor-stroke,bottom:(bounds.bottom-canvas.top)/factor+stroke};
+ if(!Object.values(absolute).every(Number.isFinite))return null;
+ return {x:[absolute.left-layer.x,((absolute.left+absolute.right)/2)-layer.x,absolute.right-layer.x],
+         y:[absolute.top-layer.y,((absolute.top+absolute.bottom)/2)-layer.y,absolute.bottom-layer.y],
+         absolute};
+}
 function snapPosition(l,x,y,free,excludedIds=new Set()){if(free||!$('snapEnabled').checked){clearSnapGuides();return{x,y}}
  const px=[{v:0,p:0},{v:595,p:0},{v:297.5,p:.5}],py=[{v:0,p:0},{v:842,p:0},{v:421,p:.5}];
- for(const o of layers){if(o.id===l.id||excludedIds.has(o.id)||o.hidden)continue;const ox=o.x,oy=o.y,ow=o.w*o.scale/100,oh=o.h*o.scale/100;for(const p of [0,.5,1]){px.push({v:ox+ow*p,p});py.push({v:oy+oh*p,p})}}
- let bestX=null,bestY=null;for(const origin of [0,.5,1]){const candidate=x+l.w*l.scale/100*origin;for(const ref of px){const diff=ref.v-candidate;if(Math.abs(diff)<=snapRange&&(!bestX||Math.abs(diff)<Math.abs(bestX.diff)))bestX={diff,line:ref.v}}}
- for(const origin of [0,.5,1]){const candidate=y+l.h*l.scale/100*origin;for(const ref of py){const diff=ref.v-candidate;if(Math.abs(diff)<=snapRange&&(!bestY||Math.abs(diff)<Math.abs(bestY.diff)))bestY={diff,line:ref.v}}}
+ const visual=visibleTextAnchors(l);
+ const targetX=visual?visual.x:[0,l.w*l.scale/200,l.w*l.scale/100];
+ const targetY=visual?visual.y:[0,l.h*l.scale/200,l.h*l.scale/100];
+
+ for(const o of layers){if(o.id===l.id||excludedIds.has(o.id)||o.hidden)continue;const ox=o.x,oy=o.y,ow=o.w*o.scale/100,oh=o.h*o.scale/100;for(const p of [0,.5,1]){px.push({v:ox+ow*p,p});py.push({v:oy+oh*p,p})}
+ const glyph=visibleTextAnchors(o);if(glyph){for(const v of glyph.x)px.push({v:o.x+v,p:0});for(const v of glyph.y)py.push({v:o.y+v,p:0})}
+}
+ let bestX=null,bestY=null;for(const offset of targetX){const candidate=x+offset;for(const ref of px){const diff=ref.v-candidate;if(Math.abs(diff)<=snapRange&&(!bestX||Math.abs(diff)<Math.abs(bestX.diff)))bestX={diff,line:ref.v}}}
+ for(const offset of targetY){const candidate=y+offset;for(const ref of py){const diff=ref.v-candidate;if(Math.abs(diff)<=snapRange&&(!bestY||Math.abs(diff)<Math.abs(bestY.diff)))bestY={diff,line:ref.v}}}
  displaySnapGuides(bestX?.line??null,bestY?.line??null);return{x:Math.round(x+(bestX?.diff||0)),y:Math.round(y+(bestY?.diff||0))}}
 
 // Keyboard alignment feedback: detect exact matches without magnetically snapping.
@@ -1139,6 +1169,29 @@ for(const id of ['strokeWidth','strokeWidthExact','strokeColor'])$(id).addEventL
  const sync=()=>{minus.disabled=plus.disabled=exact.disabled};
  new MutationObserver(sync).observe(exact,{attributes:true,attributeFilter:['disabled']});
  sync();
+}
+// Use the same compact +/- control for remaining font and image/text stroke numeric inputs.
+for(const spec of [
+ {id:'font',step:1,min:6,max:150,type:'input'},
+ {id:'textStrokeWidthExact',step:0.5,min:0,max:8,type:'input'},
+ {id:'strokeWidthExact',step:1,min:0,max:30,type:'input'}
+]){
+ const input=$(spec.id);if(!input||input.closest('.exact-stepper'))continue;
+ const wrap=document.createElement('div');wrap.className='exact-stepper v3-text-stepper';
+ input.parentNode.insertBefore(wrap,input);
+ const minus=document.createElement('button'),plus=document.createElement('button');
+ minus.type=plus.type='button';minus.textContent='−';plus.textContent='+';
+ minus.setAttribute('aria-label','Decrease '+spec.id);plus.setAttribute('aria-label','Increase '+spec.id);
+ wrap.append(minus,input,plus);
+ const step=delta=>{
+  if(input.disabled)return;
+  const n=Number(input.value),base=Number.isFinite(n)?n:spec.min;
+  input.value=String(Math.max(spec.min,Math.min(spec.max,Math.round((base+delta)*2)/2)));
+  input.dispatchEvent(new Event(spec.type,{bubbles:true}));
+ };
+ minus.onclick=()=>step(-spec.step);plus.onclick=()=>step(spec.step);
+ const sync=()=>{minus.disabled=plus.disabled=input.disabled};
+ new MutationObserver(sync).observe(input,{attributes:true,attributeFilter:['disabled']});sync();
 }
 // Whole-text tracking: relative letter spacing in px, stored with each editable text layer.
 for(const id of ['letterSpacing','letterSpacingExact'])$(id).addEventListener(id==='letterSpacing'?'input':'change',event=>{

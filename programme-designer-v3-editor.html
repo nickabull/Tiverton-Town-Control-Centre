@@ -1101,35 +1101,72 @@ $('letterSpacingReset').addEventListener('click',()=>{
  save('tracking-reset');
 });
 // Read-only layout check. Textbox overflow is hidden in the normal page view.
+// V3.6.19: read-only programme preflight with one warning per text pair,
+// selectable warnings, automatic re-check and explicit editorial REVIEW gates.
 function checkTextFit(){
  if(activeEditor)endEdit(false);
- const issues=[];
- const nodes=[...paper.querySelectorAll('.artlayer')];
+ const issues=[],nodes=[...paper.querySelectorAll('.artlayer')];
  const byId=new Map(nodes.map(n=>[n.dataset.id,n]));
+ const live=layers.filter(l=>l.type==='text'&&!l.hidden);
+ const mark=id=>{const el=byId.get(id);if(el)el.style.outline='3px dashed #ed3434'};
  nodes.forEach(n=>n.style.removeProperty('outline'));
- for(const layer of layers){
-  if(layer.hidden||layer.type!=='text')continue;
-  const holder=byId.get(layer.id),box=holder?.querySelector('.textbox');
-  if(!box)continue;
-  const v=box.scrollHeight-box.clientHeight,h=box.scrollWidth-box.clientWidth;
-  if(v>3||h>3){
-   issues.push((layer.name||layer.id)+': CLIPPED ('+Math.max(0,Math.ceil(v))+'px vertical, '+Math.max(0,Math.ceil(h))+'px horizontal)');
-   holder.style.outline='3px dashed #ed3434';
+ for(const l of live){
+  const box=byId.get(l.id)?.querySelector('.textbox');if(!box)continue;
+  const v=Math.max(0,Math.ceil(box.scrollHeight-box.clientHeight));
+  const h=Math.max(0,Math.ceil(box.scrollWidth-box.clientWidth));
+  if(v>3||h>3){issues.push({severity:'FAIL',ids:[l.id],description:(l.name||l.id)+' — clipped text ('+v+'px below frame, '+h+'px sideways)'});mark(l.id)}
+ }
+ const eps=3;
+ const intersect=(a,b)=>Math.min(a.right,b.right)-Math.max(a.left,b.left)>eps&&Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>eps;
+ function textRects(l){
+  const box=byId.get(l.id)?.querySelector('.textbox');if(!box)return[];
+  const rects=[];
+  for(const p of box.querySelectorAll('p')){
+   const range=document.createRange();range.selectNodeContents(p);
+   for(const r of range.getClientRects())if(r.width>1&&r.height>1)rects.push(r);
   }
-  if(layer.autoSweepTrial){
-   for(const other of layers){
-    if(other.id===layer.id||other.hidden||other.type!=='text')continue;
-    const w=Math.max(0,Math.min(layer.x+layer.w,other.x+other.w)-Math.max(layer.x,other.x));
-    const ht=Math.max(0,Math.min(layer.y+layer.h,other.y+other.h)-Math.max(layer.y,other.y));
-    if(w>8&&ht>8){
-     issues.push((layer.name||layer.id)+': TEXT FRAME overlaps '+(other.name||other.id)+' ('+Math.round(w)+'x'+Math.round(ht)+'px)');
-     holder.style.outline='3px dashed #ed3434';
-    }
-   }
+  if(!rects.length){const range=document.createRange();range.selectNodeContents(box);for(const r of range.getClientRects())if(r.width>1&&r.height>1)rects.push(r)}
+  return rects;
+ }
+ const rendered=new Map(live.map(l=>[l.id,textRects(l)]));
+ for(let i=0;i<live.length;i++)for(let j=i+1;j<live.length;j++){
+  const l=live[i],other=live[j];
+  if(!l.autoSweepTrial&&!other.autoSweepTrial)continue;
+  if(rendered.get(l.id).some(a=>rendered.get(other.id).some(b=>intersect(a,b)))){
+   issues.push({severity:'FAIL',ids:[l.id,other.id],description:(l.name||l.id)+' overlaps '+(other.name||other.id)+' (rendered text; counted once)'});
+   mark(l.id);mark(other.id);
   }
  }
- const status=issues.length?'NOT READY: '+issues.length+' layout warning(s)':'No clipped text or trial-text-frame overlaps detected.';
- alert('TEXT FIT AUDIT — READ ONLY\n\n'+status+(issues.length?'\n\n'+issues.slice(0,24).map((x,i)=>(i+1)+'. '+x).join('\n'):'')+(issues.length>24?'\n...additional warnings omitted':'')+'\n\nRed dashed outlines indicate problem frames. Edit copy, size or paragraph spacing, then rerun. This audit does not modify saved layers.');
+ const trial=live.some(l=>l.autoSweepTrial);
+ if(trial)issues.push({severity:'REVIEW',ids:[],description:'Swindon photograph, home/away kits and 2025/26 finishing position require editorial verification before publication'});
+ const fails=issues.filter(i=>i.severity==='FAIL').length,reviews=issues.filter(i=>i.severity==='REVIEW').length;
+ let panel=document.getElementById('v3FitPanel');
+ if(!panel){
+  panel=document.createElement('section');panel.id='v3FitPanel';panel.setAttribute('role','region');panel.setAttribute('aria-label','Programme preflight report');
+  Object.assign(panel.style,{position:'fixed',zIndex:'9999',right:'16px',top:'92px',width:'min(410px,calc(100vw - 32px))',maxHeight:'70vh',overflowY:'auto',padding:'12px',background:'#202226',border:'2px solid #ffd800',borderRadius:'5px',boxShadow:'0 10px 35px #000b',color:'#fff',font:'13px Arial,sans-serif'});
+  document.body.append(panel);
+ }
+ panel.replaceChildren();
+ const heading=document.createElement('div');heading.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px';
+ const title=document.createElement('strong');title.style.color='#ffd800';title.textContent='PROGRAMME PREFLIGHT · '+(fails?'FAIL':reviews?'REVIEW':'PASS')+' · '+fails+' errors / '+reviews+' reviews';
+ const close=document.createElement('button');close.type='button';close.textContent='✕';close.title='Close report';close.onclick=()=>panel.remove();
+ heading.append(title,close);panel.append(heading);
+ const intro=document.createElement('p');intro.textContent=fails?'Text must be corrected before publication.':reviews?'No text collisions found; editorial review remains.':'No detectable text clipping or trial text collisions.';panel.append(intro);
+ for(const issue of issues){
+  const item=document.createElement('button');item.type='button';
+  item.style.cssText='display:block;width:100%;text-align:left;background:#303238;color:#fff;padding:9px;margin:6px 0;border:1px solid #56595d;cursor:pointer;line-height:1.35';
+  item.textContent=(issue.severity==='FAIL'?'FAIL · ':'REVIEW · ')+issue.description+(issue.ids.length?' · SELECT LAYER':'');
+  if(issue.ids.length)item.onclick=()=>{
+   pickLayer(issue.ids[0],false);
+   const element=[...paper.querySelectorAll('.artlayer')].find(n=>n.dataset.id===issue.ids[0]);
+   if(element){element.style.outline='3px dashed #ed3434';element.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'})}
+  };
+  else item.disabled=true;
+  panel.append(item);
+ }
+ const rerun=document.createElement('button');rerun.type='button';rerun.textContent='↻ RECHECK PAGE';rerun.style.cssText='margin-top:12px;padding:9px;background:#ffd800;color:#111;font-weight:bold;border:0;cursor:pointer';rerun.onclick=checkTextFit;panel.append(rerun);
+ const caveat=document.createElement('p');caveat.style.cssText='font-size:11px;color:#c5c5c5';caveat.textContent='Read-only. Text intersection uses rendered line rectangles; photographs, licences, print bleed and full PDF still need review.';panel.append(caveat);
+ return {fails,reviews};
 }
 function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='standingsLegend'){
  div.classList.add('v3-standings-legend-layer');

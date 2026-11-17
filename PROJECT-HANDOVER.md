@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare web editor opened / backend source checked — 17 November 2026, 23:29 GMT
+
+- User screenshot shows the newly created protected storage Worker web code editor `worker.js` still contains the Cloudflare stock Hello World program. Nothing has been pasted or deployed yet. Right-hand editor Preview shows a broken placeholder icon; do not mistake this for a backend failure.
+- Re-fetched GitHub `v3-backend/src/index.js` (single ~14KB JavaScript Worker source; blob SHA `d23fe35ea394f4f0ea5f1bfe3e5aba72edaf0db8`). Existing API includes cryptographic Cloudflare Access token checking, membership via D1, read/write issue revision endpoints, and R2 asset endpoints. Public `/api/health` within source still sits behind edge Access for unauthenticated visitors on protected Worker.
+- Fetched `v3-backend/wrangler.example.toml`. WARNING: example currently defines **a different Worker name** `tivvy-programme-v3-api`, `workers_dev=false`, a placeholder custom-domain deployment model, placeholders for database ID, team domain/AUD, and a public-looking `ACCESS_AUD` vars entry. This is OUTDATED relative to tonight's `tivvy-programme-v3-storage.nickabull.workers.dev` deployment behind Access. **Do not deploy that example unchanged** or create a second Worker; it may also supersede existing bindings and should never put confidential config into GitHub. Prefer controlled browser code editor deployment for first proof or a corrected secure deploy config after review.
+- User asked to proceed; provided GitHub source link `https://github.com/nickabull/Tiverton-Town-Control-Centre/blob/main/v3-backend/src/index.js` and requested confirming it opens with the comment `// Tivvy Programme Designer V3.2 storage API.` before copying to Cloudflare editor. This code has NOT been deployed and no API request has been verified.
+- Once Worker source deployed under retained edge Access config, test authenticated `/api/me` expecting `ok:true` and role admin. A 401 could mean Access JWT assertion unavailable/malformed or AUD/issuer mismatch, and a 403 D1 membership mismatch; debug safely without weakening edge Access. Then disposable issue save/version/restore and R2 asset tests. The browser editor and GitHub Pages Designer are not yet connected; full cloud save remains pending.
+
+
 ## Cloudflare Access JWT settings all present — 17 November 2026, 23:28 GMT
 
 - User screenshot definitively verifies production Runtime variables/secrets on new `tivvy-programme-v3-storage` Worker: `ACCESS_AUD` as encrypted **Secret** (value intentionally not logged to GitHub) and `ACCESS_TEAM_DOMAIN=quiet-bird-5421.cloudflareaccess.com` as plain runtime variable.

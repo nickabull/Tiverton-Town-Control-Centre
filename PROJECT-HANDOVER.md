@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare Access AUD supplied — 17 November 2026, 23:25 GMT
+
+- User supplied a 64-character hexadecimal Application Audience (AUD) Tag obtained from Cloudflare Zero Trust's `tivvy-programme-v3-storage - Cloudflare Workers` app. For privacy and configuration hygiene the full AUD is **not copied into the GitHub handover**.
+- User instructed to set **production** Worker variable `ACCESS_AUD` to that exact user-supplied value (as a secret) and deploy. This operation is **pending user screenshot/confirmation**, not yet verified.
+- `ACCESS_TEAM_DOMAIN` already saved: `quiet-bird-5421.cloudflareaccess.com`. Worker bindings `DB` to D1 `tivvy-programme-v3`, `ASSETS` to R2 `tivvy-programme-v3-assets`. Admin allowlist previously verified one active administrator, and protected Hello World login passed.
+- After `ACCESS_AUD` is confirmed, ensure actual application AUD matches the token `aud` and Cloudflare certificate issuer; deploy API source only after configuring Wrangler to retain bindings and vars. Test authenticated and unauthenticated access, then disposable issue save, read, conflict, restore and asset round trip. Do not yet claim functioning cloud save or touch browser backups.
+
+
 ## Cloudflare Access team variable confirmed — 17 November 2026, 23:15 GMT
 
 - User screenshot of dedicated Worker production Settings confirms `ACCESS_TEAM_DOMAIN` is successfully saved as plain text `quiet-bird-5421.cloudflareaccess.com`. The same screenshot confirms both resource bindings remain intact: D1 `DB` → `tivvy-programme-v3`, R2 `ASSETS` → `tivvy-programme-v3-assets`.

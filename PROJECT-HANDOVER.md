@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## Existing D1 schema confirmed installed — 17 November 2026, 23:04 GMT
+
+- On the Cloudflare D1 Console for `tivvy-programme-v3`, Cloudflare's `/tables` shortcut initially returned an internal error, reference `h8qrc0t0hpbob25oclt8dd9u`. Standard read-only SQL succeeded:
+  `SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name;`
+- Screenshot confirmed five Programme Designer tables already EXIST: `activity_events`, `issue_revisions`, `programme_assets`, `programme_issues`, `programme_members`; plus Cloudflare internal `_cf_KV`. Do **NOT** reinstall schema or recreate these tables by default. Existence does not independently confirm column structures, indexes, membership rows, or completed migrations, so check those only when needed, non-destructively.
+- Immediate next step: in D1 Console run read-only `SELECT role, active, COUNT(*) AS users FROM programme_members GROUP BY role, active;` to establish if any authorised admin/editor is already bootstrapped without printing personal emails. If missing, bootstrap the exact authorised account using trusted D1 tooling and an email supplied privately by operator; don't invent it. Then configure Access AUD/team domain, deploy real API and test isolated issue CRUD/revisions/asset round trip. Existing Worker is still Hello World until explicitly replaced and verified.
+
+
 ## Cloudflare storage bindings verified — 17 November 2026, 23:00 GMT
 
 User's Cloudflare Workers dashboard screenshot definitively confirms BOTH production bindings on dedicated `tivvy-programme-v3-storage` Worker:

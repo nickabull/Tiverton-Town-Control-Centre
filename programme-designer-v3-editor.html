@@ -853,6 +853,17 @@ function applyRichSize(override){
   else setEditorStatus('Select an unlocked text layer first');
   updateSizeIndicator();return;
  }
+ // Reuse the selected size span on subsequent keystrokes: this provides a
+ // real-time preview without nesting a new formatting span for every digit.
+ const root=range.commonAncestorContainer;
+ if(root.nodeType===1&&root.tagName==='SPAN'&&root.style.fontSize&&
+    range.startContainer===root&&range.endContainer===root&&
+    range.startOffset===0&&range.endOffset===root.childNodes.length){
+  root.style.fontSize=designPt(size)+'pt';
+  commitEditor();updateSizeIndicator();
+  setEditorStatus('Selected text preview: '+size+'pt · saved');
+  return;
+ }
  // Explicit span styling, avoiding execCommand fontSize=7 (which caused tiny text).
  try{
   const fragment=range.extractContents();
@@ -877,7 +888,7 @@ $('richSize').addEventListener('input',()=>{
  const n=Number($('richSize').value);if(!Number.isFinite(n)||n<6||n>150)return;
  const label=$('richSizeIndicator');label.classList.toggle('modified',n!==14&&n!==18);
  label.textContent=(n===14||n===18?'STANDARD ':'CUSTOM ')+n+'pt';
- if(v3SelectedRange()){setEditorStatus('Selected wording: click APPLY to resize');return}
+ if(v3SelectedRange()){applyRichSize(n);return}
  if(v3LiveWholeTextSize(v3SafeFontSize(n)))setEditorStatus('Whole text size previewed: '+n+'pt · saved');
 });
 $('richToolbar').addEventListener('mousedown',e=>{if(e.target.closest('button')){captureRange();e.preventDefault()}});

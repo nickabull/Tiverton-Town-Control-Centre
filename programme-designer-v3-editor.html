@@ -263,7 +263,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <label class="tool-trace"><input type="checkbox" id="traceToggle"> ORIGINAL TRACE</label>
     <label class="tool-trace-opacity">TRACE OPACITY <input id="traceOpacity" type="range" min="5" max="100" step="5" value="40"><span id="tracePct">40%</span></label>
     <div class="tools-divider"></div>
-    <button type="button" id="editorHelpBtn" class="tools-help" title="Open designer guide">? HELP &amp; GUIDE</button>
+    <button type="button" id="checkTextFitBtn" class="tools-help" title="Check all text for clipped content and trial overlaps without changing artwork">✓ CHECK TEXT FIT</button><button type="button" id="editorHelpBtn" class="tools-help" title="Open designer guide">? HELP &amp; GUIDE</button>
    </div>
   </details>
  </div>
@@ -1100,6 +1100,37 @@ $('letterSpacingReset').addEventListener('click',()=>{
  if(target)target.style.letterSpacing='0px';
  save('tracking-reset');
 });
+// Read-only layout check. Textbox overflow is hidden in the normal page view.
+function checkTextFit(){
+ if(activeEditor)endEdit(false);
+ const issues=[];
+ const nodes=[...paper.querySelectorAll('.artlayer')];
+ const byId=new Map(nodes.map(n=>[n.dataset.id,n]));
+ nodes.forEach(n=>n.style.removeProperty('outline'));
+ for(const layer of layers){
+  if(layer.hidden||layer.type!=='text')continue;
+  const holder=byId.get(layer.id),box=holder?.querySelector('.textbox');
+  if(!box)continue;
+  const v=box.scrollHeight-box.clientHeight,h=box.scrollWidth-box.clientWidth;
+  if(v>3||h>3){
+   issues.push((layer.name||layer.id)+': CLIPPED ('+Math.max(0,Math.ceil(v))+'px vertical, '+Math.max(0,Math.ceil(h))+'px horizontal)');
+   holder.style.outline='3px dashed #ed3434';
+  }
+  if(layer.autoSweepTrial){
+   for(const other of layers){
+    if(other.id===layer.id||other.hidden||other.type!=='text')continue;
+    const w=Math.max(0,Math.min(layer.x+layer.w,other.x+other.w)-Math.max(layer.x,other.x));
+    const ht=Math.max(0,Math.min(layer.y+layer.h,other.y+other.h)-Math.max(layer.y,other.y));
+    if(w>8&&ht>8){
+     issues.push((layer.name||layer.id)+': TEXT FRAME overlaps '+(other.name||other.id)+' ('+Math.round(w)+'x'+Math.round(ht)+'px)');
+     holder.style.outline='3px dashed #ed3434';
+    }
+   }
+  }
+ }
+ const status=issues.length?'NOT READY: '+issues.length+' layout warning(s)':'No clipped text or trial-text-frame overlaps detected.';
+ alert('TEXT FIT AUDIT — READ ONLY\n\n'+status+(issues.length?'\n\n'+issues.slice(0,24).map((x,i)=>(i+1)+'. '+x).join('\n'):'')+(issues.length>24?'\n...additional warnings omitted':'')+'\n\nRed dashed outlines indicate problem frames. Edit copy, size or paragraph spacing, then rerun. This audit does not modify saved layers.');
+}
 function paint(){if(activeEditor){activeEditor.contentEditable='false';activeEditor=null;editingId=null;rememberedRange=null;updateFormatButtons()}clearSnapGuides();paper.replaceChildren();for(const l of [...layers].sort((a,b)=>a.z-b.z)){const div=document.createElement('div');div.className='artlayer'+(l.locked?' locked':'')+(selectionIds().includes(l.id)?' active':'');div.dataset.id=l.id;div.style.cssText=`left:${l.x}px;top:${l.y}px;width:${l.w}px;height:${l.h}px;z-index:${l.z};opacity:${1-l.transparency/100};transform:rotate(${l.rotate}deg) scale(${l.scale/100})`;div.hidden=l.hidden;if(l.type==='standingsLegend'){
  div.classList.add('v3-standings-legend-layer');
  l.legendItems=l.legendItems||[
@@ -1466,6 +1497,7 @@ $('export').onclick=()=>{
 };
 $('pagebox').addEventListener('pointerdown',e=>{if(e.target===$('pagebox'))deselectLayers()});
 // The grey stage surrounds the A4 page; clicking its empty area should clear blue selection handles.
+$('checkTextFitBtn').addEventListener('click',checkTextFit);
 document.querySelector('.stage').addEventListener('pointerdown',e=>{if(e.target===e.currentTarget)deselectLayers()});
 $('paper').addEventListener('pointerdown',e=>{if(e.target===paper)deselectLayers()});
 $('snapEnabled').addEventListener('change',clearSnapGuides);

@@ -176,6 +176,18 @@
 .exact-stepper button{flex:0 0 33px;min-height:36px;padding:0!important;margin:0;border:1px solid #777;border-radius:3px;background:#34363a;color:#ffda00;font-size:18px;font-weight:bold;cursor:pointer}
 .exact-stepper button:hover{background:#565044}
 .exact-stepper button:disabled{opacity:.35;cursor:default}
+
+/* V3.6.8: compact steppers with readable 3–4 digit values and aligned inspector rows. */
+.inspector .row2{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.inspector .row2>label{min-width:0;white-space:nowrap;font-size:10px;line-height:1.35}
+.inspector .row2>label>input[type=range]{width:100%;max-width:100%;box-sizing:border-box}
+.inspector .exact-stepper{display:grid;grid-template-columns:22px minmax(0,1fr) 22px;gap:3px;width:100%;min-width:0;align-items:stretch}
+.inspector .exact-stepper button{width:22px;min-width:0;min-height:30px;flex:none;font-size:14px;line-height:1;padding:0!important}
+.inspector .exact-stepper .precise-val{width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box;font-size:12px;padding:5px 2px!important;text-align:center;min-height:30px;margin:0!important;font-variant-numeric:tabular-nums}
+.stage .formatbar .zoom-control{flex:1 1 220px;min-width:130px;margin-left:auto!important;display:flex!important}
+.stage .formatbar .zoom-control #zoom{flex:1 1 180px;width:auto!important;min-width:65px;max-width:190px;margin:0;accent-color:#ffda00}
+.stage .formatbar .zoom-control #zoomExact{flex:0 0 53px;width:53px!important;min-width:53px;padding:4px 2px!important}
+.stage .formatbar .zoom-fit-button{flex:0 0 auto}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>

@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare Access login checkpoint — 17 November 2026, 22:50 GMT
+
+- User confirmed the new fifth Worker `tivvy-programme-v3-storage` exists and shows deployment ready at `https://tivvy-programme-v3-storage.nickabull.workers.dev`; dashboard topology reports **Domains 1**, **Bindings 0**, Worker Logs enabled. It is still the stock **Hello World** placeholder, not the programme storage API.
+- Crucial successful unauthenticated incognito test: visiting the Worker address displayed **Cloudflare Access** sign-in instead of Hello World. Login page identified the previously configured Zero Trust team hostname `quiet-bird-5421.cloudflareaccess.com`, application “tivvy-programme-v3-storage - Cloudflare Workers”, and “Sign in with Cloudflare”. This confirms the login challenge exists for unauthenticated users, **not yet that successful authorised login or backend API JWT validation works**.
+- App was created with Cloudflare Access enabled for **All traffic**, preconfigured **Cloudflare account** allow policy, 24-hour session. Custom Tiverton domain not needed for bootstrap.
+- NEXT: user signs in to the protected placeholder using normal Cloudflare credentials and confirms the page returns “Hello World!”; then inspect deployed Access application's settings / audience, existing D1 and R2 names and migrations, securely configure binding names `DB` and `ASSETS`, Access JWT settings and staff allowlist, deploy GitHub `v3-backend/src/index.js`, test forbidden/allowed requests and disposable create/save/conflict/restore/asset round trip, and only then connect programme editor. Keep all four existing unrelated Workers untouched. Record evidence of every stage. Never request login secrets in chat.
+
+
 ## Cloudflare programme storage bootstrap — 17 November 2026, 22:47 GMT
 
 User specifically asked to log this work. Cloudflare Workers & Pages originally showed four existing unrelated Workers: `bampton-fair-mapping`, `tivvy-live-collector`, `bulls-rail-radar`, and `willow-tree-vocal-remover`. DO NOT change these four.

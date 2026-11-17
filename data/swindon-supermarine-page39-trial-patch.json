@@ -20,39 +20,39 @@
       ],
       [
         "Last season:",
-        "2025/26 campaign — verify final position"
+        "2025/26 — position to confirm"
       ],
       [
         "Home ground:",
-        "Imagine Cruising Stadium, Swindon"
+        "Imagine Cruising Stadium"
       ]
     ],
     "Text Box 2": [
       [
         "Club roots:",
-        "Swindon Supermarine formed in 1992 when Swindon Athletic merged with Supermarine, which had grown from a Vickers works team established in 1946."
+        "Marine was formed in 1992 by the merger of Swindon Athletic and Supermarine."
       ],
       [
         "Aviation heritage:",
-        "The Supermarine name reflects a Swindon aircraft-making heritage. The famous Spitfire was designed by the Supermarine company."
+        "Supermarine began as a Vickers works team in 1946, taking its name from the aircraft maker behind the Spitfire."
       ],
       [
-        "A home of their own:",
-        "The club plays in South Marston, Swindon, at the Imagine Cruising Stadium, formerly known as Webbswood Stadium."
+        "Their home:",
+        "Marine play in South Marston at the Imagine Cruising Stadium, formerly Webbswood Stadium."
       ]
     ],
     "Text Box 3": [
       [
-        "Premier achievement:",
-        "Marine won promotion to the Southern Premier Division through the 2017/18 play-offs."
+        "Premier years:",
+        "The club reached Southern Premier South via the 2017/18 play-offs."
       ],
       [
         "Back at Step Four:",
-        "Following relegation in 2024/25, the club returned to Southern League Division One South and began rebuilding."
+        "Relegation in 2024/25 brought Marine back to Division One South."
       ],
       [
         "Looking ahead:",
-        "The club reviewed 2025/26 as a season of improvement, particularly after the turn of the year, with development of younger players among its positives."
+        "Their 2025/26 review highlighted a stronger second half and progress by younger players."
       ]
     ]
   },
@@ -60,11 +60,13 @@
     "Keep the old photograph visibly marked for replacement — unlicensed or unverified photograph",
     "Keep kit illustrations pending verification of 2026/27 official kits",
     "Final position in 2025/26 requires independent verification",
-    "Check text overflow in browser before publishing"
+    "Check text overflow in browser before publishing",
+    "V3.6.19 preflight must be run on fresh excluded trial; shortened copy not automatically guaranteed to fit"
   ],
   "sources": [
     "https://swindonsupermarinefc.com/club-history",
     "https://swindonsupermarinefc.com/visitors-information",
     "https://swindonsupermarinefc.com/blog/-a-review-of-the-2025-26-season-from-pete-crockett"
-  ]
+  ],
+  "revision": "V3.6.19 concise, layout-aware copy"
 }

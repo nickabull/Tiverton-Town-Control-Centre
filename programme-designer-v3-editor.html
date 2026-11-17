@@ -164,6 +164,18 @@
 .v3-standings-key-label:focus{outline:1px solid #0079fc;background:#fff3b3}
 .v3-standings-crest-fallback{font:700 8px Arial,sans-serif;color:#111;background:#f4dfa0;border:1px solid #333;border-radius:50%;width:18px;height:18px;align-items:center;justify-content:center;vertical-align:middle}
 @media print{.v3-standings-key-swatch{border:1px solid #555}}
+
+/* V3.6.6: precise zoom and usable custom side-by-side numeric steppers. */
+.zoom-control{display:inline-flex!important;align-items:center;gap:5px;white-space:nowrap}
+#zoomExact{width:57px!important;min-width:57px;padding:5px 3px;text-align:center;background:#111317;color:#fff;border:1px solid #888;border-radius:3px;font-size:12px;appearance:textfield;-moz-appearance:textfield}
+#zoomExact::-webkit-inner-spin-button,#zoomExact::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
+.zoom-fit-button{white-space:nowrap;background:#35373b!important;color:#fff!important;border:1px solid #797b81!important;padding:5px 7px!important;font:700 11px Arial,sans-serif!important}
+.exact-stepper{display:flex;align-items:stretch;gap:4px;min-width:0;margin-top:7px}
+.exact-stepper .precise-val{flex:1;min-width:0;margin:0!important;appearance:textfield;-moz-appearance:textfield}
+.exact-stepper .precise-val::-webkit-inner-spin-button,.exact-stepper .precise-val::-webkit-outer-spin-button{appearance:none;-webkit-appearance:none;margin:0}
+.exact-stepper button{flex:0 0 33px;min-height:36px;padding:0!important;margin:0;border:1px solid #777;border-radius:3px;background:#34363a;color:#ffda00;font-size:18px;font-weight:bold;cursor:pointer}
+.exact-stepper button:hover{background:#565044}
+.exact-stepper button:disabled{opacity:.35;cursor:default}
 </style></head><body><div class="layout"><aside class="sidebar"><h2>PAGE LAYERS</h2><div class="hint" style="color:var(--gold);font-weight:700;margin-bottom:10px">TEST 2 · CHAT ADD-IN</div><div class="hint">Topmost layer first. Click the thumbnail/name to select, use 🔒 to lock and 👁 to hide. Click objects on the page to select and drag.</div><div id="layers" class="layers"></div><h2>ADD A LAYER</h2><div class="layouttools"><button id="addText">+ TEXT BOX</button><button id="addYellow">+ COLOUR BLOCK</button><button id="addPhoto">+ IMAGE</button><button id="addMatrix">+ RESULTS MATRIX</button><button id="duplicate">⧉ DUPLICATE LAYER</button><button id="front">↑ BRING FORWARD</button><button id="back">↓ SEND BACK</button><button id="rename">✎ RENAME LAYER</button><button id="remove" title="Delete the selected removable layer">DELETE LAYER</button></div><input id="assetInput" type="file" accept="image/*" hidden><div id="dropzone">Upload an image or add as many editable text boxes as you need</div><div class="status">Your original map, header and footer are separate, locked image layers. Unlock them to edit, move or delete them. Deleted artwork can be restored with Undo or Reset.</div><div class="status">V3 page layers · local draft workspace</div></aside><main class="stage"><div class="formatbar" id="richToolbar" role="toolbar" aria-label="Page editing and formatting controls">
  <div class="formatrow formatrow-primary">
   <strong class="format-title">EDIT TEXT</strong>
@@ -189,7 +201,7 @@
   <label title="Custom font size in points">CUSTOM <input id="richSize" type="number" min="6" max="100" value="14" title="Selected text size"></label>
   <button id="richApplySize" type="button" title="Apply custom font size to highlighted words">APPLY</button>
   <span class="size-indicator" id="richSizeIndicator" title="Current text size">14pt / 18pt</span>
-  <label class="zoom-control">ZOOM <input id="zoom" type="range" min="55" max="400" value="85" step="5"><span id="zoomPct">85%</span></label>
+  <label class="zoom-control">ZOOM <input id="zoom" type="range" min="25" max="400" value="85" step="1"><input id="zoomExact" type="number" min="25" max="400" step="1" value="85" aria-label="Exact zoom percentage" title="Enter precise zoom percentage">%</label><button id="zoomFit" class="zoom-fit-button" type="button" title="Fit the whole programme page into the available workspace">FIT PAGE</button>
   <details class="editor-tools-menu" id="editorToolsMenu">
    <summary aria-label="Open workspace tools">⚙ TOOLS ▾</summary>
    <div class="editor-tools-panel">
@@ -932,6 +944,27 @@ paper.append(div)}updateTrace();refreshPanel();renderResizeOverlay()}
 function refreshPanel(){const list=$('layers');list.replaceChildren();for(const l of [...layers].sort((a,b)=>b.z-a.z)){const row=document.createElement('div');row.className='layer'+(selectionIds().includes(l.id)?' active':'');const th=document.createElement('span');th.className='thumb';if(l.type==='image'){const im=document.createElement('img');im.src=l.src;th.append(im)}else th.textContent=l.type==='shape'?'▰':l.type==='matrix'?'▦':'T';const name=document.createElement('button');name.className='name';name.textContent=l.name;name.onclick=e=>pickLayer(l.id,e.shiftKey);const lock=document.createElement('button');lock.className='icon';lock.textContent=l.locked?'🔒':'🔓';lock.title='Toggle lock';lock.onclick=()=>{l.locked=!l.locked;paint();save()};const eye=document.createElement('button');eye.className='icon';eye.textContent=l.hidden?'◌':'👁';eye.title='Toggle visibility';eye.onclick=()=>{l.hidden=!l.hidden;paint();save()};row.append(th,name,lock,eye);list.append(row)}const l=current();if(!l){$('selTitle').textContent='No layer selected — clean preview';$('layerName').value='';$('remove').disabled=true;$('textControls').classList.add('hide');$('blockControls').classList.add('hide');$('imageControls').classList.add('hide');$('matrixControls').classList.add('hide');return;}$('selTitle').textContent=selectionIds().length>1?selectionIds().length+' LAYERS SELECTED · DRAG TO MOVE TOGETHER':l.name+(l.locked?' · LOCKED':'');$('layerName').value=l.name||'';$('applyLayerName').disabled=false;$('duplicateInspector').disabled=false;$('toggleLock').textContent=l.locked?'🔓 UNLOCK':'🔒 LOCK';$('toggleVisible').textContent=l.hidden?'👁 SHOW':'👁 HIDE';for(const id of ['x','y','w','h','scale','rotate','transparency']){$(id).value=l[id];$(id+'Exact').value=l[id];$(id+'Exact').disabled=l.locked;$(id+'Val').textContent=l[id]+(id==='scale'||id==='transparency'?'%':id==='rotate'?'°':' px');$(id).disabled=l.locked}for(const id of ['content','font','weight','color','align','fill','fit'])$(id).disabled=l.locked;$('textControls').classList.toggle('hide',l.type!=='text');$('blockControls').classList.toggle('hide',l.type!=='shape');$('imageControls').classList.toggle('hide',l.type!=='image');$('matrixControls').classList.toggle('hide',l.type!=='matrix');if(l.type==='text'){for(const [k,v] of Object.entries({content:l.text,font:l.font,weight:l.weight,color:l.color,align:l.align}))$(k).value=v;const width=Math.max(0,Math.min(8,Number(l.textStrokeWidth)||0));$('textStrokeWidth').value=width;$('textStrokeWidthExact').value=width;$('textStrokeWidthVal').textContent=width+' px';$('textStrokeColor').value=/^#[0-9a-f]{6}$/i.test(l.textStrokeColor||'')?l.textStrokeColor:'#000000';for(const id of ['textStrokeWidth','textStrokeWidthExact','textStrokeColor'])$(id).disabled=l.locked}if(l.type==='shape')$('fill').value=l.fill||'#ffda00';if(l.type==='image'){$('fit').value=l.fit||'contain';$('strokeWidth').value=l.strokeWidth||0;$('strokeWidthExact').value=l.strokeWidth||0;$('strokeWidthVal').textContent=(l.strokeWidth||0)+' px';$('strokeColor').value=l.strokeColor||'#ffffff';$('strokeWidth').disabled=l.locked;$('strokeWidthExact').disabled=l.locked;$('strokeColor').disabled=l.locked;}$('remove').disabled=!!l.locked}
 for(const id of ['x','y','w','h','scale','rotate','transparency','font','weight','color','align','fill','fit','content']){$(id).addEventListener('input',e=>{const l=current();if(!l||l.locked)return;const key=id==='content'?'text':id;l[key]=['color','align','fill','fit','text','weight'].includes(key)?e.target.value:Number(e.target.value);if(id==='font'&&l.type==='text'&&l.richHtml)l.richHtml=clearEmbeddedFontSizes(l.richHtml);paint();save(id==='content'?'typing':['x','y','w','h','scale','rotate','transparency','font'].includes(id)?'slider':'edit')})}
 
+// Replace tiny native input spinner arrows with separate large − and + buttons.
+for(const id of ['x','y','w','h','scale','rotate','transparency']){
+ const input=$(id+'Exact');if(!input||input.closest('.exact-stepper'))continue;
+ const wrap=document.createElement('div');wrap.className='exact-stepper';
+ input.parentNode.insertBefore(wrap,input);
+ const minus=document.createElement('button'),plus=document.createElement('button');
+ minus.type=plus.type='button';minus.textContent='−';plus.textContent='+';
+ minus.setAttribute('aria-label','Decrease '+id);plus.setAttribute('aria-label','Increase '+id);
+ wrap.append(minus,input,plus);
+ const step=direction=>{
+  if(input.disabled)return;
+  const min=Number(input.min),max=Number(input.max),value=Number(input.value);
+  const next=Math.max(min,Math.min(max,(Number.isFinite(value)?value:0)+direction));
+  input.value=String(next);
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+ };
+ minus.onclick=()=>step(-1);plus.onclick=()=>step(1);
+ const observer=new MutationObserver(()=>{minus.disabled=plus.disabled=input.disabled});
+ observer.observe(input,{attributes:true,attributeFilter:['disabled']});
+ minus.disabled=plus.disabled=input.disabled;
+}
 for(const id of ['x','y','w','h','scale','rotate','transparency']){
  const slider=$(id),exact=$(id+'Exact');
  const min=Number(slider.min),max=Number(slider.max);
@@ -1043,7 +1076,25 @@ $('front').onclick=()=>{const l=current();if(!l||l.locked)return;l.z=Math.max(..
  paint();save('delete');
 }
 $('remove').onclick=deleteSelectedLayer;
-$('zoom').oninput=e=>{zoom=Number(e.target.value)/100;$('paper').style.transform=`scale(${zoom})`;$('pagebox').style.width=(595*zoom)+'px';$('pagebox').style.height=(842*zoom)+'px';$('zoomPct').textContent=Math.round(zoom*100)+'%';renderResizeOverlay()};$('zoom').dispatchEvent(new Event('input'));
+function applyPageZoom(percent){
+ const n=Math.max(25,Math.min(400,Math.round(Number(percent)||85)));
+ zoom=n/100;$('zoom').value=String(n);$('zoomExact').value=String(n);
+ $('paper').style.transform=`scale(${zoom})`;
+ $('pagebox').style.width=(595*zoom)+'px';$('pagebox').style.height=(842*zoom)+'px';
+ renderResizeOverlay();
+}
+$('zoom').oninput=e=>applyPageZoom(e.target.value);
+$('zoomExact').addEventListener('change',e=>applyPageZoom(e.target.value));
+$('zoomExact').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();applyPageZoom(e.target.value);e.target.blur()}});
+$('zoomFit').onclick=()=>{
+ const stage=document.querySelector('main.stage'),toolbar=$('richToolbar');
+ const availableWidth=Math.max(100,stage.clientWidth-54);
+ const availableHeight=Math.max(100,stage.clientHeight-toolbar.offsetHeight-65);
+ const percent=Math.floor(100*Math.min(availableWidth/595,availableHeight/842));
+ applyPageZoom(percent);
+ stage.scrollTo({top:0,left:0,behavior:'instant'});
+};
+$('zoom').dispatchEvent(new Event('input'));
 $('reset').onclick=()=>{if(!confirm('Reset this V3 page to its starter layout? Your edits to this page will be lost.'))return;resetData();selected='heading';paint();save()};$('print').onclick=()=>{const old=zoom;$('zoom').value=100;$('zoom').dispatchEvent(new Event('input'));window.print();$('zoom').value=old*100;$('zoom').dispatchEvent(new Event('input'))};$('export').onclick=()=>{const blob=new Blob([JSON.stringify({version:2,source:'V3 page '+V3_PAGE_ID,layers},null,2)],{type:'application/json'}),a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download='tivvy-v3-'+V3_PAGE_ID+'-layers.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),700)};
 $('pagebox').addEventListener('pointerdown',e=>{if(e.target===$('pagebox'))deselectLayers()});
 // The grey stage surrounds the A4 page; clicking its empty area should clear blue selection handles.

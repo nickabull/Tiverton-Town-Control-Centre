@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## Protected storage API /api/me test passed — 17 November 2026, 23:43 GMT
+
+- User pasted `v3-backend/src/index.js` into latest Cloudflare Worker code editor, clicked Deploy, and reported "Version saved".
+- User's screenshot of `/api/` returned `{"ok":false,"error":"Not found"}`, the exact route fallback from our storage source, establishing the real code had replaced Hello World.
+- Then user opened `https://tivvy-programme-v3-storage.nickabull.workers.dev/api/me` and verbally confirmed receiving the expected successful response (context: `ok:true` and `role:admin`). The user correctly declined to share a screenshot containing their account email. Treat as **user-confirmed authenticated API identity / administrator lookup success**, not an independently inspected screenshot. Do not request or record email address.
+- Worker Access-protected on workers.dev; production secrets `ACCESS_AUD` and `ACCESS_TEAM_DOMAIN` configured; D1 `DB` and R2 `ASSETS` bindings present. One active admin row verified earlier. Real storage API deployed and identity test passed.
+- **NEXT CRITICAL TASK**: test disposable issue CRUD, versioned saves, stale-write 409, historical revision read and restore, audit events, private R2 upload/get; no real programme data or browser backup should be migrated until round-trip checks pass. GET `/api/issues` is safe first. Mutations require an `Origin` matching the request's origin, so browser console `fetch` from the protected Worker origin or an equivalent same-origin test harness is necessary; sending POST from GitHub Pages or external tools will not work by design. Verify backend's response statuses and ensure failures never masquerade as saves.
+- Full Designer cloud save integration, R2 de-embedding and project production workflow remain pending.
+
+
 ## Cloudflare web editor opened / backend source checked — 17 November 2026, 23:29 GMT
 
 - User screenshot shows the newly created protected storage Worker web code editor `worker.js` still contains the Cloudflare stock Hello World program. Nothing has been pasted or deployed yet. Right-hand editor Preview shows a broken placeholder icon; do not mistake this for a backend failure.

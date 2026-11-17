@@ -1052,6 +1052,27 @@ $('boldSelection').onclick=()=>{
 };
 $('toggleLock').onclick=()=>{const l=current();if(l){l.locked=!l.locked;paint();save()}};$('toggleVisible').onclick=()=>{const l=current();if(l){l.hidden=!l.hidden;paint();save()}};
 for(const id of ['strokeWidth','strokeWidthExact','strokeColor'])$(id).addEventListener('input',e=>{const l=current();if(!l||l.type!=='image'||l.locked)return;if(id==='strokeColor'){l.strokeColor=e.target.value}else{l.strokeWidth=Math.max(0,Math.min(30,Math.round(Number(e.target.value)||0)))}paint();save(id==='strokeColor'?'stroke-color':'slider')});
+// Match the tracking exact field to compact precision steppers, including half-pixel increments.
+{
+ const exact=$('letterSpacingExact');
+ const wrap=document.createElement('div');wrap.className='exact-stepper tracking-stepper';
+ exact.parentNode.insertBefore(wrap,exact);
+ const minus=document.createElement('button'),plus=document.createElement('button');
+ minus.type=plus.type='button';minus.textContent='−';plus.textContent='+';
+ minus.setAttribute('aria-label','Decrease letter spacing by 0.5 pixels');
+ plus.setAttribute('aria-label','Increase letter spacing by 0.5 pixels');
+ wrap.append(minus,exact,plus);
+ const step=delta=>{
+  const l=current();if(!l||l.type!=='text'||l.locked)return;
+  const next=Math.max(-5,Math.min(20,(Number(l.letterSpacing)||0)+delta));
+  exact.value=String(next);
+  exact.dispatchEvent(new Event('change',{bubbles:true}));
+ };
+ minus.onclick=()=>step(-0.5);plus.onclick=()=>step(0.5);
+ const sync=()=>{minus.disabled=plus.disabled=exact.disabled};
+ new MutationObserver(sync).observe(exact,{attributes:true,attributeFilter:['disabled']});
+ sync();
+}
 // Whole-text tracking: relative letter spacing in px, stored with each editable text layer.
 for(const id of ['letterSpacing','letterSpacingExact'])$(id).addEventListener(id==='letterSpacing'?'input':'change',event=>{
  const l=current();if(!l||l.type!=='text'||l.locked)return;

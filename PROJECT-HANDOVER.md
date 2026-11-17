@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## D1 initial administrator bootstrap pending — 17 November 2026, 23:05 GMT
+
+- User ran `SELECT role, active, COUNT(*) AS users FROM programme_members GROUP BY role, active;` on D1 `tivvy-programme-v3`. Screenshot showed **"This query returned no data."** The table exists but has **zero registered members**, so nobody is authorised by the backend D1 allowlist yet.
+- Advised user to register ONLY their own authenticated Cloudflare account email, kept private, via D1 Console:
+  `INSERT INTO programme_members(email,role,active,added_at) VALUES ('YOUR_CLOUDFLARE_EMAIL','admin',1,datetime('now'));`
+  The placeholder must be replaced locally, never executed literally. Do not paste passwords or private emails into chat. This SQL action has **not been confirmed executed**.
+- Next verify with the same aggregate read-only count expecting `admin | 1 | 1`. Do not assert admin bootstrap succeeded before screenshot/confirmation. Then configure and verify Access JWT variables for the real API and deploy/test the API with secure read/write controls. Existing Worker remains stock Hello World with D1 `DB` and R2 `ASSETS` bindings; production cloud saving has NOT been enabled.
+
+
 ## Existing D1 schema confirmed installed — 17 November 2026, 23:04 GMT
 
 - On the Cloudflare D1 Console for `tivvy-programme-v3`, Cloudflare's `/tables` shortcut initially returned an internal error, reference `h8qrc0t0hpbob25oclt8dd9u`. Standard read-only SQL succeeded:

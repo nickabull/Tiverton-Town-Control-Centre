@@ -80,10 +80,10 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.16 · NEWS MASTER + TABLE KEY</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.17 · NEWS MASTER + TABLE KEY</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
- <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="swindonSweepBtn" title="Read-only scan of browser programme drafts using sourced Swindon facts. Downloads JSON report; makes no edits.">5 DEC · DRY-RUN SWEEP</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
+ <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="swindonSweepBtn" title="Read-only scan of browser programme drafts using sourced Swindon facts. Downloads JSON report; makes no edits.">5 DEC · DRY-RUN SWEEP</button><button class="btn gold" id="swindonTrialBtn" title="Make an excluded separate Page 39 copy and insert Swindon text, preserving artwork and original page">CREATE SWINDON PAGE 39 TRIAL</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
  <input id="importFile" type="file" accept=".zip,application/zip" hidden></div>
 </header>
 <div class="main">
@@ -171,7 +171,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.16").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.17").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -217,7 +217,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.16";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.17";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -278,6 +278,55 @@ async function backup(){
 
 // A safe first production-sweep test: inspect actual browser drafts and report
 // stale opposition copy without modifying any user's saved page or master.
+// V3.6.17: first automatic CONTENT update is a separate excluded duplicate,
+// not a mutation of the saved 14 November masters or production pages.
+async function createSwindonPage39Trial(){
+ const button=$('swindonTrialBtn');
+ button.disabled=true;
+ let db=null;
+ try{
+  if(loadedEditorPage&&!await flushEditor())throw Error('Current page did not confirm save; please export a backup first.');
+  const source=pages.find(p=>p.source===39);
+  if(!source)throw Error('The opposition introduction page (source page 39) was not found.');
+  const data=await fetch('data/swindon-supermarine-page39-trial-patch.json?v=1')
+     .then(r=>{if(!r.ok)throw Error('Cannot load the Swindon content patch');return r.json()});
+  if(data.schema!=='tivvy-v3-opposition-page-patch-v1'||data.sourcePage!==source.id)throw Error('Unexpected source or patch version');
+  db=await openBackupDb();
+  const raw=(await getBackup(db,PREFIX+source.id))||localStorage.getItem(PREFIX+source.id);
+  if(!raw)throw Error('Page 39 has no saved browser draft.');
+  const src=JSON.parse(raw);
+  if(!Array.isArray(src))throw Error('Page 39 draft is not a layer array.');
+  const targetNames=['Text Box 1','Text Box 2','Text Box 3'];
+  if(targetNames.some(name=>src.filter(l=>l.type==='text'&&l.name===name).length!==1))
+   throw Error('Page 39 text layers have changed: cannot safely identify all 3 opposition text boxes.');
+  const escapeHTML=str=>String(str).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const next=structuredClone(src);
+  for(const name of targetNames){
+   const layer=next.find(l=>l.type==='text'&&l.name===name);
+   const rows=data.paragraphs[name];if(!Array.isArray(rows)||rows.length<3)throw Error('Missing text content for '+name);
+   layer.text=rows.map(([title,body])=>title+(body?' '+body:'')).join('\n\n');
+   layer.richHtml=rows.map(([title,body],index)=>{
+    if(name==='Text Box 1'&&index===0)return '<p><span style="font-size:15.12pt">'+escapeHTML(title)+'</span></p>';
+    return '<p><span style="font-size:11.76pt"><strong>'+escapeHTML(title)+'</strong>'+(body?' <span style="font-weight:normal">'+escapeHTML(body)+'</span>':'')+'</span></p>';
+   }).join('');
+  }
+  const newPage={id:newId(),name:'TRIAL · 5 DEC SWINDON · Meet the Opposition',source:null,mode:'editable',include:false};
+  const newSnapshot=JSON.stringify(next);
+  const beforeImages=src.filter(l=>l.type==='image').map(l=>l.src);
+  const afterImages=next.filter(l=>l.type==='image').map(l=>l.src);
+  if(beforeImages.length!==afterImages.length||beforeImages.some((asset,i)=>asset!==afterImages[i]))
+   throw Error('Artwork integrity check failed — no changes made');
+  if(!confirm('CREATE A NEW, EXCLUDED SWINDON TRIAL PAGE?\n\nChanges: exactly 3 editable text boxes on a separate duplicate of Page 39.\nPreserved: '+beforeImages.length+' original image layers, all positions, headings, colours and fonts.\n\nIMPORTANT: the Bishops Cleeve PHOTOGRAPH and unverified KITS will remain pending replacement, and text overflow needs checking.\n\nOriginal Page 39 and all master templates will NOT be modified.'))return;
+  // Save the potentially large artwork into its own IndexedDB record first.
+  await putTrialDraft(db,PREFIX+newPage.id,newSnapshot);
+  const at=pages.indexOf(source);
+  pages.splice(at+1,0,newPage);
+  persist();record('swindon-trial-created','Copied Page 39 with 3 replacements; '+beforeImages.length+' original images preserved; excluded from export',newPage.id);
+  message('Swindon trial created; original Page 39 unchanged. Check the photograph, kits and text.');
+  await openPage(newPage.id);
+ }catch(error){alert('Swindon trial not created: '+error.message)}
+ finally{db?.close();button.disabled=false}
+}
 async function swindonDryRunSweep(){
  const button=$('swindonSweepBtn');button.disabled=true;
  let db=null;
@@ -484,7 +533,7 @@ async function fixPage19TrialLegend(){
   download('tivvy-page19-trial-before-legend-fix.json',JSON.stringify({created:new Date().toISOString(),format:'v3-trial-recovery',id:trial.id,layers:before},null,2),'application/json');
   await putTrialDraft(db,PREFIX+trial.id,JSON.stringify(after));
   record('page19-trial-key-fix','Replaced flat words with three independently editable legend items',trial.id);
-  if(active===trial.id){loadedEditorPage=null;frame.src='programme-designer-v3-editor.html?page='+encodeURIComponent(trial.id)+'&v=3.6.16&key='+Date.now();setReferenceMode(false)}
+  if(active===trial.id){loadedEditorPage=null;frame.src='programme-designer-v3-editor.html?page='+encodeURIComponent(trial.id)+'&v=3.6.17&key='+Date.now();setReferenceMode(false)}
   else await openPage(trial.id);
   message('Page 19 legend updated. Each label and swatch is editable.');
  }catch(e){alert('PAGE 19 KEY NOT UPDATED: '+e.message)}finally{db?.close();btn.disabled=false}
@@ -519,7 +568,7 @@ $("closeStorage").onclick=()=>$("storageDialog").close();
 $("storageBackupBtn").onclick=()=>{backup();$("storageDialog").close()};
 $("addPage").onclick=addPage;$("duplicatePage").onclick=duplicatePage;$("renamePage").onclick=renamePage;
 $("includePage").onclick=()=>toggleInclude(active);$("moveUp").onclick=()=>move(-1);$("moveDown").onclick=()=>move(1);
-$("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;$("swindonSweepBtn").onclick=swindonDryRunSweep;
+$("deletePage").onclick=deletePage;$("restorePage").onclick=restorePage;$("backupBtn").onclick=backup;$("swindonSweepBtn").onclick=swindonDryRunSweep;$("swindonTrialBtn").onclick=createSwindonPage39Trial;
 $("trialP14Btn").onclick=createPage14ShirtTrial;
 $("trialP19Btn").onclick=createPage19StandingsTrial;
 $("trialP06Btn").onclick=makePage6ShirtTrial;
@@ -691,7 +740,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.16";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.17";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

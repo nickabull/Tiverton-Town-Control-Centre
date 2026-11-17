@@ -1,5 +1,17 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.14 — COPY ELEMENTS BETWEEN V3 PAGES (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.14
+
+- New COPY SELECTED and PASTE LAYERS buttons in the editor left sidebar; Ctrl+C and Ctrl+V now use the same cross-page copy/paste workflow. Shift-click supports multi-layer selection.
+- Clipboard is a distinct IndexedDB database named tivvy-v3-cross-page-transfer-v1, not the page draft database. It survives moving between V3 page URLs in the same browser/origin, and carries image data, shapes, fonts, text formatting, outline settings, layer sizing and positions. For small copies a sessionStorage compatibility copy is also kept. Source page ID and copy time recorded.
+- When pasting onto a different page, original coordinates are retained and z-order goes above current layers; same-page pastes offset 15px to distinguish from originals. Each pasted element receives a fresh ID, is editable/unlocked, is selected after insertion, and is committed through the existing draft save + undo mechanism. No source page or saved template is altered.
+- Clipboard operations show status in a sidebar panel; paste is blocked when a draft storage error is unresolved. Image-heavy copies may exceed browser storage quotas and should be checked before navigating away.
+- Editor commit 8f5f53718a95a34d2e261ffaf0f742e0849e67de; shell cache bump d112fabd3cb24cefcc5328e57b125f5ca5436888. Inline script parsed successfully. Browser QA pending: copy cover/brand art, switch page, paste, confirm position/images/styling, undo, switch back and verify originals; test multi-select and larger images.
+- No production pages or other version files changed. Cloud storage is still pending.
+
+
 ## V3.6.13 — TIMESTAMPED JSON + FONT SIZE CORRECTION + NUMERIC SPINNERS (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.13

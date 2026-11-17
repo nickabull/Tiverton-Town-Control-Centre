@@ -1,5 +1,17 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.16 — 5 DEC SWINDON SUPERMARINE AUTOMATION DRY-RUN STARTED (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.16
+
+- User approved four design families and asked to attempt the complete simulated production sweep for Tiverton Town v Swindon Supermarine, Saturday 5 December 2026, 15:00. User's approved master artwork and source pages are in browser IndexedDB and are NOT accessible via GitHub connector. Do not claim actual browser content has been updated or that a full PDF has been produced.
+- Created sourced opposition content pack `data/swindon-supermarine-sweep-2026-12-05.json` containing verified fixture, 1992 merger, Marine nickname, official stadium name and location, manager, draft history copy and explicit open verification items (photo licence, 2026/27 kits, actual previous finish, squad). Club's own official pages and FootballWebPages December fixtures are cited within it.
+- Added MORE TOOLS > **5 DEC · DRY-RUN SWEEP**, available in V3.6.16. It flushes the active page to IndexedDB, loads fixture pack, scans every saved browser page's TEXT layers for Bishops Cleeve / Kayte Lane / Mitres / Malvern Town references and proposed exact fact replacements; downloads a timestamped JSON report listing affected pages and layers, and tells user what needs review.
+- This first pass is deliberately READ-ONLY, changesApplied=0. It does not silently replace history, image assets, kits or other page artwork, and does not mutate the four masters. A second approved step should use the report to clone an issue and update verified content, with diff and rollback. Existing full JSON backups remain strongly recommended.
+- Content pack commit `4505ca19761a496aad5aa03333e15fa52b2c0f5d`; V3 shell audit feature commit `20975308e57e32c51a93842006ee2561903d736a`. JavaScript syntax parsing passed. Interactive browser QA still required, and no live dry-run report could be collected from user's IndexedDB by connector.
+- This is not complete end-to-end production: automatic replacement, dated complete issue clone, Darren report ingestion, validation/approval UI, print PDF export and cloud storage are pending.
+
+
 ## V3.6.15 — TEXT LINE HEIGHT AND PARAGRAPH ROW GAP (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.15

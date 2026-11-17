@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare D1 full disposable issue recovery test — 17 November 2026, 23:53 GMT
+
+- In an authenticated same-origin browser DevTools Console at `https://tivvy-programme-v3-storage.nickabull.workers.dev/api/issues`, user ran the approved test script that creates a uniquely named disposable `test_<uuid>` issue named `DISPOSABLE STORAGE TEST`. The test uses a trivial non-exporting single-page document. It deliberately never touches the real programme or local browser drafts.
+- Screenshot shows all six result rows **PASS**: (1) Create issue (HTTP 201), (2) Read issue (version 1), (3) Save revision (version 2), (4) Reject stale edit (HTTP 409), (5) Restore version one (version 3), and (6) Verify recovered original text. This is an independently screenshot-verified successful D1 create/read/revision/conflict/restore round trip.
+- Earlier authenticated `/api/me` admin test and `/api/issues` empty list test passed. Access protected Worker, D1 `DB`, R2 `ASSETS`, audience secret and team domain configured.
+- **Still pending:** R2 private asset upload/download/checksum round trip; application/editor migration from IndexedDB and embedded base64 to D1/R2 references; proper UX for save acknowledgement and conflicts; cross-device test; comprehensive security audit; backup export and production print/PDF. The disposable `test_<uuid>` record remains in D1 for audit and can be cleaned up later by an approved administrative cleanup process. Do not assert image storage or whole-issue sync is complete.
+- User explicitly dislikes Cloudflare/dashboard and developer-console juggling. Next phase should offer a proper safe in-app storage test/sync interface, with carefully staged migration and a reversible local backup. Preserve source assets/masters and keep all unrelated Cloudflare Workers unaffected.
+
+
 ## First authenticated D1 issue-list read PASS — 17 November 2026, 23:46 GMT
 
 - User opened `https://tivvy-programme-v3-storage.nickabull.workers.dev/api/issues` while signed in through Cloudflare Access. Screenshot shows exact response `{"ok":true,"issues":[]}`.

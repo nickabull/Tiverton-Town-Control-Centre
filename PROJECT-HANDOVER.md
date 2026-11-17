@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.18 — INTELLIGENT TEXT REPLACEMENT / FIT AUDIT (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.18
+
+- Following visual QA of V3.6.17 Swindon Page 39 trial, user showed severe enlarged/re-spaced body copy, text collisions with photograph and neighbouring text, and last paragraph cut off. Treat this as a genuine failed production layout and never classify it as print ready.
+- Changed MORE TOOLS > **CREATE SWINDON PAGE 39 TRIAL** in V3 shell: the source text layers' actual saved richHtml font sizes are inspected, so the replacements use the original heading/body sizes (typically 15.12pt heading and 11.76pt body). The new trial strips erroneous nested paragraph wrappers; preserves bold label / normal body distinction; sets compact optional paragraph gaps (0.18em club facts, 0.12em history) and 110% line-height *only on the cloned trial's three replaced text boxes*. Saves flag `autoSweepTrial=true`. Source Page 39, original approved masters and eight photo/artwork/kit image sources remain unchanged. An existing malformed V3.6.17 trial isn't retroactively modified: create a fresh V3.6.18 trial.
+- Added **EDIT LAYERS > TOOLS > CHECK TEXT FIT** in page editor: read-only DOM inspection of every visible text layer's scroll height/width relative to its frame, plus trial-text-frame intersection checks against other text layers. Alerts with measured warnings and red dashed outlines; does not alter persisted draft. This is a first safety gate, not a complete layout/print checker: clipped text can be detected; collisions with photographs, body glyph contours, intentional overlaid layers and generated PDF still require human visual QA. No automatic fit-to-box shrink, no silent moving, and no publishing.
+- Shell commit `8c9324f50f68c17fc5216a9bd6d72d2f88555906`; editor commit `06cc7bcab0300b0618168093da000e7856fd4013`. Both inline JavaScript parsed through V8. Actual in-browser click/render/fit measurements are NOT tested, user should inspect a NEW trial and send screenshot.
+- The 5 December full issue simulation, real artwork swaps, audited approval process, PDF print production and cloud storage remain pending.
+
+
 ## V3.6.17 — AUTOMATIC PAGE 39 SWINDON CONTENT TRIAL (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.17

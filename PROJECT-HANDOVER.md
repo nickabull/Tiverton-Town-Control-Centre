@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.15 — TEXT LINE HEIGHT AND PARAGRAPH ROW GAP (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.15
+
+- User designing an honours/club officials list asked to control row spacing for multiline text layers. Previously text used default line-height 1.17 and each paragraph had extra 0.8em bottom margin, with no editor controls.
+- Added independent LINE HEIGHT slider/direct number input (70-250%, default 117%) and PARAGRAPH / ROW GAP slider/direct number input (0-2.5em, default 0.8em) in text inspector.
+- Live preview changes active text box immediately, saves to new optional per-layer fields lineHeightPct and paragraphGapEm, uses existing slider history/undo. Copy/paste and JSON backup naturally preserve these properties. All existing pages keep the original defaults when fields are absent; no master artwork was changed.
+- For separate paragraph entries (e.g. President, Chairman, etc.), reduce ROW GAP towards 0 to tighten vertical spacing; for wrapped lines inside one paragraph, adjust LINE HEIGHT.
+- Editor commit e06222c8b2b1abc3567e11544b0a7b3e9be8399c. Shell version commit c55d6da125845e478aa4797c5fe5a25ce4cbe790. JavaScript parse verified; browser visual QA still required before claiming fully tested.
+
+
 ## V3.6.14 — COPY ELEMENTS BETWEEN V3 PAGES (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.14

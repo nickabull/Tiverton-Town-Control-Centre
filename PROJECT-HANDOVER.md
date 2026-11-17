@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.9 — TEXT TRACKING AND MODIFIED INDICATOR (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.9
+
+- During front cover design user requested editable left/right kerning, interpreted as **whole-layer letter spacing/tracking**. Added text-layer tracking slider from -5px to +20px with half-pixel increments, exact numeric box, and persisted optional `letterSpacing` layer property. Default 0px preserves all existing text. This is tracking on the entire editable text layer, not per-character kerning pairs. Applied to CSS letter-spacing in editor rendering. Initial tracking code commit `50ac81135b40ab4809d875c43c272eb3ed83f216`.
+- Follow-up request: show when tracking is "off default". Added gold **MODIFIED** badge, gold outline on numeric control, and **RESET TO 0** action, all driven by the selected text layer's current tracking. Indicator clears when restored to zero. Code commit `ad8ecd5160e72669d2f611e9647a1dde097645a5`; shell cache version commit `0d39d67f876ba90022be22967c63f701d8f3032e`.
+- Browser QA needed on page 1: set positive and negative tracking; confirm the modified badge, reset, save and reload, and inherited source artwork unchanged. No page artwork or production pages were modified; changes only to development editor and shell.
+
+
 ## V3.6.8 — COMPACT STEPPERS + WIDER ZOOM SLIDER (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.8

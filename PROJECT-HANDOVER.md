@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.10 — TRACKING CONTROL MATCHES NUMERIC STEPPERS (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.10
+
+- User reported the newly added LETTER SPACING/TRACKING numeric input still had the undesirable native browser number arrows, unlike compact +/- controls elsewhere. Wrapped the exact value box in matching small side-by-side minus/input/plus layout, with each click adjusting by exactly 0.5px, preserving negative tracking, MODIFIED indicator, RESET TO 0, and per-layer draft save. Buttons disable when layer is locked. No page artwork or other versions modified.
+- Editor commit `333c3e65bf87e234099896c81e5e5d6bc34db9e4`; shell cache-version commit `c1563f205562c49a85b4eead6f1f51b5050712c0`. Browser QA pending for readability, ±0.5 adjustments, lock handling and reset on Page 1 cover.
+
+
 ## V3.6.9 — TEXT TRACKING AND MODIFIED INDICATOR (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.9

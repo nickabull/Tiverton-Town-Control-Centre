@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.19 continuity audit and R2-first next stage — 17 November 2026, 23:54 GMT
+
+- Resumption verified current full handover (652 lines at beginning of check), recent GitHub commits, and current source of V3 shell, V3 editor, backend Worker, backend README and V3 plan. This was a **repository/code inspection**, NOT new browser QA. Current shell/editor label: V3.6.19.
+- Latest verified live test remains the 23:53 **disposable D1 six-PASS round trip** (issue creation, read, versioned save, stale-edit 409, restore, original text verification), recorded in commit `05aac04d1dbbb0fd6978b1f4c31a3b6fd5c2fe0b`. This does NOT verify private R2 asset uploads, or full Designer cloud integration.
+- Current browser artwork/layers remain local IndexedDB with legacy localStorage fallback; versioned local JSON backup and recovery controls exist. Editor exposes read-only PROGRAMME PREFLIGHT for text clipping/overlap, but its **in-browser V3.6.19 visual QA is pending**. Print-ready whole-issue PDF, bleed, image collision/licensing, final export validation are **not yet implemented/verified**. The shell explicitly says cloud saving and print-ready PDF are not connected.
+- Code inspection confirms `v3-backend/src/index.js` provides authenticated same-origin `POST /api/issues/{id}/assets` and `GET /api/issues/{id}/assets/{assetId}`, with allowed MIME types, a 12 MB per-asset limit, private R2 storage and D1 metadata. An authenticated browser session on the Worker origin is required for mutation; GitHub code inspection cannot substitute for a live R2 test. No R2 PASS is claimed.
+- **Approved next sequence:** (1) finish a strictly disposable R2 image upload/download byte-or-checksum equality test on the disposable D1 issue; check unauthorised access, without touching real artwork; (2) after PASS, build clear cloud-connection, save, revision, conflict/recovery, download-backup and image storage controls **inside Programme Designer**, with staged reversible integration; (3) migrate cloned issue and images only with explicit backups and user approval; (4) then cross-device and PDF preflight/print QA.
+- Keep approved masters, source pages, Page 39 trials, cover/honours, original reference assets, all live Wix/Canva pages, unrelated Cloudflare Workers, browser IndexedDB and user backups untouched. **No application code or browser drafts changed in this continuity audit.** Test status: static inspection PASS; live R2 NOT RUN; browser QA NOT RUN; full issue sync/PDF NOT READY.
+
+
 ## Cloudflare D1 full disposable issue recovery test — 17 November 2026, 23:53 GMT
 
 - In an authenticated same-origin browser DevTools Console at `https://tivvy-programme-v3-storage.nickabull.workers.dev/api/issues`, user ran the approved test script that creates a uniquely named disposable `test_<uuid>` issue named `DISPOSABLE STORAGE TEST`. The test uses a trivial non-exporting single-page document. It deliberately never touches the real programme or local browser drafts.

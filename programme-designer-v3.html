@@ -80,7 +80,7 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.4 · NEWS MASTER + TABLE KEY</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.5 · NEWS MASTER + TABLE KEY</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
  <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">STORAGE STATUS</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
@@ -171,7 +171,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.4").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.5").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -217,7 +217,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.4";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.5";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -436,7 +436,7 @@ async function fixPage19TrialLegend(){
   download('tivvy-page19-trial-before-legend-fix.json',JSON.stringify({created:new Date().toISOString(),format:'v3-trial-recovery',id:trial.id,layers:before},null,2),'application/json');
   await putTrialDraft(db,PREFIX+trial.id,JSON.stringify(after));
   record('page19-trial-key-fix','Replaced flat words with three independently editable legend items',trial.id);
-  if(active===trial.id){loadedEditorPage=null;frame.src='programme-designer-v3-editor.html?page='+encodeURIComponent(trial.id)+'&v=3.6.4&key='+Date.now();setReferenceMode(false)}
+  if(active===trial.id){loadedEditorPage=null;frame.src='programme-designer-v3-editor.html?page='+encodeURIComponent(trial.id)+'&v=3.6.5&key='+Date.now();setReferenceMode(false)}
   else await openPage(trial.id);
   message('Page 19 legend updated. Each label and swatch is editable.');
  }catch(e){alert('PAGE 19 KEY NOT UPDATED: '+e.message)}finally{db?.close();btn.disabled=false}
@@ -643,7 +643,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.4";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.5";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.12 — TEXT OUTLINE SNAP + REMAINING NATIVE NUMBER ARROWS (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.12
+
+- User reported native tiny spinner arrows remain and stroked text isn't snapping visually. Added small separate - / + controls to whole text font size, text stroke width (0.5px steps), and image stroke width (1px steps), while retaining direct numeric entry. Native browser arrows are explicitly hidden on those fields. Previous position, scale and tracking steppers remain.
+- Previously snapping used only layer-frame edges, which can differ from the rendered glyph edges for stroked text. Added `visibleTextAnchors()` for unrotated text layers; reads DOM range bounding rectangle (including a half-stroke margin), converts to page coordinates and adds glyph left/centre/right/top/middle/bottom anchors to both target and neighbouring-layer snap candidates. Frame anchors remain for other layers, and normal existing SNAP toggle, drag, save and alignment feedback remain. Rotated text continues to use its frame because bounding in transformed coordinates needs separate QA.
+- Editor commit `dac9bc5888203cb904491ace8ed0af9c7e5905d6`; shell commit `642346e852091bfc075abd0bd6d670cbe092af62`. **Browser QA required**: ensure text with 1-2px black stroke snaps visibly with red guides near neighbouring text/boxes, text without stroke is unaffected, and tiny native numeric arrows are gone; test at zoom 85/100 and on rotated cover headlines. No artwork or production page modifications.
+
+
 ## V3.6.11 — TEXT INSPECTOR LAYOUT FIX + EQUAL SPACING GUIDES (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.11

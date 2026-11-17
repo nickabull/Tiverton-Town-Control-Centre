@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.6 — ZOOM AND PRECISION INPUT USABILITY (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.6
+
+- User screenshot shows tiny native spinner arrows on numeric exact-value fields, difficult to use. Replaced the browser-native arrow affordance on inspector exact X/Y/width/height/scale/rotation/transparency fields with large side-by-side **minus / plus** buttons (one unit per click) while retaining direct numeric entry, range sliders, validation and existing save/undo handlers. This is an editor UI-only change, not an edit to any existing layer.
+- Zoom toolbar now includes a directly editable **exact zoom percentage** (25–400%, 1% increments), alongside range slider and a **FIT PAGE** button which computes available stage width/height and scales 595 x 842 page to fit. Clicking FIT PAGE returns stage scrolling to top-left. Zoom remains view-only; it does not modify page content, snapshots or PDF output.
+- Development editor commit `fb12a84a535981c0880c1de07cf1060d8e674868`, shell cache version commit `280a086d127e9103d6a500fb0ebc590dbfc23c2f`. Browser QA still required at user's display resolution: verify buttons don't wrap toolbar, steppers fire a single change and save, disabled fields respect locks, and fit shows entire A4 page below sticky toolbar. No production/other versions/page artworks modified.
+
+
 ## V3.6.5 — EDITABLE TEXT OUTLINE / STROKE (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.5

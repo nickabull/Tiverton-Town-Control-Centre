@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.7 — SLOWER PRECISION SLIDERS (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.7
+
+- User noted that position/size inspector sliders whip abruptly from very large to small values. V3 editor pointer drag now uses **relative, fine increments**, starting at the current layer setting rather than snapping to the clicked rail position. Each horizontal screen pixel dragged changes the value by 0.2 units (Shift: 0.05 units/pixel), rounded to inspector's integer unit. The full range remains available through manual numeric input and side-by-side +/- controls. Keyboard accessibility and existing save/undo mechanisms remain, as the existing input event handler is used.
+- Applies to x/y/width/height/scale/rotation/transparency inspector sliders; does not modify artwork, zoom, image stroke or text stroke controls. Test in browser for smooth pointer capture, keyboard sliders, disabled/locked fields, and high-DPI behaviour.
+- Editor commit `758e0ca311c3343cc68cd70c61fc0d761bc203b0`; shell commit `6e0605ebd01194e6761a47e45423af6146d9c300`. Development only, other versions untouched.
+
+
 ## V3.6.6 — ZOOM AND PRECISION INPUT USABILITY (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.6

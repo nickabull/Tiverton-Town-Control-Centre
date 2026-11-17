@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare programme storage bootstrap — 17 November 2026, 22:47 GMT
+
+User specifically asked to log this work. Cloudflare Workers & Pages originally showed four existing unrelated Workers: `bampton-fair-mapping`, `tivvy-live-collector`, `bulls-rail-radar`, and `willow-tree-vocal-remover`. DO NOT change these four.
+
+User entered Create application → Start with Hello World. New fifth Worker name: `tivvy-programme-v3-storage`, expected endpoint `https://tivvy-programme-v3-storage.nickabull.workers.dev`. Enabled **Protect with Cloudflare Access**, selected **All traffic** (not Previews only), preconfigured **Cloudflare account** Allow policy and 24-hour session. Screenshots confirmed these choices immediately before Deploy. The next screenshot may show deployment; check it and explicitly verify live status before declaring success. Do not confuse the harmless placeholder with the production storage API.
+
+This appears to bypass the former custom-domain hurdle; no Tiverton domain is required for this bootstrap. The source API in `v3-backend/src/index.js` is separate and not yet confirmed deployed. It verifies Access JWT and requires `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD`, D1 staff membership, D1 binding and R2 binding. Prior user reports D1 and R2 were provisioned but actual database/bucket names, bindings and remote migrations have not yet been verified. Never expose private issue data until Access enforcement is tested. No cloud-save success claims until read-back tests succeed. Next: confirm Worker deployment, test logged-in versus logged-out access, inspect D1/R2, configure bindings and JWT settings, run schema migrations, deploy source, test read/write and recovery on a disposable issue, then migrate image data out of browser backups into R2. Existing local backups must remain untouched.
+
+
 ## V3.6.19 — PREFLIGHT 2.0 AND CONCISE OPPOSITION TRIAL (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.19

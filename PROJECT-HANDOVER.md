@@ -1,5 +1,16 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.5 — EDITABLE TEXT OUTLINE / STROKE (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.5
+
+- User wishes to make final manual design tweaks to page 7 master prior to wider rollout; specifically enlarge Tivvy gold/top heading and apply a **black stroke around white text** to improve contrast.
+- Development editor only: added independent **TEXT OUTLINE WIDTH** slider and exact numeric field (0–8 px in 0.5 px steps), and **TEXT OUTLINE COLOUR** picker under TEXT BOX OPTIONS. Defaults: width 0, colour black; existing text layers retain unchanged appearance until user opts in. Stroke applies to glyphs, not a rectangle around the layer, and follows text during edits/drag/resize. The setting is stored in the existing JSON/IndexedDB draft for each text layer and restores through the normal inspector.
+- Uses CSS `-webkit-text-stroke` and `paint-order:stroke fill` to protect white fill legibility; independent from pre-existing transparent **image** stroke. No page 7 artwork, existing browser drafts, V2, Canva, Wix, or production pages modified. Shell cache version advanced to 3.6.5 for the development editor.
+- **Browser QA pending:** open p7, select white headline, test 1–2 px black stroke and confirm saved draft after reload. Check printed/export appearance and that legacy text with zero width is unaffected. Do not bulk-apply page 7 style until user finishes refinements.
+- Editor commit `41e699e5216d2eb8f70f30586af612ede4a8c135`; shell commit `da66c48795e475ea46bd7195ac551be9156dc5fe`.
+
+
 ## V3.6.4 — PAGE 6 SHIRT LOOK + PAGE 19 LEGEND AND CRESTS (16 NOV 2026, 23:48 GMT)
 
 **Dev:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.4

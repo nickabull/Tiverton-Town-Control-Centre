@@ -1,5 +1,19 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare storage bindings verified — 17 November 2026, 23:00 GMT
+
+User's Cloudflare Workers dashboard screenshot definitively confirms BOTH production bindings on dedicated `tivvy-programme-v3-storage` Worker:
+
+| Type | Variable | Existing Cloudflare resource |
+| --- | --- | --- |
+| D1 database | `DB` | `tivvy-programme-v3` |
+| R2 bucket | `ASSETS` | `tivvy-programme-v3-assets` |
+
+D1 binding was added first, then the R2 binding was deployed. The final screenshot lists both rows. Cloudflare highlighted a Wrangler configuration sync notice after D1 was bound: ensure both bindings and the correct D1 database ID / R2 bucket name appear in deployed Wrangler config when deploying the actual API so dashboard and code remain in sync. Record ID from authenticated dashboard rather than guessing; do not repurpose other projects' resources.
+
+Cloudflare Access challenge and post-sign-in Hello World were already visually verified, with protected workers.dev address and team `quiet-bird-5421.cloudflareaccess.com`. **The Worker is still the harmless Hello World placeholder**; no cloud storage API has been deployed and no issue read/write test has been completed. **NEXT:** inspect D1 tables / schema and existing remote migrations non-destructively; then reconcile backend schema, configure `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD`, bootstrap the known authorised editor with trusted D1 tooling, deploy protected backend source, test auth and create/read/save/409/restore/asset round-trip on disposable data; only afterward migrate artwork to R2 and connect the Designer. Do not disable local backups. User explicitly requested ongoing handover updates.
+
+
 ## Cloudflare Access end-to-end placeholder login PASS — 17 November 2026, 22:51 GMT
 
 - User signed in through the Cloudflare Access challenge and captured a screenshot of `https://tivvy-programme-v3-storage.nickabull.workers.dev` returning the exact response **Hello World!**. The signed-in browser successfully reached the newly deployed protected Worker. Previously, an unauthenticated incognito browser received the Cloudflare Access login form, team `quiet-bird-5421.cloudflareaccess.com`. Hence *Access-protected placeholder deployment and successful authorised login have been visually verified*.

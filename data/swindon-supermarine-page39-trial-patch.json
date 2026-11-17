@@ -1,0 +1,70 @@
+{
+  "schema": "tivvy-v3-opposition-page-patch-v1",
+  "sourcePage": "issue-20261114-p39",
+  "target": "non-exporting new copy",
+  "fixture": "Tiverton Town v Swindon Supermarine · 5 December 2026",
+  "layoutLocked": true,
+  "paragraphs": {
+    "Text Box 1": [
+      [
+        "SWINDON SUPERMARINE FC",
+        null
+      ],
+      [
+        "Nickname:",
+        "The Marine"
+      ],
+      [
+        "League:",
+        "Southern League Division One South"
+      ],
+      [
+        "Last season:",
+        "2025/26 campaign — verify final position"
+      ],
+      [
+        "Home ground:",
+        "Imagine Cruising Stadium, Swindon"
+      ]
+    ],
+    "Text Box 2": [
+      [
+        "Club roots:",
+        "Swindon Supermarine formed in 1992 when Swindon Athletic merged with Supermarine, which had grown from a Vickers works team established in 1946."
+      ],
+      [
+        "Aviation heritage:",
+        "The Supermarine name reflects a Swindon aircraft-making heritage. The famous Spitfire was designed by the Supermarine company."
+      ],
+      [
+        "A home of their own:",
+        "The club plays in South Marston, Swindon, at the Imagine Cruising Stadium, formerly known as Webbswood Stadium."
+      ]
+    ],
+    "Text Box 3": [
+      [
+        "Premier achievement:",
+        "Marine won promotion to the Southern Premier Division through the 2017/18 play-offs."
+      ],
+      [
+        "Back at Step Four:",
+        "Following relegation in 2024/25, the club returned to Southern League Division One South and began rebuilding."
+      ],
+      [
+        "Looking ahead:",
+        "The club reviewed 2025/26 as a season of improvement, particularly after the turn of the year, with development of younger players among its positives."
+      ]
+    ]
+  },
+  "flags": [
+    "Keep the old photograph visibly marked for replacement — unlicensed or unverified photograph",
+    "Keep kit illustrations pending verification of 2026/27 official kits",
+    "Final position in 2025/26 requires independent verification",
+    "Check text overflow in browser before publishing"
+  ],
+  "sources": [
+    "https://swindonsupermarinefc.com/club-history",
+    "https://swindonsupermarinefc.com/visitors-information",
+    "https://swindonsupermarinefc.com/blog/-a-review-of-the-2025-26-season-from-pete-crockett"
+  ]
+}

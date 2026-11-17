@@ -1,5 +1,17 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.19 — PREFLIGHT 2.0 AND CONCISE OPPOSITION TRIAL (17 NOV 2026)
+
+**Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.19
+
+- User confirmed the V3.6.18 text-fit checker was extremely useful, but showed six warning lines: Box 1 clipped 43px, Box 3 clipped 40px, and two text-box frame collisions each counted twice. They want a persistent checker and are looking ahead to a whole-issue run.
+- Inspected uploaded complete backup's original Page 39 geometry: Text Box 1 x297 y149 w276 h184; Text Box 2 x13 y306 w570 h199; Text Box 3 x13 y459 w325 h263. The source template's box 2/3 frames *already* intersect by 46px, regardless of actual printed glyphs. Blind frame collision testing is therefore misleading.
+- Replaced CHECK TEXT FIT's browser alert with an interactive **PROGRAMME PREFLIGHT** floating panel: shows FAIL/REVIEW/PASS counts; flags clipped copy using element scroll dimensions, tests rendered text paragraph rectangles for true text-text overlap (once per unordered pair), and has clickable warnings to select/jump to the offending layer and a **RECHECK PAGE** button. Automatic editorial REVIEW item remains for the Swindon 2026/27 photograph, kits and last-season finishing position. Read-only; no saved artwork mutation; closable panel; no green/print-ready claim if review is pending. Tool remains EDIT LAYERS > TOOLS > CHECK TEXT FIT.
+- Updated `data/swindon-supermarine-page39-trial-patch.json` with substantially shorter verifiable prose in all three text boxes. It does not fabricate a 2025/26 final league position. New trials use 106% line-height, 0.02em fact box paragraph gap and 0.08em history gap to reduce overflow; the unchanged source Page 39 is copied into a new excluded page named TRIAL V3.6.19. User must generate a NEW trial; existing V3.6.18 trial is preserved.
+- Editor commit `f9e28c9d3ffec2c4cee8b6e7b202ea4e9e81e960`, content patch commit `0d856e731a42ffb0e0c58b295984d84e791908f6`, shell commit `a02de54aed2a10ccc6c5da9dbc9b5d146a3c6a74`. Both scripts parsed in V8 where modified. Browser visual QA and possible layout iteration are still required. Preflight does NOT yet check image/text collision, licensing, colour profiles, bleed, or print-PDF output. Source images intentionally retained.
+- Whole-issue update is NOT one-click production-ready: first prove P39 layout; then full issue clone/mapping for fixture, standings, matrix, editorial, player stats, dated photos, approvals and PDF; secure backend/restore remains a prerequisite for durable production.
+
+
 ## V3.6.18 — INTELLIGENT TEXT REPLACEMENT / FIT AUDIT (17 NOV 2026)
 
 **Development:** https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html?v=3.6.18

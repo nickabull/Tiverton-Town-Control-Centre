@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## First authenticated D1 issue-list read PASS — 17 November 2026, 23:46 GMT
+
+- User opened `https://tivvy-programme-v3-storage.nickabull.workers.dev/api/issues` while signed in through Cloudflare Access. Screenshot shows exact response `{"ok":true,"issues":[]}`.
+- This is a positive **authenticated API → D1 read** result, confirms issue list currently empty, and makes it safe to run a **disposable** create/read/save/conflict/restore test next. It does **not** establish writes, version history, restore, asset storage or Designer cloud sync.
+- User wants to leave Cloudflare dashboard/browser complexity soon. Prefer one carefully scoped same-origin Chrome test script or a proper dedicated test UI over more dashboard steps; never place user email or credentials in scripts. New issue IDs must be clearly disposable and safe. Keep existing local backups untouched.
+
+
 ## Protected storage API /api/me test passed — 17 November 2026, 23:43 GMT
 
 - User pasted `v3-backend/src/index.js` into latest Cloudflare Worker code editor, clicked Deploy, and reported "Version saved".

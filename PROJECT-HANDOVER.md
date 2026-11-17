@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## Cloudflare Access JWT settings all present — 17 November 2026, 23:28 GMT
+
+- User screenshot definitively verifies production Runtime variables/secrets on new `tivvy-programme-v3-storage` Worker: `ACCESS_AUD` as encrypted **Secret** (value intentionally not logged to GitHub) and `ACCESS_TEAM_DOMAIN=quiet-bird-5421.cloudflareaccess.com` as plain runtime variable.
+- The same screenshot verifies existing production bindings remain intact: D1 `DB` → `tivvy-programme-v3`, R2 `ASSETS` → `tivvy-programme-v3-assets`.
+- Prior screenshots proved unauthenticated Access login challenge, authorised post-login Hello World response, D1 schema tables present, and exactly one active programme_members administrator. **Configuration is present, but the actual storage API has NOT yet been deployed or round-trip tested.** Don't say cloud saving works yet.
+- Next: audit `v3-backend/src/index.js`, migration schema and Wrangler configuration; ensure any deployment preserves Access protection, D1/R2 bindings, team domain and `ACCESS_AUD` secret. Use a least-privilege Cloudflare deployment path and verify authenticated / unauthenticated behaviour, identity match, issue create/read/version conflict/restore/assets using **disposable** data only. Keep local browser backups and existing four unrelated Workers untouched.
+
+
 ## Cloudflare Access AUD supplied — 17 November 2026, 23:25 GMT
 
 - User supplied a 64-character hexadecimal Application Audience (AUD) Tag obtained from Cloudflare Zero Trust's `tivvy-programme-v3-storage - Cloudflare Workers` app. For privacy and configuration hygiene the full AUD is **not copied into the GitHub handover**.

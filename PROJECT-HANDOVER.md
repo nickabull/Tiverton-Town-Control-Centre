@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## Live R2 disposable artwork round-trip — 17 November 2026, 23:59 GMT
+
+- User provided a Chrome DevTools screenshot of the approved same-origin live test on the Cloudflare Access-protected `tivvy-programme-v3-storage.nickabull.workers.dev` Worker. **All SIX visible checks PASS**: (1) create a new disposable issue HTTP 201; (2) upload 1x1 PNG to private R2 HTTP 201; (3) download from private R2 HTTP 200; (4) downloaded image has the original exact byte count **68 bytes**; (5) downloaded SHA-256 matches uploaded image; (6) downloaded MIME is `image/png`. This is **screenshot-confirmed real D1 issue and R2 object storage success** for disposable data.
+- Test generated a fresh `test_r2_<uuid>` issue and 68-byte disposable PNG; no real programme page, browser IndexedDB draft, source artwork, production PDF, or approved master was changed. Leave test data for audit until separately authorised cleanup.
+- The test ran in an authenticated session and does **not** independently test unauthenticated/forbidden R2 GET, large photographs/PDFs, image-library quota, concurrent writers, repeated transfers, cross-device identity, or cloud editor integration. Pre-existing Cloudflare Access login challenge had been screenshot-tested earlier, but private asset rejection still requires a dedicated check.
+- **Next work:** non-destructive unauthorised asset access check; then integrate explicit cloud connection/save/revisions/recovery and user-controlled image upload UI in development-only V3. Keep downloadable local JSON backup and browser IndexedDB untouched until end-to-end cloud round trip has been verified with a cloned issue and user approval. Note backend allows 12 MB per individual asset and 3 MB per issue document: real image data must be stored in R2 references rather than embedded in D1 JSON.
+- Test status: R2 upload/download/bytes/checksum/MIME **LIVE PASS (user screenshot)**; unauthorised GET **NOT TESTED**; editor sync **NOT BUILT**; browser QA of V3.6.19 preflight **PENDING**; print-ready PDF **NOT VERIFIED**.
+
+
 ## V3.6.19 continuity audit and R2-first next stage — 17 November 2026, 23:54 GMT
 
 - Resumption verified current full handover (652 lines at beginning of check), recent GitHub commits, and current source of V3 shell, V3 editor, backend Worker, backend README and V3 plan. This was a **repository/code inspection**, NOT new browser QA. Current shell/editor label: V3.6.19.

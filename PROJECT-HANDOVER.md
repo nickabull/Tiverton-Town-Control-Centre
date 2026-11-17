@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## First programme administrator verified — 17 November 2026, 23:09 GMT
+
+- User executed initial authorised-user SQL in D1 `tivvy-programme-v3` for their normal Cloudflare account email (email was **not** shared in conversation). Follow-up aggregate query `SELECT role, active, COUNT(*) AS users FROM programme_members GROUP BY role, active;` returned **admin | 1 | 1**, confirmed by screenshot. Hence exactly one active administrator is currently present in programme_members.
+- This verifies the D1 allowlist row, not yet that Cloudflare Access's authenticated JWT `email` exactly matches it. Do not insert a second admin or disclose email. The actual service remains the Hello World placeholder; no live API/cloud save proven.
+- Next: inspect Worker Settings > Variables and Secrets, configure `ACCESS_TEAM_DOMAIN` to `quiet-bird-5421.cloudflareaccess.com` and `ACCESS_AUD` using the actual Cloudflare Access application audience tag (not guessed); verify Access JWT authentication and D1 member match after deploying source API. Keep existing `DB` and `ASSETS` bindings and preserve local backups.
+
+
 ## D1 initial administrator bootstrap pending — 17 November 2026, 23:05 GMT
 
 - User ran `SELECT role, active, COUNT(*) AS users FROM programme_members GROUP BY role, active;` on D1 `tivvy-programme-v3`. Screenshot showed **"This query returned no data."** The table exists but has **zero registered members**, so nobody is authorised by the backend D1 allowlist yet.

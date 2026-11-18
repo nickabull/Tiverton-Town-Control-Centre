@@ -187,3 +187,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - User clarified the attached little touchscreen is **only for a compact engine-room health/status screen**; the main Eldoret 16:9 UI will live on a separate large touchscreen/browser client. Do not evaluate the Pi based on its small display or make the small display run the main interface.
 - **UNTESTED:** installed OS, available memory/storage, network access, SSH/Tailscale, service integrations and load, reboot recovery. No live automation service has been migrated.
 - **Next read-only device checks:** `cat /etc/os-release`, `free -h`, `df -h /`, `hostname -I`; then discover current running services and safely image/backup the SD card before installation or migration. Keep Donkey as fallback. Airlite tests remain outstanding, Mac independent audio unchanged.
+
+
+### 18 Nov 2026 — Motor touchscreen Pi software confirmed by terminal photograph
+- **VERIFIED from visible on-device terminal:** hostname/user prompt `pi@Motor`; Raspberry Pi 3 Model B Rev 1.2; TeamViewer `13.1.1548 (DEB)`; `getconf LONG_BIT` -> `32`; `/etc/os-release` -> Raspbian GNU/Linux 8 (jessie), `VERSION_ID=8`.
+- **Decision:** Do not force TeamViewer upgrade or in-place distribution upgrade on old Jessie installation. Treat as end-of-support and do not expose SSH publicly; inspect existing roles and backup or retain original microSD, then trial supported Pi OS on a separate microSD if compatible. Main touchscreen remains separate. SSH over trusted LAN first, then secure Tailscale if supported by new OS.
+- **Not yet verified:** network address, SSH daemon status, available storage, current workload, updated OS installation, modern remote-access compatibility, Eldoret integrations.

@@ -154,7 +154,7 @@ def main():
         handle.write('\n')
     os.replace(handle.name, path)
     # A smaller public feed avoids sending repeated album names/credits to browsers.
-    fields = ['photo_id', 'album_id', 'title', 'date_taken', 'thumbnail_url', 'large_url', 'original_url']
+    fields = ['photo_id', 'album_id', 'title', 'date_taken', 'thumbnail_url', 'large_url', 'original_url', 'tags', 'license', 'source_url']
     gallery = {key: value for key, value in result.items() if key != 'photos'}
     gallery['photo_fields'] = fields
     gallery['rows'] = [[photo.get(field) for field in fields] for photo in result['photos']]

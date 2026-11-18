@@ -1825,6 +1825,147 @@ function fullDesignerTrialPortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; frame-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function referenceMigrationPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy · Original PDF Reference Artwork Cloud Migration</title>
+ <style>*{box-sizing:border-box}body{font:14px system-ui,Arial;background:#17181b;color:#eee;margin:0}
+ main{max-width:1080px;margin:auto;padding:22px}h1,h2{color:#ffda00}h1{font-size:29px}
+ a{color:#ffda00}section{border:1px solid #57595d;border-radius:8px;padding:18px;margin:16px 0}
+ button,select,input{font:inherit;background:#2b2d32;color:white;border:1px solid #70727b;padding:10px;border-radius:4px}
+ button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.gold{background:#ffda00;color:#171717;font-weight:bold}
+ select{max-width:100%;min-width:250px}input[type=file]{width:100%}label{display:block;margin:8px 0}
+ .good{color:#96eead}.bad{color:#ff9f9f}.muted{color:#ccc}pre{background:#24262a;padding:12px;max-height:330px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+ #preview{width:100%;max-width:530px;border:1px solid #555;display:none}
+ </style><main>
+ <h1>TIVVY · ORIGINAL PDF REFERENCE ARTWORK</h1>
+ <p class="muted">Migrate the exact 54 JPEG pages extracted from the original programme PDF. This only adds references to a <strong>separate cloud working copy</strong>. It does not edit page layers, overwrite the historical archive or change original photos. Every JPEG is uploaded and read back byte-for-byte with a SHA-256 check.</p>
+ <p id="identity">Checking secure login…</p>
+ <section><h2>1. Select your separate cloud working copy</h2>
+ <select id="issue"><option value="">Choose an editable cloud trial</option></select>
+ <button id="refresh">REFRESH CLOUD REFERENCES</button>
+ <p id="current" class="muted">Select a working copy.</p></section>
+ <section><h2>2. Choose the original 54-page reference ZIP</h2>
+ <p>Use the same ZIP you originally imported into Programme Designer. Its contents must be named <code>pages/page-01.jpg</code> through <code>pages/page-54.jpg</code>. If you no longer have the ZIP, the original browser Designer can export a new copy of its stored reference pages.</p>
+ <input id="source" type="file" accept=".zip,application/zip">
+ <p><button id="analyse">ANALYSE ORIGINALS · NO UPLOAD</button></p>
+ <pre id="report">No ZIP selected.</pre></section>
+ <section><h2>3. Safely migrate and verify</h2>
+ <p>Previously imported pages with identical checksums are skipped. Completed pages survive interrupted transfers; you can select the ZIP again to resume. No JPEG recompression or quality loss.</p>
+ <button id="migrate" class="gold" disabled>UPLOAD AND VERIFY ORIGINAL 54 PAGES</button>
+ <p id="progress" role="status"></p><pre id="log"></pre></section>
+ <section><h2>4. Browse originals recovered from the cloud</h2>
+ <label for="page">Original PDF page</label><select id="page"></select>
+ <button id="view">VIEW STORED ORIGINAL PAGE</button><p id="viewStatus"></p>
+ <img id="preview" alt="Verified original PDF reference page">
+ <p class="muted">The full V3 Cloud Designer uses these images for its tracing/reference overlay. The original Designer's local IndexedDB copies remain unchanged.</p></section>
+ <p><a href="/full-designer">FULL V3 CLOUD DESIGNER</a> · <a href="/activity-log">ACTIVITY LOG</a></p></main>
+ <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+ <script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id);let issue="",zip=null,manifest=[],busy=false,previous=new Map();
+ const path=id=>"/api/issues/"+encodeURIComponent(id);
+ async function api(url,options){const response=await fetch(url,{credentials:"same-origin",cache:"no-store",...options});
+  const result=await response.json();if(!response.ok||!result.ok)throw Error(result.error||"HTTP "+response.status);return result}
+ function say(id,text,bad=false){$(id).textContent=text;$(id).className=bad?"bad":"muted"}
+ const sha=async data=>Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",data)),n=>n.toString(16).padStart(2,"0")).join("");
+ function name(n){return "page-"+String(n).padStart(2,"0")+".jpg"}
+ async function refresh(){
+  if(!issue){say("current","Choose a separate cloud working copy.");return}
+  const data=await api(path(issue)+"/reference-pages");
+  previous=new Map(data.pages.map(x=>[x.pdf_page,x]));
+  say("current",data.pages.length+" of 54 original PDF pages are already stored and mapped for this cloud working copy.");
+  $("page").replaceChildren();
+  for(let n=1;n<=54;n++)$("page").add(new Option("PDF page "+n+(previous.has(n)?" · cloud":" · missing"),n));
+ }
+ async function analyse(){
+  const file=$("source").files[0];
+  manifest=[];zip=null;$("migrate").disabled=true;
+  if(!file){say("report","Select original reference ZIP first.",true);return}
+  if(file.size>75000000){say("report","Original ZIP exceeds expected 75 MB safety limit. Source untouched.",true);return}
+  if(!window.JSZip){say("report","ZIP reader unavailable; original file unchanged.",true);return}
+  say("report","Checking all 54 source JPEG entries without changing anything…");
+  try{
+   zip=await JSZip.loadAsync(file);
+   let total=0;
+   for(let n=1;n<=54;n++){
+    const entry=zip.file("pages/"+name(n));
+    if(!entry)throw Error("Missing original "+name(n)+"; nothing uploaded.");
+    const bytes=await entry.async("uint8array");
+    if(bytes.byteLength<4||bytes.byteLength>25000000||bytes[0]!==255||bytes[1]!==216||bytes[2]!==255)throw Error("Invalid original JPEG at PDF page "+n);
+    total+=bytes.byteLength;
+    manifest.push({pdf_page:n,bytes:bytes.byteLength,sha256:await sha(bytes),name:name(n)});
+    if(n%9===0)say("report","Checked "+n+" / 54 unchanged JPEG originals…");
+   }
+   say("report","READY: 54 of 54 JPEG originals verified in ZIP · "+(total/1000000).toFixed(1)+" MB uncompressed image bytes · 0 missing. NO UPLOAD YET. Previous cloud matches will be skipped.");
+   $("migrate").disabled=!issue;
+  }catch(e){manifest=[];zip=null;say("report","ZIP VALIDATION FAILED: "+e.message,true)}
+ }
+ async function migrate(){
+  if(busy||!issue||manifest.length!==54||!zip)return;
+  if(!confirm("Upload original PDF reference JPEGs into this separate cloud working copy? Existing original browser artwork and approved programme layouts will not be changed."))return;
+  busy=true;$("migrate").disabled=true;$("issue").disabled=true;
+  let completed=0,skipped=0;
+  try{
+   await refresh();
+   for(const item of manifest){
+    const earlier=previous.get(item.pdf_page);
+    if(earlier?.sha256===item.sha256){skipped++;completed++;say("progress","Verified existing "+completed+"/54 · "+skipped+" skipped");continue}
+    const bytes=await zip.file("pages/"+item.name).async("uint8array");
+    if(await sha(bytes)!==item.sha256)throw Error(item.name+" checksum changed since analysis");
+    say("progress","Uploading original JPEG "+item.pdf_page+"/54…");
+    const upload=await api(path(issue)+"/assets",{method:"POST",headers:{"content-type":"image/jpeg","x-file-name":item.name},body:new Blob([bytes],{type:"image/jpeg"})});
+    if(upload.byte_size!==bytes.byteLength)throw Error(item.name+" byte count changed during upload");
+    const response=await fetch(path(issue)+"/assets/"+encodeURIComponent(upload.asset_id),{credentials:"same-origin",cache:"no-store"});
+    if(!response.ok)throw Error(item.name+" original read-back HTTP "+response.status);
+    const returned=new Uint8Array(await response.arrayBuffer());
+    if(returned.byteLength!==bytes.byteLength||await sha(returned)!==item.sha256)throw Error(item.name+" cloud read-back checksum mismatch");
+    const mapped=await api(path(issue)+"/reference-pages/"+item.pdf_page,{method:"PUT",headers:{"content-type":"application/json"},
+      body:JSON.stringify({asset_id:upload.asset_id,sha256:item.sha256})});
+    if(mapped.sha256!==item.sha256)throw Error(item.name+" reference mapping not confirmed");
+    completed++;
+    $("log").textContent+="PDF page "+item.pdf_page+" · original JPEG SHA-256 verified · "+item.bytes+" bytes\\n";
+    say("progress","VERIFIED "+completed+"/54 · "+skipped+" existing pages skipped");
+   }
+   await refresh();
+   if(previous.size!==54)throw Error("Incomplete cloud reference list: "+previous.size+"/54");
+   for(const item of manifest)if(previous.get(item.pdf_page)?.sha256!==item.sha256)throw Error("Final reference mapping mismatch at page "+item.pdf_page);
+   say("progress","ALL 54 ORIGINAL PDF REFERENCE PAGES VERIFIED IN CLOUD · byte-identical · "+skipped+" existing matches reused.");
+  }catch(e){say("progress","PARTIAL UPLOAD / RECOVERY SAFE: "+e.message+". Completed originals remain stored. Reanalyse ZIP and rerun to resume.",true)}
+  finally{busy=false;$("migrate").disabled=manifest.length!==54;$("issue").disabled=false}
+ }
+ async function listIssues(){
+  const data=await api("/api/issues");
+  const sel=$("issue");sel.replaceChildren(new Option("Choose cloud working copy",""));
+  for(const x of data.issues)if(/^work_[a-f0-9]{32}$/.test(x.id)){
+    const issueDoc=await api(path(x.id));
+    if(issueDoc.document?.migrationState==="CLOUD_EDIT_TRIAL")sel.add(new Option(x.title,x.id));
+  }
+  const requested=new URLSearchParams(location.search).get("issue");
+  if(requested&&Array.from(sel.options).some(o=>o.value===requested)){sel.value=requested;issue=requested;await refresh()}
+ }
+ $("issue").onchange=async()=>{issue=$("issue").value;manifest=[];zip=null;$("migrate").disabled=true;await refresh()};
+ $("refresh").onclick=refresh;
+ $("analyse").onclick=analyse;$("migrate").onclick=migrate;
+ $("view").onclick=()=>{
+  if(!issue)return;
+  const n=Number($("page").value);
+  if(!previous.has(n)){say("viewStatus","Original PDF page "+n+" has not been migrated.",true);$("preview").style.display="none";return}
+  $("preview").src=path(issue)+"/reference-pages/"+n;$("preview").style.display="block";
+  say("viewStatus","Showing private original JPEG from R2 · PDF page "+n);
+ };
+ $("preview").onerror=()=>say("viewStatus","Cannot read protected original reference image.",true);
+ (async()=>{try{const me=await api("/api/me");if(!["admin","editor"].includes(me.role))throw Error("Editor rights required");
+  say("identity","Protected connection verified · "+me.role);await listIssues()
+ }catch(e){say("identity","CLOUD ACCESS FAILED: "+e.message,true)}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{
+  "content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer",
+  "content-security-policy":"default-src 'none'; script-src 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+ }});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -1845,6 +1986,7 @@ export default {
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
     if(path==="/full-designer"&&method==="GET"&&allowed(role,"edit"))return fullDesignerTrialPortal();
+    if(path==="/reference-migration"&&method==="GET"&&allowed(role,"edit"))return referenceMigrationPortal();
     if(path==="/full-editor-frame"&&method==="GET"&&allowed(role,"edit"))return originalFullEditorFrame(url,env);
     if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
     if(path==="/activity-log"&&method==="GET"&&allowed(role,"read"))return activityLogPortal();

@@ -241,3 +241,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **Second Pi** (`raspberrypi`, Pi 3 B Rev 1.2, Buster), retains original Rivendell/MariaDB/Apache/audio installation and should be preserved as a separate historical radio automation investigation; no wipe or migration of Rivendell until archive/backups are complete. It does not need to remain continuously powered if preservation permits safe shutdown.
 - **Mac** stays independent Bull's Hits audio engine; **Donkey** stays operational until proven migration and rollback; larger separate touchscreen drives the main no-scroll 16:9 UI.
 - **Not yet tested:** DietPi image boot on Motor, screen support, performance, Eldoret integrations, Airlite fader-start/routing or Mac continuity. Do not mark Motor production-ready.
+
+
+### 18 November 2026 ~18:08 — recovered WAV filename inventory audit
+- **VERIFIED through exact string comparison:** user-supplied `rivendell-wav-files.txt` lists 124 WAV paths on Mac, all 124 basename cut IDs match 124 unique non-NULL `Audio_File` IDs in `rivendell-catalogue.tsv` (125 DB rows total). Zero missing cut identifiers, zero unmatched extra Mac filenames and zero duplicate basename IDs. One DB record (`50001`, `Test Macro`) has `Audio_File=NULL` and is not a WAV expectation.
+- **Scope limitation:** filename-level comparison only. WAV bytes, audio decodability, media durations, sonic content and actual track-title correctness have NOT been tested. Keep originals, backup media and Rivendell database; descriptive rename mapping should be applied to copies only after content validation.
+- Audited workbook and CSV created in conversation: `Rivendell_Recovered_Catalogue_Audited.xlsx` and `Rivendell_Filename_Verification.csv`; they distinguish filename matches from audio-content verification.

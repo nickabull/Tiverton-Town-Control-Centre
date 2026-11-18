@@ -193,3 +193,8 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED from visible on-device terminal:** hostname/user prompt `pi@Motor`; Raspberry Pi 3 Model B Rev 1.2; TeamViewer `13.1.1548 (DEB)`; `getconf LONG_BIT` -> `32`; `/etc/os-release` -> Raspbian GNU/Linux 8 (jessie), `VERSION_ID=8`.
 - **Decision:** Do not force TeamViewer upgrade or in-place distribution upgrade on old Jessie installation. Treat as end-of-support and do not expose SSH publicly; inspect existing roles and backup or retain original microSD, then trial supported Pi OS on a separate microSD if compatible. Main touchscreen remains separate. SSH over trusted LAN first, then secure Tailscale if supported by new OS.
 - **Not yet verified:** network address, SSH daemon status, available storage, current workload, updated OS installation, modern remote-access compatibility, Eldoret integrations.
+
+
+### 18 Nov 2026 — Motor SSH verified locally
+- **VERIFIED by user screenshot of `sudo systemctl status ssh`:** `ssh.service` OpenBSD Secure Shell server loaded, enabled and `active (running)` on Motor. `sshd` listening on IPv4 `0.0.0.0` port 22 and IPv6 `::` port 22. The screenshot indicates service started on 18 Nov 2026.
+- **NOT YET VERIFIED:** LAN IP, successful remote SSH login, authentication/key policy, or ability of modern SSH clients to negotiate with Jessie. Next check `hostname -I` and attempt LAN-only connection; avoid router port forwarding and public exposure. Back up original microSD and trial supported Pi OS on separate card before running permanent Eldoret services.

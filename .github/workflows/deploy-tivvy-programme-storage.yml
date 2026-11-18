@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Dry run first; deploy requires explicit mode and secrets"
+        description: "Manual diagnostic dry-run or explicit deploy; code pushes deploy automatically"
         required: true
         type: choice
         default: dry-run
@@ -26,7 +26,6 @@ concurrency:
 
 jobs:
   preflight:
-    if: github.event_name == 'workflow_dispatch' || vars.TIVVY_PROGRAMME_AUTO_DEPLOY == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     defaults:
@@ -77,8 +76,8 @@ jobs:
           PY
       - name: Build and inspect only, no deployment
         run: npx wrangler deploy --config wrangler.programme.generated.json --dry-run --outdir /tmp/tivvy-programme-compiled
-      - name: Deploy this Worker only when explicitly enabled
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'deploy') || (github.event_name == 'push' && vars.TIVVY_PROGRAMME_AUTO_DEPLOY == 'true')
+      - name: Deploy programme storage on scoped main push or explicit manual deploy
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'deploy')
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.TIVVY_PROGRAMME_CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -87,4 +86,32 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "::error::Missing scoped TIVVY_PROGRAMME_CLOUDFLARE_API_TOKEN"; exit 1; }
           npx wrangler deploy --config wrangler.programme.generated.json
           echo "Deployment submitted only for tivvy-programme-v3-storage."
-          echo "Authenticated Cloud Vault browser QA still required; this is not proof of functional save/recovery."
+          echo "Worker deployed; following smoke check tests unauthenticated access without credentials."
+      - name: Verify Access-protected API is not anonymously accessible
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'deploy')
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request,urllib.error
+          base="https://tivvy-programme-v3-storage.nickabull.workers.dev"
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self,req,fp,code,msg,headers,newurl):return None
+          opener=urllib.request.build_opener(NoRedirect)
+          for route in ("/api/issues","/cloud-vault","/cloud-import"):
+              req=urllib.request.Request(base+route,headers={"User-Agent":"tivvy-storage-deploy-smoke/1.0"})
+              try:
+                  resp=opener.open(req,timeout=20)
+                  status=resp.status
+                  headers=resp.headers
+                  resp.close()
+              except urllib.error.HTTPError as e:
+                  status=e.code
+                  headers=e.headers
+              assert status in (301,302,303,307,308,401,403), f"UNSAFE: anonymous {route} returned HTTP {status}"
+              if 300<=status<400:
+                  target=headers.get("Location","")
+                  assert "cloudflareaccess.com" in target or "/cdn-cgi/access/" in target, f"Unexpected redirect on {route}"
+              print(f"Anonymous access rejected for {route}: HTTP {status}")
+          PY
+          echo "Deployment reached protected endpoints. Authenticated cloud save/recovery QA remains separate."

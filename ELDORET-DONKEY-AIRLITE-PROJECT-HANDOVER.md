@@ -254,3 +254,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **Mac source folder:** `/Users/bulln80/Documents/Files from Rivendell`; destination sibling folder `/Users/bulln80/Documents/Files from Rivendell_NAMED_COPIES` as reported by script preview. 124 named copies are byte-identical to original WAV files according to script's SHA-256 verification. Original WAV files were not modified by this operation.
 - **Still unverified:** independent playback/decoding and audio-content-versus-title accuracy for each file, completed backup of named copies and database, and import into Bull's Hits. Keep originals and Rivendell SD card preserved.
 - **Next optional work:** spot-check representative music and imaging tracks by listening; preserve checksums and catalogue; optionally organise named copies by type without modifying source. Continue Motor/DietPi Eldoret migration separately, without touching Rivendell original card.
+
+
+### 18 November 2026 — oral provenance for recovered Nick Bull ident
+- **User-supplied first-hand provenance (not independently externally verified):** the recovered `Nick Bull ACAP [060124_001].wav` was produced by **Alpha Sound** for **BBC Somerset's 30th birthday**, during the period when the user was running the stations.
+- The user supplied/playback-shared the corresponding audio ident in chat. Preserve original cut ID `060124_001` and provenance in future Bull's Hits metadata; classify as personal/station imaging, not a commercial music track.
+- This is historic attribution supplied by the user; no date/year of the anniversary or contract/license terms established. Retain audio original and checksum-verified named copy.

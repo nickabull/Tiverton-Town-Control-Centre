@@ -1898,6 +1898,7 @@ function referenceMigrationPortal(){
   for(let n=1;n<=54;n++)$("page").add(new Option("PDF page "+n+(previous.has(n)?" · cloud":" · missing"),n));
  }
  async function analyse(){
+  if(busy)return;
   const file=$("source").files[0];
   manifest=[];zip=null;$("migrate").disabled=true;
   if(!file){say("report","Select original reference ZIP first.",true);return}
@@ -1923,7 +1924,7 @@ function referenceMigrationPortal(){
  async function migrate(){
   if(busy||!issue||manifest.length!==54||!zip)return;
   if(!confirm("Upload original PDF reference JPEGs into this separate cloud working copy? Existing original browser artwork and approved programme layouts will not be changed."))return;
-  busy=true;$("migrate").disabled=true;$("issue").disabled=true;
+  busy=true;$("migrate").disabled=true;$("issue").disabled=true;$("source").disabled=true;$("analyse").disabled=true;$("refresh").disabled=true;
   let completed=0,skipped=0;
   try{
    await refresh();
@@ -1951,7 +1952,7 @@ function referenceMigrationPortal(){
    for(const item of manifest)if(previous.get(item.pdf_page)?.sha256!==item.sha256)throw Error("Final reference mapping mismatch at page "+item.pdf_page);
    say("progress","ALL 54 ORIGINAL PDF REFERENCE PAGES VERIFIED IN CLOUD · byte-identical · "+skipped+" existing matches reused.");
   }catch(e){say("progress","PARTIAL UPLOAD / RECOVERY SAFE: "+e.message+". Completed originals remain stored. Reanalyse ZIP and rerun to resume.",true)}
-  finally{busy=false;$("migrate").disabled=manifest.length!==54;$("issue").disabled=false}
+  finally{busy=false;$("migrate").disabled=manifest.length!==54;$("issue").disabled=false;$("source").disabled=false;$("analyse").disabled=false;$("refresh").disabled=false}
  }
  async function listIssues(){
   const data=await api("/api/issues");
@@ -1964,6 +1965,7 @@ function referenceMigrationPortal(){
   if(requested&&Array.from(sel.options).some(o=>o.value===requested)){sel.value=requested;issue=requested;await refresh()}
  }
  $("issue").onchange=async()=>{issue=$("issue").value;manifest=[];zip=null;$("migrate").disabled=true;await refresh()};
+ $("source").onchange=()=>{if(busy)return;zip=null;manifest=[];$("migrate").disabled=true;say("report","New ZIP selected. Click ANALYSE ORIGINALS before any upload.")};
  $("refresh").onclick=refresh;
  $("analyse").onclick=analyse;$("migrate").onclick=migrate;
  $("view").onclick=()=>{

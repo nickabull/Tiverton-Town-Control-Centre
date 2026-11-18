@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## Cloud working-copy autosave LIVE PASS — 18 Nov 2026, 11:18 GMT
+
+- User screenshot of protected `/cloud-workspace` for **Page 6: Latest News**, selected Fans' Forum text layer: `CLOUD AUTOSAVED & VERIFIED · v2 · 11:16:53`. New visible text includes `TEST TEXT TEST TEXT TEST TEXT` after existing Fans' Forum copy. User made a trial edit without pressing manual SAVE; UI only says VERIFIED after D1 save + independent GET snapshot equality check.
+- This is genuine screenshot-confirmed **debounced cloud AUTOSAVE ACK/READ-BACK PASS**, separate from untouched original browser draft and historical 60-page cloud archive. It does **not yet prove** reload/new-browser persistence or two-browser 409 conflict handling.
+- Screenshot also shows `Reference image not available in cloud` placeholder on page 6, and simplified cloud renderer diverges from legacy V3 visual layout. Reference PDF artwork not yet uploaded; do not promote simplified editor as production-ready.
+- Next user action: click `RELOAD CLOUD VERSION` or reopen this saved `work_` copy, select Page 6 and verify trial text `TEST TEXT TEST TEXT TEST TEXT` persists, then inspect authenticated `/activity-log` for actor, UTC date/time, `layer.property.change` with before/after. Keep original 60-page archive and browser IndexedDB untouched.
+
 ## Cloud working-copy creation & preview fidelity QA — 18 Nov 2026, 11:11 GMT
 
 - User screenshot of protected `/cloud-workspace` shows newly created working-copy page displaying archived cover artwork and selected layer list (e.g. Shirt Background, Black Paint, Yellow Swoosh, Tiverton Town Football Club, Programme QR), plus searchable insert-cloud-artwork controls. This is **user visual evidence that a separate cloud working copy was created and asset references can render**; exact D1 write/revision success and autosave still not independently tested.

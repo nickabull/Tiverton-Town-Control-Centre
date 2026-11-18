@@ -90,12 +90,22 @@ async function createIssue(env,actor,request){
 
 function safeAuditField(value){
  if(value===undefined)return null;
- if(typeof value==="string")return value.length>12000?{excerpt:value.slice(0,12000),truncated:true,characters:value.length}:value;
- if(value&&typeof value==="object"){
-  const str=JSON.stringify(value);
-  if(str.length>12000)return {excerpt:str.slice(0,12000),truncated:true,characters:str.length};
- }
- return value;
+ // Audit meaningful attributes without copying huge private photo bytes into D1.
+ // The original bytes remain in R2 and archival revisions; logs contain asset IDs.
+ const sanitize=(v,depth=0)=>{
+  if(typeof v==="string"){
+   if(v.startsWith("data:"))return {media:"embedded-data-url",characters:v.length,mime:v.slice(0,120).split(";")[0]};
+   if(v.length>1000)return {excerpt:v.slice(0,1000),truncated:true,characters:v.length};
+   return v;
+  }
+  if(v&&typeof v==="object"){
+   if(depth>3)return "[deep object]";
+   if(Array.isArray(v))return {entries:v.length,sample:v.slice(0,5).map(x=>sanitize(x,depth+1))};
+   return Object.fromEntries(Object.entries(v).slice(0,30).map(([k,x])=>[k,sanitize(x,depth+1)]));
+  }
+  return v;
+ };
+ return sanitize(value);
 }
 function detailedDocumentAudit(before,after){
  const changes=[];

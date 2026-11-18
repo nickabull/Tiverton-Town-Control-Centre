@@ -179,3 +179,11 @@ Home network (DrayTek 2865, 10.0.0.x)
 **NEXT SAFE PI INSPECTION:** On the Pi open Terminal and run `cat /proc/device-tree/model` (may have trailing NUL), `free -h`, `cat /etc/os-release`, `df -h /`, and `hostname -I`. Record outputs, check whether Pi is already serving anything, inventory existing SD/storage, and back up before install. Check screen resolution via display settings. Only then decide whether to pilot local Eldoret and whether Pi 5/budget mini-PC/touchscreen/UPS purchases are justified.
 
 **Airlite test sequence:** Determine physical USB connection and macOS enumerated devices, establish Donkey-to-Mac control pairing (if code located), test one fader OFF→ON to intended deck, observe signal path and proper feedback, disconnect control host, confirm uninterrupted Mac playback, and record pass/fail with real observations.
+
+
+### 18 Nov 2026 — existing Raspberry Pi positively identified
+- **VERIFIED by user on device:** `cat /proc/device-tree/model` returned **Raspberry Pi 3 Model B Rev 1.2**.
+- Hardware characteristics of Pi 3 Model B: 1 GB RAM, 1.2 GHz quad-core CPU, 100 Mb/s Ethernet, 2.4 GHz Wi-Fi, four USB 2.0 ports. Treat as a lightweight pilot controller, not an approved permanent purchase replacement yet.
+- User clarified the attached little touchscreen is **only for a compact engine-room health/status screen**; the main Eldoret 16:9 UI will live on a separate large touchscreen/browser client. Do not evaluate the Pi based on its small display or make the small display run the main interface.
+- **UNTESTED:** installed OS, available memory/storage, network access, SSH/Tailscale, service integrations and load, reboot recovery. No live automation service has been migrated.
+- **Next read-only device checks:** `cat /etc/os-release`, `free -h`, `df -h /`, `hostname -I`; then discover current running services and safely image/backup the SD card before installation or migration. Keep Donkey as fallback. Airlite tests remain outstanding, Mac independent audio unchanged.

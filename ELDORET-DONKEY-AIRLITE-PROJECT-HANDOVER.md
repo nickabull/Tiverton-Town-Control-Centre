@@ -473,3 +473,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **Verified from user terminal transcript:** `sudo modprobe vc4` returned without visible error. `ls /sys/class/drm/` then listed only `version`; no `card0` or registered DRM connectors. Before load, `/sys/class/drm` was absent entirely.
 - **Interpretation:** driver module can be loaded but no usable display device has registered; NOT proof that DSI hardware is recognised or LCD is faulty. Need inspect post-load `lsmod` and kernel `dmesg` for device-tree/DRM/DSI errors. Do not append another overlay; two duplicate `[all]` blocks already present, and original `config.txt.before-screen` backup exists.
 - Production Eldoret at `10.0.0.39:8765` was previously verified; manual modprobe has not been followed by a fresh user-confirmed Eldoret health check.
+
+
+### 18 November 2026 22:29 GMT — Bulldog local graphical Eldoret SUCCESS
+- **User-confirmed:** DietPi LXDE desktop now appears on physical HDMI Acer monitor after installation of LXDE and Chromium and selection of DietPi AutoStart option 2 (automatic desktop login as `dietpi`). Earlier headless framebuffer text and HDMI attempts did not display a usable picture. Original ribbon-connected DSI touchscreen remains unverified/blank.
+- **User-confirmed direct browser test ON Bulldog:** both `http://127.0.0.1:8765` and `http://10.0.0.39:8765` resolve to working Eldoret dashboard in Chromium, and user successfully changed the Sky Q channel from Bulldog's physical GUI. This is a functional end-to-end controller UI test, not just status.
+- **NEXT:** verify Chromium fullscreen with F11, then configure reliable unattended Chromium launch at boot in a single window/kiosk mode after testing memory, and check Eldoret system service autostarts independently. Preserve service credentials and do not run browser as root. Need still test DSI panel model/driver separately. Investigate long-term Chromium memory demand on 1 GB Pi 3.

@@ -331,3 +331,10 @@ Home network (DrayTek 2865, 10.0.0.x)
   - 10.0.0.5 / b8-27-eb-de-7f-82 / A&H Conrol (spelling as exported)
   - 10.0.0.20 / f0-5c-19-cd-bc-c0 / BBC Aruba
 - **Backup location:** original uploaded file stored in conversation, not committed to GitHub. User should keep an independent copy in a secure backup location. A binding-list export is not necessarily a full router configuration backup; do not assume other DrayTek settings are protected. Keep Strict Bind disabled.
+
+
+### 18 November 2026 ~19:29 GMT — Eldoret Network tab accepted as design requirement
+- **User request:** surface the 20-entry DrayTek IP/MAC reservation inventory directly in an Eldoret dashboard tab. Design a fixed 16:9/no-scroll `NETWORK` view and searchable/filterable detail experience, while retaining the explicit select → red outline → CONFIRM safety rule for any future write actions.
+- **Source:** complete, locally exported IP bind list `ipbindmac_20261118(1).cfg` as documented above; display the known address, MAC, name/label, role, room/type, and backup provenance. Distinguish static saved inventory from live availability.
+- **Future features (not built):** network device live checks with last-seen times and sensible protocol-specific validation (do not equate unanswered ping with failure), alerts, individual device details, import and compare new DrayTek exports, controlled download/export, historical change log/audit. Keep passwords, router config secrets and internal network management actions out of public pages. The 20-entry list is a reservation register, NOT a complete census of all network clients.
+- **Status:** design/proposal logged, not deployed to Eldoret, Bulldog or central dashboard yet.

@@ -1,1 +1,5 @@
-{"all_albums":true,"request":"Refresh Larkhall 24 October 2026 and enable automatic hourly discovery"}
+{
+  "all_albums": true,
+  "request": "V3.9 populate public Viv Curtis Tiverton album metadata catalogue, preserve original photo URLs and credits",
+  "request_id": "v3-9-public-gallery-refresh-20261118"
+}

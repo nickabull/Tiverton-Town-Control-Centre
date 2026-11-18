@@ -1379,6 +1379,73 @@ function activityLogPortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function sourcesHubPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy · Programme data sources</title><style>
+ body{background:#17181a;color:#eee;margin:0;font:14px system-ui,Arial}main{max-width:1150px;margin:auto;padding:24px}h1{color:#ffda00}
+ section{border:1px solid #505256;padding:16px;border-radius:8px;margin:15px 0}h2{color:#ffda00;font-size:19px}
+ button,input{font:inherit;background:#313337;color:#fff;padding:10px;border:1px solid #62646b;border-radius:4px}
+ button{cursor:pointer}a{color:#ffda00}.muted{color:#ccc}.good{color:#9ce9ae}.bad{color:#ffaaaa}
+ .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+ .card{border:1px solid #55575c;border-radius:6px;padding:12px;background:#222326}
+ .card p{margin:5px 0}small{color:#bbb}pre{white-space:pre-wrap;max-height:270px;overflow:auto}
+ </style><main><h1>TIVVY · LIVE SOURCE HUB</h1>
+ <p>Bring existing match feeds and image catalogues into programme research. This is a read-only source browser, not an automatic overwrite of published match facts or artwork.</p>
+ <p id="identity">Checking staff login…</p>
+ <section><h2>Matchday feeds</h2>
+ <p class="muted">Reuses the existing Tivvy Live collector: Southern League's match feed, optional FootballWebPages cross-check and authorised club X API updates. No duplicate X scraping or second paid polling system.</p>
+ <label for="date">Match date</label> <input id="date" type="date"><button id="load">LOAD MATCHDAY SOURCES</button>
+ <p id="status"></p><div class="grid" id="summary"></div>
+ <h3>Southern League matches</h3><div class="grid" id="matches"></div>
+ <h3>FootballWebPages cross-check</h3><div class="grid" id="fwp"></div>
+ <h3>Official club X posts</h3><div id="posts"></div>
+ </section>
+ <section><h2>Viv Curtis photography</h2><p>The existing hourly Flickr catalogue supplies searchable public album titles, photographs and photographer metadata, with links back to original sources.</p>
+ <a href="/artwork-library">SEARCH VIV'S PHOTO CATALOGUE AND SAVED ORIGINAL ARTWORK</a></section>
+ <section><h2>Other feeds</h2><p><strong>ESPN:</strong> Not connected in this verified collector. We can add a compliant source adapter once its data endpoint and permitted use are confirmed.</p>
+ <p>Source priority: Southern League verified fixtures/results, FootballWebPages as a cross-check where configured, X for club announcements with provenance. Conflicting sources should be flagged for review rather than silently replacing programme text.</p></section>
+ <p><a href="/cloud-workspace">EDIT CLOUD WORKING COPY</a> · <a href="/activity-log">AUDIT HISTORY</a></p>
+ </main><script>
+ (()=>{"use strict";const $=id=>document.getElementById(id);
+ async function api(url){const r=await fetch(url,{credentials:"same-origin",cache:"no-store"});const x=await r.json();if(!r.ok||!x.ok)throw Error(x.error||"HTTP "+r.status);return x}
+ function div(text,parent,cls="card"){const e=document.createElement("div");e.className=cls;e.textContent=text;parent.append(e);return e}
+ function fixture(x){
+  const score=x.score&&x.score.home!==undefined?String(x.score.home)+"–"+String(x.score.away):"—";
+  return (x.home||"?")+" "+score+" "+(x.away||"?")+" · "+(x.status||"unknown");
+ }
+ $("date").value=new Date().toISOString().slice(0,10);
+ $("load").onclick=async()=>{
+  const date=$("date").value;if(!date)return;
+  for(const id of ["summary","matches","fwp","posts"])$(id).replaceChildren();
+  $("status").textContent="Reading existing collector for "+date+"…";
+  try{
+   const data=await api("/api/sources/live?date="+encodeURIComponent(date));
+   const feed=data.data||{},league=feed.matchday||{},fwp=feed.fwp||{},x=feed.x||{};
+   div("Southern League · "+(league.status||"not available")+" · checked "+(league.checkedAt||"not recorded"),$("summary"));
+   div("FootballWebPages · "+(fwp.status||"not available")+" · checked "+(fwp.checkedAt||"not recorded"),$("summary"));
+   div("Club X API · "+(x.status||feed.xCollectionMode||"not available")+" · checked "+(x.checkedAt||"not recorded"),$("summary"));
+   const matches=[...(league.featured?[league.featured]:[]),...(league.matches||[])];
+   for(const row of matches.slice(0,100))div(fixture(row)+" · "+(row.competition||"competition not classified"),$("matches"));
+   if(!matches.length)div("No league matches supplied for this date; don't infer a nil-nil result.",$("matches"));
+   for(const row of (fwp.matches||[]).slice(0,100))div(fixture(row),$("fwp"));
+   if(!(fwp.matches||[]).length)div(fwp.warning||"No FootballWebPages cross-check supplied.",$("fwp"));
+   for(const row of (x.posts||[]).slice(0,40)){
+    const card=document.createElement("div");card.className="card";
+    const header=document.createElement("strong");header.textContent="Official club X · "+(row.createdAt||"time unavailable");card.append(header);
+    const message=document.createElement("p");message.textContent=row.text||"";card.append(message);$("posts").append(card);
+   }
+   if(!(x.posts||[]).length)div("No X posts returned; check whether this date is within the enabled collection window.",$("posts"));
+   $("status").textContent="Source view loaded. Date "+date+". Always verify conflicts before publishing.";
+  }catch(e){$("status").textContent="Source retrieval unavailable: "+e.message}
+ };
+ (async()=>{try{const me=await api("/api/me");$("identity").textContent="Protected login verified · "+me.role}
+ catch(e){$("identity").textContent="Access unavailable: "+e.message}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -1400,6 +1467,7 @@ export default {
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
     if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
     if(path==="/activity-log"&&method==="GET"&&allowed(role,"read"))return activityLogPortal();
+    if(path==="/source-hub"&&method==="GET"&&allowed(role,"read"))return sourcesHubPortal();
     if(path==="/api/library/assets"&&method==="GET"&&allowed(role,"read"))return listLibrary(env,url);
    if(path==="/api/library/assets"&&method==="POST"&&allowed(role,"edit"))return uploadLibraryAsset(env,actor,request);
    if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);

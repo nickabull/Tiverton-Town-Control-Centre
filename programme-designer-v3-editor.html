@@ -1563,7 +1563,18 @@ window.addEventListener('message',event=>{if(event.origin!==location.origin)retu
   // Never touch the original GitHub Pages draft key; this is a separate origin.
   try{
    if(activeEditor)endEdit(false);
-   layers=structuredClone(input);selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
+   layers=structuredClone(input).map(layer=>{
+    // Archived drafts compact common built-in artwork as __v3_builtin_*;
+    // revive the ORIGINAL embedded PNG bytes before native paint().
+    // Without this, the browser treats the compact marker as a URL and
+    // displays broken images (e.g. Map Background).
+    if(layer&&layer.type==='image'&&typeof layer.src==='string'&&layer.src.startsWith('__v3_builtin_')){
+     const revived=v3Revive('src',layer.src);
+     if(revived===layer.src)throw Error('Unknown embedded V3 image '+layer.src);
+     layer.src=revived;
+    }
+    return layer;
+   });selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
    lastSavedSnapshot=v3Pack();undoStack.length=0;redoStack.length=0;historyCounter();
    multiSelected.clear();paint();updateFormatButtons();
    queueDraftSave(lastSavedSnapshot,true);

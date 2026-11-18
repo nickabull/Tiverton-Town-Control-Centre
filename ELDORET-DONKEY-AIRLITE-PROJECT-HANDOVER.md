@@ -210,3 +210,13 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED by user report:** SSH login from Mac to second Pi at LAN IP `10.0.0.26` succeeded after locally resetting `pi` account password using `sudo passwd pi`. Earlier Mac SSH prompt confirmed host reached and ED25519 host fingerprint presented; remote interactive access now confirmed by user.
 - **Security follow-up:** SSH password authentication currently likely enabled; do not publish new password, move to SSH keys after backup/reimage, and do not expose port 22 on internet.
 - **Next read-only baseline:** inspect Pi model, OS, memory, storage, processor temperature and uptime through SSH, then inventory running services before wiping/updating. No new Eldoret services installed yet.
+
+
+### 18 Nov 2026 14:50 GMT — Second Pi SSH baseline (user-run, verified output)
+- Model: Raspberry Pi 3 Model B Rev 1.2; OS Raspbian GNU/Linux 10 (buster).
+- `free -h`: 926 MiB total RAM, 592 MiB used, 36 MiB free, 296 MiB buff/cache, **181 MiB available**; swap 99 MiB total, 86 MiB used, 13 MiB free. Indicates limited headroom; swap use alone is not proof of current thrashing.
+- `df -h /`: root volume 6.9 GiB, 5.4 GiB used, 1.2 GiB available, 82% full.
+- `vcgencmd measure_temp`: 53.7 C at test time.
+- `uptime`: 14:50:28, up 33 minutes, 3 users, 1/5/15 min loads 1.11/1.18/1.13; these are load averages, not CPU percentages.
+- **Assessment, not performance validation:** this Buster graphical installation has limited spare RAM and storage. Do not deploy Eldoret yet. A backed-up clean supported lightweight OS could be evaluated, but must inventory installed workloads and storage first. No Pi performance benchmark or integration test performed.
+- **Next read-only inspection:** `ps -eo pid,comm,%cpu,%mem --sort=-%mem | head -n 20`, `systemctl --type=service --state=running --no-pager`, `lsblk -o NAME,SIZE,TYPE,MOUNTPOINT`, `uname -m`. Inspect purpose of pre-existing services before changing SD card.

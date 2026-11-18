@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## CLOUD ARCHIVE FULL DOWNLOAD/RECOVERY VERIFIED — 18 November 2026, 01:40 GMT
+
+- User ran the authenticated cloud importer's **VERIFY AND DOWNLOAD PORTABLE BACKUP** for archival issue `import_0e1a3c2cf5cd417f847c8cad00284c2f`, created from 316.1 MB browser source backup.
+- User's live screenshot shows `PORTABLE BACKUP GENERATED · 60 pages · 19 original assets verified · 316.0 MB. Downloaded locally. Original browser drafts unchanged. PDF reference art not included.` The recovery routine retrieved each R2 asset, checked original byte lengths/SHA-256 and reconstructed `tivvy-v3-draft-v2` JSON containing active pages, layer arrays, embedded original-format data URIs and activity history. Full D1/R2 archival roundtrip now **LIVE BROWSER SCREENSHOT PASS**: local source backup -> 19 R2 image files + D1 60-page metadata -> 316.0 MB verified locally downloaded JSON.
+- Caveats: restored backup has **not yet been loaded/rendered as an editable programme** or compared at full document/visual level; reference PDF artwork independently stored in browser IndexedDB is not included in cloud archive; live cross-device cloud-native editing and autosave still NOT implemented. The two original source page-1 AVIF references remain original format (no automatic compression/transcoding). Keep original 316.1 MB user backup and source IndexedDB until full cross-device recovery tests pass.
+- Next milestone: build non-destructive cloud edit/restore into separate browser namespace/session, verify layer positions, text, source images and layout, then promote cloud as primary only after version-conflict-safe write/readback tests and source PDF reference migration. User should not have to repeat manual API/dashboard steps.
+
 ## FIRST REAL 60-PAGE CLOUD ARCHIVAL COPY LIVE PASS — 18 Nov 2026, 01:38 GMT
 
 - User screenshot from live authenticated /cloud-import shows green status **ARCHIVAL CLOUD COPY VERIFIED · 60 pages · 19 distinct originals · import_0e1a3c2cf5cd417f847c8cad00284c2f**. User initiated real migration from 316.1 MB backup `tivvy-programme-v3-issue14-local-backup-2026-11-18_01-13-30.json`.

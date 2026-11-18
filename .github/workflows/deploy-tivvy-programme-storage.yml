@@ -65,6 +65,20 @@ jobs:
           process.stdout.write('Original V3 native editor cloud bridge validated\n');
           JS
           grep -q 'tivvy-v3-storage' src/index.js
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const src=fs.readFileSync('src/index.js','utf8');
+          const full=src.slice(src.indexOf('function fullDesignerTrialPortal()'),src.indexOf('\nexport default {'));
+          for(const required of ['showConflict(', 'checkRemote(', 'exportRecovery(', 'discardAndReload',
+            'CLOUD SAVE BLOCKED', 'expected_version:previous', 'keepLocal()', 'copy.version=read.version']){
+            if(!full.includes(required))throw Error('Native editor conflict protection missing: '+required);
+          }
+          const backend=src.slice(src.indexOf('async function saveIssue('),src.indexOf('async function restoreIssue('));
+          for(const required of ['current_version=?', 'expected', 'Version conflict', 'ownRevision']){
+            if(!backend.includes(required))throw Error('D1 optimistic-concurrency guard missing: '+required);
+          }
+          process.stdout.write('Native editor concurrent-save protection static check passed\n');
+          JS
           grep -q 'verifiedAccessIdentity' src/index.js
           grep -q 'env.ASSETS' src/index.js
           grep -q 'env.DB' src/index.js

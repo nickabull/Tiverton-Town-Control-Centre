@@ -278,3 +278,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED from user SSH terminal screenshot:** `hostname` -> `bulldog`; `cat /sys/class/net/eth0/address` -> `b8:27:eb:19:5d:bd`; `hostname -I` -> `10.0.0.39`. Old shell prompt still reads `root@DietPi`, but hostname command confirms configured name.
 - **PENDING:** Create/check DrayTek Vigor 2865 LAN Bind IP to MAC entry mapping Ethernet MAC `b8:27:eb:19:5d:bd` to `10.0.0.39`, label Bulldog, keep Strict Bind disabled. Router reservation is NOT yet verified saved.
 - Existing DietPi SSH session and minimal 64-bit boot are verified; small touchscreen display and Eldoret integrations not yet working/verified.
+
+
+### 18 November 2026 19:13 GMT — DrayTek IP Bind list and reservation strategy
+- **VERIFIED from user screenshot of DrayTek Vigor 2865 IP Bind List:** Donkey `10.0.0.27` / `DC-8B-28-1B-1E-F8`; Bulldog `10.0.0.39` / `B8-27-EB-19-5D-BD`; Velux gateway `10.0.0.22` / `70-EE-50-5B-FB-B5` with host ID `VELUXGateway`. Bulldog's entry is visibly saved/listed, though address persistence after DHCP renewal/reboot has not been tested.
+- **User plan:** reserve stable addresses for other network automation dependencies. Recommended verified MAC-to-IP reservations for Hue bridges (`10.0.0.2`, `.4` historically), UniFi controller (`.29` historically), Sky Q hardware, LG TVs, printers, and compatible connected appliances where justified. Confirm every device's current IP and MAC before binding; account for already manually static addresses, DHCP scope and collision risks; do not blindly bind stale IPs or duplicate MACs.
+- Keep `Strict Bind` disabled. Avoid reserving all temporary client devices; track infrastructure in an Eldoret device register with IP, MAC, hostname, role, state and last verification. No additional bindings confirmed yet.

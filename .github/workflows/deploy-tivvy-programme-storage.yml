@@ -42,7 +42,7 @@ jobs:
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           const source=fs.readFileSync('src/index.js','utf8');
-          for(const name of ['storagePortal','cloudImportPortal','cloudWorkspacePortal','assetLibraryPortal','activityLogPortal','sourcesHubPortal']){
+          for(const name of ['storagePortal','cloudImportPortal','cloudWorkspacePortal','assetLibraryPortal','activityLogPortal','sourcesHubPortal','fullDesignerTrialPortal']){
             const start=source.indexOf('function '+name+'()');
             if(start<0)throw Error('Missing protected portal '+name);
             const snippet=source.slice(start,source.indexOf('return new Response(html',start));
@@ -54,6 +54,15 @@ jobs:
             new Function(js);
             process.stdout.write('Validated '+name+' client JavaScript\n');
           }
+          JS
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const page=fs.readFileSync('../programme-designer-v3-editor.html','utf8');
+          if(!page.includes('V3_CLOUD_TRIAL')||!page.includes('tivvy-cloud-layer-snapshot')||!page.includes('tivvy-cloud-load'))throw Error('Original V3 cloud bridge missing');
+          const script=page.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+          if(!script)throw Error('Original editor script missing');
+          new Function(script);
+          process.stdout.write('Original V3 native editor cloud bridge validated\n');
           JS
           grep -q 'tivvy-v3-storage' src/index.js
           grep -q 'verifiedAccessIdentity' src/index.js
@@ -115,7 +124,7 @@ jobs:
           class NoRedirect(urllib.request.HTTPRedirectHandler):
               def redirect_request(self,req,fp,code,msg,headers,newurl):return None
           opener=urllib.request.build_opener(NoRedirect)
-          for route in ("/api/issues","/cloud-vault","/cloud-import","/cloud-workspace","/artwork-library","/activity-log","/source-hub","/api/library/assets","/api/activity","/api/sources/viv","/api/sources/live"):
+          for route in ("/api/issues","/cloud-vault","/cloud-import","/cloud-workspace","/artwork-library","/activity-log","/source-hub","/api/library/assets","/api/activity","/api/sources/viv","/api/sources/live","/full-designer","/full-editor-frame"):
               req=urllib.request.Request(base+route,headers={"User-Agent":"tivvy-storage-deploy-smoke/1.0"})
               try:
                   resp=opener.open(req,timeout=20)

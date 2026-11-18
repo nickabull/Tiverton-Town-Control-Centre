@@ -4,7 +4,7 @@
 // It is intentionally NOT called by the browser-only V3.1 application yet.
 const MAX_SNAPSHOT_BYTES = 3_000_000;
 // Large artwork uses a streamed single upload up to 95 MB; multipart is a future phase.
-const TYPES = new Set(["image/png","image/jpeg","image/webp","image/gif","application/pdf"]);
+const TYPES = new Set(["image/png","image/jpeg","image/webp","image/gif","image/avif","application/pdf"]);
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff"}});
 const failure=(message,status=400)=>json({ok:false,error:message},status);
 const uid=()=>crypto.randomUUID();
@@ -264,7 +264,7 @@ function cloudImportPortal(){
  <script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id),encoder=new TextEncoder();
- const allowed=new Set(["image/png","image/jpeg","image/webp","image/gif","application/pdf"]);
+ const allowed=new Set(["image/png","image/jpeg","image/webp","image/gif","image/avif","application/pdf"]);
  const limit=95000000;
  let prepared=null,busy=false;
  function line(t){$("log").textContent+=t+"\\n";$("log").scrollTop=$("log").scrollHeight}

@@ -67,6 +67,7 @@ jobs:
             "main":"src/index.js",
             "compatibility_date":"2026-11-17",
             "workers_dev":True,
+            "preview_urls":False,
             "keep_vars":True,
             "d1_databases":[{"binding":"DB","database_name":"tivvy-programme-v3","database_id":db}],
             "r2_buckets":[{"binding":"ASSETS","bucket_name":"tivvy-programme-v3-assets"}]

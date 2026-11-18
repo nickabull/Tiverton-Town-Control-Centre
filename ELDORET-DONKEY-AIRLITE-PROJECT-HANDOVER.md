@@ -265,3 +265,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 18 November 2026 18:39 GMT — Motor renamed Bulldog (selected name)
 - **User decision:** the former motorhome Pi `Motor` is to be called **Bulldog**, a Bull-family wordplay, and serve as the single Eldoret controller/Engine Room pilot. Proposed Linux hostname `bulldog` (apply only after DietPi is installed and booted; not yet changed).
 - Existing hardware: first Raspberry Pi 3 Model B Rev 1.2 with small attached screen for text-only Engine Room health. Main Eldoret 16:9 no-scroll controls use a separate large touchscreen/browser client. Preserve original Jessie SD card and Rivendell second Pi; Mac runs independently playing Bull's Hits audio; Donkey stays fallback until tested migration.
+
+
+### 18 November 2026 19:03 GMT — Bulldog DietPi initial boot VERIFIED
+- **VERIFIED from user screenshot of SSH welcome banner:** First Pi 3 Model B (aarch64) with new SanDisk microSD successfully booted DietPi **v10.8.2**; `root@DietPi:~#` shell reached from Mac using Ethernet **10.0.0.39**. Initial software installation completed as a minimal image, no desktop selected; DietPi survey opted out. Login/software passwords configured during setup (values not stored here). UART console disable was selected per setup discussion, but hardware state not independently rechecked.
+- Screenshot readouts: CPU temperature **43 C** (optimal according to DietPi), root disk **1.9 GiB of 58.2 GiB used (3.2%)**. These are point-in-time observations, not sustained load benchmark.
+- **Next:** set hostname from `DietPi` to user-selected `bulldog`; retrieve Ethernet MAC with `cat /sys/class/net/eth0/address`; reserve `10.0.0.39` in DrayTek Bind IP to MAC with Strict Bind disabled; validate hostname/address on reconnect. Don't treat reservation as complete until router confirms.
+- **Not yet verified:** attached touchscreen with DietPi (currently blank), Eldoret APIs/integrations, browser display, Tailscale, startup/recovery, and Airlite Mac audio tests. Keep original Motor/Jessie SD and Donkey fallback intact.

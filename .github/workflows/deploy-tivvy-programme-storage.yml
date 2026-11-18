@@ -68,6 +68,7 @@ jobs:
             "workers_dev":True,
             "preview_urls":False,
             "keep_vars":True,
+            "triggers":{"crons":["15 4 * * *"]},
             "d1_databases":[{"binding":"DB","database_name":"tivvy-programme-v3","database_id":db}],
             "r2_buckets":[{"binding":"ASSETS","bucket_name":"tivvy-programme-v3-assets"}]
           }

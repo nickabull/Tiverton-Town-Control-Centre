@@ -179,7 +179,7 @@ function storagePortal(){
  <button id="download" disabled>DOWNLOAD SELECTED ISSUE JSON</button>
  </section><section><h2>Revision history</h2><button id="history" disabled>LOAD REVISIONS</button><pre id="revisions">No revisions loaded.</pre></section>
  <p class="muted">Local design drafts remain on GitHub Pages in your browser. Cloud edit/sync and full-size R2 migration are not connected. Download is a recovery copy, not an editor restore.</p>
- <p><a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html">RETURN TO DESIGNER</a></p></main>
+ <p><a href="/cloud-import">SAFE CLOUD MIGRATION — CREATE VERIFIED COPY</a> · <a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html">RETURN TO DESIGNER</a></p></main>
  <script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);
@@ -228,6 +228,205 @@ function storagePortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function cloudImportPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy V3 · Protected cloud migration</title>
+ <style>
+ body{margin:0;background:#171819;color:#f3f3f3;font:15px system-ui,Arial}
+ main{max-width:900px;margin:auto;padding:24px}
+ h1,h2{color:#ffda00}a{color:#ffda00}section{border:1px solid #545454;border-radius:8px;padding:17px;margin:16px 0}
+ button,input{font:inherit}button{background:#ffda00;color:#111;padding:12px;border:0;border-radius:4px;font-weight:bold;cursor:pointer}
+ button:disabled{background:#555;color:#aaa;cursor:not-allowed}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;background:#222;padding:12px}
+ .note{color:#ccc}.bad{color:#ff9999}.good{color:#9beca2}
+ </style><main>
+ <h1>TIVVY · SAFE CLOUD MIGRATION</h1>
+ <p class="note">Creates a separate, versioned cloud copy. Your original programme in this browser is not replaced, edited or deleted.</p>
+ <p id="identity" role="status">Verifying administrator access…</p>
+ <section>
+ <h2>1. Choose the full local backup</h2>
+ <p>In Programme Designer, use BACKUP JSON first. Choose that downloaded complete issue backup here. The smaller readiness report cannot be migrated.</p>
+ <input id="source" type="file" accept=".json,application/json">
+ <p><button id="inspect" disabled>ANALYSE BACKUP — NO UPLOAD</button></p>
+ <pre id="report">No backup selected.</pre>
+ </section>
+ <section>
+ <h2>2. Make a separate cloud copy</h2>
+ <p class="note">The source file must pass validation. Images are transferred as their unchanged original bytes, downloaded again and SHA-256 checked. Duplicate image bytes are uploaded only once. If anything fails, this stage stays incomplete and the browser original is untouched.</p>
+ <button id="migrate" disabled>UPLOAD VERIFIED CLOUD COPY</button>
+ <p id="progress" role="status">No cloud upload started.</p>
+ <pre id="log"></pre>
+ </section>
+ <p class="note"><strong>Limits:</strong> 95 MB single image upload; 3 MB metadata JSON. Assets above 95 MB need multipart support. Unsupported embedded formats are blocked until reviewed. Reference-only source PDF images stored in a separate browser database are not part of the issue JSON backup. This is an archival cloud copy, not yet automatic live editor sync.</p>
+ <p><a href="/cloud-vault">RETURN TO CLOUD VAULT</a></p>
+ </main>
+ <script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id),encoder=new TextEncoder();
+ const allowed=new Set(["image/png","image/jpeg","image/webp","image/gif","application/pdf"]);
+ const limit=95000000;
+ let prepared=null,busy=false;
+ function line(t){$("log").textContent+=t+"\\n";$("log").scrollTop=$("log").scrollHeight}
+ function fail(e){$("progress").textContent="NOT COMPLETE: "+e.message;$("progress").className="bad";line("FAILED: "+e.message)}
+ async function api(path,opts){
+   const res=await fetch(path,{credentials:"same-origin",cache:"no-store",...opts});
+   let body;try{body=await res.json()}catch{throw Error(path+" returned HTTP "+res.status)}
+   if(!res.ok||!body.ok)throw Error((body.error||path+" HTTP "+res.status));
+   return body;
+ }
+ async function identity(){
+   try{const me=await api("/api/me");
+     if(!["admin","editor"].includes(me.role))throw Error("Editor or admin role required");
+     $("identity").textContent="Authenticated · "+me.role;$("identity").className="good";$("inspect").disabled=false;
+   }catch(e){$("identity").textContent="Access unavailable: "+e.message;$("identity").className="bad"}
+ }
+ function decode(uri){
+   const match=/^data:([^;,]+)(;base64)?,(.*)$/is.exec(uri);
+   if(!match)return null;
+   const mime=match[1].toLowerCase();
+   const raw=match[2]?atob(match[3]):decodeURIComponent(match[3]);
+   const data=Uint8Array.from(raw,c=>c.charCodeAt(0));
+   return {mime,data};
+ }
+ async function sha(bytes){
+   const digest=await crypto.subtle.digest("SHA-256",bytes);
+   return Array.from(new Uint8Array(digest),x=>x.toString(16).padStart(2,"0")).join("");
+ }
+ // Visit every nested image value; no code or HTML is ever evaluated.
+ function visit(value,handler,path="",seen=new WeakSet()){
+   if(typeof value==="string"){
+     if(value.startsWith("data:"))handler(value,path);
+     return;
+   }
+   if(!value||typeof value!=="object"||seen.has(value))return;
+   seen.add(value);
+   for(const [key,child] of Object.entries(value))visit(child,handler,path+"/"+key,seen);
+ }
+ function replaceUrls(value,assetMap){
+   if(typeof value==="string"&&value.startsWith("data:")){
+     const rec=assetMap.get(value);
+     if(!rec)throw Error("An embedded asset was not verified");
+     return {v3CloudAsset:rec.asset_id,mime_type:rec.mime,sha256:rec.sha,size:rec.size};
+   }
+   if(Array.isArray(value))return value.map(x=>replaceUrls(x,assetMap));
+   if(value&&typeof value==="object")
+     return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,replaceUrls(v,assetMap)]));
+   return value;
+ }
+ async function inspect(){
+   if(busy)return;busy=true;$("migrate").disabled=true;prepared=null;
+   $("report").textContent="Reading and validating backup file…";$("log").textContent="";
+   try{
+     const file=$("source").files[0];if(!file)throw Error("Select a full issue JSON backup");
+     if(file.size>550000000)throw Error("Backup exceeds this browser migration tool's 550 MB inspection limit");
+     const content=JSON.parse(await file.text());
+     if(content.format!=="tivvy-v3-draft-v2"||!Array.isArray(content.pages)||!content.layerData)
+       throw Error("This is not a full Tivvy V3 issue BACKUP JSON");
+     if(content.pages.length<1||content.pages.length>300)throw Error("Invalid page count");
+     const targets=[],problems=[],occurrences=[],seenIds=new Set();
+     for(const page of content.pages){
+       if(!/^[A-Za-z0-9_-]{1,90}$/.test(page.id)||seenIds.has(page.id))throw Error("Invalid/duplicate page ID");
+       seenIds.add(page.id);
+       const layers=content.layerData[page.id]||[];
+       if(!Array.isArray(layers))throw Error("Invalid layers on "+page.name);
+       targets.push({id:page.id,name:String(page.name||"Untitled"),include:page.include,source:page.source,
+         mode:page.mode,layers});
+       visit(layers,(value,path)=>occurrences.push({value,page:page.name,path}));
+     }
+     const types={},unique=new Map(),encountered=occurrences.length;
+     for(let i=0;i<occurrences.length;i++){
+       const item=occurrences[i],m=/^data:([^;,]+)(;base64)?,/i.exec(item.value);
+       const mime=m?.[1]?.toLowerCase()||"unknown";
+       types[mime]=(types[mime]||0)+1;
+       if(!allowed.has(mime)){problems.push("Unsupported "+mime+" on "+item.page+" "+item.path);continue}
+       const body=item.value.slice(m[0].length);
+       const approx=m[2]?Math.floor(body.length*3/4)-(body.endsWith("==")?2:body.endsWith("=")?1:0):new TextEncoder().encode(decodeURIComponent(body)).length;
+       if(approx>limit){problems.push("Original over 95 MB on "+item.page+" "+item.path);continue}
+       // Same data URL reused by several pages is one upload.
+       if(!unique.has(item.value))unique.set(item.value,{mime,size:approx});
+     }
+     // Existing full backup may contain unsaved source PDF reference pages
+     // separately in another IndexedDB database: do not claim a complete print issue.
+     const tiny=targets.map(x=>({...x,layers:[]}));
+     if(encoder.encode(JSON.stringify({pages:tiny})).length>2900000)problems.push("Metadata alone exceeds D1 limit");
+     prepared={content,targets,unique,problems};
+     $("report").textContent=[
+       "SOURCE: "+file.name+" ("+(file.size/1000000).toFixed(1)+" MB)",
+       "Pages: "+targets.length+" · embedded image occurrences: "+encountered,
+       "Distinct data URL values: "+unique.size+" · MIME types: "+JSON.stringify(types),
+       "Blocking issues: "+problems.length,
+       ...problems.slice(0,30),
+       problems.length>30?"... plus "+(problems.length-30)+" more":""
+     ].filter(Boolean).join("\\n");
+     $("migrate").disabled=problems.length>0;
+     $("progress").textContent=problems.length?"Resolve blocking issues first — nothing uploaded.":"Ready for a separately labelled CLOUD COPY. Nothing has been uploaded.";
+   }catch(e){$("report").textContent="PREPARATION FAILED: "+e.message;prepared=null;$("progress").textContent="No upload started."}
+   finally{busy=false}
+ }
+ async function migrate(){
+   if(busy||!prepared||prepared.problems.length)return;
+   busy=true;$("inspect").disabled=true;$("migrate").disabled=true;$("log").textContent="";
+   const job="import_"+crypto.randomUUID().replaceAll("-","");
+   const root="/api/issues/"+job;
+   try{
+     if(!confirm("Create a SEPARATE cloud staging copy? Your browser originals remain unchanged. Continue?"))return;
+     $("progress").textContent="Creating isolated cloud staging issue…";
+     await api("/api/issues",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
+       id:job,title:"INCOMPLETE CLOUD IMPORT "+new Date().toISOString(),
+       document:{pages:[],source:"browser-backup-migration",state:"INCOMPLETE",sourcePageCount:prepared.targets.length}
+     })});
+     line("Staging issue: "+job+" (version 1, incomplete)");
+     let number=0;
+     const assetMap=new Map(),hashed=new Map();
+     for(const [value,info] of prepared.unique){
+       const decoded=decode(value);if(!decoded)throw Error("Unable to decode an embedded image");
+       if(decoded.data.byteLength>limit)throw Error("Original exceeds 95 MB");
+       const checksum=await sha(decoded.data);
+       let record=hashed.get(checksum);
+       if(!record){
+         const response=await api(root+"/assets",{
+           method:"POST",headers:{"content-type":decoded.mime,"x-file-name":"original-"+checksum.slice(0,16)},
+           body:new Blob([decoded.data],{type:decoded.mime})
+         });
+         const read=await fetch(root+"/assets/"+response.asset_id,{credentials:"same-origin",cache:"no-store"});
+         if(!read.ok)throw Error("Asset read-back failed HTTP "+read.status);
+         const copy=new Uint8Array(await read.arrayBuffer());
+         if(copy.length!==decoded.data.length||await sha(copy)!==checksum)throw Error("Uploaded asset checksum mismatch");
+         record={asset_id:response.asset_id,sha:checksum,size:copy.length,mime:decoded.mime};
+         hashed.set(checksum,record);
+       }
+       assetMap.set(value,record);
+       number++;
+       $("progress").textContent="Verified "+number+" of "+prepared.unique.size+" image values";
+       line("Verified asset "+number+"/"+prepared.unique.size+" · "+(record.size/1000000).toFixed(2)+" MB");
+       await new Promise(done=>setTimeout(done,0));
+     }
+     const doc={pages:prepared.targets.map(x=>({...x,layers:replaceUrls(x.layers,assetMap)})),
+       source:"tivvy-v3-browser-backup",migrationState:"ARCHIVAL_COPY_NOT_EDITOR_READY",
+       migratedAt:new Date().toISOString(),sourcePageCount:prepared.targets.length,
+       assetCount:hashed.size,referencePdfArtIncluded:false};
+     const json=JSON.stringify({expected_version:1,document:doc,summary:"Verified lossless artwork migration to archival cloud copy"});
+     if(encoder.encode(json).length>3000000)throw Error("Cloud layout exceeds 3MB limit, staging issue remains incomplete");
+     const saved=await api(root,{method:"PUT",headers:{"content-type":"application/json"},body:json});
+     const checked=await api(root);
+     if(saved.version!==2||checked.version!==2||checked.document.pages.length!==doc.pages.length)
+       throw Error("Final cloud snapshot read-back mismatch");
+     $("progress").textContent="ARCHIVAL CLOUD COPY VERIFIED · "+doc.pages.length+" pages · "+hashed.size+" distinct originals · "+job;
+     $("progress").className="good";
+     line("Cloud staging now version 2. Browser original untouched. Reference PDF source library still not migrated.");
+   }catch(e){fail(e);line("Any cloud staging issue remains marked incomplete until a version-2 save succeeds.")}
+   finally{busy=false;$("inspect").disabled=false;$("migrate").disabled=!prepared||prepared.problems.length>0}
+ }
+ $("source").addEventListener("change",()=>{$("migrate").disabled=true;prepared=null;$("report").textContent="Backup selected. Click ANALYSE BACKUP."});
+ $("inspect").addEventListener("click",inspect);
+ $("migrate").addEventListener("click",migrate);
+ identity();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -245,6 +444,7 @@ export default {
   const role=membership.role,actor=email;
   try{
    if(path==="/cloud-vault"&&method==="GET")return storagePortal();
+    if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
    if(path==="/api/issues"&&method==="GET"){
     if(!allowed(role,"read"))return failure("Forbidden",403);

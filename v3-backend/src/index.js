@@ -433,7 +433,7 @@ function cloudImportPortal(){
   if(busy)return;busy=true;const btn=$("storageTest"),out=$("testResult");
   btn.disabled=true;out.textContent="Testing a disposable D1 issue and R2 PNG…";
   try{
-   const id="smoke_"+crypto.randomUUID().replaceAll("-"),root="/api/issues/"+id;
+   const id="smoke_"+crypto.randomUUID().replaceAll("-",""),root="/api/issues/"+id;
    const bytes=Uint8Array.from(atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+nmh8AAAAASUVORK5CYII="),x=>x.charCodeAt(0));
    const hash=await sha(bytes);
    await api("/api/issues",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({

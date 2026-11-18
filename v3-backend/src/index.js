@@ -380,6 +380,41 @@ async function appendAuditNote(env,actor,request){
  return json({ok:true,id:event,created_at:time,actor});
 }
 
+
+// Read-only source discovery using the existing hourly public Viv Curtis Flickr index.
+// This does NOT download, claim ownership of, or modify third-party photographs.
+async function vivFlickrDiscovery(url){
+ const q=String(url.searchParams.get("q")||"").trim().toLowerCase().slice(0,120);
+ const source="https://nickabull.github.io/Tiverton-Town-Control-Centre/data/flickr-gallery.json";
+ let response;
+ try{response=await fetch(source,{cf:{cacheEverything:true,cacheTtl:300}})}
+ catch{return json({ok:false,error:"Viv public catalogue is currently unavailable; no photos imported"},503)}
+ if(!response.ok)return json({ok:false,error:"Viv catalogue not published yet; existing source workflow must index it first"},503);
+ const length=Number(response.headers.get("content-length")||0);
+ if(length>12_000_000)return failure("Public photo index exceeds preview size budget",413);
+ const raw=await response.text();
+ if(raw.length>12_000_000)return failure("Public photo index too large",413);
+ let catalog;try{catalog=JSON.parse(raw)}catch{return json({ok:false,error:"Flickr index unavailable or malformed"},503)}
+ if(!Array.isArray(catalog.rows)||!Array.isArray(catalog.photo_fields))return json({ok:false,error:"Flickr catalogue is not populated"},503);
+ const fields=catalog.photo_fields,rows=[];
+ const find=(row,key)=>row[fields.indexOf(key)]||"";
+ for(const row of catalog.rows){
+  if(!Array.isArray(row))continue;
+  const photo_id=String(find(row,"photo_id")),title=String(find(row,"title"));
+  const date_taken=String(find(row,"date_taken")),tags=String(find(row,"tags"));
+  const thumbnail_url=String(find(row,"thumbnail_url"));
+  const original_url=String(find(row,"original_url"));
+  const source_url=String(find(row,"source_url")||"https://www.flickr.com/photos/90186291@N04/"+photo_id+"/");
+  if(!/^\d+$/.test(photo_id))continue;
+  if(q&&!(title+" "+date_taken+" "+tags+" "+String(find(row,"album_id"))).toLowerCase().includes(q))continue;
+  rows.push({photo_id,title,date_taken,tags,thumbnail_url:thumbnail_url.startsWith("https://")?thumbnail_url:null,
+   original_available:original_url.startsWith("https://"),source_url,credit:"Viv Curtis",
+   license:String(find(row,"license")||"Unverified; check rights before reuse")});
+  if(rows.length>=100)break;
+ }
+ return json({ok:true,provider:"Viv Curtis Flickr public index",source_updated_at:catalog.updated_at||null,total:(catalog.rows||[]).length,results:rows});
+}
+
 // Authenticated, read-only cloud vault. Hosted on this Worker origin so Access
 // cookies and the same-origin API never have to be exposed to GitHub Pages.
 function storagePortal(){
@@ -1327,6 +1362,7 @@ export default {
    if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);
    if(path==="/api/activity"&&method==="GET"&&allowed(role,"read"))return globalActivity(env,url);
    if(path==="/api/activity/notes"&&method==="POST"&&allowed(role,"edit"))return appendAuditNote(env,actor,request);
+   if(path==="/api/sources/viv"&&method==="GET"&&allowed(role,"read"))return vivFlickrDiscovery(url);
    const lib=path.match(/^\/api\/library\/assets\/([0-9a-f-]{36})(?:\/(original))?$/);
    if(lib){
     if(method==="GET"&&lib[2]==="original"&&allowed(role,"read"))return libraryOriginal(env,lib[1]);

@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## V3.10 full native V3 editor autosave — LIVE SCREENSHOT PASS, 18 November 2026, 12:58 GMT
+
+- User screenshot of protected /full-designer, Page 6 Latest News, shows green status **CLOUD AUTOSAVED & VERIFIED · v4 · 12:58:10**. A new visible text element reading **CLOUD V3 TEST** is rendered alongside original Antonio headings, exact editor toolbar (text/rich-format tools, undo, snap), yellow header and revived Map Background artwork.
+- This is **LIVE BROWSER SCREENSHOT PASS** for a full-native-V3-editor change queued through cloud autosave, D1 optimistic version update and document read-back on a separate `work_` trial. Existing historical cloud archive and original GitHub Pages/IndexedDB drafts remain separate. It does NOT yet prove reopen persistence for this particular v4 edit, nor rich-text inline span formatting, two-tab conflict behavior or new asset/reference PDF migration.
+- The trial text is visibly *separate below* Fans' Forum paragraph rather than appended directly to that paragraph; do not imply inline paragraph rich-text editing was tested.
+- Next safe QA: choose **RELOAD CLOUD COPY** (or reopen the same protected separate trial), navigate to Page 6 and confirm **CLOUD V3 TEST** survives. Then check /activity-log records actor/UTC/field changes on v3→v4. Do not promote cloud editing to production until explicit fresh reopen and conflict tests; original source PDF reference art and full-print PDF remain outstanding.
+
 ## V3.10 native full-editor Map Background restoration — USER LIVE PASS, 18 November 2026, 12:56 GMT
 
 - User confirmed "Yes the map is back" after refreshing/reopening Page 6 Latest News in the Access-protected true V3 cloud editor. This is real browser USER-REPORTED PASS for fix commit `5a4250b1c0a65ba84ed0a3fa8b2aa42b36d4594c`, reviving compact `__v3_builtin_map` into the original embedded image bytes before rendering. Native layout/Antonio typography had already been visually confirmed in the previous 12:45 screenshot.

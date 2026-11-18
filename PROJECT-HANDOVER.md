@@ -1,5 +1,15 @@
 # Tivvy Programme Designer — project handover
 
+## V3.7.2 AVIF original artwork support — 18 Nov 2026, 01:17 GMT
+
+- User ran the deployed `/cloud-import` **ANALYSE BACKUP — NO UPLOAD** with `tivvy-programme-v3-issue14-local-backup-2026-11-18_01-13-30.json` (316.1 MB). Screenshot confirms **60 active pages**, **0 deleted-page recovery**, **66 embedded image occurrences**, **17 distinct data URL values**. MIME occurrence counts: `image/png:63`, `image/avif:2`, `image/jpeg:1`.
+- Both blockers were original AVIF images from `Cover – Louis Smith`, specifically `/5/src` and `/6/src`. **AVIF is an expected supported original photography format**, not damaged content; user explicitly forbids conversion/compression/resizing of Viv Curtis original art.
+- Updated the storage Worker API allowed media types and the embedded importer list to include `image/avif` and preserve original bytes; commit `370f482c3e237f591873fbb5ccd8f3795759d9da`. Parsed Worker JS and nested importer client JS successfully (**STATIC PASS**).
+- Updated Designer shell readiness scanner to accept AVIF and version label V3.7.2, commit `33f89c3a41271eed14d9057068d6e9b5a8e079e2`; shell syntax **STATIC PASS**. Existing PNG/JPEG/AVIF inputs will not be modified by this change. No browser local draft writes performed.
+- **Deployment PENDING:** GitHub Actions auto-push remains intentionally off and connector lacks workflow dispatch; user needs one explicit `deploy` run of `.github/workflows/deploy-tivvy-programme-storage.yml`. Next check /cloud-import can re-analyse the 316.1MB backup as zero unsupported assets. No cloud artwork upload has occurred.
+- **Caution:** the importer currently loads the full 316.1 MB JSON into browser memory and copies decoded blobs during upload; quality preservation is guaranteed by intended byte-identical R2 transfer/checksum but actual performance/recovery with this complete backup has NOT been verified. Keep original browser draft and full JSON backup safe, test small disposable upload and cloud read-back before migrating actual images. Reference PDF page source artwork remains outside the JSON archive and not yet cloud-migrated. Claiming full cloud editor sync or print-ready backup would be premature.
+
+
 ## Cloud Import live screen QA PASS — 18 November 2026, 01:12 GMT
 
 - User screenshot from deployed `/cloud-import`: heading `TIVVY · SAFE CLOUD MIGRATION`, green `Authenticated · admin`, complete backup file input, active `ANALYSE BACKUP — NO UPLOAD` control, correctly disabled `UPLOAD VERIFIED CLOUD COPY` control, `No backup selected` and `No cloud upload started`. Confirms new code deployed and administrator identity route functional. No import file selected, no image or issue migrated, no archive validation or recovery QA yet.

@@ -1,5 +1,10 @@
 # Tivvy Programme Designer — project handover
 
+## V3.12 downloadable cloud reference recovery ZIP — 18 November 2026, ~13:53 GMT
+
+- User reports "ok I have the zip" after being directed to press **VERIFY & DOWNLOAD COMPLETE 54-PAGE RECOVERY ZIP** on protected reference-migration page. This confirms the browser generated a download file following the 54/54 cloud-upload SHA-256 PASS. The recovered ZIP contents and the app's exact **RECOVERY VERIFIED** success status have **not** been independently inspected in this turn; do not yet claim independent byte-level download validation beyond what the recovery code performs.
+- Next live check: open existing separate Full V3 Cloud Designer trial, select Page 7 (source PDF page 7), enable reference tracing/overlay (expected default ON for Page 7) and ensure original cloud-stored JPEG renders behind editable layers. Test another source page and the cloud's **VIEW SOURCE PDF PAGE** control. No edits to reference images or original GitHub Pages local storage.
+
 ## V3.12 54 original PDF reference JPEGs uploaded and byte-identical — LIVE USER SCREENSHOT PASS, 18 November 2026, 13:37 GMT
 
 - User screenshot from protected `/reference-migration` shows **ALL 54 ORIGINAL PDF REFERENCE PAGES VERIFIED IN CLOUD · byte-identical · 0 existing matches reused**. Individual page log confirms `original JPEG SHA-256 verified` and exact byte sizes. Prior ZIP analysis screenshot showed **54/54 original JPEG entries, 10.2 MB uncompressed image bytes, zero missing** before upload. This is live QA PASS for initial transfer and per-page R2 upload/get/checksum verification, separate D1 page mapping, no quality-altering conversion. This is not yet a verified full ZIP download/recovery or native tracing-overlay browser QA.

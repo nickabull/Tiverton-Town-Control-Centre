@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.20 Cloud Vault issue selection and revisions live QA PASS — 18 November 2026, 00:09 GMT
+
+- User provided screenshot of authenticated deployed Cloud Vault after selecting `DISPOSABLE R2 ARTWORK TEST · v1`. UI displays `Version 1 · 1 pages · cloud record only`, enables DOWNLOAD SELECTED ISSUE JSON, enables LOAD REVISIONS, and after loading displays `Version 1 · 2026-11-17T23:59:16.254Z · Initial issue`.
+- **Screenshot-confirmed browser PASS**: selecting an existing cloud issue, fetching/displaying the issue document version and page count, enabling appropriate controls, fetching/displaying D1 revision history. **JSON download availability PASS, actual file download/content NOT VERIFIED**. This does not test restore or cloud persistence of user's browser artwork. Source artwork and local drafts unchanged.
+- Next: maintain explicit separation of live-tested cloud API functionality versus UI-only/source-committed code; build non-destructive migration under tested backup/restore and large-R2-image constraints. Anonymous asset GET still pending.
+- No code changes made in this checkpoint.
+
+
 ## V3.6.20 Cloud Vault deployed: live screenshot PASS — 18 November 2026, 00:08 GMT
 
 - User deployed updated `v3-backend/src/index.js` to the existing Access-protected `tivvy-programme-v3-storage` Worker through Cloudflare editor. Screenshot of `/cloud-vault` displays `TIVVY · CLOUD VAULT`, green `Protected connection verified · role: admin`, issue chooser, and `2 cloud issue(s) found. Browser-only artwork is not included.` This proves **live Worker route deployment, protected admin API identity and D1 issue-list fetch, and basic Cloud Vault HTML render PASS**.

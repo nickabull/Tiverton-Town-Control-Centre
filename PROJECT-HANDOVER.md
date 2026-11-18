@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.20 deployability check — 18 November 2026, 00:02 GMT
+
+- User authorised continuing without repeated approvals. Inspected available connected tools and repository GitHub Actions. There is **no Cloudflare Worker deployment tool/connection**; existing `.github/workflows/deploy-tivvy-live-service.yml` targets unrelated live collector, and there is no dedicated authenticated Programme V3 Worker deployment workflow. Do not repurpose it, overwrite the live collector, or claim the storage Worker was deployed.
+- Re-fetched GitHub `v3-backend/src/index.js` and `programme-designer-v3.html`. Independently compiled both Worker JavaScript and shell inline JavaScript with the V8 JavaScript parser: **SYNTAX PASS**. Checked `/cloud-vault` route is after JWT+member validation: **STATIC PASS**. Checked shell's Cloud Vault link: **STATIC PASS**. Neither Worker runtime behaviour nor UI browser QA could be executed by available read-only browser tools. The Cloudflare protected Worker live deployment **remains pending**.
+- Attempted container-based remote source download for additional checks, but container networking could not resolve GitHub. Used connected GitHub fetch and V8 parsing instead. No code changes in this check. Browser-draft artwork and existing Cloudflare bindings remain untouched.
+- Deployment should be limited to the existing `tivvy-programme-v3-storage` Worker, using verified GitHub `v3-backend/src/index.js` while retaining Cloudflare Access All Traffic, D1 `DB`, R2 `ASSETS`, ACCESS_AUD secret and ACCESS_TEAM_DOMAIN; do NOT deploy the outdated `wrangler.example.toml`. Before declaring operational, test protected `/cloud-vault`, issue list, revision display and JSON download, and separate forbidden asset GET. Keep cloud save/sync disabled until safe reversible migration.
+
+
 ## V3.6.20 — first cloud storage controls staged (18 November 2026, 00:00 GMT)
 
 - Following user approval to proceed after six passing live R2 tests, committed a first **read-only and non-destructive** Cloud Vault integration stage: V3 shell now labels **V3.6.20**, MORE TOOLS > **CLOUD STORAGE** opens a truthful status panel, retains local BACKUP JSON, and links to an authenticated Cloud Vault at `https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-vault`. Shell commit `6ee596f7633d5bdc3962882ef68d3cff2b65f58c`.

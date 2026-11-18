@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.9 revised activity timeline LIVE VISUAL PASS — 18 November 2026, 11:34 GMT
+
+- User screenshot of authenticated `/activity-log` shows revamped five-column view **When (UK) / Who / Action / Where / Summary / details**, readable timestamp `18 Nov 2026, 11:17:24`, authenticated actor short name, human-readable badge `Layer edited`, concise before/after text preview with expandable `Full details / before & after`, and audit event counts: **36 event(s) shown**. Other visible event rows include `Cloud saved`, `Working copy created`, `Restored from Trash`, `Moved to Trash`, `Metadata edited`, `Artwork uploaded`. Confirms deployed visual cleanup and source audit events are readable; **LIVE SCREENSHOT VISUAL PASS**.
+- Minor UX follow-up: replace long raw `issue-...`, UUID and `work_...` IDs in Where column with friendly page/asset name, retaining exact ID in expanded details and CSV. Complete CSV download and infinite audit pagination still untested.
+- Next primary task: integrate original 60-page V3 editor renderer and proper layout formatting with separate cloud D1/R2 versioned save and autosave, retaining local browser backups, historical archive and PDF art. Simplified cloud trial misrenders cover/text and must not be substituted for original editorial interface.
+
 ## Full audit live QA PASS + readable log UI — 18 November 2026, 11:27 GMT
 
 - User screenshot of authenticated `/activity-log` confirms actual immutable D1 audit entries: signed-in actor, UTC timestamp, `layer.property.change` text edit on `issue-20261114-p06`, BEFORE and AFTER Fans' Forum text ending in `TEST TEXT TEST TEXT TEST TEXT`; accompanying `issue.save` v1→v2; working-copy creation; artwork Trash and Restore events with 90-day retention data. This is **LIVE SCREENSHOT PASS** for actor, timestamp, field-level before/after, and recorded artwork lifecycle history. Full CSV export and high-volume pagination remain untested.

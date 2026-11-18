@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.21 — READ-ONLY CLOUD MIGRATION PREFLIGHT (18 NOV 2026, 00:10 GMT)
+
+- User approved continuing to cloud-backed issue saving, without pausing for repeated approvals. Inspected V3 shell's per-page IndexedDB draft schema and existing full JSON backup: browser pages live under `tivvy-v3-drafts-idb-v1/pageDrafts`, current page is flushed before backup, and rich layer snapshots can contain embedded base64 artwork. Existing backend limits issue JSON to 3,000,000 bytes and a single R2 upload to 12,000,000 bytes. Do not pretend a whole legacy 168MB backup fits directly in D1.
+- Added V3 shell **V3.6.21** under MORE TOOLS > CLOUD STORAGE > **CHECK ALL PAGES FOR CLOUD SAVE**. Reads all saved V3 page layer drafts (with legacy localStorage fallback) after confirming editor flush; produces per-page layer counts, byte sizes, embedded data-URL asset counts/estimated sizes, over-12MB asset count, unsupported media count and malformed draft errors. Summary appears inside the storage dialog; **DOWNLOAD READINESS REPORT** exports timestamped, read-only JSON. No API fetch, R2 upload, local draft write, master/artwork alteration, page reset or cloud-save acknowledgement is performed.
+- The audit is an initial **migration inventory**, not a full validator of all image representations or cloud sync. Data URLs and raw page JSON may still contain references that require mapping or manual review; cannot know actual success without testing user's browser drafts. It does not provide image deduplication, asset-referencing, multi-user conflict handling or print-PDF QA.
+- Shell commit `6dc774f198ea0133da6947c2bbf8a4f42248e73a`. Re-fetched and parsed updated inline shell JS with V8: **STATIC SYNTAX PASS**; checked UI and no audit write paths. **BROWSER QA PENDING** on user's existing browser. No backend deployment needed for this UI-only change. Development source and existing drafts isolated.
+- Next: obtain readiness scan results without exposing large embedded assets; use those results to design staged, reversible R2 asset uploads and D1 metadata references, then cloud save/verify/restore and cross-device checks. Do not call anything cloud-saved until a complete issue clone and its assets can be recovered reliably.
+
+
 ## V3.6.20 Cloud Vault issue selection and revisions live QA PASS — 18 November 2026, 00:09 GMT
 
 - User provided screenshot of authenticated deployed Cloud Vault after selecting `DISPOSABLE R2 ARTWORK TEST · v1`. UI displays `Version 1 · 1 pages · cloud record only`, enables DOWNLOAD SELECTED ISSUE JSON, enables LOAD REVISIONS, and after loading displays `Version 1 · 2026-11-17T23:59:16.254Z · Initial issue`.

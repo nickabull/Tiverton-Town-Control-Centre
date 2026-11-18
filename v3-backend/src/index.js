@@ -1584,6 +1584,8 @@ function fullDesignerTrialPortal(){
  <button id="open">OPEN</button><select id="pages" disabled><option value="">Choose page</option></select>
  <button id="save" class="gold" disabled>SAVE CLOUD REVISION</button>
  <button id="refresh" disabled>RELOAD CLOUD COPY</button><button id="check" disabled>CHECK FOR OTHER EDITS</button>
+ <a id="referenceMigrationLink" href="/reference-migration">REFERENCE PAGES</a>
+ <button id="viewReference" disabled>VIEW SOURCE PDF PAGE</button>
  <a href="/cloud-workspace">Previous cloud trial</a></header>
  <div id="state" role="status">Verifying cloud access and listing working copies…</div>
  <section id="conflict" role="alert" aria-live="assertive">
@@ -1594,7 +1596,7 @@ function fullDesignerTrialPortal(){
  </section>
  <div id="initial"><h2>Your original editing tools, without the old browser storage dependency</h2>
  <p>Open a previously created separate cloud working copy. The full V3 editor will appear unchanged, with its typography, rich text, layer controls, resizing and zoom. Changes are automatically sent to D1 with a read-back confirmation and local browser recovery.</p>
- <p style="margin-top:12px"><strong>Safe trial:</strong> your original GitHub Pages drafts and historical cloud archive are not changed. Reference PDF pages and brand-new embedded image uploads still require separate migration.</p></div>
+ <p style="margin-top:12px"><strong>Safe trial:</strong> your original GitHub Pages drafts and historical cloud archive are not changed. Reference PDF pages can be imported from the ORIGINAL ZIP using the REFERENCE PAGES link; native preview/tracing only activates after verified import. Brand-new embedded images still require cloud asset registration.</p></div>
  <iframe id="frame" title="Original full V3 Designer trial" hidden></iframe>
  <script>
  (()=>{"use strict";
@@ -1602,7 +1604,7 @@ function fullDesignerTrialPortal(){
  const API="/api/issues/",WORK=/^work_[a-f0-9]{32}$/;
  let role="",copy=null,pageId="",frameReady=false,loaded=false,dirty=false,blocked=false,serial=0,timer=null,saving=false,savePromise=null,waiters=[];
  let conflictDetected=false,remoteVersion=null,checkRunning=false;
- const originalAssetRefs=new Map();
+ const originalAssetRefs=new Map(),referencePages=new Map();
  function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
  async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
   if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
@@ -1683,7 +1685,10 @@ function fullDesignerTrialPortal(){
  function inject(){
   if(!copy||!page()||!frameReady)return;
   const draft=toEditor(page().layers);
-  $("frame").contentWindow.postMessage({type:"tivvy-cloud-load",cloudIssue:copy.issue.id,pageId,layers:draft},location.origin);
+  const pdfPage=Number(page().source||0);
+  const referenceURL=pdfPage>=1&&pdfPage<=54&&referencePages.has(pdfPage)?
+   "/api/issues/"+encodeURIComponent(copy.issue.id)+"/reference-pages/"+pdfPage:null;
+  $("frame").contentWindow.postMessage({type:"tivvy-cloud-load",cloudIssue:copy.issue.id,pageId,layers:draft,referenceURL},location.origin);
  }
  function schedule(){clearTimeout(timer);if(blocked)return;timer=setTimeout(()=>void save(true),1800)}
  async function save(automatic=false){
@@ -1728,7 +1733,9 @@ function fullDesignerTrialPortal(){
  }
  function openPage(id){
   if(!copy||!copy.document.pages.some(p=>p.id===id))return;
-  pageId=id;frameReady=false;loaded=false;$("pages").value=id;$("initial").hidden=true;$("frame").hidden=false;
+  pageId=id;frameReady=false;loaded=false;$("pages").value=id;
+  const pdfPage=Number(page().source||0);
+  $("viewReference").disabled=!(pdfPage>=1&&pdfPage<=54&&referencePages.has(pdfPage));$("initial").hidden=true;$("frame").hidden=false;
   $("frame").src="/full-editor-frame?page="+encodeURIComponent(id)+"&cloudTrial=1&cloudIssue="+encodeURIComponent(copy.issue.id);
   state("Loading the ORIGINAL V3 layer editor for "+page().name+"…");
  }
@@ -1737,6 +1744,12 @@ function fullDesignerTrialPortal(){
   const obj=await api(API+encodeURIComponent(id));
   if(obj.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("The selected issue is not an independent cloud trial");
   copy=obj;dirty=false;blocked=false;serial=0;clearConflict();originalAssetRefs.clear();
+  referencePages.clear();
+  try{
+   const refs=await api(API+encodeURIComponent(id)+"/reference-pages");
+   for(const item of refs.pages||[])referencePages.set(Number(item.pdf_page),item);
+  }catch(e){state("Reference pages not yet available in cloud: "+e.message,"bad")}
+  $("referenceMigrationLink").href="/reference-migration?issue="+encodeURIComponent(id);
   for(const p of copy.document.pages)for(const l of p.layers||[]){
    if(l&&l.id&&l.src&&typeof l.src==="object"&&(l.src.v3CloudAsset||l.src.v3LibraryAsset))
     originalAssetRefs.set(p.id+"|"+String(l.id),structuredClone(l.src));
@@ -1791,6 +1804,12 @@ function fullDesignerTrialPortal(){
   if(!copy)return;
   if(dirty&&!await save(false))return;
   try{await loadWork(copy.issue.id)}catch(e){state("Cloud reload failed: "+e.message,"bad")}
+ };
+ $("viewReference").onclick=()=>{
+  if(!copy||!page())return;
+  const pdfPage=Number(page().source||0);
+  if(!referencePages.has(pdfPage)){state("Original PDF reference not migrated for page "+pdfPage,"bad");return}
+  window.open(API+encodeURIComponent(copy.issue.id)+"/reference-pages/"+pdfPage,"_blank","noopener,noreferrer");
  };
  $("check").onclick=async()=>{await checkRemote();if(!conflictDetected)state("No newer cloud revision found · current copy v"+(copy?.version||"?"),"good")};
  $("save").onclick=async()=>{

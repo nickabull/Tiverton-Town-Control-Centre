@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.12 54 original PDF reference JPEGs uploaded and byte-identical — LIVE USER SCREENSHOT PASS, 18 November 2026, 13:37 GMT
+
+- User screenshot from protected `/reference-migration` shows **ALL 54 ORIGINAL PDF REFERENCE PAGES VERIFIED IN CLOUD · byte-identical · 0 existing matches reused**. Individual page log confirms `original JPEG SHA-256 verified` and exact byte sizes. Prior ZIP analysis screenshot showed **54/54 original JPEG entries, 10.2 MB uncompressed image bytes, zero missing** before upload. This is live QA PASS for initial transfer and per-page R2 upload/get/checksum verification, separate D1 page mapping, no quality-altering conversion. This is not yet a verified full ZIP download/recovery or native tracing-overlay browser QA.
+- User correctly noted that the newer programme designs use PNG files. The 54 JPEGs are **legacy printed-PDF reference pages** extracted from the original reference ZIP, **not replacements for new editable PNG layers, Viv Curtis full-resolution originals, or approved page artwork**. Maintain both separate source types; never implicitly re-encode PNG into JPEG or compress original photos.
+- Next autonomous QA targets: run the protected **VERIFY & DOWNLOAD COMPLETE 54-PAGE RECOVERY ZIP** control and verify its 54 checksum checks; then reopen the full native cloud trial and inspect reference tracing on page 7 and another page, making sure page-to-PDF-page mapping works. Maintain historical 60-page archive and local browser copies untouched. Full multi-device end-to-end and production print PDF remain outstanding.
+
 ### V3.12 source navigation follow-up — 18 Nov 2026
 
 - Added a direct **REFERENCE ART → CLOUD** link in original V3 Designer's More Tools menu, commit `8e1325d75cb9f0687f46f8b51c49ed7c3a2435f0`, so users can find protected `/reference-migration` without returning to Cloudflare dashboard. Shell JS syntax PASS. Earlier main V3 cloud storage dialog also links to reference importer.

@@ -1,5 +1,10 @@
 # Tivvy Programme Designer — project handover
 
+### V3.12 source navigation follow-up — 18 Nov 2026
+
+- Added a direct **REFERENCE ART → CLOUD** link in original V3 Designer's More Tools menu, commit `8e1325d75cb9f0687f46f8b51c49ed7c3a2435f0`, so users can find protected `/reference-migration` without returning to Cloudflare dashboard. Shell JS syntax PASS. Earlier main V3 cloud storage dialog also links to reference importer.
+- The Worker reference migration portal and full-native cloud tracing bridge source compile statically. Specific latest automatic GitHub Actions run and live browser authenticated upload/recovery are still unverified. This is a staged source implementation, not proof that 54 reference images have reached R2 yet.
+
 ## V3.12 lossless original PDF reference artwork cloud migration — 18 Nov 2026 after 13:18 GMT
 
 User explicitly authorised autonomous continuation ('you don't need to keep asking me.. plough on!'). Built non-destructive cloud reference migration and recovery rather than repeatedly requesting approval. Code committed; still requires live signed-in browser QA and source ZIP transfer (browser-local source cannot be read remotely via GitHub).

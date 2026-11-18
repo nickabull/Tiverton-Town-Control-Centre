@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## Artwork Library metadata + search LIVE PASS — 18 November 2026, 10:11 GMT
+
+- User screenshot in signed-in `/artwork-library`: typed `recovery` into search, active/Saved artwork scope, result **1 asset(s) found in active**. Test PNG thumbnail displayed, title **Tivvy Library Test**, source filename `tivvy-library-test.png`, credit **Tivvy Test**. This demonstrates browser-verified metadata update, persistence, searchable lookup and thumbnail GET after the original 2,299-byte SHA-256-verified upload (recorded previously).
+- Next test is **disposable original asset ONLY**: select matching entry, MOVE TO TRASH, locate in Trash, RESTORE FROM TRASH and re-search `recovery` in active. These recovery operations have **not** yet been screenshot verified; do not mark them passed. Never delete or modify Viv Curtis images or historical 60-page programme archives for these tests.
+- Full Designer cloud-primary autosave and audit export still pending functional tests.
+
 ## Live Artwork Library ORIGINAL PNG roundtrip PASS — 18 Nov 2026, 10:09 GMT
 
 - User screenshot of protected `/artwork-library` confirms `ORIGINAL VERIFIED · tivvy-library-test.png · 2299 bytes · SHA-256 identical. Add tags/photographer to make it searchable.` This validates signed-in real original-artwork POST to R2, authenticated GET read-back, byte-count and client SHA-256 comparison, no conversion or compression.

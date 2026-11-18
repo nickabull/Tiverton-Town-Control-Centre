@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.7.1 — READ-ONLY UNSUPPORTED ARTWORK DIAGNOSTICS (18 NOVEMBER 2026, 00:24 GMT)
+
+- Extended the existing browser-cloud readiness checker to record the **exact MIME type, nested layer-property path and size** for unsupported embedded data URLs. Also flags embedded `data:` markers inside longer text strings for manual review rather than silently treating them as safe. This permits identifying the two previously opaque cover assets without modifying, compressing or exporting the actual private artwork bytes.
+- Upgraded V3 shell badge/dialog to V3.7.1; updated manifest/editor cache-busting link. Read-only cloud readiness JSON now includes `unsupportedDetails` and `embeddedDataInText` per page; the dialog summary lists unsupported MIME/path items when found. V3 shell commit `89df56c39eec2f8dd7134d9cd3f1a760ffb22e17`.
+- V3.7.1 JS inline syntax parsed successfully in V8 (**STATIC PASS**). Live browser QA, worker migration deployment and actual full issue transfer are pending. No artwork or browser drafts changed.
+- Continue prioritising the 60-page programme's full original quality and source-reference pages; do not claim the archival copy replaces editable local drafts or original full issue PDF. Existing storage Worker requires deployment before `/cloud-import` works.
+
+
 ## V3.7.0 — protected staged cloud archival migration coded (18 November 2026, 00:24 GMT)
 
 - User explicitly authorised proceeding with cloud migration without repeated approval pauses. Implemented a separate authenticated and role-gated `/cloud-import` screen on the existing Programme storage Worker source, reachable from Cloud Vault and V3.7.0 shell > MORE TOOLS > CLOUD STORAGE. This is a **source-code implementation, NOT a live deployment**.

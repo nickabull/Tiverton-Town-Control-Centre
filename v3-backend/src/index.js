@@ -1531,7 +1531,7 @@ function fullDesignerTrialPortal(){
  <header><h1>FULL V3 DESIGNER · CLOUD TRIAL</h1><select id="working"><option value="">Choose separate cloud working copy</option></select>
  <button id="open">OPEN</button><select id="pages" disabled><option value="">Choose page</option></select>
  <button id="save" class="gold" disabled>SAVE CLOUD REVISION</button>
- <button id="refresh" disabled>RELOAD CLOUD COPY</button>
+ <button id="refresh" disabled>RELOAD CLOUD COPY</button><button id="check" disabled>CHECK FOR OTHER EDITS</button>
  <a href="/cloud-workspace">Previous cloud trial</a></header>
  <div id="state" role="status">Verifying cloud access and listing working copies…</div>
  <section id="conflict" role="alert" aria-live="assertive">
@@ -1699,7 +1699,7 @@ function fullDesignerTrialPortal(){
     }
    }else if(fallback&&fallback.version!==obj.version){state("An old local recovery differs from the newer cloud version. It was not silently applied.","bad")}
   }
-  setPages();openPage(copy.document.pages[0].id);$("refresh").disabled=false;
+  setPages();openPage(copy.document.pages[0].id);$("refresh").disabled=false;$("check").disabled=false;
  }
  async function refreshList(){
   const me=await api("/api/me");role=me.role;
@@ -1740,6 +1740,7 @@ function fullDesignerTrialPortal(){
   if(dirty&&!await save(false))return;
   try{await loadWork(copy.issue.id)}catch(e){state("Cloud reload failed: "+e.message,"bad")}
  };
+ $("check").onclick=async()=>{await checkRemote();if(!conflictDetected)state("No newer cloud revision found · current copy v"+(copy?.version||"?"),"good")};
  $("save").onclick=async()=>{
   if(conflictDetected){state("Conflict active. Export your unsaved copy and reload only after reviewing it.","bad");return}
   blocked=false;await save(false);

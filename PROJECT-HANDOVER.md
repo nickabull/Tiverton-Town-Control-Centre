@@ -1,5 +1,10 @@
 # Tivvy Programme Designer — project handover
 
+## Cloud autosave reload persistence USER PASS — 18 Nov 2026, 11:25 GMT
+
+- User confirmed “yes!!” after clicking `RELOAD CLOUD VERSION` on the separate `/cloud-workspace` cloud trial and reselecting Page 6 Latest News: test text `TEST TEXT TEST TEXT TEST TEXT` remained visible after loading the persisted cloud version. Together with screenshot from 11:18 showing `CLOUD AUTOSAVED & VERIFIED · v2 · 11:16:53`, this verifies **AUTOSAVE / D1 READ-BACK / RELOAD PERSISTENCE PASS by user report**, in the isolated cloud trial only.
+- Outstanding next check: authenticated `/activity-log` must identify actor, timestamp (~11:16:53 Europe/London), Page 6 and Fans' Forum text layer, before/after fields; export history CSV. Do not mark detailed audit PASS until observed. Full legacy GitHub Pages editor auto-cloud-save, exact canvas rendering, external reference PDF art, 90-day retention cron expiry and cross-browser conflict remain pending.
+
 ## Cloud working-copy autosave LIVE PASS — 18 Nov 2026, 11:18 GMT
 
 - User screenshot of protected `/cloud-workspace` for **Page 6: Latest News**, selected Fans' Forum text layer: `CLOUD AUTOSAVED & VERIFIED · v2 · 11:16:53`. New visible text includes `TEST TEXT TEST TEXT TEST TEXT` after existing Fans' Forum copy. User made a trial edit without pressing manual SAVE; UI only says VERIFIED after D1 save + independent GET snapshot equality check.

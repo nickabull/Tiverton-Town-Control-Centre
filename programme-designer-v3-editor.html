@@ -1047,12 +1047,19 @@ function renderResizeOverlay(){
 function updateMultiHighlights(){paper.querySelectorAll('.artlayer').forEach(n=>n.classList.toggle('active',selectionIds().includes(n.dataset.id)));renderResizeOverlay()}
 const V3_REF_PAGE=Number((V3_PAGE_ID.match(/-p(\d+)$/)||[])[1]||0);
 const V3_TRACE_KEY="tivvy-v3-trace-settings-"+V3_PAGE_ID;
-let traceSettings={on:V3_REF_PAGE===7,opacity:40},traceURL=null,traceLoading=false;
+let traceSettings={on:V3_REF_PAGE===7,opacity:40},traceURL=null,traceLoading=false,cloudReferenceURL=null;
 try{const v=JSON.parse(localStorage.getItem(V3_TRACE_KEY)||"null");if(v&&typeof v.on==="boolean")traceSettings={on:v.on,opacity:Math.max(5,Math.min(100,Number(v.opacity)||40))}}catch(e){}
 $('traceToggle').checked=traceSettings.on;$('traceOpacity').value=traceSettings.opacity;$('tracePct').textContent=traceSettings.opacity+'%';
 function tracePersist(){try{localStorage.setItem(V3_TRACE_KEY,JSON.stringify(traceSettings))}catch(e){}}
 async function loadOriginalTrace(){
  if(!V3_REF_PAGE||traceURL||traceLoading)return;
+ if(V3_CLOUD_TRIAL){
+  // Unlike the original local editor, the cloud trial uses private R2
+  // references supplied by the authenticated parent for this precise page.
+  if(cloudReferenceURL){traceURL=cloudReferenceURL;updateTrace()}
+  else $('traceToggle').title='Import the original 54-page reference ZIP to the protected cloud working copy first';
+  return;
+ }
  traceLoading=true;
  try{
   const db=await new Promise((resolve,reject)=>{
@@ -1576,6 +1583,14 @@ window.addEventListener('message',event=>{if(event.origin!==location.origin)retu
     return layer;
    });selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
    lastSavedSnapshot=v3Pack();undoStack.length=0;redoStack.length=0;historyCounter();
+   // Source PDF reference is a separate read-only R2 JPEG, never an editable
+   // page layer or a browser-only objectURL. Do not revoke a shared cloud URL.
+   if(V3_CLOUD_TRIAL){
+    const ref=event.data.referenceURL;
+    const allowedPrefix='/api/issues/'+encodeURIComponent(V3_CLOUD_ISSUE)+'/reference-pages/';
+    cloudReferenceURL=typeof ref==='string'&&ref.startsWith(allowedPrefix)&&/^\d{1,2}$/.test(ref.slice(allowedPrefix.length))?ref:null;
+    traceURL=cloudReferenceURL;
+   }
    multiSelected.clear();paint();updateFormatButtons();
    queueDraftSave(lastSavedSnapshot,true);
    window.parent.postMessage({type:'tivvy-cloud-loaded',pageId:V3_PAGE_ID,cloudIssue:V3_CLOUD_ISSUE,

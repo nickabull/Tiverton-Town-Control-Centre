@@ -107,11 +107,12 @@ body.nav-collapsed #pageNavigation{display:none}
 <p>This imports the <strong>Tivvy V3 Programme Reference 54 Pages.zip</strong> package into this browser's separate reference library. It does <strong>not</strong> replace page layers, delete drafts, or upload anything to Cloudflare.</p>
 <p class="muted">Download the reference ZIP from the chat, then select it below. The 54 original pages will be browsable in the ORIGINAL PAGE view; choose EDIT LAYERS to keep working on native text, images and tables.</p>
 <p id="importStatus" aria-live="polite">No file selected.</p>
-<button class="btn gold" id="chooseZip">CHOOSE REFERENCE ZIP</button><button class="btn" id="closeImport">CLOSE</button></dialog>
+<button class="btn gold" id="chooseZip">CHOOSE REFERENCE ZIP</button><button class="btn" id="exportReferenceZip">EXPORT STORED 54 ORIGINALS AS ZIP</button><button class="btn" id="closeImport">CLOSE</button></dialog>
 <dialog id="storageDialog"><h3>CLOUD STORAGE · V3.10 TRIAL</h3>
 <p><strong>Live backend tests passed:</strong> D1 versioned issue save/recovery and R2 PNG upload/download with matching SHA-256 (17 Nov 2026). The app's browser drafts are NOT synced.</p>
 <p><strong>Current status:</strong> 60-page/19-original cloud archive and 316 MB recovery download both PASSED real browser testing. The original GitHub Pages editor still keeps its own browser drafts. A separate cloud working-copy editor with trial autosave, searchable original-artwork library, 90-day trash, audit and source feeds are being deployed and require live QA.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-vault" target="_blank" rel="noopener noreferrer">OPEN PROTECTED CLOUD VAULT ↗</a> · Lists existing cloud records, revisions and JSON downloads. It cannot modify or replace programme pages.</p>
+<p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/reference-migration" target="_blank" rel="noopener noreferrer">IMPORT ORIGINAL PDF REFERENCE PAGES INTO CLOUD</a> · Uses unchanged 54-page ZIP, verifies each JPEG SHA-256. Your existing local reference library is not replaced.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/full-designer" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL FULL V3 DESIGNER · PROTECTED CLOUD TRIAL</a> · Uses the original page canvas with a separate cloud working copy; does not overwrite local drafts.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-workspace" target="_blank" rel="noopener noreferrer">OPEN CLOUD WORKING COPY (EDITING TRIAL)</a> · Separate protected D1 versioned workspace for page text and positions. Does not change local browser drafts or your historical cloud archive.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/artwork-library" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ARTWORK LIBRARY</a> · Search, label and reuse stored originals; 90-day recoverable trash.</p>
@@ -776,6 +777,29 @@ async function importZip(file){
  }catch(e){status.textContent="Import not completed: "+e.message;message("Reference import failed; existing drafts unchanged")}
  finally{$("chooseZip").disabled=false;$("importFile").value=""}
 }
+async function exportStoredReferenceZip(){
+ const button=$("exportReferenceZip"),status=$("importStatus");button.disabled=true;
+ try{
+  if(!refDb)refDb=await openReferenceDb();
+  const zipTool=await zipLibrary(),zip=new zipTool(),folder=zip.folder("pages");
+  // Copy original JPEG Blob bytes without canvas, resize or image encoding.
+  for(let n=1;n<=54;n++){
+   const blob=await refGet("page-"+String(n).padStart(2,"0"));
+   if(!blob||blob.type!=="image/jpeg")throw Error("Original JPEG page "+n+" is missing from this browser. Nothing exported.");
+   folder.file("page-"+String(n).padStart(2,"0")+".jpg",blob,{binary:true,compression:"STORE"});
+   if(n%9===0)status.textContent="Copied original JPEGs "+n+"/54 to ZIP package…";
+  }
+  const packageBlob=await zip.generateAsync({type:"blob",compression:"STORE"},meta=>{
+   status.textContent="Packaging original JPEG bytes: "+Math.round(meta.percent)+"%";
+  });
+  const url=URL.createObjectURL(packageBlob),a=document.createElement("a");
+  a.href=url;a.download="tivvy-original-pdf-reference-54-pages.zip";a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),30000);
+  status.textContent="Exported 54 JPEG originals, byte-for-byte, without recompression. Browser originals were not changed.";
+ }catch(e){status.textContent="REFERENCE EXPORT INCOMPLETE: "+e.message+". Stored originals were not changed."}
+ finally{button.disabled=false}
+}
+$("exportReferenceZip").onclick=exportStoredReferenceZip;
 $("importBtn").onclick=()=>$("importDialog").showModal();
 $("chooseZip").onclick=()=>$("importFile").click();
 $("importFile").onchange=e=>importZip(e.target.files?.[0]);

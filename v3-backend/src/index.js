@@ -1606,6 +1606,18 @@ function fullDesignerTrialPortal(){
  let role="",copy=null,pageId="",frameReady=false,loaded=false,dirty=false,blocked=false,serial=0,timer=null,saving=false,savePromise=null,waiters=[];
  let conflictDetected=false,remoteVersion=null,checkRunning=false;
  const originalAssetRefs=new Map(),referencePages=new Map();
+ function sourcePdfPage(p){
+  if(!p)return 0;
+  const direct=Number(p.source||0);
+  if(Number.isInteger(direct)&&direct>=1&&direct<=54)return direct;
+  // Old backup provenance: page IDs such as issue-20261114-p06
+  // retain the original PDF number even if the manifest source field
+  // was missing during a legacy backup. Do not guess from the display
+  // order or page title (copies/duplicates can reorder freely).
+  const found=String(p.id||"").match(/^issue-[0-9]{8}-p(\d{2})$/);
+  const inferred=found?Number(found[1]):0;
+  return inferred>=1&&inferred<=54?inferred:0;
+ }
  function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
  async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
   if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
@@ -1686,7 +1698,7 @@ function fullDesignerTrialPortal(){
  function inject(){
   if(!copy||!page()||!frameReady)return;
   const draft=toEditor(page().layers);
-  const pdfPage=Number(page().source||0);
+  const pdfPage=sourcePdfPage(page());
   const referenceURL=pdfPage>=1&&pdfPage<=54&&referencePages.has(pdfPage)?
    "/api/issues/"+encodeURIComponent(copy.issue.id)+"/reference-pages/"+pdfPage:null;
   $("frame").contentWindow.postMessage({type:"tivvy-cloud-load",cloudIssue:copy.issue.id,pageId,layers:draft,referenceURL},location.origin);
@@ -1735,10 +1747,12 @@ function fullDesignerTrialPortal(){
  function openPage(id){
   if(!copy||!copy.document.pages.some(p=>p.id===id))return;
   pageId=id;frameReady=false;loaded=false;$("pages").value=id;
-  const pdfPage=Number(page().source||0);
+  const pdfPage=sourcePdfPage(page());
   $("viewReference").disabled=!(pdfPage>=1&&pdfPage<=54&&referencePages.has(pdfPage));$("initial").hidden=true;$("frame").hidden=false;
   $("frame").src="/full-editor-frame?page="+encodeURIComponent(id)+"&cloudTrial=1&cloudIssue="+encodeURIComponent(copy.issue.id);
-  state("Loading the ORIGINAL V3 layer editor for "+page().name+"…");
+  state("Loading original V3 editor for "+page().name+
+   (pdfPage>=1&&referencePages.has(pdfPage)?" · PDF reference page "+pdfPage+" available":
+    " · No matching original PDF reference on this page"),"");
  }
  async function loadWork(id){
   if(!WORK.test(id))throw Error("Only separate work_ trials can use this editor");
@@ -1808,7 +1822,7 @@ function fullDesignerTrialPortal(){
  };
  $("viewReference").onclick=()=>{
   if(!copy||!page())return;
-  const pdfPage=Number(page().source||0);
+  const pdfPage=sourcePdfPage(page());
   if(!referencePages.has(pdfPage)){state("Original PDF reference not migrated for page "+pdfPage,"bad");return}
   window.open(API+encodeURIComponent(copy.issue.id)+"/reference-pages/"+pdfPage,"_blank","noopener,noreferrer");
  };

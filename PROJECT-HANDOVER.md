@@ -1,5 +1,21 @@
 # Tivvy Programme Designer — project handover
 
+## V3.11 simultaneous-edit conflict safeguards — 18 November 2026 after 13:02 GMT
+
+- After user explicitly said "ok great crack on" following **full native V3 editor cloud autosave and reload PASS**, implemented robust two-tab safe editing controls in protected **/full-designer**, scoped only to separate `work_` trial issues. **Source committed, not yet live browser tested**.
+- Backend D1 was already using atomic optimistic concurrency `expected_version` conditional issue-revision insert and version update, returning HTTP 409 when another actor saved first. Verified source explicitly; no D1 schema changes, no historical archive mutations.
+- Worker controller enhancement commit **`496a2bc65c5bdff66a558c1c84a60273d6eb13c5`**:
+  - Proactive authenticated cloud version GET every ~20 seconds and when tab becomes visible, without altering cloud documents.
+  - If another tab saved newer version, block this editor's subsequent cloud saves, preserve unsaved in-memory/local recovery, surface prominent conflict panel with observed cloud version, and forbid blind retry.
+  - Explicit **DOWNLOAD UNSAVED RECOVERY JSON** exports current document, expected/observed revision and issue ID; this is a local file only, never auto-overwrites cloud.
+  - Deliberate separately confirmed **DISCARD THIS TAB'S CHANGES AND LOAD LATEST CLOUD VERSION**. No implicit merging or overwriting.
+  - Optimistic D1 PUT still enforces expected version even when concurrent update happens before next poll; 409 also invokes conflict panel. Generic failed save preserves local recovery and blocks further automatic writes until reviewed.
+- Commit **`0a858f2989278fdbacf1f057743a1d8316f1caf5`**: emergency unsaved drafts now use a per-tab ID in `sessionStorage` as part of the localStorage key to reduce backup collision across independent tabs, with legacy key read fallback for older trial. Original GitHub Pages IndexedDB/browser drafts and archival copy are unchanged. Browser tab duplication/very unusual sessionStorage cloning merits explicit testing.
+- Commit **`3ae2d40e36491bc2073426a1c255fb58dbbdaed0`**: one-click **CHECK FOR OTHER EDITS** button on protected full editor, supplementing background polling and visibility checks, for controlled QA.
+- Commit **`3157ab615f9d03d6ec3b46ea1c023f877f244505`**: scoped GitHub deployment workflow static check for conflict UI and D1 conditional-write protection.
+- Source Worker and extracted browser client scripts passed JS V8 syntax parsing. **Latest GitHub Actions deployment completion NOT independently verified; live signed-in two-tab behavior NOT YET TESTED.** Existing V3.10 single-tab full-editor native autosave/reopen remains previously user-confirmed PASS.
+- Next safe browser test: once updated protected `/full-designer` deployed, open the **same separate work_ trial** in two tabs, ensure both start at same revision; make a harmless text edit in Tab A and observe verified cloud version; click **CHECK FOR OTHER EDITS** in Tab B (do not save); must display conflict panel and recovery download, not overwrite Tab A. Carefully test stale PUT 409 using controlled disposable working issue only after recovering a JSON backup, then test rereload. Do not use the production GitHub Pages issue. Original PDF reference artwork, rich editing edge cases, cross-device verification and print PDF remain pending.
+
 ## V3.10 full native V3 cloud autosave survives reload — USER LIVE PASS, 18 Nov 2026, 13:00 GMT
 
 - User explicitly confirmed “Yes that has worked” after performing `RELOAD CLOUD COPY` and checking Page 6 Latest News in the original V3 full Designer cloud trial: test text **CLOUD V3 TEST** persisted following prior authenticated `CLOUD AUTOSAVED & VERIFIED · v4 · 12:58:10` screenshot. **Real native V3 original editor autosave → D1 save/readback → full cloud reload persistence PASS**, user-reported. No separate production/editor promotion implied.

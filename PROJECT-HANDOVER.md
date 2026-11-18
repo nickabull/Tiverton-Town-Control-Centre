@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## First GitHub Actions Programme storage deployment VERIFIED — 18 Nov 2026, 01:03 GMT
+
+- User successfully added `TIVVY_PROGRAMME_CLOUDFLARE_API_TOKEN` and `TIVVY_PROGRAMME_D1_DATABASE_ID` encrypted GitHub Actions secrets; previously configured `CLOUDFLARE_ACCOUNT_ID` existed. User manually dispatched new isolated Programme Worker workflow #2 dry-run and #3 deploy.
+- GitHub workflow run **#3**, run ID `44212815903`, job ID `134495168117`, has conclusion `success`; connector retrieved job steps and full logs. All checks passed, including final **Deploy this Worker only when explicitly enabled**. Wrangler logs explicitly confirm `Uploaded tivvy-programme-v3-storage`, binding `ASSETS` to `tivvy-programme-v3-assets` R2, binding `DB` to D1, deployed named worker to `https://tivvy-programme-v3-storage.nickabull.workers.dev` at 2026-11-18T01:03:49Z, Worker version ID `df93d953-c646-4e92-8033-15208fc19259`. This validates autonomous **GitHub→Cloudflare Worker deployment** with no manual code paste. Deployment source includes V3.7 cloud importer and streamed 95MB single upload route; **authenticated runtime QA still pending**, so do not claim artwork sync is complete.
+- GitHub logs WARNED that default preview URLs were enabled. Immediately patched generated Wrangler configuration to `preview_urls: False` in workflow, commit `8d8c5cb8ba8c9f1367dc732091ed803209a5c93b`; that patch **has not yet been deployed**, as push auto-deployment remains intentionally off. On next explicit deployment, verify preview URLs disabled. Security audit for Access protection on any existing preview deployments may be needed.
+- Next check: refresh live `/cloud-vault` and load `/cloud-import` in authenticated browser and confirm Access identity, D1 issue list, artwork routes; run safe disposable test only, do not upload real artwork until cover MIME, full reference artwork, and rollback readiness handled. Keep other Workers unchanged. Later only consider enabling auto-deploy after smoke-check gate is built.
+
+
 ## Tivvy Programme dedicated GitHub-to-Cloudflare deployment workflow and reusable Skill — 18 November 2026, 00:31 GMT
 
 - User approved creating a way for ChatGPT-led GitHub code updates to deploy to Cloudflare without repeated manual copy/paste. Investigated existing repo workflow `.github/workflows/deploy-tivvy-live-service.yml`; it is **specifically for unrelated Tivvy Live collector** and must remain untouched.

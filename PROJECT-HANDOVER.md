@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## First real browser disposable storage test PASS and issue-ID formatting fix — 18 November 2026, 01:29 GMT
+
+- User provided screenshot of `RUN DISPOSABLE STORAGE TEST` executed in authenticated Cloud Import. Status showed **PASS: D1 versioned save, R2 original byte upload/download, matching SHA-256. No real artwork changed.** This is the first screenshot-confirmed functional browser test of the **streamed** R2 upload implementation and D1 v2 save/read-back. Does NOT prove full 316MB archive migration, user artwork quality/restore or cloud-native editor integration.
+- Test issue ID contained literal `undefined` inserted between UUID segments, e.g. `smoke_a74fd434undefined...`. Inspected Worker embedded client script and found root cause: `crypto.randomUUID().replaceAll("-")` omitted replacement argument. This produced legal but ugly IDs, without affecting isolated test or artwork. Fixed it to `crypto.randomUUID().replaceAll("-","")` in **test UUID generation only**, commit `4a2af11aab5b13e3dbf0e46d76b32eb6da1b5c24`. Migration `import_` path already uses correct two-argument replaceAll, so not affected. Static Worker and embedded script syntax PASS. Program local/browser data unchanged.
+- Automatic push deployment for this source fix is expected through scoped GitHub Actions; until run result verified, mark **CODE COMMITTED / LIVE DEPLOY UNVERIFIED**. No cleanup deletion of disposable issue performed.
+- Priority next: provide a safe cloud archival-copy importer for actual 60 page issue with original AVIF, PNG and JPEG source data; build authenticated cloud-native open/save/recovery including source PDF art before considering switching away from browser IndexedDB. Preserve original 316.1MB local backup and Viv Curtis full-quality originals.
+
+
 ## V3.7 protected importer disposable cloud smoke-test control — 18 November 2026, 01:25 GMT
 
 - Added `RUN DISPOSABLE STORAGE TEST` in authenticated `/cloud-import` before selecting any real backup. On user click it creates a uniquely named D1 test issue, uploads a tiny original 1x1 PNG via the **new streamed 95MB-capable asset API**, downloads and SHA-256 verifies bytes, saves D1 revision v2 and reloads/verifies the revision and linked asset. Test only ever targets a disposable issue, never local browser artwork or real issue. Displays PASS or FAIL explicitly. Requires editor/admin authenticated access and same-origin API.

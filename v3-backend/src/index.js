@@ -1521,6 +1521,9 @@ function fullDesignerTrialPortal(){
  button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button.gold{background:#ffda00;color:#161616;font-weight:bold}
  #state{padding:9px 16px;min-height:40px;color:#d5d6db;border-bottom:1px solid #444}
  #state.good{color:#95e7a5}#state.bad{color:#ffabab}
+ #conflict{display:none;padding:14px 16px;background:#351f20;border-bottom:2px solid #e39b47;color:#fff}
+ #conflict.visible{display:block}#conflict strong{color:#ffd27d}
+ #conflict button{margin:8px 8px 0 0}#conflict p{margin-top:6px;line-height:1.5}
  #frame{width:100%;height:calc(100vh - 114px);min-height:600px;border:0;display:block}#frame[hidden]{display:none}
  #initial{max-width:800px;margin:70px auto;border:1px solid #56575d;padding:22px;border-radius:7px}
  #initial h2{color:#ffda00}a{color:#ffda00}
@@ -1531,6 +1534,12 @@ function fullDesignerTrialPortal(){
  <button id="refresh" disabled>RELOAD CLOUD COPY</button>
  <a href="/cloud-workspace">Previous cloud trial</a></header>
  <div id="state" role="status">Verifying cloud access and listing working copies…</div>
+ <section id="conflict" role="alert" aria-live="assertive">
+ <strong id="conflictTitle">A newer cloud revision exists.</strong>
+ <p id="conflictDescription">Nothing has been overwritten. Your unsaved work is preserved in this tab and, where possible, in a local recovery copy.</p>
+ <button id="exportRecovery">DOWNLOAD UNSAVED RECOVERY JSON</button>
+ <button id="discardAndReload">DISCARD THIS TAB'S CHANGES AND LOAD LATEST CLOUD VERSION</button>
+ </section>
  <div id="initial"><h2>Your original editing tools, without the old browser storage dependency</h2>
  <p>Open a previously created separate cloud working copy. The full V3 editor will appear unchanged, with its typography, rich text, layer controls, resizing and zoom. Changes are automatically sent to D1 with a read-back confirmation and local browser recovery.</p>
  <p style="margin-top:12px"><strong>Safe trial:</strong> your original GitHub Pages drafts and historical cloud archive are not changed. Reference PDF pages and brand-new embedded image uploads still require separate migration.</p></div>
@@ -1540,11 +1549,45 @@ function fullDesignerTrialPortal(){
  const $=id=>document.getElementById(id);
  const API="/api/issues/",WORK=/^work_[a-f0-9]{32}$/;
  let role="",copy=null,pageId="",frameReady=false,loaded=false,dirty=false,blocked=false,serial=0,timer=null,saving=false,savePromise=null,waiters=[];
+ let conflictDetected=false,remoteVersion=null,checkRunning=false;
  const originalAssetRefs=new Map();
  function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
  async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
   if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
  const storageKey=()=>copy?"tivvy-full-v3-trial-unsaved-"+copy.issue.id:"";
+ function showConflict(remote,reason){
+  blocked=true;conflictDetected=true;remoteVersion=remote??null;
+  clearTimeout(timer);if(dirty)keepLocal();
+  $("conflictTitle").textContent="Edit conflict · "+(remote!=null?"cloud revision "+remote+" is newer":"cloud version changed");
+  $("conflictDescription").textContent=reason+" Your editor's existing changes have NOT overwritten the cloud. Download your recovery JSON before deciding whether to discard this tab's work.";
+  $("conflict").classList.add("visible");
+  $("save").disabled=true;
+  state("CONFLICT — CLOUD SAVE BLOCKED. No changes overwritten. Export recovery before reloading.","bad");
+ }
+ function clearConflict(){
+  conflictDetected=false;remoteVersion=null;$("conflict").classList.remove("visible");
+ }
+ function exportRecovery(){
+  if(!copy)return;
+  const data={type:"TIVVY_V3_CONFLICT_RECOVERY",exported_at:new Date().toISOString(),
+   cloud_issue:copy.issue.id,expected_version:copy.version,observed_remote_version:remoteVersion,
+   page_id:pageId,unsaved_changes:dirty,document:copy.document};
+  const blob=new Blob([JSON.stringify(data)],{type:"application/json"});
+  const link=document.createElement("a"),url=URL.createObjectURL(blob);
+  link.href=url;link.download="tivvy-unsaved-conflict-"+copy.issue.id+"-"+Date.now()+".json";
+  link.click();setTimeout(()=>URL.revokeObjectURL(url),15000);
+ }
+ async function checkRemote(){
+  if(!copy||saving||checkRunning||conflictDetected)return;
+  checkRunning=true;
+  try{
+   const latest=await api(API+encodeURIComponent(copy.issue.id));
+   if(latest.version>copy.version){
+    showConflict(latest.version,"Another tab or editor saved a newer version. This tab expected revision "+copy.version+".");
+   }
+  }catch(e){if(dirty)state("Could not verify latest cloud revision: "+e.message+". Local recovery retained; autosave will retry.","bad")}
+  finally{checkRunning=false}
+ }
  function keepLocal(){
   if(!copy||!dirty)return true;
   try{localStorage.setItem(storageKey(),JSON.stringify({version:copy.version,pageId,document:copy.document,stored:new Date().toISOString()}));return true}
@@ -1587,7 +1630,10 @@ function fullDesignerTrialPortal(){
  async function save(automatic=false){
   clearTimeout(timer);
   if(saving)return savePromise;
-  if(!copy||!dirty||blocked)return !blocked;
+  if(!copy||!dirty||blocked){
+   if(blocked&&conflictDetected)state("SAVE BLOCKED: newer cloud revision. Download unsaved recovery before reloading.","bad");
+   return !blocked;
+  }
   saving=true;$("save").disabled=true;
   const requested=structuredClone(copy.document),previous=copy.version,at=serial,issueId=copy.issue.id,current=pageId;
   state(automatic?"Cloud autosave in progress…":"Saving full V3 layers to cloud…");
@@ -1602,7 +1648,16 @@ function fullDesignerTrialPortal(){
     if(at===serial){copy.document=read.document;dirty=false;try{localStorage.removeItem(storageKey())}catch{};state("CLOUD AUTOSAVED & VERIFIED · v"+read.version+" · "+new Date().toLocaleTimeString("en-GB"),"good")}
     else{dirty=true;keepLocal();state("Cloud v"+read.version+" verified; more recent changes are queued.");}
     return true;
-   }catch(e){blocked=true;dirty=true;keepLocal();state("CLOUD SAVE NOT VERIFIED: "+e.message+". Local recovery retained. Do not close or reload.","bad");return false}
+   }catch(e){
+    dirty=true;keepLocal();
+    if(/conflict|409|version|stale/i.test(e.message)){
+     let version=null;try{const latest=await api(API+encodeURIComponent(issueId));version=latest.version}catch{}
+     showConflict(version,"The save was refused or its version changed: "+e.message+".");
+    }else{
+     blocked=true;state("CLOUD SAVE NOT VERIFIED: "+e.message+". Local recovery retained. Do not close or reload.","bad");
+    }
+    return false;
+   }
    finally{saving=false;$("save").disabled=!dirty; if(dirty&&!blocked)schedule()}
   })();
   return savePromise;
@@ -1622,7 +1677,7 @@ function fullDesignerTrialPortal(){
   if(!WORK.test(id))throw Error("Only separate work_ trials can use this editor");
   const obj=await api(API+encodeURIComponent(id));
   if(obj.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("The selected issue is not an independent cloud trial");
-  copy=obj;dirty=false;blocked=false;serial=0;originalAssetRefs.clear();
+  copy=obj;dirty=false;blocked=false;serial=0;clearConflict();originalAssetRefs.clear();
   for(const p of copy.document.pages)for(const l of p.layers||[]){
    if(l&&l.id&&l.src&&typeof l.src==="object"&&(l.src.v3CloudAsset||l.src.v3LibraryAsset))
     originalAssetRefs.set(p.id+"|"+String(l.id),structuredClone(l.src));
@@ -1676,7 +1731,28 @@ function fullDesignerTrialPortal(){
   if(dirty&&!await save(false))return;
   try{await loadWork(copy.issue.id)}catch(e){state("Cloud reload failed: "+e.message,"bad")}
  };
- $("save").onclick=async()=>{blocked=false;await save(false)};
+ $("save").onclick=async()=>{
+  if(conflictDetected){state("Conflict active. Export your unsaved copy and reload only after reviewing it.","bad");return}
+  blocked=false;await save(false);
+ };
+ $("exportRecovery").onclick=exportRecovery;
+ $("discardAndReload").onclick=async()=>{
+  if(!copy)return;
+  if(!confirm("This discards unsaved edits in THIS CLOUD TRIAL TAB and its recovery cache. Have you downloaded a recovery JSON if you need the changes?"))return;
+  const id=copy.issue.id,key=storageKey();
+  try{
+   // The user explicitly chose to discard this trial tab's unsaved changes.
+   // The historical archive and original GitHub Pages programme are untouched.
+   clearTimeout(timer);blocked=true;
+   const latest=await api(API+encodeURIComponent(id));
+   if(latest.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("Not a trial working copy");
+   localStorage.removeItem(key);
+   await loadWork(id);
+   state("Reloaded cloud revision "+latest.version+". Previous unsaved trial changes were discarded on request.","good");
+  }catch(e){showConflict(remoteVersion,"Could not reload safely: "+e.message+". Download your recovery before retrying.")}
+ };
+ setInterval(()=>{void checkRemote()},20000);
+ document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")void checkRemote()});
  window.addEventListener("beforeunload",e=>{if(dirty){keepLocal();e.preventDefault();e.returnValue=""}});
  (async()=>{try{await refreshList();const value=new URLSearchParams(location.search).get("issue");
   if(value&&WORK.test(value)){$("working").value=value;await loadWork(value)}

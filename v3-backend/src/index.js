@@ -1486,6 +1486,192 @@ function sourcesHubPortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+async function originalFullEditorFrame(){
+ // The full, approved V3 renderer is fetched from this repository's source.
+ // It runs within this Access-protected Worker origin; the GitHub Pages
+ // browser draft database and published site are not changed.
+ const upstream="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/programme-designer-v3-editor.html";
+ let res;try{res=await fetch(upstream,{cf:{cacheTtl:60}})}catch{return failure("Original V3 editor source temporarily unavailable",503)}
+ if(!res.ok)return failure("Original V3 editor source not published: HTTP "+res.status,503);
+ const html=await res.text();
+ if(html.length<100000||html.length>2500000||!html.includes("V3_CLOUD_TRIAL")||!html.includes("tivvy-v3-ready"))
+  return failure("Full editor source failed integrity markers; refusing fallback renderer",503);
+ return new Response(html,{headers:{
+  "content-type":"text/html; charset=utf-8","cache-control":"no-store",
+  "x-content-type-options":"nosniff","referrer-policy":"no-referrer",
+  "content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
+ }});
+}
+function fullDesignerTrialPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy · Original V3 full editor in cloud trial</title>
+ <style>
+ *{box-sizing:border-box}html,body{margin:0;background:#141517;color:#f2f2f3;font:13px system-ui,Arial}
+ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-bottom:3px solid #ffda00;background:#1b1c20}
+ h1{font-size:19px;color:#ffda00;margin:0 10px 0 0}p{margin:0}
+ button,select{background:#2e3136;color:white;padding:9px;border:1px solid #666971;border-radius:4px;font:inherit}
+ button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button.gold{background:#ffda00;color:#161616;font-weight:bold}
+ #state{padding:9px 16px;min-height:40px;color:#d5d6db;border-bottom:1px solid #444}
+ #state.good{color:#95e7a5}#state.bad{color:#ffabab}
+ #frame{width:100%;height:calc(100vh - 114px);min-height:600px;border:0;display:block}
+ #initial{max-width:800px;margin:70px auto;border:1px solid #56575d;padding:22px;border-radius:7px}
+ #initial h2{color:#ffda00}a{color:#ffda00}
+ </style>
+ <header><h1>FULL V3 DESIGNER · CLOUD TRIAL</h1><select id="working"><option value="">Choose separate cloud working copy</option></select>
+ <button id="open">OPEN</button><select id="pages" disabled><option value="">Choose page</option></select>
+ <button id="save" class="gold" disabled>SAVE CLOUD REVISION</button>
+ <button id="refresh" disabled>RELOAD CLOUD COPY</button>
+ <a href="/cloud-workspace">Previous cloud trial</a></header>
+ <div id="state" role="status">Verifying cloud access and listing working copies…</div>
+ <div id="initial"><h2>Your original editing tools, without the old browser storage dependency</h2>
+ <p>Open a previously created separate cloud working copy. The full V3 editor will appear unchanged, with its typography, rich text, layer controls, resizing and zoom. Changes are automatically sent to D1 with a read-back confirmation and local browser recovery.</p>
+ <p style="margin-top:12px"><strong>Safe trial:</strong> your original GitHub Pages drafts and historical cloud archive are not changed. Reference PDF pages and brand-new embedded image uploads still require separate migration.</p></div>
+ <iframe id="frame" title="Original full V3 Designer trial" hidden></iframe>
+ <script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id);
+ const API="/api/issues/",WORK=/^work_[a-f0-9]{32}$/;
+ let role="",copy=null,pageId="",frameReady=false,loaded=false,dirty=false,blocked=false,serial=0,timer=null,saving=false,savePromise=null,waiters=[];
+ function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
+ async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
+  if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
+ const storageKey=()=>copy?"tivvy-full-v3-trial-unsaved-"+copy.issue.id:"";
+ function keepLocal(){
+  if(!copy||!dirty)return true;
+  try{localStorage.setItem(storageKey(),JSON.stringify({version:copy.version,pageId,document:copy.document,stored:new Date().toISOString()}));return true}
+  catch(e){state("WARNING: cloud pending and browser emergency copy could not be written: "+e.message,"bad");return false}
+ }
+ function sourceUrl(node){
+  if(!node||typeof node!=="object")return node;
+  if(node.v3CloudAsset)return "/api/issues/"+encodeURIComponent(copy.document.assetSourceIssueId||copy.document.derivedFromArchive||copy.issue.id)+"/assets/"+encodeURIComponent(node.v3CloudAsset);
+  if(node.v3LibraryAsset)return "/api/library/assets/"+encodeURIComponent(node.v3LibraryAsset)+"/original";
+  return node;
+ }
+ function toEditor(layers){
+  return structuredClone(layers||[]).map(l=>{
+   if(l&&l.type==="image"&&l.src&&typeof l.src==="object")l.src=sourceUrl(l.src);
+   return l;
+  });
+ }
+ function fromEditor(layers){
+  return structuredClone(layers||[]).map(l=>{
+   if(l&&l.type==="image"&&typeof l.src==="string"){
+    const raw=l.src;
+    const asset=raw.match(/^\\/api\\/issues\\/([A-Za-z0-9_-]+)\\/assets\\/([0-9a-f-]{36})$/);
+    const library=raw.match(/^\\/api\\/library\\/assets\\/([0-9a-f-]{36})\\/original$/);
+    if(asset)l.src={v3CloudAsset:asset[2]};
+    else if(library)l.src={v3LibraryAsset:library[1]};
+    else if(raw.startsWith("data:"))throw Error("New embedded image is not yet in the cloud library. The local trial draft was kept; upload that image to Artwork Library before cloud save.");
+   }
+   return l;
+  });
+ }
+ function page(){return copy?.document.pages.find(x=>x.id===pageId)}
+ function inject(){
+  if(!copy||!page()||!frameReady)return;
+  const draft=toEditor(page().layers);
+  $("frame").contentWindow.postMessage({type:"tivvy-cloud-load",cloudIssue:copy.issue.id,pageId,layers:draft},location.origin);
+ }
+ function schedule(){clearTimeout(timer);if(blocked)return;timer=setTimeout(()=>void save(true),1800)}
+ async function save(automatic=false){
+  clearTimeout(timer);
+  if(saving)return savePromise;
+  if(!copy||!dirty||blocked)return !blocked;
+  saving=true;$("save").disabled=true;
+  const requested=structuredClone(copy.document),previous=copy.version,at=serial,issueId=copy.issue.id,current=pageId;
+  state(automatic?"Cloud autosave in progress…":"Saving full V3 layers to cloud…");
+  savePromise=(async()=>{
+   try{
+    const result=await api(API+encodeURIComponent(issueId),{method:"PUT",headers:{"content-type":"application/json"},
+     body:JSON.stringify({expected_version:previous,document:requested,summary:automatic?"Autosave · original V3 editor":"Manual save · original V3 editor",page_id:current})});
+    if(result.version!==previous+1)throw Error("Unexpected revision number");
+    const read=await api(API+encodeURIComponent(issueId));
+    if(read.version!==result.version||JSON.stringify(read.document)!==JSON.stringify(requested))throw Error("Cloud revision did not read back identically");
+    copy.version=read.version;copy.issue=read.issue;
+    if(at===serial){copy.document=read.document;dirty=false;try{localStorage.removeItem(storageKey())}catch{};state("CLOUD AUTOSAVED & VERIFIED · v"+read.version+" · "+new Date().toLocaleTimeString("en-GB"),"good")}
+    else{dirty=true;keepLocal();state("Cloud v"+read.version+" verified; more recent changes are queued.");}
+    return true;
+   }catch(e){blocked=true;dirty=true;keepLocal();state("CLOUD SAVE NOT VERIFIED: "+e.message+". Local recovery retained. Do not close or reload.","bad");return false}
+   finally{saving=false;$("save").disabled=!dirty; if(dirty&&!blocked)schedule()}
+  })();
+  return savePromise;
+ }
+ function setPages(){
+  const sel=$("pages");sel.replaceChildren();
+  copy.document.pages.forEach((p,i)=>sel.add(new Option(String(i+1)+". "+p.name,p.id)));
+  sel.disabled=false;
+ }
+ function openPage(id){
+  if(!copy||!copy.document.pages.some(p=>p.id===id))return;
+  pageId=id;frameReady=false;loaded=false;$("pages").value=id;$("initial").hidden=true;$("frame").hidden=false;
+  $("frame").src="/full-editor-frame?page="+encodeURIComponent(id)+"&cloudTrial=1&cloudIssue="+encodeURIComponent(copy.issue.id);
+  state("Loading the ORIGINAL V3 layer editor for "+page().name+"…");
+ }
+ async function loadWork(id){
+  if(!WORK.test(id))throw Error("Only separate work_ trials can use this editor");
+  const obj=await api(API+encodeURIComponent(id));
+  if(obj.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("The selected issue is not an independent cloud trial");
+  copy=obj;dirty=false;blocked=false;serial=0;
+  const saved=localStorage.getItem(storageKey());
+  if(saved){let fallback;try{fallback=JSON.parse(saved)}catch{}
+   if(fallback&&fallback.version===obj.version&&JSON.stringify(fallback.document)!==JSON.stringify(obj.document)){
+    if(confirm("An unsaved local trial recovery exists. Restore its edits to this cloud working copy?")){
+     copy.document=fallback.document;dirty=true;serial++;keepLocal();schedule();
+    }
+   }else if(fallback&&fallback.version!==obj.version){state("An old local recovery differs from the newer cloud version. It was not silently applied.","bad")}
+  }
+  setPages();openPage(copy.document.pages[0].id);$("refresh").disabled=false;
+ }
+ async function refreshList(){
+  const me=await api("/api/me");role=me.role;
+  if(!["admin","editor"].includes(role))throw Error("Editing rights required");
+  const listing=await api("/api/issues");const select=$("working");select.replaceChildren(new Option("Choose separate cloud working copy",""));
+  for(const item of listing.issues)if(WORK.test(item.id)){
+   const x=await api(API+encodeURIComponent(item.id));
+   if(x.document.migrationState==="CLOUD_EDIT_TRIAL")select.add(new Option(item.title+" · v"+x.version,item.id));
+  }
+  state("Protected connection verified · "+role+". Choose a separate working copy.");
+ }
+ window.addEventListener("message",e=>{
+  if(e.origin!==location.origin||e.source!==$("frame").contentWindow||!copy)return;
+  const data=e.data||{};
+  if(data.cloudIssue&&data.cloudIssue!==copy.issue.id)return;
+  if(data.pageId!==pageId)return;
+  if(data.type==="tivvy-v3-ready"){frameReady=true;inject();return}
+  if(data.type==="tivvy-cloud-loaded"){loaded=true;state("Original full V3 editor loaded: "+page().name+". Edits will auto-save to cloud.");return}
+  if(data.type==="tivvy-cloud-load-error"){state("Full V3 page load failed: "+data.error,"bad");return}
+  if(data.type==="tivvy-cloud-layer-snapshot"){
+   if(!loaded)return;
+   try{
+    const result=fromEditor(JSON.parse(data.snapshot));
+    page().layers=result;serial++;dirty=true;const backed=keepLocal();
+    state(backed?"Local recovery stored · cloud autosave pending…":"Local backup unavailable; cloud autosave pending…",backed?"":"bad");
+    schedule();
+   }catch(err){blocked=true;dirty=true;keepLocal();state("CLOUD SAVE BLOCKED: "+err.message,"bad")}
+  }
+ });
+ $("open").onclick=async()=>{try{if(dirty&&!await save(false))return;await loadWork($("working").value)}catch(e){state("Cannot open working copy: "+e.message,"bad")}};
+ $("pages").onchange=async()=>{
+  const target=$("pages").value;
+  if(dirty&&!await save(false)){$("pages").value=pageId;return}
+  openPage(target);
+ };
+ $("refresh").onclick=async()=>{
+  if(!copy)return;
+  if(dirty&&!await save(false))return;
+  try{await loadWork(copy.issue.id)}catch(e){state("Cloud reload failed: "+e.message,"bad")}
+ };
+ $("save").onclick=async()=>{blocked=false;await save(false)};
+ window.addEventListener("beforeunload",e=>{if(dirty){keepLocal();e.preventDefault();e.returnValue=""}});
+ (async()=>{try{await refreshList();const value=new URLSearchParams(location.search).get("issue");
+  if(value&&WORK.test(value)){$("working").value=value;await loadWork(value)}
+ }catch(e){state("Cloud access failed: "+e.message,"bad")}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; frame-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -1505,6 +1691,8 @@ export default {
    if(path==="/cloud-vault"&&method==="GET")return storagePortal();
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
+    if(path==="/full-designer"&&method==="GET"&&allowed(role,"edit"))return fullDesignerTrialPortal();
+    if(path==="/full-editor-frame"&&method==="GET"&&allowed(role,"edit"))return originalFullEditorFrame();
     if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
     if(path==="/activity-log"&&method==="GET"&&allowed(role,"read"))return activityLogPortal();
     if(path==="/source-hub"&&method==="GET"&&allowed(role,"read"))return sourcesHubPortal();

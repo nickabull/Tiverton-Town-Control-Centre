@@ -244,6 +244,7 @@ function cloudImportPortal(){
  <h1>TIVVY · SAFE CLOUD MIGRATION</h1>
  <p class="note">Creates a separate, versioned cloud copy. Your original programme in this browser is not replaced, edited or deleted.</p>
  <p id="identity" role="status">Verifying administrator access…</p>
+ <section><h2>0. Check cloud storage safely</h2><p class="note">Creates a disposable issue, verifies one tiny PNG in R2 byte-for-byte and checks D1 versioned recovery. It never touches your real programme.</p><button id="storageTest" disabled>RUN DISPOSABLE STORAGE TEST</button><pre id="testResult">Not tested in this browser session.</pre></section>
  <section>
  <h2>1. Choose the full local backup</h2>
  <p>In Programme Designer, use BACKUP JSON first. Choose that downloaded complete issue backup here. The smaller readiness report cannot be migrated.</p>
@@ -278,7 +279,7 @@ function cloudImportPortal(){
  async function identity(){
    try{const me=await api("/api/me");
      if(!["admin","editor"].includes(me.role))throw Error("Editor or admin role required");
-     $("identity").textContent="Authenticated · "+me.role;$("identity").className="good";$("inspect").disabled=false;
+     $("identity").textContent="Authenticated · "+me.role;$("identity").className="good";$("inspect").disabled=false;$("storageTest").disabled=false;
    }catch(e){$("identity").textContent="Access unavailable: "+e.message;$("identity").className="bad"}
  }
  function decode(uri){
@@ -428,6 +429,30 @@ function cloudImportPortal(){
    }catch(e){fail(e);line("Any cloud staging issue remains marked incomplete until a version-2 save succeeds.")}
    finally{busy=false;$("inspect").disabled=false;$("migrate").disabled=!prepared||prepared.problems.length>0}
  }
+ $("storageTest").addEventListener("click",async()=>{
+  if(busy)return;busy=true;const btn=$("storageTest"),out=$("testResult");
+  btn.disabled=true;out.textContent="Testing a disposable D1 issue and R2 PNG…";
+  try{
+   const id="smoke_"+crypto.randomUUID().replaceAll("-"),root="/api/issues/"+id;
+   const bytes=Uint8Array.from(atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+nmh8AAAAASUVORK5CYII="),x=>x.charCodeAt(0));
+   const hash=await sha(bytes);
+   await api("/api/issues",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
+    id,title:"DISPOSABLE CLOUD STORAGE TEST",document:{pages:[{id:"test",name:"Test only",layers:[]}]}
+   })});
+   const a=await api(root+"/assets",{method:"POST",headers:{"content-type":"image/png","x-file-name":"disposable-test.png"},body:new Blob([bytes],{type:"image/png"})});
+   const response=await fetch(root+"/assets/"+a.asset_id,{credentials:"same-origin",cache:"no-store"});
+   if(!response.ok)throw Error("Asset read-back HTTP "+response.status);
+   const copy=new Uint8Array(await response.arrayBuffer());
+   if(copy.length!==bytes.length||await sha(copy)!==hash)throw Error("PNG checksum mismatch");
+   const document={pages:[{id:"test",name:"Verified test",layers:[]}],testAsset:a.asset_id};
+   const saved=await api(root,{method:"PUT",headers:{"content-type":"application/json"},body:JSON.stringify({expected_version:1,document,summary:"Disposable storage and checksum verified"})});
+   const check=await api(root);
+   if(saved.version!==2||check.version!==2||check.document.testAsset!==a.asset_id)throw Error("D1 version/read-back mismatch");
+   out.textContent="PASS: D1 versioned save, R2 original byte upload/download, matching SHA-256. No real artwork changed. Disposable issue: "+id;
+   out.className="good";
+  }catch(e){out.textContent="FAIL: "+e.message+". Do not upload your real backup yet.";out.className="bad"}
+  finally{busy=false;btn.disabled=false}
+ });
  $("source").addEventListener("change",()=>{$("migrate").disabled=true;prepared=null;$("report").textContent="Backup selected. Click ANALYSE BACKUP."});
  $("inspect").addEventListener("click",inspect);
  $("migrate").addEventListener("click",migrate);

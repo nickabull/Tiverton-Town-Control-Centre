@@ -1,5 +1,14 @@
 # Tivvy Programme Designer — project handover
 
+## GitHub-to-Cloudflare automatic deployments ENABLED IN WORKFLOW SOURCE — 18 Nov 2026, 01:22 GMT
+
+- User explicitly requested **no more manual Run workflow** action after one successful dry run and one successful manually dispatched live deployment. Modified only `.github/workflows/deploy-tivvy-programme-storage.yml` to have every push to `main` changing `v3-backend/src/index.js` or this isolated workflow file trigger automatic deployment to the single named `tivvy-programme-v3-storage` Worker. Previously gated push path by unset `TIVVY_PROGRAMME_AUTO_DEPLOY` repo variable; removed that gate and set deployment step to execute for `push` and manual `deploy`; manual `dry-run` still does NOT deploy.
+- Preflight retains `node --check`, pinned worker name, JWT validator presence, binding checks, Node/Wrangler install, ephemeral generated config with `preview_urls:false`, `keep_vars:true`, existing D1 `DB`, existing R2 `ASSETS`, secrets held in GitHub, and Wrangler dry-run. Added post-deploy unauthenticated GET checks for `/api/issues`, `/cloud-vault`, `/cloud-import`: reject accidental public HTTP 200 or unexpected redirect and expect HTTP 3xx Cloudflare Access redirect or 401/403. Authenticated browser role/revisions and actual cloud import remain separate QA.
+- Workflow edit commit **`b2ab2f775b830d2b14a6d34df831f9a4be9c8562`**. The workflow file itself matches the push path and should launch first automatic deployment including previously committed lossless `image/avif` support in Worker (`370f482c3e237f591873fbb5ccd8f3795759d9da`). Do not claim an automatic deployment has passed until GitHub Actions run ID/conclusion and live smoke check is obtained. This checkpoint has **SOURCE COMMITTED**, **first AUTO RUN UNVERIFIED**.
+- This automated deployment modifies *only Programme storage Worker code*; GitHub Pages Designer shell is served separately and unchanged by the Worker workflow. It does **not** automatically migrate user browser drafts, nor guarantee comprehensive authorized runtime restore, R2 upload integrity or live PDF export. Preserve current browser data, full-resolution Viv originals and separately stored source PDF artwork.
+- Future workflow code changes will also trigger deployment; review and test them carefully because there is no manual gate for scoped main pushes. Consider branch protection/PR review for production and after-deployment versioned rollback once the basic automation is proven.
+
+
 ## V3.7.2 AVIF original artwork support — 18 Nov 2026, 01:17 GMT
 
 - User ran the deployed `/cloud-import` **ANALYSE BACKUP — NO UPLOAD** with `tivvy-programme-v3-issue14-local-backup-2026-11-18_01-13-30.json` (316.1 MB). Screenshot confirms **60 active pages**, **0 deleted-page recovery**, **66 embedded image occurrences**, **17 distinct data URL values**. MIME occurrence counts: `image/png:63`, `image/avif:2`, `image/jpeg:1`.

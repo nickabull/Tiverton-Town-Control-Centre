@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.11 two-tab newer-revision conflict UI — USER LIVE SCREENSHOT PASS, 18 Nov 2026, 13:10 GMT
+
+- User opened the same isolated cloud working copy in two browser tabs. Their screenshot shows a conspicuous **CONFLICT — CLOUD SAVE BLOCKED. No changes overwritten. Export recovery before reloading.** warning in full native V3 cloud editor. Specific wording: **Edit conflict · cloud revision 7 is newer**; affected older tab **expected revision 5**. This is genuine screenshot-confirmed PASS for proactive cloud version conflict detection and blocked stale save, with both **DOWNLOAD UNSAVED RECOVERY JSON** and **DISCARD THIS TAB'S CHANGES AND LOAD LATEST CLOUD VERSION** available.
+- Since screenshot alone does not show the download being exercised, a deliberately stale PUT rejected, or an exported backup restored, those individual paths remain untested. Underlying D1 version CAS code previously reviewed, and native single-tab autosave/reload to revision 4 had already passed. Screenshot verifies conflict UI live; not a completed multi-user reconciliation/merge solution.
+- The source historical 60-page D1/R2 archive and original GitHub Pages browser drafts remain unchanged. Test only in separate `work_` trial. Next priorities: safely resolve/discard this stale trial tab (export if it contains valuable changes), then migrate separately browser-stored source PDF reference-page artwork and verify cross-device cloud recovery. Do not turn off original browser backups yet.
+
 ## V3.11 simultaneous-edit conflict safeguards — 18 November 2026 after 13:02 GMT
 
 - After user explicitly said "ok great crack on" following **full native V3 editor cloud autosave and reload PASS**, implemented robust two-tab safe editing controls in protected **/full-designer**, scoped only to separate `work_` trial issues. **Source committed, not yet live browser tested**.

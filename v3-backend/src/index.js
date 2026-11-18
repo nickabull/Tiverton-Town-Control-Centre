@@ -1396,7 +1396,7 @@ function activityLogPortal(){
  function parsed(raw){try{return JSON.parse(raw)}catch{return raw||null}}
  function when(raw){const d=new Date(raw);return Number.isFinite(d.getTime())?new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d):String(raw||"—")}
  function who(raw){return String(raw||"Unknown").split("@")[0]}
- function actionLabel(a){return ({"layer.property.change":"Layer edited","issue.save":"Cloud saved","issue.create":"Working copy created","asset.upload":"Artwork uploaded","asset.metadata.update":"Metadata edited","asset.trash":"Moved to Trash","asset.restore":"Restored from Trash","project.note":"Project note","layer.create":"Layer added","layer.delete":"Layer removed"})[a]||String(a||"Event").replaceAll("."," · ")}
+ function actionLabel(a){return ({"layer.property.change":"Layer edited","issue.save":"Cloud saved","issue.create":"Working copy created","asset.upload":"Artwork uploaded","asset.metadata.update":"Metadata edited","asset.trash":"Moved to Trash","asset.restore":"Restored from Trash","project.note":"Project note","layer.create":"Layer added","layer.delete":"Layer removed","reference.import":"Original PDF page uploaded","reference.replace":"Original PDF page replaced"})[a]||String(a||"Event").replaceAll("."," · ")}
  function short(v,max=130){if(v===null||v===undefined)return "—";const raw=typeof v==="string"?v:JSON.stringify(v);const str=raw.split("\\n").join(" ").trim();return str.length>max?str.slice(0,max-1)+"…":str}
  function synopsis(e){
   const meta=parsed(e.detail_json)||{},before=parsed(e.before_json),after=parsed(e.after_json);
@@ -1406,6 +1406,7 @@ function activityLogPortal(){
   if(e.action==="asset.restore")return "Recovered "+short(after?.title||after?.original_filename||"original",100)+" from Trash";
   if(e.action==="asset.metadata.update")return "Updated metadata for "+short(after?.title||e.asset_id,100);
   if(e.action==="project.note")return short(meta.text||"Project note",220);
+  if(e.action==="reference.import"||e.action==="reference.replace")return "Verified original source PDF page "+(after?.pdf_page||"?")+" · "+(after?.byte_size||"?")+" bytes · SHA-256 stored";
   if(e.action==="asset.upload")return "Stored original image "+short(after?.original_filename||e.asset_id,100);
   return short(meta.summary||meta.text||e.action,200);
  }

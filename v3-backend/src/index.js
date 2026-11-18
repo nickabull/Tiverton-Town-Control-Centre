@@ -805,7 +805,7 @@ function cloudWorkspacePortal(){
  <p id="version" class="muted"></p>
  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
  <label for="page" style="margin:0">Page</label><select id="page"></select>
- <button id="save" class="gold" disabled>SAVE NEW CLOUD REVISION</button>
+ <button id="save" class="gold" disabled>SAVE NOW / RETRY CLOUD SYNC</button>
  <button id="reload">RELOAD CLOUD VERSION</button>
  </div>
  <p id="status" role="status" class="muted">Select a layer to edit.</p>
@@ -822,12 +822,27 @@ function cloudWorkspacePortal(){
  <p class="muted" id="layerInfo"></p>
  </div></aside></div>
  </section>
- <p class="muted"><strong>Trial limitations:</strong> text/position editing and cloud revisions only. Not yet the full V3 canvas editor, not an autosave replacement, no source PDF reference images, no complete print PDF. Original PNG, JPEG and AVIF images are served directly from their verified private R2 objects; no conversion or compression.</p>
+ <p class="muted"><strong>Trial limitations:</strong> text/position editing and cloud revisions with debounced autosave and local emergency backup. Not yet the full V3 canvas editor, no source PDF reference images, no complete print PDF. Original PNG, JPEG and AVIF images are served directly from their verified private R2 objects; no conversion or compression.</p>
  <p><a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
  </main><script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);
  let role="",record=null,selectedPage=0,selectedLayer=-1,dirty=false;
+ let saveTimer=null,saveInFlight=false,editSerial=0,saveBlocked=false;
+ const backupKey=id=>"tivvy-cloud-unsaved-"+id;
+ function safeLocalBackup(){
+  if(!record||!dirty)return;
+  try{
+   const json=JSON.stringify({savedAt:new Date().toISOString(),version:record.version,document:record.document});
+   localStorage.setItem(backupKey(record.issue.id),json);
+  }catch(e){state("WARNING: Unsaved cloud edit could not be backed up locally. Export or save before leaving: "+e.message,true)}
+ }
+ function scheduleCloudSave(){
+  if(!record||!dirty||saveBlocked)return;
+  clearTimeout(saveTimer);safeLocalBackup();
+  state("Unsaved changes saved locally; cloud autosave pending…");
+  saveTimer=setTimeout(()=>saveCloud(true),1800);
+ }
  async function api(path,options){
   const r=await fetch(path,{credentials:"same-origin",cache:"no-store",...options});
   let j;try{j=await r.json()}catch{throw Error(path+" HTTP "+r.status)}
@@ -897,13 +912,24 @@ function cloudWorkspacePortal(){
    const n=Number(value);if(!Number.isFinite(n)||n<-1000||n>5000)return;
    l[k]=n;
   }else l[k]=String(value).slice(0,k==="text"?50000:200);
-  dirty=true;render();state("Unsaved changes in cloud working copy. Click SAVE NEW CLOUD REVISION.");
+  dirty=true;editSerial++;render();scheduleCloudSave();
  }
  $("layerName").oninput=e=>change("name",e.target.value);
  $("textValue").oninput=e=>change("text",e.target.value);
  for(const k of ["x","y","w","h"])$(k).onchange=e=>change(k,e.target.value);
  function load(data){
-  record=data;dirty=false;selectedPage=0;selectedLayer=-1;
+  clearTimeout(saveTimer);record=data;dirty=false;saveBlocked=false;selectedPage=0;selectedLayer=-1;
+  const stored=localStorage.getItem(backupKey(data.issue.id));
+  if(stored){
+   try{
+    const local=JSON.parse(stored);
+    if(local.version===data.version&&JSON.stringify(local.document)!==JSON.stringify(data.document)){
+     if(confirm("Unsaved local backup found from "+local.savedAt+". Restore it into this working copy without overwriting cloud until autosave confirms?")){
+      record.document=local.document;dirty=true;editSerial++;scheduleCloudSave();
+     }
+    }else if(local.version!==data.version)state("An older unsaved local backup exists. Cloud version has advanced. Export before manually reconciling.",true);
+   }catch(e){state("Saved browser recovery data could not be read. Keep this tab open.",true)}
+  }
   const sel=$("page");sel.replaceChildren();
   record.document.pages.forEach((p,i)=>sel.add(new Option((i+1)+". "+p.name,i)));
   $("workspace").hidden=false;$("properties").hidden=true;render();
@@ -958,21 +984,42 @@ function cloudWorkspacePortal(){
   if(!record)return;if(dirty&&!confirm("Discard unsaved changes and reload last cloud revision?"))return;
   try{const d=await api("/api/issues/"+encodeURIComponent(record.issue.id));load(d)}catch(e){state(e.message,true)}
  };
- $("save").onclick=async()=>{
-  if(!record||!dirty||!editable())return;
-  $("save").disabled=true;const id=record.issue.id,expected=record.version;
+ async function saveCloud(automatic=false){
+  if(!record||!dirty||!editable()||saveInFlight||saveBlocked)return;
+  clearTimeout(saveTimer);saveInFlight=true;$("save").disabled=true;
+  const id=record.issue.id,expected=record.version,serial=editSerial;
+  const snapshot=structuredClone(record.document);
+  state(automatic?"Autosaving cloud revision…":"Saving cloud revision…");
   try{
-   const d=await api("/api/issues/"+encodeURIComponent(id),{method:"PUT",headers:{"content-type":"application/json"},
-    body:JSON.stringify({expected_version:expected,document:record.document,summary:"Cloud working copy layer edit"})
+   const res=await api("/api/issues/"+encodeURIComponent(id),{method:"PUT",headers:{"content-type":"application/json"},
+    body:JSON.stringify({expected_version:expected,document:snapshot,summary:automatic?"Autosave from protected cloud editor":"Manual save from protected cloud editor",
+      page_id:record.document.pages[selectedPage]?.id,layer_id:layers()[selectedLayer]?.id||null})
    });
-   if(d.version!==expected+1)throw Error("Unexpected cloud version returned");
-   const current=await api("/api/issues/"+encodeURIComponent(id));
-   if(current.version!==d.version)throw Error("Cloud version read-back mismatch");
-   record=current;dirty=false;render();state("SAVED AND VERIFIED · Cloud revision "+current.version+". Reopen this working copy to see the saved layers.");
+   if(res.version!==expected+1)throw Error("Unexpected cloud version returned");
+   const latest=await api("/api/issues/"+encodeURIComponent(id));
+   if(latest.version!==res.version||JSON.stringify(latest.document)!==JSON.stringify(snapshot))
+     throw Error("Cloud save read-back does not match requested revision");
+   record.version=latest.version;record.issue=latest.issue;
+   if(serial===editSerial){
+    record.document=latest.document;dirty=false;localStorage.removeItem(backupKey(id));
+    render();state("CLOUD AUTOSAVED & VERIFIED · v"+latest.version+" · "+new Date().toLocaleTimeString());
+   }else{
+    // User typed while the save was in flight: their newer local edits take priority.
+    dirty=true;render();state("Cloud saved v"+latest.version+"; newer edits pending autosave.");
+   }
   }catch(e){
-   state("SAVE NOT CONFIRMED: "+e.message+". Unsaved local edits retained in this open tab. Do not reload.",true);$("save").disabled=false;
+   saveBlocked=true;dirty=true;safeLocalBackup();
+   state("CLOUD SAVE FAILED / CONFLICT: "+e.message+". Local recovery copy retained. Do not reload; reconcile before retrying.",true);
+  }finally{
+   saveInFlight=false;$("save").disabled=!dirty||!editable();
+   if(dirty&&!saveBlocked)scheduleCloudSave();
   }
- };
+ }
+ $("save").onclick=()=>{saveBlocked=false;saveCloud(false)};
+ window.addEventListener("beforeunload",e=>{
+  if(dirty){safeLocalBackup();e.preventDefault();e.returnValue=""}
+ });
+ document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&dirty&&!saveInFlight&&!saveBlocked)saveCloud(true)});
  $("refresh").onclick=refresh;
  (async()=>{try{const me=await api("/api/me");role=me.role;$("auth").textContent="Protected connection verified · "+role;$("auth").className="good";await refresh()}
   catch(e){$("auth").textContent="Access denied: "+e.message;$("auth").className="bad"}})();

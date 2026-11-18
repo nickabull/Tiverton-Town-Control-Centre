@@ -566,6 +566,218 @@ function cloudImportPortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function cloudWorkspacePortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy V3 · Cloud editing trial</title>
+ <style>
+ *{box-sizing:border-box}body{margin:0;background:#151619;color:#eee;font:14px system-ui,Arial}main{max-width:1250px;margin:auto;padding:20px}
+ h1{font-size:28px;color:#ffda00;margin:0 0 9px}h2{font-size:18px}a{color:#ffda00}
+ button,input,select,textarea{font:inherit}button,select,input,textarea{background:#2c2e33;border:1px solid #676971;color:#fff;padding:9px;border-radius:4px}
+ button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}.gold{background:#ffda00;color:#151515;border-color:#ffda00;font-weight:bold}
+ .box{border:1px solid #484b52;border-radius:7px;padding:14px;margin:14px 0}.muted{color:#c7c9cf}.good{color:#92e5a4}.bad{color:#ff9999}
+ #layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
+ #previewWrap{overflow:auto;max-height:76vh;background:#292b31;padding:12px}
+ #pagePreview{position:relative;width:595px;height:842px;background:white;color:#191919;transform-origin:top left;overflow:hidden;box-shadow:0 2px 12px #0008}
+ .layer{position:absolute;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid transparent;cursor:pointer}
+ .layer.selected{border:2px dashed #dcb900;z-index:9999!important}.layer.missing{background:#ddd;color:#777;display:grid;place-items:center}
+ .layer img{width:100%;height:100%;object-fit:fill;display:block}
+ label{display:block;font-size:12px;margin:8px 0 3px;color:#bbb}.input{width:100%}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}#layers{max-height:190px;overflow:auto}#layers button{display:block;text-align:left;width:100%;margin:3px 0;font-size:12px}
+ #status{min-height:21px}#hidden{display:none}@media(max-width:940px){#layout{display:block}#pagePreview{transform:scale(.65);margin-bottom:-295px}#previewWrap{max-height:600px}}
+ </style><main>
+ <h1>TIVVY · CLOUD WORKING COPY</h1>
+ <p class="muted">Protected experimental editor. Creates a separate working copy of a completed cloud archive. The historical cloud archive and browser drafts remain unchanged.</p>
+ <p id="auth" role="status">Checking access…</p>
+ <section class="box"><h2>Choose a programme</h2>
+ <button id="refresh">REFRESH CLOUD ISSUES</button>
+ <label for="existing">Open an existing cloud working copy</label><select class="input" id="existing"><option value="">Select a working copy</option></select>
+ <button id="open" disabled>OPEN WORKING COPY</button>
+ <label for="archive">Or create a new working copy from a verified archive</label>
+ <select class="input" id="archive"><option value="">Select a verified archive</option></select>
+ <button class="gold" id="clone" disabled>CREATE SEPARATE WORKING COPY</button>
+ </section>
+ <section class="box" id="workspace" hidden>
+ <h2 id="issueTitle">Working copy</h2>
+ <p id="version" class="muted"></p>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+ <label for="page" style="margin:0">Page</label><select id="page"></select>
+ <button id="save" class="gold" disabled>SAVE NEW CLOUD REVISION</button>
+ <button id="reload">RELOAD CLOUD VERSION</button>
+ </div>
+ <p id="status" role="status" class="muted">Select a layer to edit.</p>
+ <div id="layout"><div id="previewWrap"><div id="pagePreview"></div></div>
+ <aside>
+ <h2>Layers on this page</h2><div id="layers"></div>
+ <div id="properties" hidden>
+ <h2>Edit selected layer</h2><label for="layerName">Layer name</label><input class="input" id="layerName">
+ <label for="textValue">Editable text</label><textarea class="input" id="textValue" rows="6"></textarea>
+ <div class="grid"><div><label for="x">X</label><input class="input" id="x" type="number" step=".1"></div>
+ <div><label for="y">Y</label><input class="input" id="y" type="number" step=".1"></div>
+ <div><label for="w">Width</label><input class="input" id="w" type="number" step=".1"></div>
+ <div><label for="h">Height</label><input class="input" id="h" type="number" step=".1"></div></div>
+ <p class="muted" id="layerInfo"></p>
+ </div></aside></div>
+ </section>
+ <p class="muted"><strong>Trial limitations:</strong> text/position editing and cloud revisions only. Not yet the full V3 canvas editor, not an autosave replacement, no source PDF reference images, no complete print PDF. Original PNG, JPEG and AVIF images are served directly from their verified private R2 objects; no conversion or compression.</p>
+ <p><a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
+ </main><script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id);
+ let role="",record=null,selectedPage=0,selectedLayer=-1,dirty=false;
+ async function api(path,options){
+  const r=await fetch(path,{credentials:"same-origin",cache:"no-store",...options});
+  let j;try{j=await r.json()}catch{throw Error(path+" HTTP "+r.status)}
+  if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j;
+ }
+ function state(message,bad=false){$("status").textContent=message;$("status").className=bad?"bad":"muted"}
+ const editable=()=>role==="admin"||role==="editor";
+ const layers=()=>record?.document.pages[selectedPage]?.layers||[];
+ const imageUrl=assetId=>"/api/issues/"+encodeURIComponent(record.document.assetSourceIssueId||record.issue.id)+"/assets/"+encodeURIComponent(assetId);
+ function boxStyle(el,l){
+   for(const prop of ["x","y","w","h"]){const val=Number(l[prop]);if(!Number.isFinite(val))return}
+   el.style.left=(Number(l.x)||0)+"px";el.style.top=(Number(l.y)||0)+"px";
+   el.style.width=Math.max(1,Number(l.w)||100)+"px";el.style.height=Math.max(1,Number(l.h)||35)+"px";
+   el.style.transform="rotate("+Math.max(-360,Math.min(360,Number(l.rotate)||0))+"deg)";
+   el.style.zIndex=String(Math.max(0,Math.min(999,Number(l.z)||0)));
+   el.style.opacity=String(Math.max(0,Math.min(1,1-(Number(l.transparency)||0)/100)));
+ }
+ function render(){
+  if(!record)return;
+  const page=record.document.pages[selectedPage];
+  if(!page)return;
+  $("issueTitle").textContent=record.issue.title+" · "+page.name;
+  $("version").textContent="Cloud version "+record.version+" · "+record.document.pages.length+" pages · protected workspace";
+  const canvas=$("pagePreview");canvas.replaceChildren();
+  const list=$("layers");list.replaceChildren();
+  layers().forEach((l,i)=>{
+   if(!l||typeof l!=="object")return;
+   const choose=document.createElement("button");choose.type="button";
+   choose.textContent=(i===selectedLayer?"● ":"")+"#"+(i+1)+" "+(l.name||l.type||"Layer");
+   choose.onclick=()=>selectLayer(i);list.append(choose);
+   if(l.hidden)return;
+   const el=document.createElement("div");el.className="layer"+(selectedLayer===i?" selected":"");boxStyle(el,l);
+   if(l.type==="text"){
+    el.textContent=String(l.text||"");
+    el.style.fontFamily=String(l.family||l.fontFamily||"Arial,sans-serif").slice(0,90);
+    el.style.fontSize=Math.max(5,Math.min(120,Number(l.font)||22))+"px";
+    el.style.fontWeight=String(l.weight||"normal");
+    el.style.textAlign=["left","center","right","justify"].includes(l.align)?l.align:"left";
+    el.style.color=/^#[0-9a-fA-F]{3,8}$/.test(l.color||"")?l.color:"#161616";
+   }else if(l.type==="image"){
+    const ref=l.src?.v3CloudAsset;
+    if(typeof ref==="string"){
+     const image=document.createElement("img");image.src=imageUrl(ref);image.alt=l.name||"Cloud artwork";image.loading="lazy";el.append(image);
+    }else {el.classList.add("missing");el.textContent="Reference image not available in cloud"}
+   }else{
+    el.style.background=/^#[0-9a-fA-F]{3,8}$/.test(l.color||"")?l.color:"transparent";
+   }
+   el.onclick=()=>selectLayer(i);canvas.append(el);
+  });
+  $("save").disabled=!editable()||!dirty;
+ }
+ function selectLayer(i){
+  selectedLayer=i;const l=layers()[i];
+  $("properties").hidden=!l;
+  if(!l){render();return}
+  $("layerName").value=String(l.name||"");
+  $("textValue").value=String(l.text||"");
+  $("textValue").disabled=l.type!=="text";
+  $("layerInfo").textContent="Type: "+String(l.type||"other")+". Original artwork bytes are not modified here.";
+  for(const k of ["x","y","w","h"])$(k).value=Number(l[k])||0;
+  render();
+ }
+ function change(k,value){
+  if(!record||selectedLayer<0)return;const l=layers()[selectedLayer];if(!l)return;
+  if(k==="text"&&l.type!=="text")return;
+  if(["x","y","w","h"].includes(k)){
+   const n=Number(value);if(!Number.isFinite(n)||n<-1000||n>5000)return;
+   l[k]=n;
+  }else l[k]=String(value).slice(0,k==="text"?50000:200);
+  dirty=true;render();state("Unsaved changes in cloud working copy. Click SAVE NEW CLOUD REVISION.");
+ }
+ $("layerName").oninput=e=>change("name",e.target.value);
+ $("textValue").oninput=e=>change("text",e.target.value);
+ for(const k of ["x","y","w","h"])$(k).onchange=e=>change(k,e.target.value);
+ function load(data){
+  record=data;dirty=false;selectedPage=0;selectedLayer=-1;
+  const sel=$("page");sel.replaceChildren();
+  record.document.pages.forEach((p,i)=>sel.add(new Option((i+1)+". "+p.name,i)));
+  $("workspace").hidden=false;$("properties").hidden=true;render();
+  state("Cloud working copy opened. Select a layer to edit.");
+ }
+ async function refresh(){
+  try{
+   const data=await api("/api/issues"),archive=$("archive"),existing=$("existing");
+   archive.replaceChildren(new Option("Select a verified archive",""));existing.replaceChildren(new Option("Select a working copy",""));
+   for(const x of data.issues){
+    if(x.id.startsWith("import_")&&x.current_version>=2){
+     const d=await api("/api/issues/"+encodeURIComponent(x.id));
+     if(d.document?.migrationState==="ARCHIVAL_COPY_NOT_EDITOR_READY")archive.add(new Option(x.title,x.id));
+    }else if(x.id.startsWith("work_")){
+     const d=await api("/api/issues/"+encodeURIComponent(x.id));
+     if(d.document?.migrationState==="CLOUD_EDIT_TRIAL")existing.add(new Option(x.title+" · v"+x.current_version,x.id));
+    }
+   }
+   $("clone").disabled=!editable()||!archive.value;
+   $("open").disabled=!existing.value;
+  }catch(e){$("auth").textContent="Cloud listing failed: "+e.message;$("auth").className="bad"}
+ }
+ $("archive").onchange=()=>{$("clone").disabled=!editable()||!$("archive").value};
+ $("existing").onchange=()=>{$("open").disabled=!$("existing").value};
+ $("open").onclick=async()=>{
+  if(dirty&&!confirm("Discard unsaved trial edits and open the selected cloud version?"))return;
+  try{const d=await api("/api/issues/"+encodeURIComponent($("existing").value));
+   if(d.document?.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("Not a cloud working copy");
+   load(d)}catch(e){state(e.message,true)}
+ };
+ $("clone").onclick=async()=>{
+  const source=$("archive").value;if(!source)return;
+  if(!confirm("Create an independent editable trial from this archived issue? The archive remains unchanged."))return;
+  $("clone").disabled=true;
+  try{
+   const original=await api("/api/issues/"+encodeURIComponent(source));
+   if(original.version<2||original.document?.migrationState!=="ARCHIVAL_COPY_NOT_EDITOR_READY")throw Error("Source archive not verified");
+   const copy=structuredClone(original.document);
+   copy.migrationState="CLOUD_EDIT_TRIAL";copy.assetSourceIssueId=source;
+   copy.derivedFromArchive=source;copy.cloudTrialStartedAt=new Date().toISOString();
+   const id="work_"+crypto.randomUUID().replaceAll("-","");
+   await api("/api/issues",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
+    id,title:"CLOUD EDIT TRIAL · "+new Date().toISOString(),document:copy
+   })});
+   const result=await api("/api/issues/"+id);load(result);
+   state("New independent cloud working copy created. Historical archive and original browser drafts unchanged.");
+  }catch(e){state("Could not create working copy: "+e.message,true)}
+  finally{$("clone").disabled=false}
+ };
+ $("page").onchange=e=>{selectedPage=Number(e.target.value);selectedLayer=-1;$("properties").hidden=true;render()};
+ $("reload").onclick=async()=>{
+  if(!record)return;if(dirty&&!confirm("Discard unsaved changes and reload last cloud revision?"))return;
+  try{const d=await api("/api/issues/"+encodeURIComponent(record.issue.id));load(d)}catch(e){state(e.message,true)}
+ };
+ $("save").onclick=async()=>{
+  if(!record||!dirty||!editable())return;
+  $("save").disabled=true;const id=record.issue.id,expected=record.version;
+  try{
+   const d=await api("/api/issues/"+encodeURIComponent(id),{method:"PUT",headers:{"content-type":"application/json"},
+    body:JSON.stringify({expected_version:expected,document:record.document,summary:"Cloud working copy layer edit"})
+   });
+   if(d.version!==expected+1)throw Error("Unexpected cloud version returned");
+   const current=await api("/api/issues/"+encodeURIComponent(id));
+   if(current.version!==d.version)throw Error("Cloud version read-back mismatch");
+   record=current;dirty=false;render();state("SAVED AND VERIFIED · Cloud revision "+current.version+". Reopen this working copy to see the saved layers.");
+  }catch(e){
+   state("SAVE NOT CONFIRMED: "+e.message+". Unsaved local edits retained in this open tab. Do not reload.",true);$("save").disabled=false;
+  }
+ };
+ $("refresh").onclick=refresh;
+ (async()=>{try{const me=await api("/api/me");role=me.role;$("auth").textContent="Protected connection verified · "+role;$("auth").className="good";await refresh()}
+  catch(e){$("auth").textContent="Access denied: "+e.message;$("auth").className="bad"}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -584,6 +796,7 @@ export default {
   try{
    if(path==="/cloud-vault"&&method==="GET")return storagePortal();
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
+    if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
     if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
    if(path==="/api/issues"&&method==="GET"){
     if(!allowed(role,"read"))return failure("Forbidden",403);

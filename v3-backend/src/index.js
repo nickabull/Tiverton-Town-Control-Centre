@@ -909,16 +909,17 @@ function cloudWorkspacePortal(){
  let saveTimer=null,saveInFlight=false,editSerial=0,saveBlocked=false;
  const backupKey=id=>"tivvy-cloud-unsaved-"+id;
  function safeLocalBackup(){
-  if(!record||!dirty)return;
+  if(!record||!dirty)return true;
   try{
    const json=JSON.stringify({savedAt:new Date().toISOString(),version:record.version,document:record.document});
-   localStorage.setItem(backupKey(record.issue.id),json);
-  }catch(e){state("WARNING: Unsaved cloud edit could not be backed up locally. Export or save before leaving: "+e.message,true)}
+   localStorage.setItem(backupKey(record.issue.id),json);return true;
+  }catch(e){state("WARNING: Browser could not retain unsaved backup: "+e.message+". Keep this tab open until cloud saving succeeds.",true);return false}
  }
  function scheduleCloudSave(){
   if(!record||!dirty||saveBlocked)return;
-  clearTimeout(saveTimer);safeLocalBackup();
-  state("Unsaved changes saved locally; cloud autosave pending…");
+  clearTimeout(saveTimer);
+  const backed=safeLocalBackup();
+  if(backed)state("Unsaved changes backed up locally; cloud autosave pending…");
   saveTimer=setTimeout(()=>saveCloud(true),1800);
  }
  async function api(path,options){
@@ -1257,10 +1258,16 @@ function assetLibraryPortal(){
   $("upload").disabled=true;
   try{
    setText("uploadStatus","Storing original bytes without processing…");
-   const resp=await api("/api/library/assets",{method:"POST",headers:{"content-type":file.type,"x-file-name":file.name},body:file});
-   const fetched=await fetch(path(resp.id)+"/original",{credentials:"same-origin"});
-   if(!fetched.ok||Number(fetched.headers.get("content-length")||resp.byte_size)!==file.size)throw Error("Upload read-back could not confirm original length");
-   setText("uploadStatus","Stored original "+file.name+" · "+resp.byte_size+" bytes. Add tags and photographer to make it searchable.");
+   const original=new Uint8Array(await file.arrayBuffer());
+   const digest=x=>crypto.subtle.digest("SHA-256",x).then(buffer=>Array.from(new Uint8Array(buffer),b=>b.toString(16).padStart(2,"0")).join(""));
+   const checksum=await digest(original);
+   const resp=await api("/api/library/assets",{method:"POST",headers:{"content-type":file.type,"x-file-name":file.name,"x-original-sha256":checksum},body:file});
+   const fetched=await fetch(path(resp.id)+"/original",{credentials:"same-origin",cache:"no-store"});
+   if(!fetched.ok)throw Error("Original read-back HTTP "+fetched.status);
+   const recovered=new Uint8Array(await fetched.arrayBuffer());
+   if(recovered.byteLength!==original.byteLength||await digest(recovered)!==checksum)
+    throw Error("Cloud original failed SHA-256 or exact-byte count verification");
+   setText("uploadStatus","ORIGINAL VERIFIED · "+file.name+" · "+resp.byte_size+" bytes · SHA-256 identical. Add tags/photographer to make it searchable.");
    $("mode").value="active";$("query").value="";await refresh();choose(resp.id);await audit();
   }catch(e){setText("uploadStatus","UPLOAD NOT VERIFIED: "+e.message,true)}
   finally{$("upload").disabled=!canEdit()}

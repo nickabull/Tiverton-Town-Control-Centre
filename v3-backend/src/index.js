@@ -361,13 +361,13 @@ async function purgeExpiredLibrary(env){
 }
 
 async function globalActivity(env,url){
- const limit=Math.min(300,Math.max(1,Number(url.searchParams.get("limit"))||200));
- const pages=await env.DB.prepare("SELECT id,issue_id,actor,action,target_page_id,target_layer_id,before_json,after_json,detail_json,created_at FROM activity_events ORDER BY created_at DESC LIMIT ?").bind(limit).all();
  await ensureAssetLibrary(env);
- const artwork=await env.DB.prepare("SELECT id,asset_id,actor,action,before_json,after_json,detail_json,created_at FROM asset_library_events ORDER BY created_at DESC LIMIT ?").bind(limit).all();
- const both=[...(pages.results||[]).map(x=>({...x,kind:"programme"})),...(artwork.results||[]).map(x=>({...x,kind:"artwork"}))];
- both.sort((a,b)=>b.created_at.localeCompare(a.created_at));
- return json({ok:true,events:both.slice(0,limit)});
+ const limit=Math.min(300,Math.max(1,Number(url.searchParams.get("limit"))||200));
+ const offset=Math.min(1000000,Math.max(0,Number(url.searchParams.get("offset"))||0));
+ const sql="SELECT 'programme' AS kind,id,issue_id,NULL AS asset_id,actor,action,target_page_id,target_layer_id,before_json,after_json,detail_json,created_at FROM activity_events UNION ALL SELECT 'artwork' AS kind,id,NULL AS issue_id,asset_id,actor,action,NULL AS target_page_id,NULL AS target_layer_id,before_json,after_json,detail_json,created_at FROM asset_library_events ORDER BY created_at DESC,id DESC LIMIT ? OFFSET ?";
+ const result=await env.DB.prepare(sql).bind(limit,offset).all();
+ const events=result.results||[];
+ return json({ok:true,events,offset,next_offset:offset+events.length,has_more:events.length===limit});
 }
 async function appendAuditNote(env,actor,request){
  const data=await payload(request,20000);
@@ -1326,7 +1326,7 @@ function activityLogPortal(){
  </style><main><h1>TIVVY · COMPLETE ACTIVITY HISTORY</h1>
  <p>Who did what, when and to which page, layer or original photograph. Timestamps are stored in UTC; revisions retain the previous state.</p>
  <p id="identity">Checking protected access…</p>
- <section class="box"><div class="row"><button id="load">REFRESH ACTIVITY</button><button id="export">DOWNLOAD CSV AUDIT</button>
+ <section class="box"><div class="row"><button id="load">REFRESH ACTIVITY</button><button id="more" disabled>LOAD OLDER EVENTS</button><button id="export">EXPORT ALL CSV AUDIT</button>
  <input id="filter" placeholder="Filter by actor, action, page, note…" style="flex:1;min-width:240px"></div>
  <p id="summary"></p><div style="overflow:auto"><table><thead><tr><th>When (UTC)</th><th>Who</th><th>Action</th><th>Where</th><th>What changed</th></tr></thead>
  <tbody id="entries"></tbody></table></div></section>
@@ -1337,7 +1337,7 @@ function activityLogPortal(){
  </section><p><a href="/artwork-library">ARTWORK LIBRARY</a> · <a href="/cloud-workspace">CLOUD WORKING COPY</a></p>
  </main><script>
  (()=>{"use strict";const $=id=>document.getElementById(id);
- let logs=[],role="";
+ let logs=[],role="",nextOffset=0;
  async function api(url,opts){const response=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});const d=await response.json();
   if(!response.ok||!d.ok)throw Error(d.error||"HTTP "+response.status);return d}
  function detail(x){
@@ -1350,24 +1350,43 @@ function activityLogPortal(){
  }
  function filtered(){const q=$("filter").value.toLowerCase().trim();return q?logs.filter(x=>JSON.stringify(x).toLowerCase().includes(q)):logs}
  function display(){
-  const items=filtered();$("entries").replaceChildren();$("summary").textContent=items.length+" event(s) displayed. Newest first. Up to 300 recent events per refresh.";
+  const items=filtered();$("entries").replaceChildren();$("summary").textContent=items.length+" event(s) displayed. Newest first. Load older events to view more history.";
   for(const x of items){
    const tr=document.createElement("tr");const fields=[x.created_at,x.actor,x.action,x.target_page_id||x.asset_id||x.issue_id||"—",detail(x)];
    for(const v of fields){const td=document.createElement("td");td.textContent=String(v??"");tr.append(td)}
    $("entries").append(tr);
   }
  }
- async function load(){
-  try{const r=await api("/api/activity?limit=300");logs=r.events;display()}catch(e){$("summary").textContent="Audit fetch failed: "+e.message}
+ async function load(append=false){
+  if(!append){nextOffset=0;logs=[]}
+  try{
+   const r=await api("/api/activity?limit=300&offset="+nextOffset);
+   logs.push(...r.events);nextOffset=r.next_offset;$("more").disabled=!r.has_more;display();
+  }catch(e){$("summary").textContent="Audit fetch failed: "+e.message}
  }
- $("load").onclick=load;$("filter").oninput=display;
- $("export").onclick=()=>{
+ $("load").onclick=()=>load(false);
+ $("more").onclick=()=>load(true);
+ $("filter").oninput=display;
+ $("export").onclick=async()=>{
+  const button=$("export");button.disabled=true;
   const fields=["created_at","actor","kind","action","issue_id","asset_id","target_page_id","target_layer_id","before_json","after_json","detail_json"];
   const quote=x=>'"'+String(x??"").replace(/"/g,'""')+'"';
-  const csv=[fields.join(","),...filtered().map(x=>fields.map(k=>quote(x[k])).join(","))].join("\\n");
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download="tivvy-detailed-activity-"+new Date().toISOString().slice(0,10)+".csv";a.click();
-  setTimeout(()=>URL.revokeObjectURL(a.href),15000);
+  try{
+   const all=[];let offset=0;let batches=0;
+   do{
+    const r=await api("/api/activity?limit=300&offset="+offset);
+    all.push(...r.events);offset=r.next_offset;batches++;
+    $("summary").textContent="Preparing full audit export: "+all.length+" events…";
+    if(!r.has_more)break;
+    if(batches>=4000)throw Error("Export reached a safety limit; contact admin for archival export");
+    await new Promise(resolve=>setTimeout(resolve,0));
+   }while(true);
+   const csv=[fields.join(","),...all.map(x=>fields.map(k=>quote(x[k])).join(","))].join("\\n");
+   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+   a.download="tivvy-complete-activity-"+new Date().toISOString().slice(0,10)+".csv";a.click();
+   setTimeout(()=>URL.revokeObjectURL(a.href),15000);display();
+  }catch(e){$("summary").textContent="Full audit export failed: "+e.message}
+  finally{button.disabled=false}
  };
  $("submit").onclick=async()=>{
   try{const text=$("note").value.trim(),issue_id=$("issue").value;

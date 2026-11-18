@@ -42,7 +42,7 @@ jobs:
           node --input-type=module <<'JS'
           import fs from 'node:fs';
           const source=fs.readFileSync('src/index.js','utf8');
-          for(const name of ['storagePortal','cloudImportPortal','cloudWorkspacePortal','assetLibraryPortal','activityLogPortal','sourcesHubPortal','fullDesignerTrialPortal']){
+          for(const name of ['storagePortal','cloudImportPortal','cloudWorkspacePortal','assetLibraryPortal','activityLogPortal','sourcesHubPortal','fullDesignerTrialPortal','referenceMigrationPortal']){
             const start=source.indexOf('function '+name+'()');
             if(start<0)throw Error('Missing protected portal '+name);
             const snippet=source.slice(start,source.indexOf('return new Response(html',start));
@@ -63,6 +63,19 @@ jobs:
           if(!script)throw Error('Original editor script missing');
           new Function(script);
           process.stdout.write('Original V3 native editor cloud bridge validated\n');
+          JS
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const backend=fs.readFileSync('src/index.js','utf8');
+          for(const marker of ['ensureReferencePages(env)','setReferencePage(env,actor','crypto.subtle.digest("SHA-256",raw)',
+            'reference-pages','reference.import','getReferencePage(env,issueId']){
+            if(!backend.includes(marker))throw Error('Missing original-reference migration guard: '+marker);
+          }
+          const original=fs.readFileSync('../programme-designer-v3-editor.html','utf8');
+          if(!original.includes('cloudReferenceURL')||!original.includes('referenceURL'))throw Error('Original native trace cloud bridge missing');
+          const shell=fs.readFileSync('../programme-designer-v3.html','utf8');
+          if(!shell.includes('exportStoredReferenceZip')||!shell.includes('compression:"STORE"'))throw Error('Browser JPEG export is not byte-preserving');
+          process.stdout.write('Verified original-PDF reference migration safety guards\n');
           JS
           grep -q 'tivvy-v3-storage' src/index.js
           node --input-type=module <<'JS'
@@ -138,7 +151,7 @@ jobs:
           class NoRedirect(urllib.request.HTTPRedirectHandler):
               def redirect_request(self,req,fp,code,msg,headers,newurl):return None
           opener=urllib.request.build_opener(NoRedirect)
-          for route in ("/api/issues","/cloud-vault","/cloud-import","/cloud-workspace","/artwork-library","/activity-log","/source-hub","/api/library/assets","/api/activity","/api/sources/viv","/api/sources/live","/full-designer","/full-editor-frame"):
+          for route in ("/api/issues","/cloud-vault","/cloud-import","/cloud-workspace","/artwork-library","/activity-log","/source-hub","/api/library/assets","/api/activity","/api/sources/viv","/api/sources/live","/full-designer","/full-editor-frame","/reference-migration","/api/issues/work_missing/reference-pages"):
               req=urllib.request.Request(base+route,headers={"User-Agent":"tivvy-storage-deploy-smoke/1.0"})
               try:
                   resp=opener.open(req,timeout=20)

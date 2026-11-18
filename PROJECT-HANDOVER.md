@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## FIRST REAL 60-PAGE CLOUD ARCHIVAL COPY LIVE PASS — 18 Nov 2026, 01:38 GMT
+
+- User screenshot from live authenticated /cloud-import shows green status **ARCHIVAL CLOUD COPY VERIFIED · 60 pages · 19 distinct originals · import_0e1a3c2cf5cd417f847c8cad00284c2f**. User initiated real migration from 316.1 MB backup `tivvy-programme-v3-issue14-local-backup-2026-11-18_01-13-30.json`.
+- Live interface logs show staging issue created at version 1 (incomplete) and sequential asset download/read-back checksum verification, including 12.22 MB and 13.84 MB originals previously blocked by old 12 MB application cap. Final green VERIFIED status is shown only after D1 version 2 save and read-back checks, matching 60 page count. **This constitutes USER SCREENSHOT-CONFIRMED functional PASS for archival upload and read-back of the 19 assets and 60-page D1 metadata**.
+- No source browser drafts overwritten or deleted and no image transform/compression requested in lossless upload route. Separate source PDF reference-page imagery in browser `tivvy-v3-reference-art-v1` is explicitly **not included**; archive remains `ARCHIVAL_COPY_NOT_EDITOR_READY`, not yet a complete cloud-native editor workspace. Full portable recovered JSON download and independent cross-device image-layer rendering still require QA. Maintain original 316MB JSON backup.
+- Exact issue ID `import_0e1a3c2cf5cd417f847c8cad00284c2f`. Next preferred QA: from authenticated cloud importer use FIND CLOUD ARCHIVES, select this completed issue, VERIFY AND DOWNLOAD PORTABLE BACKUP; compare recovered JSON with original and test original art integrity. Since 316MB JSON can stress browser RAM, keep backup local and refrain from overwriting drafts.
+- Continue to stage fully editable cloud access, PDF reference artwork, versions/conflict handling and final print-quality PDF. This is a major **real archival migration PASS**, not yet cloud-primary editing success.
+
 ## V3.7 archival recovery output and metadata preflight — 18 November 2026, 01:30 GMT
 
 - User confirms Louis Smith cover is match-specific, not permanent next-issue cover; retain existing cover in historical backup but allow future programme to replace it completely. PNG is preferred input format, while two cover `image/avif` values may derive from earlier tools; no evidence Viv supplied AVIF. Preserve all source formats byte-for-byte and never silently transcode.

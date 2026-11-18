@@ -381,6 +381,58 @@ async function appendAuditNote(env,actor,request){
 }
 
 
+
+// Immutable original printed-programme reference JPEGs. These are separate from
+// editable V3 page layers and cannot be accidentally overwritten by layer autosave.
+async function ensureReferencePages(env){
+ await env.DB.batch([
+  env.DB.prepare("CREATE TABLE IF NOT EXISTS programme_reference_pages (issue_id TEXT NOT NULL,pdf_page INTEGER NOT NULL,asset_id TEXT NOT NULL,sha256 TEXT NOT NULL,byte_size INTEGER NOT NULL,updated_by TEXT NOT NULL,updated_at TEXT NOT NULL,PRIMARY KEY(issue_id,pdf_page))"),
+  env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_programme_reference_asset ON programme_reference_pages(asset_id)")
+ ]);
+}
+async function listReferencePages(env,issueId){
+ await ensureReferencePages(env);
+ const rows=await env.DB.prepare("SELECT pdf_page,asset_id,sha256,byte_size,updated_by,updated_at FROM programme_reference_pages WHERE issue_id=? ORDER BY pdf_page").bind(issueId).all();
+ return json({ok:true,issue_id:issueId,pages:rows.results||[],expected_pages:54});
+}
+async function setReferencePage(env,actor,issueId,pageNumber,request){
+ if(!/^work_[a-f0-9]{32}$/.test(issueId)||!Number.isInteger(pageNumber)||pageNumber<1||pageNumber>54)return failure("Only isolated trial reference pages 1-54 may be imported",400);
+ const body=await payload(request,4096),assetId=String(body.asset_id||"");
+ const checksum=String(body.sha256||"").toLowerCase();
+ if(!/^[0-9a-f-]{36}$/.test(assetId)||!/^[0-9a-f]{64}$/.test(checksum))return failure("Verified asset ID and SHA-256 required",400);
+ const issue=await requireIssue(env,issueId);
+ if(!issue)return failure("Cloud trial issue not found",404);
+ const latest=await env.DB.prepare("SELECT snapshot_json FROM issue_revisions WHERE issue_id=? AND version=?").bind(issueId,issue.current_version).first();
+ if(!latest||JSON.parse(latest.snapshot_json).migrationState!=="CLOUD_EDIT_TRIAL")return failure("Not an isolated cloud editing trial",403);
+ const asset=await env.DB.prepare("SELECT id,r2_key,mime_type,byte_size FROM programme_assets WHERE issue_id=? AND id=?").bind(issueId,assetId).first();
+ if(!asset||asset.mime_type!=="image/jpeg"||asset.byte_size>25_000_000)return failure("Verified original JPEG under 25 MB required",400);
+ const original=await env.ASSETS.get(asset.r2_key);if(!original)return failure("Stored original JPEG not found",404);
+ const raw=await original.arrayBuffer();
+ if(raw.byteLength!==asset.byte_size)return failure("Original byte size mismatch",422);
+ const image=new Uint8Array(raw);
+ if(image[0]!==255||image[1]!==216||image[2]!==255)return failure("Original JPEG signature invalid",422);
+ const calculated=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",raw)),v=>v.toString(16).padStart(2,"0")).join("");
+ if(calculated!==checksum)return failure("Uploaded reference SHA-256 does not match original",422);
+ await ensureReferencePages(env);
+ const previous=await env.DB.prepare("SELECT pdf_page,asset_id,sha256,byte_size FROM programme_reference_pages WHERE issue_id=? AND pdf_page=?").bind(issueId,pageNumber).first();
+ if(previous&&previous.sha256===checksum)return json({ok:true,pdf_page:pageNumber,sha256:checksum,asset_id:previous.asset_id,already_present:true});
+ const t=now();
+ await env.DB.batch([
+  env.DB.prepare("INSERT INTO programme_reference_pages(issue_id,pdf_page,asset_id,sha256,byte_size,updated_by,updated_at) VALUES(?,?,?,?,?,?,?) ON CONFLICT(issue_id,pdf_page) DO UPDATE SET asset_id=excluded.asset_id,sha256=excluded.sha256,byte_size=excluded.byte_size,updated_by=excluded.updated_by,updated_at=excluded.updated_at")
+    .bind(issueId,pageNumber,assetId,checksum,asset.byte_size,actor,t),
+  env.DB.prepare("INSERT INTO activity_events(id,issue_id,actor,action,before_json,after_json,detail_json,created_at) VALUES(?,?,?,?,?,?,?,?)")
+    .bind(uid(),issueId,actor,previous?"reference.replace":"reference.import",previous?JSON.stringify(previous):null,JSON.stringify({pdf_page:pageNumber,asset_id:assetId,sha256:checksum,byte_size:asset.byte_size}),JSON.stringify({source:"original imported PDF reference ZIP",unchangedOriginalBytes:true}),t)
+ ]);
+ return json({ok:true,pdf_page:pageNumber,sha256:checksum,asset_id:assetId,byte_size:asset.byte_size},previous?200:201);
+}
+async function getReferencePage(env,issueId,pageNumber){
+ if(!Number.isInteger(pageNumber)||pageNumber<1||pageNumber>54)return failure("Invalid source PDF page",400);
+ await ensureReferencePages(env);
+ const row=await env.DB.prepare("SELECT asset_id FROM programme_reference_pages WHERE issue_id=? AND pdf_page=?").bind(issueId,pageNumber).first();
+ if(!row)return failure("Source PDF reference not migrated for this page",404);
+ return getAsset(env,issueId,row.asset_id);
+}
+
 // Read-only source discovery using the existing hourly public Viv Curtis Flickr index.
 // This does NOT download, claim ownership of, or modify third-party photographs.
 async function vivFlickrDiscovery(url){
@@ -1822,6 +1874,13 @@ export default {
    const m=path.match(/^\/api\/issues\/([A-Za-z0-9_-]{1,90})(?:\/(.*))?$/);if(!m)return failure("Not found",404);
    const id=m[1],section=m[2]||"";
    if(!allowed(role,"read"))return failure("Forbidden",403);
+   if(section==="reference-pages"&&method==="GET")return listReferencePages(env,id);
+   const referencePage=section.match(/^reference-pages\/(\d{1,2})$/);
+   if(referencePage){
+    const pageNumber=Number(referencePage[1]);
+    if(method==="GET")return getReferencePage(env,id,pageNumber);
+    if(method==="PUT"&&allowed(role,"edit"))return setReferencePage(env,actor,id,pageNumber,request);
+   }
    if(section===""&&method==="GET")return readIssue(env,id);
    if(section===""&&method==="PUT"){
     if(!allowed(role,"edit"))return failure("Forbidden",403);

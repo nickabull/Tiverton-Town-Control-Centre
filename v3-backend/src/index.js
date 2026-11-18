@@ -1875,7 +1875,7 @@ function referenceMigrationPortal(){
  <p id="progress" role="status"></p><pre id="log"></pre></section>
  <section><h2>4. Browse originals recovered from the cloud</h2>
  <label for="page">Original PDF page</label><select id="page"></select>
- <button id="view">VIEW STORED ORIGINAL PAGE</button><p id="viewStatus"></p>
+ <button id="view">VIEW STORED ORIGINAL PAGE</button><button id="recoveryZip" class="gold">VERIFY & DOWNLOAD COMPLETE 54-PAGE RECOVERY ZIP</button><p id="viewStatus"></p>
  <img id="preview" alt="Verified original PDF reference page">
  <p class="muted">The full V3 Cloud Designer uses these images for its tracing/reference overlay. The original Designer's local IndexedDB copies remain unchanged.</p></section>
  <p><a href="/full-designer">FULL V3 CLOUD DESIGNER</a> · <a href="/activity-log">ACTIVITY LOG</a></p></main>
@@ -1974,6 +1974,34 @@ function referenceMigrationPortal(){
   if(!previous.has(n)){say("viewStatus","Original PDF page "+n+" has not been migrated.",true);$("preview").style.display="none";return}
   $("preview").src=path(issue)+"/reference-pages/"+n;$("preview").style.display="block";
   say("viewStatus","Showing private original JPEG from R2 · PDF page "+n);
+ };
+
+ $("recoveryZip").onclick=async()=>{
+  if(busy||!issue)return;
+  busy=true;$("recoveryZip").disabled=true;
+  try{
+   await refresh();
+   if(previous.size!==54)throw Error("Only "+previous.size+"/54 originals in cloud. Resume upload before recovery.");
+   if(!window.JSZip)throw Error("ZIP packager unavailable");
+   const packageZip=new JSZip(),folder=packageZip.folder("pages");
+   for(let n=1;n<=54;n++){
+    const item=previous.get(n);
+    if(!item||!/^[0-9a-f]{64}$/.test(item.sha256))throw Error("Missing verified reference page "+n);
+    say("viewStatus","Downloading and checksum-checking cloud source page "+n+"/54…");
+    const response=await fetch(path(issue)+"/reference-pages/"+n,{credentials:"same-origin",cache:"no-store"});
+    if(!response.ok)throw Error("Cannot recover page "+n+": HTTP "+response.status);
+    const original=new Uint8Array(await response.arrayBuffer());
+    if(original.length!==item.byte_size||await sha(original)!==item.sha256)throw Error("Recovered page "+n+" failed byte-size or SHA-256 test");
+    folder.file(name(n),original,{binary:true,compression:"STORE"});
+   }
+   say("viewStatus","All 54 cloud originals verified. Packaging recovered reference ZIP…");
+   const blob=await packageZip.generateAsync({type:"blob",compression:"STORE"});
+   const link=document.createElement("a"),url=URL.createObjectURL(blob);
+   link.href=url;link.download="tivvy-cloud-reference-54-pages-verified.zip";link.click();
+   setTimeout(()=>URL.revokeObjectURL(url),30000);
+   say("viewStatus","RECOVERY VERIFIED · 54 original JPEGs matched their stored SHA-256 checksums · ZIP downloaded.");
+  }catch(e){say("viewStatus","REFERENCE RECOVERY NOT VERIFIED: "+e.message,true)}
+  finally{busy=false;$("recoveryZip").disabled=false}
  };
  $("preview").onerror=()=>say("viewStatus","Cannot read protected original reference image.",true);
  (async()=>{try{const me=await api("/api/me");if(!["admin","editor"].includes(me.role))throw Error("Editor rights required");

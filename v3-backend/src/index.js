@@ -259,6 +259,13 @@ function cloudImportPortal(){
  <p id="progress" role="status">No cloud upload started.</p>
  <pre id="log"></pre>
  </section>
+ <section><h2>3. Recover a completed cloud archive (read-only)</h2>
+ <p class="note">After an archival import reaches version 2, reconstruct a full browser-compatible JSON backup containing the byte-identical original image files. No browser drafts are overwritten. This can consume substantial browser memory for a 316 MB programme.</p>
+ <p><button id="listArchives" disabled>FIND CLOUD ARCHIVES</button></p>
+ <select id="archive" aria-label="Choose completed archive"><option value="">Select a completed cloud archive</option></select>
+ <p><button id="recoverArchive" disabled>VERIFY AND DOWNLOAD PORTABLE BACKUP</button></p>
+ <pre id="recoverStatus">No archival recovery requested.</pre>
+ </section>
  <p class="note"><strong>Limits:</strong> 95 MB single image upload; 3 MB metadata JSON. Assets above 95 MB need multipart support. Unsupported embedded formats are blocked until reviewed. Reference-only source PDF images stored in a separate browser database are not part of the issue JSON backup. This is an archival cloud copy, not yet automatic live editor sync.</p>
  <p><a href="/cloud-vault">RETURN TO CLOUD VAULT</a></p>
  </main>
@@ -279,7 +286,7 @@ function cloudImportPortal(){
  async function identity(){
    try{const me=await api("/api/me");
      if(!["admin","editor"].includes(me.role))throw Error("Editor or admin role required");
-     $("identity").textContent="Authenticated · "+me.role;$("identity").className="good";$("inspect").disabled=false;$("storageTest").disabled=false;
+     $("identity").textContent="Authenticated · "+me.role;$("identity").className="good";$("inspect").disabled=false;$("storageTest").disabled=false;$("listArchives").disabled=false;
    }catch(e){$("identity").textContent="Access unavailable: "+e.message;$("identity").className="bad"}
  }
  function decode(uri){
@@ -359,6 +366,25 @@ function cloudImportPortal(){
      // separately in another IndexedDB database: do not claim a complete print issue.
      const tiny=targets.map(x=>({...x,layers:[]}));
      if(encoder.encode(JSON.stringify({pages:tiny})).length>2900000)problems.push("Metadata alone exceeds D1 limit");
+     // Simulate the exact asset-reference schema BEFORE upload, so a D1 size
+     // failure cannot come as a surprise after transferring hundreds of MB.
+     const placeholders=new Map();
+     for(const [value,info] of unique)placeholders.set(value,{
+       asset_id:"00000000-0000-4000-8000-000000000000",
+       sha:"0".repeat(64),mime:info.mime,size:info.size
+     });
+     if(!problems.length){
+       try{
+         const candidate={pages:targets.map(x=>({...x,layers:replaceUrls(x.layers,placeholders)})),
+           trash:trashTargets.map(x=>({...x,layers:replaceUrls(x.layers,placeholders)})),
+           sourceActivity:content.activity||[],sourceActivePage:content.active||null,
+           source:"tivvy-v3-browser-backup",migrationState:"ARCHIVAL_COPY_NOT_EDITOR_READY",
+           migratedAt:new Date().toISOString(),sourcePageCount:targets.length,
+           assetCount:unique.size,referencePdfArtIncluded:false};
+         const bytes=encoder.encode(JSON.stringify({expected_version:1,document:candidate,summary:"Verified lossless artwork migration to archival cloud copy"})).byteLength;
+         if(bytes>2900000)problems.push("Cloud metadata would need "+bytes+" bytes (3MB limit); no upload permitted");
+       }catch(e){problems.push("Cannot prepare reversible asset references: "+e.message)}
+     }
      prepared={content,targets,trashTargets,unique,problems};
      $("report").textContent=[
        "SOURCE: "+file.name+" ("+(file.size/1000000).toFixed(1)+" MB)",
@@ -429,6 +455,84 @@ function cloudImportPortal(){
    }catch(e){fail(e);line("Any cloud staging issue remains marked incomplete until a version-2 save succeeds.")}
    finally{busy=false;$("inspect").disabled=false;$("migrate").disabled=!prepared||prepared.problems.length>0}
  }
+ // Rebuild the browser backup ONLY from a completed, versioned archival copy.
+ // Download every distinct cloud asset once and verify the original bytes.
+ function hydrate(value,urls){
+  if(value&&typeof value==="object"&&!Array.isArray(value)&&typeof value.v3CloudAsset==="string"){
+   const found=urls.get(value.v3CloudAsset);
+   if(!found)throw Error("Missing verified artwork "+value.v3CloudAsset);
+   return found;
+  }
+  if(Array.isArray(value))return value.map(x=>hydrate(x,urls));
+  if(value&&typeof value==="object")return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,hydrate(v,urls)]));
+  return value;
+ }
+ $("listArchives").addEventListener("click",async()=>{
+  const status=$("recoverStatus"),select=$("archive");
+  $("recoverArchive").disabled=true;select.replaceChildren(new Option("Select a completed cloud archive",""));
+  try{
+   const data=await api("/api/issues");let completed=0;
+   for(const x of data.issues){
+    if(x.current_version<2||!x.id.startsWith("import_"))continue;
+    const document=await api("/api/issues/"+encodeURIComponent(x.id));
+    if(document.document?.migrationState!=="ARCHIVAL_COPY_NOT_EDITOR_READY")continue;
+    select.add(new Option(x.title+" · v"+document.version,x.id));completed++;
+   }
+   status.textContent="Found "+completed+" completed archival copies. Source PDF reference library is not included.";
+  }catch(e){status.textContent="Unable to load archives: "+e.message}
+ });
+ $("archive").addEventListener("change",()=>{$("recoverArchive").disabled=!$("archive").value});
+ $("recoverArchive").addEventListener("click",async()=>{
+  if(busy)return;busy=true;const btn=$("recoverArchive"),status=$("recoverStatus");
+  btn.disabled=true;status.textContent="Loading completed archive…";
+  try{
+   const id=$("archive").value;
+   if(!id.startsWith("import_"))throw Error("Select a completed archival issue");
+   const data=await api("/api/issues/"+encodeURIComponent(id));
+   const doc=data.document;
+   if(data.version<2||doc.migrationState!=="ARCHIVAL_COPY_NOT_EDITOR_READY")throw Error("Archive is not marked complete");
+   const records=new Map();
+   visit(doc,(value)=>{}, ""); // Does not modify archival metadata.
+   function collect(node){
+    if(Array.isArray(node)){for(const x of node)collect(x);return}
+    if(!node||typeof node!=="object")return;
+    if(typeof node.v3CloudAsset==="string"){
+      const old=records.get(node.v3CloudAsset);
+      if(old&&(old.sha256!==node.sha256||old.mime_type!==node.mime_type))throw Error("Inconsistent asset metadata");
+      records.set(node.v3CloudAsset,node);return;
+    }
+    for(const value of Object.values(node))collect(value);
+   }
+   collect(doc.pages);collect(doc.trash||[]);
+   const urls=new Map();let processed=0;
+   for(const [assetId,record] of records){
+    const response=await fetch("/api/issues/"+encodeURIComponent(id)+"/assets/"+encodeURIComponent(assetId),{credentials:"same-origin",cache:"no-store"});
+    if(!response.ok)throw Error("Cannot retrieve asset "+assetId+" HTTP "+response.status);
+    const image=new Uint8Array(await response.arrayBuffer());
+    if(image.byteLength!==record.size||await sha(image)!==record.sha256)throw Error("Restored asset SHA-256/size mismatch: "+assetId);
+    // Encode the exact verified bytes; preserve their original MIME and data URI format.
+    let binary="";const chunk=32768;
+    for(let off=0;off<image.length;off+=chunk)binary+=String.fromCharCode(...image.subarray(off,off+chunk));
+    urls.set(assetId,"data:"+record.mime_type+";base64,"+btoa(binary));
+    processed++;status.textContent="Restored and verified "+processed+"/"+records.size+" distinct originals…";
+    await new Promise(done=>setTimeout(done,0));
+   }
+   const active=doc.pages.map(p=>({id:p.id,name:p.name,include:p.include,source:p.source,mode:p.mode}));
+   const trash=(doc.trash||[]).map(p=>({id:p.id,name:p.name,include:false,source:p.source,mode:p.mode,deletedAt:p.deletedAt}));
+   const layerData={};
+   for(const page of [...doc.pages,...(doc.trash||[])])layerData[page.id]=hydrate(page.layers,urls);
+   const portable={format:"tivvy-v3-draft-v2",created:new Date().toISOString(),issue:"Recovered cloud archival copy",
+     pages:active,trash,active:doc.sourceActivePage||active[0]?.id||null,layerData,activity:doc.sourceActivity||[],
+     storage:"Restored from verified R2 + D1 archival cloud copy; PDF reference images NOT included"};
+   const json=JSON.stringify(portable);
+   const blob=new Blob([json],{type:"application/json"});
+   const link=document.createElement("a");link.href=URL.createObjectURL(blob);
+   link.download="tivvy-cloud-recovered-"+id+".json";link.click();
+   setTimeout(()=>URL.revokeObjectURL(link.href),30000);
+   status.textContent="PORTABLE BACKUP GENERATED · "+active.length+" pages · "+records.size+" original assets verified · "+(blob.size/1000000).toFixed(1)+" MB. Downloaded locally. Original browser drafts unchanged. PDF reference art not included.";
+  }catch(e){status.textContent="RECOVERY NOT COMPLETE: "+e.message+". Original browser drafts unchanged."}
+  finally{busy=false;btn.disabled=false}
+ });
  $("storageTest").addEventListener("click",async()=>{
   if(busy)return;busy=true;const btn=$("storageTest"),out=$("testResult");
   btn.disabled=true;out.textContent="Testing a disposable D1 issue and R2 PNG…";

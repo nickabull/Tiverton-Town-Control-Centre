@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## Cloud working-copy creation & preview fidelity QA — 18 Nov 2026, 11:11 GMT
+
+- User screenshot of protected `/cloud-workspace` shows newly created working-copy page displaying archived cover artwork and selected layer list (e.g. Shirt Background, Black Paint, Yellow Swoosh, Tiverton Town Football Club, Programme QR), plus searchable insert-cloud-artwork controls. This is **user visual evidence that a separate cloud working copy was created and asset references can render**; exact D1 write/revision success and autosave still not independently tested.
+- **Important visual defect:** simplified cloud working-copy renderer does NOT reproduce legacy V3 original page layout. Cover title and other text overlap, typography differs, club crest/away crest and QR partly clip, and image/text positioning is visually wrong. Do NOT promote this simplified cloud UI as production editor or claim pixel-perfect reproduction. Real source archive and IndexedDB browser art remain unchanged; revert only trial edits if necessary.
+- Next safe autosave QA: choose noncritical editable text in the separate cloud working copy (ideally not the cover), change a few characters, wait for `CLOUD AUTOSAVED & VERIFIED`, reopen same working copy and confirm persistence, confirm audit actor/time and before/after. Never modify historical archive. Then integrate real full V3 editor canvas/renderer with same-origin cloud API for accurate editing rather than continue building a duplicate renderer.
+
 ## V3.9 Artwork Library 90-day Trash and Restore — USER LIVE PASS, 18 November 2026, 10:14 GMT
 
 - User explicitly reported: after uploading the 2,299-byte `tivvy-library-test.png` (SHA-256 byte-identical roundtrip PASS), adding searchable metadata and searching `recovery` (live screenshot PASS), they **moved the disposable asset to Trash, found it in Trash, and recovered it successfully**. Mark real authenticated user workflow `active → trash → active` **PASS by user report**, without independent 90-day wait.

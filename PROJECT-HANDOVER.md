@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.9 Artwork Library 90-day Trash and Restore — USER LIVE PASS, 18 November 2026, 10:14 GMT
+
+- User explicitly reported: after uploading the 2,299-byte `tivvy-library-test.png` (SHA-256 byte-identical roundtrip PASS), adding searchable metadata and searching `recovery` (live screenshot PASS), they **moved the disposable asset to Trash, found it in Trash, and recovered it successfully**. Mark real authenticated user workflow `active → trash → active` **PASS by user report**, without independent 90-day wait.
+- Original asset is restored, not permanently deleted. This tests the protected library action APIs and status search, but **does NOT** test scheduled expiry/purge after 90 days, referenced-asset retention, complete cross-device rendering, or original GitHub Pages Designer autosave.
+- Next critical QA: non-destructive `/cloud-workspace` trial D1 autosave → server acknowledgment → reload/reopen persistence and 409 conflict handling, then audit trail user/time/field diffs. Create a separate cloud working copy from the existing 60-page verified archival issue `import_0e1a3c2cf5cd417f847c8cad00284c2f`; never edit original historical archive or browser IndexedDB.
+
 ## Artwork Library metadata + search LIVE PASS — 18 November 2026, 10:11 GMT
 
 - User screenshot in signed-in `/artwork-library`: typed `recovery` into search, active/Saved artwork scope, result **1 asset(s) found in active**. Test PNG thumbnail displayed, title **Tivvy Library Test**, source filename `tivvy-library-test.png`, credit **Tivvy Test**. This demonstrates browser-verified metadata update, persistence, searchable lookup and thumbnail GET after the original 2,299-byte SHA-256-verified upload (recorded previously).

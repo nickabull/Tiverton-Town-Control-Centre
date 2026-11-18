@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.10 native full-editor Map Background restoration — USER LIVE PASS, 18 November 2026, 12:56 GMT
+
+- User confirmed "Yes the map is back" after refreshing/reopening Page 6 Latest News in the Access-protected true V3 cloud editor. This is real browser USER-REPORTED PASS for fix commit `5a4250b1c0a65ba84ed0a3fa8b2aa42b36d4594c`, reviving compact `__v3_builtin_map` into the original embedded image bytes before rendering. Native layout/Antonio typography had already been visually confirmed in the previous 12:45 screenshot.
+- This restores one built-in Map Background, **not** independently migrated source PDF reference artwork or all external images. Original user IndexedDB drafts, source R2 images, historical 60-page cloud archive unchanged.
+- Next QA: make a trivial text edit in existing separate `work_` issue using true native V3 editor, wait for `CLOUD AUTOSAVED & VERIFIED`, reopen same page and verify edit persists, then inspect detailed actor/time/field changes in /activity-log. Test handling of new rich-text/large images, two-tab conflict and multi-device recovery before enabling primary cloud editing. Do not claim native full-editor autosave passed until explicitly observed.
+
 ## V3.10 full native cloud renderer visual QA and built-in art fix — 18 Nov 2026, 12:45 GMT
 
 - User screenshot of native cloud full-editor, Page 6 Latest News: actual Antonio typography and original two-column text layout render, including prior autosaved TEST TEXT TEST TEXT TEST TEXT; real native drag-selection visible. This is PARTIAL visual pass; page is not yet pixel-perfect.

@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.20 Cloud Vault deployed: live screenshot PASS — 18 November 2026, 00:08 GMT
+
+- User deployed updated `v3-backend/src/index.js` to the existing Access-protected `tivvy-programme-v3-storage` Worker through Cloudflare editor. Screenshot of `/cloud-vault` displays `TIVVY · CLOUD VAULT`, green `Protected connection verified · role: admin`, issue chooser, and `2 cloud issue(s) found. Browser-only artwork is not included.` This proves **live Worker route deployment, protected admin API identity and D1 issue-list fetch, and basic Cloud Vault HTML render PASS**.
+- The screenshot shows issue chooser at `Select an issue` and the download/revision buttons still disabled as designed; **issue selection, revision-list retrieval and JSON download have NOT yet been browser-QA-tested**. Do not claim a full production cloud save or image migration. No evidence of modification to browser drafts or original page artwork.
+- Next staged verification: choose disposable D1 test issue; confirm version/pages and click LOAD REVISIONS; download selected issue JSON and inspect contents. Separately test that anonymous R2 asset requests are blocked. Only afterward design reversible upload/reference migration and conflicts/recovery controls. Keep existing IndexedDB backups and all source masters intact.
+- Status: code COMMITTED; live deployed route + authenticated admin/list PASS (user screenshot); selected-issue/revision/download PENDING; full browser artwork cloud sync and PDF PENDING.
+
+
 ## V3.6.20 deployability check — 18 November 2026, 00:02 GMT
 
 - User authorised continuing without repeated approvals. Inspected available connected tools and repository GitHub Actions. There is **no Cloudflare Worker deployment tool/connection**; existing `.github/workflows/deploy-tivvy-live-service.yml` targets unrelated live collector, and there is no dedicated authenticated Programme V3 Worker deployment workflow. Do not repurpose it, overwrite the live collector, or claim the storage Worker was deployed.

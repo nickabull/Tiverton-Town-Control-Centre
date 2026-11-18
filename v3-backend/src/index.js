@@ -3,7 +3,7 @@
 // cryptographically verified here; an unverified identity header is never trusted.
 // It is intentionally NOT called by the browser-only V3.1 application yet.
 const MAX_SNAPSHOT_BYTES = 3_000_000;
-const MAX_ASSET_BYTES = 12_000_000;
+// Large artwork uses a streamed single upload up to 95 MB; multipart is a future phase.
 const TYPES = new Set(["image/png","image/jpeg","image/webp","image/gif","application/pdf"]);
 const json=(body,status=200)=>new Response(JSON.stringify(body),{status,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff"}});
 const failure=(message,status=400)=>json({ok:false,error:message},status);
@@ -119,20 +119,36 @@ async function restoreIssue(env,actor,id,version,request){
  return await saveIssue(env,actor,id,synthetic);
 }
 async function uploadAsset(env,actor,id,request){
- const mime=(request.headers.get("content-type")||"").split(";")[0].trim().toLowerCase();
- const body=await request.arrayBuffer();
- if(!TYPES.has(mime))return failure("Unsupported asset MIME type",415);
- if(body.byteLength<1||body.byteLength>MAX_ASSET_BYTES)return failure("Image/PDF must be 1 byte to 12MB",413);
- const filename=(request.headers.get("x-file-name")||"uploaded-file").replace(/[\r\n\\/]/g,"_").slice(0,160);
- const assetId=uid(),key=id+"/"+assetId,time=now();
- await env.ASSETS.put(key,body,{httpMetadata:{contentType:mime},customMetadata:{uploadedBy:actor,originalFilename:filename}});
- try{
- await env.DB.batch([
-  env.DB.prepare("INSERT INTO programme_assets(id,issue_id,r2_key,original_filename,mime_type,byte_size,uploaded_by,uploaded_at) VALUES (?,?,?,?,?,?,?,?)").bind(assetId,id,key,filename,mime,body.byteLength,actor,time),
-  env.DB.prepare("INSERT INTO activity_events(id,issue_id,actor,action,detail_json,created_at) VALUES (?,?,?,'asset.upload',?,?)").bind(uid(),id,actor,JSON.stringify({assetId,filename,mime,size:body.byteLength}),time)
- ]);
- }catch(e){await env.ASSETS.delete(key);throw e}
- return json({ok:true,asset_id:assetId,mime_type:mime,byte_size:body.byteLength},201);
+  // Original bytes are streamed directly to R2: no re-encoding, resizing,
+  // lossy compression or in-memory buffering of large photographs.
+  // Free/Pro Cloudflare HTTP request-body caps are 100 MB; reserve headroom.
+  const MAX_STREAMED_ASSET_BYTES = 95_000_000;
+  const mime=(request.headers.get("content-type")||"").split(";")[0].trim().toLowerCase();
+  if(!TYPES.has(mime))return failure("Unsupported asset MIME type",415);
+  const declaredSize=Number(request.headers.get("content-length"));
+  if(!Number.isSafeInteger(declaredSize)||declaredSize<=0)
+    return failure("A positive Content-Length is required for streamed artwork uploads",411);
+  if(declaredSize>MAX_STREAMED_ASSET_BYTES)
+    return failure("Single-upload limit is 95 MB; larger original files need multipart upload",413);
+  if(!request.body)return failure("Missing upload body",400);
+  const filename=(request.headers.get("x-file-name")||"uploaded-file").replace(/[\r\n\\/]/g,"_").slice(0,160);
+  const assetId=uid(),key=id+"/"+assetId,time=now();
+  const object=await env.ASSETS.put(key,request.body,{
+    httpMetadata:{contentType:mime},
+    customMetadata:{uploadedBy:actor,originalFilename:filename}
+  });
+  if(!object)return failure("R2 did not confirm object storage",500);
+  if(object.size!==declaredSize){
+    await env.ASSETS.delete(key);
+    return failure("Uploaded byte count differed from declared size; no asset was retained",422);
+  }
+  try{
+    await env.DB.batch([
+      env.DB.prepare("INSERT INTO programme_assets(id,issue_id,r2_key,original_filename,mime_type,byte_size,uploaded_by,uploaded_at) VALUES (?,?,?,?,?,?,?,?)").bind(assetId,id,key,filename,mime,object.size,actor,time),
+      env.DB.prepare("INSERT INTO activity_events(id,issue_id,actor,action,detail_json,created_at) VALUES (?,?,?,'asset.upload',?,?)").bind(uid(),id,actor,JSON.stringify({assetId,filename,mime,size:object.size}),time)
+    ]);
+  }catch(e){await env.ASSETS.delete(key);throw e}
+  return json({ok:true,asset_id:assetId,mime_type:mime,byte_size:object.size},201);
 }
 async function getAsset(env,id,assetId){
  const asset=await env.DB.prepare("SELECT * FROM programme_assets WHERE id=? AND issue_id=?").bind(assetId,id).first();

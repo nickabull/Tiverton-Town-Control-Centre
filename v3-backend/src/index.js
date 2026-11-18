@@ -1521,7 +1521,7 @@ function fullDesignerTrialPortal(){
  button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}button.gold{background:#ffda00;color:#161616;font-weight:bold}
  #state{padding:9px 16px;min-height:40px;color:#d5d6db;border-bottom:1px solid #444}
  #state.good{color:#95e7a5}#state.bad{color:#ffabab}
- #frame{width:100%;height:calc(100vh - 114px);min-height:600px;border:0;display:block}
+ #frame{width:100%;height:calc(100vh - 114px);min-height:600px;border:0;display:block}#frame[hidden]{display:none}
  #initial{max-width:800px;margin:70px auto;border:1px solid #56575d;padding:22px;border-radius:7px}
  #initial h2{color:#ffda00}a{color:#ffda00}
  </style>

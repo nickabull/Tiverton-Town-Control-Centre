@@ -198,3 +198,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 18 Nov 2026 — Motor SSH verified locally
 - **VERIFIED by user screenshot of `sudo systemctl status ssh`:** `ssh.service` OpenBSD Secure Shell server loaded, enabled and `active (running)` on Motor. `sshd` listening on IPv4 `0.0.0.0` port 22 and IPv6 `::` port 22. The screenshot indicates service started on 18 Nov 2026.
 - **NOT YET VERIFIED:** LAN IP, successful remote SSH login, authentication/key policy, or ability of modern SSH clients to negotiate with Jessie. Next check `hostname -I` and attempt LAN-only connection; avoid router port forwarding and public exposure. Back up original microSD and trial supported Pi OS on separate card before running permanent Eldoret services.
+
+
+### 18 Nov 2026 — second Raspberry Pi discovered
+- **VERIFIED from user's terminal photograph:** separate machine with prompt `pi@raspberrypi`, `cat /proc/device-tree/model` -> **Raspberry Pi 3 Model B Rev 1.2**, `cat /etc/os-release` -> **Raspbian GNU/Linux 10 (buster)**. Thus hardware is *not* newer than Motor, but OS is newer than Motor's Jessie; Buster is also end of support.
+- **UNVERIFIED:** second Pi's storage, network, SSH, workloads, memory pressure, and Eldoret integration compatibility. Neither machine has been migrated or wiped.
+- **Next action:** prefer inspecting second Pi as potential pilot; run read-only `hostname -I`, `free -h`, `df -h /`, and `systemctl is-active ssh`; inventory pre-existing use and back up SD before any fresh OS installation. Preserve Mac-independent audio and Donkey fallback.

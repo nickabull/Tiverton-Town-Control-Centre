@@ -503,7 +503,11 @@ function showExactNudgeGuides(){
  displaySnapGuides(hitX,hitY);
 }
 const V3_PAGE_ID=new URLSearchParams(location.search).get('page')||'issue-20261114-p06';
-const V3_STORE_KEY='tivvy-v3-draft-page-'+V3_PAGE_ID;
+// Cloud trial uses this *exact* V3 canvas but a separate per-issue browser namespace.
+// GitHub Pages original editor has no cloudIssue query, so its drafts remain unchanged.
+const V3_CLOUD_TRIAL=new URLSearchParams(location.search).get('cloudTrial')==='1';
+const V3_CLOUD_ISSUE=new URLSearchParams(location.search).get('cloudIssue')||'';
+const V3_STORE_KEY='tivvy-v3-draft-page-'+(V3_CLOUD_TRIAL&&/^work_[a-f0-9]{32}$/.test(V3_CLOUD_ISSUE)?V3_CLOUD_ISSUE+'-':'')+V3_PAGE_ID;
 const V3_EMBEDDED_ASSETS={map:ASSETS.map,header:ASSETS.header,footer:ASSETS.footer};
 function v3Pack(){return JSON.stringify(layers,(key,value)=>{
  if(key==='src'&&typeof value==='string')for(const [name,src] of Object.entries(V3_EMBEDDED_ASSETS))if(value===src)return '__v3_builtin_'+name;
@@ -723,6 +727,10 @@ function save(key='edit'){
  }
  historyCounter();
  queueDraftSave(next,key==='page-switch'||key==='artwork-extract');
+ if(V3_CLOUD_TRIAL&&window.parent!==window){
+  window.parent.postMessage({type:'tivvy-cloud-layer-snapshot',pageId:V3_PAGE_ID,
+   cloudIssue:V3_CLOUD_ISSUE,snapshot:next,reason:key},location.origin);
+ }
 }
 
 function restoreHistory(source,destination){
@@ -1548,6 +1556,22 @@ $('snapEnabled').addEventListener('change',clearSnapGuides);
 })();
 
 window.addEventListener('message',event=>{if(event.origin!==location.origin)return;
+ if(V3_CLOUD_TRIAL&&event.data?.type==='tivvy-cloud-load'&&event.data.cloudIssue===V3_CLOUD_ISSUE&&event.data.pageId===V3_PAGE_ID){
+  const input=event.data.layers;
+  if(!Array.isArray(input)||input.length>1000)return;
+  // Cloud controller has already checked revision and authenticated issue ID.
+  // Never touch the original GitHub Pages draft key; this is a separate origin.
+  try{
+   if(activeEditor)endEdit(false);
+   layers=structuredClone(input);selected=layers.find(l=>l.id==='heading')?.id||layers[0]?.id||'';
+   lastSavedSnapshot=v3Pack();undoStack.length=0;redoStack.length=0;historyCounter();
+   multiSelected.clear();paint();updateFormatButtons();
+   queueDraftSave(lastSavedSnapshot,true);
+   window.parent.postMessage({type:'tivvy-cloud-loaded',pageId:V3_PAGE_ID,cloudIssue:V3_CLOUD_ISSUE,
+     layerCount:layers.length},location.origin);
+  }catch(e){window.parent.postMessage({type:'tivvy-cloud-load-error',pageId:V3_PAGE_ID,
+    cloudIssue:V3_CLOUD_ISSUE,error:String(e.message||e)},location.origin)}
+ }
  if(event.data?.type==='tivvy-v3-import-artwork'&&event.data.pageId===V3_PAGE_ID){
   const d=event.data;
   if(typeof d.src!=='string'||!d.src.startsWith('data:image/png;base64,')||d.src.length>2500000)return;

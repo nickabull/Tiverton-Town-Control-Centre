@@ -901,7 +901,7 @@ function cloudWorkspacePortal(){
  </div></aside></div>
  </section>
  <p class="muted"><strong>Trial limitations:</strong> text/position editing and cloud revisions with debounced autosave and local emergency backup. Not yet the full V3 canvas editor, no source PDF reference images, no complete print PDF. Original PNG, JPEG and AVIF images are served directly from their verified private R2 objects; no conversion or compression.</p>
- <p><a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
+ <p><a href="/full-designer">OPEN ORIGINAL FULL V3 DESIGNER · CLOUD TRIAL</a> · <a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
  </main><script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);
@@ -1192,7 +1192,7 @@ function assetLibraryPortal(){
  <p class="muted">Shows who uploaded, changed metadata, moved or restored an asset, with timestamps and before/after records.</p>
  <pre id="events">No audit records loaded.</pre></section>
  <p class="muted">External imagery from Flickr/X is linked to its source and usage rights before any separate download. We will add direct provider integrations as authenticated, source-specific services rather than silently copying third-party images.</p>
- <p><a href="/cloud-workspace">CLOUD WORKSPACE</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
+ <p><a href="/full-designer">ORIGINAL FULL DESIGNER TRIAL</a> · <a href="/cloud-workspace">CLOUD WORKSPACE</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
  </main><script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);let role="",selected=null,rows=[],events=[];

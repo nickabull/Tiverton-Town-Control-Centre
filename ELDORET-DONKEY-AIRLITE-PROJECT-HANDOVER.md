@@ -437,3 +437,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED from user's Bulldog SSH transcript:** `/sys/class/backlight/rpi_backlight/brightness` = `255`, `max_brightness` = `255`, `bl_power` = `0` (enabled), `actual_brightness` = `255`.
 - Combined earlier facts: framebuffer `/dev/fb0` BCM2708 FB at 800x480x16, kernel enumerates `raspberrypi-ts` touch device and `rpi_backlight`, no `/sys/class/drm/`, KMS overlay disabled, 7-inch DSI overlay file exists; display still visually blank as reported.
 - **Interpretation:** driver reports backlight enabled/full, but physical LCD brightness/panel signal not verified. Do not assume brightness issue or blindly enable overlays on live Eldoret controller. Suggested safe next test: temporarily change brightness and restore in same command to see if actual panel responds. If no physical response, inspect power/wiring/model and boot config carefully before graphics changes.
+
+
+### 18 November 2026 ~21:16 GMT — Dual KMS overlay screen test unsuccessful
+- **USER VERIFIED:** After backing up `/boot/firmware/config.txt` to `/boot/firmware/config.txt.before-screen`, appended `[all]`, `dtoverlay=vc4-kms-v3d`, and `dtoverlay=vc4-kms-dsi-7inch`, then rebooted Bulldog, **Eldoret still works perfectly** at `10.0.0.39:8765` but **the attached screen remains fully blank**. Do not claim screen fixed.
+- No desktop was installed. The exact screen model/DSI variant is still not definitively known; overlays are appropriate for original official 7-inch Raspberry Pi display, not necessarily all similar panels.
+- **Next non-destructive diagnostic:** check post-reboot `/sys/class/drm`, framebuffer identity/resolution and filtered kernel `drm/vc4/dsi/panel/backlight` messages. Avoid further boot edits until the result. Preserve `/boot/firmware/config.txt.before-screen` for rollback; do not unnecessarily disrupt now-production Eldoret service.

@@ -243,7 +243,7 @@ async function listLibrary(env,url){
  await ensureAssetLibrary(env);
  const query=String(url.searchParams.get("q")||"").trim().slice(0,120);
  const status=url.searchParams.get("status")==="trash"?"trash":"active";
- const term="%"+query.replace(/[%_\\]/g,"\\// Authenticated, read-only cloud vault.")+"%";
+ const term="%"+query.replace(/[%_\\]/g,ch=>"\\"+ch)+"%";
  const result=await env.DB.prepare("SELECT * FROM asset_library WHERE status=? AND (original_filename LIKE ? ESCAPE '\\' OR title LIKE ? ESCAPE '\\' OR description LIKE ? ESCAPE '\\' OR tags_json LIKE ? ESCAPE '\\' OR category LIKE ? ESCAPE '\\' OR credit LIKE ? ESCAPE '\\') ORDER BY updated_at DESC LIMIT 200")
  .bind(status,term,term,term,term,term,term).all();
  return json({ok:true,items:(result.results||[]).map(assetSummary),query,status});
@@ -358,6 +358,26 @@ async function purgeExpiredLibrary(env){
    libraryEvent(env,item.id,"system:retention","asset.purge.complete",null,null,{originalFilename:item.original_filename,expiredAt:item.purge_after})
   ]);
  }
+}
+
+async function globalActivity(env,url){
+ const limit=Math.min(300,Math.max(1,Number(url.searchParams.get("limit"))||200));
+ const pages=await env.DB.prepare("SELECT id,issue_id,actor,action,target_page_id,target_layer_id,before_json,after_json,detail_json,created_at FROM activity_events ORDER BY created_at DESC LIMIT ?").bind(limit).all();
+ await ensureAssetLibrary(env);
+ const artwork=await env.DB.prepare("SELECT id,asset_id,actor,action,before_json,after_json,detail_json,created_at FROM asset_library_events ORDER BY created_at DESC LIMIT ?").bind(limit).all();
+ const both=[...(pages.results||[]).map(x=>({...x,kind:"programme"})),...(artwork.results||[]).map(x=>({...x,kind:"artwork"}))];
+ both.sort((a,b)=>b.created_at.localeCompare(a.created_at));
+ return json({ok:true,events:both.slice(0,limit)});
+}
+async function appendAuditNote(env,actor,request){
+ const data=await payload(request,20000);
+ const note=String(data.text||"").trim().slice(0,8000);
+ const issueId=String(data.issue_id||"").trim();
+ if(note.length<2)return failure("A meaningful note is required",400);
+ if(!safeId(issueId)||!await requireIssue(env,issueId))return failure("Select a valid issue",400);
+ const time=now(),event=uid();
+ await env.DB.prepare("INSERT INTO activity_events(id,issue_id,actor,action,detail_json,created_at) VALUES(?,?,?,'project.note',?,?)").bind(event,issueId,actor,JSON.stringify({text:note,source:"authenticated user note"}),time).run();
+ return json({ok:true,id:event,created_at:time,actor});
 }
 
 // Authenticated, read-only cloud vault. Hosted on this Worker origin so Access
@@ -1198,6 +1218,8 @@ export default {
     if(path==="/api/library/assets"&&method==="GET"&&allowed(role,"read"))return listLibrary(env,url);
    if(path==="/api/library/assets"&&method==="POST"&&allowed(role,"edit"))return uploadLibraryAsset(env,actor,request);
    if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);
+   if(path==="/api/activity"&&method==="GET"&&allowed(role,"read"))return globalActivity(env,url);
+   if(path==="/api/activity/notes"&&method==="POST"&&allowed(role,"edit"))return appendAuditNote(env,actor,request);
    const lib=path.match(/^\/api\/library\/assets\/([0-9a-f-]{36})(?:\/(original))?$/);
    if(lib){
     if(method==="GET"&&lib[2]==="original"&&allowed(role,"read"))return libraryOriginal(env,lib[1]);

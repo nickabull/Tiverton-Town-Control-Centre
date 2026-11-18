@@ -981,6 +981,153 @@ function cloudWorkspacePortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function assetLibraryPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy · Original artwork library</title>
+ <style>
+ :root{--gold:#ffda00}*{box-sizing:border-box}body{font:14px system-ui,Arial;background:#17181a;color:#eee;margin:0}
+ main{max-width:1200px;margin:auto;padding:24px}h1{color:var(--gold);font-size:29px;margin:0 0 12px}
+ h2{color:var(--gold);font-size:19px}section{border:1px solid #505256;border-radius:8px;padding:18px;margin:16px 0}
+ label{display:block;font-size:12px;color:#ccc;margin:10px 0 4px}
+ input,select,textarea,button{font:inherit;border:1px solid #65686e;border-radius:5px;padding:11px;background:#2d3035;color:#fff}
+ input,textarea{width:100%}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
+ button.gold{background:var(--gold);border-color:var(--gold);color:#161616;font-weight:bold}
+ a{color:var(--gold)}.muted{color:#c5c6ca}.good{color:#8feb9e}.bad{color:#ff9999}
+ .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.toolbar input{flex:1;min-width:180px}
+ #files{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+ .item{border:1px solid #505256;padding:10px;border-radius:6px;overflow:hidden}
+ .item img{width:100%;height:150px;object-fit:contain;background:#292a2e;display:block}
+ .item button{margin:8px 0 0;width:100%;text-align:left;font-size:12px}
+ .item small{color:#bbb}#detail{max-width:700px}#status{min-height:20px}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ pre{white-space:pre-wrap;word-break:break-word;max-height:330px;overflow:auto}
+ </style><main>
+ <h1>TIVVY · ORIGINAL ARTWORK LIBRARY</h1>
+ <p>Keep original files in private cloud storage. Search by filename, title, tags, credit, category or description. Trash retains recoverable items for 90 days; existing programme versions protect referenced originals.</p>
+ <p id="identity" role="status">Checking protected access…</p>
+ <section><h2>Upload original artwork</h2>
+ <input id="uploadFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/avif,application/pdf">
+ <p class="muted">Original bytes only: no compression, resizing or format conversion. Single upload limit 95 MB; multipart for larger files is still to come.</p>
+ <button id="upload" class="gold" disabled>STORE ORIGINAL IN CLOUD</button>
+ <p id="uploadStatus" role="status"></p></section>
+ <section><h2>Find and reuse artwork</h2>
+ <div class="toolbar"><input id="query" placeholder="Search by player, opponent, photographer, match, tag…">
+ <select id="mode"><option value="active">Saved artwork</option><option value="trash">Trash · 90 days</option></select>
+ <button id="search" class="gold">SEARCH</button></div>
+ <p id="status" role="status"></p><div id="files"></div></section>
+ <section id="detail" hidden><h2>Selected artwork</h2>
+ <p id="fileInfo"></p><div class="grid"><div><label for="title">Title</label><input id="title"></div>
+ <div><label for="category">Category</label><input id="category" placeholder="Match photography"></div></div>
+ <label for="description">Description and match notes</label><textarea id="description" rows="3"></textarea>
+ <div class="grid"><div><label for="credit">Credit / photographer</label><input id="credit" placeholder="Viv Curtis"></div>
+ <div><label for="tags">Searchable tags (comma-separated)</label><input id="tags" placeholder="Tiverton, Melksham, 2026"></div></div>
+ <p id="recoverInfo"></p><div class="toolbar">
+ <button id="saveMeta" class="gold">SAVE METADATA</button><button id="copyUrl">COPY PRIVATE ARTWORK URL</button>
+ <button id="trash">MOVE TO TRASH</button><button id="restore">RESTORE FROM TRASH</button>
+ </div><p id="editStatus" role="status"></p></section>
+ <section><h2>Detailed audit history</h2>
+ <button id="audit">REFRESH AUDIT LOG</button> <button id="csv">DOWNLOAD AUDIT CSV</button>
+ <p class="muted">Shows who uploaded, changed metadata, moved or restored an asset, with timestamps and before/after records.</p>
+ <pre id="events">No audit records loaded.</pre></section>
+ <p class="muted">External imagery from Flickr/X is linked to its source and usage rights before any separate download. We will add direct provider integrations as authenticated, source-specific services rather than silently copying third-party images.</p>
+ <p><a href="/cloud-workspace">CLOUD WORKSPACE</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
+ </main><script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id);let role="",selected=null,rows=[],events=[];
+ async function api(path,options){
+  const res=await fetch(path,{credentials:"same-origin",cache:"no-store",...options});
+  const data=await res.json();
+  if(!res.ok||!data.ok)throw Error(data.error||"HTTP "+res.status);
+  return data;
+ }
+ function setText(id,value,bad=false){$(id).textContent=value;$(id).className=bad?"bad":"muted"}
+ const canEdit=()=>["admin","editor"].includes(role);
+ const path=id=>"/api/library/assets/"+encodeURIComponent(id);
+ async function refresh(){
+  $("files").textContent="Searching cloud library…";
+  try{
+   const data=await api("/api/library/assets?status="+$("mode").value+"&q="+encodeURIComponent($("query").value));
+   rows=data.items;$("files").replaceChildren();
+   setText("status",rows.length+" asset(s) found in "+data.status+".");
+   for(const item of rows){
+    const card=document.createElement("div");card.className="item";
+    if(item.mime_type.startsWith("image/")&&item.status==="active"){
+     const image=document.createElement("img");image.src=path(item.id)+"/original";image.alt=item.title||item.original_filename;image.loading="lazy";card.append(image);
+    }
+    const label=document.createElement("button");label.textContent=item.title||item.original_filename;label.onclick=()=>choose(item.id);card.append(label);
+    const meta=document.createElement("small");meta.textContent=item.original_filename+" · "+(item.byte_size/1000000).toFixed(2)+" MB · "+(item.credit||"Uncredited");card.append(meta);
+    $("files").append(card);
+   }
+  }catch(e){setText("status","SEARCH FAILED: "+e.message,true);$("files").replaceChildren()}
+ }
+ function choose(id){
+  selected=rows.find(x=>x.id===id);if(!selected)return;
+  $("detail").hidden=false;
+  for(const k of ["title","category","description","credit"])$(k).value=selected[k]||"";
+  $("tags").value=(selected.tags||[]).join(", ");
+  $("fileInfo").textContent=selected.original_filename+" · original "+selected.mime_type+" · "+selected.byte_size+" bytes · "+selected.id;
+  $("recoverInfo").textContent=selected.status==="trash"?"Recoverable until "+selected.purge_after+" (unless protected by programme revision)":"Stored in cloud; no automatic expiry.";
+  $("saveMeta").disabled=!canEdit()||selected.status!=="active";
+  $("trash").disabled=!canEdit()||selected.status!=="active";
+  $("restore").disabled=!canEdit()||selected.status!=="trash";
+  $("copyUrl").disabled=selected.status!=="active";
+  setText("editStatus","");
+ }
+ async function modify(action){
+  if(!selected)return;
+  const old=selected.id;
+  try{
+   const body={action};
+   if(action==="metadata")Object.assign(body,{title:$("title").value,category:$("category").value,
+    description:$("description").value,credit:$("credit").value,
+    tags:$("tags").value.split(",").map(x=>x.trim()).filter(Boolean)});
+   if(action==="trash"&&!confirm("Move original to recoverable trash for 90 days? The artwork is not immediately destroyed."))return;
+   const data=await api(path(old),{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
+   setText("editStatus","Saved · "+action+" · "+new Date().toLocaleString());
+   await refresh();choose(data.item.id);await audit();
+  }catch(e){setText("editStatus","Could not "+action+": "+e.message,true)}
+ }
+ $("saveMeta").onclick=()=>modify("metadata");$("trash").onclick=()=>modify("trash");$("restore").onclick=()=>modify("restore");
+ $("copyUrl").onclick=()=>{if(selected)navigator.clipboard.writeText(location.origin+path(selected.id)+"/original").then(()=>setText("editStatus","Private artwork URL copied. Login required to view."))};
+ $("search").onclick=refresh;$("query").onkeydown=e=>{if(e.key==="Enter")refresh()};$("mode").onchange=refresh;
+ $("upload").onclick=async()=>{
+  const file=$("uploadFile").files[0];if(!file)return;
+  if(file.size>95000000){setText("uploadStatus","Original over 95MB: multipart upload not yet supported. File unchanged.",true);return}
+  $("upload").disabled=true;
+  try{
+   setText("uploadStatus","Storing original bytes without processing…");
+   const resp=await api("/api/library/assets",{method:"POST",headers:{"content-type":file.type,"x-file-name":file.name},body:file});
+   const fetched=await fetch(path(resp.id)+"/original",{credentials:"same-origin"});
+   if(!fetched.ok||Number(fetched.headers.get("content-length")||resp.byte_size)!==file.size)throw Error("Upload read-back could not confirm original length");
+   setText("uploadStatus","Stored original "+file.name+" · "+resp.byte_size+" bytes. Add tags and photographer to make it searchable.");
+   $("mode").value="active";$("query").value="";await refresh();choose(resp.id);await audit();
+  }catch(e){setText("uploadStatus","UPLOAD NOT VERIFIED: "+e.message,true)}
+  finally{$("upload").disabled=!canEdit()}
+ };
+ async function audit(){
+  try{
+   const data=await api("/api/library/activity?limit=200");events=data.events;
+   $("events").textContent=events.map(x=>x.created_at+" · "+x.actor+" · "+x.action+" · "+x.asset_id+"\\n"+(x.detail_json||"")).join("\\n\\n")||"No asset events yet.";
+  }catch(e){setText("events","AUDIT ERROR: "+e.message,true)}
+ }
+ $("audit").onclick=audit;
+ $("csv").onclick=()=>{
+  const cols=["created_at","actor","action","asset_id","before_json","after_json","detail_json"];
+  const quote=x=>'"'+String(x??"").replace(/"/g,'""')+'"';
+  const csv=[cols.join(","),...events.map(x=>cols.map(k=>quote(x[k])).join(","))].join("\\n");
+  const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));link.download="tivvy-artwork-audit.csv";link.click();
+  setTimeout(()=>URL.revokeObjectURL(link.href),10000);
+ };
+ (async()=>{try{
+  const data=await api("/api/me");role=data.role;$("identity").textContent="Protected connection verified · "+role;$("identity").className="good";
+  $("upload").disabled=!canEdit();await refresh();await audit();
+ }catch(e){$("identity").textContent="ACCESS FAILED: "+e.message;$("identity").className="bad"}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -1000,6 +1147,7 @@ export default {
    if(path==="/cloud-vault"&&method==="GET")return storagePortal();
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
+    if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
     if(path==="/api/library/assets"&&method==="GET"&&allowed(role,"read"))return listLibrary(env,url);
    if(path==="/api/library/assets"&&method==="POST"&&allowed(role,"edit"))return uploadLibraryAsset(env,actor,request);
    if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);

@@ -1320,15 +1320,15 @@ function activityLogPortal(){
  body{background:#161719;color:#eee;margin:0;font:14px system-ui,Arial}main{max-width:1200px;margin:auto;padding:22px}h1{color:#ffda00}
  button,input,select,textarea{background:#2d2f33;color:#fff;border:1px solid #646870;border-radius:4px;padding:10px;font:inherit}
  button{cursor:pointer}button:disabled{opacity:.4}a{color:#ffda00}.box{border:1px solid #54575b;padding:16px;border-radius:8px;margin:15px 0}
- .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}textarea{width:100%}table{width:100%;border-collapse:collapse;font-size:12px}
- td,th{text-align:left;vertical-align:top;border-bottom:1px solid #46484c;padding:9px;word-break:break-word}th{color:#ffda00}
+ .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}textarea{width:100%}table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+ td,th{text-align:left;vertical-align:top;border-bottom:1px solid #46484c;padding:12px 10px;overflow-wrap:anywhere;line-height:1.55}tbody tr:nth-child(odd){background:#ffffff06}.event-time{white-space:nowrap}.event-summary{line-height:1.55}.event-detail{margin-top:8px}.event-detail summary{color:#ffda00;cursor:pointer;font-size:12px}.event-detail pre{white-space:pre-wrap;word-break:break-word;background:#111215;padding:10px;border-radius:4px;max-height:350px;overflow:auto}.event-label{background:#34363b;padding:4px 7px;border-radius:4px;display:inline-block}th{color:#ffda00}
  .muted{color:#ccc}.good{color:#90e8a7}.bad{color:#ffa6a6}pre{white-space:pre-wrap;overflow:auto;max-height:300px}
  </style><main><h1>TIVVY · COMPLETE ACTIVITY HISTORY</h1>
- <p>Who did what, when and to which page, layer or original photograph. Timestamps are stored in UTC; revisions retain the previous state.</p>
+ <p>Who did what, when and to which page, layer or original photograph. Times are displayed in the UK timezone; full original UTC timestamps and previous values remain in expandable details.</p>
  <p id="identity">Checking protected access…</p>
  <section class="box"><div class="row"><button id="load">REFRESH ACTIVITY</button><button id="more" disabled>LOAD OLDER EVENTS</button><button id="export">EXPORT ALL CSV AUDIT</button>
  <input id="filter" placeholder="Filter by actor, action, page, note…" style="flex:1;min-width:240px"></div>
- <p id="summary"></p><div style="overflow:auto"><table><thead><tr><th>When (UTC)</th><th>Who</th><th>Action</th><th>Where</th><th>What changed</th></tr></thead>
+ <p id="summary"></p><div style="overflow:auto"><table><colgroup><col style="width:155px"><col style="width:145px"><col style="width:160px"><col style="width:155px"><col></colgroup><thead><tr><th>When (UK)</th><th>Who</th><th>Action</th><th>Where</th><th>Summary / details</th></tr></thead>
  <tbody id="entries"></tbody></table></div></section>
  <section class="box"><h2>Record a project decision or instruction</h2>
  <p class="muted">Notes are attributed to your authenticated account, with an exact time. This does not automatically read ChatGPT messages.</p>
@@ -1340,21 +1340,35 @@ function activityLogPortal(){
  let logs=[],role="",nextOffset=0;
  async function api(url,opts){const response=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});const d=await response.json();
   if(!response.ok||!d.ok)throw Error(d.error||"HTTP "+response.status);return d}
- function detail(x){
-  const d=x.detail_json||"";
-  if(x.action==="project.note"){try{return JSON.parse(d).text}catch{}}
-  const parts=[];
-  if(d)parts.push(d);
-  if(x.before_json||x.after_json)parts.push("Before: "+(x.before_json||"—")+" / After: "+(x.after_json||"—"));
-  return parts.join(" · ");
+ function parsed(raw){try{return JSON.parse(raw)}catch{return raw||null}}
+ function when(raw){const d=new Date(raw);return Number.isFinite(d.getTime())?new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(d):String(raw||"—")}
+ function who(raw){return String(raw||"Unknown").split("@")[0]}
+ function actionLabel(a){return ({"layer.property.change":"Layer edited","issue.save":"Cloud saved","issue.create":"Working copy created","asset.upload":"Artwork uploaded","asset.metadata.update":"Metadata edited","asset.trash":"Moved to Trash","asset.restore":"Restored from Trash","project.note":"Project note","layer.create":"Layer added","layer.delete":"Layer removed"})[a]||String(a||"Event").replaceAll("."," · ")}
+ function short(v,max=130){if(v===null||v===undefined)return "—";const raw=typeof v==="string"?v:JSON.stringify(v);const str=raw.split("\\n").join(" ").trim();return str.length>max?str.slice(0,max-1)+"…":str}
+ function synopsis(e){
+  const meta=parsed(e.detail_json)||{},before=parsed(e.before_json),after=parsed(e.after_json);
+  if(e.action==="layer.property.change")return "Changed "+(meta.field||"property")+": "+short(before,80)+" → "+short(after,100);
+  if(e.action==="issue.save")return (meta.summary||"Saved cloud revision")+" · v"+(meta.from_version||"?")+" → v"+(meta.to_version||"?");
+  if(e.action==="asset.trash")return "Moved "+short(before?.title||before?.original_filename||"original",100)+" into recoverable Trash";
+  if(e.action==="asset.restore")return "Recovered "+short(after?.title||after?.original_filename||"original",100)+" from Trash";
+  if(e.action==="asset.metadata.update")return "Updated metadata for "+short(after?.title||e.asset_id,100);
+  if(e.action==="project.note")return short(meta.text||"Project note",220);
+  if(e.action==="asset.upload")return "Stored original image "+short(after?.original_filename||e.asset_id,100);
+  return short(meta.summary||meta.text||e.action,200);
  }
- function filtered(){const q=$("filter").value.toLowerCase().trim();return q?logs.filter(x=>JSON.stringify(x).toLowerCase().includes(q)):logs}
+ function full(e){return ["UTC: "+e.created_at,"Account: "+e.actor,"Action: "+e.action,"Issue: "+(e.issue_id||"—"),"Page: "+(e.target_page_id||"—"),"Layer: "+(e.target_layer_id||"—"),"Artwork: "+(e.asset_id||"—"),"Details: "+(e.detail_json||"—"),"Before: "+(e.before_json||"—"),"After: "+(e.after_json||"—")].join("\\n")}
+ function filtered(){const q=$("filter").value.toLowerCase().trim();return q?logs.filter(e=>JSON.stringify(e).toLowerCase().includes(q)):logs}
  function display(){
-  const items=filtered();$("entries").replaceChildren();$("summary").textContent=items.length+" event(s) displayed. Newest first. Load older events to view more history.";
-  for(const x of items){
-   const tr=document.createElement("tr");const fields=[x.created_at,x.actor,x.action,x.target_page_id||x.asset_id||x.issue_id||"—",detail(x)];
-   for(const v of fields){const td=document.createElement("td");td.textContent=String(v??"");tr.append(td)}
-   $("entries").append(tr);
+  const items=filtered();$("entries").replaceChildren();$("summary").textContent=items.length+" event(s) shown · Newest first · Load older events for complete history";
+  for(const e of items){
+   const tr=document.createElement("tr");
+   for(const [value,kind] of [[when(e.created_at),"event-time"],[who(e.actor),"event-who"],[actionLabel(e.action),"event-label"],[e.target_page_id||e.asset_id||e.issue_id||"—","event-where"]]){
+    const td=document.createElement("td");if(kind==="event-label"){const span=document.createElement("span");span.className=kind;span.textContent=value;td.append(span)}else{td.className=kind;td.textContent=value}tr.append(td);
+   }
+   const td=document.createElement("td"),summary=document.createElement("div");summary.className="event-summary";summary.textContent=synopsis(e);td.append(summary);
+   const details=document.createElement("details");details.className="event-detail";
+   const toggle=document.createElement("summary");toggle.textContent="Full details / before & after";details.append(toggle);
+   const pre=document.createElement("pre");pre.textContent=full(e);details.append(pre);td.append(details);tr.append(td);$("entries").append(tr);
   }
  }
  async function load(append=false){

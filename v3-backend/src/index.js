@@ -324,7 +324,7 @@ function cloudImportPortal(){
      if(content.format!=="tivvy-v3-draft-v2"||!Array.isArray(content.pages)||!content.layerData)
        throw Error("This is not a full Tivvy V3 issue BACKUP JSON");
      if(content.pages.length<1||content.pages.length>300)throw Error("Invalid page count");
-     const targets=[],problems=[],occurrences=[],seenIds=new Set();
+     const targets=[],trashTargets=[],problems=[],occurrences=[],seenIds=new Set();
      for(const page of content.pages){
        if(!/^[A-Za-z0-9_-]{1,90}$/.test(page.id)||seenIds.has(page.id))throw Error("Invalid/duplicate page ID");
        seenIds.add(page.id);
@@ -333,6 +333,14 @@ function cloudImportPortal(){
        targets.push({id:page.id,name:String(page.name||"Untitled"),include:page.include,source:page.source,
          mode:page.mode,layers});
        visit(layers,(value,path)=>occurrences.push({value,page:page.name,path}));
+     }
+     for(const page of content.trash||[]){
+       if(!/^[A-Za-z0-9_-]{1,90}$/.test(page.id)||seenIds.has(page.id))throw Error("Invalid/duplicate deleted-page ID");
+       seenIds.add(page.id);
+       const layers=content.layerData[page.id]||[];
+       if(!Array.isArray(layers))throw Error("Invalid recovered layers on "+page.name);
+       trashTargets.push({id:page.id,name:String(page.name||"Untitled"),include:false,deletedAt:page.deletedAt,source:page.source,mode:page.mode,layers});
+       visit(layers,(value,path)=>occurrences.push({value,page:"RECOVERY: "+page.name,path}));
      }
      const types={},unique=new Map(),encountered=occurrences.length;
      for(let i=0;i<occurrences.length;i++){
@@ -350,10 +358,10 @@ function cloudImportPortal(){
      // separately in another IndexedDB database: do not claim a complete print issue.
      const tiny=targets.map(x=>({...x,layers:[]}));
      if(encoder.encode(JSON.stringify({pages:tiny})).length>2900000)problems.push("Metadata alone exceeds D1 limit");
-     prepared={content,targets,unique,problems};
+     prepared={content,targets,trashTargets,unique,problems};
      $("report").textContent=[
        "SOURCE: "+file.name+" ("+(file.size/1000000).toFixed(1)+" MB)",
-       "Pages: "+targets.length+" · embedded image occurrences: "+encountered,
+       "Active pages: "+targets.length+" · deleted-page recovery: "+trashTargets.length+" · embedded image occurrences: "+encountered,
        "Distinct data URL values: "+unique.size+" · MIME types: "+JSON.stringify(types),
        "Blocking issues: "+problems.length,
        ...problems.slice(0,30),
@@ -383,7 +391,7 @@ function cloudImportPortal(){
        const decoded=decode(value);if(!decoded)throw Error("Unable to decode an embedded image");
        if(decoded.data.byteLength>limit)throw Error("Original exceeds 95 MB");
        const checksum=await sha(decoded.data);
-       let record=hashed.get(checksum);
+       let record=hashed.get(decoded.mime+":"+checksum);
        if(!record){
          const response=await api(root+"/assets",{
            method:"POST",headers:{"content-type":decoded.mime,"x-file-name":"original-"+checksum.slice(0,16)},
@@ -394,7 +402,7 @@ function cloudImportPortal(){
          const copy=new Uint8Array(await read.arrayBuffer());
          if(copy.length!==decoded.data.length||await sha(copy)!==checksum)throw Error("Uploaded asset checksum mismatch");
          record={asset_id:response.asset_id,sha:checksum,size:copy.length,mime:decoded.mime};
-         hashed.set(checksum,record);
+         hashed.set(decoded.mime+":"+checksum,record);
        }
        assetMap.set(value,record);
        number++;
@@ -403,6 +411,8 @@ function cloudImportPortal(){
        await new Promise(done=>setTimeout(done,0));
      }
      const doc={pages:prepared.targets.map(x=>({...x,layers:replaceUrls(x.layers,assetMap)})),
+       trash:prepared.trashTargets.map(x=>({...x,layers:replaceUrls(x.layers,assetMap)})),
+       sourceActivity:prepared.content.activity||[], sourceActivePage:prepared.content.active||null,
        source:"tivvy-v3-browser-backup",migrationState:"ARCHIVAL_COPY_NOT_EDITOR_READY",
        migratedAt:new Date().toISOString(),sourcePageCount:prepared.targets.length,
        assetCount:hashed.size,referencePdfArtIncluded:false};

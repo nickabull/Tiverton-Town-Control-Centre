@@ -80,7 +80,7 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.20 · CLOUD VAULT READ-ONLY</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.6.21 · CLOUD MIGRATION PREFLIGHT</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
  <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">CLOUD STORAGE</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="swindonSweepBtn" title="Read-only scan of browser programme drafts using sourced Swindon facts. Downloads JSON report; makes no edits.">5 DEC · DRY-RUN SWEEP</button><button class="btn gold" id="swindonTrialBtn" title="Make an excluded separate Page 39 copy and insert Swindon text, preserving artwork and original page">CREATE SWINDON PAGE 39 TRIAL</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
@@ -113,6 +113,10 @@ body.nav-collapsed #pageNavigation{display:none}
 <p><strong>Current status:</strong> protected Cloud Vault interface is staged in GitHub source but must be deployed to the existing Worker before the link works. Do not upload real issues yet.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-vault" target="_blank" rel="noopener noreferrer">OPEN PROTECTED CLOUD VAULT ↗</a> · Lists cloud issues, shows revision history and downloads safe JSON copies after deployment. It cannot modify or replace programme pages.</p>
 <p class="muted">Your artwork remains saved in this browser. Always retain local backups. Cloud synchronisation, private-asset access rejection, image migration and production PDF are still pending.</p>
+<p><button class="btn gold" id="cloudAuditBtn">CHECK ALL PAGES FOR CLOUD SAVE</button>
+<button class="btn" id="cloudAuditReportBtn" disabled>DOWNLOAD READINESS REPORT</button></p>
+<p id="cloudAuditStatus" role="status" class="muted">Read-only check. No uploads or changes to page designs.</p>
+<pre id="cloudAuditSummary" style="white-space:pre-wrap;max-height:210px;overflow:auto;color:#eee;font-size:12px"></pre>
 <button class="btn gold" id="storageBackupBtn">DOWNLOAD LOCAL BACKUP</button><button class="btn" id="closeStorage">CLOSE</button></dialog>
 <dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
  <p class="muted">Prototype log: stored only in this browser. Actor identification, durable history and server-side audit security are not connected yet.</p>
@@ -172,7 +176,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.19").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.6.21").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -218,7 +222,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.19";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.6.21";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -571,6 +575,71 @@ function csv(){
  const rows=[["timestamp_utc","actor","page_id","page_name","action","category","detail"],...log.map(e=>[e.at,e.actor,e.pageId,name(e.pageId),e.action,e.category,e.detail])];
  download("tivvy-v3-local-activity.csv",rows.map(row=>row.map(quote).join(",")).join("\r\n"),"text/csv;charset=utf-8");record("audit-export","Exported local activity as CSV",active)
 }
+
+ // V3.6.21 cloud migration audit: read-only, no upload and no local writes.
+ let lastCloudAudit=null;
+ function auditDataUrls(node,stats,seen=new WeakSet()){
+   if(typeof node==="string"){
+     if(node.startsWith("data:")){
+       const m=/^data:([^;,]+)?(;base64)?,/i.exec(node);
+       if(m){
+         const body=node.slice(m[0].length);
+         const size=m[2]?Math.floor(body.length*3/4)-(body.endsWith("==")?2:body.endsWith("=")?1:0):new TextEncoder().encode(decodeURIComponent(body)).length;
+         stats.assets++;stats.assetBytes+=size;stats.largestAsset=Math.max(stats.largestAsset,size);
+         if(size>12000000)stats.oversizedAssets++;
+         if(!/^(image\/(png|jpeg|webp|gif)|application\/pdf)$/i.test(m[1]||""))stats.unsupportedAssets++;
+       }
+     }
+     return;
+   }
+   if(!node||typeof node!=="object"||seen.has(node))return;
+   seen.add(node);
+   if(Array.isArray(node)){for(const item of node)auditDataUrls(item,stats,seen);return}
+   for(const value of Object.values(node))auditDataUrls(value,stats,seen);
+ }
+ async function auditCloudReadiness(){
+   const button=$("cloudAuditBtn"),status=$("cloudAuditStatus"),output=$("cloudAuditSummary");
+   button.disabled=true;$("cloudAuditReportBtn").disabled=true;lastCloudAudit=null;
+   let db=null;
+   try{
+     status.textContent="Reading browser drafts without changing them…";
+     if(loadedEditorPage&&!await flushEditor())throw Error("Current editor save is not confirmed. Export its page JSON first.");
+     db=await openBackupDb();
+     const report={checkedAt:new Date().toISOString(),status:"READ_ONLY",limits:{documentBytes:3000000,assetBytes:12000000},pages:[],summary:{pages:pages.length,drafts:0,missingDrafts:0,embeddedAssets:0,estimatedAssetBytes:0,over12MB:0,unsupported:0}};
+     let badDrafts=0;
+     for(const p of pages){
+       const raw=(await getBackup(db,PREFIX+p.id))||localStorage.getItem(PREFIX+p.id);
+       const row={pageId:p.id,name:p.name,include:p.include,hasDraft:!!raw,serializedBytes:raw?new Blob([raw]).size:0,layerCount:0,assets:0,assetBytes:0,largestAsset:0,oversizedAssets:0,unsupportedAssets:0,error:null};
+       if(raw){
+         try{const layers=JSON.parse(raw);if(!Array.isArray(layers))throw Error("Draft is not an array");row.layerCount=layers.length;auditDataUrls(layers,row);report.summary.drafts++}
+         catch(e){row.error=e.message;badDrafts++}
+       }else report.summary.missingDrafts++;
+       report.summary.embeddedAssets+=row.assets;report.summary.estimatedAssetBytes+=row.assetBytes;
+       report.summary.over12MB+=row.oversizedAssets;report.summary.unsupported+=row.unsupportedAssets;
+       report.pages.push(row);
+       if(report.pages.length%3===0)await new Promise(done=>setTimeout(done,0));
+     }
+     const problems=[];
+     if(report.summary.over12MB)problems.push(report.summary.over12MB+" embedded assets exceed 12 MB R2 upload limit");
+     if(report.summary.unsupported)problems.push(report.summary.unsupported+" embedded assets have unsupported media types");
+     if(badDrafts)problems.push(badDrafts+" stored drafts could not be read");
+     report.verdict=problems.length?"REVIEW REQUIRED":"AUDIT COMPLETE — CLOUD SYNC NOT CONNECTED";
+     lastCloudAudit=report;
+     output.textContent=[
+       report.verdict,"Pages: "+report.summary.pages+" · saved drafts: "+report.summary.drafts+" · without layers: "+report.summary.missingDrafts,
+       "Embedded assets: "+report.summary.embeddedAssets+" · estimated bytes: "+(report.summary.estimatedAssetBytes/1000000).toFixed(2)+" MB",
+       "Over 12 MB: "+report.summary.over12MB+" · unsupported: "+report.summary.unsupported,
+       "No upload took place. This does not verify R2 migration, print PDF, or complete cloud recovery.",
+       ...problems.map(x=>"REVIEW: "+x)
+     ].join("\n");
+     status.textContent="Read-only scan complete. You can download the detailed report.";
+     $("cloudAuditReportBtn").disabled=false;
+   }catch(e){output.textContent="No readiness report was confirmed.";status.textContent="CHECK FAILED: "+e.message}
+   finally{db?.close();button.disabled=false}
+ }
+ $("cloudAuditBtn").onclick=auditCloudReadiness;
+ $("cloudAuditReportBtn").onclick=()=>{if(lastCloudAudit)download("tivvy-v3-cloud-readiness.json",JSON.stringify(lastCloudAudit,null,2),"application/json")};
+
 $("storageBtn").onclick=()=>$("storageDialog").showModal();
 $("closeStorage").onclick=()=>$("storageDialog").close();
 $("storageBackupBtn").onclick=()=>{backup();$("storageDialog").close()};
@@ -748,7 +817,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.19";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.6.21";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

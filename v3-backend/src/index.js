@@ -1614,7 +1614,7 @@ function fullDesignerTrialPortal(){
   // retain the original PDF number even if the manifest source field
   // was missing during a legacy backup. Do not guess from the display
   // order or page title (copies/duplicates can reorder freely).
-  const found=String(p.id||"").match(/^issue-[0-9]{8}-p(\d{2})$/);
+  const found=String(p.id||"").match(/^issue-[0-9]{8}-p([0-9]{2})$/);
   const inferred=found?Number(found[1]):0;
   return inferred>=1&&inferred<=54?inferred:0;
  }

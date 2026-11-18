@@ -157,6 +157,146 @@ async function getAsset(env,id,assetId){
  return new Response(result.body,{headers:{"content-type":asset.mime_type,"cache-control":"private, no-store","x-content-type-options":"nosniff","content-disposition":"inline"}});
 }
 
+
+// Shared original-artwork library. Files stay in private R2; only metadata goes to D1.
+// Idempotent schema bootstrap is required because the existing CI token has only
+// Workers Scripts:Edit (not the D1 admin permission to apply remote SQL migrations).
+async function ensureAssetLibrary(env){
+ await env.DB.batch([
+  env.DB.prepare("CREATE TABLE IF NOT EXISTS asset_library (id TEXT PRIMARY KEY,r2_key TEXT NOT NULL UNIQUE,original_filename TEXT NOT NULL,title TEXT NOT NULL DEFAULT '',description TEXT NOT NULL DEFAULT '',tags_json TEXT NOT NULL DEFAULT '[]',category TEXT NOT NULL DEFAULT '',credit TEXT NOT NULL DEFAULT '',mime_type TEXT NOT NULL,byte_size INTEGER NOT NULL,sha256 TEXT,created_by TEXT NOT NULL,created_at TEXT NOT NULL,updated_by TEXT NOT NULL,updated_at TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('active','trash','purging')),trashed_at TEXT,purge_after TEXT,trashed_by TEXT,deleted_at TEXT)"),
+  env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_asset_library_status ON asset_library(status,updated_at DESC)"),
+  env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_asset_library_trash ON asset_library(status,purge_after)"),
+  env.DB.prepare("CREATE TABLE IF NOT EXISTS asset_library_events (id TEXT PRIMARY KEY,asset_id TEXT NOT NULL,actor TEXT NOT NULL,action TEXT NOT NULL,before_json TEXT,after_json TEXT,detail_json TEXT,created_at TEXT NOT NULL)"),
+  env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_asset_events_id_time ON asset_library_events(asset_id,created_at DESC)"),
+  env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_asset_events_time ON asset_library_events(created_at DESC)")
+ ]);
+}
+function assetSummary(item){
+ const {id,original_filename,title,description,tags_json,category,credit,mime_type,byte_size,sha256,created_by,created_at,updated_by,updated_at,status,trashed_at,purge_after,trashed_by}=item;
+ let tags;try{tags=JSON.parse(tags_json)}catch{tags=[]}
+ return {id,original_filename,title,description,tags,category,credit,mime_type,byte_size,sha256,created_by,created_at,updated_by,updated_at,status,trashed_at,purge_after,trashed_by};
+}
+function libraryEvent(env,id,actor,action,before,after,detail={}){
+ return env.DB.prepare("INSERT INTO asset_library_events(id,asset_id,actor,action,before_json,after_json,detail_json,created_at) VALUES(?,?,?,?,?,?,?,?)")
+ .bind(uid(),id,actor,action,before?JSON.stringify(before):null,after?JSON.stringify(after):null,JSON.stringify(detail),now());
+}
+async function listLibrary(env,url){
+ await ensureAssetLibrary(env);
+ const query=String(url.searchParams.get("q")||"").trim().slice(0,120);
+ const status=url.searchParams.get("status")==="trash"?"trash":"active";
+ const term="%"+query.replace(/[%_\\]/g,"\\// Authenticated, read-only cloud vault.")+"%";
+ const result=await env.DB.prepare("SELECT * FROM asset_library WHERE status=? AND (original_filename LIKE ? ESCAPE '\\' OR title LIKE ? ESCAPE '\\' OR description LIKE ? ESCAPE '\\' OR tags_json LIKE ? ESCAPE '\\' OR category LIKE ? ESCAPE '\\' OR credit LIKE ? ESCAPE '\\') ORDER BY updated_at DESC LIMIT 200")
+ .bind(status,term,term,term,term,term,term).all();
+ return json({ok:true,items:(result.results||[]).map(assetSummary),query,status});
+}
+async function uploadLibraryAsset(env,actor,request){
+ await ensureAssetLibrary(env);
+ const MAX_BYTES=95_000_000;
+ const mime=(request.headers.get("content-type")||"").split(";")[0].trim().toLowerCase();
+ if(!TYPES.has(mime))return failure("Unsupported original artwork type",415);
+ const size=Number(request.headers.get("content-length"));
+ if(!Number.isSafeInteger(size)||size<1)return failure("Content-Length required for original artwork",411);
+ if(size>MAX_BYTES)return failure("Use multipart for originals over 95 MB; the file was not altered",413);
+ if(!request.body)return failure("Missing original artwork body",400);
+ const filename=(request.headers.get("x-file-name")||"Untitled original").replace(/[\r\n\\/]/g,"_").slice(0,160);
+ const checksum=(request.headers.get("x-original-sha256")||"").trim().toLowerCase();
+ if(checksum&&!/^[0-9a-f]{64}$/.test(checksum))return failure("Invalid SHA-256 metadata",400);
+ const id=uid(),key="library/"+id,t=now();
+ const object=await env.ASSETS.put(key,request.body,{httpMetadata:{contentType:mime},customMetadata:{uploadedBy:actor,originalFilename:filename}});
+ if(!object||object.size!==size){await env.ASSETS.delete(key);return failure("Original byte count mismatch; upload rejected",422)}
+ const title=filename.slice(0,160);
+ try{
+  await env.DB.batch([
+   env.DB.prepare("INSERT INTO asset_library(id,r2_key,original_filename,title,mime_type,byte_size,sha256,created_by,created_at,updated_by,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)").bind(id,key,filename,title,mime,object.size,checksum||null,actor,t,actor,t),
+   libraryEvent(env,id,actor,"asset.upload",null,{original_filename:filename,title,mime_type:mime,byte_size:object.size,sha256:checksum||null},{source:"original bytes; no processing"})
+  ]);
+ }catch(e){await env.ASSETS.delete(key);throw e}
+ return json({ok:true,id,byte_size:object.size,mime_type:mime},201);
+}
+async function libraryDetail(env,id){
+ await ensureAssetLibrary(env);
+ const item=await env.DB.prepare("SELECT * FROM asset_library WHERE id=?").bind(id).first();
+ return item?item:null;
+}
+async function libraryOriginal(env,id){
+ const item=await libraryDetail(env,id);
+ if(!item||item.status!=="active")return failure("Artwork unavailable or in trash",404);
+ const object=await env.ASSETS.get(item.r2_key);
+ if(!object)return failure("Original bytes not found",404);
+ return new Response(object.body,{headers:{"content-type":item.mime_type,"cache-control":"private, no-store","x-content-type-options":"nosniff","content-disposition":"inline"}});
+}
+async function updateLibraryAsset(env,actor,id,request){
+ const item=await libraryDetail(env,id);
+ if(!item)return failure("Artwork not found",404);
+ const body=await payload(request,32_000);
+ const action=String(body.action||"metadata");
+ const before=assetSummary(item);
+ if(action==="metadata"){
+  if(item.status!=="active")return failure("Restore asset before editing metadata",409);
+  const title=String(body.title??item.title).trim().slice(0,160);
+  const description=String(body.description??item.description).slice(0,1500);
+  const category=String(body.category??item.category).slice(0,80);
+  const credit=String(body.credit??item.credit).slice(0,160);
+  const rawTags=Array.isArray(body.tags)?body.tags:before.tags;
+  const tags=[...new Set(rawTags.filter(x=>typeof x==="string").map(x=>x.trim().slice(0,50)).filter(Boolean))].slice(0,40);
+  const after={...before,title,description,category,credit,tags,updated_by:actor,updated_at:now()};
+  await env.DB.batch([
+   env.DB.prepare("UPDATE asset_library SET title=?,description=?,category=?,credit=?,tags_json=?,updated_by=?,updated_at=? WHERE id=? AND status='active'").bind(title,description,category,credit,JSON.stringify(tags),actor,after.updated_at,id),
+   libraryEvent(env,id,actor,"asset.metadata.update",before,after)
+  ]);
+  return json({ok:true,item:after});
+ }
+ if(action==="trash"){
+  if(item.status!=="active")return failure("Only active originals can be moved to trash",409);
+  const t=now(),purgeAfter=new Date(Date.now()+90*86400000).toISOString();
+  const after={...before,status:"trash",trashed_at:t,purge_after:purgeAfter,trashed_by:actor,updated_by:actor,updated_at:t};
+  await env.DB.batch([
+   env.DB.prepare("UPDATE asset_library SET status='trash',trashed_at=?,purge_after=?,trashed_by=?,updated_by=?,updated_at=? WHERE id=? AND status='active'").bind(t,purgeAfter,actor,actor,t,id),
+   libraryEvent(env,id,actor,"asset.trash",before,after,{retentionDays:90})
+  ]);
+  return json({ok:true,item:after});
+ }
+ if(action==="restore"){
+  if(item.status!=="trash")return failure("Artwork is not in trash",409);
+  const t=now();
+  const after={...before,status:"active",trashed_at:null,purge_after:null,trashed_by:null,updated_by:actor,updated_at:t};
+  await env.DB.batch([
+   env.DB.prepare("UPDATE asset_library SET status='active',trashed_at=NULL,purge_after=NULL,trashed_by=NULL,updated_by=?,updated_at=? WHERE id=? AND status='trash' AND purge_after>?").bind(actor,t,id,t),
+   libraryEvent(env,id,actor,"asset.restore",before,after)
+  ]);
+  return json({ok:true,item:after});
+ }
+ return failure("Unknown library action",400);
+}
+async function libraryAudit(env,url){
+ await ensureAssetLibrary(env);
+ const id=url.searchParams.get("asset");
+ const limit=Math.min(500,Math.max(1,Number(url.searchParams.get("limit"))||200));
+ const query=id&&/^[a-f0-9-]{36}$/.test(id)?"SELECT * FROM asset_library_events WHERE asset_id=? ORDER BY created_at DESC LIMIT ?":"SELECT * FROM asset_library_events ORDER BY created_at DESC LIMIT ?";
+ const result=id&&/^[a-f0-9-]{36}$/.test(id)?await env.DB.prepare(query).bind(id,limit).all():await env.DB.prepare(query).bind(limit).all();
+ return json({ok:true,events:result.results||[]});
+}
+// Delete only expired, unreferenced files. A historical issue revision referencing
+// the artwork protects it from irreversible deletion, even after 90 days.
+async function purgeExpiredLibrary(env){
+ await ensureAssetLibrary(env);
+ const expired=await env.DB.prepare("SELECT * FROM asset_library WHERE status='trash' AND purge_after<=? ORDER BY purge_after ASC LIMIT 20").bind(now()).all();
+ for(const item of expired.results||[]){
+  const used=await env.DB.prepare("SELECT 1 AS used FROM issue_revisions WHERE instr(snapshot_json, ?) > 0 LIMIT 1").bind(item.id).first();
+  if(used)continue;
+  const t=now();
+  await env.DB.batch([
+   env.DB.prepare("UPDATE asset_library SET status='purging',deleted_at=?,updated_at=? WHERE id=? AND status='trash' AND purge_after<=?").bind(t,t,item.id,t),
+   libraryEvent(env,item.id,"system:retention","asset.purge.begin",assetSummary(item),null,{retentionDays:90})
+  ]);
+  await env.ASSETS.delete(item.r2_key);
+  await env.DB.batch([
+   env.DB.prepare("DELETE FROM asset_library WHERE id=? AND status='purging'").bind(item.id),
+   libraryEvent(env,item.id,"system:retention","asset.purge.complete",null,null,{originalFilename:item.original_filename,expiredAt:item.purge_after})
+  ]);
+ }
+}
+
 // Authenticated, read-only cloud vault. Hosted on this Worker origin so Access
 // cookies and the same-origin API never have to be exposed to GitHub Pages.
 function storagePortal(){
@@ -797,7 +937,15 @@ export default {
    if(path==="/cloud-vault"&&method==="GET")return storagePortal();
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
-    if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
+    if(path==="/api/library/assets"&&method==="GET"&&allowed(role,"read"))return listLibrary(env,url);
+   if(path==="/api/library/assets"&&method==="POST"&&allowed(role,"edit"))return uploadLibraryAsset(env,actor,request);
+   if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);
+   const lib=path.match(/^\/api\/library\/assets\/([0-9a-f-]{36})(?:\/(original))?$/);
+   if(lib){
+    if(method==="GET"&&lib[2]==="original"&&allowed(role,"read"))return libraryOriginal(env,lib[1]);
+    if(method==="PATCH"&&!lib[2]&&allowed(role,"edit"))return updateLibraryAsset(env,actor,lib[1],request);
+   }
+   if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
    if(path==="/api/issues"&&method==="GET"){
     if(!allowed(role,"read"))return failure("Forbidden",403);
     const issues=await env.DB.prepare("SELECT id,title,status,current_version,updated_at FROM programme_issues ORDER BY updated_at DESC LIMIT 100").all();
@@ -846,5 +994,6 @@ export default {
    console.error("Storage API error",e);
    return failure("Storage service error; nothing was confirmed saved",500);
   }
- }
+ },
+ async scheduled(event,env,ctx){ ctx.waitUntil(purgeExpiredLibrary(env)); }
 };

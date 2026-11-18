@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.10 full native V3 cloud autosave survives reload — USER LIVE PASS, 18 Nov 2026, 13:00 GMT
+
+- User explicitly confirmed “Yes that has worked” after performing `RELOAD CLOUD COPY` and checking Page 6 Latest News in the original V3 full Designer cloud trial: test text **CLOUD V3 TEST** persisted following prior authenticated `CLOUD AUTOSAVED & VERIFIED · v4 · 12:58:10` screenshot. **Real native V3 original editor autosave → D1 save/readback → full cloud reload persistence PASS**, user-reported. No separate production/editor promotion implied.
+- Original GitHub Pages/IndexedDB local programme, historical 60-page D1/R2 archive, source Viv Curtis images and PDF reference artwork untouched.
+- Next risk tests: cross-tab concurrent revision 409 safeguards and emergency recovery of unsaved changes, actor/time/before-after record for v3→v4, independent cross-device reopen, missing separate original PDF reference-page artwork migration, full fidelity across other pages and print quality. The approved full V3 editing controls should stay in a protected separate working copy until these pass.
+
 ## V3.10 full native V3 editor autosave — LIVE SCREENSHOT PASS, 18 November 2026, 12:58 GMT
 
 - User screenshot of protected /full-designer, Page 6 Latest News, shows green status **CLOUD AUTOSAVED & VERIFIED · v4 · 12:58:10**. A new visible text element reading **CLOUD V3 TEST** is rendered alongside original Antonio headings, exact editor toolbar (text/rich-format tools, undo, snap), yellow header and revived Map Background artwork.

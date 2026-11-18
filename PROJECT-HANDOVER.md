@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## V3.7 protected importer disposable cloud smoke-test control — 18 November 2026, 01:25 GMT
+
+- Added `RUN DISPOSABLE STORAGE TEST` in authenticated `/cloud-import` before selecting any real backup. On user click it creates a uniquely named D1 test issue, uploads a tiny original 1x1 PNG via the **new streamed 95MB-capable asset API**, downloads and SHA-256 verifies bytes, saves D1 revision v2 and reloads/verifies the revision and linked asset. Test only ever targets a disposable issue, never local browser artwork or real issue. Displays PASS or FAIL explicitly. Requires editor/admin authenticated access and same-origin API.
+- Worker commit `4f2b81e92900dd13abedb443a59f89762af00d22`. Reparsed Worker and extracted browser importer JS with V8: **SYNTAX PASS**. Scoped push-to-main should trigger automatic deploy under workflow enabled at `b2ab2f775b830d2b14a6d34df831f9a4be9c8562`; **live run and browser test NOT YET VERIFIED**.
+- User's goal is cloud-native editable Programme Designer; even after this smoke passes, the existing 316.1MB JSON can first become a versioned **cloud archival copy only**, and separately stored PDF reference art + cloud editor reading/saving remain pending. User must select local backup in authenticated browser to initiate transfer, as ChatGPT cannot access the local browser's IndexedDB directly. No original photo compression or conversion; preserve Viv Curtis AVIF originals.
+
 ## FIRST AUTOMATIC GitHub Actions DEPLOY CONFIRMED — 18 November 2026, 01:23 GMT
 
 - Browser's GitHub workflow list verified **run #7** `44215427368`, event PUSH from workflow commit `b2ab2f775b830d2b14a6d34df831f9a4be9c8562`, completed successfully. GitHub connector confirmed job `134503949792` `preflight` conclusion SUCCESS. Steps **Deploy programme storage on scoped main push or explicit manual deploy** and **Verify Access-protected API is not anonymously accessible** BOTH SUCCESS.

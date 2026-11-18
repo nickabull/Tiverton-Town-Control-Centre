@@ -1,5 +1,11 @@
 # Tivvy Programme Designer — project handover
 
+## Full audit live QA PASS + readable log UI — 18 November 2026, 11:27 GMT
+
+- User screenshot of authenticated `/activity-log` confirms actual immutable D1 audit entries: signed-in actor, UTC timestamp, `layer.property.change` text edit on `issue-20261114-p06`, BEFORE and AFTER Fans' Forum text ending in `TEST TEXT TEST TEXT TEST TEXT`; accompanying `issue.save` v1→v2; working-copy creation; artwork Trash and Restore events with 90-day retention data. This is **LIVE SCREENSHOT PASS** for actor, timestamp, field-level before/after, and recorded artwork lifecycle history. Full CSV export and high-volume pagination remain untested.
+- User rightly criticised the five-column display: tiny/narrow headings, fractured email/time strings, and unbounded JSON dominating each row. Implemented presentation-only changes in `v3-backend/src/index.js`, commit `c64f3220894637edca545ce9fc04f60472e0ed45`: fixed column widths, UK-local readable dates, shortened display actor (full verified account retained in expandable details and unchanged D1 source), human-readable action labels and condensed summaries; every event contains expandable original UTC metadata and full BEFORE/AFTER values. All underlying audit values and CSV schema unchanged. Worker JS and embedded activity UI script syntax PASS; auto GitHub deploy expected, but this formatting release's LIVE browser QA still pending.
+- Original browser IndexedDB drafts, historical archival R2 files and full-resolution photos untouched. Next priority after visual QA: integrate full original V3 designer rather than duplicate trial renderer; migrate missing PDF reference art and verify complete autosave/conflicts.
+
 ## Cloud autosave reload persistence USER PASS — 18 Nov 2026, 11:25 GMT
 
 - User confirmed “yes!!” after clicking `RELOAD CLOUD VERSION` on the separate `/cloud-workspace` cloud trial and reselecting Page 6 Latest News: test text `TEST TEXT TEST TEXT TEST TEXT` remained visible after loading the persisted cloud version. Together with screenshot from 11:18 showing `CLOUD AUTOSAVED & VERIFIED · v2 · 11:16:53`, this verifies **AUTOSAVE / D1 READ-BACK / RELOAD PERSISTENCE PASS by user report**, in the isolated cloud trial only.

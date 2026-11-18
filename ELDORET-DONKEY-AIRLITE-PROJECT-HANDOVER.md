@@ -272,3 +272,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - Screenshot readouts: CPU temperature **43 C** (optimal according to DietPi), root disk **1.9 GiB of 58.2 GiB used (3.2%)**. These are point-in-time observations, not sustained load benchmark.
 - **Next:** set hostname from `DietPi` to user-selected `bulldog`; retrieve Ethernet MAC with `cat /sys/class/net/eth0/address`; reserve `10.0.0.39` in DrayTek Bind IP to MAC with Strict Bind disabled; validate hostname/address on reconnect. Don't treat reservation as complete until router confirms.
 - **Not yet verified:** attached touchscreen with DietPi (currently blank), Eldoret APIs/integrations, browser display, Tailscale, startup/recovery, and Airlite Mac audio tests. Keep original Motor/Jessie SD and Donkey fallback intact.
+
+
+### 18 November 2026 19:07 GMT — Bulldog hostname and Ethernet identity verified
+- **VERIFIED from user SSH terminal screenshot:** `hostname` -> `bulldog`; `cat /sys/class/net/eth0/address` -> `b8:27:eb:19:5d:bd`; `hostname -I` -> `10.0.0.39`. Old shell prompt still reads `root@DietPi`, but hostname command confirms configured name.
+- **PENDING:** Create/check DrayTek Vigor 2865 LAN Bind IP to MAC entry mapping Ethernet MAC `b8:27:eb:19:5d:bd` to `10.0.0.39`, label Bulldog, keep Strict Bind disabled. Router reservation is NOT yet verified saved.
+- Existing DietPi SSH session and minimal 64-bit boot are verified; small touchscreen display and Eldoret integrations not yet working/verified.

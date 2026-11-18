@@ -1195,6 +1195,79 @@ function assetLibraryPortal(){
  return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
+
+function activityLogPortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy · Complete activity log</title><style>
+ body{background:#161719;color:#eee;margin:0;font:14px system-ui,Arial}main{max-width:1200px;margin:auto;padding:22px}h1{color:#ffda00}
+ button,input,select,textarea{background:#2d2f33;color:#fff;border:1px solid #646870;border-radius:4px;padding:10px;font:inherit}
+ button{cursor:pointer}button:disabled{opacity:.4}a{color:#ffda00}.box{border:1px solid #54575b;padding:16px;border-radius:8px;margin:15px 0}
+ .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}textarea{width:100%}table{width:100%;border-collapse:collapse;font-size:12px}
+ td,th{text-align:left;vertical-align:top;border-bottom:1px solid #46484c;padding:9px;word-break:break-word}th{color:#ffda00}
+ .muted{color:#ccc}.good{color:#90e8a7}.bad{color:#ffa6a6}pre{white-space:pre-wrap;overflow:auto;max-height:300px}
+ </style><main><h1>TIVVY · COMPLETE ACTIVITY HISTORY</h1>
+ <p>Who did what, when and to which page, layer or original photograph. Timestamps are stored in UTC; revisions retain the previous state.</p>
+ <p id="identity">Checking protected access…</p>
+ <section class="box"><div class="row"><button id="load">REFRESH ACTIVITY</button><button id="export">DOWNLOAD CSV AUDIT</button>
+ <input id="filter" placeholder="Filter by actor, action, page, note…" style="flex:1;min-width:240px"></div>
+ <p id="summary"></p><div style="overflow:auto"><table><thead><tr><th>When (UTC)</th><th>Who</th><th>Action</th><th>Where</th><th>What changed</th></tr></thead>
+ <tbody id="entries"></tbody></table></div></section>
+ <section class="box"><h2>Record a project decision or instruction</h2>
+ <p class="muted">Notes are attributed to your authenticated account, with an exact time. This does not automatically read ChatGPT messages.</p>
+ <select id="issue"><option value="">Choose issue</option></select><textarea rows="3" id="note" placeholder="e.g. Request: retain Viv's full-resolution originals. No compression."></textarea>
+ <p><button id="submit" disabled>ADD TIMESTAMPED AUDIT NOTE</button></p><p id="noteStatus"></p>
+ </section><p><a href="/artwork-library">ARTWORK LIBRARY</a> · <a href="/cloud-workspace">CLOUD WORKING COPY</a></p>
+ </main><script>
+ (()=>{"use strict";const $=id=>document.getElementById(id);
+ let logs=[],role="";
+ async function api(url,opts){const response=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});const d=await response.json();
+  if(!response.ok||!d.ok)throw Error(d.error||"HTTP "+response.status);return d}
+ function detail(x){
+  const d=x.detail_json||"";
+  if(x.action==="project.note"){try{return JSON.parse(d).text}catch{}}
+  const parts=[];
+  if(d)parts.push(d);
+  if(x.before_json||x.after_json)parts.push("Before: "+(x.before_json||"—")+" / After: "+(x.after_json||"—"));
+  return parts.join(" · ");
+ }
+ function filtered(){const q=$("filter").value.toLowerCase().trim();return q?logs.filter(x=>JSON.stringify(x).toLowerCase().includes(q)):logs}
+ function display(){
+  const items=filtered();$("entries").replaceChildren();$("summary").textContent=items.length+" event(s) displayed. Newest first. Up to 300 recent events per refresh.";
+  for(const x of items){
+   const tr=document.createElement("tr");const fields=[x.created_at,x.actor,x.action,x.target_page_id||x.asset_id||x.issue_id||"—",detail(x)];
+   for(const v of fields){const td=document.createElement("td");td.textContent=String(v??"");tr.append(td)}
+   $("entries").append(tr);
+  }
+ }
+ async function load(){
+  try{const r=await api("/api/activity?limit=300");logs=r.events;display()}catch(e){$("summary").textContent="Audit fetch failed: "+e.message}
+ }
+ $("load").onclick=load;$("filter").oninput=display;
+ $("export").onclick=()=>{
+  const fields=["created_at","actor","kind","action","issue_id","asset_id","target_page_id","target_layer_id","before_json","after_json","detail_json"];
+  const quote=x=>'"'+String(x??"").replace(/"/g,'""')+'"';
+  const csv=[fields.join(","),...filtered().map(x=>fields.map(k=>quote(x[k])).join(","))].join("\\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download="tivvy-detailed-activity-"+new Date().toISOString().slice(0,10)+".csv";a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),15000);
+ };
+ $("submit").onclick=async()=>{
+  try{const text=$("note").value.trim(),issue_id=$("issue").value;
+   if(!issue_id||!text)throw Error("Select an issue and enter a note");
+   const r=await api("/api/activity/notes",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({text,issue_id})});
+   $("note").value="";$("noteStatus").textContent="Saved by "+r.actor+" at "+r.created_at;await load();
+  }catch(e){$("noteStatus").textContent="Note not saved: "+e.message}
+ };
+ (async()=>{try{const me=await api("/api/me");role=me.role;$("identity").textContent="Authenticated as "+role;
+  $("submit").disabled=!["admin","editor"].includes(role);
+  const issues=await api("/api/issues");for(const x of issues.issues)$("issue").add(new Option(x.title,x.id));
+  await load();
+ }catch(e){$("identity").textContent="Access failed: "+e.message}})();
+ })();
+ <\/script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -1215,6 +1288,7 @@ export default {
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
     if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
+    if(path==="/activity-log"&&method==="GET"&&allowed(role,"read"))return activityLogPortal();
     if(path==="/api/library/assets"&&method==="GET"&&allowed(role,"read"))return listLibrary(env,url);
    if(path==="/api/library/assets"&&method==="POST"&&allowed(role,"edit"))return uploadLibraryAsset(env,actor,request);
    if(path==="/api/library/activity"&&method==="GET"&&allowed(role,"read"))return libraryAudit(env,url);

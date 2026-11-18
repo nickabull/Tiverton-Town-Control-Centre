@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## Live Artwork Library ORIGINAL PNG roundtrip PASS — 18 Nov 2026, 10:09 GMT
+
+- User screenshot of protected `/artwork-library` confirms `ORIGINAL VERIFIED · tivvy-library-test.png · 2299 bytes · SHA-256 identical. Add tags/photographer to make it searchable.` This validates signed-in real original-artwork POST to R2, authenticated GET read-back, byte-count and client SHA-256 comparison, no conversion or compression.
+- Earlier 10:04 screenshot showed Cloudflare Access role `admin`, library UI and `0 asset(s) found in active` before test upload. The 19 archived programme assets belong to legacy issue scope, are not yet indexed in reusable shared library. Never imply they were removed.
+- Next UI QA: edit test asset metadata (title Tivvy Library Test, category Test Artwork, description Cloud storage and recovery test, credit Tivvy Test, tags test/tivvy/cloud/recovery), save, search by recovery, then test move to Trash and restore before expiry and audit history. Do not use actual Viv Curtis photos until these checks pass.
+- This is a **LIVE USER SCREENSHOT PASS for one PNG upload/download integrity**, not yet metadata search, trash/restore, automatic purge, complete Designer autosave or cross-device editing.
+
 ## V3.9 deployment and Viv index follow-up — 18 Nov 2026, after 01:50 GMT
 
 - New programme-only GitHub Actions run **#28** (run ID `44220192822`, job ID `134519823001`) was confirmed SUCCESS via GitHub connector after changes to `.github/workflows/deploy-tivvy-programme-storage.yml` at `a8e3c95781b36902963273df5623b1aa453d722a`. Build now statically validates the JavaScript inside all six protected Worker-hosted screens: Cloud Vault, Cloud Import, Cloud Workspace, Artwork Library, Activity Log, and Source Hub. Deployment and checks rejecting anonymous access to each new screen/API route both passed. This is **automated CI/source/access QA**, not yet actual signed-in UI CRUD or autosave recovery QA.

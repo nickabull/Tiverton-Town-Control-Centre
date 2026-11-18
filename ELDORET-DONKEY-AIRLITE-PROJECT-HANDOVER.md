@@ -260,3 +260,8 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **User-supplied first-hand provenance (not independently externally verified):** the recovered `Nick Bull ACAP [060124_001].wav` was produced by **Alpha Sound** for **BBC Somerset's 30th birthday**, during the period when the user was running the stations.
 - The user supplied/playback-shared the corresponding audio ident in chat. Preserve original cut ID `060124_001` and provenance in future Bull's Hits metadata; classify as personal/station imaging, not a commercial music track.
 - This is historic attribution supplied by the user; no date/year of the anniversary or contract/license terms established. Retain audio original and checksum-verified named copy.
+
+
+### 18 November 2026 18:39 GMT — Motor renamed Bulldog (selected name)
+- **User decision:** the former motorhome Pi `Motor` is to be called **Bulldog**, a Bull-family wordplay, and serve as the single Eldoret controller/Engine Room pilot. Proposed Linux hostname `bulldog` (apply only after DietPi is installed and booted; not yet changed).
+- Existing hardware: first Raspberry Pi 3 Model B Rev 1.2 with small attached screen for text-only Engine Room health. Main Eldoret 16:9 no-scroll controls use a separate large touchscreen/browser client. Preserve original Jessie SD card and Rivendell second Pi; Mac runs independently playing Bull's Hits audio; Donkey stays fallback until tested migration.

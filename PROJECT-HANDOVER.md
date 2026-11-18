@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## Cloud Import live screen QA PASS — 18 November 2026, 01:12 GMT
+
+- User screenshot from deployed `/cloud-import`: heading `TIVVY · SAFE CLOUD MIGRATION`, green `Authenticated · admin`, complete backup file input, active `ANALYSE BACKUP — NO UPLOAD` control, correctly disabled `UPLOAD VERIFIED CLOUD COPY` control, `No backup selected` and `No cloud upload started`. Confirms new code deployed and administrator identity route functional. No import file selected, no image or issue migrated, no archive validation or recovery QA yet.
+- GitHub run #3 previously confirmed Wrangler deploy of Worker version `df93d953-c646-4e92-8033-15208fc19259`; separate recent workflow patch `preview_urls:false` still requires next explicit deploy.
+- Next user task: in existing browser Designer use `BACKUP JSON` to download FULL draft; then on Cloud Import choose that full local backup and click `ANALYSE BACKUP — NO UPLOAD` only. This is a read-only preview; migration cannot proceed until cover MIME types and full PDF reference-art scope are resolved. Warn not to click upload. Screenshot only confirms initial UI, not full save.
+
+
 ## First GitHub Actions Programme storage deployment VERIFIED — 18 Nov 2026, 01:03 GMT
 
 - User successfully added `TIVVY_PROGRAMME_CLOUDFLARE_API_TOKEN` and `TIVVY_PROGRAMME_D1_DATABASE_ID` encrypted GitHub Actions secrets; previously configured `CLOUDFLARE_ACCOUNT_ID` existed. User manually dispatched new isolated Programme Worker workflow #2 dry-run and #3 deploy.

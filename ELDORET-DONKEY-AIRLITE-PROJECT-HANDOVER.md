@@ -374,3 +374,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 18 Nov 2026 19:48 GMT — Bulldog Python prerequisite verified
 - **VERIFIED by user from Bulldog terminal:** `python3 --version` returned **Python 3.13.5** after installation on DietPi. Previously missing Python prerequisite is now satisfied.
 - **Next safe migration stage:** Inspect Donkey's local `~/eldoret-connector` directory layout and launch mechanism without printing secrets. Transfer local configuration securely host-to-host only after inventory and permissions review. Do not claim connector running on Bulldog yet.
+
+
+### 18 November 2026 ~19:56 GMT — Donkey local connector inventory verified
+- **VERIFIED from user's Donkey ChromeOS Linux terminal screenshot:** `/home/nickabull/eldoret-connector` exists. `connector.py` (~125,586 bytes) present; process PID 261 runs `/usr/bin/python3 /home/nickabull/eldoret-connector/connector.py`; `systemctl --user list-unit-files | grep -i eldoret` shows `eldoret.service` enabled.
+- Visible contents include `agent-results.json`, `agent-state.json`, `cloudflared` executable, `connector.log`, `connector.py`, `device-registry.json`, `install.sh`, `manager.py`, `remote-tunnel.json`, `router-snmp/`, `skyboxremote.py`, `unifi/`, `__pycache__/`.
+- **Important:** unifi/router-snmp/remote-tunnel and perhaps other local files may hold secrets. No contents have been disclosed or migrated. Verify unit/service definition and file permission/layout before transferring over trusted LAN, and do not push credentials to public GitHub. User service runs as `nickabull`; Bulldog currently connects as `root`, so paths/ownership/startup service must be adjusted.
+- **Next inspection:** `systemctl --user cat eldoret.service` and a secrets-safe runtime/module inventory; then prepare secure host-to-host transfer and side-by-side test at Bulldog `10.0.0.39:8765`. Donkey remains running; no production cutover yet.

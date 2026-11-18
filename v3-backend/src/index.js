@@ -415,6 +415,27 @@ async function vivFlickrDiscovery(url){
  return json({ok:true,provider:"Viv Curtis Flickr public index",source_updated_at:catalog.updated_at||null,total:(catalog.rows||[]).length,results:rows});
 }
 
+
+// Safe, read-only adapter to the existing Tivvy Live collector.
+// Southern League, FootballWebPages and official X updates stay in their existing
+// shared collector, avoiding duplicate paid API requests or independent scrapers.
+// ESPN is not present in the verified collector source and is NOT represented as live.
+async function existingLiveSources(url){
+ const date=String(url.searchParams.get("date")||"");
+ if(!/^202[6-9]-\d{2}-\d{2}$/.test(date))return failure("Provide a valid date YYYY-MM-DD",400);
+ const type=url.searchParams.get("view")==="audit"?"log":"live";
+ const origin="https://tivvy-live-collector.nickabull.workers.dev/";
+ let res;try{res=await fetch(origin+type+"?date="+date,{cf:{cacheTtl:20,cacheEverything:true}})}
+ catch{return json({ok:false,error:"Existing live collector unavailable"},503)}
+ if(!res.ok)return json({ok:false,error:"Live collector returned HTTP "+res.status},503);
+ const content=await res.text();
+ if(content.length>3_000_000)return failure("Live source data too large for preview",413);
+ let data;try{data=JSON.parse(content)}catch{return failure("Invalid live collector response",502)}
+ return json({ok:true,provider:"Existing Tivvy Live collector",queriedDate:date,
+  sources:["Southern League API","FootballWebPages cross-check","Official club X API when enabled"],
+  espnConnected:false,data});
+}
+
 // Authenticated, read-only cloud vault. Hosted on this Worker origin so Access
 // cookies and the same-origin API never have to be exposed to GitHub Pages.
 function storagePortal(){
@@ -1385,6 +1406,7 @@ export default {
    if(path==="/api/activity"&&method==="GET"&&allowed(role,"read"))return globalActivity(env,url);
    if(path==="/api/activity/notes"&&method==="POST"&&allowed(role,"edit"))return appendAuditNote(env,actor,request);
    if(path==="/api/sources/viv"&&method==="GET"&&allowed(role,"read"))return vivFlickrDiscovery(url);
+   if(path==="/api/sources/live"&&method==="GET"&&allowed(role,"read"))return existingLiveSources(url);
    const lib=path.match(/^\/api\/library\/assets\/([0-9a-f-]{36})(?:\/(original))?$/);
    if(lib){
     if(method==="GET"&&lib[2]==="original"&&allowed(role,"read"))return libraryOriginal(env,lib[1]);

@@ -901,7 +901,7 @@ function cloudWorkspacePortal(){
  </div></aside></div>
  </section>
  <p class="muted"><strong>Trial limitations:</strong> text/position editing and cloud revisions with debounced autosave and local emergency backup. Not yet the full V3 canvas editor, no source PDF reference images, no complete print PDF. Original PNG, JPEG and AVIF images are served directly from their verified private R2 objects; no conversion or compression.</p>
- <p><a href="/full-designer">OPEN ORIGINAL FULL V3 DESIGNER · CLOUD TRIAL</a> · <a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
+ <p><a id="fullEditorLink" href="/full-designer">OPEN ORIGINAL FULL V3 DESIGNER · CLOUD TRIAL</a> · <a href="/cloud-import">ARCHIVE AND RECOVERY</a> · <a href="/cloud-vault">CLOUD VAULT</a></p>
  </main><script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);
@@ -1001,6 +1001,7 @@ function cloudWorkspacePortal(){
  for(const k of ["x","y","w","h"])$(k).onchange=e=>change(k,e.target.value);
  function load(data){
   clearTimeout(saveTimer);record=data;dirty=false;saveBlocked=false;selectedPage=0;selectedLayer=-1;
+  $("fullEditorLink").href="/full-designer?issue="+encodeURIComponent(data.issue.id);
   const stored=localStorage.getItem(backupKey(data.issue.id));
   if(stored){
    try{
@@ -1487,7 +1488,13 @@ function sourcesHubPortal(){
 }
 
 
-async function originalFullEditorFrame(){
+async function originalFullEditorFrame(url,env){
+ const issueId=url.searchParams.get("cloudIssue")||"";
+ const pageId=url.searchParams.get("page")||"";
+ if(url.searchParams.get("cloudTrial")!=="1"||!/^work_[a-f0-9]{32}$/.test(issueId)||!safeId(pageId))
+  return failure("A valid isolated cloud working copy and page are required",400);
+ const issue=await requireIssue(env,issueId);
+ if(!issue)return failure("Cloud working copy not found",404);
  // The full, approved V3 renderer is fetched from this repository's source.
  // It runs within this Access-protected Worker origin; the GitHub Pages
  // browser draft database and published site are not changed.
@@ -1692,7 +1699,7 @@ export default {
     if(path==="/cloud-import"&&method==="GET"&&allowed(role,"edit"))return cloudImportPortal();
     if(path==="/cloud-workspace"&&method==="GET"&&allowed(role,"read"))return cloudWorkspacePortal();
     if(path==="/full-designer"&&method==="GET"&&allowed(role,"edit"))return fullDesignerTrialPortal();
-    if(path==="/full-editor-frame"&&method==="GET"&&allowed(role,"edit"))return originalFullEditorFrame();
+    if(path==="/full-editor-frame"&&method==="GET"&&allowed(role,"edit"))return originalFullEditorFrame(url,env);
     if(path==="/artwork-library"&&method==="GET"&&allowed(role,"read"))return assetLibraryPortal();
     if(path==="/activity-log"&&method==="GET"&&allowed(role,"read"))return activityLogPortal();
     if(path==="/source-hub"&&method==="GET"&&allowed(role,"read"))return sourcesHubPortal();

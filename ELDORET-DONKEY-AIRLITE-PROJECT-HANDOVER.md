@@ -305,3 +305,29 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **Previously verified listed:** Donkey .27 / DC-8B-28-1B-1E-F8; Bulldog .39 / B8-27-EB-19-5D-BD; Velux gateway .22 / 70-EE-50-5B-FB-B5. Current screenshot shows only top portion of list; entries below visible scroll not newly verified.
 - **CRITICAL BACKUP LIMITATION:** User uploaded `ipbindmac_20261118.cfg` (50 bytes, inspected 18 November); exact content is just `10.0.0.27 dc-8b-28-1b-1e-f8 Donkey` and `End of file!!!`. It does **not** contain the new reservations despite the screenshot proving they appear in the router's IP Bind List. **Do not describe this .cfg as a complete backup or use it to restore the new bindings.** Investigate export behavior / save state and re-export full list, verify export file content and row count before accepting it as backup.
 - Existing uploaded .cfg retained in conversation as evidence of incomplete export, not committed to GitHub. Avoid storing sensitive full router configuration in public repository. Do not enable Strict Bind.
+
+
+### 18 November 2026 ~19:28 GMT — DrayTek IP Bind backup corrected and inspected
+- **VERIFIED via direct inspection of user-uploaded `ipbindmac_20261118(1).cfg`:** 790-byte text file, 20 IP/MAC bindings, all 20 distinct IPs and MACs, correct-looking three-field format with backtick-encoded spaces in comments, ends `End of file!!!`. **This supersedes the earlier INCOMPLETE `ipbindmac_20261118.cfg` export (only Donkey).** The new export contains the complete set of *20 entries shown in the file*; no restore test has been performed.
+- Confirmed entries from file (IP / MAC / label):
+  - 10.0.0.2 / ec-b5-fa-23-39-08 / Hue House
+  - 10.0.0.3 / e0-bb-9e-44-ed-51 / Epson Print
+  - 10.0.0.4 / ec-b5-fa-22-ea-b7 / Hue Utility
+  - 10.0.0.6 / e0-63-da-ec-2c-ad / Wifi Off/Kit
+  - 10.0.0.7 / f4-92-bf-c0-d4-34 / Wifi Util
+  - 10.0.0.8 / f4-92-bf-66-06-2d / Wifi Garden
+  - 10.0.0.9 / f4-92-bf-c0-cf-73 / Wifi Landing
+  - 10.0.0.11 / 94-e6-86-18-c5-54 / Car Charger
+  - 10.0.0.12 / 68-a4-0e-4f-ca-e4 / Cooker Hood
+  - 10.0.0.13 / 68-a4-0e-4a-60-59 / Cooker Hob
+  - 10.0.0.14 / 68-a4-0e-23-9d-22 / Kit Dishwash
+  - 10.0.0.16 / 68-a4-0e-35-73-f3 / Left Oven
+  - 10.0.0.17 / 68-a4-0e-4e-74-b1 / Right Oven
+  - 10.0.0.18 / d4-da-cd-51-fe-01 / Sky Q
+  - 10.0.0.22 / 70-ee-50-5b-fb-b5 / Velux
+  - 10.0.0.27 / dc-8b-28-1b-1e-f8 / Donkey
+  - 10.0.0.39 / b8-27-eb-19-5d-bd / Bulldog
+  - 10.0.0.48 / 5c-84-3c-8c-79-87 / PS 5
+  - 10.0.0.5 / b8-27-eb-de-7f-82 / A&H Conrol (spelling as exported)
+  - 10.0.0.20 / f0-5c-19-cd-bc-c0 / BBC Aruba
+- **Backup location:** original uploaded file stored in conversation, not committed to GitHub. User should keep an independent copy in a secure backup location. A binding-list export is not necessarily a full router configuration backup; do not assume other DrayTek settings are protected. Keep Strict Bind disabled.

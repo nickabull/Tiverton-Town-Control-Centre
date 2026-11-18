@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## V3.10 full native cloud renderer visual QA and built-in art fix — 18 Nov 2026, 12:45 GMT
+
+- User screenshot of native cloud full-editor, Page 6 Latest News: actual Antonio typography and original two-column text layout render, including prior autosaved TEST TEXT TEST TEXT TEST TEXT; real native drag-selection visible. This is PARTIAL visual pass; page is not yet pixel-perfect.
+- Critical defect: image at top left shows broken icon and alt text Map Background; source PDF reference art also not migrated and background is largely white.
+- Root cause from exact original editor source: v3Pack compacts common built-in artwork image strings to __v3_builtin_map/header/footer, but trial tivvy-cloud-load handler was copying these strings into image src without passing through v3Revive. Fixed cloud trial load to restore exact native embedded original PNG bytes before paint, with explicit error if marker unknown. Commit 5a4250b1c0a65ba84ed0a3fa8b2aa42b36d4594c. Source artwork and D1 versions are untouched; original GitHub Pages drafts not modified.
+- Full native editor JS static parse PASS. Protected full-editor-frame fetches original HTML from GitHub raw at request time with about 60 seconds of caching. Visual re-test after refresh is PENDING. Remaining source PDF reference art and full native edit/save/reload/conflict QA not passed yet. Do not promote to production.
+
 ### V3.10 final source follow-up — 18 Nov 2026
 
 - Fixed initial full-editor iframe display so it remains hidden until an authenticated cloud issue is chosen, commit `a1b6335a03f97133ab581bae21862e5bfafd35f9`. Underlying original editor remains unchanged by this CSS. Worker and inner full-editor trial JavaScript syntax PASS; live QA remains pending, as does specific newest GitHub Actions automatic deployment confirmation.

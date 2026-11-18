@@ -179,7 +179,7 @@ function storagePortal(){
  <button id="download" disabled>DOWNLOAD SELECTED ISSUE JSON</button>
  </section><section><h2>Revision history</h2><button id="history" disabled>LOAD REVISIONS</button><pre id="revisions">No revisions loaded.</pre></section>
  <p class="muted">Local design drafts remain on GitHub Pages in your browser. Cloud edit/sync and full-size R2 migration are not connected. Download is a recovery copy, not an editor restore.</p>
- <p><a href="/cloud-import">SAFE CLOUD MIGRATION — CREATE VERIFIED COPY</a> · <a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html">RETURN TO DESIGNER</a></p></main>
+ <p><a href="/cloud-workspace">CLOUD WORKING COPY (EDITING TRIAL)</a> · <a href="/cloud-import">SAFE CLOUD MIGRATION — CREATE VERIFIED COPY</a> · <a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html">RETURN TO DESIGNER</a></p></main>
  <script>
  (()=>{"use strict";
  const $=id=>document.getElementById(id);
@@ -267,7 +267,7 @@ function cloudImportPortal(){
  <pre id="recoverStatus">No archival recovery requested.</pre>
  </section>
  <p class="note"><strong>Limits:</strong> 95 MB single image upload; 3 MB metadata JSON. Assets above 95 MB need multipart support. Unsupported embedded formats are blocked until reviewed. Reference-only source PDF images stored in a separate browser database are not part of the issue JSON backup. This is an archival cloud copy, not yet automatic live editor sync.</p>
- <p><a href="/cloud-vault">RETURN TO CLOUD VAULT</a></p>
+ <p><a href="/cloud-workspace">OPEN CLOUD WORKING COPY (EDITING TRIAL)</a> · <a href="/cloud-vault">RETURN TO CLOUD VAULT</a></p>
  </main>
  <script>
  (()=>{"use strict";

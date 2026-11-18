@@ -1161,6 +1161,10 @@ function assetLibraryPortal(){
  <button id="saveMeta" class="gold">SAVE METADATA</button><button id="copyUrl">COPY PRIVATE ARTWORK URL</button>
  <button id="trash">MOVE TO TRASH</button><button id="restore">RESTORE FROM TRASH</button>
  </div><p id="editStatus" role="status"></p></section>
+ <section><h2>Discover Viv Curtis photographs</h2>
+ <p class="muted">Search our existing hourly Flickr index. These are source references, not yet copies saved in our private R2 library. Check attribution and usage rights before importing an original.</p>
+ <div class="toolbar"><input id="vivQuery" placeholder="Player, match, album or date…"><button id="vivSearch">SEARCH VIV'S FLICKR CATALOGUE</button></div>
+ <p id="vivStatus"></p><div id="vivPhotos" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px"></div></section>
  <section><h2>Detailed audit history</h2>
  <button id="audit">REFRESH AUDIT LOG</button> <button id="csv">DOWNLOAD AUDIT CSV</button>
  <p class="muted">Shows who uploaded, changed metadata, moved or restored an asset, with timestamps and before/after records.</p>
@@ -1246,6 +1250,24 @@ function assetLibraryPortal(){
    $("events").textContent=events.map(x=>x.created_at+" · "+x.actor+" · "+x.action+" · "+x.asset_id+"\\n"+(x.detail_json||"")).join("\\n\\n")||"No asset events yet.";
   }catch(e){setText("events","AUDIT ERROR: "+e.message,true)}
  }
+
+ $("vivSearch").onclick=async()=>{
+  const target=$("vivPhotos");target.replaceChildren();setText("vivStatus","Searching public photo catalogue…");
+  try{
+   const data=await api("/api/sources/viv?q="+encodeURIComponent($("vivQuery").value.trim()));
+   setText("vivStatus",data.results.length+" matching indexed photo(s). Last source refresh: "+(data.source_updated_at||"unknown")+".");
+   for(const photo of data.results){
+    const card=document.createElement("div");card.className="item";
+    if(photo.thumbnail_url&&photo.thumbnail_url.startsWith("https://")){
+     const img=document.createElement("img");img.src=photo.thumbnail_url;img.alt=photo.title;img.loading="lazy";card.append(img);
+    }
+    const title=document.createElement("p");title.textContent=photo.title||"Untitled photograph";card.append(title);
+    const credit=document.createElement("small");credit.textContent="Viv Curtis · "+(photo.date_taken||"Date unknown")+" · License: "+photo.license;card.append(credit);
+    const link=document.createElement("a");link.href=photo.source_url;link.target="_blank";link.rel="noopener noreferrer";link.textContent="View original on Flickr";card.append(document.createElement("p"),link);
+    target.append(card);
+   }
+  }catch(e){setText("vivStatus","Flickr discovery unavailable: "+e.message+". Existing uploaded originals remain safe.",true)}
+ };
  $("audit").onclick=audit;
  $("csv").onclick=()=>{
   const cols=["created_at","actor","action","asset_id","before_json","after_json","detail_json"];
@@ -1260,7 +1282,7 @@ function assetLibraryPortal(){
  }catch(e){$("identity").textContent="ACCESS FAILED: "+e.message;$("identity").className="bad"}})();
  })();
  <\/script></html>`;
- return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https://live.staticflickr.com https://*.staticflickr.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
 }
 
 

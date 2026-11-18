@@ -369,3 +369,8 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 18 Nov 2026 19:45 GMT — Bulldog resource baseline
 - **VERIFIED from user SSH output** on Bulldog (`10.0.0.39`): `free -h` reports 954 MiB total RAM, 65 MiB used, **888 MiB available**, 1.1 GiB swap and 0 B swap used. `df -h /`: 59G root, 1.9G used, 54G available, 4% use. `hostname -I`: `10.0.0.39`.
 - `python3 --version` returned `-bash: python3: command not found` — minimal DietPi image has no Python installed. **Installation proposed, not yet verified:** `apt update && apt install -y python3`, then verify Python version before attempting connector migration. No Eldoret workload/performance validation yet; keep Donkey running side-by-side.
+
+
+### 18 Nov 2026 19:48 GMT — Bulldog Python prerequisite verified
+- **VERIFIED by user from Bulldog terminal:** `python3 --version` returned **Python 3.13.5** after installation on DietPi. Previously missing Python prerequisite is now satisfied.
+- **Next safe migration stage:** Inspect Donkey's local `~/eldoret-connector` directory layout and launch mechanism without printing secrets. Transfer local configuration securely host-to-host only after inventory and permissions review. Do not claim connector running on Bulldog yet.

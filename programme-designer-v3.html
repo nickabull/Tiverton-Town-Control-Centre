@@ -80,10 +80,10 @@ body.nav-collapsed #pageNavigation{display:none}
 @media(max-width:920px){.brand span{font-size:16px}.brand small{display:none}.headmeta .chip:first-child{display:none}.main{grid-template-columns:205px minmax(0,1fr)}}
 </style></head><body>
 <header>
- <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.8.0 · CLOUD WORKING COPY TRIAL</small></span></div>
+ <div class="brand"><button class="btn" id="togglePages" title="Collapse or expand programme pages" aria-expanded="true" aria-controls="pageNavigation">☰ PAGES</button> <span>TIVVY <strong>DESIGNER</strong> <small>V3.9.0 · ORIGINAL ARTWORK LIBRARY + AUDIT</small></span></div>
  <div class="headmeta"><span id="counts" class="chip">Loading pages...</span><span id="saveBadge" class="chip draft">LOCAL DRAFT · NO CLOUD SAVE</span>
  <button class="btn" id="backupBtn">BACKUP JSON</button>
- <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">CLOUD STORAGE</button><button class="btn" id="detailsBtn">DETAILS LOG</button><button class="btn gold" id="swindonSweepBtn" title="Read-only scan of browser programme drafts using sourced Swindon facts. Downloads JSON report; makes no edits.">5 DEC · DRY-RUN SWEEP</button><button class="btn gold" id="swindonTrialBtn" title="Make an excluded separate Page 39 copy and insert Swindon text, preserving artwork and original page">CREATE SWINDON PAGE 39 TRIAL</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
+ <details class="workspace-menu"><summary class="btn" aria-label="More programme tools">MORE TOOLS ▾</summary><div class="workspace-menu-panel"><button class="btn" id="importBtn">IMPORT 54 PAGES</button><button class="btn" id="storageBtn">CLOUD STORAGE</button><a class="btn" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/artwork-library" target="_blank" rel="noopener noreferrer">ARTWORK LIBRARY ↗</a><a class="btn" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/activity-log" target="_blank" rel="noopener noreferrer">FULL AUDIT ↗</a><a class="btn" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/source-hub" target="_blank" rel="noopener noreferrer">DATA SOURCES ↗</a><button class="btn" id="detailsBtn">LOCAL DETAILS LOG</button><button class="btn gold" id="swindonSweepBtn" title="Read-only scan of browser programme drafts using sourced Swindon facts. Downloads JSON report; makes no edits.">5 DEC · DRY-RUN SWEEP</button><button class="btn gold" id="swindonTrialBtn" title="Make an excluded separate Page 39 copy and insert Swindon text, preserving artwork and original page">CREATE SWINDON PAGE 39 TRIAL</button><button class="btn gold" id="previewBtn">EXPORT PAGE PREVIEW</button><button class="btn gold" id="trialP14Btn" title="Safely create a non-exporting trial using page 7 artwork and page 14 editable matrix">TRY PAGE 7 LOOK ON PAGE 14</button><button class="btn gold" id="trialP19Btn" title="Create a backed-up, non-exporting league-table trial with the Saturday 14 November standings">TRY PAGE 7 LOOK ON PAGE 19</button><button class="btn gold" id="fixP19Btn" title="Fix the key on the existing league-table trial without touching the original page">FIX PAGE 19 TRIAL KEY</button><button class="btn gold" id="trialP06Btn" title="Copy all page 7 master artwork including black footer to a safe editable Latest News trial">APPLY PAGE 7 LOOK TO PAGE 6</button></div></details>
  <input id="importFile" type="file" accept=".zip,application/zip" hidden></div>
 </header>
 <div class="main">
@@ -108,20 +108,23 @@ body.nav-collapsed #pageNavigation{display:none}
 <p class="muted">Download the reference ZIP from the chat, then select it below. The 54 original pages will be browsable in the ORIGINAL PAGE view; choose EDIT LAYERS to keep working on native text, images and tables.</p>
 <p id="importStatus" aria-live="polite">No file selected.</p>
 <button class="btn gold" id="chooseZip">CHOOSE REFERENCE ZIP</button><button class="btn" id="closeImport">CLOSE</button></dialog>
-<dialog id="storageDialog"><h3>CLOUD STORAGE · V3.8.0</h3>
+<dialog id="storageDialog"><h3>CLOUD STORAGE · V3.9.0</h3>
 <p><strong>Live backend tests passed:</strong> D1 versioned issue save/recovery and R2 PNG upload/download with matching SHA-256 (17 Nov 2026). The app's browser drafts are NOT synced.</p>
-<p><strong>Current status:</strong> protected Cloud Vault has been deployed and its administrator login, issue list, and revision-history display have been browser-tested. Lossless R2 uploads and a separate Cloud Migration page have been coded, but REQUIRE deployment and live testing of the updated Worker. Automated live editor sync is NOT yet connected.</p>
+<p><strong>Current status:</strong> 60-page/19-original cloud archive and 316 MB recovery download both PASSED real browser testing. The original GitHub Pages editor still keeps its own browser drafts. A separate cloud working-copy editor with trial autosave, searchable original-artwork library, 90-day trash, audit and source feeds are being deployed and require live QA.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-vault" target="_blank" rel="noopener noreferrer">OPEN PROTECTED CLOUD VAULT ↗</a> · Lists existing cloud records, revisions and JSON downloads. It cannot modify or replace programme pages.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-workspace" target="_blank" rel="noopener noreferrer">OPEN CLOUD WORKING COPY (EDITING TRIAL)</a> · Separate protected D1 versioned workspace for page text and positions. Does not change local browser drafts or your historical cloud archive.</p>
+<p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/artwork-library" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ARTWORK LIBRARY</a> · Search, label and reuse stored originals; 90-day recoverable trash.</p>
+<p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/activity-log" target="_blank" rel="noopener noreferrer">OPEN FULL CLOUD ACTIVITY LOG</a> · Staff, timestamps, before/after changes and CSV export.</p>
+<p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/source-hub" target="_blank" rel="noopener noreferrer">OPEN MATCHDAY SOURCE HUB</a> · Southern League, FootballWebPages, official X updates and Viv Flickr discovery. ESPN pending.</p>
 <p><a style="color:#ffda00" href="https://tivvy-programme-v3-storage.nickabull.workers.dev/cloud-import" target="_blank" rel="noopener noreferrer">OPEN SAFE CLOUD MIGRATION</a> · After Worker deployment, analyse a full browser backup, then create a separate verified archival cloud copy; never replaces this browser&#39;s drafts.</p>
-<p class="muted">Your artwork remains saved in this browser. Always retain local backups. Cloud synchronisation, private-asset access rejection, image migration and production PDF are still pending.</p>
+<p class="muted">The original browser programme remains local. Keep your JSON backups. Full legacy editor-to-cloud autosync, separate PDF reference art and production PDF are not yet connected.</p>
 <p><button class="btn gold" id="cloudAuditBtn">CHECK ALL PAGES FOR CLOUD SAVE</button>
 <button class="btn" id="cloudAuditReportBtn" disabled>DOWNLOAD READINESS REPORT</button></p>
 <p id="cloudAuditStatus" role="status" class="muted">Read-only check. No uploads or changes to page designs.</p>
 <pre id="cloudAuditSummary" style="white-space:pre-wrap;max-height:210px;overflow:auto;color:#eee;font-size:12px"></pre>
 <button class="btn gold" id="storageBackupBtn">DOWNLOAD LOCAL BACKUP</button><button class="btn" id="closeStorage">CLOSE</button></dialog>
 <dialog id="detailsDialog"><h3>DETAILS / ACTIVITY LOG</h3>
- <p class="muted">Prototype log: stored only in this browser. Actor identification, durable history and server-side audit security are not connected yet.</p>
+ <p class="muted">These are older local-browser activity entries. The separate FULL CLOUD ACTIVITY LOG identifies signed-in staff and preserves versioned field changes and asset actions.</p>
  <div class="logtools"><input id="logSearch" placeholder="Search activity or layer"><select id="logAction"><option value="">All actions</option><option value="page">Page actions</option><option value="layer">Layer edits</option></select><select id="logPage"><option value="">All pages</option></select><button class="btn" id="downloadCsv">EXPORT CSV</button><button class="btn" id="closeDetails">CLOSE</button></div>
  <table><thead><tr><th>When (UK)</th><th>Page</th><th>Action</th><th>Detail</th></tr></thead><tbody id="logRows"></tbody></table>
 </dialog>
@@ -178,7 +181,7 @@ function record(action,detail,pageId,category="page"){
  try{localStorage.setItem(LOG_KEY,JSON.stringify(log))}catch(e){message("Local activity log could not be saved")}
 }
 async function initialize(){
- try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.8.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
+ try{const data=await fetch("data/programme-v3-page-manifest.json?v=3.9.0").then(r=>{if(!r.ok)throw Error("Manifest HTTP "+r.status);return r.json()});
   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
   log=JSON.parse(localStorage.getItem(LOG_KEY)||"[]")||[];
   if(saved&&Array.isArray(saved.pages)){pages=saved.pages;trash=saved.trash||[];active=saved.active}
@@ -224,7 +227,7 @@ async function openPage(id){
    }
   }
   active=id;persist();render();loadedEditorPage=null;
-  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.8.0";
+  const next="programme-designer-v3-editor.html?page="+encodeURIComponent(id)+"&v=3.9.0";
   if(!frame.src.endsWith(next))frame.src=next;
   stopCrop();
   if(hasReference)setReferenceMode(!!current()?.source && ![6,14].includes(current().source));
@@ -826,7 +829,7 @@ cropCanvas.addEventListener("pointerup",e=>{
  if(nm===null)return;
  const data={type:"tivvy-v3-import-artwork",pageId:active,name:nm.trim().slice(0,90)||"Extracted artwork",src,x:Math.round(left/r.width*595),y:Math.round(top/r.height*842),w:Math.round(w/r.width*595),h:Math.round(h/r.height*842)};
  stopCrop();setReferenceMode(false);
- const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.8.0";
+ const next="programme-designer-v3-editor.html?page="+encodeURIComponent(active)+"&v=3.9.0";
  if(loadedEditorPage===active&&frame.src.endsWith(next))frame.contentWindow.postMessage(data,location.origin);
  else{pendingArtwork=data;loadedEditorPage=null;if(!frame.src.endsWith(next))frame.src=next}
  record("artwork-extract","Extracted PDF area as image layer: "+data.name,active,"layer");

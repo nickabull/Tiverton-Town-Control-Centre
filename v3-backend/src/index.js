@@ -87,6 +87,50 @@ async function createIssue(env,actor,request){
  }catch{return failure("Issue already exists or could not be created",409)}
  return json({ok:true,id:input.id,version:1},201);
 }
+
+function safeAuditField(value){
+ if(value===undefined)return null;
+ if(typeof value==="string")return value.length>12000?{excerpt:value.slice(0,12000),truncated:true,characters:value.length}:value;
+ if(value&&typeof value==="object"){
+  const str=JSON.stringify(value);
+  if(str.length>12000)return {excerpt:str.slice(0,12000),truncated:true,characters:str.length};
+ }
+ return value;
+}
+function detailedDocumentAudit(before,after){
+ const changes=[];
+ const append=(action,page,layer,field,b,a)=>{
+  if(changes.length>=250)return;
+  changes.push({action,page,layer,field,before:safeAuditField(b),after:safeAuditField(a)});
+ };
+ const oldPages=new Map((before.pages||[]).map(p=>[p.id,p]));
+ for(const p of after.pages||[]){
+  const old=oldPages.get(p.id);
+  if(!old){append("page.create",p.id,null,null,null,{name:p.name});continue}
+  oldPages.delete(p.id);
+  for(const key of ["name","include","source","mode"]){
+   if(JSON.stringify(old[key])!==JSON.stringify(p[key]))append("page.property.change",p.id,null,key,old[key],p[key]);
+  }
+  const oldLayers=new Map((old.layers||[]).map(l=>[String(l.id),l]));
+  for(const layer of p.layers||[]){
+   const layerId=String(layer.id);
+   const prev=oldLayers.get(layerId);
+   if(!prev){append("layer.create",p.id,layerId,null,null,layer);continue}
+   oldLayers.delete(layerId);
+   for(const key of new Set([...Object.keys(prev),...Object.keys(layer)])){
+    if(key==="id")continue;
+    if(JSON.stringify(prev[key])!==JSON.stringify(layer[key]))
+     append("layer.property.change",p.id,layerId,key,prev[key],layer[key]);
+   }
+  }
+  for(const removed of oldLayers.values())append("layer.delete",p.id,String(removed.id),null,removed,null);
+ }
+ for(const removed of oldPages.values())append("page.delete",removed.id,null,null,{name:removed.name},null);
+ const olderIds=(before.pages||[]).map(x=>x.id),newIds=(after.pages||[]).map(x=>x.id);
+ if(JSON.stringify(olderIds)!==JSON.stringify(newIds))append("pages.reorder",null,null,"order",olderIds,newIds);
+ return changes;
+}
+
 async function saveIssue(env,actor,issueId,request){
  const input=await payload(request);
  if(!Number.isSafeInteger(input.expected_version)||input.expected_version<1||!validDocument(input.document))return failure("Expected version and valid page document required");
@@ -94,12 +138,17 @@ async function saveIssue(env,actor,issueId,request){
  if(bytes(serialized)>MAX_SNAPSHOT_BYTES)return failure("Document exceeds 3MB limit",413);
  const expected=input.expected_version,ver=expected+1,time=now(),rev=uid(),event=uid();
  const summary=String(input.summary||"Save programme").slice(0,300),targetPage=typeof input.page_id==="string"?input.page_id:null,targetLayer=typeof input.layer_id==="string"?input.layer_id:null;
+ const previous=await env.DB.prepare("SELECT snapshot_json FROM issue_revisions WHERE issue_id=? AND version=?").bind(issueId,expected).first();
+ if(!previous)return failure("Expected issue revision not found",409);
+ const changes=detailedDocumentAudit(JSON.parse(previous.snapshot_json),input.document);
  // All statements are one atomic D1 batch. Each insert is conditional on
  // the expected issue version. No stale writer can overwrite newer data.
  await env.DB.batch([
   env.DB.prepare("INSERT INTO issue_revisions(id,issue_id,version,snapshot_json,summary,actor,created_at) SELECT ?,id,?,?,?, ?,? FROM programme_issues WHERE id=? AND current_version=?").bind(rev,ver,serialized,summary,actor,time,issueId,expected),
   env.DB.prepare("UPDATE programme_issues SET current_version=?,updated_at=? WHERE id=? AND current_version=? AND EXISTS(SELECT 1 FROM issue_revisions WHERE id=?)").bind(ver,time,issueId,expected,rev),
-  env.DB.prepare("INSERT INTO activity_events(id,issue_id,revision_id,actor,action,target_page_id,target_layer_id,detail_json,created_at) SELECT ?,?,?,?,?,?,?,?,? FROM issue_revisions WHERE id=?").bind(event,issueId,rev,actor,"issue.save",targetPage,targetLayer,JSON.stringify({summary,from_version:expected,to_version:ver}),time,rev)
+  env.DB.prepare("INSERT INTO activity_events(id,issue_id,revision_id,actor,action,target_page_id,target_layer_id,detail_json,created_at) SELECT ?,?,?,?,?,?,?,?,? FROM issue_revisions WHERE id=?").bind(event,issueId,rev,actor,"issue.save",targetPage,targetLayer,JSON.stringify({summary,from_version:expected,to_version:ver,field_changes:changes.length,max_logged:250}),time,rev),
+  ...changes.map(c=>env.DB.prepare("INSERT INTO activity_events(id,issue_id,revision_id,actor,action,target_page_id,target_layer_id,before_json,after_json,detail_json,created_at) SELECT ?,?,?,?,?,?,?,?,?,?,? FROM issue_revisions WHERE id=?")
+   .bind(uid(),issueId,rev,actor,c.action,c.page,c.layer,c.before===null?null:JSON.stringify(c.before),c.after===null?null:JSON.stringify(c.after),JSON.stringify({field:c.field,from_version:expected,to_version:ver}),time,rev))
  ]);
  const ownRevision=await env.DB.prepare("SELECT id FROM issue_revisions WHERE id=? AND issue_id=?").bind(rev,issueId).first();
  const check=await env.DB.prepare("SELECT current_version FROM programme_issues WHERE id=?").bind(issueId).first();
@@ -220,7 +269,7 @@ async function libraryDetail(env,id){
 }
 async function libraryOriginal(env,id){
  const item=await libraryDetail(env,id);
- if(!item||item.status!=="active")return failure("Artwork unavailable or in trash",404);
+ if(!item||!["active","trash"].includes(item.status))return failure("Artwork unavailable",404);
  const object=await env.ASSETS.get(item.r2_key);
  if(!object)return failure("Original bytes not found",404);
  return new Response(object.body,{headers:{"content-type":item.mime_type,"cache-control":"private, no-store","x-content-type-options":"nosniff","content-disposition":"inline"}});
@@ -258,6 +307,7 @@ async function updateLibraryAsset(env,actor,id,request){
  }
  if(action==="restore"){
   if(item.status!=="trash")return failure("Artwork is not in trash",409);
+  if(item.purge_after<=now())return failure("The 90-day recovery period has expired",410);
   const t=now();
   const after={...before,status:"active",trashed_at:null,purge_after:null,trashed_by:null,updated_by:actor,updated_at:t};
   await env.DB.batch([
@@ -289,6 +339,9 @@ async function purgeExpiredLibrary(env){
    env.DB.prepare("UPDATE asset_library SET status='purging',deleted_at=?,updated_at=? WHERE id=? AND status='trash' AND purge_after<=?").bind(t,t,item.id,t),
    libraryEvent(env,item.id,"system:retention","asset.purge.begin",assetSummary(item),null,{retentionDays:90})
   ]);
+  // Restore and purge may race. Only delete when the DB still records purging.
+  const still=await env.DB.prepare("SELECT status FROM asset_library WHERE id=?").bind(item.id).first();
+  if(still?.status!=="purging")continue;
   await env.ASSETS.delete(item.r2_key);
   await env.DB.batch([
    env.DB.prepare("DELETE FROM asset_library WHERE id=? AND status='purging'").bind(item.id),

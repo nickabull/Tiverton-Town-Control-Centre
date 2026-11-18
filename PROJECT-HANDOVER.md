@@ -1,5 +1,12 @@
 # Tivvy Programme Designer — project handover
 
+## FIRST AUTOMATIC GitHub Actions DEPLOY CONFIRMED — 18 November 2026, 01:23 GMT
+
+- Browser's GitHub workflow list verified **run #7** `44215427368`, event PUSH from workflow commit `b2ab2f775b830d2b14a6d34df831f9a4be9c8562`, completed successfully. GitHub connector confirmed job `134503949792` `preflight` conclusion SUCCESS. Steps **Deploy programme storage on scoped main push or explicit manual deploy** and **Verify Access-protected API is not anonymously accessible** BOTH SUCCESS.
+- This confirms automatic deployments work without pressing GitHub Run Workflow. Source deployed by run #7 includes lossless AVIF MIME support and preview_urls:false policy. No real 316.1MB programme image or browser draft uploaded by this action. Authenticated cloud importer still not end-to-end tested on current deployment; keep browser backup and original IndexedDB source.
+- User wants browser designs moved to D1/R2 live cloud and editing cross-device. Current /cloud-import is an archival clone with upload/download checksums; live cloud-editor integration and separate PDF source references are not yet included. No cross-device editing claims until tested.
+- Attempt to prepare disposable UI smoke test was not committed due code syntax error; no new test control is live. Old disposable D1/R2 SHA-256 tests passed before new streamed upload route. Next: safely test actual streaming upload, then stage archival import and build cloud-native editor recovery.
+
 ## GitHub-to-Cloudflare automatic deployments ENABLED IN WORKFLOW SOURCE — 18 Nov 2026, 01:22 GMT
 
 - User explicitly requested **no more manual Run workflow** action after one successful dry run and one successful manually dispatched live deployment. Modified only `.github/workflows/deploy-tivvy-programme-storage.yml` to have every push to `main` changing `v3-backend/src/index.js` or this isolated workflow file trigger automatic deployment to the single named `tivvy-programme-v3-storage` Worker. Previously gated push path by unset `TIVVY_PROGRAMME_AUTO_DEPLOY` repo variable; removed that gate and set deployment step to execute for `push` and manual `deploy`; manual `dry-run` still does NOT deploy.

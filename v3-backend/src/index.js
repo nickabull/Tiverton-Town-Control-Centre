@@ -140,6 +140,78 @@ async function getAsset(env,id,assetId){
  const result=await env.ASSETS.get(asset.r2_key);if(!result)return failure("Stored object missing",404);
  return new Response(result.body,{headers:{"content-type":asset.mime_type,"cache-control":"private, no-store","x-content-type-options":"nosniff","content-disposition":"inline"}});
 }
+
+// Authenticated, read-only cloud vault. Hosted on this Worker origin so Access
+// cookies and the same-origin API never have to be exposed to GitHub Pages.
+function storagePortal(){
+ const html=`<!doctype html><html lang="en"><meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Tivvy V3 Cloud Vault</title>
+ <style>body{font:15px system-ui,Arial;background:#18191b;color:#eee;margin:0}
+ main{max-width:950px;margin:auto;padding:24px}h1{color:#ffda00}
+ button,select{background:#303237;color:#fff;border:1px solid #777;border-radius:4px;padding:10px;cursor:pointer}
+ button:disabled{opacity:.45;cursor:not-allowed}a{color:#ffda00}section{border:1px solid #505050;padding:17px;margin:14px 0;border-radius:8px}
+ .muted{color:#ccc}.good{color:#8cdb9c}.bad{color:#ffaaa9}
+ pre{white-space:pre-wrap;word-break:break-word}#status{font-weight:bold}
+ </style><main>
+ <h1>TIVVY · CLOUD VAULT</h1>
+ <p class="muted">Secure read-only storage view · no browser drafts are uploaded, replaced or deleted here.</p>
+ <p id="status" role="status">Checking protected connection…</p>
+ <section><h2>Stored issues</h2><button id="refresh">REFRESH LIST</button>
+ <p><label for="issue">Choose a cloud issue</label></p><select id="issue"><option value="">Select an issue</option></select>
+ <p id="details" class="muted">Nothing selected.</p>
+ <button id="download" disabled>DOWNLOAD SELECTED ISSUE JSON</button>
+ </section><section><h2>Revision history</h2><button id="history" disabled>LOAD REVISIONS</button><pre id="revisions">No revisions loaded.</pre></section>
+ <p class="muted">Local design drafts remain on GitHub Pages in your browser. Cloud edit/sync and full-size R2 migration are not connected. Download is a recovery copy, not an editor restore.</p>
+ <p><a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/programme-designer-v3.html">RETURN TO DESIGNER</a></p></main>
+ <script>
+ (()=>{"use strict";
+ const $=id=>document.getElementById(id);
+ let issueData=null;
+ async function get(path){
+  const r=await fetch(path,{credentials:"same-origin",cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status+" from "+path);
+  const body=await r.json();if(!body.ok)throw Error(body.error||"Request failed");return body;
+ }
+ function error(e){$("status").textContent="Cloud request failed: "+e.message;$("status").className="bad"}
+ async function selected(){
+  const id=$("issue").value;issueData=null;$("download").disabled=true;$("history").disabled=true;
+  $("revisions").textContent="No revisions loaded.";
+  if(!id){$("details").textContent="Nothing selected.";return}
+  try{const body=await get("/api/issues/"+encodeURIComponent(id));
+   issueData=body;$("details").textContent="Version "+body.version+" · "+body.document.pages.length+" pages · cloud record only";
+   $("download").disabled=false;$("history").disabled=false;
+  }catch(e){error(e)}
+ }
+ async function refresh(){
+  try{
+   const me=await get("/api/me");
+   $("status").textContent="Protected connection verified · role: "+me.role;
+   $("status").className="good";
+   const body=await get("/api/issues");const sel=$("issue");sel.replaceChildren(new Option("Select an issue",""));
+   for(const item of body.issues)sel.add(new Option(item.title+" · v"+item.current_version,item.id));
+   $("details").textContent=body.issues.length+" cloud issue(s) found. Browser-only artwork is not included.";
+   issueData=null;$("download").disabled=true;$("history").disabled=true;$("revisions").textContent="No revisions loaded.";
+  }catch(e){error(e)}
+ }
+ $("refresh").addEventListener("click",refresh);
+ $("issue").addEventListener("change",selected);
+ $("history").addEventListener("click",async()=>{try{
+  const b=await get("/api/issues/"+encodeURIComponent($("issue").value)+"/revisions");
+  $("revisions").textContent=b.revisions.map(x=>"Version "+x.version+" · "+x.created_at+" · "+x.summary).join("\\n")||"No revisions found";
+ }catch(e){error(e)}});
+ $("download").addEventListener("click",()=>{
+  if(!issueData)return;
+  const blob=new Blob([JSON.stringify({exportedAt:new Date().toISOString(),source:"tivvy-v3-cloud-vault",...issueData},null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="tivvy-cloud-"+$("issue").value+"-v"+issueData.version+".json";a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ });
+ refresh();
+ })();
+ </script></html>`;
+ return new Response(html,{headers:{"content-type":"text/html; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer","content-security-policy":"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"}});
+}
+
 export default {
  async fetch(request,env){
   const url=new URL(request.url),path=url.pathname,method=request.method;
@@ -156,7 +228,8 @@ export default {
   }
   const role=membership.role,actor=email;
   try{
-   if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
+   if(path==="/cloud-vault"&&method==="GET")return storagePortal();
+    if(path==="/api/me"&&method==="GET")return json({ok:true,email,role});
    if(path==="/api/issues"&&method==="GET"){
     if(!allowed(role,"read"))return failure("Forbidden",403);
     const issues=await env.DB.prepare("SELECT id,title,status,current_version,updated_at FROM programme_issues ORDER BY updated_at DESC LIMIT 100").all();

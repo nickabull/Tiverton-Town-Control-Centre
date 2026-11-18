@@ -832,6 +832,8 @@ function cloudWorkspacePortal(){
  <div id="layout"><div id="previewWrap"><div id="pagePreview"></div></div>
  <aside>
  <h2>Layers on this page</h2><div id="layers"></div>
+ <h2>Insert cloud artwork</h2><input class="input" id="librarySearch" placeholder="Search saved original photos…">
+ <button id="findLibrary">FIND ARTWORK</button><div id="libraryResults" style="max-height:200px;overflow:auto"></div>
  <div id="properties" hidden>
  <h2>Edit selected layer</h2><label for="layerName">Layer name</label><input class="input" id="layerName">
  <label for="textValue">Editable text</label><textarea class="input" id="textValue" rows="6"></textarea>
@@ -904,8 +906,11 @@ function cloudWorkspacePortal(){
     el.style.color=/^#[0-9a-fA-F]{3,8}$/.test(l.color||"")?l.color:"#161616";
    }else if(l.type==="image"){
     const ref=l.src?.v3CloudAsset;
-    if(typeof ref==="string"){
-     const image=document.createElement("img");image.src=imageUrl(ref);image.alt=l.name||"Cloud artwork";image.loading="lazy";el.append(image);
+    const lib=l.src?.v3LibraryAsset;
+    if(typeof ref==="string"||typeof lib==="string"){
+     const image=document.createElement("img");
+     image.src=typeof lib==="string"?"/api/library/assets/"+encodeURIComponent(lib)+"/original":imageUrl(ref);
+     image.alt=l.name||"Cloud artwork";image.loading="lazy";el.append(image);
     }else {el.classList.add("missing");el.textContent="Reference image not available in cloud"}
    }else{
     el.style.background=/^#[0-9a-fA-F]{3,8}$/.test(l.color||"")?l.color:"transparent";
@@ -1040,6 +1045,34 @@ function cloudWorkspacePortal(){
   if(dirty){safeLocalBackup();e.preventDefault();e.returnValue=""}
  });
  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&dirty&&!saveInFlight&&!saveBlocked)saveCloud(true)});
+
+ $("findLibrary").onclick=async()=>{
+  const box=$("libraryResults");box.textContent="Searching original artwork…";
+  try{
+   const data=await api("/api/library/assets?status=active&q="+encodeURIComponent($("librarySearch").value.trim()));
+   box.replaceChildren();
+   if(!data.items.length){box.textContent="No matching saved originals.";return}
+   for(const item of data.items){
+    const btn=document.createElement("button");btn.type="button";btn.style.display="block";btn.style.width="100%";
+    btn.textContent="ADD · "+(item.title||item.original_filename)+" · "+(item.credit||"credit unknown");
+    btn.disabled=!editable()||!record||!item.mime_type.startsWith("image/");
+    btn.onclick=()=>{
+     if(!record||!editable())return;
+     const page=record.document.pages[selectedPage];
+     if(!page)return;
+     const layer={id:"lib-"+crypto.randomUUID().slice(0,12),name:item.title||item.original_filename,
+      type:"image",src:{v3LibraryAsset:item.id,mime_type:item.mime_type},
+      x:45,y:100,w:280,h:180,z:(page.layers||[]).length+1,
+      locked:false,hidden:false,transparency:0,scale:100,rotate:0};
+     page.layers=page.layers||[];page.layers.push(layer);
+     selectedLayer=page.layers.length-1;dirty=true;editSerial++;
+     render();selectLayer(selectedLayer);scheduleCloudSave();
+     state("Added original cloud artwork reference; awaiting verified autosave. Photographer: "+(item.credit||"unspecified"));
+    };
+    box.append(btn);
+   }
+  }catch(e){box.textContent="Artwork search failed: "+e.message}
+ };
  $("refresh").onclick=refresh;
  (async()=>{try{const me=await api("/api/me");role=me.role;$("auth").textContent="Protected connection verified · "+role;$("auth").className="good";await refresh()}
   catch(e){$("auth").textContent="Access denied: "+e.message;$("auth").className="bad"}})();

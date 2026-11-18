@@ -373,7 +373,7 @@ function cloudImportPortal(){
      if(!confirm("Create a SEPARATE cloud staging copy? Your browser originals remain unchanged. Continue?"))return;
      $("progress").textContent="Creating isolated cloud staging issue…";
      await api("/api/issues",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({
-       id:job,title:"INCOMPLETE CLOUD IMPORT "+new Date().toISOString(),
+       id:job,title:"CLOUD ARCHIVAL COPY · "+new Date().toISOString(),
        document:{pages:[],source:"browser-backup-migration",state:"INCOMPLETE",sourcePageCount:prepared.targets.length}
      })});
      line("Staging issue: "+job+" (version 1, incomplete)");

@@ -284,3 +284,24 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED from user screenshot of DrayTek Vigor 2865 IP Bind List:** Donkey `10.0.0.27` / `DC-8B-28-1B-1E-F8`; Bulldog `10.0.0.39` / `B8-27-EB-19-5D-BD`; Velux gateway `10.0.0.22` / `70-EE-50-5B-FB-B5` with host ID `VELUXGateway`. Bulldog's entry is visibly saved/listed, though address persistence after DHCP renewal/reboot has not been tested.
 - **User plan:** reserve stable addresses for other network automation dependencies. Recommended verified MAC-to-IP reservations for Hue bridges (`10.0.0.2`, `.4` historically), UniFi controller (`.29` historically), Sky Q hardware, LG TVs, printers, and compatible connected appliances where justified. Confirm every device's current IP and MAC before binding; account for already manually static addresses, DHCP scope and collision risks; do not blindly bind stale IPs or duplicate MACs.
 - Keep `Strict Bind` disabled. Avoid reserving all temporary client devices; track infrastructure in an Eldoret device register with IP, MAC, hostname, role, state and last verification. No additional bindings confirmed yet.
+
+
+### 18 November 2026 19:25 GMT — Expanded DrayTek bindings and backup inspection
+- **VERIFIED from user's DrayTek IP Bind List screenshot:** visible bindings:
+  - 10.0.0.2 / EC-B5-FA-23-39-08 / House-Hub / Hue House
+  - 10.0.0.3 / E0-BB-9E-44-ED-51 / EPSON44ED51 / Epson Print
+  - 10.0.0.4 / EC-B5-FA-22-EA-B7 / Utility-Hub / Hue Utility
+  - 10.0.0.6 / E0-63-DA-EC-2C-AD / OfficeKitchen / Wifi Off/Kit
+  - 10.0.0.7 / F4-92-BF-C0-D4-34 / Utility / Wifi Util
+  - 10.0.0.8 / F4-92-BF-66-06-2D / Garden / Wifi Garden
+  - 10.0.0.9 / F4-92-BF-C0-CF-73 / Landing / Wifi Landing
+  - 10.0.0.11 / 94-E6-86-18-C5-54 / Zappi / Car Charger
+  - 10.0.0.12 / 68-A4-0E-4F-CA-E4 / NEFF-D95FMW1N0B... / Cooker Hood
+  - 10.0.0.13 / 68-A4-0E-4A-60-59 / NEFF-T59TS5RN0... / Cooker Hob
+  - 10.0.0.14 / 68-A4-0E-23-9D-22 / SIEMENS-SN878D26PE... / Kit Dishwasher
+  - 10.0.0.16 / 68-A4-0E-35-73-F3 / NEFF-B58CT68H0B... / Left Oven
+  - 10.0.0.17 / 68-A4-0E-4E-74-B1 / NEFF-B48FT78H0B... / Right Oven
+  - 10.0.0.18 / D4-DA-CD-51-FE-01 / Sky Q
+- **Previously verified listed:** Donkey .27 / DC-8B-28-1B-1E-F8; Bulldog .39 / B8-27-EB-19-5D-BD; Velux gateway .22 / 70-EE-50-5B-FB-B5. Current screenshot shows only top portion of list; entries below visible scroll not newly verified.
+- **CRITICAL BACKUP LIMITATION:** User uploaded `ipbindmac_20261118.cfg` (50 bytes, inspected 18 November); exact content is just `10.0.0.27 dc-8b-28-1b-1e-f8 Donkey` and `End of file!!!`. It does **not** contain the new reservations despite the screenshot proving they appear in the router's IP Bind List. **Do not describe this .cfg as a complete backup or use it to restore the new bindings.** Investigate export behavior / save state and re-export full list, verify export file content and row count before accepting it as backup.
+- Existing uploaded .cfg retained in conversation as evidence of incomplete export, not committed to GitHub. Avoid storing sensitive full router configuration in public repository. Do not enable Strict Bind.

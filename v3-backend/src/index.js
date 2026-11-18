@@ -1540,6 +1540,7 @@ function fullDesignerTrialPortal(){
  const $=id=>document.getElementById(id);
  const API="/api/issues/",WORK=/^work_[a-f0-9]{32}$/;
  let role="",copy=null,pageId="",frameReady=false,loaded=false,dirty=false,blocked=false,serial=0,timer=null,saving=false,savePromise=null,waiters=[];
+ const originalAssetRefs=new Map();
  function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
  async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
   if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
@@ -1567,8 +1568,10 @@ function fullDesignerTrialPortal(){
     const raw=l.src;
     const asset=raw.match(/^\\/api\\/issues\\/([A-Za-z0-9_-]+)\\/assets\\/([0-9a-f-]{36})$/);
     const library=raw.match(/^\\/api\\/library\\/assets\\/([0-9a-f-]{36})\\/original$/);
-    if(asset)l.src={v3CloudAsset:asset[2]};
-    else if(library)l.src={v3LibraryAsset:library[1]};
+    if(asset)l.src=structuredClone(originalAssetRefs.get(pageId+"|"+String(l.id))?.v3CloudAsset===asset[2]?
+      originalAssetRefs.get(pageId+"|"+String(l.id)):{v3CloudAsset:asset[2]});
+    else if(library)l.src=structuredClone(originalAssetRefs.get(pageId+"|"+String(l.id))?.v3LibraryAsset===library[1]?
+      originalAssetRefs.get(pageId+"|"+String(l.id)):{v3LibraryAsset:library[1]});
     else if(raw.startsWith("data:"))throw Error("New embedded image is not yet in the cloud library. The local trial draft was kept; upload that image to Artwork Library before cloud save.");
    }
    return l;
@@ -1619,7 +1622,11 @@ function fullDesignerTrialPortal(){
   if(!WORK.test(id))throw Error("Only separate work_ trials can use this editor");
   const obj=await api(API+encodeURIComponent(id));
   if(obj.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("The selected issue is not an independent cloud trial");
-  copy=obj;dirty=false;blocked=false;serial=0;
+  copy=obj;dirty=false;blocked=false;serial=0;originalAssetRefs.clear();
+  for(const p of copy.document.pages)for(const l of p.layers||[]){
+   if(l&&l.id&&l.src&&typeof l.src==="object"&&(l.src.v3CloudAsset||l.src.v3LibraryAsset))
+    originalAssetRefs.set(p.id+"|"+String(l.id),structuredClone(l.src));
+  }
   const saved=localStorage.getItem(storageKey());
   if(saved){let fallback;try{fallback=JSON.parse(saved)}catch{}
    if(fallback&&fallback.version===obj.version&&JSON.stringify(fallback.document)!==JSON.stringify(obj.document)){

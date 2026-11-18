@@ -467,3 +467,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **VERIFIED from user's `sudo modprobe -n -v vc4` output:** `modprobe` resolves graphics dependencies and would load `/lib/modules/6.18.60+rpt-rpi-v8/kernel/drivers/gpu/drm/vc4/vc4.ko.xz`, including DRM and sound dependencies. The `-n` flag made this a simulation; it **does not verify module actually loading, binding to hardware, rendering output or detecting the panel**.
 - `fb0`, `fbcon` only in `/sys/class/graphics`; no active DRM seen previously. Dual `[all]` `dtoverlay=vc4-kms-v3d` and `vc4-kms-dsi-7inch` blocks remain in boot config; preserve `config.txt.before-screen` backup.
 - **Next safe inspection:** search `/etc/modprobe.d`, `/etc/modules-load.d`, `/boot/firmware/cmdline.txt` for VC4 blacklisting/modesetting blocks, inspect `journalctl -b -k` for VC4/DRM/DSI/overlay/panel warnings. Do not force-load driver or reboot until reason for absent KMS is understood; Eldoret remains production on Bulldog.
+
+
+### 18 Nov 2026 21:32 GMT — Manual VC4 load creates DRM sysfs, but no card/connector
+- **Verified from user terminal transcript:** `sudo modprobe vc4` returned without visible error. `ls /sys/class/drm/` then listed only `version`; no `card0` or registered DRM connectors. Before load, `/sys/class/drm` was absent entirely.
+- **Interpretation:** driver module can be loaded but no usable display device has registered; NOT proof that DSI hardware is recognised or LCD is faulty. Need inspect post-load `lsmod` and kernel `dmesg` for device-tree/DRM/DSI errors. Do not append another overlay; two duplicate `[all]` blocks already present, and original `config.txt.before-screen` backup exists.
+- Production Eldoret at `10.0.0.39:8765` was previously verified; manual modprobe has not been followed by a fresh user-confirmed Eldoret health check.

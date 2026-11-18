@@ -1554,7 +1554,14 @@ function fullDesignerTrialPortal(){
  function state(text,kind=""){const el=$("state");el.textContent=text;el.className=kind}
  async function api(url,opts){const r=await fetch(url,{credentials:"same-origin",cache:"no-store",...opts});let j;try{j=await r.json()}catch{throw Error("Cloud returned HTTP "+r.status)}
   if(!r.ok||!j.ok)throw Error(j.error||"HTTP "+r.status);return j}
- const storageKey=()=>copy?"tivvy-full-v3-trial-unsaved-"+copy.issue.id:"";
+ // This tab owns a distinct emergency recovery key, so competing browser
+ // tabs cannot silently replace one another's unsaved local draft.
+ const tabId=(()=>{let id;try{id=sessionStorage.getItem("tivvy-v3-cloud-tab-id")}catch{}
+  if(!id){id=crypto.randomUUID();try{sessionStorage.setItem("tivvy-v3-cloud-tab-id",id)}catch{}}
+  return id;
+ })();
+ const storageKey=()=>copy?"tivvy-full-v3-trial-unsaved-"+copy.issue.id+"-"+tabId:"";
+ const legacyStorageKey=()=>copy?"tivvy-full-v3-trial-unsaved-"+copy.issue.id:"";
  function showConflict(remote,reason){
   blocked=true;conflictDetected=true;remoteVersion=remote??null;
   clearTimeout(timer);if(dirty)keepLocal();
@@ -1682,7 +1689,9 @@ function fullDesignerTrialPortal(){
    if(l&&l.id&&l.src&&typeof l.src==="object"&&(l.src.v3CloudAsset||l.src.v3LibraryAsset))
     originalAssetRefs.set(p.id+"|"+String(l.id),structuredClone(l.src));
   }
-  const saved=localStorage.getItem(storageKey());
+  // Read legacy per-issue recovery when upgrading an already open trial,
+  // but write ONLY the isolated per-tab key from this version onward.
+  const saved=localStorage.getItem(storageKey())||localStorage.getItem(legacyStorageKey());
   if(saved){let fallback;try{fallback=JSON.parse(saved)}catch{}
    if(fallback&&fallback.version===obj.version&&JSON.stringify(fallback.document)!==JSON.stringify(obj.document)){
     if(confirm("An unsaved local trial recovery exists. Restore its edits to this cloud working copy?")){
@@ -1747,6 +1756,7 @@ function fullDesignerTrialPortal(){
    const latest=await api(API+encodeURIComponent(id));
    if(latest.document.migrationState!=="CLOUD_EDIT_TRIAL")throw Error("Not a trial working copy");
    localStorage.removeItem(key);
+   localStorage.removeItem(legacyStorageKey());
    await loadWork(id);
    state("Reloaded cloud revision "+latest.version+". Previous unsaved trial changes were discarded on request.","good");
   }catch(e){showConflict(remoteVersion,"Could not reload safely: "+e.message+". Download your recovery before retrying.")}

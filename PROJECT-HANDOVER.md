@@ -1,5 +1,10 @@
 # Tivvy Programme Designer — project handover
 
+### V3.10 final source follow-up — 18 Nov 2026
+
+- Fixed initial full-editor iframe display so it remains hidden until an authenticated cloud issue is chosen, commit `a1b6335a03f97133ab581bae21862e5bfafd35f9`. Underlying original editor remains unchanged by this CSS. Worker and inner full-editor trial JavaScript syntax PASS; live QA remains pending, as does specific newest GitHub Actions automatic deployment confirmation.
+- First live QA URL: `https://tivvy-programme-v3-storage.nickabull.workers.dev/full-designer` (protected). Open the existing separate `CLOUD EDIT TRIAL` work issue from the dropdown (not the archive), then inspect Page 6 latest news and original cover. If an error/no page, record exact error rather than modifying browser originals. If rendering works, edit trial-only text, check verified cloud revision and reload.
+
 ## V3.10 ORIGINAL FULL V3 CANVAS CONNECTED TO CLOUD WORKING COPY — 18 Nov 2026, after 11:44 GMT
 
 ### Motivation

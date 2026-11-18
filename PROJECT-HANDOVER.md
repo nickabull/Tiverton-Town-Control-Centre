@@ -1,5 +1,13 @@
 # Tivvy Programme Designer — project handover
 
+## V3.6.21 user browser cloud readiness scan + V3.6.22 status fix — 18 November 2026, 00:13 GMT
+
+- Screenshot of user's actual V3 storage dialog after pressing CHECK ALL PAGES FOR CLOUD SAVE shows **read-only scan complete** and **REVIEW REQUIRED**. 60 programme pages, 46 saved page drafts, 14 pages without stored layers, 66 embedded data-URL assets estimated at 236.90 MB, 5 individual assets over 12 MB Worker R2 upload limit, 2 assets with unsupported MIME types. Screenshot does not identify which pages/assets; obtaining the exported detailed readiness JSON is the next step. Note 14 pages without saved layers are not proven lost/damaged; could be untouched reference/fixed pages. Estimate counts occurrences of data URLs, not necessarily unique binary assets.
+- Screenshot also exposed stale V3.6.20 modal label and incorrect text claiming Cloud Vault Worker not yet deployed. Updated ONLY V3 shell textual status to **V3.6.22**, accurately noting previously verified live Cloud Vault deployment, admin login, issue listing and revision display. Shell commit `3c2a2e8c3bec8f184bf00fb3a7958fff43e67a8c`; JavaScript static syntax PASS. Browser QA for V3.6.22 pending. No artwork or IndexedDB edits made.
+- **Migration gating:** 236.90MB cannot fit as one D1 issue snapshot; need per-image R2 uploads and smaller D1 layer references. Inspect detailed report for the exact oversized and unsupported assets before deciding whether to increase backend upload limit, optimise originals, or change handling. Preserve user originals pixel-for-pixel and record checksums. Actual R2 storage for real artwork and recovery are NOT tested; no real cloud upload conducted.
+- Readiness scan itself **LIVE BROWSER PASS** (user screenshot); readiness result **REVIEW REQUIRED**; full issue cloud save **NOT READY**; production PDF **NOT READY**.
+
+
 ## V3.6.21 — READ-ONLY CLOUD MIGRATION PREFLIGHT (18 NOV 2026, 00:10 GMT)
 
 - User approved continuing to cloud-backed issue saving, without pausing for repeated approvals. Inspected V3 shell's per-page IndexedDB draft schema and existing full JSON backup: browser pages live under `tivvy-v3-drafts-idb-v1/pageDrafts`, current page is flushed before backup, and rich layer snapshots can contain embedded base64 artwork. Existing backend limits issue JSON to 3,000,000 bytes and a single R2 upload to 12,000,000 bytes. Do not pretend a whole legacy 168MB backup fits directly in D1.

@@ -394,6 +394,23 @@ function renderRight(){
   }
   root.append(box);
  }
+ // The next league fixtures are shown as future schedule references, not as
+ // results or as part of Saturday's live-match count.
+ if(chosen==="onesouth"){
+  const coming=mk("section","upcoming-league");
+  coming.style.cssText="margin-top:14px;padding-top:11px;border-top:2px solid #ffdb00";
+  coming.append(mk("h3","","NEXT MIDWEEK FIXTURES"));
+  for(const [when,home,away,ko] of [
+   ["MON 23 NOV","Swindon Supermarine","Tiverton Town","19:45"],
+   ["WED 25 NOV","Willand Rovers","Portland United","19:30"]
+  ]){
+   const card=mk("div","fixture"),line=mk("div","line");
+   line.append(mk("span","",home),mk("strong","",ko),mk("span","",away));
+   card.append(line,mk("small","",when+" · scheduled fixture, not a live result"));
+   coming.append(card);
+  }
+  root.append(coming);
+ }
  root.scrollTop=scroll;
 }
 async function grab(file){

@@ -563,3 +563,8 @@ Home network (DrayTek 2865, 10.0.0.x)
   - `10.0.0.8`: same model/firmware, `Garden`
   - `10.0.0.9`: same model/firmware, `Landing`
 - Thus all four APs expose direct identity, firmware and SNMP agent uptime. Next read-only investigation: discover standard IF-MIB/ifXTable counters and interfaces (without uncontrolled full MIB walks); determine whether client counts / radio metrics exist before claiming. Direct monitoring dashboard still not implemented.
+
+
+### 19 Nov 2026 12:18 GMT — Office/Kitchen UniFi IF-MIB interface enumeration via direct SNMPv3
+- User ran `snmpwalk` for IF-MIB `ifName` OID `1.3.6.1.2.1.31.1.1.1.1` against `10.0.0.6`, returning indexed interfaces: `1 lo`, `2 eth0`, `3 teql0`, `4 wifi0`, `5 wifi1`, `6 wifi0ap0`, `7 wifi0ap1`, `8 wifi0ap2`, `9 vwiresta3`, `10 wifi1ap4`, `11 wifi1ap5`, `12 wifi1ap6`, `13 vwireap7`, `14 br0`. Index assignments are confirmed **only for Office/Kitchen**; do not assume other APs share indices without checking.
+- Next read-only test: SNMPv3 ifHCInOctets `.1.3.6.1.2.1.31.1.1.1.6.2` and ifHCOutOctets `.1.3.6.1.2.1.31.1.1.1.10.2` (eth0 index 2). If supported, sample twice over time and calculate byte counter deltas per second, treating ingress/egress directions relative to AP interface, not WAN speeds. No continuous collector built yet.

@@ -554,3 +554,12 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 19 Nov 2026 12:14 GMT — ALL FOUR UniFi AP SNMPv3 queries confirmed
 - Bulldog queried each reserved AP directly using authenticated encrypted SNMPv3, separate `eldoret-monitor` credentials (password NOT stored in GitHub): Office/Kitchen `10.0.0.6` -> Timeticks 259756800 = 30d 1h32m48s; Utility `10.0.0.7` -> 259758700 = 30d 1h33m07s; Garden `10.0.0.8` -> 1545242200 = 178d20h20m22s; Landing `10.0.0.9` -> 1545201300 = 178d20h13m33s. All 4 responded. These are SNMP agent uptime snapshots, not necessarily hardware boot uptimes. Combined with all 4 responding to ping, this establishes controller-independent direct monitoring is feasible. NOT YET incorporated into Eldoret Network tab as continuous polling.
 - Suggested next action: query read-only standard MIB system identification/interface list, assess supported metrics, create a low-overhead collector using SNMPv3 protected credentials, with bounded polling and no secrets in shell history/public repo. Avoid extra always-on server and keep Pi3 resources under control.
+
+
+### 19 Nov 2026 12:15 GMT — UniFi identity and firmware over direct SNMPv3
+- User confirmed direct `snmpget` results on Bulldog for OIDs `1.3.6.1.2.1.1.1.0` (sysDescr) and `1.3.6.1.2.1.1.5.0` (sysName), authenticated/encrypted SNMPv3 (Mac-hosted controller not used to answer):
+  - `10.0.0.6`: `UAP-AC-Pro-Gen2 6.8.2.15592`, `OfficeKitchen`
+  - `10.0.0.7`: same model/firmware, `Utility`
+  - `10.0.0.8`: same model/firmware, `Garden`
+  - `10.0.0.9`: same model/firmware, `Landing`
+- Thus all four APs expose direct identity, firmware and SNMP agent uptime. Next read-only investigation: discover standard IF-MIB/ifXTable counters and interfaces (without uncontrolled full MIB walks); determine whether client counts / radio metrics exist before claiming. Direct monitoring dashboard still not implemented.

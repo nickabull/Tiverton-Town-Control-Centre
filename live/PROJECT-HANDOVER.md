@@ -147,3 +147,5 @@ Next: execute manual diagnostics workflow via GitHub Actions when available; rev
 - Intended full URL: `https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html?date=2026-11-21`.
 - This short URL is **user-provided**, not created by the assistant. Independent redirect verification via web reader failed (cache miss), so test the actual destination in a browser before relying on it. Do not change historical replay URLs.
 - Long-term preferred club-owned alias: `tivertontownfc.uk/tv`, with rolling fixture selection (proposed, not implemented).
+
+- **19 Nov 2026, 09:33 UK — user-confirmed short-link PASS:** user reports `https://is.gd/TivvyTV26` works fine. This confirms user-tested URL operation, not full LG browser compatibility, Cloudflare live source or in-play refresh. Previous web-reader redirect check was inconclusive.

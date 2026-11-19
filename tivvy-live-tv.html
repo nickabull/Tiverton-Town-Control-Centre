@@ -544,7 +544,7 @@ function updateHeader(){
  const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;
  const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
  $("health").className="statusbar "+(healthy?"":stale?"warn":"bad");
- $("healthLabel").textContent=healthy?"● VERIFIED LIVE SOURCE":stale?"⚠ LAST VERIFIED SNAPSHOT":"⚠ SOURCE UNAVAILABLE";
+ $("healthLabel").textContent=healthy?(isFinal(m.status)?"● VERIFIED FINAL RESULT":/live|progress|half|playing|second|first/i.test(String(m.status||""))?"● CURRENT OFFICIAL MATCH FEED":"● OFFICIAL FIXTURE FEED CURRENT"):stale?"⚠ LAST VERIFIED SNAPSHOT":"⚠ SOURCE UNAVAILABLE";
  $("verified").textContent="SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
 }
 async function refresh(){

@@ -1,0 +1,21 @@
+name: Diagnose Southern League API (read only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare-dates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Query 10, 14, 19 and 21 November with comparison limits
+        run: python3 scripts/probe-southern-api-readonly.py
+      - name: Preserve diagnostic report even if a query fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: southern-api-readonly-diagnostics
+          path: diagnostics/southern-league-api-probe.json
+          if-no-files-found: warn
+          retention-days: 30

@@ -34,3 +34,13 @@ jobs:
           git commit -m "Refresh Southern League matchday tab data [skip ci]"
           git pull --rebase origin main
           git push
+      - name: Fail visibly if published Southern League source is unavailable
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("data/southern-league-matchday-tabs.json").read_text())
+          if d.get("status")!="ok":
+              raise SystemExit("Southern League fixture collection FAILED: "+str(d.get("error","unknown source error")))
+          print("Southern League fixture collection OK; matches:",len(d.get("matches",[])))
+          PY

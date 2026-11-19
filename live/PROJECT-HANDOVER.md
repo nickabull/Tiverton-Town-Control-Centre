@@ -126,3 +126,17 @@ User requested: preserve all 14 Nov v Bishops Cleeve data, then prepare both Git
 **Verification statuses:** GitHub create/update returned commits above (PASS). Independently listed 21 Nov fixtures on public source (PASS for static schedule). Cloudflare live/log endpoints for 14 and 21 Nov and GitHub Pages/Wix page browser fetching were unavailable in current web access. No in-play collector/20-second cadence, complete 14 Nov backup, actual page render, latest Pages publish, or deployed Wix embed is claimed verified. Source-side hard-coded dates, empty other-division boards, upstream 400 and downstream Match Centre automation remain outstanding.
 
 **Immediate follow-up:** (1) obtain 14 Nov `/live` and `/log` JSON and historical X data for full preservation, checksum them into archive; (2) check the new workflow run's status and diagnose Southern League 400; (3) verify deployed /health and /live 21 Nov; (4) browser-check both pages on desktop, TV and Wix; (5) build permanent next-fixture registry and idempotent postmatch archive to Match Centre.
+
+
+## 19 November 2026, ~09:17 UK — user to follow Melksham remotely on large upstairs 16:9 television
+
+User clarified they cannot attend Melksham match and the 16:9 TV feed will be their primary match companion, though deployment remains a private test. Therefore accuracy, data age and graceful failure are more important than cosmetic redesign. Never present an anticipated fixture or stale snapshot as confirmed in-play activity.
+
+Read-only code additions:
+- `scripts/probe-southern-api-readonly.py`, commit `42b44c149806474a8f12f3fa12d80a97a530e59a`: four-date comparison (10, 14, 19, 21 November), varying 1000/100 result limits and with/without events, log HTTP status, no response body or sensitive headers. Writes `diagnostics/southern-league-api-probe.json`.
+- `.github/workflows/diagnose-southern-api.yml`, commit `b4c92a21d1b8131ca8e86af32f9d03d2c8e8ca73`: **manual workflow_dispatch only**, publishes a 30-day diagnostic artifact even when all probes fail; no production data changes. **Not yet executed**; no fresh response claims.
+- `tivvy-live-tv.html`, commit `7006fa7989b4c78f9554d8d621741ceed786a84e`: status banner now distinguishes a fresh scheduled/pre-match official fixture snapshot from active match source and full-time result, rather than always claiming 'VERIFIED LIVE SOURCE'. Existing old-score retention and hard-coded historical date selection preserved. Source committed but browser/QC and actual deployed Pages version not verified.
+
+GitHub historical observations: the static four-division snapshot had a successful API result with 37 fixtures for 10 November, but 400s on 11, 13, 14 and 19 November (including 14 Nov at 17:23 during the game). The same diagnostic script request parameters appear unchanged between 10 Nov successful and 19 Nov failed snapshots. This suggests failure not solely due to outside-match hours; **it does not prove why the API returns 400**. Live Cloudflare collector versus GitHub snapshot failures must be investigated independently. Cloudflare endpoints are inaccessible through current web reader; no backend uptime, 20-second cadence or live data is verified today.
+
+Next: execute manual diagnostics workflow via GitHub Actions when available; review artifact, fix any exact request-format issue based on evidence, then check live worker /health /live /log and verify TV screen at 16:9. Preserve Bishops Cleeve archive.

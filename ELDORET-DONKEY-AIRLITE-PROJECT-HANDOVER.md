@@ -615,3 +615,17 @@ Home network (DrayTek 2865, 10.0.0.x)
 - bulldog.html commit 9fe1d3de renders SVG chart of rolling CPU %, temperature C, and RAM % with time labels, and amber badge with warning reasons.
 - index.html commit d9b8d78f makes Home Wi-Fi card fetch /api/unifi/status (direct encrypted SNMPv3 on Bulldog) instead of general TCP device status, showing all four APs, direct monitoring and aggregate inbound Ethernet Mbps (not internet bandwidth), with latency hints. Controller fallback remains supported.
 - Code committed; user has not yet confirmed live render after these changes. Reload Bulldog page at http://10.0.0.34:8765/bulldog.html and Home at http://10.0.0.34:8765/ after updater cycles; check chart (initially sparse), warnings and Wi-Fi status. If page stops working, check systemctl is-active eldoret and logs. Credentials stay only on Bulldog, not GitHub.
+
+
+### 19 Nov 2026 14:07 GMT — HOME CONNECT OAUTH AND ALL SIX KITCHEN APPLIANCES VERIFIED
+- User created Home Connect physical-appliance OAuth Authorization Code application `Eldoret Home Automation`, redirect `https://localhost/callback`, scopes `IdentifyAppliance Monitor`. Client ID/secret privately saved on Bulldog `/home/dietpi/.config/home-connect.json` (0600). OAuth exchange succeeded after fresh authorization: access and refresh tokens privately saved `/home/dietpi/.config/home-connect-tokens.json` (0600); initial token expiry 86400 seconds. **NEVER commit or print secrets or device haId.** No automatic refresh or durable Home Connect connector yet.
+- Official API GET `https://api.home-connect.com/api/homeappliances` needs `Accept: application/vnd.bsh.sdk.v1+json`; plain `application/json` produced 406. User verified API returned 6 appliances, all `connected=True`:
+  1. Right Oven — Neff — B48FT78H0B
+  2. Hob — Neff — T59TS5RN0
+  3. Main Kitchen Dishwasher — Siemens — SN878D26PE
+  4. Hood — Neff — D95FMW1N0B
+  5. Left Oven — Neff — B58CT68H0B
+  6. Back Kitchen Dishwasher — Bosch — SMV2HTX02G
+- Six local devices were pinged previously, including back dishwasher candidate IP 10.0.0.10, but **mapping from Home Connect appliance to local IP still provisional**. Also 10.0.0.10 had previously been classified as Tuya. Do not claim it is definitely the Bosch from ping alone.
+- Eldoret-Home-Automation GitHub devices.js commit e3a7d4f9 updates Appliances inventory brand/model/name with provisional-IP notes; appliances.html commit c4b2b996 bumps cache version v17.
+- NEXT: read-only test per-appliance status and active program via API using existing token, redact haId and secrets in printout. Then build Home Connect integration with protected token refresh and bounded polling / SSE, no start/stop/program commands. Keep appliance cards grounded in actual API capabilities. Avoid overloading Pi3 and avoid publishing secrets.

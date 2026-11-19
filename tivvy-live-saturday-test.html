@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tivvy Live | Tiverton Town v Bishops Cleeve | 14 November 2026</title>
+<title>Tivvy Live | Melksham Town v Tiverton Town | 21 November 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--y:#ffdb00;--black:#111214;--panel:#232529;--line:#555961;--muted:#c5c8ce;--green:#80e8ac;--red:#ff8b94}
@@ -134,16 +134,16 @@ button.x-expand:hover{background:#554b6b}
 
 .x-post-actions .x-post-link{margin-top:0}
 </style></head>
-<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>TIVVY v BISHOPS CLEEVE · SATURDAY 14 NOVEMBER</small></header>
+<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>MELKSHAM v TIVERTON · SATURDAY 21 NOVEMBER</small></header>
 <main>
 <div id="health" class="health">Checking published source snapshots…</div>
 <div class="mobile-switch" role="tablist" aria-label="Mobile match centre section"><button type="button" data-panel="featured" aria-selected="true">FEATURED MATCH</button><button type="button" data-panel="leagues" aria-selected="false">OTHER LEAGUES</button></div>
 <div class="layout" id="combinedLayout" data-active-panel="featured">
 <section class="panel" id="featuredPanel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
-<div class="matchhead"><span class="teams">TIVERTON TOWN</span><strong class="score" id="featureScore">– : –</strong><span class="teams">BISHOPS CLEEVE</span></div>
+<div class="matchhead"><span class="teams">MELKSHAM TOWN</span><strong class="score" id="featureScore">15:00</strong><span class="teams">TIVERTON TOWN</span></div>
 <div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
 <h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
-<div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44e0" target="_blank" rel="noopener">Official match centre</a></div>
+<div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/live" target="_blank" rel="noopener">Southern League live listings</a></div>
 </section>
 <section class="panel" id="leaguesPanel" aria-label="Other competitions"><h2>AROUND THE LEAGUES</h2>
 <div class="tabs" id="tabs" role="tablist" aria-label="Select competition">
@@ -168,7 +168,7 @@ const matchdayPath="tivvy-live-20261121.json";
 const backupPath="southern-league-matchday-20261121.json";
 const xPath="tivvy-x-melksham.json";
 const EXPECTED_DATE="2026-11-21";
-// Saturday 14 November fixture board, transcribed from the supplied Southern League listing.
+// Saturday 21 November fixture board checked against FootballWebPages and NonLeagueMatters 19 November.
 // Kick-off and P-P markers are a schedule reference, never verified live scores.
 const fixtureBoard={"onesouth":[["Bideford","Weymouth"],["Bishops Cleeve","Exmouth Town"],["Bristol Manor Farm","Hungerford Town"],["Falmouth Town","Dorchester Town"],["Larkhall Athletic","Hartpury"],["Melksham Town","Tiverton Town"],["Portland United","Barnstaple Town"],["Shaftesbury","Paulton Rovers"],["Sporting Club Inkberrow","Swindon Supermarine"],["Westbury United","Slimbridge"],["Willand Rovers","Worcester Raiders"]],"onecentral":[],"premiersouth":[],"premiercentral":[]};
 const normalizeTeam=n=>String(n||"").toLowerCase().replace(/\b(fc|afc)\b/g,"").replace(/[^a-z0-9]+/g," ").trim();
@@ -239,7 +239,7 @@ const d=current.matchday, m=d?.featured;
 $("featureDiag").textContent=d?(d.status==="ok"?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting today's collector";
 if(!m){
  $("featureScore").textContent="15:00";
- $("featuredMeta").textContent="Saturday 14 November · Tiverton Town v Bishops Cleeve · 15:00 kick-off";
+ $("featuredMeta").textContent="Saturday 21 November · Melksham Town v Tiverton Town · 15:00 kick-off";
  const root=$("featuredEvents");root.replaceChildren();root.append(mk("p","muted",d?.status==="error"?"Official source unavailable: "+(d.error||"collector error"):d?.warning||"Awaiting today's official Southern League fixture data."));
  return;
 }
@@ -371,7 +371,7 @@ function renderRight(){
  const liveCount=entries.filter(e=>e.live).length;
  
  $("leagueMeta").textContent="SAT 21 NOV · "+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only");
- if(!entries.length){root.append(mk("p","muted","No listed fixtures available in this competition."));return;}
+ if(!entries.length){root.append(mk("p","muted","Fixture board awaiting a source-backed schedule. No matches are assumed cancelled."));return;}
  for(const item of entries){
   const m=item.live,box=mk("div","fixture"),row=mk("div","line");
   row.append(mk("span","",item.home));
@@ -446,7 +446,7 @@ document.querySelector(".mobile-switch").addEventListener("click",ev=>{
  for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
 });
 $("refresh").addEventListener("click",refresh);
-// Draw the known 14 November fixtures before any network request completes.
+// Draw the verified 21 November schedule before any network request completes.
 renderFeatured();renderRight();
 $("health").textContent="Fixture schedule loaded · checking official live data…";
 refresh();setInterval(refresh,20000);

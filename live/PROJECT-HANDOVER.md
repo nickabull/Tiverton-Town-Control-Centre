@@ -140,3 +140,10 @@ Read-only code additions:
 GitHub historical observations: the static four-division snapshot had a successful API result with 37 fixtures for 10 November, but 400s on 11, 13, 14 and 19 November (including 14 Nov at 17:23 during the game). The same diagnostic script request parameters appear unchanged between 10 Nov successful and 19 Nov failed snapshots. This suggests failure not solely due to outside-match hours; **it does not prove why the API returns 400**. Live Cloudflare collector versus GitHub snapshot failures must be investigated independently. Cloudflare endpoints are inaccessible through current web reader; no backend uptime, 20-second cadence or live data is verified today.
 
 Next: execute manual diagnostics workflow via GitHub Actions when available; review artifact, fix any exact request-format issue based on evidence, then check live worker /health /live /log and verify TV screen at 16:9. Preserve Bishops Cleeve archive.
+
+## 19 November 2026 — LG TV short URL
+
+- User supplied and requested preservation of **https://is.gd/TivvyTV26** as the easy-to-type LG Smart TV shortcut for the Melksham away private test on 21 November 2026.
+- Intended full URL: `https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html?date=2026-11-21`.
+- This short URL is **user-provided**, not created by the assistant. Independent redirect verification via web reader failed (cache miss), so test the actual destination in a browser before relying on it. Do not change historical replay URLs.
+- Long-term preferred club-owned alias: `tivertontownfc.uk/tv`, with rolling fixture selection (proposed, not implemented).

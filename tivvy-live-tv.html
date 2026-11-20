@@ -139,11 +139,11 @@ body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .brand strong{font:700 2.3vw Antonio,Impact,Arial,sans-serif;white-space:nowrap}
 .brand strong span{color:var(--gold)}
 .brand small{font:600 .8vw Antonio,Impact,Arial,sans-serif;color:#bfc3ca;letter-spacing:.035em}
-.matchline{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto;align-items:center;column-gap:1%;min-width:0}
+.matchline{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:auto auto;align-items:center;column-gap:1.8%;row-gap:.18vw;min-width:0}
 .broadcastbar .club{font-size:2.15vw;line-height:1.05;white-space:normal;overflow-wrap:normal}
 .broadcastbar .club.away{justify-content:flex-end;text-align:right}
 .broadcastbar .score{font-size:3.1vw;padding:0 .65vw .18vw;border-radius:.35vw}
-.broadcastbar .match-state{max-width:none;font-size:1.32vw;padding-left:.5vw}
+.broadcastbar .match-state{grid-column:1/-1;justify-self:center;max-width:100%;font-size:1.13vw;line-height:1.05;padding:.08vw .65vw;border-left:0;border-radius:.2vw;color:var(--gold);text-align:center;white-space:nowrap}
 .signal{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.3vw;min-width:0}
 .broadcastbar .statusbar{display:block;background:none;border:0;padding:0}
 .broadcastbar .status{font-size:1vw;color:#80e8ac}
@@ -302,7 +302,7 @@ const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff
 const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
  const kickoffAt=new Date(date+"T"+config.kickoff+":00Z").getTime();
  const matchDateLabel=new Date(date+"T12:00:00Z").toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long"});
- function prematchLabel(){const remaining=kickoffAt-Date.now();if(remaining<=0)return "AWAITING LIVE FEED";const minutes=Math.ceil(remaining/60000);const days=Math.floor(minutes/1440),hours=Math.floor(minutes%1440/60),mins=minutes%60;return "KICK-OFF IN "+(days?days+"D ":"")+(hours?hours+"H ":"")+mins+"M"}
+ function prematchLabel(){const remaining=kickoffAt-Date.now();if(remaining<=0)return "AWAITING LIVE FEED";const seconds=Math.max(0,Math.ceil(remaining/1000));const days=Math.floor(seconds/86400),hours=Math.floor(seconds%86400/3600),mins=Math.floor(seconds%3600/60),secs=seconds%60;return "KICK-OFF IN "+(days?days+"D ":"")+String(hours).padStart(2,"0")+"H "+String(mins).padStart(2,"0")+"M "+String(secs).padStart(2,"0")+"S"}
 const $=id=>document.getElementById(id);
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
 const abbreviate={"joshua william bissett":"Josh Bissett","jacob robert wellington":"Jacob Wellington","matthew liam wood":"Matt Wood","corey hayden koerner":"Corey Koerner","louis jagger cane":"Louis Jagger Cane","evander marvin grubb":"Evander Grubb","jack william kennell":"Jack Kennell"};
@@ -574,7 +574,7 @@ async function refresh(){
  }
 }
 function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
-clock();updateHeader();setInterval(()=>{clock();if(!payload)updateHeader()},1000);
+clock();updateHeader();setInterval(()=>{clock();updateHeader()},1000);
 refresh();setInterval(refresh,20000);
 window.addEventListener("resize",()=>{if(payload)drawTimeline()});
 setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);

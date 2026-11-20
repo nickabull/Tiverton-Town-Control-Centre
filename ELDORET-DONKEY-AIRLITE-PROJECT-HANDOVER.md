@@ -791,3 +791,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - New page lg-bulldog.html commit 42c0d6a2 at http://10.0.0.34:8765/lg-bulldog.html with separate Pair and Open Tivvy buttons and polling status, no key to browser.
 - LIVE NOT VERIFIED: actual LG firmware pairing manifest may need adjustment. After auto-update, verify /api/lg/control-status and the working main Eldoret dashboard before pressing Pair. The connector is auto-updated by manager and a bad source change could affect availability. No Mac or LAN test has been run. The code is source committed only.
 - No Eldoret Heartbeats artwork touched by these commits.
+
+
+### 20 Nov 2026 01:02 GMT - LG LOUNGE SUCCESS CONFIRMED BY USER PHOTO
+- User supplied photograph of the lounge LG screen showing the actual Tivvy Live page with yellow/black branding and match timeline, immediately following the new Bulldog-side LG encrypted pairing and Open Tivvy workflow. User reaction: 'Omg extraordinary!'. This is persuasive on-device evidence that Bulldog can launch the LG browser to https://is.gd/TivvyTV26; distinguish this from the earlier unverified code commit. The page at that time reported waiting for source-verified match data, normal between fixtures, not a TV pairing issue.
+- Pilot: IP 10.0.0.51, LG webOS port 3001 encrypted connection; browser launch via ssap://system.launcher/launch, id com.webos.app.browser, target short URL. Pairing key stored privately on Bulldog, not GitHub; all 5 TV integration still planned but only lounge test validated.
+- NEXT: WOL/standby power-on with correct MAC, LG TV settings and on-device test; then a single opt-in button in Eldoret. Check persistent pairing after restarting connector and an LG standby/off-on cycle, confirm device identity, and do not change any existing dashboard artwork without consent.

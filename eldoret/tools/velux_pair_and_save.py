@@ -19,7 +19,7 @@ from aiohomekit import hkjson
 from aiohomekit.__main__ import get_controller
 
 FILE = pathlib.Path.home() / ".config/eldoret-homekit/pairings.json"
-DEVICE_ID = "06:29:47:1B:67:ED"
+DEVICE_ID = "E0:59:AE:CD:41:28"
 ALIAS = "velux"
 REQUIRED = {"AccessoryPairingID", "AccessoryLTPK", "iOSPairingId", "iOSDeviceLTSK", "iOSDeviceLTPK"}
 

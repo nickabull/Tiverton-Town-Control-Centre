@@ -54,3 +54,10 @@ Melksham Saturday page corrected its stale Bishops Cleeve text/link (`e7218607`)
 ## 19 November 2026 — short URL for upstairs LG TV
 
 Saved user-provided short address: **https://is.gd/TivvyTV26**. Intended destination: `https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html?date=2026-11-21`. Redirect couldn't be independently confirmed by web reader; user should test once on the LG browser. This is for the Saturday Melksham private test; later build a permanent automatically rolling club-owned `/tv` link.
+
+## 20 November 2026 — TV pre-match fallback for Melksham
+
+- User reported 16:9 `tivvy-live-tv.html` showed no Melksham fixture or kick-off prior to Saturday 21 Nov 15:00 GMT.
+- Root cause in source: only displayed verified featured fixture from live collector, and an unavailable/early collector response replaced fixture heading with an error; pre-match state showed `NO OFFICIAL FIXTURE`. The static `fixtures` registry already correctly contained Melksham Town v Tiverton Town 21 Nov 15:00.
+- GitHub commits `a3d3c37dd250ae81c03019b4d7b54de9407da022` and `db059ca4a8cc8b0655cadf2933324e2b0a40b0cd`: keep confirmed teams, league, date, 15:00 time and live countdown visible even with no collector response or a scheduled fixture. Retain verified-data-only goals, scores and events; mark unverified collector clearly. Refresh countdown locally each second; existing 20-second data poll unchanged. Historical date query support and display structure preserved.
+- **Verification scope:** GitHub contents write confirmed. Browser display, GitHub Pages deployment, upstream Worker availability, and source result accuracy not independently verified. Next check user-facing short URL https://is.gd/TivvyTV26 on LG TV and confirm cache reload; then test whether live source switches at kickoff. This fix does **not** make automatic next-fixture selection work beyond hard-coded dates; permanent rolling fixture registry remains outstanding.

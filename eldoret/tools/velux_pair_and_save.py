@@ -73,7 +73,7 @@ async def main():
         discovery = await controller.async_find(DEVICE_ID, timeout=20)
         finish = await discovery.async_start_pairing(ALIAS)
         code = getpass.getpass("HomeKit code (XXX-YY-ZZZ; input hidden): ")
-        if not re.fullmatch(r"\\d{3}-\\d{2}-\\d{3}", code):
+        if not re.fullmatch(r"\d{3}-\d{2}-\d{3}", code):
             raise RuntimeError("Code must use XXX-YY-ZZZ format.")
         pairing = await finish(code)
         code = ""

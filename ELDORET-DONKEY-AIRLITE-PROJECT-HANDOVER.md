@@ -1024,3 +1024,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 8. Compare **Pi 5 full system total** versus a **low-cost x86 mini PC** only once Airlite/control compatibility and measured Bulldog Pi 3 load demand it. Include SSD, Ethernet, OS, Tailscale, screen topology, separate detachable main touchscreen, UPS load/runtime and restore testing. A Beelink SER8-class box is not justified by the control-only requirement without evidence.
 
 **Evidence required for each new test:** date/time, device/firmware and Mac OS where relevant, commands/endpoint, actual response or photo, physical result, classification VERIFIED / BUILT UNTESTED / BLOCKED, and rollback method. Credentials and Home Connect tokens must not be pasted into this document.
+
+### 20 November 2026 12:19 GMT — VELUX gateway recovered after reboot (user-verified)
+- User physically rebooted the VELUX gateway and reports the VELUX app is working again.
+- On Bulldog (`dietpi@bulldog`), user ran `ping -c 3 -W 2 10.0.0.22`: **3 packets sent, 3 received, 0% packet loss**; RTT min/avg/max = **15.766 / 45.505 / 85.124 ms**. The previously unreachable gateway at reserved `10.0.0.22` is now demonstrably network-reachable from Bulldog.
+- **Scope of verification:** ICMP reachability and user's VELUX app operation after reboot only. This does NOT confirm supported local automation protocol, KLF 200 compatibility, API authentication, discovery, or a successfully issued blind command from Eldoret.
+- **Next non-disruptive test:** inspect accessible ports 80/443/51200 from Bulldog without changing gateway settings or moving blinds. Then identify exact model and supported control method; do not assume VELUX ACTIVE and KLF 200 expose the same API. Preserve explicit 16:9 UI control confirmation and safe read-only discovery before implementing write actions.

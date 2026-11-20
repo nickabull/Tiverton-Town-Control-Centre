@@ -859,3 +859,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - Committed `nickabull/Eldoret-Home-Automation/connector.py` `bc86af36c5916c33f78dbf3f4388295fe72d29cc`: use **15-second GitHub source cache TTL for `tvs.html` only**, leaving other site cache unchanged.
 - Committed `nickabull/Eldoret-Home-Automation/tvs.html` `23507c61930a27e1c4cfde3022b91185e451177b`: page has visible **TV build v1.2.0** and **Check for update** button; checks Bulldog-served latest source via no-store fetch of `/tvs.html?fresh=...`, reports current/stale and reloads if a different build is detected. Auto checks once after page loads. No artwork/layout redesign. The previously added **Wake up TV and load Tivvy TV** is part of build v1.2.0.
 - User must reload `http://10.0.0.34:8765/tvs.html?v=120` or hard refresh after manager picks up connector; then verify v1.2.0 is visible. This is **source committed, not yet live user verified**. Future TV UI revisions should bump both meta version and visible number and JS comparison value (currently hardcoded).
+
+
+### 20 Nov 2026 ~02:17 GMT — FULL LG WAKE + TIVVY TV SUCCESS (USER VERIFIED)
+- **User explicitly confirmed:** “Thats has worked PERFECTLY OMG.. I can't believe that is even possible!” following the new **Wake up TV and load Tivvy TV** button test with the lounge LG in standby.
+- This verifies the actual end-to-end workflow from standby: WOL magic packet to previously learned/verified lounge LG MAC, authenticated response from TV, launch LG browser to `https://is.gd/TivvyTV26`, and Tivvy TV displayed. This supersedes prior notes marking physical wake as unverified.
+- As of TV build **v1.2.0**, the one-button workflow is successful. Version indicator and reduced cache update were also visible to user (user said “i have it now.. will try”). Preserve this working behavior; use it as regression baseline when editing home automation code.

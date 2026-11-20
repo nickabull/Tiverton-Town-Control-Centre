@@ -540,8 +540,10 @@ if(demoMode){
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;
  $("home").textContent=m?.home||config.home;$("away").textContent=m?.away||config.away;
- $("score").textContent=m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
- $("state").textContent=m?isFinal(m.status)?"FULL TIME":String(m.status||"STATUS PENDING").replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase():prematchLabel();
+ const matchStatus=String(m?.status||"");
+ const underway=!!m&&(/live|progress|half|playing|second|first|extra|penalt/i.test(matchStatus)||isFinal(matchStatus));
+ $("score").textContent=underway&&m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
+ $("state").textContent=underway?(isFinal(matchStatus)?"FULL TIME":matchStatus.replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase()):prematchLabel();
  $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase()+" · "+matchDateLabel.toUpperCase()+" · "+config.kickoff+" KICK-OFF";
  const age=d?.checkedAt?Date.now()-Date.parse(d.checkedAt):Infinity;
  const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;

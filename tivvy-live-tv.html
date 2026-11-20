@@ -300,6 +300,9 @@ if(demoMode)document.body.classList.add("demo");
 const date=["2026-11-11","2026-11-14","2026-11-21"].includes(params.get("date"))?params.get("date"):"2026-11-21";
 const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"},"2026-11-21":{home:"Melksham Town",away:"Tiverton Town",kickoff:"15:00"}};
 const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
+ const kickoffAt=new Date(date+"T"+config.kickoff+":00Z").getTime();
+ const matchDateLabel=new Date(date+"T12:00:00Z").toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long"});
+ function prematchLabel(){const remaining=kickoffAt-Date.now();if(remaining<=0)return "AWAITING LIVE FEED";const minutes=Math.ceil(remaining/60000);const days=Math.floor(minutes/1440),hours=Math.floor(minutes%1440/60),mins=minutes%60;return "KICK-OFF IN "+(days?days+"D ":"")+(hours?hours+"H ":"")+mins+"M"}
 const $=id=>document.getElementById(id);
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
 const abbreviate={"joshua william bissett":"Josh Bissett","jacob robert wellington":"Jacob Wellington","matthew liam wood":"Matt Wood","corey hayden koerner":"Corey Koerner","louis jagger cane":"Louis Jagger Cane","evander marvin grubb":"Evander Grubb","jack william kennell":"Jack Kennell"};
@@ -538,8 +541,8 @@ function updateHeader(){
  const d=payload?.matchday,m=d?.featured;
  $("home").textContent=m?.home||config.home;$("away").textContent=m?.away||config.away;
  $("score").textContent=m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
- $("state").textContent=m?isFinal(m.status)?"FULL TIME":String(m.status||"STATUS PENDING").replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase():"NO OFFICIAL FIXTURE";
- $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase();
+ $("state").textContent=m?isFinal(m.status)?"FULL TIME":String(m.status||"STATUS PENDING").replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase():prematchLabel();
+ $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase()+" · "+matchDateLabel.toUpperCase()+" · "+config.kickoff+" KICK-OFF";
  const age=d?.checkedAt?Date.now()-Date.parse(d.checkedAt):Infinity;
  const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;
  const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
@@ -561,12 +564,15 @@ async function refresh(){
  updateHeader();
  }catch(err){
  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ DATA DELAYED";
- $("fixtureText").textContent=String(err.message||err)+" · LAST VERIFIED DATA RETAINED";
+ // A failed/early collector response must never erase the independently confirmed fixture.
+  updateHeader();
+  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ LIVE DATA NOT YET VERIFIED";
+  $("verified").textContent="Confirmed fixture · live collector: "+String(err.message||err)+" · no unverified incidents displayed";
  if(!lastGood){$("verified").textContent="Unable to verify official match data — no speculative incidents displayed"}
  }
 }
 function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
-clock();setInterval(clock,1000);
+clock();updateHeader();setInterval(()=>{clock();if(!payload)updateHeader()},1000);
 refresh();setInterval(refresh,20000);
 window.addEventListener("resize",()=>{if(payload)drawTimeline()});
 setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);

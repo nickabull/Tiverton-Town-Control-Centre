@@ -86,7 +86,8 @@ def main():
     for date in dates:
         try:payload=get(URL+date)
         except (HTTPError,URLError,TimeoutError,ValueError) as e:
-            print("WARN source unavailable",date,type(e).__name__);continue
+            print("WARN official source unavailable; checking completed-score fallback",date,type(e).__name__)
+            payload={}
         matchday=payload.get("matchday") or {}
         match=matchday.get("featured") or {}
         official=(matchday.get("date")==date and matchday.get("status")=="ok" and

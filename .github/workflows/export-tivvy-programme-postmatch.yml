@@ -1,5 +1,10 @@
 name: Refresh programme verified post-match data
 on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/export-tivvy-programme-postmatch.py
+      - .github/workflows/export-tivvy-programme-postmatch.yml
   schedule:
     - cron: '12,27,42,57 * * * *'
   workflow_dispatch:

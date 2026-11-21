@@ -1052,3 +1052,32 @@ Develop a visual WYSIWYG layer designer for Tiverton Town programme artwork, tes
 ## Notes
 
 This is a working handover, not a claim that every feature has passed browser QA. The earlier chat “Update league matrix” contains additional screenshots and incremental feedback that may need consulting for design detail.
+
+
+## Tivvy post-match automation recovery — 21 Nov 2026 ~19:26 GMT
+
+**Scope:** Tiverton Get Results, Get Player Info / Match Centre, Control Centre programme post-match feeds and browser-visible results (not V3 storage Worker/D1/R2 or original Canva programme artwork).
+
+**Incident:** Melksham Town 0–3 Tiverton Town, verified FT, three goals (Louis Jagger Cane 5', Evander Grubb 28', Asa Hall 64' pen); the user reported Match Centre and Programme Centre stale at 19:10.
+
+**Root causes confirmed in source:**
+- Both Match Centre `scripts/sync-official-fulltime.py` and Programme Centre `scripts/export-tivvy-programme-postmatch.py` were hard-coded to check 11/14 November, never later match dates.
+- Scheduled full-time sync writes using `GITHUB_TOKEN`; the generated bot commit does **not normally trigger** a separate `push` GitHub Actions Pages build. Hence source updates could exist without the public Match Centre redeploying.
+- Results Centre production was only hourly, and independent FWP API staging run explicitly `published:false`.
+- Southern League matchday tabs collector still HTTP 400; separate from successful official Tivvy Live collector FT.
+- Existing live programme renderer `league-so-far.html` read only the Match Centre file and also hard-coded an old Larkhall pending row.
+
+**Changes committed (source changes are not full website QA):**
+- Match Centre dynamic rolling 21-day fixture discovery `e5398fbd`; FWP completed-result fallback (scores only, preserves source/provenance, no guessed XI) `a1e30070`; browser display-only verified score fallback `ecb76ad0`; CI syntax/fixture discovery test `b081c7c8`; push-triggered sync test `2181d784`.
+- Programme dynamic fixture discovery `0ed9c4d5`; completed-result fallback `28e98fdf` + network-error handling `2c1ffeb0`; `league-so-far.html` results-only fallback and removal of stale Larkhall placeholder `591b4e3d`; CI checks `49050fc8`; push-triggered export `4c80a3dd`.
+- Get Results Saturday/midweek 15-minute refresh schedule `637c962f`; 19:25 run 44940824087 SUCCESS, output 203 dated results and 22 league rows.
+- **Critical automatic deployment repair:** Match Centre `update-and-deploy.yml` now reacts to successful `workflow_run` completion from the full-time sync workflow and checks out `main` to deploy the bot-published results; `workflow_run` skips independent fixture-refresh steps and only builds current data. Commit `69c4e0f8`.
+
+**Verified during this session:**
+- [Match Centre full-time sync run 44940821090](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/44940821090) SUCCESS with explicit `VERIFIED SOURCE Official Southern League 2026-11-21 Melksham Town W 0-3`. GitHub main readback confirms `match-centre-fixtures-2026-27.json` 21 Nov W 0-3, `data.json` 21 Nov 3-0 (Tiverton-perspective), official incident-derived scorers, no fabricated lineup.
+- [Programme exporter run 44940828160](https://github.com/nickabull/Tiverton-Town-Control-Centre/actions/runs/44940828160) SUCCESS; GitHub main readback confirms `data/tivvy-programme-postmatch-20261121.json` home 0 away 3, three goal events, five yellows, seven substitutions from official collector.
+- Both syntax/fixture discovery CI jobs PASS: Match Centre 44940773562; Programme Centre 44940775664.
+- [Programme GitHub Pages 44940846889](https://github.com/nickabull/Tiverton-Town-Control-Centre/actions/runs/44940846889) SUCCESS, its head includes the 19:25 postmatch data.
+- At time of handover note, Match Centre [post-fix deploy 44940948065](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/44940948065) was in progress. No independent public endpoint readback/Wix browser screenshot obtained.
+
+**Outstanding before declaring full end-to-end success:** verify new Match Centre Pages deploy and its served fixture/data JSON; verify public Programme Centre displayed data and edition/Canva/V3 editable layers (postmatch export JSON is NOT itself a canvas artwork update); confirm live table place/points against authoritative current table (previous user cross-check 7th/28); test next unattended match and a league-table-only revision. Do not close [P0 issue #2](https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/2) until those pass. Cloud V3 editor storage, D1/R2 and archived artwork unchanged.

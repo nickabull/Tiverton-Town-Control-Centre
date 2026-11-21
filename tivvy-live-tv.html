@@ -147,6 +147,10 @@ body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
 .signal{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.3vw;min-width:0}
 .broadcastbar .statusbar{display:block;background:none;border:0;padding:0}
 .broadcastbar .status{font-size:1vw;color:#80e8ac}
+/* The 34-minute replay must not spill its badge over the away club name. */
+.historical-focus .signal{overflow:hidden;max-width:100%;text-align:right}
+.historical-focus .signal .statusbar{max-width:100%;overflow:hidden}
+.historical-focus .signal .status{display:block;font-size:.88vw;white-space:nowrap}
 .broadcastbar .statusbar.bad .status{color:#ff9292}
 .broadcastbar .statusbar.warn .status{color:#ffe06c}
 .broadcastbar .clock{font-size:1.03vw;color:#c7cbd1}
@@ -567,7 +571,7 @@ function updateHeader(){
  const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
  $("health").className="statusbar "+(healthy?"":stale?"warn":"bad");
  $("healthLabel").textContent=healthy?(isFinal(m.status)?"● VERIFIED FINAL RESULT":/live|progress|half|playing|second|first/i.test(String(m.status||""))?"● CURRENT OFFICIAL MATCH FEED":"● OFFICIAL FIXTURE FEED CURRENT"):stale?"⚠ LAST VERIFIED SNAPSHOT":"⚠ SOURCE UNAVAILABLE";
-  if(grubbReplay){$("health").className="statusbar";$("healthLabel").textContent="● HISTORICAL REPLAY · VERIFIED OFFICIAL INCIDENTS"}
+  if(grubbReplay){$("health").className="statusbar";$("healthLabel").textContent="● VERIFIED REPLAY"}
  $("verified").textContent=grubbReplay?"AS IT HAPPENED THROUGH 34′ · REAL HISTORICAL INCIDENTS + CLUB POSTS · RECONSTRUCTION, NOT ORIGINAL CAPTURE":"SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
 }
 async function refresh(){

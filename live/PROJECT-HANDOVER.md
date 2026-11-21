@@ -149,3 +149,12 @@ Next: execute manual diagnostics workflow via GitHub Actions when available; rev
 - Long-term preferred club-owned alias: `tivertontownfc.uk/tv`, with rolling fixture selection (proposed, not implemented).
 
 - **19 Nov 2026, 09:33 UK — user-confirmed short-link PASS:** user reports `https://is.gd/TivvyTV26` works fine. This confirms user-tested URL operation, not full LG browser compatibility, Cloudflare live source or in-play refresh. Previous web-reader redirect check was inconclusive.
+
+
+## 21 November 2026, morning — confirmed pre-match team sheets requirement
+
+User explicitly expects automatically discovered *confirmed starting XI plus substitutes* before Melksham v Tiverton kick-off (~14:30 for 15:00), analogous to the Aston Villa Women v Birmingham City pre-match test; never confuse fixture participants or squad lists with a confirmed XI.
+
+Repository inspection: `villa-blues-wsl-live-test.html` explicitly calls ESPN public soccer `eng.w.1` scoreboard and match `summary?event=` APIs, then examines `rosters`/players with starter flags. This was the **ESPN** source in that experiment, not proof of Melksham/Southern League coverage. `live-collector/src/index.js` currently has Southern League match incidents and an optional FootballWebPages fixture/results feed, but no ESPN lineup collector or established Melksham XI normalization. FootballWebPages documents `/v2/match.json?match=<id>` match details, but its availability of reliable actual lineups for this fixture has not been verified. Search did not establish ESPN coverage of today's non-league fixture. Historical 14 Nov full post-match export includes actual XI/substitute records from Southern League, so that is a potential official source when available.
+
+Desired robust matchday behaviour: from ~14:15 check actual match sheet availability from approved source(s) on sensible cadence; accept only explicit confirmed starters and substitutes with provenance and timestamp, show 'AWAITING CONFIRMED TEAM SHEETS' otherwise; never use predicted XI, season roster or merely participant teams; retain the last confirmed sheet with source status if provider fails; archive alongside incident timeline. Do not claim this feature is wired into TV or Wix until source payload, deployment and live tests pass. No live worker edits made in this note.

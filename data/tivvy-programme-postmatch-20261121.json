@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "matchDate": "2026-11-21",
+  "status": "FullTime",
+  "verified": true,
+  "source": "Southern League public API through Tivvy Live collector",
+  "sourceCheckedAt": "2026-11-21T19:25:03.018Z",
+  "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4508",
+  "competition": "SLD1S",
+  "home": "Melksham Town",
+  "away": "Tiverton Town",
+  "score": {
+    "home": 0,
+    "away": 3
+  },
+  "venueForTiverton": "A",
+  "opponent": "Melksham Town",
+  "incidents": {
+    "goals": [
+      {
+        "minute": 5,
+        "player": "Louis Jagger Cane",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "GOAL"
+      },
+      {
+        "minute": 28,
+        "player": "Evander Marvin Grubb",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "GOAL"
+      },
+      {
+        "minute": 64,
+        "player": "Asa Hall",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 3
+        },
+        "eventType": "GOAL_FROM_PENALTY"
+      }
+    ],
+    "yellowCards": [
+      {
+        "minute": 33,
+        "player": "Samuel Lanre Francis",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      },
+      {
+        "minute": 33,
+        "player": "Jacob Robert Wellington",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      },
+      {
+        "minute": 50,
+        "player": "Asa Hall",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      },
+      {
+        "minute": 56,
+        "player": "Joshua Terry",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      },
+      {
+        "minute": 63,
+        "player": "Leon Greenland",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      }
+    ],
+    "redCards": [],
+    "substitutions": [
+      {
+        "minute": 46,
+        "player": "Joshua Terry",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Daniel Paul Mcbeam"
+      },
+      {
+        "minute": 46,
+        "player": "Alex Hallett",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Aron Byfield"
+      },
+      {
+        "minute": 46,
+        "player": "Chris Zebroski",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Thomas Dowell"
+      },
+      {
+        "minute": 72,
+        "player": "Toby Stephens",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 3
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Evander Marvin Grubb"
+      },
+      {
+        "minute": 75,
+        "player": "Joshua William Bissett",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 3
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Dan Koita"
+      },
+      {
+        "minute": 79,
+        "player": "Dean Griffiths",
+        "teamId": "6a0adf9eda5d0d0847a02425",
+        "score": {
+          "home": 0,
+          "away": 3
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Kitan Jaiyeoba"
+      },
+      {
+        "minute": 81,
+        "player": "Ryan Richard Keates",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 3
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Jacob Robert Wellington"
+      }
+    ],
+    "other": []
+  },
+  "lineupsVerified": false,
+  "starters": [],
+  "substitutes": [],
+  "editorialReview": {
+    "leagueTable": "Obtain verified season standings from Results Centre; do not infer from this one match",
+    "resultsMatrix": "Import full season league fixture grid separately",
+    "matchReport": "Await Darren's reviewed editorial copy",
+    "programmeArtwork": "Never overwritten by this export"
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "schemaVersion": 1,
+  "matchDate": "2026-11-07",
+  "status": "FullTime",
+  "verified": true,
+  "source": "Southern League public API through Tivvy Live collector",
+  "sourceCheckedAt": "2026-11-21T19:25:11.129Z",
+  "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489",
+  "competition": "SLD1S",
+  "home": "Tiverton Town",
+  "away": "Sporting Club Inkberrow",
+  "score": {
+    "home": 1,
+    "away": 2
+  },
+  "venueForTiverton": "H",
+  "opponent": "Sporting Club Inkberrow",
+  "incidents": {
+    "goals": [
+      {
+        "minute": 2,
+        "player": "William Moore",
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "GOAL"
+      },
+      {
+        "minute": 59,
+        "player": "Matthew Liam Wood",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "eventType": "GOAL"
+      },
+      {
+        "minute": 85,
+        "player": "Louis Crook",
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "eventType": "GOAL"
+      }
+    ],
+    "yellowCards": [
+      {
+        "minute": 45,
+        "player": "Corey Hayden Koerner",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "FIRST_YELLOW_CARD"
+      }
+    ],
+    "redCards": [
+      {
+        "minute": 48,
+        "player": "Jack William Kennell",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "RED_CARD"
+      }
+    ],
+    "substitutions": [
+      {
+        "minute": 46,
+        "player": "Zachary Powell",
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Aidan Clark"
+      },
+      {
+        "minute": 53,
+        "player": "Dan Koita",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 0,
+          "away": 1
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Toby Stephens"
+      },
+      {
+        "minute": 75,
+        "player": "Louis Crook",
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "score": {
+          "home": 1,
+          "away": 1
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Gregor Guy"
+      },
+      {
+        "minute": 85,
+        "player": "Finn Roberts",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Louis Jagger Cane"
+      },
+      {
+        "minute": 85,
+        "player": "Max Angelides",
+        "teamId": "6a0adf9eda5d0d0847a02479",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Joshua Hurdman"
+      },
+      {
+        "minute": 89,
+        "player": "Ryan Richard Keates",
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "score": {
+          "home": 1,
+          "away": 2
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Louie Slough"
+      }
+    ],
+    "other": []
+  },
+  "lineupsVerified": true,
+  "starters": [
+    {
+      "name": "Louis Smith",
+      "number": 1,
+      "captain": false,
+      "position": "GK",
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Mason Winter",
+      "number": 2,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Corey Koerner",
+      "number": 3,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": [
+        {
+          "type": "first_yellow_card",
+          "minute": "45"
+        }
+      ]
+    },
+    {
+      "name": "Louie Slough",
+      "number": 4,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "89",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Matt Wood",
+      "number": 5,
+      "captain": true,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 1,
+      "goalMinutes": [
+        "59"
+      ],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Josh Bissett",
+      "number": 7,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Asa Hall",
+      "number": 8,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Louis Jagger Cane",
+      "number": 10,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "85",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Jacob Wellington",
+      "number": 11,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Jack Kennell",
+      "number": 14,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": [
+        {
+          "type": "red_card",
+          "minute": "48"
+        }
+      ]
+    },
+    {
+      "name": "Toby Stephens",
+      "number": 15,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "53",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    }
+  ],
+  "substitutes": [
+    {
+      "name": "Dan Koita",
+      "number": 9,
+      "captain": false,
+      "position": null,
+      "onMinute": "53",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Finn Roberts",
+      "number": 12,
+      "captain": false,
+      "position": null,
+      "onMinute": "85",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Aaron Wellington",
+      "number": 21,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": false,
+      "cards": []
+    },
+    {
+      "name": "Ryan Keates",
+      "number": 30,
+      "captain": false,
+      "position": null,
+      "onMinute": "89",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    }
+  ],
+  "editorialReview": {
+    "leagueTable": "Obtain verified season standings from Results Centre; do not infer from this one match",
+    "resultsMatrix": "Import full season league fixture grid separately",
+    "matchReport": "Await Darren's reviewed editorial copy",
+    "programmeArtwork": "Never overwritten by this export"
+  }
+}

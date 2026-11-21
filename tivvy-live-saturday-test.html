@@ -254,6 +254,7 @@ const teamMap=eventTeamMap(m);
 const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
 const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′”“]/);return hit?Number(hit[1]):null;};
+const halfTimePosts=[];
 const groups=[];
 for(const e of events){
  const minute=Number.isFinite(Number(e.minute))?Number(e.minute):null;
@@ -262,6 +263,10 @@ for(const e of events){
  group.events.push(e);
 }
 for(const post of todayPosts){
+ if(/^\s*(?:half[\s-]*time|h\s*\/\s*t|ht)\b/i.test(String(post.text||""))){
+  halfTimePosts.push(post);
+  continue;
+ }
  const minute=xMinute(post);
  const nearby=minute===null?[]:groups.filter(g=>g.events.length&&g.minute!==null&&Math.abs(g.minute-minute)<=2);
  nearby.sort((a,b)=>Math.abs(a.minute-minute)-Math.abs(b.minute-minute));
@@ -270,17 +275,18 @@ for(const post of todayPosts){
  if(!group){group={minute,events:[],posts:[]};groups.push(group);}
  group.posts.push(post);
 }
-groups.sort((a,b)=>(b.minute??-1)-(a.minute??-1));
+if(halfTimePosts.length)groups.push({label:"HT",order:45.5,minute:null,events:[],posts:halfTimePosts});
+groups.sort((a,b)=>(b.order??b.minute??-1)-(a.order??a.minute??-1));
 for(const group of groups){
  const cluster=mk("section","timeline-cluster");
- const timelineKey=String(group.minute??"unknown")+"|"+group.events.map(e=>e.eventType+":"+person(e)).join(",")+"|"+group.posts.map(p=>p.id).join(",");
+ const timelineKey=String(group.label??group.minute??"unknown")+"|"+group.events.map(e=>e.eventType+":"+person(e)).join(",")+"|"+group.posts.map(p=>p.id).join(",");
  cluster.dataset.timelineKey=timelineKey;
  if(hasRenderedTimeline&&!lastTimelineKeys.has(timelineKey))cluster.classList.add("new-arrival");
  if(group.events.some(e=>eventKind(e)==="kind-goal"))cluster.classList.add("kind-goal-cluster");
  const header=mk("div","cluster-header");
- header.append(mk("span","cluster-minute",group.minute===null?"X":group.minute+"′"));
+ header.append(mk("span","cluster-minute",group.label??(group.minute===null?"X":group.minute+"′")));
  const kinds=[...new Set(group.events.map(eventLabel))];
- if(group.posts.length)kinds.push("𝕏 CLUB COMMENTARY");
+ if(group.posts.length)kinds.push(group.label==="HT"?"𝕏 HALF TIME":"𝕏 CLUB COMMENTARY");
  header.append(mk("span","cluster-title",kinds.join(" · ")));
  cluster.append(header);
  for(const e of group.events){

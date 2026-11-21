@@ -20,6 +20,35 @@ table{width:100%;border-collapse:collapse;table-layout:fixed}th{background:#111;
 </main>
 <script>
 const SRC='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/data.json';
+const SCHEDULE='https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json';
+const RESULTS='https://nickabull.github.io/Tiverton-Town-Get-Results/data.json';
+const norm=s=>String(s||'').toLowerCase().replace(/\\b(football club|afc|fc)\\b/g,'').replace(/[^a-z0-9]/g,'');
+async function addVerifiedScoreOnlyRows(data){
+ // Fall back to FWP-backed completed results when the slower Match Centre sync has not published.
+ // Do not fabricate lineups, substitutions, card incidents or goalscorers.
+ const [scheduled,published]=await Promise.all([SCHEDULE,RESULTS].map(async url=>{
+  const r=await fetch(url+'?v='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('Football data feed HTTP '+r.status);
+  return r.json();
+ }));
+ if(!String(published.source||'').includes('footballwebpages.co.uk')||!Array.isArray(published.results)||published.results.length<20)throw Error('Completed result provenance invalid');
+ const existing=new Set((data.fixtures||[]).map(f=>f.date+'|'+norm(f.opponent)+'|'+f.venue));
+ for(const f of scheduled.fixtures||[]){
+  if(f.competition!=='SLD1S'||!['H','A'].includes(f.homeAway))continue;
+  const key=f.date+'|'+norm(f.opposition)+'|'+f.homeAway;
+  if(existing.has(key))continue;
+  const home=f.homeAway==='H'?'Tiverton Town':f.opposition;
+  const away=f.homeAway==='A'?'Tiverton Town':f.opposition;
+  const matches=published.results.filter(m=>m.date===f.date&&norm(m.home)===norm(home)&&norm(m.away)===norm(away));
+  if(matches.length!==1)continue;
+  const score=String(matches[0].score||'').match(/^(\\d+)-(\\d+)$/);
+  if(!score||+score[1]>30||+score[2]>30)continue;
+  const tf=f.homeAway==='H'?score[1]:score[2],ta=f.homeAway==='H'?score[2]:score[1];
+  data.fixtures.push({date:f.date,venue:f.homeAway,opponent:f.opposition,
+   result:tf+'-'+ta,starterDetails:[],subDetails:[],detailsLevel:'verified-score-only'});
+  existing.add(key);
+ }
+}
 const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const fmtDate=s=>{const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?m[3]+'/'+m[2]:s||''};
 const parseResult=s=>{const m=String(s||'').match(/(\d+)\s*[-–]\s*(\d+)/);return m?[+m[1],+m[2]]:null};
@@ -48,6 +77,7 @@ function validate(f){
  return {ok:offs.join('|')===ons.join('|'),offs,ons};
 }
 function row(f){
+ if(f.detailsLevel==='verified-score-only')return '<tr class="row"><td class="date">'+esc(fmtDate(f.date))+'</td><td class="opp"><span class="ha">'+esc(f.venue)+'</span> '+esc(f.opponent)+'</td><td class="score">'+scoreHTML(f)+'</td><td class="details"><span class="muted">Final result confirmed by Football Web Pages; team sheet and player incidents awaiting verification.</span></td></tr>';
  const st=(f.starterDetails||[]).map(p=>person(p,true)).join(' · ');
  const used=(f.subDetails||[]).filter(p=>p.used!==false && p.onMinute).map(p=>person(p,false));
  const unused=(f.subDetails||[]).filter(p=>p.used===false || !p.onMinute).map(p=>esc(p.name||''));
@@ -62,13 +92,12 @@ async function load(){
  const st=document.getElementById('status');st.textContent='Refreshing…';
  try{
   const data=await fetch(SRC+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+  try{await addVerifiedScoreOnlyRows(data)}catch(feedError){console.warn('Completed-result fallback not available',feedError)}
   const games=(data.fixtures||[]).filter(f=>f.result&&parseResult(f.result)).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
-  const pending={date:'2026-10-24',opponent:'Larkhall Athletic',venue:'A'};
-  const alreadyPlayed=games.some(f=>f.date===pending.date && /larkhall/i.test(f.opponent||''));
   const split=6;
   document.getElementById('p1').innerHTML=page(games.slice(0,split),1,data);
-  document.getElementById('p2').innerHTML=page(games.slice(split),2,data,alreadyPlayed?null:pending);
-  const bad=games.filter(f=>!validate(f).ok);
+  document.getElementById('p2').innerHTML=page(games.slice(split),2,data);
+  const bad=games.filter(f=>f.detailsLevel!=='verified-score-only'&&!validate(f).ok);
   st.innerHTML='<span class="'+(bad.length?'bad':'ok')+'">'+games.length+' completed league games loaded · '+(bad.length?bad.length+' substitution checks need review':'all substitution timings reconcile')+'</span>';
  }catch(e){st.innerHTML='<span class="bad">Could not load live Player Info data: '+esc(e.message)+'</span>'}
 }

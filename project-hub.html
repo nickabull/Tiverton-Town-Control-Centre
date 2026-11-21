@@ -80,7 +80,7 @@ const repoInfo={
 "Eldoret-Playout":{category:"Eldoret",desc:"Private radio playout platform: dual decks, cart wall, library, backtiming and edge-engine groundwork.",private:true},
 "Eldoret-Playout-Demo":{category:"Eldoret",desc:"Web-based broadcast playout demo with a cart wall, schedules, library and studio controls.",links:[["Playout demonstration",""]]},
 "bulls-rail-radar":{category:"Rail",desc:"Private train journey dashboard project. Live rail integration and access control still in development.",private:true},
-"Willow-Tree-Vocal-Remover":{category:"Willow Tree",desc:"Willow Tree Audio Studio: existing vocal separator and new Cloudflare-backed production library.",links:[["Original vocal remover",""],["Handover","PROJECT-HANDOVER.md"]]}
+"Willow-Tree-Vocal-Remover":{category:"Willow Tree",desc:"Willow Tree Audio Studio: existing vocal separator and new Cloudflare-backed production library.",links:[["Original vocal remover",""]]}
 };
 const spotlight=[
 {title:"TIVVY PROGRAMME DESIGNER V3",desc:"Latest V3.6.13 editable programme designer; continue browser QA before production rollout.",repo:"Tiverton-Town-Control-Centre",page:"programme-designer-v3.html?v=3.6.13",badge:"PROGRAMME"},
@@ -92,7 +92,8 @@ const spotlight=[
 {title:"ELDORET PLAYOUT DEMO",desc:"Browser radio playout with dual decks, cart wall and running order.",repo:"Eldoret-Playout-Demo",page:"",badge:"RADIO"},
 {title:"BAMPTON FAIR CONTROL",desc:"Operator incident and radio-control prototype.",repo:"Bampton-Fair-Control",page:"",badge:"EVENT"},
 {title:"HOME AUTOMATION",desc:"The Eldoret touchscreen and home-systems dashboard.",repo:"Eldoret-Home-Automation",page:"",badge:"HOME"},
-{title:"WILLOW TREE AUDIO STUDIO",desc:"Vocal separation, private audio library and developing dark multitrack editor.",repo:"Willow-Tree-Vocal-Remover",page:"",badge:"AUDIO"}
+{title:"WILLOW TREE AUDIO STUDIO",desc:"Vocal separation, private audio library and developing dark multitrack editor.",repo:"Willow-Tree-Vocal-Remover",page:"",badge:"AUDIO"},
+{title:"WILLOW TREE CLOUD LIBRARY",desc:"Private Cloudflare audio library. Use your administrator token to unlock it.",repo:"Willow-Tree-Vocal-Remover",page:"",url:"https://willowtree-audio-api.nickabull.workers.dev/studio",badge:"STUDIO"}
 ];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -111,7 +112,7 @@ function featured(){
   const title=document.createElement("h3");title.textContent=item.title;
   const desc=document.createElement("div");desc.className="desc";desc.textContent=item.desc;
   const buttons=document.createElement("div");buttons.className="links";
-  buttons.append(makeLink("OPEN PAGE",pageUrl(item.repo,item.page),true));
+  buttons.append(makeLink("OPEN PAGE",item.url||pageUrl(item.repo,item.page),true));
   buttons.append(makeLink("GITHUB SOURCE",ghBase+item.repo));
   card.dataset.search=(item.title+" "+item.desc+" "+item.repo).toLowerCase();
   card.dataset.category=repoInfo[item.repo]?.category||"Other";

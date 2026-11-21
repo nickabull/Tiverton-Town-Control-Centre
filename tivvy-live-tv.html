@@ -293,7 +293,9 @@ footer{position:relative;z-index:5;background:#080909;padding:0 .35vw;border-top
 const params=new URLSearchParams(location.search);
 const demoMode=params.get("demo")==="1";
 // Read-only historical TV preview: start the visible ticker at a real match minute.
-const focusMinute=params.get("focus")==="39"?39:null;
+const focusMinute=["28","39"].includes(params.get("focus"))?Number(params.get("focus")):null;
+const grubbReplay=focusMinute===28 && params.get("date")==="2026-11-21";
+const replayMinute=34;
 if(focusMinute!==null)document.body.classList.add("historical-focus");
 if(demoMode)document.body.classList.add("demo");
 // Keep this default match date in sync with tivvy-live-saturday-test.html when preparing each matchday.
@@ -392,7 +394,7 @@ function timelineGroups(){
  }
  // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
  // Standalone X posts are excluded to keep the goal and surrounding action visible.
- const displayGroups=focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
+ const displayGroups=grubbReplay?groups.filter(g=>g.minute!==null&&g.minute>=focusMinute&&g.minute<=replayMinute):focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
  // Historical TV demo anchors the penalty and surrounding action (33'-71')
  // before showing later 79'-88' substitutions. Otherwise late subs push
  // the confirmed X post linked to 33' off the no-scroll screen.
@@ -400,7 +402,7 @@ function timelineGroups(){
  return displayGroups.sort((a,b)=>{
   const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
   if(aDemo!==bDemo)return aDemo?-1:1;
-  if(focusMinute!==null){
+  if(focusMinute!==null&&!grubbReplay){
    const aCore=a.minute!==null&&a.minute<=71&&a.minute>=31;
    const bCore=b.minute!==null&&b.minute<=71&&b.minute>=31;
    if(aCore!==bCore)return aCore?-1:1;
@@ -494,7 +496,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent=focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=grubbReplay?"ARCHIVE REPLAY · GRUBB 28′ + REAL CLUB POSTS · NO SCROLL":focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){
@@ -544,6 +546,12 @@ function updateHeader(){
  const underway=!!m&&(/live|progress|half|playing|second|first|extra|penalt/i.test(matchStatus)||isFinal(matchStatus));
  $("score").textContent=underway&&m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
  $("state").textContent=underway?(isFinal(matchStatus)?"FULL TIME":matchStatus.replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase()):prematchLabel();
+  if(grubbReplay&&m){
+   const earlier=(m.events||[]).filter(e=>Number(e.minute)<=replayMinute&&e.score&&Number.isInteger(e.score.home)&&Number.isInteger(e.score.away)).sort((a,b)=>Number(b.minute)-Number(a.minute));
+   const score=earlier[0]?.score;
+   if(score)$("score").textContent=score.home+"–"+score.away;
+   $("state").textContent="ARCHIVE · 34′";
+  }
  $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase()+" · "+matchDateLabel.toUpperCase()+" · "+config.kickoff+" KICK-OFF";
  const age=d?.checkedAt?Date.now()-Date.parse(d.checkedAt):Infinity;
  const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;
@@ -573,7 +581,7 @@ async function refresh(){
  if(!lastGood){$("verified").textContent="Unable to verify official match data — no speculative incidents displayed"}
  }
 }
-function clock(){ $("now").textContent=new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+function clock(){ $("now").textContent=grubbReplay?"Sat 15:34:00 · REPLAY":new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
 clock();updateHeader();setInterval(()=>{clock();updateHeader()},1000);
 refresh();setInterval(refresh,20000);
 window.addEventListener("resize",()=>{if(payload)drawTimeline()});

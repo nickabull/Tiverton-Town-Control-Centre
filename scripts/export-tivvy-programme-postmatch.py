@@ -42,7 +42,7 @@ def save(path,value):
         if old_content==new_content:
             print("UNCHANGED VERIFIED DATA",path)
             return
-    payload=json.dumps(value,indent=2,ensure_ascii=False)+"\\n"
+    payload=json.dumps(value,indent=2,ensure_ascii=False)+"\n"
     path.write_text(payload,encoding="utf-8")
     print("UPDATED",path)
 

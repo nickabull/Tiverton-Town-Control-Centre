@@ -296,6 +296,7 @@ const demoMode=params.get("demo")==="1";
 const focusMinute=["28","39"].includes(params.get("focus"))?Number(params.get("focus")):null;
 const grubbReplay=focusMinute===28 && params.get("date")==="2026-11-21";
 const replayMinute=34;
+const replayCutoff=Date.parse("2026-11-21T15:34:59Z");
 if(focusMinute!==null)document.body.classList.add("historical-focus");
 if(demoMode)document.body.classList.add("demo");
 // Keep this default match date in sync with tivvy-live-saturday-test.html when preparing each matchday.
@@ -343,13 +344,16 @@ function postsForMatch(){return (payload?.x?.posts||[]).filter(p=>{
  }).sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))}
 function timelineItems(){
  const match=payload?.matchday?.featured;if(!match)return [];
- const entries=(match.events||[]).map((event,i)=>({
+ const entries=(grubbReplay?(match.events||[]).filter(e=>Number(e.minute)<=replayMinute):(match.events||[])).map((event,i)=>({
   kind:"incident",minute:Number.isFinite(Number(event.minute))?Number(event.minute):null,event,
   key:"event:"+String(event._id||event.id||[event.minute,event.eventType,event.teamId,event.person?.name,event.personOff?.name].join("|"))
  }));
  const minutes=entries.map(e=>e.minute).filter(m=>m!==null);
  for(const p of postsForMatch()){
   const claimed=postMinute(p);
+   const postedAt=Date.parse(p.createdAt||"");
+   // Historical view cannot include posts published after its displayed time.
+   if(grubbReplay&&(!Number.isFinite(postedAt)||postedAt<kickoffAt||postedAt>replayCutoff||(claimed!==null&&claimed>replayMinute)))continue;
   const nearest=claimed===null?[]:minutes.filter(m=>Math.abs(m-claimed)<=2).sort((a,b)=>Math.abs(a-claimed)-Math.abs(b-claimed));
   entries.push({kind:"post",minute:nearest.length?nearest[0]:claimed,claimedMinute:claimed,
     post:p,key:"x:"+String(p.id||p.url),grouped:nearest.length>0});
@@ -387,14 +391,19 @@ function timelineGroups(){
  // One latest standalone club post gets a high-visibility moment; remaining
  // unlinked posts must not monopolise the non-scrolling screen.
  standalone.sort((a,b)=>Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt));
- const standaloneCount=Math.min(1,standalone.length);
+ const standaloneCount=grubbReplay?standalone.length:Math.min(1,standalone.length);
  for(let i=0;i<standaloneCount;i++){
   const p=standalone[i];
   groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
  }
  // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
  // Standalone X posts are excluded to keep the goal and surrounding action visible.
- const displayGroups=grubbReplay?groups.filter(g=>g.minute!==null&&g.minute>=focusMinute&&g.minute<=replayMinute):focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
+ // Fill the remainder of the real 16:9 screen with earlier actual incidents and original X posts.
+  // Unnumbered X posts use their publication time, not an invented official minute.
+  const displayGroups=grubbReplay?groups.filter(g=>{
+   const moment=g.minute===null?g.order:g.minute;
+   return moment!==null&&moment>=0&&moment<=replayMinute;
+  }):focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
  // Historical TV demo anchors the penalty and surrounding action (33'-71')
  // before showing later 79'-88' substitutions. Otherwise late subs push
  // the confirmed X post linked to 33' off the no-scroll screen.
@@ -496,7 +505,7 @@ function drawTimeline(){
  if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
  fitTimeline();
  $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
- $("pageCount").textContent=grubbReplay?"ARCHIVE REPLAY · GRUBB 28′ + REAL CLUB POSTS · NO SCROLL":focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ $("pageCount").textContent=grubbReplay?"AS IT HAPPENED · GRUBB 28′ + EARLIER REAL MATCH MOMENTS · NO SCROLL":focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
  knownKeys=new Set(all.map(x=>x.key));initialized=true;
 }
 function showGoalCelebration(scorer,minute,penalty,isDemo=false){
@@ -558,7 +567,8 @@ function updateHeader(){
  const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
  $("health").className="statusbar "+(healthy?"":stale?"warn":"bad");
  $("healthLabel").textContent=healthy?(isFinal(m.status)?"● VERIFIED FINAL RESULT":/live|progress|half|playing|second|first/i.test(String(m.status||""))?"● CURRENT OFFICIAL MATCH FEED":"● OFFICIAL FIXTURE FEED CURRENT"):stale?"⚠ LAST VERIFIED SNAPSHOT":"⚠ SOURCE UNAVAILABLE";
- $("verified").textContent="SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
+  if(grubbReplay){$("health").className="statusbar";$("healthLabel").textContent="● HISTORICAL REPLAY · VERIFIED OFFICIAL INCIDENTS"}
+ $("verified").textContent=grubbReplay?"AS IT HAPPENED THROUGH 34′ · REAL HISTORICAL INCIDENTS + CLUB POSTS · RECONSTRUCTION, NOT ORIGINAL CAPTURE":"SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
 }
 async function refresh(){
  try{

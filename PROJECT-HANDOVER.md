@@ -1081,3 +1081,11 @@ This is a working handover, not a claim that every feature has passed browser QA
 - At time of handover note, Match Centre [post-fix deploy 44940948065](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/44940948065) was in progress. No independent public endpoint readback/Wix browser screenshot obtained.
 
 **Outstanding before declaring full end-to-end success:** verify new Match Centre Pages deploy and its served fixture/data JSON; verify public Programme Centre displayed data and edition/Canva/V3 editable layers (postmatch export JSON is NOT itself a canvas artwork update); confirm live table place/points against authoritative current table (previous user cross-check 7th/28); test next unattended match and a league-table-only revision. Do not close [P0 issue #2](https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/2) until those pass. Cloud V3 editor storage, D1/R2 and archived artwork unchanged.
+
+
+### 21 November 2026 — Grubb 28-minute archive replay: genuine earlier events
+- Updated `tivvy-live-tv.html` at commit `740ce04ff0e3765bcd7f2d9acba9499503cdf82a`; only `date=2026-11-21&focus=28` historical preview changes. Normal 16:9 live channel remains unchanged.
+- Preview includes only official incidents through 34' and original club posts genuinely published between kick-off and 15:34:59 GMT; posts without match minutes are ordered by actual published timestamps, not invented incidents.
+- Includes earlier genuine moments beneath the highlighted Grubb goal (such as the 5' opener and associated X posts) until the existing non-scroll fitter reaches physical screen capacity. Official final 0–3 does not appear as the historical 34' score (0–2).
+- Removed inappropriate `VERIFIED FINAL RESULT` label for the historical replay; clearly identifies the screen as a reconstruction from original feeds, not an original timestamped capture.
+- Inline JavaScript parser check passed before commit. GitHub Pages deploy and real-browser 16:9 layout still require independent verification. No Cloudflare storage Worker, D1/R2 or user artwork touched.

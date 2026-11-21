@@ -31,12 +31,20 @@ def get(url):
     with urlopen(request,timeout=30) as response:return json.load(response)
 
 def save(path,value):
-    payload=json.dumps(value,indent=2,ensure_ascii=False)+"\n"
-    if path.exists() and path.read_text(encoding="utf-8")==payload:
-        print("UNCHANGED",path)
-    else:
-        path.write_text(payload,encoding="utf-8")
-        print("UPDATED",path)
+    # Rechecking the same verified result must not republish it simply
+    # because the sourceCheckedAt timestamp changed.
+    if path.exists():
+        previous=json.loads(path.read_text(encoding="utf-8"))
+        old_content=dict(previous)
+        new_content=dict(value)
+        old_content.pop("sourceCheckedAt",None)
+        new_content.pop("sourceCheckedAt",None)
+        if old_content==new_content:
+            print("UNCHANGED VERIFIED DATA",path)
+            return
+    payload=json.dumps(value,indent=2,ensure_ascii=False)+"\\n"
+    path.write_text(payload,encoding="utf-8")
+    print("UPDATED",path)
 
 def normal(s):return "".join(c for c in str(s).lower() if c.isalnum())
 

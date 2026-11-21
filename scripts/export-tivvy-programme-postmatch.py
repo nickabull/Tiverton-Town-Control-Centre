@@ -4,12 +4,24 @@ No Canva/PDF pages or manually edited programme artwork are changed.
 """
 import json
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 BASE=Path("data")
-DATES=["2026-11-11","2026-11-14"]
+FIXTURES="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/match-centre-fixtures-2026-27.json"
+
+def fixture_dates(fixtures):
+    """Discover recent Tiverton league matchdays without hard-coded dates."""
+    today=datetime.now(timezone.utc).date()
+    earliest=today-timedelta(days=21)
+    dates=set()
+    for fixture in fixtures.get("fixtures",[]):
+        if fixture.get("competition")!="SLD1S":continue
+        try:match_date=date.fromisoformat(fixture["date"])
+        except (ValueError,KeyError,TypeError):continue
+        if earliest<=match_date<=today:dates.add(match_date.isoformat())
+    return sorted(dates)
 URL="https://tivvy-live-collector.nickabull.workers.dev/live?date="
 DETAILS="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/data.json"
 
@@ -33,7 +45,12 @@ def main():
     except (HTTPError,URLError,TimeoutError,ValueError) as e:
         details=[]
         print("WARN could not fetch enrichment; official event-only export used",type(e).__name__)
-    for date in DATES:
+    try:dates=fixture_dates(get(FIXTURES))
+    except (HTTPError,URLError,TimeoutError,ValueError,KeyError) as e:
+        raise RuntimeError("Fixture discovery failed; preserving published post-match data") from e
+    if not dates:
+        raise RuntimeError("No recent scheduled league fixtures; check fixture feed")
+    for date in dates:
         try:payload=get(URL+date)
         except (HTTPError,URLError,TimeoutError,ValueError) as e:
             print("WARN source unavailable",date,type(e).__name__);continue

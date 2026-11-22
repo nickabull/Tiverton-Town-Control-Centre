@@ -1,0 +1,21 @@
+name: Check next Tivvy away-trip guide
+on:
+  schedule:
+    - cron: '15 7 * * *'
+  push:
+    branches: [main]
+    paths:
+      - match-centre-expand-trial.html
+      - scripts/check-next-away-trip.py
+      - .github/workflows/check-next-away-trip.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-away-trip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify next away trip is researched
+        run: python3 scripts/check-next-away-trip.py

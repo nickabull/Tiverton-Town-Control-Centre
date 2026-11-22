@@ -194,3 +194,7 @@ Rollover commits:
 ## 22 November 2026 — As It Happens back navigation
 
 Added a prominent gold **← BACK TO MATCH CENTRE** link in the header of the interactive `tivvy-live-saturday-test.html` (retained path for compatibility) to `https://www.tivertontownfc.uk/match-centre`. The link uses `target="_top"` so the return works from within the Wix iframe rather than opening the Match Centre inside the embedded frame. Responsive header button styling and accessible link label included. Source commit `0d912e67902be8ddd758740ae55a3bf73b1717fe`. No change to 16:9 TV ticker; live Pages deployment and Wix browser click-through are not independently verified.
+
+## 22 November 2026, 21:16 UK — 16:9 TV header overlap fix
+
+User screenshot showed the large away team label (Tiverton Town) visually overlapping the green `OFFICIAL FIXTURE FEED CURRENT` status in the top broadcast strip. In `tivvy-live-tv.html` commit `82b1b011`, widened the reserved status grid column from 12% to 19%, bounded the team-name/matchline containers to their grid cells, enabled proper wrapping for long team labels and multi-line feed status, and constrained the signal container. Kept timeline, official feed, polling and historic replay logic unchanged. GitHub source committed; Pages publication and LG browser QA still require verification.

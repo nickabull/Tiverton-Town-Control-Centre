@@ -190,3 +190,7 @@ Rollover commits:
 - Note the user-provided `https://is.gd/TivvyTV26` **was originally configured with `?date=2026-11-21`**. That query explicitly selects Melksham historical replay even after the default is moved; we cannot update the is.gd destination from GitHub. For Monday use `https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html` (date-less auto default) or `?date=2026-11-23`. Do not claim old short link points at Monday.
 - Standard matchday page retains historical file name `tivvy-live-saturday-test.html` for backward compatibility; contents now Monday Swindon.
 - Publishing workflow/browser QA, official four-division snapshots, in-play match activity and actual ability of short URL to follow the new date all need testing. Changes are source commits, not Cloudflare Worker deployment.
+
+## 22 November 2026 — As It Happens back navigation
+
+Added a prominent gold **← BACK TO MATCH CENTRE** link in the header of the interactive `tivvy-live-saturday-test.html` (retained path for compatibility) to `https://www.tivertontownfc.uk/match-centre`. The link uses `target="_top"` so the return works from within the Wix iframe rather than opening the Match Centre inside the embedded frame. Responsive header button styling and accessible link label included. Source commit `0d912e67902be8ddd758740ae55a3bf73b1717fe`. No change to 16:9 TV ticker; live Pages deployment and Wix browser click-through are not independently verified.

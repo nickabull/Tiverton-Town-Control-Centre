@@ -36,7 +36,18 @@ jobs:
           git add data/tivvy-programme-postmatch-*.json match-facts/*.html || true
           if ! git diff --cached --quiet; then
             git commit -m "Publish verified Tivvy post-match data and report embeds"
-            git push
+            # Other site edits can land while this scheduled job is running.
+            # Rebase only our generated commit, then retry the push safely.
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "Concurrent commit detected; retrying publish ($attempt/3)"
+              sleep 3
+            done
+            echo "Could not publish generated match facts after 3 attempts" >&2
+            exit 1
           else
             echo "No changes"
           fi

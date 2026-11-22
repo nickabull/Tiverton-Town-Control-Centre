@@ -377,7 +377,7 @@ function renderRight(){
  const liveCount=entries.filter(e=>e.live).length;
  
  $("leagueMeta").textContent="MON 23 NOV · "+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only");
- if(!entries.length){root.append(mk("p","muted","Fixture board awaiting a source-backed schedule. No matches are assumed cancelled."));return;}
+ if(!entries.length){root.append(mk("p","muted",chosen==="onesouth"?"No other Division One South games are scheduled for Monday 23 November. Tivvy is the featured match.":"No verified fixtures in this division yet. The official matchday feed may still add games."));if(chosen!=="onesouth")return;}
  for(const item of entries){
   const m=item.live,box=mk("div","fixture"),row=mk("div","line");
   row.append(mk("span","",item.home));

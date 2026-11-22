@@ -1257,3 +1257,14 @@ Home network (DrayTek 2865, 10.0.0.x)
 **NEXT READ-ONLY CHECKS:** (1) On Bulldog: `curl -s http://localhost:8765/api/sky/isolation` (no Sky box probing), alongside a gentle status/health check; (2) On Mac: use built-in GUI to see whether Airlite appears in System Information > USB and Audio MIDI Setup; (3) record exact cables/outputs before starting tests. A repo commit or a local command result is not proof of on-device UI acceptance, fader triggering, or audio-outage survival. Update this checkpoint with actual observed test outputs after each test.
 
 **CHANGES THIS SESSION:** Documentation only in `ELDORET-DONKEY-AIRLITE-PROJECT-HANDOVER.md`; no Eldoret runtime changes, no Worker deployment, no network-control commands, no hardware purchases.
+
+
+### 22 Nov 2026 ~19:20 GMT — isolated Eldoret 2.3 text-dense Nerd Central prototype
+
+**DESIGN DIRECTION explicitly confirmed by user:** Default screen is an ultra-dense, functional engineering status wall with small text, real figures, diagnostics and minimal wasteful tiles or instructions. The glamour / visual hero controls belong on the **second press**, the family "What shall we do?" experience. Keep current 2.2 intact while iterating.
+
+**SOURCE COMMITTED in `nickabull/Eldoret-Home-Automation`:** new `ipad3.html` created at commit `3689a911` by copying isolated 2.2 and adding experimental dense 5-column compact system grid plus eight engineering text panels: vehicle/charge, AP/network, VELUX, appliances/print, API health/freshness, integration state, flags and source log. Reuses existing nine read-only API polling jobs and truthful available fields; no new device control endpoints. Existing family hero/actions/drawers remain behind CONTROLS. No static CSS, images, existing ipad2 or production pages edited. `connector.py` static route `/ipad3.html` added at commit `4af67040`. Source URL when deployed on Bulldog: `http://10.0.0.34:8765/ipad3.html`.
+
+**STATIC VERIFIED:** New HTML contains both engineering and family sections; inline JS parses successfully with V8 `new Function`. **NOT VERIFIED:** Bulldog automatic update/restart, route HTTP serving, actual iPad viewport no-scroll, visual appearance, family transition, accurate all-panel outputs and time freshness. Do not mark device QA pass without user on-device observations.
+
+**CAUTION:** The default API poll is about 120 seconds, and HTTP response success is not evidence of fresh/device-connected data. Sky passive polling remains isolated in controller source, and no Sky GET or other potentially disruptive command was sent. VELUX control disabled. Mac/Airlite unchanged; hardware purchases remain blocked. Continue with actual iPad screenshot and adjust density, scale, overflow; consider more metrics only after confirming supported backend fields.

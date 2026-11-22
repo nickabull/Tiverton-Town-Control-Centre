@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tivvy Live | Melksham Town v Tiverton Town | 21 November 2026</title>
+<title>Tivvy Live | Swindon Supermarine v Tiverton Town | 23 November 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--y:#ffdb00;--black:#111214;--panel:#232529;--line:#555961;--muted:#c5c8ce;--green:#80e8ac;--red:#ff8b94}
@@ -134,13 +134,13 @@ button.x-expand:hover{background:#554b6b}
 
 .x-post-actions .x-post-link{margin-top:0}
 </style></head>
-<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>MELKSHAM v TIVERTON · SATURDAY 21 NOVEMBER</small></header>
+<body><header><h1>TIVVY <em>LIVE</em> · MATCH CENTRE</h1><small>SWINDON SUPERMARINE v TIVERTON · MONDAY 23 NOVEMBER</small></header>
 <main>
 <div id="health" class="health">Checking published source snapshots…</div>
 <div class="mobile-switch" role="tablist" aria-label="Mobile match centre section"><button type="button" data-panel="featured" aria-selected="true">FEATURED MATCH</button><button type="button" data-panel="leagues" aria-selected="false">OTHER LEAGUES</button></div>
 <div class="layout" id="combinedLayout" data-active-panel="featured">
 <section class="panel" id="featuredPanel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
-<div class="matchhead"><span class="teams">MELKSHAM TOWN</span><strong class="score" id="featureScore">15:00</strong><span class="teams">TIVERTON TOWN</span></div>
+<div class="matchhead"><span class="teams">SWINDON SUPERMARINE</span><strong class="score" id="featureScore">19:45</strong><span class="teams">TIVERTON TOWN</span></div>
 <div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
 <h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
 <div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/live" target="_blank" rel="noopener">Southern League live listings</a></div>
@@ -164,21 +164,21 @@ button.x-expand:hover{background:#554b6b}
 (function(){
 "use strict";
 const base="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/";
-const matchdayPath="tivvy-live-20261121.json";
-const backupPath="southern-league-matchday-20261121.json";
-const xPath="tivvy-x-melksham.json";
-const EXPECTED_DATE="2026-11-21";
-// Saturday 21 November fixture board checked against FootballWebPages and NonLeagueMatters 19 November.
+const matchdayPath="tivvy-live-20261123.json";
+const backupPath="southern-league-matchday-20261123.json";
+const xPath="tivvy-x-swindon-20261123.json";
+const EXPECTED_DATE="2026-11-23";
+// Monday 23 November fixture board checked against the Southern League and FootballWebPages 22 November.
 // Kick-off and P-P markers are a schedule reference, never verified live scores.
-const fixtureBoard={"onesouth":[["Bideford","Weymouth"],["Bishops Cleeve","Exmouth Town"],["Bristol Manor Farm","Hungerford Town"],["Falmouth Town","Dorchester Town"],["Larkhall Athletic","Hartpury"],["Melksham Town","Tiverton Town"],["Portland United","Barnstaple Town"],["Shaftesbury","Paulton Rovers"],["Sporting Club Inkberrow","Swindon Supermarine"],["Westbury United","Slimbridge"],["Willand Rovers","Worcester Raiders"]],"onecentral":[],"premiersouth":[],"premiercentral":[]};
+const fixtureBoard={"onesouth":[["Swindon Supermarine","Tiverton Town"]],"onecentral":[],"premiersouth":[],"premiercentral":[]};
 const normalizeTeam=n=>String(n||"").toLowerCase().replace(/\b(fc|afc)\b/g,"").replace(/[^a-z0-9]+/g," ").trim();
 const matchKey=(h,a)=>normalizeTeam(h)+"|"+normalizeTeam(a);
-const featuredKey=matchKey("Melksham Town","Tiverton Town");
+const featuredKey=matchKey("Swindon Supermarine","Tiverton Town");
 
-// Saturday test uses the separately deployed collector by default.
+// Match Centre test uses the separately deployed collector by default.
 // ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
 const liveApi=new URLSearchParams(location.search).get("liveApi")||
- "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-21";
+ "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-23";
 let liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
@@ -228,18 +228,18 @@ function teamFor(e,match,teamMap){
 }
 const postponement=x=>/postponed|abandoned|cancelled/i.test(x?.status||"");
 const pregame=x=>/notkickedoff|scheduled|upcoming|fixture/i.test(x?.status||"");
-const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF "+(x?.kickoff&&/^[0-9]{2}:[0-9]{2}$/.test(x.kickoff)?x.kickoff:x?.isFeatured?"15:00":"TIME TBC"):String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
+const statusText=x=>postponement(x)?"POSTPONED":pregame(x)?"KICK-OFF "+(x?.kickoff&&/^[0-9]{2}:[0-9]{2}$/.test(x.kickoff)?x.kickoff:x?.isFeatured?"19:45":"TIME TBC"):String(x?.status||"Status pending").replace(/([a-z])([A-Z])/g,"$1 $2");
 function formatFixtureScore(m){
  if(postponement(m))return "P–P";
- if(pregame(m))return m?.isFeatured?"15:00": (/^\d\d:\d\d$/.test(m?.kickoff||"")?m.kickoff:"KO");
+ if(pregame(m))return m?.isFeatured?"19:45": (/^\d\d:\d\d$/.test(m?.kickoff||"")?m.kickoff:"KO");
  return scoreText(m?.score);
 }
 function renderFeatured(){
 const d=current.matchday, m=d?.featured;
 $("featureDiag").textContent=d?(d.status==="ok"?"SOURCE CHECKED · ":"SOURCE ERROR · ")+uk(d.checkedAt):"Awaiting today's collector";
 if(!m){
- $("featureScore").textContent="15:00";
- $("featuredMeta").textContent="Saturday 21 November · Melksham Town v Tiverton Town · 15:00 kick-off";
+ $("featureScore").textContent="19:45";
+ $("featuredMeta").textContent="Monday 23 November · Swindon Supermarine v Tiverton Town · 19:45 kick-off";
  const root=$("featuredEvents");root.replaceChildren();root.append(mk("p","muted",d?.status==="error"?"Official source unavailable: "+(d.error||"collector error"):d?.warning||"Awaiting today's official Southern League fixture data."));
  return;
 }
@@ -376,18 +376,18 @@ function renderRight(){
   entries.push({home:m.home,away:m.away,scheduledStatus:null,live:m});
  const liveCount=entries.filter(e=>e.live).length;
  
- $("leagueMeta").textContent="SAT 21 NOV · "+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only");
+ $("leagueMeta").textContent="MON 23 NOV · "+entries.length+" fixtures · "+liveCount+" with verified API records"+(verified?" · checked "+uk(d.checkedAt):" · schedule reference only");
  if(!entries.length){root.append(mk("p","muted","Fixture board awaiting a source-backed schedule. No matches are assumed cancelled."));return;}
  for(const item of entries){
   const m=item.live,box=mk("div","fixture"),row=mk("div","line");
   row.append(mk("span","",item.home));
   let result;
   if(m)result=formatFixtureScore(m);
-  else result=item.scheduledStatus==="P-P"?"P–P":"15:00";
+  else result=item.scheduledStatus==="P-P"?"P–P":"KO";
   row.append(mk("strong","",result));
   row.append(mk("span","",item.away));box.append(row);
   const label=m?"OFFICIAL · "+statusText(m)+" · "+(m.events?.length||0)+" incidents":
-   item.scheduledStatus==="P-P"?"SCHEDULE · Postponed":"SCHEDULE · 15:00 · no verified live score";
+   item.scheduledStatus==="P-P"?"SCHEDULE · Postponed":"SCHEDULE · no verified live score";
   box.append(mk("small","",label));
   if(m&&Array.isArray(m.events)){
    const events=[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)),teamMap=eventTeamMap(m);
@@ -407,7 +407,6 @@ function renderRight(){
   coming.style.cssText="margin-top:14px;padding-top:11px;border-top:2px solid #ffdb00";
   coming.append(mk("h3","","NEXT MIDWEEK FIXTURES"));
   for(const [when,home,away,ko] of [
-   ["MON 23 NOV","Swindon Supermarine","Tiverton Town","19:45"],
    ["WED 25 NOV","Willand Rovers","Portland United","19:30"]
   ]){
    const card=mk("div","fixture"),line=mk("div","line");
@@ -433,7 +432,7 @@ async function refresh(){
    const response=await fetch(liveApi+(liveApi.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});
    if(!response.ok)throw Error("HTTP "+response.status);
    const value=await response.json();
-   if(!value.matchday||value.matchday.status!=="ok")throw Error("No current verified matchday data");
+   if(!value.matchday||value.matchday.status!=="ok"||value.matchday.date!==EXPECTED_DATE||!value.matchday.featured||matchKey(value.matchday.featured.home,value.matchday.featured.away)!==featuredKey)throw Error("No verified Swindon matchday data");
    live=value;liveSource="live-service";
   }catch(err){errors.push("Live collector: "+err.message);liveSource="github-fallback";}
  }
@@ -469,7 +468,7 @@ document.querySelector(".mobile-switch").addEventListener("click",ev=>{
  for(const b of document.querySelectorAll(".mobile-switch button"))b.setAttribute("aria-selected",String(b===button));
 });
 $("refresh").addEventListener("click",refresh);
-// Draw the verified 21 November schedule before any network request completes.
+// Draw the confirmed 23 November schedule before any network request completes.
 renderFeatured();renderRight();
 $("health").textContent="Fixture schedule loaded · checking official live data…";
 refresh();setInterval(refresh,20000);

@@ -219,3 +219,13 @@ Changes in `nickabull/Tiverton-Town-Get-Player-Info`:
 - `tests/player-profiles.test.cjs` commit `cd9c3146` asserts photo + placement and shared artwork rendering, so a future regression can be detected.
 - This is GitHub source committed. Actual GitHub Pages deploy and Wix/Match Centre browser render have not been independently verified in this session. Page is in Get-Player-Info repository, so Control Centre-only Pages deployment does not validate it.
 - Long-term: publish canonical player-artwork metadata as a shared JSON asset from `first-team-squad.html`/squad manager, rather than allowing two hardcoded photo maps to drift. The one-time Evander sync fixes this instance but does NOT yet implement automatic cross-repository card metadata synchronization.
+
+## 22 November 2026 ~21:57 UK — FIX Ask Tivvy VIEW PLAYER PROFILE buttons
+
+User screenshot revealed that the yellow `VIEW PLAYER PROFILE ↗` controls generated in Ask Tivvy search results were inert. Verified source root cause: `stats-centre.html` places Ask Tivvy results outside the `#players` section, whereas `player-profiles.js` registered the delegated click listener **only** on `document.getElementById('players')`. No clicks from Ask Tivvy could reach it.
+
+In `nickabull/Tiverton-Town-Get-Player-Info`:
+- `player-profiles.js` commit `99a901b9`: move `[data-player-name]` delegated click handling from `#players` to `document` so both the directory and Ask Tivvy work; after profile opens always scroll its host into view inside the embedded page, instead of suppressing scroll for embeds. Preserves other profile matching, data, back button.
+- `stats-centre.html` commit `18a6d988`: bump versioned script query to flush browser cache.
+- `tests/player-profiles.test.cjs` commit `65f5c98f`: regression guards for event delegation and iframe scroll.
+- GitHub Pages publish in progress at last check; **actual browser click-through still needs confirmation** in Wix, especially frame scrolling. Do not declare live QA passed.

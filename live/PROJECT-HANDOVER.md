@@ -170,3 +170,23 @@ User confirmed the match-facts panel is already a recurring match-report practic
 - `.github/workflows/export-tivvy-programme-postmatch.yml` (commit `b32dfca`) invokes the generator **after** official result export, then stages HTML alongside JSON every 15 minutes. No direct Wix article edit and no worker deployment. Output naming: `https://nickabull.github.io/Tiverton-Town-Control-Centre/match-facts/YYYY-MM-DD.html`. For 21 Nov use `.../match-facts/2026-11-21.html`. These HTML pages can be embedded in Wix using an iframe. A confirmed match may take until next successful scheduled run to appear.
 - `.github/workflows/check-postmatch-integrations.yml` (commit `a6cb0d18`) syntax-checks generator and builds Melksham HTML from recorded export, checking key labels/players.
 - Does not edit Darren's authored headline/report, user-designed match report HTML, Canva/Wix pages or programme artwork; embeds into Wix report still require a page integration. This stage is a **committed automated source change**; actual scheduled run, Pages publication and browser/Wix embed remain to verify. Failures of external sources may prevent new panel.
+
+## 22 November 2026 evening — Swindon Monday rollover and Melksham preservation
+
+User requests fan-facing **As It Happens Live BETA** wording for 23 Nov and the usual post-Melksham changeover, including both Tivvy Live displays and other Southern League games.
+
+Fixture confirmed in both Southern League official match page `https://slc-www.southern-football-league.co.uk/match/6a5a1aacce9ef452b61f42e5` and FootballWebPages: **Mon 23 Nov 2026, Swindon Supermarine v Tiverton Town, 19:45 UK** (Division One South). Only one Division One South fixture appears for Monday; **Wed 25 Nov Willand Rovers v Portland United, 19:30** remains upcoming. Other division panels continue showing source-confirmed current matches if provided; no unverified schedule or results inserted.
+
+Before editing, created immutable GitHub copies:
+- `live/archive/2026-11-21-melksham-tiverton/postmatch.json` (commit `6a26850a`, exact source blob `de36a227`)
+- `live/archive/2026-11-21-melksham-tiverton/tv-page-2026-11-22-before-rollover.html` (commit `c2e5b898`, exact source blob `13651951`)
+- `live/archive/2026-11-21-melksham-tiverton/match-centre-page-2026-11-22-before-rollover.html` (commit `0706faba`, exact source blob `4c9f158c`)
+- Archive `README.md` (commit `43045b91`) records gaps and existing content not removed.
+
+Rollover commits:
+- `tivvy-live-tv.html` commit `50d2d73f`: default date `2026-11-23`, Swindon home / Tiverton away, kickoff 19:45; explicit historical dates 11/14/21 November preserved for replay and Grubb demonstration.
+- `tivvy-live-saturday-test.html` commit `772e5226`: updated title, header, clubs, kick-off 19:45, date filter and collector endpoint for Monday, separate X snapshot fallback path (prevents accidental reuse of Melksham posts), excluded Sat fixture list, Wednesday future fixture retained; collector result must match date and clubs. Commit `1427c5b9`: modest BETA header label and note about potentially delayed/incomplete data. Commit `e98213bb`: explanatory note for only one scheduled D1 South Monday fixture; other tabs retain verified-source dynamic data.
+- Static fixture confirmed; actual production cloud response `/live` and `/log` for Melksham were inaccessible through available web reader. **Raw live log, X post/media history, and deployed Wix browser state are not archived.** No Cloudflare Worker deployment or reset; its date-scoped records must remain untouched.
+- Note the user-provided `https://is.gd/TivvyTV26` **was originally configured with `?date=2026-11-21`**. That query explicitly selects Melksham historical replay even after the default is moved; we cannot update the is.gd destination from GitHub. For Monday use `https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html` (date-less auto default) or `?date=2026-11-23`. Do not claim old short link points at Monday.
+- Standard matchday page retains historical file name `tivvy-live-saturday-test.html` for backward compatibility; contents now Monday Swindon.
+- Publishing workflow/browser QA, official four-division snapshots, in-play match activity and actual ability of short URL to follow the new date all need testing. Changes are source commits, not Cloudflare Worker deployment.

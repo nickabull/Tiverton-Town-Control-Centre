@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - scripts/export-tivvy-programme-postmatch.py
+      - scripts/generate-tivvy-match-facts.py
       - league-so-far.html
       - .github/workflows/check-postmatch-integrations.yml
   workflow_dispatch:
@@ -18,7 +19,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile programme post-match exporter
-        run: python -m py_compile scripts/export-tivvy-programme-postmatch.py
+        run: python -m py_compile scripts/export-tivvy-programme-postmatch.py scripts/generate-tivvy-match-facts.py
+      - name: Validate verified match-facts rendering without external feeds
+        run: |
+          python3 scripts/generate-tivvy-match-facts.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('data/tivvy-programme-postmatch-20261121.json').read_text())
+          assert d['verified'] and d['lineupsVerified']
+          rendered=Path('match-facts/2026-11-21.html').read_text()
+          for expected in ['Melksham Town','Tiverton Town','Evander Grubb','Louis Jagger Cane','Asa Hall','Starting XI','Substitutes']:
+              assert expected in rendered,expected
+          assert '64' in rendered and '(pen)' in rendered
+          print('Verified Melksham match facts HTML PASS')
+          PY
       - name: Confirm fixture discovery handles new matchdays
         run: |
           python - <<'PY'

@@ -1483,3 +1483,7 @@ Home network (DrayTek 2865, 10.0.0.x)
 - Mapping evidence: `51 = FRONT AUDIO IN` (direct physical observation); `59 = DIGITAL IN` (earlier reported/screen observation, reconfirm before promoting to direct commands).
 - **NOT TESTED:** Any outbound direct input-selection command (e.g. `51FN`/`59FN` or other protocol syntax). Do not assume query codes are valid write commands. `FU` NEXT SOURCE remains unsuccessful and should not be described as working. Preserve confirmation, readback, no automatic polling, and prior working volume controls.
 - Next controlled step: verify documented model-specific protocol command syntax or instrument one deliberate non-disruptive test with physical confirmation before enabling dedicated TV / Airlite source buttons.
+
+### 23 Nov 2026 ~16:59 GMT — Pioneer iPod source readback
+- **USER-OBSERVED:** After manual source selection, Pioneer input labelled **iPod** reports raw source code **17**. This is a readback mapping only; no outbound source-selection command verified.
+- Current readback mapping observations: Front Audio In = 51; Digital In = 59 (provisional); iPod = 17. Continue to avoid guessing input-selection write codes or silently cycling sources.

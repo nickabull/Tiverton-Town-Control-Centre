@@ -31,9 +31,9 @@ jobs:
           import re
           for filename in ['tivvy-facebook-scratchpad.html','tivvy-live-tv.html','tivvy-live-saturday-test.html']:
               page=Path(filename).read_text()
-              scripts=re.findall(r'<script[^>]*>([\\s\\S]*?)</script>',page,flags=re.I)
+              scripts=re.findall(r'<script[^>]*>(.*?)</script>',page,flags=re.I|re.S)
               assert scripts,filename
-              Path('/tmp/'+filename+'.js').write_text('\\n'.join(scripts))
+              Path('/tmp/'+filename+'.js').write_text(chr(10).join(scripts))
           PY
           for file in tivvy-facebook-scratchpad.html tivvy-live-tv.html tivvy-live-saturday-test.html; do node --check "/tmp/$file.js"; done
       - name: Compile programme post-match exporter
@@ -69,7 +69,7 @@ jobs:
           from pathlib import Path
           import re
           html=Path("league-so-far.html").read_text()
-          scripts=re.findall(r"<script[^>]*>([\s\S]*?)</script>",html,flags=re.I)
+              scripts=re.findall(r'<script[^>]*>(.*?)</script>',page,flags=re.I|re.S)
           assert scripts, "No inline JS scripts found"
           Path("/tmp/tivvy-league-so-far.js").write_text("\n".join(scripts))
           PY

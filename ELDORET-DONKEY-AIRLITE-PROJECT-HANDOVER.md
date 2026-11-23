@@ -1499,3 +1499,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 - User supplied **front-panel volume → raw status code**: `12 → 69`, `31 → 123`, `15 → 81`. Earlier user observed `20 → 101` and previously `15 → 081` (leading zeros in status).
 - `12`, `15`, `20` fit raw numeric `4 × volume + 21`, but `31` would predict `145`, NOT observed `123`. **Do not extrapolate or silently discard the 31→123 observation.** Potential model-specific nonlinearity, reading timing, display/unit mismatch, or mistaken transcription remains unresolved; needs repeat simultaneous manual readings. No general conversion implemented.
 - Future Pioneer display should prefer direct observed lookup values with raw fallback. Source selector requested to replace NEXT SOURCE in existing box, with TV Audio and Airlite Studio prominent; verify outbound input command syntax before enabling switches. All source codes presently verified as readbacks only.
+
+
+### 23 Nov 2026 ~17:07 GMT — Pioneer higher-range volume scale identified provisionally
+- User repeated physical front-panel **31 → raw 123**, confirming it was not merely a one-off transcription; new **37 → raw 135** observation.
+- Collected pairs (front-panel volume -> protocol raw): 12 -> 069, 15 -> 081, 20 -> 101, 31 -> 123 (repeat), 37 -> 135.
+- **Inferred, not yet broadly validated:** readings fit a *piecewise* conversion: up through 20, raw=4*volume+21; from 20 upward, raw=2*volume+61. Both equations agree at 20. Need intermediate test (e.g. 18, 25) and ensure no further steps before general display conversion. Earlier speculation that 31->123 might be erroneous is superseded by repeated observation.
+- Preserve backend/raw reports; do not send commands based on inferred code conversion. Source switching code remains unverified and next-source `FU` unsuccessful. User requested named source selector in the former NEXT SOURCE area with TV and Airlite prominent, subject to direct-command validation.

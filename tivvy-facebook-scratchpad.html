@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tivvy Live | Facebook Commentary Scratchpad</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--gold:#ffda00;--ink:#141414}*{box-sizing:border-box}
+body{margin:0;background:#0d0d0d;color:#fff;font:16px/1.5 Arial,Helvetica,sans-serif}
+main{max-width:780px;margin:25px auto;padding:22px;background:#202020;border-top:6px solid var(--gold);border-radius:8px}
+h1,h2,button{font-family:Antonio,Impact,sans-serif}h1{font-size:clamp(30px,6vw,48px);margin:0;color:var(--gold)}
+h2{font-size:27px;margin:16px 0 10px}.muted{color:#c8c8c8}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-weight:700;margin:14px 0 6px;color:var(--gold)}
+input,textarea{width:100%;border:2px solid #666;border-radius:4px;padding:12px;background:#101010;color:white;font:16px Arial}
+textarea{min-height:210px;resize:vertical}button{background:var(--gold);color:#111;font-size:24px;border:0;border-radius:4px;cursor:pointer;padding:13px 18px;margin-top:17px;width:100%}
+button:hover{background:#fff}a{color:var(--gold)}.info{padding:12px;border:1px solid #666;margin-top:20px;font-size:14px;background:#181818}
+#status{margin-top:14px;font-weight:700}.warning{color:#ffc16c}
+@media(max-width:530px){main{margin:0;padding:16px;border-radius:0}.row{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>TIVVY LIVE · COMMENTARY SCRATCHPAD</h1>
+<p><strong>SWINDON SUPERMARINE v TIVERTON TOWN · MON 23 NOV · 19:45</strong></p>
+<p class="muted">Paste Darren's Facebook Fans group commentary here. Published posts appear on both our TV ticker and As It Happens, clearly credited as manually relayed Facebook commentary — never as a Southern League official incident or club X post.</p>
+<form id="postForm">
+<div class="row"><div><label for="author">Commentator</label><input id="author" maxlength="75" value="Darren · Facebook Fans group" required></div>
+<div><label for="time">Time posted (UK)</label><input id="time" type="time" required></div></div>
+<label for="copy">Paste Facebook text (maximum 3,000 characters)</label>
+<textarea id="copy" maxlength="3000" placeholder="Paste the actual Facebook update, with any reported match minute as written by Darren…" required></textarea>
+<button type="submit">SUBMIT COMMENTARY ↗</button>
+<p id="status" role="status"></p>
+</form>
+<div class="info"><strong>Two-click publishing:</strong> Select <em>Submit Commentary</em>, then on the GitHub page press the green <strong>Submit new issue</strong> button. You must be signed into your <strong>nickabull</strong> GitHub account. The automation handles publication and the displays check for new posts every 20 seconds. No tokens or passwords are entered here.<p class="warning">Only paste commentary you are happy for supporters to see publicly. Don't post anything private from the Facebook group without permission. Official scores still come solely from the verified match feed.</p>
+<p><a href="https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv.html">TV display</a> · <a href="https://www.tivertontownfc.uk/tivvy-live-as-it-happens">As It Happens</a> · <a href="https://github.com/nickabull/Tiverton-Town-Control-Centre/actions/workflows/publish-manual-facebook-post.yml">Publishing status</a></p></div>
+</main><script>
+const form=document.getElementById('postForm'),status=document.getElementById('status'),time=document.getElementById('time');
+const clock=()=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date());
+time.value=clock();
+form.addEventListener('submit',e=>{
+ e.preventDefault();
+ const text=document.getElementById('copy').value.trim(),author=document.getElementById('author').value.trim(),t=time.value;
+ if(!text||!author||!/^\d{2}:\d{2}$/.test(t)){status.textContent='Please enter the commentary, author and time.';return;}
+ const body='DATE: 2026-11-23\nTIME: '+t+'\nAUTHOR: '+author+'\nTEXT:\n'+text;
+ const url='https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/new?title='+encodeURIComponent('[TIVVY FB] 2026-11-23')+'&body='+encodeURIComponent(body);
+ if(url.length>7500){status.textContent='This update is too long for the hand-off URL. Split into two shorter updates.';return;}
+ status.textContent='Opening GitHub. Press “Submit new issue” there to publish. Then return here for your next post.';
+ window.open(url,'_blank','noopener,noreferrer');
+});
+</script></body></html>

@@ -885,8 +885,21 @@ parts+='</div><div class="match-detail-right">';
 if(m?.starterDetails?.length){
   parts+='<section><h3>SUBSTITUTES</h3>'+(m.subDetails?.length?'<ul class="players">'+m.subDetails.map(player).join('')+'</ul>':'<p>Not available</p>')+'</section>';
 }
+const officialEventRows=Array.isArray(m?.officialIncidents)?m.officialIncidents:[];
+const eventTimelineMarkup=()=>{
+  if(!officialEventRows.length)return '';
+  const rows=officialEventRows.map(e=>{
+    const minute=e.minute===null||e.minute===undefined?'':String(e.minute)+'′ ';
+    const type=String(e.eventType||'').replace(/_/g,' ');
+    const names=[e.player,e.playerOff].filter(Boolean).join(' / ');
+    const score=e.score&&Number.isInteger(e.score.home)&&Number.isInteger(e.score.away)?' · '+e.score.home+'–'+e.score.away:'';
+    return '<li>'+esc(minute+type+(names?' · '+names:'')+score)+'</li>';
+  }).join('');
+  return '<section><h3>OFFICIAL MATCH INCIDENTS</h3><ul class="players">'+rows+'</ul><p class="muted">Southern League live incident feed. Listed as published; not a substitute for the verified full teamsheet.</p></section>';
+};
 const g=goals(f,m);
 if(g)parts+='<section><h3>TIVERTON GOALSCORERS</h3><p class="details-goals">'+g+'</p></section>';
+parts+=eventTimelineMarkup();
 if(f.notes||m?.notes)parts+='<p>'+esc(f.notes||m.notes)+'</p>';
 if(m?.officialReportUrl&&/^https:\/\//.test(m.officialReportUrl))parts+='<section><h3>MATCH REPORT</h3><p><a class="report" href="'+esc(m.officialReportUrl)+'" target="_blank" rel="noopener">Read the official match report ↗</a></p></section>';
 if(!m&&!r)parts+='<p class="muted">Fixture information will be updated when available.</p>';
@@ -896,6 +909,7 @@ if(window.matchMedia('(max-width:650px)').matches){
   parts='<div class="crestline"><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton crest">'+(crest(f.opposition)?'<img src="'+esc(crest(f.opposition))+'" alt="'+esc(f.opposition)+' crest">':'')+'</div><div class="meta">'+esc(date(f.date))+' · '+(f.homeAway==='H'?'HOME':'AWAY')+' · '+esc(f.competition)+(f.kickOff?' · '+esc(f.kickOff):'')+'</div><div class="scoreline">'+line+'</div>';
   if(m?.starterDetails?.length){parts+='<div class="two"><section><h3>STARTING XI</h3><ul class="players">'+m.starterDetails.map(player).join('')+'</ul></section><section><h3>SUBSTITUTES</h3>'+(m.subDetails?.length?'<ul class="players">'+m.subDetails.map(player).join('')+'</ul>':'<p>Not available</p>')+'</section></div>'}else parts+='<h3>MATCH SUMMARY</h3><p>Full teamsheet not currently available.</p>';
   const mobileGoals=goals(f,m);if(mobileGoals)parts+='<h3>TIVERTON GOALSCORERS</h3><p class="details-goals">'+mobileGoals+'</p>';
+  parts+=eventTimelineMarkup();
   if(f.notes||m?.notes)parts+='<p>'+esc(f.notes||m.notes)+'</p>';
   if(m?.officialReportUrl&&/^https:\/\//.test(m.officialReportUrl))parts+='<h3>MATCH REPORT</h3><p><a class="report" href="'+esc(m.officialReportUrl)+'" target="_blank" rel="noopener">Read the official match report ↗</a></p>';
   if(!m&&!r)parts+='<p class="muted">Fixture information will be updated when available.</p>';

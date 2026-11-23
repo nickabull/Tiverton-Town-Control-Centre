@@ -181,7 +181,7 @@ const featuredKey=matchKey("Swindon Supermarine","Tiverton Town");
 // ?liveApi=https%3A%2F%2F...%2Flive enables it; GitHub JSON remains the fallback.
 const liveApi=new URLSearchParams(location.search).get("liveApi")||
  "https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-23";
-let liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
+let manualFacebookPosts=[],liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
@@ -253,7 +253,7 @@ const stage=document.createElement("div");
 if(root.firstChild?.nodeType===Node.TEXT_NODE)root.textContent="";
 const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)||0)-(Number(a.minute)||0)):[];
 const teamMap=eventTeamMap(m);
-const todayPosts=(current.x?.state==="ok"?(current.x.posts||[]):[]).filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
+const todayPosts=[...(current.x?.state==="ok"?(current.x.posts||[]):[]),...manualFacebookPosts].filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
 const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′”“]/);return hit?Number(hit[1]):null;};
 const halfTimePosts=[];
@@ -288,7 +288,7 @@ for(const group of groups){
  const header=mk("div","cluster-header");
  header.append(mk("span","cluster-minute",group.label??(group.minute===null?"X":group.minute+"′")));
  const kinds=[...new Set(group.events.map(eventLabel))];
- if(group.posts.length)kinds.push(group.label==="HT"?"𝕏 HALF TIME":"𝕏 CLUB COMMENTARY");
+ if(group.posts.length)kinds.push(group.posts.some(p=>p.source==="facebook-manual")?"FACEBOOK FANS · MANUALLY RELAYED":group.label==="HT"?"𝕏 HALF TIME":"𝕏 CLUB COMMENTARY");
  header.append(mk("span","cluster-title",kinds.join(" · ")));
  cluster.append(header);
  for(const e of group.events){
@@ -326,9 +326,9 @@ function makeXCard(post){
  const id=String(post.id||post.url||"");
  box.dataset.postId=id;
  const opened=expandedXPosts.has(id);
- box.append(mk("div","x-post-header","𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB POST"));
+ box.append(mk("div","x-post-header",post.source==="facebook-manual"?"FACEBOOK FANS GROUP · MANUALLY RELAYED · "+String(post.author||"Darren"):"𝕏 · TIVERTON TOWN FC · OFFICIAL CLUB POST"));
  box.append(mk("div","x-post-time",uk(post.createdAt)));
- const rawText=String(post.text||"Post text unavailable; read the original on X.");
+ const rawText=String(post.text||"Post text unavailable.");
  const teaser=rawText.replace(/\s+/g," ").trim();
  box.append(mk("p","x-post-text",opened?rawText:teaser.slice(0,155)+(teaser.length>155?"…":"")));
  if(opened){
@@ -426,6 +426,8 @@ async function grab(file){
  return response.json();
 }
 async function refresh(){
+ // Independent date-scoped commentary snapshot, verified and published by GitHub Actions.
+ try{const snapshot=await grab("data/tivvy-manual-facebook-"+EXPECTED_DATE+".json");if(snapshot.date===EXPECTED_DATE&&Array.isArray(snapshot.posts))manualFacebookPosts=snapshot.posts.filter(p=>p.source==="facebook-manual")}catch(_){/* Keep last known approved commentary */}
  // Use the shared dedicated collector when configured; fall back to GitHub
  // if it is not deployed or cannot be reached. Never expose the X token here.
  let live=null,errors=[];
@@ -451,7 +453,7 @@ async function refresh(){
  // Keep existing DOM (and open X cards) when no actual incident/post has changed.
  // The old version rebuilt the whole timeline every 15s, disrupting users.
  const signature=JSON.stringify({featured:current.matchday?.featured,matches:current.matchday?.matches,
-  posts:current.x?.posts,mode:liveSource,status:current.matchday?.status});
+  posts:current.x?.posts,facebook:manualFacebookPosts,mode:liveSource,status:current.matchday?.status});
  if(signature!==lastRenderSignature){renderFeatured();renderRight();lastRenderSignature=signature;}
  const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,backup=d?.status==="schedule-only",upToDate=good&&fresh(d);
  $("health").className="health "+(upToDate?"ok":good?"":"bad");

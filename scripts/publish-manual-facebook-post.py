@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""Publish an approved matchday Facebook transcription from an authorised issue.
+
+Never mutate official Southern League or X source fields. One entry per issue ID.
+"""
+import datetime as dt
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+MATCH_DATE = "2026-11-23"
+DEST = Path("data/tivvy-manual-facebook-2026-11-23.json")
+REQUIRED_AUTHOR = "nickabull"
+TITLE = "[TIVVY FB] 2026-11-23"
+
+
+def main():
+    event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
+    issue = event.get("issue") or {}
+    user = (issue.get("user") or {}).get("login", "")
+    if user.lower() != REQUIRED_AUTHOR:
+        print("Ignoring unauthorised issue author", file=sys.stderr)
+        return
+    if str(issue.get("title", "")).strip() != TITLE:
+        print("Ignoring unrelated issue")
+        return
+    body = str(issue.get("body") or "")
+    m = re.fullmatch(
+        r"DATE: (\d{4}-\d{2}-\d{2})\nTIME: (\d{2}:\d{2})\nAUTHOR: ([^\n]{1,75})\nTEXT:\n([\s\S]{1,3000})",
+        body.strip(),
+    )
+    if not m:
+        raise ValueError("Unexpected message format; no data changed")
+    date, time, author, content = m.groups()
+    if date != MATCH_DATE:
+        raise ValueError("Wrong match date")
+    hour, minute = (int(v) for v in time.split(":"))
+    if hour > 23 or minute > 59:
+        raise ValueError("Invalid time")
+    date_obj = dt.datetime.fromisoformat(date)
+    if date_obj.strftime("%Y-%m-%d") != date:
+        raise ValueError("Invalid date")
+    text = content.strip()
+    if not text:
+        raise ValueError("Empty message")
+    item = {
+        "id": "facebook-manual-" + str(issue["number"]),
+        "source": "facebook-manual",
+        "author": author.strip(),
+        "text": text,
+        "createdAt": date + "T" + time + ":00Z",
+        "submittedAt": issue.get("created_at") or issue.get("createdAt"),
+        "issue": issue["number"],
+        "media": [],
+    }
+    if DEST.exists():
+        data = json.loads(DEST.read_text())
+    else:
+        data = {"schema": "tivvy.manual-facebook.v1", "date": MATCH_DATE, "posts": []}
+    posts = data["posts"]
+    if any(p.get("id") == item["id"] for p in posts):
+        print("Already published issue", issue["number"])
+        return
+    posts.append(item)
+    posts.sort(key=lambda p: p["createdAt"], reverse=True)
+    DEST.parent.mkdir(parents=True, exist_ok=True)
+    DEST.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    print("Published", item["id"], "to", DEST)
+
+
+if __name__ == "__main__":
+    main()

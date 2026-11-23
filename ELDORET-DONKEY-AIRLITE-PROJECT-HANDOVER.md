@@ -1717,3 +1717,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 **HARDWARE GATE:** No Pi 5, mini PC, new touchscreen or UPS purchase yet. Inventory current Bulldog CPU/RAM/SSD/load and supported Airlite event path, test small Pi 3 status-only role, confirm independent main client resolution/screens, power draw of specific always-on equipment and desired runtime. Compare complete UK cost of a Pi 5 (PSU, cooling, SSD, enclosure) against a modest x86 mini PC (SSD/RAM/OS), with separately priced screen and suitable UPS; the high-end SER8 is not a default recommendation. Preserve side-by-side rollback.
 
 **CHANGE SCOPE THIS SESSION:** Documentation update only. No controller, Mac, mixer, network, appliance or source commands issued; no new verified physical tests. Record actual test evidence, outcome and timestamp when supplied.
+
+
+### 23 Nov 2026 ~23:14 GMT — Pioneer XC-HM82D-K artwork approved, v1.8 staged
+- User supplied physical photograph of their **XC-HM82D-K** and approved a cinematic angled representation of the accurate receiver (not a Pioneer DJ mixer) in the lower-right, without wooden shelving.
+- Image derived from the approved rendered dashboard and cropped into local `eldoret-pioneer-xchm82dk.webp` (1122×436). **IMPORTANT: binary image has NOT been uploaded to GitHub or Bulldog**; local downloadable asset must be installed on Bulldog before this version can work fully.
+- Staged isolated `nickabull/Eldoret-Home-Automation/pioneer-ipad-v18.html` commit `af2cc3bd7342c3cbd74706dae48d6e4b13b24c6e` changing CSS only, referencing `/eldoret-pioneer-xchm82dk.webp`, leaving all original JavaScript, controls, selectors, status and explicit confirmation untouched. **Permanent `/pioneer-control.html` remains v1.7** and is NOT promoted until image asset installed and visual QA confirms no clipping. v1.8 not yet deployed/device-tested.
+- Next: place image under Bulldog static-serving directory, deploy v1.8, open version-specific preview on iPad, compare screenshot, then promote permanent route if approved. Preserve rollback and no changes to source commands.

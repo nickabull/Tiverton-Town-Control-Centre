@@ -334,13 +334,13 @@ function teamMap(match){
 }
 function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
 function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
-let payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map(),demoXItem=null,demoXTimeout=null,demoXSequence=0;
+let manualFacebookPosts=[],payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map(),demoXItem=null,demoXTimeout=null,demoXSequence=0;
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function postMinute(p){
  const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
  return hit?Number(hit[1]):null;
 }
-function postsForMatch(){return (payload?.x?.posts||[]).filter(p=>{
+function postsForMatch(){return [...(payload?.x?.posts||[]),...manualFacebookPosts].filter(p=>{
  if(!p.createdAt)return false;
  const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(p.createdAt));
  const v=k=>parts.find(part=>part.type===k)?.value||"";
@@ -441,7 +441,7 @@ function incidentNode(item,m,map){
 }
 function clubNode(item){
  const p=item.post,el=element("div","tv-post"+(item.demo?" demo-post":""));
- el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
+ el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":p.source==="facebook-manual"?"FACEBOOK FANS GROUP · MANUALLY RELAYED · "+String(p.author||"Darren")+" · "+uk(p.createdAt):"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
  const copy=String(p.text||"").replace(/\s+/g," ").trim();
  el.append(element("div","tv-post-copy",copy));
  const photo=(Array.isArray(p.media)?p.media:[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
@@ -575,6 +575,8 @@ function updateHeader(){
  $("verified").textContent=grubbReplay?"AS IT HAPPENED THROUGH 34′ · REAL HISTORICAL INCIDENTS + CLUB POSTS · RECONSTRUCTION, NOT ORIGINAL CAPTURE":"SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
 }
 async function refresh(){
+ // Independent, date-scoped manual commentary snapshot. Failure never alters official incidents.
+ try{const r=await fetch("data/tivvy-manual-facebook-"+date+".json?t="+Date.now(),{cache:"no-store"});if(r.ok){const j=await r.json();if(j.date===date&&Array.isArray(j.posts))manualFacebookPosts=j.posts.filter(p=>p.source==="facebook-manual")}}catch(_){/* Preserve last approved manual posts */}
  try{
  const res=await fetch(api+"&t="+Date.now(),{cache:"no-store"});
  if(!res.ok)throw Error("Collector HTTP "+res.status);
@@ -583,11 +585,12 @@ async function refresh(){
  const match=value.matchday.featured;
  if(match.home?.toLowerCase()!==config.home.toLowerCase()||match.away?.toLowerCase()!==config.away.toLowerCase())throw Error("Featured fixture mismatch");
  payload=value;lastGood=Date.now();
- const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts});
+ const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts,facebook:manualFacebookPosts});
  if(sig!==renderSig){drawTimeline();renderSig=sig}
  updateHeader();
  }catch(err){
  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ DATA DELAYED";
+ if(payload){const sig=JSON.stringify({match:payload.matchday?.featured,x:payload.x?.posts,facebook:manualFacebookPosts});if(sig!==renderSig){drawTimeline();renderSig=sig}}
  // A failed/early collector response must never erase the independently confirmed fixture.
   updateHeader();
   $("health").className="statusbar bad";$("healthLabel").textContent="⚠ LIVE DATA NOT YET VERIFIED";

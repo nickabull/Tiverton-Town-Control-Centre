@@ -1487,3 +1487,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 23 Nov 2026 ~16:59 GMT — Pioneer iPod source readback
 - **USER-OBSERVED:** After manual source selection, Pioneer input labelled **iPod** reports raw source code **17**. This is a readback mapping only; no outbound source-selection command verified.
 - Current readback mapping observations: Front Audio In = 51; Digital In = 59 (provisional); iPod = 17. Continue to avoid guessing input-selection write codes or silently cycling sources.
+
+
+### 23 Nov 2026 ~17:03 GMT — complete Pioneer XC-HM82D-K source readback mapping
+- User manually selected sources and supplied the following **observed readback mappings**: CD=`01`, FM=`02`, iPod=`17`, Internet Radio=`38`, Music Server=`44`, Favourites=`45`, Front Audio In=`51`, Line 1=`52`, DAB=`55`, Bluetooth Audio=`56`, Line 2=`58`, Digital In=`59`.
+- **SOURCE CODE COMMITTED, not confirmed deployed:** `nickabull/Eldoret-Home-Automation/pioneer-ipad-v12.html` commit `47e076c3`: frontend-only display of source name and two-digit raw code in INPUT SOURCE using user-observed map. Unknown codes stay raw. No transport, `FU`, read frequency or confirmation changes; legacy v1.1 remains permanent fallback.
+- **IMPORTANT:** these codes were observed from status queries, NOT verified as outbound source selection commands. Do not send `FN` or any other direct commands until model-specific command format is verified and tested with user physically present. Preserve 10-second confirmation, no repeated passive TCP polling and all working controls.

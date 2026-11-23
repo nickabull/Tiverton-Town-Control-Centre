@@ -1609,3 +1609,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 ### 23 Nov 2026 ~18:00 GMT — Internet & Wi-Fi 1.2 versioned
 - User correctly requested DrayTek badge/freshness repair receive **new version 1.2**, not continue modifying 1.1 in-place. Created `network-ipad-v12.html` from latest corrected v11 with title/header `Internet & Wi-Fi 1.2`, commit `7a6aacf7`.
 - `connector.py` commit `aa3aaa5b` registers `/network-ipad-v12.html` and points stable `/network-control.html` to **v1.2**; prior versions v1.0 and v1.1 remain accessible. Nerd Central links use stable URL, unchanged. GitHub committed; Bulldog deployment not verified.
+
+
+### 23 Nov 2026 ~18:01 GMT — Network 1.2 wired; retired Controls button removed from Nerd Central
+- User approved use of **Internet & Wi-Fi 1.2** under stable `/network-control.html` and asked to remove the obsolete `CONTROLS` button because Eldoret is no longer pursuing the separate family-controls mode.
+- Verified current connector routes `/network-control.html` to `network-ipad-v12.html`, and `ipad16.html` already points its Internet/Wi-Fi tile, wall panel, directory and alerts to that friendly address.
+- **Dashboard edit committed** to `nickabull/Eldoret-Home-Automation/ipad16.html` commit `63057e6f`: removed the top-right `CONTROLS` mode button and secondary `CONTROLS ↗` telemetry button; removed old programmatic listeners auto-switching to family mode when clicking the telemetry wall or tiles, so links to Pioneer/Epson/Network navigate properly; removed references to deleted button IDs. Kept `ALL SYSTEMS`, direct device links, refresh, telemetry, and hidden older family-mode markup for easy rollback. All three inline scripts passed JavaScript parsing. Existing 18 references to `/network-control.html` retained. Do not remove legitimate device control buttons on individual pages.
+- GitHub updates committed only; Bulldog local deployment not directly verified. Apply latest `ipad16.html`, `network-ipad-v12.html`, `connector.py` then inspect Nerd Central and Network 1.2 in iPad landscape. Independent `network.html` desktop page remains unchanged.

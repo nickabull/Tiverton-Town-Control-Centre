@@ -1493,3 +1493,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - User manually selected sources and supplied the following **observed readback mappings**: CD=`01`, FM=`02`, iPod=`17`, Internet Radio=`38`, Music Server=`44`, Favourites=`45`, Front Audio In=`51`, Line 1=`52`, DAB=`55`, Bluetooth Audio=`56`, Line 2=`58`, Digital In=`59`.
 - **SOURCE CODE COMMITTED, not confirmed deployed:** `nickabull/Eldoret-Home-Automation/pioneer-ipad-v12.html` commit `47e076c3`: frontend-only display of source name and two-digit raw code in INPUT SOURCE using user-observed map. Unknown codes stay raw. No transport, `FU`, read frequency or confirmation changes; legacy v1.1 remains permanent fallback.
 - **IMPORTANT:** these codes were observed from status queries, NOT verified as outbound source selection commands. Do not send `FN` or any other direct commands until model-specific command format is verified and tested with user physically present. Preserve 10-second confirmation, no repeated passive TCP polling and all working controls.
+
+
+### 23 Nov 2026 ~17:05 GMT — additional Pioneer volume calibration observations
+- User supplied **front-panel volume → raw status code**: `12 → 69`, `31 → 123`, `15 → 81`. Earlier user observed `20 → 101` and previously `15 → 081` (leading zeros in status).
+- `12`, `15`, `20` fit raw numeric `4 × volume + 21`, but `31` would predict `145`, NOT observed `123`. **Do not extrapolate or silently discard the 31→123 observation.** Potential model-specific nonlinearity, reading timing, display/unit mismatch, or mistaken transcription remains unresolved; needs repeat simultaneous manual readings. No general conversion implemented.
+- Future Pioneer display should prefer direct observed lookup values with raw fallback. Source selector requested to replace NEXT SOURCE in existing box, with TV Audio and Airlite Studio prominent; verify outbound input command syntax before enabling switches. All source codes presently verified as readbacks only.

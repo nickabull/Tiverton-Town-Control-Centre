@@ -1756,3 +1756,9 @@ Home network (DrayTek 2865, 10.0.0.x)
 - User successfully ran `sudo tailscale serve --bg http://127.0.0.1:8765`; terminal confirmed private HTTPS proxy at `https://bulldog.tail22d29e.ts.net/` running in background.
 - User responded affirmatively to the instructed iPhone mobile-data remote Nerd Central test at `https://bulldog.tail22d29e.ts.net/nerd-control.html`. Record as user-reported remote access PASS, not independently measured. No public Funnel or router port forwarding changes were requested. Reboot persistence remains to be tested.
 - Use Bulldog remote URL rather than historical Penguin URL. Retain Penguin as fallback until deliberately retired. No audio architecture, appliance control or UI changes made. Airlite physical acceptance tests remain outstanding.
+
+
+### 24 Nov 2026 07:38 GMT — Mac Tailscale and Bulldog SSH verified
+- User screenshot confirms Mac joined same tailnet at `100.70.188.64` alongside Bulldog and iPhone. BBC-issued Mac: use only subject to employer IT policy; recommended outbound-only access, no incoming connections, subnet routes or exit node. Exact final settings not independently verified.
+- User terminal transcript confirms successful authenticated `ssh dietpi@100.70.220.110`; SSH host key matched existing known_hosts entry for Bulldog LAN `10.0.0.34`. Linux Bulldog reports armv7l. This verifies SSH via tailnet address, not a separate off-site SSH test yet.
+- Remote dashboard and terminal access support supervised development away from home. VELUX and Airlite physical tests deferred to Friday 27 Nov by user. No hardware commands or purchases made.

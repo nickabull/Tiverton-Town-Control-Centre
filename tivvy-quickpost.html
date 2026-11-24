@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Tivvy QuickPost | Matchday relay</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--gold:#ffda00;--line:#484848;--panel:#232323}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#101010;color:#fff;font:16px/1.45 system-ui,Arial,sans-serif}
+button,input,textarea,select{font:inherit}button,a{touch-action:manipulation}
+main{max-width:520px;margin:auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--gold);padding:5px 0 13px}
+h1,h2,.big{font-family:Antonio,Impact,sans-serif}h1{font-size:34px;line-height:1;color:var(--gold);margin:0}
+small,.muted{color:#c7c7c7}small{font-size:12px}.subtitle{margin:7px 0 16px;font-size:14px}
+.match{border:1px solid #5e5223;border-radius:12px;background:linear-gradient(145deg,#35301b,#181818 60%);padding:13px;margin-bottom:14px}
+.matchhead{display:flex;justify-content:space-between;align-items:center;color:var(--gold);font-weight:750;font-size:12px;letter-spacing:.4px}
+.teams{font:25px Antonio,Impact,sans-serif;margin-top:7px}.teams strong{color:var(--gold)}
+.section{border:1px solid var(--line);border-radius:13px;background:var(--panel);margin:12px 0;padding:14px}
+.step{font:20px Antonio,Impact,sans-serif;letter-spacing:.4px;color:var(--gold);margin:0 0 9px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:57px;width:100%;border:0;border-radius:10px;background:var(--gold);color:#111;text-align:center;font:22px Antonio,Impact,sans-serif;text-decoration:none;padding:10px;cursor:pointer}
+.btn.alt{background:#393939;color:#fff;border:1px solid #737373}
+.btn:focus-visible,.smallbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn:disabled{opacity:.5;cursor:not-allowed}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+label{display:block;font-size:13px;font-weight:750;margin:12px 0 5px;color:#e2e2e2}
+textarea,input,select{background:#111;color:#fff;width:100%;border:1px solid #777;border-radius:9px;padding:12px;font-size:16px}
+textarea{min-height:155px;resize:vertical}input[type=time]{min-height:50px}
+.smallbtn{min-height:40px;border:1px solid #6b6b6b;border-radius:8px;background:#353535;color:#fff;padding:7px 12px;font-weight:700}
+.row{display:flex;gap:9px;align-items:center}.row>*{min-width:0}.row .grow{flex:1}
+.meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#c2c2c2}
+.note{font-size:13px;color:#c8c8c8;margin:9px 0 0}.alert{font-size:13px;border:1px solid #6d6029;border-radius:8px;padding:10px;background:#26251f;color:#ffe89c;margin-top:12px}
+#status{min-height:23px;margin-top:10px;color:#ffe681;font-weight:650;font-size:14px}
+#review{white-space:pre-wrap;overflow-wrap:anywhere;background:#111;border-radius:8px;padding:11px;font-size:14px;max-height:240px;overflow:auto}
+details{margin-top:16px}summary{cursor:pointer;font-weight:700;color:var(--gold);padding:8px 0}
+a.textlink{color:var(--gold)}.hidden{display:none}
+footer{color:#b7b7b7;font-size:12px;padding:9px 2px}
+@media(min-width:640px){main{padding-top:30px}}
+</style></head>
+<body><main>
+<header><div><h1>TIVVY QUICKPOST</h1><small>ONE PHONE · TWO LIVE DISPLAYS</small></div><span aria-hidden="true" style="font-size:31px">💛🖤</span></header>
+<p class="subtitle">Relay Darren's match commentary without retyping. This is a manual relay, not a Facebook API connection.</p>
+<div class="match"><div class="matchhead"><span>SELECTED MATCH</span><span id="matchday">SAT 28 NOV 2026 · 15:00</span></div>
+<div class="teams" id="teams">HARTPURY UNIVERSITY <strong>v</strong> TIVERTON TOWN</div>
+</div>
+<section class="section">
+<h2 class="step">1 · OPEN FACEBOOK</h2>
+<a id="facebook" class="btn alt" href="https://www.facebook.com/groups/" target="_blank" rel="noopener noreferrer">ⓕ &nbsp; OPEN DARREN'S GROUP ↗</a>
+<p class="note">Copy Darren's actual post in Facebook, then return here. Your phone should keep this page open.</p>
+</section>
+<section class="section">
+<h2 class="step">2 · PASTE HIS WORDS</h2>
+<div class="actions"><button type="button" class="btn" id="paste">📋 PASTE</button><button type="button" class="btn alt" id="clear">CLEAR</button></div>
+<label for="copy">Commentary</label><textarea id="copy" maxlength="3000" placeholder="Paste Darren's Facebook commentary here…" spellcheck="false"></textarea>
+<div class="meta"><span>Credited to Darren · Facebook Fans group</span><span id="count">0 / 3000</span></div>
+<div class="row"><div class="grow"><label for="time">Original post time (UK)</label><input id="time" type="time" required></div><button type="button" class="smallbtn" id="now" style="margin-top:25px">NOW</button></div>
+<p class="note">Time defaults to now. Adjust it when copying an earlier post. Original text and source attribution are preserved.</p>
+</section>
+<section class="section">
+<h2 class="step">3 · SEND TO TIVVY LIVE</h2>
+<button type="button" class="btn" id="preview">REVIEW &amp; OPEN GITHUB ↗</button>
+<p id="status" role="status" aria-live="polite"></p>
+<div id="confirm" class="hidden">
+<p class="alert"><strong>ONE FINAL STEP IN GITHUB:</strong> Press the green <strong>Submit new issue</strong> button on the page that opens. The commentary is NOT published until you do this.</p>
+<div id="review"></div>
+<button type="button" class="btn alt" id="again" style="margin-top:12px">OPEN GITHUB AGAIN ↗</button>
+</div>
+<p class="note">Signed-in GitHub account: <strong>nickabull</strong>. The publishing action then updates the feed used by Tivvy Live. Do not share your GitHub password.</p>
+</section>
+<details><summary>⚙ SETTINGS · Facebook group link &amp; fixture</summary>
+<label for="fbUrl">Facebook group link (saved only on this phone)</label><div class="row"><input id="fbUrl" type="url" placeholder="https://www.facebook.com/groups/…"><button id="saveGroup" class="smallbtn">SAVE</button></div>
+<p class="note">Paste the address of Darren's group once. We only store it in this browser, not in GitHub.</p>
+<label for="fixture">Fixture</label><select id="fixture"><option value="2026-11-28">Sat 28 Nov · Hartpury v Tiverton</option><option value="2026-11-23">Mon 23 Nov · Swindon Supermarine v Tiverton (archive)</option></select>
+<p class="note">Only these authorised match dates are enabled. The reporter account must be added separately before Darren can submit directly.</p>
+</details>
+<footer><p>Only relay group posts with Darren's permission. This screen never reads Facebook automatically. <a class="textlink" href="https://github.com/nickabull/Tiverton-Town-Control-Centre/actions/workflows/publish-manual-facebook-post.yml" target="_blank" rel="noopener">Publishing status ↗</a></p></footer>
+</main>
+<script>
+(()=>{"use strict";
+const $=id=>document.getElementById(id);
+const fixtures={"2026-11-28":{teams:"HARTPURY UNIVERSITY <strong>v</strong> TIVERTON TOWN",day:"SAT 28 NOV 2026 · 15:00"},"2026-11-23":{teams:"SWINDON SUPERMARINE <strong>v</strong> TIVERTON TOWN",day:"MON 23 NOV 2026 · 19:45"}};
+const params=new URLSearchParams(location.search);
+const matchDate=params.get("date") in fixtures?params.get("date"):"2026-11-28";
+$("fixture").value=matchDate;
+let lastUrl="";
+function ukClock(){return new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(new Date())}
+function refreshMatch(){const f=fixtures[$("fixture").value];$("matchday").textContent=f.day;$("teams").innerHTML=f.teams;lastUrl="";$("confirm").classList.add("hidden")}
+$("time").value=ukClock();refreshMatch();
+$("now").onclick=()=>{$("time").value=ukClock()};
+$("fixture").onchange=refreshMatch;
+function loadGroup(){try{const v=localStorage.getItem("tivvy-quickpost-group")||"";if(/^https:\/\/(www\.)?(facebook\.com|m\.facebook\.com)\//i.test(v)){$("fbUrl").value=v;$("facebook").href=v}}catch(_){}}
+loadGroup();
+$("saveGroup").onclick=()=>{
+ const value=$("fbUrl").value.trim();
+ if(!/^https:\/\/(www\.)?(facebook\.com|m\.facebook\.com)\/groups\//i.test(value)){$("status").textContent="Enter a Facebook group link starting https://www.facebook.com/groups/";return}
+ try{localStorage.setItem("tivvy-quickpost-group",value)}catch(_){}
+ $("facebook").href=value;$("status").textContent="Group link saved on this device.";
+};
+function count(){$("count").textContent=$("copy").value.length+" / 3000"}
+$("copy").addEventListener("input",()=>{count();$("confirm").classList.add("hidden")});
+$("paste").onclick=async()=>{
+ try{
+  if(!navigator.clipboard?.readText)throw new Error("Clipboard access unavailable");
+  const text=await navigator.clipboard.readText();if(!text.trim())throw new Error("Clipboard is empty");
+  $("copy").value=text.slice(0,3000);count();$("status").textContent="Pasted. Check the original time, then review."; $("confirm").classList.add("hidden");
+ }catch(_){$("copy").focus();$("status").textContent="Your browser blocked automatic paste. Long-press inside the text box and choose Paste."}
+};
+$("clear").onclick=()=>{$("copy").value="";count();$("confirm").classList.add("hidden");$("status").textContent="Cleared."; $("copy").focus()};
+function buildUrl(){
+ const text=$("copy").value.trim(),t=$("time").value,d=$("fixture").value;
+ if(!text){$("status").textContent="Paste a commentary post first.";return null}
+ if(!/^\d{2}:\d{2}$/.test(t)){$("status").textContent="Select the original posting time.";return null}
+ const body="DATE: "+d+"\nTIME: "+t+"\nAUTHOR: Darren · Facebook Fans group\nTEXT:\n"+text;
+ const url="https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/new?title="+encodeURIComponent("[TIVVY FB] "+d)+"&body="+encodeURIComponent(body);
+ if(url.length>7500){$("status").textContent="Post too long for GitHub hand-off. Split it into two shorter updates.";return null}
+ return url
+}
+$("preview").onclick=()=>{
+ const url=buildUrl();if(!url)return;lastUrl=url;
+ $("review").textContent=$("copy").value.trim();
+ $("confirm").classList.remove("hidden");
+ $("status").textContent="GitHub draft prepared. Submit the issue there to actually publish.";
+ // Direct user gesture keeps popup blockers from trapping the hand-off.
+ const win=window.open(url,"_blank","noopener,noreferrer");
+ if(!win)$("status").textContent="If GitHub did not open, tap OPEN GITHUB AGAIN below.";
+};
+$("again").onclick=()=>{if(lastUrl)window.open(lastUrl,"_blank","noopener,noreferrer")};
+})();
+</script></body></html>

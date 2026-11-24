@@ -1,5 +1,16 @@
 {
   "schema": "tivvy.manual-facebook.v1",
   "date": "2026-11-23",
-  "posts": []
+  "posts": [
+    {
+      "id": "facebook-manual-4",
+      "source": "facebook-manual",
+      "author": "Darren · Facebook Fans group",
+      "text": "10\"\nHigh tempo opening. Both teams zipping it about. An Aaron Wellington free kick forced Halliday into an earlier parried save.",
+      "createdAt": "2026-11-23T19:59:00Z",
+      "submittedAt": "2026-11-24T09:24:44Z",
+      "issue": 4,
+      "media": []
+    }
+  ]
 }

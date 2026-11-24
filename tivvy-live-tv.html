@@ -443,7 +443,14 @@ function clubNode(item){
  const p=item.post,el=element("div","tv-post"+(item.demo?" demo-post":""));
  el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":p.source==="facebook-manual"?"FACEBOOK FANS GROUP · MANUALLY RELAYED · "+String(p.author||"Darren")+" · "+uk(p.createdAt):"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
  const copy=String(p.text||"").replace(/\s+/g," ").trim();
- el.append(element("div","tv-post-copy",copy));
+ const isFullTime=p.source==="facebook-manual" && /^full[\s-]*time\b/i.test(copy);
+ // The TV has no scroll. Keep Darren's full-time verdict visible as a compact
+ // attributed preview; the full original post remains on As It Happened.
+ if(isFullTime){
+  el.classList.add("fulltime-commentary");
+  const preview=copy.length>210?copy.slice(0,207).trimEnd()+"…":copy;
+  el.append(element("div","tv-post-copy",preview));
+ }else el.append(element("div","tv-post-copy",copy));
  const photo=(Array.isArray(p.media)?p.media:[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
  if(photo){
   el.classList.add("has-media");

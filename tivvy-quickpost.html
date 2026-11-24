@@ -119,8 +119,8 @@ $("preview").onclick=()=>{
  $("confirm").classList.remove("hidden");
  $("status").textContent="GitHub draft prepared. Submit the issue there to actually publish.";
  // Direct user gesture keeps popup blockers from trapping the hand-off.
- const win=window.open(url,"_blank","noopener,noreferrer");
- if(!win)$("status").textContent="If GitHub did not open, tap OPEN GITHUB AGAIN below.";
+ window.open(url,"_blank","noopener,noreferrer");
+ $("status").textContent="Check the new GitHub tab and press Submit new issue. If it did not open, use OPEN GITHUB AGAIN below.";
 };
 $("again").onclick=()=>{if(lastUrl)window.open(lastUrl,"_blank","noopener,noreferrer")};
 })();

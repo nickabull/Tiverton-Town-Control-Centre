@@ -293,3 +293,16 @@ Implemented cross-repository publication gate:
 - Cross-repository publication audit `45296052195`, attempt 2, completed **success** at 00:18:56 UTC, after fetching deployed Player Info details, Get Results full result/matrix + 22-team table, and Programme postmatch Swindon export.
 - GitHub issue [#3](https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/3) was **automatically closed** by the PASS step; verified it contains the automatic recovery comment.
 - PASS is **published GitHub source consistency only**. Live Wix away-trip placeholder remains unfixed (different page-level HTML), native Canva programme pages unverified/unautomated, and the 15-min exact-fulltime SLA remains not guaranteed. Do NOT misstate these as resolved.
+
+### 24 Nov 2026 ~09:37 GMT — retrospective Darren Facebook commentary archive created
+
+User submitted all 15 permitted manually relayed Facebook Fans group posts (#4–#18) for Swindon Supermarine 1–0 Tiverton Town, original posting times 19:59–22:01 on 23 Nov. User requested archive after posts were all in. Verified all 15 publication issues and live `data/tivvy-manual-facebook-2026-11-23.json` entries, including correction “Scary moment for Supermarine” and trailing “0-0” on the 33′ corner post. Exact clone of the commentary feed exists in `live/archive/2026-11-23-swindon-supermarine-tiverton/facebook-commentary.json`, readback confirmed 15/15 content-identical.
+
+New files in `live/archive/2026-11-23-swindon-supermarine-tiverton/`:
+- `postmatch.json` from `data/tivvy-programme-postmatch-20261123.json`, commit `1f3b9abc`.
+- `facebook-commentary.json` exact latest approved feed, commit `896065dc`.
+- `tv-page-before-rollover.html` copies current TV source, commit `ff110cb6`.
+- `match-centre-page-before-rollover.html` copies current As-It-Happened source, commit `acf6734f`.
+- `README.md`, commit `07533897`, documents provenance, the source files, source blob SHAs, user corrections and limitations.
+
+Note Darren says goal at 61′ while official Southern League credits Zach Rugman goal at 60′; keep both separately labelled, never silently rewrite original Facebook commentary. This archives the match facts, manual Facebook data and HTML source, **NOT** a complete stand-alone X timeline / raw Cloudflare match history or an immutable browser replay. No live source switched, no Worker touched, no browser QA. For definitive full replay archive still need X raw feed/official collector raw snapshot if retrievable and an independent visual verification. Original manual feed remains editable; later corrections must be synced deliberately into frozen archive as a new revision.

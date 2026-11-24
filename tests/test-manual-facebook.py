@@ -38,4 +38,25 @@ with tempfile.TemporaryDirectory() as tmp:
     assert items[0]["text"] == "Great save by the keeper!"
     invoke("nickabull", 2)
     assert len(json.loads(dest.read_text())["posts"]) == 1
+    # Saturday QuickPost must create a separate Hartpury feed, never modify Swindon.
+    event.write_text(json.dumps({"issue": {
+        "number": 120, "title": "[TIVVY FB] 2026-11-28",
+        "user": {"login": "nickabull"}, "created_at": "2026-11-28T15:03:00Z",
+        "body": "DATE: 2026-11-28\\nTIME: 15:02\\nAUTHOR: Darren · Facebook Fans group\\nTEXT:\\nHartpury commentary test",
+    }}))
+    env = {**os.environ, "GITHUB_EVENT_PATH": str(event)}
+    subprocess.run([sys.executable, str(SCRIPT)], cwd=base, env=env,
+                   capture_output=True, text=True, check=True)
+    saturday = base / "data/tivvy-manual-facebook-2026-11-28.json"
+    assert json.loads(saturday.read_text())["posts"][0]["text"] == "Hartpury commentary test"
+    assert len(json.loads(dest.read_text())["posts"]) == 1
+    # Unsupported dates never create another JSON feed.
+    event.write_text(json.dumps({"issue": {
+        "number": 121, "title": "[TIVVY FB] 2026-12-05",
+        "user": {"login": "nickabull"}, "created_at": "2026-12-05T15:03:00Z",
+        "body": "DATE: 2026-12-05\\nTIME: 15:02\\nAUTHOR: Darren\\nTEXT:\\nInvalid fixture",
+    }}))
+    subprocess.run([sys.executable, str(SCRIPT)], cwd=base, env=env,
+                   capture_output=True, text=True, check=True)
+    assert not (base / "data/tivvy-manual-facebook-2026-12-05.json").exists()
 print("Manual Facebook feed smoke tests PASS")

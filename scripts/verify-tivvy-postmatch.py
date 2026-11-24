@@ -31,7 +31,13 @@ def get(url):
 
 
 def key(value):
-    return re.sub(r"[^a-z0-9]", "", str(value).lower())
+    normal = re.sub(r"[^a-z0-9]", "", str(value).lower())
+    aliases = {"swindonsm": "swindonsupermarine",
+               "dorchestertown": "dorchester",
+               "portlandutd": "portlandunited",
+               "hartpuryfc": "hartpury",
+               "hungerfordtown": "hungerford"}
+    return aliases.get(normal, normal)
 
 
 def score(value):

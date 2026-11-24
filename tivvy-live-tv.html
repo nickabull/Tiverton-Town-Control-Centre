@@ -337,7 +337,7 @@ function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||
 let manualFacebookPosts=[],payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map(),demoXItem=null,demoXTimeout=null,demoXSequence=0;
 function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function postMinute(p){
- const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
+ const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′"“”]/);
  return hit?Number(hit[1]):null;
 }
 function postsForMatch(){return [...(payload?.x?.posts||[]),...manualFacebookPosts].filter(p=>{

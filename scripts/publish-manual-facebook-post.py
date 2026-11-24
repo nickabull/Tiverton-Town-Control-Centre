@@ -10,10 +10,9 @@ import re
 import sys
 from pathlib import Path
 
-MATCH_DATE = "2026-11-23"
-DEST = Path("data/tivvy-manual-facebook-2026-11-23.json")
+# Only confirmed fixtures may be published; avoid arbitrary file paths.
+ALLOWED_MATCH_DATES = {"2026-11-23", "2026-11-28"}
 REQUIRED_AUTHOR = "nickabull"
-TITLE = "[TIVVY FB] 2026-11-23"
 
 
 def main():
@@ -23,9 +22,12 @@ def main():
     if user.lower() != REQUIRED_AUTHOR:
         print("Ignoring unauthorised issue author", file=sys.stderr)
         return
-    if str(issue.get("title", "")).strip() != TITLE:
-        print("Ignoring unrelated issue")
+    title_match = re.fullmatch(r"\[TIVVY FB\] (\d{4}-\d{2}-\d{2})", str(issue.get("title", "")).strip())
+    if not title_match or title_match.group(1) not in ALLOWED_MATCH_DATES:
+        print("Ignoring unrelated or unsupported match date")
         return
+    match_date = title_match.group(1)
+    dest = Path("data/tivvy-manual-facebook-" + match_date + ".json")
     body = str(issue.get("body") or "")
     m = re.fullmatch(
         r"DATE: (\d{4}-\d{2}-\d{2})\nTIME: (\d{2}:\d{2})\nAUTHOR: ([^\n]{1,75})\nTEXT:\n([\s\S]{1,3000})",
@@ -34,7 +36,7 @@ def main():
     if not m:
         raise ValueError("Unexpected message format; no data changed")
     date, time, author, content = m.groups()
-    if date != MATCH_DATE:
+    if date != match_date:
         raise ValueError("Wrong match date")
     hour, minute = (int(v) for v in time.split(":"))
     if hour > 23 or minute > 59:
@@ -55,19 +57,19 @@ def main():
         "issue": issue["number"],
         "media": [],
     }
-    if DEST.exists():
-        data = json.loads(DEST.read_text())
+    if dest.exists():
+        data = json.loads(dest.read_text())
     else:
-        data = {"schema": "tivvy.manual-facebook.v1", "date": MATCH_DATE, "posts": []}
+        data = {"schema": "tivvy.manual-facebook.v1", "date": match_date, "posts": []}
     posts = data["posts"]
     if any(p.get("id") == item["id"] for p in posts):
         print("Already published issue", issue["number"])
         return
     posts.append(item)
     posts.sort(key=lambda p: p["createdAt"], reverse=True)
-    DEST.parent.mkdir(parents=True, exist_ok=True)
-    DEST.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-    print("Published", item["id"], "to", DEST)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    print("Published", item["id"], "to", dest)
 
 
 if __name__ == "__main__":

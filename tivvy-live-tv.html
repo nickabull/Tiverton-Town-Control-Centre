@@ -576,7 +576,17 @@ function updateHeader(){
 }
 async function refresh(){
  // Independent, date-scoped manual commentary snapshot. Failure never alters official incidents.
- try{const r=await fetch("data/tivvy-manual-facebook-"+date+".json?t="+Date.now(),{cache:"no-store"});if(r.ok){const j=await r.json();if(j.date===date&&Array.isArray(j.posts))manualFacebookPosts=j.posts.filter(p=>p.source==="facebook-manual")}}catch(_){/* Preserve last approved manual posts */}
+ try{
+  let snapshot;
+  const response=await fetch("data/tivvy-manual-facebook-"+date+".json?t="+Date.now(),{cache:"no-store"});
+  if(response.ok)snapshot=await response.json();
+  else if(date==="2026-11-23"){
+   const archive=await fetch("live/archive/2026-11-23-swindon-supermarine-tiverton/facebook-commentary.json?t="+Date.now(),{cache:"no-store"});
+   if(archive.ok)snapshot=await archive.json();
+  }
+  if(snapshot?.date===date&&Array.isArray(snapshot.posts))
+   manualFacebookPosts=snapshot.posts.filter(p=>p.source==="facebook-manual");
+ }catch(_){/* Preserve last approved manual posts */}
  try{
  const res=await fetch(api+"&t="+Date.now(),{cache:"no-store"});
  if(!res.ok)throw Error("Collector HTTP "+res.status);

@@ -1749,3 +1749,10 @@ Home network (DrayTek 2865, 10.0.0.x)
 - **SAFETY/REGRESSION CHECK:** JavaScript byte-for-byte identical to v1.5; all DOM IDs and button count identical, JS syntax compiled successfully. Underlying local status, PSN history, artwork fallback, truthful 0-history state, polling, refresh and Nerd Central route unchanged. No invented games or changes to Jesse's privacy settings.
 - **SOURCE ROUTE COMMITTED:** `connector.py` commit `5ae821d2` adds version-specific `/playstation-ipad-v16.html` and promotes stable `/playstation-control.html` to v1.6; prior 1.5 retained for rollback.
 - **NOT YET VERIFIED ON DEVICE:** Bulldog deployment/sync and visual fit at the actual 16:9 viewport. Inspect photo visibility and the legibility of all panels, note any clipping before calling design approved. Do not infer live deployment from GitHub commit.
+
+
+### 24 Nov 2026 07:24 GMT — Bulldog Tailscale remote access verified
+- User terminal output confirms DietPi Bulldog joined existing tailnet as `100.70.220.110`; iPhone 15 present; historical Penguin offline for five days. Bulldog LAN remains `10.0.0.34:8765` (previously reported).
+- User successfully ran `sudo tailscale serve --bg http://127.0.0.1:8765`; terminal confirmed private HTTPS proxy at `https://bulldog.tail22d29e.ts.net/` running in background.
+- User responded affirmatively to the instructed iPhone mobile-data remote Nerd Central test at `https://bulldog.tail22d29e.ts.net/nerd-control.html`. Record as user-reported remote access PASS, not independently measured. No public Funnel or router port forwarding changes were requested. Reboot persistence remains to be tested.
+- Use Bulldog remote URL rather than historical Penguin URL. Retain Penguin as fallback until deliberately retired. No audio architecture, appliance control or UI changes made. Airlite physical acceptance tests remain outstanding.

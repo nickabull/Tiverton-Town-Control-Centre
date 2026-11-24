@@ -427,7 +427,20 @@ async function grab(file){
 }
 async function refresh(){
  // Independent date-scoped commentary snapshot, verified and published by GitHub Actions.
- try{const snapshot=await grab("data/tivvy-manual-facebook-"+EXPECTED_DATE+".json");if(snapshot.date===EXPECTED_DATE&&Array.isArray(snapshot.posts))manualFacebookPosts=snapshot.posts.filter(p=>p.source==="facebook-manual")}catch(_){/* Keep last known approved commentary */}
+ try{
+  // base already points to /main/data/; never prepend "data/" a second time.
+  let snapshot;
+  try{snapshot=await grab("tivvy-manual-facebook-"+EXPECTED_DATE+".json")}
+  catch(_){
+   // Immutable Swindon archive, only if the working editorial feed is unavailable.
+   const archiveUrl="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/live/archive/2026-11-23-swindon-supermarine-tiverton/facebook-commentary.json";
+   const response=await fetch(archiveUrl+"?t="+Date.now(),{cache:"no-store"});
+   if(!response.ok)throw Error("Facebook archive HTTP "+response.status);
+   snapshot=await response.json();
+  }
+  if(snapshot.date===EXPECTED_DATE&&Array.isArray(snapshot.posts))
+   manualFacebookPosts=snapshot.posts.filter(p=>p.source==="facebook-manual");
+ }catch(_){/* Keep last approved manual commentary rather than dropping timeline entries */}
  // Use the shared dedicated collector when configured; fall back to GitHub
  // if it is not deployed or cannot be reached. Never expose the X token here.
  let live=null,errors=[];

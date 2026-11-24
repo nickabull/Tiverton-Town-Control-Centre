@@ -287,3 +287,9 @@ Implemented cross-repository publication gate:
 - Rerun publication audit `45296052195` attempt 2 initiated after successful results deploy to verify closure; inspect final result and issue #3 before calling suite green.
 - Still not a strict 15-minute FT SLA: GitHub scheduled actions are best-effort and monitor uses kickoff+135m proxy, not exact full-time transition; standings data freshness depends on other league matches and backend baseline; native Canva and Wix are not automatically updated by this solution. Do not overpromise.
 
+
+### 24 Nov 2026 00:19 GMT — Production source readback PASS (Wix/Canva explicitly excluded)
+- GitHub Pages Get Results workflow `45295988800` successfully deployed verified 204-match matrix/result feed after correcting 31 Aug vs 23 Nov rearrangement date.
+- Cross-repository publication audit `45296052195`, attempt 2, completed **success** at 00:18:56 UTC, after fetching deployed Player Info details, Get Results full result/matrix + 22-team table, and Programme postmatch Swindon export.
+- GitHub issue [#3](https://github.com/nickabull/Tiverton-Town-Control-Centre/issues/3) was **automatically closed** by the PASS step; verified it contains the automatic recovery comment.
+- PASS is **published GitHub source consistency only**. Live Wix away-trip placeholder remains unfixed (different page-level HTML), native Canva programme pages unverified/unautomated, and the 15-min exact-fulltime SLA remains not guaranteed. Do NOT misstate these as resolved.

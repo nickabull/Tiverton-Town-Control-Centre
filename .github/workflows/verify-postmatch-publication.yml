@@ -1,0 +1,88 @@
+name: Verify every Tivvy post-match destination
+on:
+  schedule:
+    - cron: '*/5 14-23 * * *'
+    - cron: '*/15 0-2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/verify-tivvy-postmatch.py
+      - tests/test-postmatch-audit.py
+      - .github/workflows/verify-postmatch-publication.yml
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: tivvy-postmatch-audit
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test publication gate
+        run: python3 tests/test-postmatch-audit.py
+      - name: Inspect published cross-repository feeds
+        id: audit
+        continue-on-error: true
+        run: python3 scripts/verify-tivvy-postmatch.py --output postmatch-audit.json
+      - name: Keep diagnostic JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tivvy-postmatch-publication-audit
+          path: postmatch-audit.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Open or update one GitHub Issue when published components disagree
+        if: steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          day="$(jq -r '.date // "unknown"' postmatch-audit.json)"
+          title="Tivvy post-match publication REVIEW REQUIRED: $day"
+          issue="$(gh issue list --state open --limit 100 --json number,title | jq -r --arg title "$title" '.[] | select(.title == $title) | .number' | head -n 1)"
+          {
+            echo "Automatic cross-repository check detected incomplete publication."
+            echo
+            echo "This is a published data verification alarm, not an inferred football result."
+            echo
+            echo "**Checked:** $(date -u +'%Y-%m-%d %H:%M UTC')"
+            echo
+            echo "**Missing or mismatched:**"
+            jq -r '.problems[]? | "- " + .' postmatch-audit.json
+            echo
+            echo "**Matching components:**"
+            jq -r '.checks | to_entries[] | "- " + .key + ": " + (.value|tostring)' postmatch-audit.json
+            echo
+            echo "The live Wix Editor HTML embed and native Canva pages are not covered by this check."
+            echo "Check the GitHub Actions run logs for the source response and fix the failing publisher."
+          } > postmatch-alert.md
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body-file postmatch-alert.md
+            echo "Updated existing issue #$issue"
+          else
+            gh issue create --title "$title" --body-file postmatch-alert.md
+          fi
+      - name: Resolve existing alarm after all published source checks pass
+        if: steps.audit.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$(jq -r '.status' postmatch-audit.json)" != PASS ]; then exit 0; fi
+          day="$(jq -r '.date // ""' postmatch-audit.json)"
+          title="Tivvy post-match publication REVIEW REQUIRED: $day"
+          issue="$(gh issue list --state open --limit 100 --json number,title | jq -r --arg title "$title" '.[] | select(.title == $title) | .number' | head -n 1)"
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body "Automated recovery check PASS: published match record, results matrix, 22-club table and verified programme export now agree. Wix/Canva still require separate browser verification."
+            gh issue close "$issue" --reason completed
+          fi
+      - name: Fail the workflow visibly on publication errors
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

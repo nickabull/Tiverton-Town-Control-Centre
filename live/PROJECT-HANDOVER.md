@@ -306,3 +306,15 @@ New files in `live/archive/2026-11-23-swindon-supermarine-tiverton/`:
 - `README.md`, commit `07533897`, documents provenance, the source files, source blob SHAs, user corrections and limitations.
 
 Note Darren says goal at 61′ while official Southern League credits Zach Rugman goal at 60′; keep both separately labelled, never silently rewrite original Facebook commentary. This archives the match facts, manual Facebook data and HTML source, **NOT** a complete stand-alone X timeline / raw Cloudflare match history or an immutable browser replay. No live source switched, no Worker touched, no browser QA. For definitive full replay archive still need X raw feed/official collector raw snapshot if retrievable and an independent visual verification. Original manual feed remains editable; later corrections must be synced deliberately into frozen archive as a new revision.
+
+### 24 Nov 2026 ~09:40–09:42 GMT — Darren's 15 Facebook posts wired into both Swindon live display pages
+
+User requested "squirt those through to the two pages" referring to `tivvy-live-tv.html` (non-scrolling 16:9) and `tivvy-live-saturday-test.html` (standard As It Happened).
+
+Current `data/tivvy-manual-facebook-2026-11-23.json` contains all 15 approved user-entered manual Facebook posts (issues #4–#18); full identical copy retained in `live/archive/2026-11-23-swindon-supermarine-tiverton/facebook-commentary.json`. No original historical post modified.
+
+- Standard view `tivvy-live-saturday-test.html` originally used `grab("data/tivvy-manual-facebook-"+EXPECTED_DATE+".json")` although `grab` prepends `https://raw.githubusercontent.com/nickabull/Tiverton-Town-Control-Centre/main/data/`, yielding erroneous `/data/data/...` URL and no Facebook posts. Commit `0227abd0` fixes to `grab("tivvy-manual-facebook-"+EXPECTED_DATE+".json")` and adds read-only immutable archive fallback if editorial feed unavailable.
+- TV `tivvy-live-tv.html` already fetched `data/tivvy-manual-facebook-2026-11-23.json` correctly. Commit `7fd41067` adds archive fallback if working JSON HTTP fails. Both retain last known approved posts when unavailable, and original Southern League/X feeds remain independent.
+- The original Darren copy records minutes like `33"`, but existing parsers matched apostrophes, causing missed incident grouping. TV commit `47596b5c` and standard view commit `49ae8065` now accept straight double quotation marks as well as apostrophe/prime/curly quotation characters.
+- Publication: GitHub Pages prior deploy `45367486786` success 09:41:36 UTC covering earlier fixes; final minute-parser commits triggered subsequent Pages workflows. Inspect final build and actual browser view before claiming visual QA. TV intentionally shows only subset of moments in fixed no-scroll area; **not all 15 concurrently**. Standard page retains full timeline.
+- These are source-code updates and automatic Pages publication, NOT editor-level Wix page HTML changes or complete historical X+Cloudflare replay archive.

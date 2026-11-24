@@ -277,10 +277,19 @@ for(const post of todayPosts){
   continue;
  }
  const minute=xMinute(post);
- const nearby=minute===null?[]:groups.filter(g=>g.events.length&&g.minute!==null&&Math.abs(g.minute-minute)<=2);
+ // A post without a reported incident minute is a standalone editorial item.
+ // Never attach it to the FT/HT sections, even though those also have minute:null.
+ if(minute===null){
+  const when=Date.parse(post.createdAt||"");
+  const kickoff=Date.parse(EXPECTED_DATE+"T19:45:00Z");
+  const order=Number.isFinite(when)?Math.max(0,(when-kickoff)/60000):0;
+  groups.push({label:"POST",minute:null,order,events:[],posts:[post]});
+  continue;
+ }
+ const nearby=groups.filter(g=>g.events.length&&g.minute!==null&&Math.abs(g.minute-minute)<=2);
  nearby.sort((a,b)=>Math.abs(a.minute-minute)-Math.abs(b.minute-minute));
  if(nearby.length){nearby[0].posts.push(post);continue;}
- let group=groups.find(g=>g.minute===minute&&!g.events.length);
+ let group=groups.find(g=>g.minute===minute&&!g.events.length&&!g.label);
  if(!group){group={minute,events:[],posts:[]};groups.push(group);}
  group.posts.push(post);
 }

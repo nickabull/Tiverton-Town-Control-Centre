@@ -268,7 +268,7 @@ for(const post of todayPosts){
  // End-of-match editorial posts carry no minute number. Always show them at
  // the very top, separately attributed, rather than burying them in the
  // generic "X" bucket at the foot of the historical timeline.
- if(/^\s*(?:full[\s-]*time|f\s*\/\s*t|ft)\s*[:\-\b]/i.test(String(post.text||""))){
+ if(/^\s*(?:full[\s-]*time|f\s*\/\s*t|ft)\b/i.test(String(post.text||""))){
   groups.push({label:"FT",order:140,minute:null,events:[],posts:[post]});
   continue;
  }

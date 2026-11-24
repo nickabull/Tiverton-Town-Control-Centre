@@ -255,7 +255,7 @@ const events=Array.isArray(m.events)?[...m.events].sort((a,b)=>(Number(b.minute)
 const teamMap=eventTeamMap(m);
 const todayPosts=[...(current.x?.state==="ok"?(current.x.posts||[]):[]),...manualFacebookPosts].filter(p=>String(p.createdAt||"").startsWith(EXPECTED_DATE));
 // A post's opening minute is attributed club commentary, never an official incident minute.
-const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′”“]/);return hit?Number(hit[1]):null;};
+const xMinute=p=>{const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′"“”]/);return hit?Number(hit[1]):null;};
 const halfTimePosts=[];
 const groups=[];
 for(const e of events){

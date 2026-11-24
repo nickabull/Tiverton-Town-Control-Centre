@@ -318,3 +318,13 @@ Current `data/tivvy-manual-facebook-2026-11-23.json` contains all 15 approved us
 - The original Darren copy records minutes like `33"`, but existing parsers matched apostrophes, causing missed incident grouping. TV commit `47596b5c` and standard view commit `49ae8065` now accept straight double quotation marks as well as apostrophe/prime/curly quotation characters.
 - Publication: GitHub Pages prior deploy `45367486786` success 09:41:36 UTC covering earlier fixes; final minute-parser commits triggered subsequent Pages workflows. Inspect final build and actual browser view before claiming visual QA. TV intentionally shows only subset of moments in fixed no-scroll area; **not all 15 concurrently**. Standard page retains full timeline.
 - These are source-code updates and automatic Pages publication, NOT editor-level Wix page HTML changes or complete historical X+Cloudflare replay archive.
+
+### 24 Nov 2026 ~09:51 GMT — Darren's full-time comment placement repaired
+
+User reported missing final full-time Facebook commentary in the two Swindon replay pages, remembered time ~22:02. Actual user-supplied published source `facebook-manual-18` exists in `data/tivvy-manual-facebook-2026-11-23.json` with timestamp **2026-11-23T22:01:00Z**, submitted via issue #18, full original text beginning "Full time:Supermarine1 Tiverton 0". No timestamp or original text changed (source states 22:01; user called it 22:02).
+
+Root cause: standard `tivvy-live-saturday-test.html` grouped all posts with no leading minute into the bottom "X" bucket; `Full time:` has no minute and became buried at the bottom of a long historical timeline. Commits `770cc9fa` and `0ef244a6` detect full-time commentary case-insensitively and insert its own `FT` group with order 140, first in displayed chronology, keeping original text and attribution.
+
+In non-scrolling 16:9 `tivvy-live-tv.html`, full-time commentary was one standalone post, potentially too tall for fixed viewport. Commit `32f0375f` renders a compact leading 210-character preview of Darren's unchanged original text for the TV, while complete full-time post remains on standard As It Happened; no raw source altered. Its standalone time-sort already prioritises newest dated posts. Final Pages build `45369470198` was running at last check; verify completed Pages job and visual/browser display before claiming pixel-level QA. Historical archived HTML copies remain preserved and intentionally unmodified.
+
+Separate "Check programme post-match integrations" Action failures observed around same time, not considered evidence against the Facebook source itself; requires later investigation if still ongoing.

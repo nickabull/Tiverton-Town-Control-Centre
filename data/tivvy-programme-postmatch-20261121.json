@@ -4,7 +4,7 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-23T13:38:49.485Z",
+  "sourceCheckedAt": "2026-11-24T00:13:46.639Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4508",
   "competition": "SLD1S",
   "home": "Melksham Town",
@@ -182,9 +182,212 @@
     ],
     "other": []
   },
-  "lineupsVerified": false,
-  "starters": [],
-  "substitutes": [],
+  "lineupsVerified": true,
+  "starters": [
+    {
+      "name": "Louis Smith",
+      "number": 1,
+      "captain": false,
+      "position": "GK",
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Mason Winter",
+      "number": 2,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Corey Koerner",
+      "number": 3,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Louie Slough",
+      "number": 4,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Matt Wood",
+      "number": 5,
+      "captain": true,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Asa Hall",
+      "number": 8,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 1,
+      "goalMinutes": [
+        "64"
+      ],
+      "sub": false,
+      "used": true,
+      "cards": [
+        {
+          "type": "yellow",
+          "minute": "50"
+        }
+      ],
+      "penaltyMinutes": [
+        "64"
+      ]
+    },
+    {
+      "name": "Dan Koita",
+      "number": 9,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "75",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Louis Jagger Cane",
+      "number": 10,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 1,
+      "goalMinutes": [
+        "5"
+      ],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Jacob Wellington",
+      "number": 11,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "81",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": [
+        {
+          "type": "yellow",
+          "minute": "33"
+        }
+      ]
+    },
+    {
+      "name": "Evander Grubb",
+      "number": 18,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "72",
+      "goalCount": 1,
+      "goalMinutes": [
+        "28"
+      ],
+      "sub": false,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Aaron Wellington",
+      "number": 21,
+      "captain": false,
+      "position": null,
+      "onMinute": "",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": false,
+      "used": true,
+      "cards": []
+    }
+  ],
+  "substitutes": [
+    {
+      "name": "Josh Bissett",
+      "number": 7,
+      "captain": false,
+      "position": null,
+      "onMinute": "75",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Toby Stephens",
+      "number": 15,
+      "captain": false,
+      "position": null,
+      "onMinute": "72",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    },
+    {
+      "name": "Ryan Keates",
+      "number": 30,
+      "captain": false,
+      "position": null,
+      "onMinute": "81",
+      "offMinute": "",
+      "goalCount": 0,
+      "goalMinutes": [],
+      "sub": true,
+      "used": true,
+      "cards": []
+    }
+  ],
   "editorialReview": {
     "leagueTable": "Obtain verified season standings from Results Centre; do not infer from this one match",
     "resultsMatrix": "Import full season league fixture grid separately",

@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080909">
+<title>Tivvy Live TV — full-screen match channel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#ffdb00;--ink:#0a0a0c;--panel:#17191c;--blue:#65b9ff;--green:#7deab0;--pink:#ff8795;--amber:#ffe06c;--purple:#d0acff;--muted:#b8bbc1}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;background:#000;color:white;overflow:hidden;font:1vw/1.3 Arial,sans-serif}
+#tv{width:min(100vw,177.77778vh);height:min(100vh,56.25vw);position:absolute;inset:0;margin:auto;padding:1.3% 2%;overflow:hidden;display:grid;gap:1.1%;grid-template-rows:11% 6% 17% 1fr 3%;background:radial-gradient(ellipse at 83% 0,#252323 0,#101113 38%,#080909 75%)}
+h1,h2,.club,.score,.minute,.incident-type,.tag,.clock,.status,.topline,.x-label,.pagecount{font-family:Antonio,Impact,"Arial Narrow",Arial,sans-serif}
+.swoosh{position:absolute;right:-2%;top:-7%;width:55%;height:17%;border-top:.62vw solid var(--gold);transform:rotate(-7deg);border-radius:50%;pointer-events:none}
+header{display:flex;align-items:center;gap:1.5%;min-height:0;position:relative;z-index:1}
+.crest{height:100%;width:auto;max-width:10%;object-fit:contain}
+header h1{font-size:3.9vw;letter-spacing:.02em;line-height:1;margin:0;padding-left:1.2vw;border-left:.28vw solid var(--gold);white-space:nowrap}
+header h1 span{color:var(--gold)}
+.statusbar{display:flex;align-items:center;justify-content:space-between;gap:1.5%;border:1px solid #438666;border-radius:.5vw;background:#102419;padding:0 1.1%;font-size:1.13vw;min-width:0}
+.statusbar.warn{border-color:#d4a24e;background:#332a15}.statusbar.bad{border-color:#c65363;background:#311d20}
+.status{color:#85f0a8;font-weight:700;font-size:1.25vw;white-space:nowrap}.warn .status{color:#ffda79}.bad .status{color:#ff9b9b}
+.topline{font-size:1.35vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}.clock{font-size:1.2vw;white-space:nowrap;color:#d7dce2}
+.scoreboard{border:.16vw solid var(--gold);border-radius:.65vw;display:grid;grid-template-columns:1fr auto 1fr auto;gap:1.4%;align-items:center;padding:0 1.6%;min-height:0;background:#0e0f12}
+.club{display:flex;align-items:center;font-size:2.5vw;font-weight:700;line-height:1.05;min-width:0}.club.away{justify-content:flex-end;text-align:right}
+.score{background:var(--gold);color:#101010;padding:.15vw 1.2vw .4vw;border-radius:.5vw;font-size:4vw;font-weight:700;white-space:nowrap;line-height:1.2}
+.match-state{font:700 1.45vw Antonio,Arial,sans-serif;color:var(--gold);border-left:.2vw solid var(--gold);padding-left:1.1vw;max-width:10vw;line-height:1.2;text-transform:uppercase}
+.timeline{border:.15vw solid var(--gold);border-radius:.6vw;overflow:hidden;min-height:0;display:grid;grid-template-rows:auto 1fr auto;background:rgba(24,25,28,.82)}
+.sectionhead{font:700 1.65vw Antonio,Arial,sans-serif;letter-spacing:.01em;background:var(--gold);color:#0d0d0d;padding:.3vw 1.3vw;width:max-content;max-width:100%;clip-path:polygon(0 0,100% 0,97% 100%,0 100%)}
+.event-list{min-height:0;min-width:0;padding:.5vw 1vw;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:.45vw;overflow:hidden}
+.incident{border:1px solid #494d53;border-left:.36vw solid var(--gold);border-radius:.26vw;display:grid;grid-template-columns:5.6vw minmax(0,1.2fr) minmax(0,2.1fr) 5.8vw;gap:.65vw;align-items:center;padding:.35vw .75vw;background:#131518;min-height:0;min-width:0;overflow:hidden;font-size:1.15vw;line-height:1.14}
+.incident.goal{border-left-color:#4daaff}.incident.yellow{border-left-color:#f2d24c}.incident.red{border-left-color:#ff687d}.incident.sub{border-left-color:#79d6a0}
+.minute{border-radius:.3vw;background:var(--gold);color:#101010;font-size:1.62vw;font-weight:700;text-align:center;padding:.13vw .2vw}
+.incident-type{font-size:1.35vw;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.goal .incident-type{color:var(--blue)}.yellow .incident-type{color:var(--amber)}.red .incident-type{color:var(--pink)}
+.incident-text{font-size:1.13vw;line-height:1.22;min-width:0;max-height:100%;overflow:hidden;overflow-wrap:anywhere}.incident-text .on{color:var(--green);font-weight:bold}.incident-text .off{color:var(--pink);font-weight:bold}
+.incident-score{font:700 1.5vw Antonio,Arial,sans-serif;color:#111;background:var(--gold);padding:.18vw .3vw;border-radius:.3vw;text-align:center}
+.unknown{color:var(--muted)}
+.timelinefoot{display:flex;justify-content:space-between;padding:.16vw 1vw .35vw;color:var(--muted);font-size:.89vw}
+.xpanel{border:.14vw solid #bb98ef;border-radius:.55vw;display:grid;grid-template-rows:auto 1fr;min-height:0;background:#121217;overflow:hidden}
+.xhead{background:#2b2037;color:#e9d9ff;padding:.25vw 1.2vw;font:700 1.5vw Antonio,Arial,sans-serif;display:flex;justify-content:space-between}
+.xbody{padding:.65vw 1.4vw;display:flex;gap:1.2vw;min-height:0;align-items:stretch;overflow:hidden}
+.xtext{white-space:pre-wrap;overflow-wrap:anywhere;flex:1;min-width:0;min-height:0;height:100%;font-size:1.33vw;line-height:1.28;overflow-y:auto;scrollbar-width:none}.xtext::-webkit-scrollbar{display:none}
+.xmedia{max-width:23%;max-height:100%;object-fit:contain;border-radius:.35vw}
+footer{display:flex;justify-content:space-between;gap:2%;font-size:.95vw;color:#b6bbc4;align-items:center}
+footer strong{color:#ffe174}
+@media(max-aspect-ratio:16/9){html,body{font-size:1.778vh}header h1{font-size:6.93vh}.score{font-size:7.11vh}.club{font-size:4.44vh}.match-state{font-size:2.58vh}.statusbar,.clock{font-size:2.05vh}.topline{font-size:2.4vh}.sectionhead{font-size:2.94vh}.incident{font-size:2.05vh}.minute{font-size:2.88vh}.incident-type{font-size:2.54vh}.incident-text{font-size:2.2vh}.incident-score{font-size:2.66vh}.xhead{font-size:2.66vh}.xtext{font-size:2.42vh}.timelinefoot,footer{font-size:1.67vh}}
+
+/* Chronological latest-first TV ticker: no replay of historical updates. */
+.incident.club-post{border-left-color:#bb98ef;grid-template-columns:5.6vw minmax(0,1.1fr) minmax(0,2.3fr) 5.8vw}
+.club-post .incident-type{color:#dfbfff}
+.incident.club-post .incident-text{white-space:pre-wrap;font-size:1.12vw;line-height:1.2;overflow:hidden}
+.incident.grouped{box-shadow:inset .25vw 0 #bda0f7}.incident.demo-post{border:2px solid #ffdb00;border-left:.38vw solid #bda0f7}.demo-post .incident-type{color:#ffdb00}
+.incident.just-arrived{animation:arrival .55s ease-out}
+@keyframes arrival{from{background:#4c4427;opacity:.65}to{background:#131518;opacity:1}}
+.xpanel{border-color:#d5abff}
+.xhead{background:#292038}
+.xbody{align-items:center}
+.xtext{font-size:1.35vw;line-height:1.35}
+.goal-celebration{display:none;position:absolute;z-index:8;inset:11% 4% 6%;border:.5vw solid var(--gold);border-radius:1.2vw;background:radial-gradient(circle at 80% 50%,#33300c 0,#050505 72%);padding:3%;box-shadow:0 0 0 8vw #000b;text-align:center;align-items:center;justify-content:center;flex-direction:column;gap:2%}
+.goal-celebration.active{display:flex;animation:arrival .35s ease-out}
+.goal-celebration .big{font:700 10vw Antonio,Impact,sans-serif;color:var(--gold);line-height:1}
+.goal-celebration .scorer{font:700 6vw Antonio,Impact,sans-serif;color:#fff}
+.goal-celebration .details{font:700 2.5vw Antonio,Impact,sans-serif;color:var(--gold)}
+.goal-celebration img{height:25%;width:auto;object-fit:contain}
+.demo-ribbon{position:absolute;z-index:10;top:1%;right:2%;font:700 1.5vw Antonio,Impact,sans-serif;color:#111;background:#ffdb00;padding:.2vw 1.2vw;display:none;transform:rotate(2deg)}
+.demo-controls{position:absolute;z-index:11;bottom:4%;right:3%;display:none}
+.demo-controls{display:none;gap:.5vw}.demo-controls button{font:700 1.3vw Antonio,Impact,sans-serif;border:2px solid #ffdb00;color:#111;background:#ffdb00;padding:.55vw 1.1vw;cursor:pointer;border-radius:.4vw}
+body.demo .demo-ribbon{display:block}body.demo .demo-controls{display:flex}
+.goal-celebration .demo-label{display:none;color:#111;background:#ffdb00;padding:.3vw 1.7vw;font:700 1.65vw Antonio,Impact,sans-serif;letter-spacing:.1em}
+.goal-celebration.demo .demo-label{display:block}
+
+/* Single broadcast timeline: the gold spine, grouped incident cards, full X text. */
+.timeline{min-height:0;min-width:0}
+.event-list{display:block;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding:.5vw 1.1vw .7vw 2.8vw;position:relative}
+.event-list::-webkit-scrollbar{display:none}
+.event-list:before{content:"";position:sticky;display:block;float:left;margin-left:-1.8vw;width:.18vw;height:100%;background:var(--gold);pointer-events:none}
+.incident,.incident.club-post{display:grid;grid-template-columns:5.3vw minmax(0,1.1fr) minmax(0,2.3fr) 5.5vw;gap:.6vw;align-items:center;min-height:4vw;margin:.48vw 0;padding:.55vw .85vw;overflow:visible;position:relative;border:1px solid #50535b;border-left:.3vw solid #80e8ac;border-radius:.4vw;background:#17191d}
+.incident:before{content:"";width:.75vw;height:.75vw;border-radius:100%;background:var(--gold);position:absolute;left:-2.05vw;top:1.65vw;box-shadow:0 0 0 .2vw #17191d}
+.incident.goal{border-left-color:#65b9ff}.incident.yellow{border-left-color:#ffe06c}.incident.red{border-left-color:#ff8795}
+.incident.club-post{border-left-color:#bfa4f4;align-items:start;padding:.75vw 1vw;min-height:4.5vw}
+.incident.club-post .incident-text{font-size:1.18vw;white-space:pre-wrap;line-height:1.38;max-height:none;overflow:visible}
+.incident.club-post .incident-type{font-size:1.43vw;white-space:normal}
+.incident.club-post .incident-text .post-head{color:#d8c0fc;font-size:.98vw;font-weight:700;margin-bottom:.3vw}
+.incident.club-post .incident-text .post-copy{font-size:1.27vw;white-space:pre-wrap;overflow-wrap:anywhere}
+.incident.club-post .incident-text .post-media{max-width:11vw;max-height:8vw;object-fit:contain;margin-top:.4vw;border-radius:.3vw}
+.incident.club-post .incident-score{color:#e3d6fa;background:#342646}
+.incident-text{font-size:1.2vw;max-height:none;overflow:visible}
+.incident-type{font-size:1.55vw}
+.incident.demo-post{border:2px solid #ffdb00;border-left:.4vw solid #bfa4f4}
+.timelinefoot{background:#111215;border-top:1px solid #454545;padding:.36vw 1vw}
+.demo-controls{bottom:4.8%;right:3%}
+@media(max-aspect-ratio:16/9){
+.incident,.incident.club-post{min-height:7vh}
+.incident-text{font-size:2.12vh}
+.incident-type{font-size:2.75vh}
+.incident.club-post .incident-text,.incident.club-post .incident-text .post-copy{font-size:2.15vh}
+}
+
+/* TV design taken from the featured-match left column: yellow minute spine and
+   explicit source cards, with no duplicate X panel or carousel. */
+#tv{background:radial-gradient(ellipse at 70% -15%,#30302a 0,#18191b 30%,#111214 75%)}
+#tv:after{content:"";position:absolute;pointer-events:none;right:-6%;bottom:1%;height:5%;width:50%;border-bottom:.42vw solid #ffdb00;transform:rotate(-5deg);border-radius:50%;opacity:.8}
+.scoreboard{background:#232529;border:1px solid #555961;border-top:.28vw solid var(--gold);border-radius:.45vw}
+.timeline{border:1px solid #555961;border-top:.3vw solid var(--gold);border-radius:.45vw;background:#232529}
+.sectionhead{width:100%;clip-path:none;background:none;color:var(--gold);padding:.5vw 1vw .2vw;font-size:1.85vw}
+.event-list{padding:.5vw 1.15vw 1.4vw 2.9vw;overflow:auto;scrollbar-width:none}
+.event-list:before{display:none}
+.tv-cluster{position:relative;border-left:.21vw solid var(--gold);padding-left:1.55vw;margin:0 0 .6vw .3vw}
+.tv-cluster:before{content:"";position:absolute;width:.8vw;height:.8vw;border-radius:50%;background:var(--gold);left:-.5vw;top:.75vw}
+.tv-cluster.goal-group{border-left-color:#339bff}.tv-cluster.goal-group:before{background:#339bff}
+.tv-cluster-head{display:flex;align-items:center;gap:.6vw;margin-bottom:.35vw;min-height:2.35vw}
+.tv-cluster-minute{font:700 1.8vw Antonio,Impact,Arial,sans-serif;background:var(--gold);color:#111;padding:.15vw .7vw;border-radius:.25vw}
+.goal-group .tv-cluster-minute{background:#339bff;color:#fff}
+.tv-cluster-label{font:700 1.62vw Antonio,Impact,Arial,sans-serif}
+.tv-cluster .incident,.tv-cluster .incident.club-post{min-height:0;margin:.3vw 0;padding:.68vw .95vw;display:block;border:1px solid #494b52;border-left:.34vw solid #69cf86;border-radius:.28vw;background:#17181a}
+.tv-cluster .incident:before{display:none}
+.tv-cluster .incident.goal{border-left-color:#339bff}
+.tv-cluster .incident.yellow{border-left-color:#ffd32a}
+.tv-cluster .incident.red{border-left-color:#ff4d58}
+.tv-cluster .incident.club-post{border-left-color:#b6a3f9}
+.tv-incident-head{display:flex;align-items:center;gap:.65vw;justify-content:space-between}
+.tv-cluster .incident-type{font-size:1.52vw}
+.tv-cluster .incident-score{font-size:1.5vw;padding:.1vw .65vw}
+.tv-cluster .incident-text{font-size:1.32vw;line-height:1.4;margin-top:.3vw;max-height:none;overflow:visible}
+.tv-cluster .incident-text .post-head{font-size:1.15vw}
+.tv-cluster .incident-text .post-copy{font-size:1.32vw;white-space:pre-wrap}
+.tv-cluster .incident-text .post-media{max-height:11vw;max-width:22vw}
+.tv-source{font-size:.93vw;color:#b8bbc1;font-weight:700;margin-top:.3vw}
+.tv-cluster .incident-text .on,.tv-cluster .incident-text .off{font-size:1.4vw}
+.tv-cluster .incident-text .teamname{color:#e0e2e7;font-size:1.15vw;margin-bottom:.16vw}
+.tv-cluster .incident.demo-post{border:2px solid #ffdb00;border-left:.34vw solid #b6a3f9}
+
+/* 16:9 TV V9: broadcast strip + largest possible no-scroll featured-match timeline. */
+#tv{grid-template-rows:15% minmax(0,1fr) 2.5%;gap:.65%;padding:.8% 1.5% 1%;background:radial-gradient(ellipse at 75% -10%,#2d2c26 0,#141518 42%,#0a0a0b 100%)}
+.swoosh{right:-3%;top:-8%;height:11%;border-top:.35vw solid var(--gold);opacity:.85}
+.broadcastbar{display:grid;grid-template-columns:6.4% 13% minmax(0,1fr) minmax(0,19%);grid-template-rows:1fr auto;column-gap:1%;row-gap:.15vw;align-items:center;min-height:0;min-width:0;background:#0c0d0e;border-bottom:.22vw solid var(--gold);border-radius:.4vw;padding:.3vw .8vw;position:relative;z-index:1}
+.broadcastbar .crest{height:100%;width:100%;max-width:none;object-fit:contain;grid-row:1/3}
+.brand{min-width:0;display:flex;flex-direction:column;gap:.12vw}
+.brand strong{font:700 2.3vw Antonio,Impact,Arial,sans-serif;white-space:nowrap}
+.brand strong span{color:var(--gold)}
+.brand small{font:600 .8vw Antonio,Impact,Arial,sans-serif;color:#bfc3ca;letter-spacing:.035em}
+.matchline{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-rows:auto auto;align-items:center;column-gap:1.8%;row-gap:.18vw;min-width:0;width:100%;overflow:hidden}
+.broadcastbar .club{font-size:clamp(12px,1.85vw,38px);line-height:1.05;white-space:normal;overflow-wrap:anywhere;min-width:0;max-width:100%;overflow:hidden}
+.broadcastbar .club.away{justify-content:flex-end;text-align:right}
+.broadcastbar .score{font-size:3.1vw;padding:0 .65vw .18vw;border-radius:.35vw}
+.broadcastbar .match-state{grid-column:1/-1;justify-self:center;max-width:100%;font-size:1.13vw;line-height:1.05;padding:.08vw .65vw;border-left:0;border-radius:.2vw;color:var(--gold);text-align:center;white-space:nowrap}
+.signal{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:.3vw;min-width:0;max-width:100%;overflow:hidden;text-align:right}
+.broadcastbar .statusbar{display:block;background:none;border:0;padding:0;max-width:100%;min-width:0}
+.broadcastbar .status{display:block;font-size:clamp(9px,.88vw,18px);line-height:1.15;color:#80e8ac;white-space:normal;overflow-wrap:break-word}
+/* The 34-minute replay must not spill its badge over the away club name. */
+.historical-focus .signal{overflow:hidden;max-width:100%;text-align:right}
+.historical-focus .signal .statusbar{max-width:100%;overflow:hidden}
+.historical-focus .signal .status{display:block;font-size:.88vw;white-space:nowrap}
+.broadcastbar .statusbar.bad .status{color:#ff9292}
+.broadcastbar .statusbar.warn .status{color:#ffe06c}
+.broadcastbar .clock{font-size:1.03vw;color:#c7cbd1}
+.broadcastbar .topline{grid-column:2/5;font-size:.95vw;color:#b8bbc2;line-height:1.1;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.timeline{grid-template-rows:auto minmax(0,1fr) auto;border:1px solid #555961;border-top:.3vw solid var(--gold);min-height:0;overflow:hidden;border-radius:.45vw;background:#232529}
+.sectionhead{padding:.32vw .9vw .25vw;font-size:1.48vw}
+.event-list{min-height:0;min-width:0;overflow:hidden !important;scrollbar-width:none;display:block;padding:.15vw 1vw .25vw 2.2vw}
+.tv-cluster{margin:0 0 .35vw .2vw;padding-left:1.15vw;border-left:.19vw solid var(--gold)}
+.tv-cluster:before{height:.6vw;width:.6vw;left:-.39vw;top:.5vw}
+.tv-cluster-head{min-height:1.55vw;margin-bottom:.15vw;gap:.5vw}
+.tv-cluster-minute{font-size:1.35vw;padding:.06vw .55vw}
+.tv-cluster-label{font-size:1.23vw}
+.tv-cluster .incident,.tv-cluster .incident.club-post{padding:.27vw .7vw;margin:.12vw 0 .22vw;min-height:0;background:#17181a;border-radius:.25vw}
+.tv-cluster .incident-type{font-size:1.27vw}
+.tv-cluster .incident-score{font-size:1.23vw;padding:.02vw .5vw}
+.tv-cluster .incident-text{font-size:1.12vw;line-height:1.3;margin-top:.13vw}
+.tv-cluster .incident-text .on,.tv-cluster .incident-text .off{font-size:1.17vw}
+.tv-cluster .incident-text .teamname{display:inline;color:#c8cbd1;font-size:1.04vw;margin-right:.7vw}
+.tv-cluster .incident-text .teamname:after{content:" · "}
+.tv-cluster .incident-text .post-head{font-size:1vw;margin:0 0 .15vw}
+.tv-cluster .incident-text .post-copy{font-size:1.12vw;line-height:1.29;white-space:pre-wrap;overflow-wrap:anywhere}
+.tv-cluster .incident-text .post-media{max-height:8vw;max-width:15vw}
+.tv-source{font-size:.82vw;margin-top:.08vw;color:#aeb1b8}
+.timelinefoot{background:#141516;border-top:1px solid #4a4e55;padding:.18vw .85vw;font-size:.82vw;line-height:1.2}
+footer{font-size:.77vw;line-height:1}
+.demo-controls{bottom:3%;right:2%;gap:.45vw}
+.demo-controls button{font-size:1vw;padding:.25vw .7vw}
+@media(max-aspect-ratio:16/9){.tv-cluster .incident,.tv-cluster .incident.club-post{min-height:0}.tv-cluster .incident-text{font-size:2vh}.tv-cluster-label{font-size:2.18vh}.tv-cluster .incident-type{font-size:2.22vh}.tv-cluster .incident-text .post-copy{font-size:2vh}}
+
+/* An exceptionally long club post gets its own readable region rather than
+   allowing subsequent updates or the source footer to overlap. */
+.tv-cluster.oversize-moment{height:100%;overflow:hidden}
+.tv-cluster.oversize-moment .incident-text .post-copy{font-size:1vw;line-height:1.18}
+
+/* V10: compact time-led television cards, never giant X cards. */
+.event-list{display:flex;flex-direction:column;gap:.42vw;overflow:hidden!important;padding:.4vw .8vw .5vw 1.2vw}
+.tv-moment{display:grid;grid-template-columns:5vw minmax(0,1fr);gap:.6vw;align-items:stretch;min-height:0;flex:none;position:relative}
+.tv-moment:before{content:"";position:absolute;left:2.32vw;top:0;bottom:-.45vw;width:.14vw;background:#ffdb00}
+.tv-moment:last-child:before{bottom:50%}
+.tv-moment-minute{position:relative;z-index:1;justify-self:center;align-self:start;margin-top:.25vw;background:var(--gold);color:#111;font:700 1.75vw Antonio,Impact,sans-serif;min-width:3.65vw;text-align:center;padding:.2vw .4vw;border-radius:.25vw}
+.tv-moment.goal-moment .tv-moment-minute{background:#339bff;color:white}
+.tv-moment-content{display:grid;grid-template-columns:minmax(0,1fr);gap:.45vw;min-width:0}
+.tv-moment-content.has-both{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tv-moment-incidents,.tv-moment-posts{display:flex;flex-direction:column;gap:.3vw;min-width:0}
+.tv-event,.tv-post{border:1px solid #54565d;border-left:.32vw solid #6bd58c;border-radius:.28vw;background:#17181b;padding:.45vw .65vw;min-height:0;min-width:0}
+.tv-event.goal{border-left-color:#339bff}.tv-event.yellow{border-left-color:#ffd32a}.tv-event.red{border-left-color:#ff4d58}
+.tv-event-main{display:flex;align-items:baseline;gap:.75vw;min-width:0}
+.tv-event-type{font:700 1.38vw Antonio,Impact,Arial,sans-serif;white-space:nowrap}
+.tv-event.goal .tv-event-type{color:#65b5ff}.tv-event.yellow .tv-event-type{color:#ffe16b}.tv-event.red .tv-event-type{color:#ff747c}
+.tv-event-team{font-size:1.07vw;color:#c8cbd1;overflow-wrap:anywhere}
+.tv-event-detail{font-size:1.2vw;line-height:1.3;display:flex;flex-wrap:wrap;gap:.3vw .65vw;margin-top:.1vw;align-items:center}
+.tv-event-detail .on{color:#80e8ac;font-weight:700}.tv-event-detail .off{color:#ff8b94;font-weight:700}
+.tv-mini-score{background:var(--gold);color:#111;font:700 1.2vw Antonio,Impact,Arial,sans-serif;padding:.07vw .48vw;border-radius:.2vw;margin-left:auto}
+.tv-post{border-left-color:#b6a3f9;padding:.5vw .7vw}
+.tv-post-label{font:700 1.05vw Antonio,Impact,Arial,sans-serif;color:#dfc2ff}
+.tv-post-copy{font-size:1.18vw;line-height:1.27;white-space:normal;overflow-wrap:anywhere;margin-top:.22vw}
+.tv-moment-content.only-post .tv-moment-posts{width:100%}
+.tv-moment-content.only-post .tv-post{display:grid;grid-template-columns:18% 1fr;gap:.8vw;align-items:start}
+.tv-moment-content.only-post .tv-post-copy{margin-top:0}
+.tv-moment-content.has-both .tv-post-copy{font-size:1.1vw}
+.event-list.tight .tv-post-copy{font-size:1.02vw;line-height:1.17}
+.event-list.tight .tv-event-detail{font-size:1.05vw}
+.tv-moment .demo-post{border:2px solid var(--gold);border-left:.34vw solid #b6a3f9}
+.timeline .sectionhead{padding:.3vw .9vw .22vw}
+@media(max-aspect-ratio:16/9){.tv-post-copy{font-size:2.1vh}.tv-event-type{font-size:2.45vh}.tv-event-detail{font-size:2.12vh}.tv-moment-minute{font-size:3vh}}
+.historical-focus .event-list{gap:.28vw;padding-top:.24vw}
+.historical-focus .tv-event,.historical-focus .tv-post{padding:.3vw .56vw}
+.historical-focus .tv-post-copy{font-size:1.03vw;line-height:1.18}
+.historical-focus .tv-moment.goal-moment{background:rgba(51,155,255,.07);border-radius:.25vw}
+
+/* V12: single-column, compact match incidents and X commentary beneath them. */
+.tv-moment-content.has-both,.tv-moment-content{grid-template-columns:minmax(0,1fr)}
+.tv-moment-incidents,.tv-moment-posts{width:100%}
+.tv-moment-posts{margin-top:.08vw}
+.tv-post{display:grid;grid-template-columns:15% minmax(0,1fr);gap:.75vw;align-items:start}
+.tv-post-label{font-size:1.03vw;line-height:1.15}
+.tv-post-copy{font-size:1.1vw;line-height:1.23;margin:0}
+.tv-event{padding:.29vw .65vw}
+.tv-event-main{gap:.7vw}
+.tv-event-detail{margin-top:0;font-size:1.18vw}
+.tv-moment{gap:.34vw}
+.event-list{gap:.24vw}
+.historical-focus .tv-post{padding:.27vw .6vw}
+.historical-focus .tv-event{padding:.28vw .6vw}
+.historical-focus .tv-moment{gap:.28vw}
+.historical-focus .tv-moment-minute{font-size:1.65vw;padding:.09vw .34vw}
+.historical-focus .tv-event-detail{font-size:1.15vw}
+
+/* V13: restrained broadcast gold ribbons framing the TV canvas. */
+.swoosh{display:none}
+.broadcast-ribbon{position:absolute;left:0;width:100%;pointer-events:none;z-index:3;overflow:visible;filter:drop-shadow(0 .09vw .19vw rgba(255,203,0,.30))}
+.broadcast-ribbon.top{top:-.6%;height:8.8%}
+.broadcast-ribbon.bottom{bottom:-1.25%;height:7.6%}
+.broadcast-ribbon path.core{fill:none;stroke:url(#broadcastGold);stroke-width:4.5;stroke-linecap:round}
+.broadcast-ribbon path.light{fill:none;stroke:url(#broadcastGold);stroke-width:1.4;stroke-linecap:round;opacity:.85}
+.broadcast-ribbon path.glow{fill:none;stroke:#ffdc00;stroke-width:10;opacity:.09;filter:blur(3px)}
+.broadcastbar,.timeline{position:relative;z-index:1}
+/* Keep the gold ribbon below the information layer; footer masks it cleanly. */
+footer{position:relative;z-index:5;background:#080909;padding:0 .35vw;border-top:1px solid #303135}
+.broadcast-ribbon.bottom{z-index:2}
+
+/* X media: render real attachments from the official club post, never AI recreations. */
+.tv-post.has-media{grid-template-columns:14% minmax(0,1fr) minmax(0,43%);align-items:center}
+.tv-moment-content.only-post .tv-post.has-media{grid-template-columns:14% minmax(0,1fr) minmax(0,43%);align-items:center}
+.tv-post-artwork{display:block;width:100%;max-height:44vh;min-height:0;object-fit:contain;background:#0a0a0b;border:1px solid #505159;border-radius:.3vw;cursor:zoom-in}
+.tv-post-art-wrap{min-width:0;display:flex;flex-direction:column;gap:.25vw;align-items:stretch}
+.tv-post-viewhint{font-size:.9vw;color:#dfc2ff;text-align:center}
+.tv-image-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.97);display:none;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw}
+.tv-image-lightbox.open{display:flex}
+.tv-image-lightbox img{max-width:96vw;max-height:88vh;width:auto;height:auto;object-fit:contain}
+.tv-image-close{position:absolute;top:1vh;right:2vw;background:var(--gold);color:#111;border:0;border-radius:.3vw;font-size:1.5vw;font-weight:900;padding:.4vw 1vw;cursor:pointer}
+.tv-image-caption{font-size:1.15vw;color:#ddd;max-width:94vw;text-align:center}
+@media(max-aspect-ratio:16/9){.tv-post-artwork{max-height:44vh}.tv-post-viewhint{font-size:1.5vh}.tv-image-close{font-size:2.5vh}.tv-image-caption{font-size:2vh}}
+</style></head><body><main id="tv">
+<svg class="broadcast-ribbon top" viewBox="0 0 1600 88" preserveAspectRatio="none" aria-hidden="true">
+<defs><linearGradient id="broadcastGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bd8600" stop-opacity="0"/><stop offset="31%" stop-color="#ffdb00"/><stop offset="53%" stop-color="#fff5a3"/><stop offset="76%" stop-color="#ffd000"/><stop offset="100%" stop-color="#b27d00" stop-opacity="0"/></linearGradient></defs>
+<path class="glow" d="M360 27 C560 76 730 30 900 16 S1160 2 1400 28"/>
+<path class="core" d="M360 27 C560 76 730 30 900 16 S1160 2 1400 28"/>
+<path class="light" d="M330 21 C545 68 710 24 900 11 S1180 -3 1420 22"/>
+</svg>
+<svg class="broadcast-ribbon bottom" viewBox="0 0 1600 76" preserveAspectRatio="none" aria-hidden="true">
+<path class="glow" d="M210 47 C380 82 600 69 790 43 S1100 24 1300 41 S1480 54 1600 20"/>
+<path class="core" d="M210 47 C380 82 600 69 790 43 S1100 24 1300 41 S1480 54 1600 20"/>
+<path class="light" d="M180 41 C370 76 590 63 790 37 S1110 18 1300 35 S1480 48 1600 15"/>
+</svg>
+<div class="broadcastbar">
+  <img class="crest" src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town club crest">
+  <div class="brand"><strong>TIVVY <span>LIVE</span></strong><small>SOUTHERN LEAGUE · MATCH CENTRE TV</small></div>
+  <div class="matchline"><div class="club" id="home">HOME</div><div class="score" id="score">– : –</div><div class="club away" id="away">TIVERTON TOWN</div><div class="match-state" id="state">CHECKING</div></div>
+  <div class="signal"><div class="statusbar warn" id="health"><span class="status" id="healthLabel">● CONNECTING</span></div><span class="clock" id="now">—</span></div>
+  <div class="topline" id="fixtureText">Connecting to official match source…</div>
+</div>
+<section class="timeline" aria-label="Verified Southern League match incidents">
+<div class="sectionhead">MATCH TIMELINE · OFFICIAL INCIDENTS + CLUB COMMENTARY</div>
+<div id="events" class="event-list"><div class="unknown">Waiting for source-verified match data…</div></div>
+<div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
+</section>
+<div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button><button id="demoXButton" type="button">𝕏 DEMO CLUB POST</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
+<footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
+</main>
+<script>
+(function(){
+"use strict";
+const params=new URLSearchParams(location.search);
+const demoMode=params.get("demo")==="1";
+// Read-only historical TV preview: start the visible ticker at a real match minute.
+const focusMinute=["28","39"].includes(params.get("focus"))?Number(params.get("focus")):null;
+const grubbReplay=focusMinute===28 && params.get("date")==="2026-11-21";
+const replayMinute=34;
+const replayCutoff=Date.parse("2026-11-21T15:34:59Z");
+if(focusMinute!==null)document.body.classList.add("historical-focus");
+if(demoMode)document.body.classList.add("demo");
+// Keep this default match date in sync with tivvy-live-saturday-test.html when preparing each matchday.
+const date=["2026-11-11","2026-11-14","2026-11-21","2026-11-23"].includes(params.get("date"))?params.get("date"):"2026-11-23";
+const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"},"2026-11-21":{home:"Melksham Town",away:"Tiverton Town",kickoff:"15:00"},"2026-11-23":{home:"Swindon Supermarine",away:"Tiverton Town",kickoff:"19:45"}};
+const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
+ const kickoffAt=new Date(date+"T"+config.kickoff+":00Z").getTime();
+ const matchDateLabel=new Date(date+"T12:00:00Z").toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long"});
+ function prematchLabel(){const remaining=kickoffAt-Date.now();if(remaining<=0)return "AWAITING LIVE FEED";const seconds=Math.max(0,Math.ceil(remaining/1000));const days=Math.floor(seconds/86400),hours=Math.floor(seconds%86400/3600),mins=Math.floor(seconds%3600/60),secs=seconds%60;return "KICK-OFF IN "+(days?days+"D ":"")+String(hours).padStart(2,"0")+"H "+String(mins).padStart(2,"0")+"M "+String(secs).padStart(2,"0")+"S"}
+const $=id=>document.getElementById(id);
+const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
+const abbreviate={"joshua william bissett":"Josh Bissett","jacob robert wellington":"Jacob Wellington","matthew liam wood":"Matt Wood","corey hayden koerner":"Corey Koerner","louis jagger cane":"Louis Jagger Cane","evander marvin grubb":"Evander Grubb","jack william kennell":"Jack Kennell"};
+function name(raw){const x=String(raw||"").trim();const k=x.toLowerCase().replace(/\s+/g," ");if(abbreviate[k])return abbreviate[k];const p=x.split(/\s+/);return p.length>2?p[0]+" "+p[p.length-1]:x}
+function person(e){return name(e.person?.name||e.personName||e.player)}
+function type(e){return String(e.eventType||e.type||"").toUpperCase()}
+function kind(e){const t=type(e);return t.startsWith("GOAL")?"goal":t.includes("YELLOW")?"yellow":t.includes("RED")?"red":t.includes("SUB")?"sub":"other"}
+function label(e){const t=type(e);if(t.startsWith("GOAL"))return t.includes("PENALTY")?"⚽ PENALTY GOAL":"⚽ GOAL";if(t.includes("YELLOW"))return "🟨 YELLOW CARD";if(t.includes("RED"))return "🟥 RED CARD";if(t.includes("SUB"))return "↕ SUBSTITUTION";return t.replace(/_/g," ")}
+function teamMap(match){
+ const map=new Map();if(match.homeTeamId)map.set(String(match.homeTeamId),match.home);
+ if(match.awayTeamId)map.set(String(match.awayTeamId),match.away);
+ const sorted=[...(match.events||[])].sort((a,b)=>Number(a.minute||0)-Number(b.minute||0));
+ let prev={home:0,away:0};
+ for(const e of sorted){const s=e.score;if(!s||!Number.isInteger(s.home)||!Number.isInteger(s.away))continue;
+ if(type(e).startsWith("GOAL")&&e.teamId){
+ if(s.home>prev.home&&s.away===prev.away)map.set(String(e.teamId),match.home);
+ if(s.away>prev.away&&s.home===prev.home)map.set(String(e.teamId),match.away);}
+ prev=s;}
+ const ids=[...new Set(sorted.map(e=>e.teamId&&String(e.teamId)).filter(Boolean))];
+ if(ids.length===2&&map.size===1){const other=ids.find(id=>!map.has(id));if(other)map.set(other,[...map.values()][0]===match.home?match.away:match.home)}
+ return map;
+}
+function team(e,m,map){return map.get(String(e.teamId||""))||String(e.team||"")||"TEAM UNCONFIRMED"}
+function isFinal(status){return /^full\s*time$|^fulltime$/i.test(String(status||"").replace(/_/g,""))}
+let manualFacebookPosts=[],payload=null,renderSig="",lastGood=0,knownKeys=new Set(),initialized=false,celebratedGoals=new Set(),celebrationUntil=0,arrivalTimes=new Map(),demoXItem=null,demoXTimeout=null,demoXSequence=0;
+function element(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
+function postMinute(p){
+ const hit=String(p.text||"").trim().match(/^(\d{1,3})\s*['’′]/);
+ return hit?Number(hit[1]):null;
+}
+function postsForMatch(){return [...(payload?.x?.posts||[]),...manualFacebookPosts].filter(p=>{
+ if(!p.createdAt)return false;
+ const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/London",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(p.createdAt));
+ const v=k=>parts.find(part=>part.type===k)?.value||"";
+ return v("year")+"-"+v("month")+"-"+v("day")===date;
+ }).sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt))}
+function timelineItems(){
+ const match=payload?.matchday?.featured;if(!match)return [];
+ const entries=(grubbReplay?(match.events||[]).filter(e=>Number(e.minute)<=replayMinute):(match.events||[])).map((event,i)=>({
+  kind:"incident",minute:Number.isFinite(Number(event.minute))?Number(event.minute):null,event,
+  key:"event:"+String(event._id||event.id||[event.minute,event.eventType,event.teamId,event.person?.name,event.personOff?.name].join("|"))
+ }));
+ const minutes=entries.map(e=>e.minute).filter(m=>m!==null);
+ for(const p of postsForMatch()){
+  const claimed=postMinute(p);
+   const postedAt=Date.parse(p.createdAt||"");
+   // Historical view cannot include posts published after its displayed time.
+   if(grubbReplay&&(!Number.isFinite(postedAt)||postedAt<kickoffAt||postedAt>replayCutoff||(claimed!==null&&claimed>replayMinute)))continue;
+  const nearest=claimed===null?[]:minutes.filter(m=>Math.abs(m-claimed)<=2).sort((a,b)=>Math.abs(a-claimed)-Math.abs(b-claimed));
+  entries.push({kind:"post",minute:nearest.length?nearest[0]:claimed,claimedMinute:claimed,
+    post:p,key:"x:"+String(p.id||p.url),grouped:nearest.length>0});
+ }
+ if(demoMode&&demoXItem)entries.push(demoXItem);
+ return entries;
+}
+function postMoment(p){
+ const matchStart=new Date(date+"T"+config.kickoff+":00Z").getTime();
+ const published=Date.parse(p.createdAt||"");
+ // Used only to place unnumbered X posts in approximate sequence; the UI
+ // labels these as 'Club post' and never represents this estimate as a minute.
+ if(!Number.isFinite(published))return -1;
+ return Math.max(-1,Math.min(130,(published-matchStart)/60000));
+}
+function timelineGroups(){
+ const items=timelineItems(),events=items.filter(x=>x.kind==="incident"),posts=items.filter(x=>x.kind==="post");
+ const grouped=new Map();
+ // Official incidents determine the minute structure: X must not crowd out football.
+ for(const item of events){
+  const key="minute:"+item.minute;
+  if(!grouped.has(key))grouped.set(key,{minute:item.minute,items:[],order:item.minute??-1});
+  grouped.get(key).items.push(item);
+ }
+ const standalone=[];
+ for(const item of posts){
+  // Match only X posts explicitly identifying a minute close to an official
+  // event, as in the featured-match column. Never invent event minutes.
+  const nearby=item.claimedMinute===null?[]:[...grouped.values()].filter(g=>g.minute!==null&&Math.abs(g.minute-item.claimedMinute)<=2)
+    .sort((a,b)=>Math.abs(a.minute-item.claimedMinute)-Math.abs(b.minute-item.claimedMinute));
+  if(nearby.length){nearby[0].items.push(item);}
+  else standalone.push(item);
+ }
+ const groups=[...grouped.values()].sort((a,b)=>(b.minute??-1)-(a.minute??-1));
+ // One latest standalone club post gets a high-visibility moment; remaining
+ // unlinked posts must not monopolise the non-scrolling screen.
+ standalone.sort((a,b)=>Date.parse(b.post.createdAt)-Date.parse(a.post.createdAt));
+ const standaloneCount=grubbReplay?standalone.length:Math.min(1,standalone.length);
+ for(let i=0;i<standaloneCount;i++){
+  const p=standalone[i];
+  groups.push({minute:p.claimedMinute,items:[p],order:p.minute??postMoment(p.post),standalone:true});
+ }
+ // Preview uses only real nearby match incidents both BEFORE and AFTER 39 minutes.
+ // Standalone X posts are excluded to keep the goal and surrounding action visible.
+ // Fill the remainder of the real 16:9 screen with earlier actual incidents and original X posts.
+  // Unnumbered X posts use their publication time, not an invented official minute.
+  const displayGroups=grubbReplay?groups.filter(g=>{
+   const moment=g.minute===null?g.order:g.minute;
+   return moment!==null&&moment>=0&&moment<=replayMinute;
+  }):focusMinute===null?groups:groups.filter(g=>g.minute!==null&&g.minute>=focusMinute-8&&g.minute<=focusMinute+49);
+ // Historical TV demo anchors the penalty and surrounding action (33'-71')
+ // before showing later 79'-88' substitutions. Otherwise late subs push
+ // the confirmed X post linked to 33' off the no-scroll screen.
+ // Normal live TV retains its chronological newest-first ordering.
+ return displayGroups.sort((a,b)=>{
+  const aDemo=a.items.some(i=>i.demo),bDemo=b.items.some(i=>i.demo);
+  if(aDemo!==bDemo)return aDemo?-1:1;
+  if(focusMinute!==null&&!grubbReplay){
+   const aCore=a.minute!==null&&a.minute<=71&&a.minute>=31;
+   const bCore=b.minute!==null&&b.minute<=71&&b.minute>=31;
+   if(aCore!==bCore)return aCore?-1:1;
+  }
+  return (b.order??-1)-(a.order??-1);
+ });
+}
+function incidentNode(item,m,map){
+ const e=item.event,el=element("div","tv-event "+kind(e));
+ const line=element("div","tv-event-main");
+ line.append(element("strong","tv-event-type",label(e)));
+ line.append(element("span","tv-event-team",team(e,m,map)));
+ el.append(line);
+ const detail=element("div","tv-event-detail");
+ if(kind(e)==="sub"){
+  detail.append(element("span","on","▲ ON · "+(person(e)||"Name unavailable")));
+  detail.append(element("span","","   "));
+  detail.append(element("span","off","▼ OFF · "+(name(e.personOff?.name||e.personOffName)||"Name unavailable")));
+ }else detail.append(element("span","",person(e)||"Player unavailable"));
+ const sc=e.score;
+ if(sc&&Number.isInteger(sc.home)&&Number.isInteger(sc.away))detail.append(element("span","tv-mini-score",sc.home+"–"+sc.away));
+ el.append(detail);return el;
+}
+function clubNode(item){
+ const p=item.post,el=element("div","tv-post"+(item.demo?" demo-post":""));
+ el.append(element("div","tv-post-label",item.demo?"𝕏 DEMONSTRATION · EXISTING CLUB POST":p.source==="facebook-manual"?"FACEBOOK FANS GROUP · MANUALLY RELAYED · "+String(p.author||"Darren")+" · "+uk(p.createdAt):"𝕏 TIVERTON TOWN FC · "+uk(p.createdAt)));
+ const copy=String(p.text||"").replace(/\s+/g," ").trim();
+ el.append(element("div","tv-post-copy",copy));
+ const photo=(Array.isArray(p.media)?p.media:[]).find(m=>m.type==="photo"&&/^https:\/\//i.test(m.url||""));
+ if(photo){
+  el.classList.add("has-media");
+  const wrap=element("div","tv-post-art-wrap");
+  const pic=element("img","tv-post-artwork");
+  pic.src=photo.url;pic.alt=photo.alt||"Official Tiverton Town FC post artwork";pic.loading="eager";pic.decoding="async";
+  pic.title="Select to enlarge official club artwork";pic.tabIndex=0;
+  const show=()=>openClubArtwork(photo.url,pic.alt,copy);
+  pic.addEventListener("click",show);
+  pic.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show()}});
+  wrap.append(pic,element("div","tv-post-viewhint","SELECT IMAGE TO ENLARGE"));
+  el.append(wrap);
+ }else if((p.media||[]).some(m=>m.type==="photo")){
+  const link=element("a","tv-post-viewhint","VIEW ORIGINAL IMAGE ON X ↗");
+  link.href=p.url;link.target="_blank";link.rel="noopener noreferrer";el.append(link);
+ }
+ return el;
+}
+function openClubArtwork(src,alt,caption){
+ let viewer=$("clubArtworkViewer");
+ if(!viewer){
+  viewer=element("div","tv-image-lightbox");viewer.id="clubArtworkViewer";
+  viewer.setAttribute("role","dialog");viewer.setAttribute("aria-label","Club artwork full-screen");
+  const close=element("button","tv-image-close","CLOSE ×");close.type="button";
+  close.addEventListener("click",()=>viewer.classList.remove("open"));
+  viewer.append(close,element("img"),element("div","tv-image-caption"));
+  viewer.addEventListener("click",e=>{if(e.target===viewer)viewer.classList.remove("open")});
+  document.body.append(viewer);
+ }
+ viewer.querySelector("img").src=src;
+ viewer.querySelector("img").alt=alt;
+ viewer.querySelector(".tv-image-caption").textContent=caption;
+ viewer.classList.add("open");
+}
+function fitTimeline(){const root=$("events");root.classList.toggle("tight",root.scrollHeight>root.clientHeight+1)}
+function drawTimeline(){
+ const root=$("events");root.replaceChildren();root.classList.remove("tight");
+ const match=payload?.matchday?.featured;
+ if(!match){root.append(element("div","unknown","Waiting for the verified featured fixture."));return}
+ const groups=timelineGroups(),teamIds=teamMap(match),all=timelineItems();
+ for(const group of groups){
+  const cluster=element("section","tv-moment");
+  if(group.items.some(x=>x.kind==="incident"&&kind(x.event)==="goal"))cluster.classList.add("goal-moment");
+  const minute=element("div","tv-moment-minute",group.minute===null?"𝕏":group.minute+"′");
+  const content=element("div","tv-moment-content");
+  const ev=group.items.filter(x=>x.kind==="incident"),posts=group.items.filter(x=>x.kind==="post");
+  // Match Centre presentation: an incident occupies the FULL width.
+  // Club commentary belongs immediately beneath it, never in a right column.
+  const left=element("div","tv-moment-incidents");
+  for(const item of ev)left.append(incidentNode(item,match,teamIds));
+  if(ev.length)content.append(left);
+  if(posts.length){
+   const under=element("div","tv-moment-posts");
+   for(const item of posts.slice(0,focusMinute===null?1:2))under.append(clubNode(item));
+   content.append(under);
+  }
+  if(!ev.length)content.classList.add("only-post");
+  cluster.append(minute,content);root.append(cluster);
+  // Fit content incrementally. A later huge post must never hide earlier
+  // compact official incident rows; zero manual scrolling.
+  if(root.scrollHeight>root.clientHeight+1){cluster.remove();break}
+ }
+ if(!all.length)root.append(element("div","unknown","Awaiting official match incidents and club commentary."));
+ fitTimeline();
+ $("eventFoot").textContent=all.filter(x=>x.kind==="incident").length+" official incidents · "+all.filter(x=>x.kind==="post"&&!x.demo).length+" club posts";
+ $("pageCount").textContent=grubbReplay?"AS IT HAPPENED · GRUBB 28′ + EARLIER REAL MATCH MOMENTS · NO SCROLL":focusMinute!==null?"HISTORICAL PREVIEW · 39′ GOAL + VERIFIED X"+focusMinute+"′ · NO SCROLL":"MOST RECENT MATCH MOMENTS · NO SCROLL";
+ knownKeys=new Set(all.map(x=>x.key));initialized=true;
+}
+function showGoalCelebration(scorer,minute,penalty,isDemo=false){
+ const overlay=$("goalCelebration");
+ overlay.classList.toggle("demo",isDemo);
+ $("celebrationScorer").textContent=scorer;
+ $("celebrationDetail").textContent=String(minute)+"′ · "+(penalty?"PENALTY":"TIVERTON TOWN");
+ overlay.classList.remove("active");
+ void overlay.offsetWidth;
+ overlay.classList.add("active");
+ celebrationUntil=Date.now()+8500;
+}
+function replayGoal(){
+ if(!demoMode)return;
+ // Match-specific, previously verified goal; this function NEVER alters the
+ // official feed, score, incident list or real goal alert state.
+ if(date==="2026-11-11")showGoalCelebration("ASA HALL","39",true,true);
+ else showGoalCelebration("TIVVY GOAL DEMO","--",false,true);
+}
+function replayClubPost(){
+ if(!demoMode)return;
+ const realPosts=postsForMatch();
+ if(!realPosts.length){
+  $("pageCount").textContent="DEMO UNAVAILABLE · NO VERIFIED CLUB POST TO REPLAY";
+  return;
+ }
+ const post=realPosts[0];
+ if(demoXTimeout)clearTimeout(demoXTimeout);
+ if(demoXItem)arrivalTimes.delete(demoXItem.key);
+ demoXItem={kind:"post",minute:postMinute(post),claimedMinute:postMinute(post),
+  grouped:false,post, key:"demo-x:"+String(++demoXSequence),demo:true};
+ arrivalTimes.set(demoXItem.key,Date.now()+1000);
+ drawTimeline();
+ demoXTimeout=setTimeout(()=>{
+  if(demoXItem){arrivalTimes.delete(demoXItem.key);demoXItem=null;drawTimeline();}
+ },24000);
+}
+if(demoMode){
+ $("demoGoalButton").addEventListener("click",replayGoal);
+ $("demoXButton").addEventListener("click",replayClubPost);
+ // The TV layout opens directly to the ticker. Demos are opt-in buttons only.
+}
+function updateHeader(){
+ const d=payload?.matchday,m=d?.featured;
+ $("home").textContent=m?.home||config.home;$("away").textContent=m?.away||config.away;
+ const matchStatus=String(m?.status||"");
+ const underway=!!m&&(/live|progress|half|playing|second|first|extra|penalt/i.test(matchStatus)||isFinal(matchStatus));
+ $("score").textContent=underway&&m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
+ $("state").textContent=underway?(isFinal(matchStatus)?"FULL TIME":matchStatus.replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase()):prematchLabel();
+  if(grubbReplay&&m){
+   const earlier=(m.events||[]).filter(e=>Number(e.minute)<=replayMinute&&e.score&&Number.isInteger(e.score.home)&&Number.isInteger(e.score.away)).sort((a,b)=>Number(b.minute)-Number(a.minute));
+   const score=earlier[0]?.score;
+   if(score)$("score").textContent=score.home+"–"+score.away;
+   $("state").textContent="ARCHIVE · 34′";
+  }
+ $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase()+" · "+matchDateLabel.toUpperCase()+" · "+config.kickoff+" KICK-OFF";
+ const age=d?.checkedAt?Date.now()-Date.parse(d.checkedAt):Infinity;
+ const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;
+ const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
+ $("health").className="statusbar "+(healthy?"":stale?"warn":"bad");
+ $("healthLabel").textContent=healthy?(isFinal(m.status)?"● VERIFIED FINAL RESULT":/live|progress|half|playing|second|first/i.test(String(m.status||""))?"● CURRENT OFFICIAL MATCH FEED":"● OFFICIAL FIXTURE FEED CURRENT"):stale?"⚠ LAST VERIFIED SNAPSHOT":"⚠ SOURCE UNAVAILABLE";
+  if(grubbReplay){$("health").className="statusbar";$("healthLabel").textContent="● VERIFIED REPLAY"}
+ $("verified").textContent=grubbReplay?"AS IT HAPPENED THROUGH 34′ · REAL HISTORICAL INCIDENTS + CLUB POSTS · RECONSTRUCTION, NOT ORIGINAL CAPTURE":"SOUTHERN LEAGUE · "+(d?.checkedAt?"SOURCE CHECKED "+uk(d.checkedAt):"NO SOURCE CHECK YET")+" · "+(payload?.x?.checkedAt?"X CHECKED "+uk(payload.x.checkedAt):"X STATUS PENDING");
+}
+async function refresh(){
+ // Independent, date-scoped manual commentary snapshot. Failure never alters official incidents.
+ try{const r=await fetch("data/tivvy-manual-facebook-"+date+".json?t="+Date.now(),{cache:"no-store"});if(r.ok){const j=await r.json();if(j.date===date&&Array.isArray(j.posts))manualFacebookPosts=j.posts.filter(p=>p.source==="facebook-manual")}}catch(_){/* Preserve last approved manual posts */}
+ try{
+ const res=await fetch(api+"&t="+Date.now(),{cache:"no-store"});
+ if(!res.ok)throw Error("Collector HTTP "+res.status);
+ const value=await res.json();
+ if(value?.matchday?.date!==date||value?.matchday?.status!=="ok"||!value?.matchday?.featured)throw Error("Official featured fixture not verified");
+ const match=value.matchday.featured;
+ if(match.home?.toLowerCase()!==config.home.toLowerCase()||match.away?.toLowerCase()!==config.away.toLowerCase())throw Error("Featured fixture mismatch");
+ payload=value;lastGood=Date.now();
+ const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts,facebook:manualFacebookPosts});
+ if(sig!==renderSig){drawTimeline();renderSig=sig}
+ updateHeader();
+ }catch(err){
+ $("health").className="statusbar bad";$("healthLabel").textContent="⚠ DATA DELAYED";
+ if(payload){const sig=JSON.stringify({match:payload.matchday?.featured,x:payload.x?.posts,facebook:manualFacebookPosts});if(sig!==renderSig){drawTimeline();renderSig=sig}}
+ // A failed/early collector response must never erase the independently confirmed fixture.
+  updateHeader();
+  $("health").className="statusbar bad";$("healthLabel").textContent="⚠ LIVE DATA NOT YET VERIFIED";
+  $("verified").textContent="Confirmed fixture · live collector: "+String(err.message||err)+" · no unverified incidents displayed";
+ if(!lastGood){$("verified").textContent="Unable to verify official match data — no speculative incidents displayed"}
+ }
+}
+function clock(){ $("now").textContent=grubbReplay?"Sat 15:34:00 · REPLAY":new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+clock();updateHeader();setInterval(()=>{clock();updateHeader()},1000);
+refresh();setInterval(refresh,20000);
+window.addEventListener("resize",()=>{if(payload)drawTimeline()});
+setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);
+
+})();
+</script></body></html>

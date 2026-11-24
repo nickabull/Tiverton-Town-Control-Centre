@@ -35,13 +35,13 @@ def key(value):
 
 
 def score(value):
-    match = re.fullmatch(r"\\s*(\\d+)\\s*[-–]\\s*(\\d+)\\s*", str(value or ""))
+    match = re.fullmatch(r"\s*(\d+)\s*[-–]\s*(\d+)\s*", str(value or ""))
     return tuple(map(int, match.groups())) if match else None
 
 
 def fixture_time(f):
     time = str(f.get("kickOff") or "15:00")
-    if not re.fullmatch(r"\\d{2}:\\d{2}", time):
+    if not re.fullmatch(r"\d{2}:\d{2}", time):
         time = "15:00"
     return dt.datetime.fromisoformat(f["date"] + "T" + time).replace(tzinfo=LONDON)
 
@@ -64,12 +64,11 @@ def inspect(today=None, source=None):
         day = fixture["date"]
         opponent = fixture["opposition"]
         venue = fixture["homeAway"]
-        expected = score(re.sub(r"^[WDL]\\s+", "", fixture.get("result", "")))
+        expected = score(re.sub(r"^[WDL]\s+", "", fixture.get("result", "")))
         if expected is None:
             raise ValueError("Fixture has a final flag but not a parsable score")
         home = "Tiverton Town" if venue == "H" else opponent
         away = opponent if venue == "H" else "Tiverton Town"
-        published_homeaway = expected if venue == "A" else expected
         statuses["fixture"] = f"{day} {home} {expected[0]}-{expected[1]} {away}"
         # A safety gate, not a claim to have observed the exact FT whistle:
         # begin checking 2h15 after scheduled kick-off (typical FT + ~15min).
@@ -108,7 +107,7 @@ def inspect(today=None, source=None):
             else:
                 # A current table must come from a newly built result feed, not a historical fallback.
                 updated = results.get("updated") or ""
-                match = re.search(r"\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}", updated)
+                match = re.search(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", updated)
                 if not match:
                     problems.append("League table lacks a parseable publication timestamp")
                 else:
@@ -147,7 +146,7 @@ def main():
     parser.add_argument("--output", default="postmatch-audit.json")
     args = parser.parse_args()
     report = inspect()
-    Path(args.output).write_text(json.dumps(report, indent=2) + "\\n")
+    Path(args.output).write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
     if report["status"] not in ("PASS", "NO_RECENT_FINAL", "AWAITING_POSTMATCH_WINDOW"):
         raise SystemExit(1)

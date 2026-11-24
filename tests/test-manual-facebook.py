@@ -42,7 +42,7 @@ with tempfile.TemporaryDirectory() as tmp:
     event.write_text(json.dumps({"issue": {
         "number": 120, "title": "[TIVVY FB] 2026-11-28",
         "user": {"login": "nickabull"}, "created_at": "2026-11-28T15:03:00Z",
-        "body": "DATE: 2026-11-28\\nTIME: 15:02\\nAUTHOR: Darren · Facebook Fans group\\nTEXT:\\nHartpury commentary test",
+        "body": "DATE: 2026-11-28\nTIME: 15:02\nAUTHOR: Darren · Facebook Fans group\nTEXT:\nHartpury commentary test",
     }}))
     env = {**os.environ, "GITHUB_EVENT_PATH": str(event)}
     subprocess.run([sys.executable, str(SCRIPT)], cwd=base, env=env,
@@ -54,7 +54,7 @@ with tempfile.TemporaryDirectory() as tmp:
     event.write_text(json.dumps({"issue": {
         "number": 121, "title": "[TIVVY FB] 2026-12-05",
         "user": {"login": "nickabull"}, "created_at": "2026-12-05T15:03:00Z",
-        "body": "DATE: 2026-12-05\\nTIME: 15:02\\nAUTHOR: Darren\\nTEXT:\\nInvalid fixture",
+        "body": "DATE: 2026-12-05\nTIME: 15:02\nAUTHOR: Darren\nTEXT:\nInvalid fixture",
     }}))
     subprocess.run([sys.executable, str(SCRIPT)], cwd=base, env=env,
                    capture_output=True, text=True, check=True)

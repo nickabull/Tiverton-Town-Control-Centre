@@ -1804,3 +1804,8 @@ Home network (DrayTek 2865, 10.0.0.x)
 
 ### 25 Nov 2026 — Normal standby versus genuine faults
 - User requested neutral wording for PS5 and TV non-response, not red fault indications for equipment likely switched off; Jesse's TV must remain NOT PAIRED until actual pairing. `ipad16.html` commit `1bd3e81a90fd9a00fafd11f23d6bb492fcd20dd9` uses likely off/rest mode or standby for explicit non-response, power unknown/not checked where not verified, neutral status dots. Heartbeat inherits this. Dedicated PS5 page commit `52931cac94891c0a779f6a4e0db281fc77879895` and `tvs.html` commit `6fa5816e3e54307cf21a6994f3843f04c1cb738b` align wording. Actual PSN service/read failures remain distinguishable. JS syntax checked; live deployment and visual QA outstanding. No device commands or polling changes.
+
+
+### 25 Nov 2026 15:39 GMT — Network telemetry display resilience
+- User screenshot confirms physical Heartbeat v1.2 shows all rows, but DrayTek unavailable and AP rates missing while remote access works. Remote access demonstrates connectivity, not successful SNMP telemetry. Source inspection confirms rotation itself does not initiate fetch; periodic refresh can discard failed responses, and partial samples can omit rates.
+- Nerd Central `ipad16.html` commit `7e9cbeffe73eeb81a2a8bc055f182f34433c504e` retains last-good router and AP rates in page memory, labels cached values and shows WAN last-good timestamp. Heartbeat inherits this. No changes to request frequency, controls or backend collector. JS syntax checked; live QA outstanding. Cache is page-local and does not survive browser reload; server-wide persistent cache remains outstanding. Screenshot still v1.2; v1.3 reload required. Actual reason for missing SNMP measurements not yet diagnosed.

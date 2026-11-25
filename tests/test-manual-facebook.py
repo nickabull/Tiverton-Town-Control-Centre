@@ -9,10 +9,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "publish-manual-facebook-post.py"
-for page in ("tivvy-live-tv.html", "tivvy-live-saturday-test.html"):
+for page, date_scoped_fetch in {
+    "tivvy-live-tv.html": 'fetch("data/tivvy-manual-facebook-"+date+".json',
+    "tivvy-live-saturday-test.html": 'grab("tivvy-manual-facebook-"+EXPECTED_DATE+".json")',
+}.items():
     html = (ROOT / page).read_text()
     assert "manualFacebookPosts" in html, page
-    assert "data/tivvy-manual-facebook-" in html, page
+    assert date_scoped_fetch in html, page
     assert "facebook-manual" in html, page
 scratch = (ROOT / "tivvy-facebook-scratchpad.html").read_text()
 assert "issues/new?" in scratch and "SUBMIT COMMENTARY" in scratch

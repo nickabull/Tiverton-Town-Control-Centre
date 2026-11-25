@@ -144,6 +144,7 @@ button.x-expand:hover{background:#554b6b}
 <section class="panel" id="featuredPanel" aria-label="Featured match"><h2>FEATURED MATCH</h2>
 <div class="matchhead"><span class="teams" id="fixtureHome">TIVERTON TOWN</span><strong class="score" id="featureScore">—</strong><span class="teams" id="fixtureAway">FIXTURE PENDING</span></div>
 <div class="matchmeta" id="featuredMeta">Awaiting verified data</div>
+<details id="tivvyLineup" class="matchmeta"><summary>Tiverton team sheet</summary><div id="lineupContent">Awaiting a verified team sheet.</div></details>
 <h3>Match timeline</h3><div class="scroll" id="featuredEvents" aria-live="polite">Loading incidents…</div>
 <div class="foot"><span id="featureDiag">Source check pending</span><a href="https://www.southern-football-league.co.uk/live" target="_blank" rel="noopener">Southern League live listings</a></div>
 </section>
@@ -175,7 +176,7 @@ const matchdayPath="tivvy-live-"+dateStamp+".json";
 const backupPath="southern-league-matchday-"+dateStamp+".json";
 const xPath=EXPECTED_DATE==="2026-11-23"?"tivvy-x-swindon-20261123.json":null;
 const fixtureLabel=matchday.matchDateLabel(EXPECTED_DATE);
-let midweekBoard=null;
+let midweekBoard=null, lineupLoaded=false, lineupPending=false;
 let manualFacebookPosts=[],liveSource="github",lastRenderSignature="",lastTimelineKeys=new Set(),hasRenderedTimeline=false;
 const $=id=>document.getElementById(id);
 let chosen="onesouth",current={};
@@ -421,6 +422,36 @@ async function grab(file){
  if(!response.ok)throw Error("HTTP "+response.status);
  return response.json();
 }
+async function refreshLineup(){
+ if(lineupLoaded||lineupPending)return;
+ lineupPending=true;
+ try{
+  const r=await fetch("data/tivvy-programme-postmatch-"+dateStamp+".json",{cache:"no-store",signal:AbortSignal.timeout(8000)});
+  if(!r.ok)return;
+  const sheet=await r.json();
+  if(sheet.matchDate!==EXPECTED_DATE||sheet.verified!==true||sheet.lineupsVerified!==true||
+     !matchday.sameFixture(fixture,sheet)||!Array.isArray(sheet.starters)||sheet.starters.length!==11)return;
+  const starters=sheet.starters,subs=Array.isArray(sheet.substitutes)?sheet.substitutes:[];
+  const names=[...starters,...subs].map(p=>String(p?.name||"").trim().toLowerCase());
+  if(names.some(n=>!n)||new Set(names).size!==names.length)return;
+  const content=$("lineupContent");
+  const group=(title,players)=>{
+   const list=mk("ul","");
+   for(const p of players)list.append(mk("li","",[Number.isInteger(p.number)?p.number:null,p.name,p.captain?"(c)":null].filter(v=>v!==null).join(" ")));
+   content.append(mk("strong","",title),list);
+  };
+  content.replaceChildren();
+  group("Starting XI",starters);
+  if(subs.length)group("Substitutes",subs);
+  if(/^https:\/\/(?:www\.|slc-www\.)?southern-football-league\.co\.uk\/match\//.test(sheet.sourceMatchUrl||"")){
+   const source=mk("a","","Southern League match sheet ↗");
+   source.href=sheet.sourceMatchUrl;source.target="_blank";source.rel="noopener";
+   content.append(source);
+  }
+  lineupLoaded=true;
+ }catch(_){/* A missing team sheet does not interrupt the live feed. */}
+ finally{lineupPending=false;}
+}
 async function refresh(){
  // Independent date-scoped commentary snapshot, verified and published by GitHub Actions.
  try{
@@ -465,7 +496,10 @@ async function refresh(){
  if(signature!==lastRenderSignature){renderFeatured();renderRight();lastRenderSignature=signature;}
  const d=current.matchday,good=d?.status==="ok"&&d.date===EXPECTED_DATE,backup=d?.status==="schedule-only",upToDate=good&&fresh(d);
  $("health").className="health "+(upToDate?"ok":good?"":"bad");
- $("health").textContent=upToDate?"✓ "+(live?"LIVE COLLECTOR":"Recent Southern League snapshot")+" · "+uk(d.checkedAt):
+ const featuredStatus=d?.featured?.status||"";
+ const checkedLabel=!live?"Recent Southern League snapshot":pregame(d.featured)?"OFFICIAL FIXTURE CHECK":
+  /full\s*time/i.test(featuredStatus)?"OFFICIAL FINAL RESULT":"OFFICIAL SOURCE CHECK";
+ $("health").textContent=upToDate?"✓ "+checkedLabel+" · "+uk(d.checkedAt):
   good?"⚠ Latest verified matchday snapshot checked "+uk(d.checkedAt)+" · Updates may be delayed":
   backup?"⚠ Official live feed unavailable — showing verified fixture schedule only. Last check "+uk(d.checkedAt):d?.status==="error"?"⚠ Southern League feed unavailable — last check "+uk(d.checkedAt):
   "Awaiting today's verified Southern League data"+(errors.length?" · "+errors.join("; "):"");
@@ -487,6 +521,7 @@ renderFeatured();renderRight();
 $("health").textContent="Fixture schedule loaded · checking official live data…";
 async function poll(){
  await refresh();
+ if(/full\s*time/i.test(current.matchday?.featured?.status||""))refreshLineup();
  setTimeout(poll,matchday.refreshPeriod(fixture,current.matchday?.featured?.status));
 }
 async function refreshMidweek(){
@@ -494,6 +529,7 @@ async function refreshMidweek(){
  if(chosen!=="xupdates")renderRight();
 }
 poll();
+if(EXPECTED_DATE<new Date().toLocaleDateString("en-CA",{timeZone:"Europe/London"}))refreshLineup();
 refreshMidweek();
 setInterval(refreshMidweek,900000);
 })();

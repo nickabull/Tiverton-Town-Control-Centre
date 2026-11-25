@@ -1,10 +1,10 @@
 {
   "date": "2026-11-25",
-  "checkedAt": "2026-11-25T01:15:42.074391+00:00",
-  "source": "Official Southern League match API",
+  "checkedAt": "2026-11-25T23:50:50.398364+00:00",
+  "source": "Southern League public match API via Tivvy Live collector",
   "status": "error",
   "matches": [],
   "unclassified": [],
   "apiMatches": 0,
-  "error": "HTTPError: HTTP Error 400: Bad Request"
+  "error": "HTTPError: HTTP Error 403: Forbidden"
 }

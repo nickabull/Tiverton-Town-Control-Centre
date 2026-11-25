@@ -7,11 +7,16 @@ the Cloudflare live replay is captured here.
 """
 import html
 import json
+import re
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 SOURCE = Path("data")
 OUTPUT = Path("match-replays")
 TIVVY = "Tiverton Town"
+LONDON = ZoneInfo("Europe/London")
+LEGACY_KICKOFFS = {"2026-11-14": "15:00", "2026-11-21": "15:00", "2026-11-23": "19:45"}
 
 
 def esc(value):
@@ -28,8 +33,12 @@ def minutes(event):
 
 def make_timeline(data, manual):
     items = []
-    kickoff_hour = 15 if data.get("matchDate") in ("2026-11-21", "2026-11-14") else 19
-    kickoff_minute = 0 if kickoff_hour == 15 else 45
+    match_date = data.get("matchDate")
+    kickoff = data.get("kickoff") or LEGACY_KICKOFFS.get(match_date)
+    try:
+        kick_at = datetime.fromisoformat(f"{match_date}T{kickoff}").replace(tzinfo=LONDON)
+    except ValueError:
+        kick_at = None
     for typ in ("goals", "yellowCards", "redCards", "substitutions"):
         for event in (data.get("incidents") or {}).get(typ, []):
             minute = minutes(event)
@@ -63,18 +72,29 @@ def make_timeline(data, manual):
         text = str(post.get("text") or "").strip()
         time = str(post.get("createdAt") or "")
         try:
-            hh, mm = map(int, time[11:16].split(":"))
-            relative_minute = hh * 60 + mm - (kickoff_hour * 60 + kickoff_minute)
-            if relative_minute < 0:
-                relative_minute += 1440
-        except (ValueError, AttributeError):
-            relative_minute = -1
+            posted_at = datetime.fromisoformat(time.replace("Z", "+00:00"))
+            if posted_at.tzinfo is None:
+                raise ValueError("missing timestamp offset")
+        except ValueError:
+            posted_at = None
+        relative_minute = (int((posted_at.timestamp() - kick_at.timestamp()) // 60)
+                           if posted_at and kick_at else -1)
         lower = text.lower().lstrip()
-        kind = "FULL TIME" if lower.startswith(("full time", "full-time", "ft:")) else "HALF TIME" if lower.startswith(("half time", "half-time", "ht:")) else "COMMENTARY"
+        kind = ("FULL TIME" if lower.startswith(("full time", "full-time", "fulltime", "ft:"))
+                else "HALF TIME" if lower.startswith(("half time", "half-time", "halftime", "ht:"))
+                else "COMMENTARY")
+        explicit_minute = re.match(r"^(\d{1,3})\s*['’″′\"]", text)
+        if kind == "FULL TIME":
+            relative_minute = max(relative_minute, 140)
+        elif kind == "HALF TIME":
+            relative_minute = 49
+        elif explicit_minute:
+            relative_minute = int(explicit_minute.group(1))
         items.append({
             "minute": None, "sort": relative_minute,
             "source": str(post.get("author") or "Facebook Fans group") + " · MANUALLY RELAYED FACEBOOK",
-            "kind": kind, "message": text, "time": time[11:16],
+            "kind": kind, "message": text,
+            "time": posted_at.astimezone(LONDON).strftime("%H:%M") if posted_at else "",
         })
     return sorted(items, key=lambda x: (x["sort"], x["kind"] == "FULL TIME"), reverse=True)
 

@@ -33,8 +33,8 @@ code{color:#ffdb00}footer{margin:22px 0;color:var(--dim);font-size:13px}
 <main>
 <div class="controls">
  <a class="nav" href="project-hub.html">← PROJECT HUB</a>
- <a class="nav" href="tivvy-live-tv.html?date=2026-11-21">MATCH CENTRE TV</a>
- <label for="date">Matchday</label><select id="date"><option value="2026-11-21">Sat 21 Nov · Melksham Town</option><option value="2026-11-14">Sat 14 Nov · Bishops Cleeve</option><option value="2026-11-11">Wed 11 Nov · Paulton Rovers</option></select>
+ <a class="nav" id="tv-link" href="tivvy-live-tv.html">MATCH CENTRE TV</a>
+ <label for="date">Matchday</label><select id="date" disabled><option>Loading fixture dates…</option></select>
  <button id="reload">REFRESH NOW</button><button id="download">EXPORT CSV</button>
  <span id="state" class="muted"><i class="pulse"></i>Waiting for source…</span>
 </div>
@@ -49,9 +49,10 @@ code{color:#ffdb00}footer{margin:22px 0;color:var(--dim);font-size:13px}
 <section><h2>Collector checks</h2><p class="muted">Recent HTTP polls, no-change checks and errors. The compact event history above logs significant changes only.</p><table><thead><tr><th>UK TIME</th><th>TYPE</th><th>RESULT</th></tr></thead><tbody id="checks"></tbody></table></section>
 <footer>Source: Cloudflare Durable Object persistent storage. Refreshes automatically every 20 seconds while this page is open. Times shown in Europe/London. Not an official league match report.</footer>
 </main>
+<script src="live/matchday.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const api="https://tivvy-live-collector.nickabull.workers.dev/log?date=";
+const api=window.TivvyMatchday.collector+"/log?date=";
 const t=t=>{if(!t)return"—";const d=new Date(t);return isNaN(+d)?"—":d.toLocaleString("en-GB",{timeZone:"Europe/London",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})};
 let last=null,loading=false;
 const cell=(row,text,cls="")=>{const c=document.createElement("td");c.textContent=String(text??"");if(cls)c.className=cls;row.append(c)};
@@ -70,12 +71,15 @@ function render(){
  fill("events",last.events);fill("checks",(last.recentChecks||[]).slice(0,60));
 }
 async function load(){
- if(loading)return;loading=true;
- try{const r=await fetch(api+encodeURIComponent($("date").value)+"&t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("Collector returned HTTP "+r.status);
- const o=await r.json();if(o.status!=="ok"||!Array.isArray(o.events))throw Error("Log endpoint not yet deployed");
+ if(loading||$("date").disabled)return;
+ loading=true;
+ const date=$("date").value;
+ try{const r=await fetch(api+encodeURIComponent(date),{cache:"no-store",signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error("Collector returned HTTP "+r.status);
+ const o=await r.json();if(o.status!=="ok"||o.date!==date||!Array.isArray(o.events))throw Error("Matchday log unavailable");
+ if(date!==$("date").value)return;
  last=o;render();$("state").className="";$("state").innerHTML='<i class="pulse"></i>'+(o.pollingActive?"BACKGROUND POLLING ACTIVE":"WAITING FOR MATCH WINDOW");
- }catch(err){$("state").className="error";$("state").innerHTML='<i class="pulse"></i> '+String(err.message);if(!last)$("events").textContent="The updated collector is not yet available."}
- finally{loading=false}
+ }catch(err){if(date===$("date").value){$("state").className="error";$("state").textContent=String(err.message);}}
+ finally{loading=false;if(date!==$("date").value)load();}
 }
 function csvCell(value){return '"'+String(value??"").replace(/"/g,'""').replace(/^[=+\-@]/,"'$&")+'"'}
 function download(){
@@ -84,7 +88,35 @@ function download(){
  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
  a.href=url;a.download="tivvy-live-audit-"+$("date").value+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-$("reload").onclick=load;$("date").onchange=()=>{last=null;load()};
+const matchdays = window.TivvyMatchday;
+function updateSelection(){
+ const date=$("date").value;
+ $("tv-link").href="tivvy-live-tv.html?date="+encodeURIComponent(date);
+ last=null;
+ $("events").replaceChildren();
+ $("checks").replaceChildren();
+ load();
+}
+$("reload").onclick=load;
+$("date").onchange=()=>{
+ const url=new URL(location.href);
+ url.searchParams.set("date",$("date").value);
+ history.replaceState(null,"",url);
+ updateSelection();
+};
 $("download").onclick=download;
-load();setInterval(load,20000);
+(async()=>{
+ const {selected, fixtures}=await matchdays.auditFixtures();
+ for(const fixture of fixtures){
+  const option=document.createElement("option");
+  option.value=fixture.date;
+  option.textContent=[matchdays.matchDateLabel(fixture.date),fixture.home&&fixture.home+" v "+fixture.away].filter(Boolean).join(" · ");
+  $("date").append(option);
+ }
+ $("date").firstElementChild.remove();
+ $("date").value=selected;
+ $("date").disabled=false;
+ updateSelection();
+ setInterval(load,20000);
+})();
 </script></body></html>

@@ -1,10 +1,30 @@
 {
   "date": "2026-11-25",
-  "checkedAt": "2026-11-25T23:50:50.398364+00:00",
-  "source": "Southern League public match API via Tivvy Live collector",
-  "status": "error",
-  "matches": [],
+  "checkedAt": "2026-11-25T23:54:02.712Z",
+  "source": "Southern League public match API",
+  "status": "ok",
+  "matches": [
+    {
+      "id": "6a5a1aacce9ef452b61f42e7",
+      "home": "Willand Rovers",
+      "away": "Portland United",
+      "kickoff": "19:30",
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 1,
+      "competition": "onesouth"
+    },
+    {
+      "id": "6a5a19f5ce9ef452b61f41b6",
+      "home": "Aylesbury United",
+      "away": "Thame United",
+      "kickoff": "19:45",
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 5,
+      "competition": "onecentral"
+    }
+  ],
   "unclassified": [],
-  "apiMatches": 0,
-  "error": "HTTPError: HTTP Error 403: Forbidden"
+  "apiMatches": 2
 }

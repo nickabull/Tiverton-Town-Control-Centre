@@ -4,10 +4,10 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 COLLECTOR = "https://tivvy-live-collector.nickabull.workers.dev"
@@ -21,10 +21,12 @@ def read_json(path):
 
 
 def fetch(endpoint, match_date):
-    request = Request(f"{COLLECTOR}/{endpoint}?" + urlencode({"date": match_date}),
-                      headers={"Accept": "application/json"})
-    with urlopen(request, timeout=20) as response:
-        return json.load(response)
+    url = f"{COLLECTOR}/{endpoint}?" + urlencode({"date": match_date})
+    response = subprocess.run(["curl", "--retry", "2", "--max-time", "20", "-fsS", url],
+                              capture_output=True, text=True)
+    if response.returncode:
+        raise OSError(endpoint + " request failed: " + response.stderr.strip())
+    return json.loads(response.stdout)
 
 
 def canonical_name(name):

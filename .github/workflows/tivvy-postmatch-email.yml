@@ -1,0 +1,46 @@
+name: Email Tivvy match HTML and verified post-match updates
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'match-facts/*.html'
+      - 'scripts/tivvy-postmatch-email.py'
+      - '.github/workflows/tivvy-postmatch-email.yml'
+  schedule:
+    - cron: '*/15 14-23 * * *'
+    - cron: '*/15 0-2 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: tivvy-postmatch-email
+  cancel-in-progress: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TIVVY_SMTP_USER: ${{ secrets.TIVVY_SMTP_USER }}
+      TIVVY_SMTP_APP_PASSWORD: ${{ secrets.TIVVY_SMTP_APP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check syntax and newest available match facts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/tivvy-postmatch-email.py scripts/verify-tivvy-postmatch.py
+          latest="$(find match-facts -maxdepth 1 -name '????-??-??.html' -type f | sed 's|match-facts/||;s|.html$||' | sort | tail -n 1)"
+          echo "LATEST_MATCH_DATE=$latest" >> "$GITHUB_ENV"
+      - name: Notify when verified match-report HTML exists
+        if: env.LATEST_MATCH_DATE != ''
+        run: python3 scripts/tivvy-postmatch-email.py --report-date "$LATEST_MATCH_DATE"
+      - name: Verify published results, table, Match Centre and programme feeds
+        shell: bash
+        run: |
+          python3 scripts/verify-tivvy-postmatch.py --output postmatch-audit.json || true
+          python3 -m json.tool postmatch-audit.json >/dev/null
+      - name: Notify only when cross-repository published source audit is PASS
+        run: python3 scripts/tivvy-postmatch-email.py --audit-file postmatch-audit.json

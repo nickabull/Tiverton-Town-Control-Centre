@@ -1,0 +1,61 @@
+name: Archive verified Tivvy Live matchdays
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/archive-tivvy-live.py
+      - .github/workflows/archive-tivvy-live.yml
+  workflow_run:
+    workflows: [Refresh programme verified post-match data]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      date:
+        description: Optional fixture date in YYYY-MM-DD
+        type: string
+        required: false
+  schedule:
+    - cron: '19 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: archive-tivvy-live
+  cancel-in-progress: false
+jobs:
+  archive:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Collect verified full-time snapshots
+        id: collect
+        continue-on-error: true
+        env:
+          FIXTURE_DATE: ${{ inputs.date }}
+        run: |
+          if [ -n "$FIXTURE_DATE" ]; then
+            python3 scripts/archive-tivvy-live.py --date "$FIXTURE_DATE"
+          else
+            python3 scripts/archive-tivvy-live.py
+          fi
+      - name: Publish new immutable revisions
+        run: |
+          set -e
+          git add -- live/archive/
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "tivvy-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Archive verified Tivvy Live matchday snapshots"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 2
+          done
+          exit 1
+      - name: Fail visibly if a verified export could not be archived
+        if: steps.collect.outcome == 'failure'
+        run: exit 1

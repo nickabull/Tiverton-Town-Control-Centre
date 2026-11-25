@@ -8,6 +8,9 @@ on:
       - '.github/workflows/deploy-tivvy-live-service.yml'
 permissions:
   contents: read
+concurrency:
+  group: tivvy-live-collector-deploy
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,10 +30,10 @@ jobs:
           page=Path("tivvy-live-saturday-test.html").read_text()
           js=page.split("<script>",1)[1].split("</script>",1)[0]
           Path("/tmp/tivvy-saturday.js").write_text(js)
-          assert "2026-11-14" in js
-          assert "tivvy-live-collector.nickabull.workers.dev" in js
+          assert "TivvyMatchday" in js
           PY
           node --check /tmp/tivvy-saturday.js
+          node --check live/matchday.js
       - name: Deploy shared live collector to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
@@ -42,12 +45,18 @@ jobs:
             X_BEARER_TOKEN
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
-      - name: Verify deployed Saturday source before declaring success
+      - name: Verify the released collector and an official fixture
         shell: bash
         run: |
-          set -e
-          curl --retry 2 --max-time 25 -fsS https://tivvy-live-collector.nickabull.workers.dev/health | jq -e '.status == "ok" and .version == "2026.11.12-audit20"'
-          curl --retry 2 --max-time 25 -fsS 'https://tivvy-live-collector.nickabull.workers.dev/log?date=2026-11-14' | jq -e '.status == "ok" and .pollIntervalSeconds == 20 and (.events | type == "array")'
-          curl --retry 2 --max-time 35 -fsS 'https://tivvy-live-collector.nickabull.workers.dev/live?date=2026-11-14' > /tmp/tivvy-saturday-live.json
-          jq -e '.matchday.date == "2026-11-14" and .matchday.status == "ok"' /tmp/tivvy-saturday-live.json > /dev/null
-          echo "20-second collector, durable audit and Saturday API endpoint verified. Featured fixture will be rechecked on matchday."
+          set -euo pipefail
+          service=https://tivvy-live-collector.nickabull.workers.dev
+          version=$(sed -n 's/.*version:"\([^"]*\)".*/\1/p' live-collector/src/index.js)
+          test -n "$version"
+          curl --retry 3 --max-time 25 -fsS "$service/health" | jq -e --arg version "$version" '.status == "ok" and .version == $version'
+          today=$(TZ=Europe/London date +%F)
+          registry=https://nickabull.github.io/Tiverton-Town-Get-Player-Info/match-centre-fixtures-2026-27.json
+          date=$(curl --retry 2 --max-time 20 -fsS "$registry" | jq -er --arg today "$today" '.fixtures | map(select(.date >= $today and .competition == "SLD1S" and ((.result // "") == ""))) | sort_by(.date, .kickOff) | first | .date // empty')
+          test -n "$date"
+          curl --retry 2 --max-time 25 -fsS "$service/log?date=$date" | jq -e --arg date "$date" '.status == "ok" and .date == $date and .pollIntervalSeconds == 20 and (.events | type == "array")'
+          curl --retry 2 --max-time 35 -fsS "$service/live?date=$date" | jq -e --arg date "$date" '.matchday.date == $date and .matchday.status == "ok" and (.matchday.featured | type == "object")' 
+          echo "Release, audit response and official fixture verified. In-play cadence requires match observation."

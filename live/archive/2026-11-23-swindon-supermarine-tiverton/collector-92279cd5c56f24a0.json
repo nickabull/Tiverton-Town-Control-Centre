@@ -1,0 +1,2002 @@
+{
+  "schemaVersion": 1,
+  "matchDate": "2026-11-23",
+  "archivedAt": "2026-11-25T23:53:59.739102+00:00",
+  "sourceCheckedAt": "2026-11-25T23:53:59.417Z",
+  "officialFixture": {
+    "id": "6a5a1aacce9ef452b61f42e5",
+    "home": "Swindon Supermarine",
+    "away": "Tiverton Town",
+    "homeTeamId": "6a0adf9eda5d0d0847a02417",
+    "awayTeamId": "6a0adf9eda5d0d0847a02400",
+    "competition": "onesouth",
+    "status": "FullTime",
+    "score": {
+      "home": 1,
+      "away": 0
+    },
+    "events": [
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 20,
+        "phase": "FirstHalf",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3be3c18f-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Joshua William Bissett",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7b88e2f3cafeb650524503"
+        },
+        "personOff": {
+          "id": "3b941f13-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Louis Jagger Cane",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e30"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 46,
+        "phase": "FirstHalf",
+        "score": {
+          "home": 0,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3bfd48ba-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Aiden Lee Horne",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e57"
+        },
+        "personOff": {
+          "id": "3be3c18f-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Joshua William Bissett",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7b88e2f3cafeb650524503"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 59,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "GOAL",
+        "person": {
+          "id": "3bfd21da-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Zach Rugman",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7a2be1f3cafeb650523f73"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 66,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "FIRST_YELLOW_CARD",
+        "person": {
+          "id": "3bce52cb-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Olly Case",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7f7d5df3cafeb650524f12"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 67,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3bf40a79-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Evander Marvin Grubb",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6ab2e895f3cafeb65052fdd7"
+        },
+        "personOff": {
+          "id": "3bae089c-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Aaron Wellington",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e59"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 69,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "FIRST_YELLOW_CARD",
+        "person": {
+          "id": "3be2f1cf-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Joe Shepherd",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7f7d5df3cafeb650524f13"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 70,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "FIRST_YELLOW_CARD",
+        "person": {
+          "id": "3bfd48ba-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Aiden Lee Horne",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e57"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 74,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "FIRST_YELLOW_CARD",
+        "person": {
+          "id": "3bf40a79-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Evander Marvin Grubb",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6ab2e895f3cafeb65052fdd7"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 75,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3be2002b-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Conor Lynch",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "69940e861af52659555a7d00"
+        },
+        "personOff": {
+          "id": "3bb3326b-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Dan Warre",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7a2be1f3cafeb650523f76"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 75,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3bad92ff-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Sal Abubakar",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7a2be1f3cafeb650523f74"
+        },
+        "personOff": {
+          "id": "3c01e5d8-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Tyger-J Hall",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a7a2be1f3cafeb650523f6f"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 82,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3bf2dbf0-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Finn Roberts",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e53"
+        },
+        "personOff": {
+          "id": "3bdbfad6-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Corey Hayden Koerner",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a775429f3cafeb650523e4c"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02400",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      },
+      {
+        "competition": "69d0bdf9b616bafb97331d41",
+        "match": "6a5a1aacce9ef452b61f42e5",
+        "externalMatchId": "d387d108-81d7-11f1-886a-0204f6006b57",
+        "minute": 92,
+        "phase": "SecondHalf",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "kickOffDate": "2026-11-23",
+        "kickOffTime": "19:45",
+        "eventType": "SUBSTITUTION",
+        "person": {
+          "id": "3bc11767-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Jacob Bancroft",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "69940e861af52659555a7d52"
+        },
+        "personOff": {
+          "id": "3bcf3c7c-6ee9-11f0-aa15-02eebc336bd5",
+          "name": "Marcel Lewis",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "createdAt": "2026-11-25T02:40:12.644Z",
+          "updatedAt": "2026-11-25T02:40:12.644Z",
+          "profileId": "6a95a454f3cafeb65052a9e2"
+        },
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "createdAt": "2026-11-25T02:40:12.644Z",
+        "updatedAt": "2026-11-25T02:40:12.644Z"
+      }
+    ],
+    "kickoff": "19:45",
+    "isFeatured": true
+  },
+  "verifiedPostmatch": {
+    "schemaVersion": 1,
+    "matchDate": "2026-11-23",
+    "status": "FullTime",
+    "verified": true,
+    "source": "Southern League public API through Tivvy Live collector",
+    "sourceCheckedAt": "2026-11-25T08:23:43.397Z",
+    "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1aacce9ef452b61f42e5",
+    "competition": "SLD1S",
+    "home": "Swindon Supermarine",
+    "away": "Tiverton Town",
+    "score": {
+      "home": 1,
+      "away": 0
+    },
+    "venueForTiverton": "A",
+    "opponent": "Swindon Supermarine",
+    "incidents": {
+      "goals": [
+        {
+          "minute": 59,
+          "player": "Zach Rugman",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "GOAL"
+        }
+      ],
+      "yellowCards": [
+        {
+          "minute": 66,
+          "player": "Olly Case",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "FIRST_YELLOW_CARD"
+        },
+        {
+          "minute": 69,
+          "player": "Joe Shepherd",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "FIRST_YELLOW_CARD"
+        },
+        {
+          "minute": 70,
+          "player": "Aiden Lee Horne",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "FIRST_YELLOW_CARD"
+        },
+        {
+          "minute": 74,
+          "player": "Evander Marvin Grubb",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "FIRST_YELLOW_CARD"
+        }
+      ],
+      "redCards": [],
+      "substitutions": [
+        {
+          "minute": 20,
+          "player": "Joshua William Bissett",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Louis Jagger Cane"
+        },
+        {
+          "minute": 46,
+          "player": "Aiden Lee Horne",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 0,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Joshua William Bissett"
+        },
+        {
+          "minute": 67,
+          "player": "Evander Marvin Grubb",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Aaron Wellington"
+        },
+        {
+          "minute": 75,
+          "player": "Conor Lynch",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Dan Warre"
+        },
+        {
+          "minute": 75,
+          "player": "Sal Abubakar",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Tyger-J Hall"
+        },
+        {
+          "minute": 82,
+          "player": "Finn Roberts",
+          "teamId": "6a0adf9eda5d0d0847a02400",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Corey Hayden Koerner"
+        },
+        {
+          "minute": 92,
+          "player": "Jacob Bancroft",
+          "teamId": "6a0adf9eda5d0d0847a02417",
+          "score": {
+            "home": 1,
+            "away": 0
+          },
+          "eventType": "SUBSTITUTION",
+          "off": "Marcel Lewis"
+        }
+      ],
+      "other": []
+    },
+    "lineupsVerified": true,
+    "starters": [
+      {
+        "name": "Louis Smith",
+        "number": 1,
+        "captain": false,
+        "position": "GK",
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Mason Winter",
+        "number": 2,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Corey Koerner",
+        "number": 3,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "82",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Louie Slough",
+        "number": 4,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Matt Wood",
+        "number": 5,
+        "captain": true,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Asa Hall",
+        "number": 8,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Dan Koita",
+        "number": 9,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Louis Jagger Cane",
+        "number": 10,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "20",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Jacob Wellington",
+        "number": 11,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Aaron Wellington",
+        "number": 21,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "67",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Ryan Keates",
+        "number": 30,
+        "captain": false,
+        "position": null,
+        "onMinute": "",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": false,
+        "used": true,
+        "cards": []
+      }
+    ],
+    "substitutes": [
+      {
+        "name": "Josh Bissett",
+        "number": 7,
+        "captain": false,
+        "position": null,
+        "onMinute": "20",
+        "offMinute": "46",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Finn Roberts",
+        "number": 12,
+        "captain": false,
+        "position": null,
+        "onMinute": "82",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": []
+      },
+      {
+        "name": "Aiden Horne",
+        "number": 17,
+        "captain": false,
+        "position": null,
+        "onMinute": "46",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": [
+          {
+            "type": "yellow",
+            "minute": "70"
+          }
+        ]
+      },
+      {
+        "name": "Evander Grubb",
+        "number": 18,
+        "captain": false,
+        "position": null,
+        "onMinute": "67",
+        "offMinute": "",
+        "goalCount": 0,
+        "goalMinutes": [],
+        "sub": true,
+        "used": true,
+        "cards": [
+          {
+            "type": "yellow",
+            "minute": "74"
+          }
+        ]
+      }
+    ],
+    "editorialReview": {
+      "leagueTable": "Obtain verified season standings from Results Centre; do not infer from this one match",
+      "resultsMatrix": "Import full season league fixture grid separately",
+      "matchReport": "Await Darren's reviewed editorial copy",
+      "programmeArtwork": "Never overwritten by this export"
+    },
+    "officialReportUrl": "https://www.tivertontownfc.uk/post/supermarine-sink-tivvy-as-unbeaten-run-ends"
+  },
+  "audit": {
+    "status": "ok",
+    "date": "2026-11-23",
+    "events": [
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 92' · SUBSTITUTION · Jacob Bancroft"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 75' · SUBSTITUTION · Sal Abubakar"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 75' · SUBSTITUTION · Conor Lynch"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 66' · FIRST_YELLOW_CARD · Olly Case"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 59' · GOAL · Zach Rugman"
+      },
+      {
+        "at": "2026-11-23T22:10:21.142Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 69' · FIRST_YELLOW_CARD · Joe Shepherd"
+      },
+      {
+        "at": "2026-11-23T21:42:31.796Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124981743568740680 · FULLTIME\n\nDefeat here in Wiltshire.  \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T21:42:11.600Z",
+        "source": "southern-league",
+        "type": "status",
+        "detail": "Swindon Supermarine v Tiverton Town · SecondHalf -> FullTime"
+      },
+      {
+        "at": "2026-11-23T21:40:11.011Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 94' · SUBSTITUTION · Jacob Bancroft"
+      },
+      {
+        "at": "2026-11-23T21:31:28.455Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124979060174438538 · 82’\n\nFinal substitution for the yellows \n\nOFF: Korener \nON: Roberts \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T21:30:07.933Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 82' · SUBSTITUTION · Finn Roberts"
+      },
+      {
+        "at": "2026-11-23T21:22:25.465Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 76' · SUBSTITUTION · Conor Lynch"
+      },
+      {
+        "at": "2026-11-23T21:22:25.465Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 76' · SUBSTITUTION · Sal Abubakar"
+      },
+      {
+        "at": "2026-11-23T21:22:25.465Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 74' · FIRST_YELLOW_CARD · Evander Marvin Grubb"
+      },
+      {
+        "at": "2026-11-23T21:17:24.031Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 70' · FIRST_YELLOW_CARD · Aiden Lee Horne"
+      },
+      {
+        "at": "2026-11-23T21:15:23.727Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 69' · FIRST_YELLOW_CARD · Tyger-J Hall"
+      },
+      {
+        "at": "2026-11-23T21:15:21.382Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124974923328487591 · 67’\n\nA third substitution for the yellows\n\nOFF: A.Wellington\nON: Grubb \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T21:14:23.579Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 67' · SUBSTITUTION · Evander Marvin Grubb"
+      },
+      {
+        "at": "2026-11-23T21:13:23.457Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 67' · FIRST_YELLOW_CARD · Olly Case"
+      },
+      {
+        "at": "2026-11-23T21:11:02.945Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124973891626090897 · 63’\n\nKoita is on the receiving end of a stamp to the calf and the referee somehow awards a free kick to Swindon . Not the only questionable decision he’s made this evening \n\nSWI🔵1"
+      },
+      {
+        "at": "2026-11-23T21:09:02.336Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124973330411258134 · 59’\n\nThe hosts continuing to apply pressure with a speculative overhead kick flashing past the post \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T21:06:21.446Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 60' · GOAL · Zach Rugman"
+      },
+      {
+        "at": "2026-11-23T21:06:21.446Z",
+        "source": "southern-league",
+        "type": "score",
+        "detail": "Swindon Supermarine v Tiverton Town · 0-0 -> 1-0"
+      },
+      {
+        "at": "2026-11-23T21:06:01.401Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124972677224169791 · 58’\n\nGoal . The hosts pull ahead \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:59:59.656Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124971156872597728 · 51’\n\nA flurry of chances for the yellows forces some smart defending from Swindon \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:54:17.830Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 46' · SUBSTITUTION · Aiden Lee Horne"
+      },
+      {
+        "at": "2026-11-23T20:53:57.792Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124969619353940209 · SECOND HALF UNDERWAY\n\nWe’re back underway here with a half time substitute from the yellows\n\nOFF: Bissett\nON: Horne\n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:53:17.405Z",
+        "source": "southern-league",
+        "type": "status",
+        "detail": "Swindon Supermarine v Tiverton Town · HalfTime -> SecondHalf"
+      },
+      {
+        "at": "2026-11-23T20:34:51.485Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124964690304610497 · HALFTIME\n\nThe Yellows weather the late supermarine storm as we enter the break goalless \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:34:11.227Z",
+        "source": "southern-league",
+        "type": "status",
+        "detail": "Swindon Supermarine v Tiverton Town · FirstHalf -> HalfTime"
+      },
+      {
+        "at": "2026-11-23T20:25:48.737Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124962382485279103 · 35”\n\nCLOSE !\n\nSwindon starting to applying pressure now . A goal line clearance and the post keeping the score level \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:21:47.383Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124961452503048226 · 33’\n\nLimited chances for both sides in the opening half an hour here \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:09:44.183Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124958359095013691 · 20’\n\nAn unfortunate early substitution for the yellows \n\nOFF: Jagger-cane\nON: Bissett\n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T20:08:23.674Z",
+        "source": "southern-league",
+        "type": "incident",
+        "detail": "Swindon Supermarine v Tiverton Town · 20' · SUBSTITUTION · Joshua William Bissett"
+      },
+      {
+        "at": "2026-11-23T20:05:42.993Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124957371952730206 · 16’\n\nCHANCE\n\nLouis Jagger Cane’s shot is straight at the keeper however it slips through his hands . Luckily for him  he was able to grab it off the line \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T19:53:39.723Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124954295808508361 · 5’\n\nEnd to end football in the opening 5 with Tiverton having a few half chances in the early stages \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy"
+      },
+      {
+        "at": "2026-11-23T19:48:17.692Z",
+        "source": "southern-league",
+        "type": "status",
+        "detail": "Swindon Supermarine v Tiverton Town · NotKickedOff -> FirstHalf"
+      },
+      {
+        "at": "2026-11-23T19:47:37.551Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124952850447106557 · We’re under way here in Swindon \n\nSWI🔵0-0🟡TIV https://t.co/SidDha40fq"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124236411729498400 · 🏆 𝙈𝘼𝙉 𝙊𝙁 𝙏𝙃𝙀 𝙈𝘼𝙏𝘾𝙃 🏆 \n\nToday’s Man of the Match as chosen by our travelling supporters, Jacob Wellington!\n\nWell done J Welly 👏 \n\n#OneTivvy https://t.co/zNQCEeIr4Q"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124466566599200979 · 🎙️ 𝙋𝙊𝙎𝙏-𝙈𝘼𝙏𝘾𝙃 𝙏𝙃𝙊𝙐𝙂𝙃𝙏𝙎 🎙️ \n\nMore points on the board as Asa discussed yesterday’s victory over Melksham 🗣️ \n\n#OneTivvy https://t.co/BYUBcyPc4e"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124478113761402987 · The Tivvy 😎 \n\n📸 @vivcurtis \n\n#OneTivvy https://t.co/wvbwvEomFo"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124503166049980633 · Due to unforeseen circumstances, we are unfortunately cancelling our Fans’ Forum on Tuesday evening.\n\nWe have however provided a lengthy Club Update over on our website which we ho"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124609384193966155 · ⏭️ 𝙉𝙀𝙓𝙏 𝙐𝙋 ⏭️\n\nAn extremely quick turn around for the lads but it’s the same for both sides so we get to it 🛣️\n\n🆚 @SupermarineFC \n🏆 @SouthernLeague1 \n🗓️ Tomorrow evening "
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124806143507857767 · ⚽️ 𝙈𝘼𝙏𝘾𝙃𝘿𝘼𝙔 ⚽️ \n\nOn the road again this evening against a solid Swindon SM side 🚗 \n\n🆚 Swindon Supermarine \n🏆 Southern League\n⏰ 7:45pm\n🏟️ Imagine Cruising Stadium, SN3 4"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124835362841203082 · 📄 𝙍𝙀𝙎𝙐𝙇𝙏𝙎 📄 \n\nUnbeaten and zero goals conceded across the men, women and U18s last week… technically 👏 \n\n#OneTivvy https://t.co/ca31kDPjCk"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124939686057799734 · 📝 𝙏𝙃𝙀 𝙇𝙄𝙉𝙀𝙐𝙋 📝 \n\nHow we lineup for this Monday night fixture 👊 \n\nCome on Tivvy 💛\n\n#OneTivvy https://t.co/Td1nak3oST"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124942110545908115 · 💼 \n\n#OneTivvy https://t.co/Mz155p3F50"
+      },
+      {
+        "at": "2026-11-23T19:15:26.457Z",
+        "source": "x",
+        "type": "club-post",
+        "detail": "2124943386075615285 · Tidy setup in Swindon 🤝 \n\n#OneTivvy https://t.co/dDId7epXhF"
+      },
+      {
+        "at": "2026-11-22T20:37:02.025Z",
+        "source": "southern-league",
+        "type": "initial-snapshot",
+        "detail": "Baseline: 1 matches, 0 incidents"
+      }
+    ],
+    "recentChecks": [
+      {
+        "at": "2026-11-25T23:53:59.417Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:53:59.417Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:45:42.940Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:45:42.940Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:44:58.785Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:44:58.785Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:44:28.281Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:44:28.281Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:43:58.969Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:43:58.969Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:43:38.789Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:43:38.789Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:43:08.588Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:43:08.588Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:42:48.378Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:42:48.378Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:42:18.827Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:42:18.827Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:41:48.429Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:41:48.429Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:41:28.296Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:41:28.296Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:40:58.791Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:40:58.791Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:40:28.378Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:40:28.378Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:40:08.287Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:40:08.287Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:39:38.833Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:39:38.833Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:39:08.706Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:39:08.706Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T23:13:19.939Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T23:13:19.939Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T20:14:11.593Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T20:14:11.593Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T20:05:36.473Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T20:05:36.473Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T20:04:56.872Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T20:04:56.872Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T19:37:55.507Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T19:37:55.507Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T19:28:20.124Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T19:28:20.124Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T18:44:57.414Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T18:44:57.414Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T18:13:49.165Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T18:13:49.165Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T18:13:09.813Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T18:13:09.813Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T13:36:33.983Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T13:36:33.983Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T12:35:18.020Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T12:35:18.020Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T12:34:33.261Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T12:34:33.261Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T09:46:51.821Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T09:46:51.821Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T09:12:38.739Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T09:12:38.739Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T08:23:43.397Z",
+        "type": "southern-league",
+        "detail": "Source updated; fixtures/incidents changed"
+      },
+      {
+        "at": "2026-11-25T02:05:25.789Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T02:05:25.789Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-25T01:02:40.067Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-25T01:02:40.067Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T20:40:15.254Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T20:40:15.254Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T19:18:56.330Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T19:18:56.330Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T19:04:32.058Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T19:04:32.058Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T17:20:59.216Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T17:20:59.216Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T16:31:05.968Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T16:31:05.968Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:33:12.215Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:33:12.215Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:32:32.219Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:32:32.219Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:31:52.552Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:31:52.552Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:07:19.588Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:07:19.588Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:06:45.430Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:06:45.430Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:06:19.517Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:06:19.517Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:05:45.532Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:05:45.532Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:05:05.472Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:05:05.472Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:04:41.597Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:04:41.597Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:04:13.138Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:04:13.138Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:03:19.991Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:03:19.991Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:02:19.666Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:02:19.666Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:01:01.523Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:01:01.523Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T12:00:21.571Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T12:00:21.571Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:59:45.703Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:59:45.703Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:59:21.601Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:59:21.601Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:58:41.751Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:58:41.751Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:58:01.016Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:58:01.016Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:57:21.447Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:57:21.447Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:50:23.916Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:50:23.916Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:49:43.887Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:49:43.887Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:49:03.888Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:49:03.888Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:48:23.883Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:48:23.883Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:48:03.838Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:48:03.838Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:47:23.920Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:47:23.920Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:46:43.816Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:46:43.816Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:46:03.904Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:46:03.904Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:45:43.851Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:45:43.851Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:45:03.860Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:45:03.860Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:44:23.881Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:44:23.881Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:43:43.967Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:43:43.967Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:43:03.923Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:43:03.923Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:42:23.878Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:42:23.878Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:42:03.812Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:42:03.812Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:41:23.924Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:41:23.924Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:40:43.888Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:40:43.888Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      },
+      {
+        "at": "2026-11-24T11:40:03.999Z",
+        "type": "fwp-config",
+        "detail": "FWP_API_KEY and FWP_COMP_ID must be added as Cloudflare Worker secrets"
+      },
+      {
+        "at": "2026-11-24T11:40:03.999Z",
+        "type": "southern-league",
+        "detail": "HTTP 200; no incident changes"
+      }
+    ],
+    "retained": 49,
+    "lastLeagueCollection": "2026-11-25T23:53:59.417Z",
+    "xRequestsToday": 210,
+    "pollIntervalSeconds": 20,
+    "pollingActive": false,
+    "nextAlarmAt": null,
+    "kickoff": "19:45"
+  },
+  "clubX": {
+    "status": "ok",
+    "checkedAt": "2026-11-23T22:46:12.355Z",
+    "postsOnMatchDate": [
+      {
+        "id": "2124981743568740680",
+        "createdAt": "2026-11-23T21:41:42.000Z",
+        "text": "FULLTIME\n\nDefeat here in Wiltshire.  \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124981743568740680"
+      },
+      {
+        "id": "2124979060174438538",
+        "createdAt": "2026-11-23T21:31:02.000Z",
+        "text": "82’\n\nFinal substitution for the yellows \n\nOFF: Korener \nON: Roberts \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124979060174438538"
+      },
+      {
+        "id": "2124974923328487591",
+        "createdAt": "2026-11-23T21:14:36.000Z",
+        "text": "67’\n\nA third substitution for the yellows\n\nOFF: A.Wellington\nON: Grubb \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124974923328487591"
+      },
+      {
+        "id": "2124973891626090897",
+        "createdAt": "2026-11-23T21:10:30.000Z",
+        "text": "63’\n\nKoita is on the receiving end of a stamp to the calf and the referee somehow awards a free kick to Swindon . Not the only questionable decision he’s made this evening \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124973891626090897"
+      },
+      {
+        "id": "2124973330411258134",
+        "createdAt": "2026-11-23T21:08:16.000Z",
+        "text": "59’\n\nThe hosts continuing to apply pressure with a speculative overhead kick flashing past the post \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124973330411258134"
+      },
+      {
+        "id": "2124972677224169791",
+        "createdAt": "2026-11-23T21:05:40.000Z",
+        "text": "58’\n\nGoal . The hosts pull ahead \n\nSWI🔵1-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124972677224169791"
+      },
+      {
+        "id": "2124971156872597728",
+        "createdAt": "2026-11-23T20:59:38.000Z",
+        "text": "51’\n\nA flurry of chances for the yellows forces some smart defending from Swindon \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124971156872597728"
+      },
+      {
+        "id": "2124969619353940209",
+        "createdAt": "2026-11-23T20:53:31.000Z",
+        "text": "SECOND HALF UNDERWAY\n\nWe’re back underway here with a half time substitute from the yellows\n\nOFF: Bissett\nON: Horne\n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124969619353940209"
+      },
+      {
+        "id": "2124964690304610497",
+        "createdAt": "2026-11-23T20:33:56.000Z",
+        "text": "HALFTIME\n\nThe Yellows weather the late supermarine storm as we enter the break goalless \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124964690304610497"
+      },
+      {
+        "id": "2124962382485279103",
+        "createdAt": "2026-11-23T20:24:46.000Z",
+        "text": "35”\n\nCLOSE !\n\nSwindon starting to applying pressure now . A goal line clearance and the post keeping the score level \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124962382485279103"
+      },
+      {
+        "id": "2124961452503048226",
+        "createdAt": "2026-11-23T20:21:04.000Z",
+        "text": "33’\n\nLimited chances for both sides in the opening half an hour here \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124961452503048226"
+      },
+      {
+        "id": "2124958359095013691",
+        "createdAt": "2026-11-23T20:08:47.000Z",
+        "text": "20’\n\nAn unfortunate early substitution for the yellows \n\nOFF: Jagger-cane\nON: Bissett\n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124958359095013691"
+      },
+      {
+        "id": "2124957371952730206",
+        "createdAt": "2026-11-23T20:04:51.000Z",
+        "text": "16’\n\nCHANCE\n\nLouis Jagger Cane’s shot is straight at the keeper however it slips through his hands . Luckily for him  he was able to grab it off the line \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124957371952730206"
+      },
+      {
+        "id": "2124954295808508361",
+        "createdAt": "2026-11-23T19:52:38.000Z",
+        "text": "5’\n\nEnd to end football in the opening 5 with Tiverton having a few half chances in the early stages \n\nSWI🔵0-0🟡TIV\n\n#Onetivvy",
+        "media": [],
+        "url": "https://x.com/tivertontownfc/status/2124954295808508361"
+      },
+      {
+        "id": "2124952850447106557",
+        "createdAt": "2026-11-23T19:46:53.000Z",
+        "text": "We’re under way here in Swindon \n\nSWI🔵0-0🟡TIV https://t.co/SidDha40fq",
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HX1ZWjxXgAAxQZE.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124952850447106557"
+      },
+      {
+        "id": "2124943386075615285",
+        "createdAt": "2026-11-23T19:09:17.000Z",
+        "text": "Tidy setup in Swindon 🤝 \n\n#OneTivvy https://t.co/dDId7epXhF",
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HX1QvrAXoAAjKE1.jpg",
+            "alt": ""
+          },
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HX1QvrnWQAA18NH.jpg",
+            "alt": ""
+          },
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HX1QvrRXQAACQbm.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124943386075615285"
+      },
+      {
+        "id": "2124942110545908115",
+        "createdAt": "2026-11-23T19:04:13.000Z",
+        "text": "💼 \n\n#OneTivvy https://t.co/Mz155p3F50",
+        "media": [
+          {
+            "type": "video",
+            "url": "https://pbs.twimg.com/amplify_video_thumb/2124942077356056576/img/f9HfNbxWGNLZQi6V.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124942110545908115"
+      },
+      {
+        "id": "2124939686057799734",
+        "createdAt": "2026-11-23T18:54:35.000Z",
+        "text": "📝 𝙏𝙃𝙀 𝙇𝙄𝙉𝙀𝙐𝙋 📝 \n\nHow we lineup for this Monday night fixture 👊 \n\nCome on Tivvy 💛\n\n#OneTivvy https://t.co/Td1nak3oST",
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HX1NWMyWUAAgSAO.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124939686057799734"
+      },
+      {
+        "id": "2124835362841203082",
+        "createdAt": "2026-11-23T12:00:02.000Z",
+        "text": "📄 𝙍𝙀𝙎𝙐𝙇𝙏𝙎 📄 \n\nUnbeaten and zero goals conceded across the men, women and U18s last week… technically 👏 \n\n#OneTivvy https://t.co/ca31kDPjCk",
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HXzhj7pW8AAkjYG.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124835362841203082"
+      },
+      {
+        "id": "2124806143507857767",
+        "createdAt": "2026-11-23T10:03:56.000Z",
+        "text": "⚽️ 𝙈𝘼𝙏𝘾𝙃𝘿𝘼𝙔 ⚽️ \n\nOn the road again this evening against a solid Swindon SM side 🚗 \n\n🆚 Swindon Supermarine \n🏆 Southern League\n⏰ 7:45pm\n🏟️ Imagine Cruising Stadium, SN3 4NZ, Swindon \n\n#OneTivvy https://t.co/niA5C4sHHs",
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HXzT7IRXEAAiayV.jpg",
+            "alt": ""
+          }
+        ],
+        "url": "https://x.com/tivertontownfc/status/2124806143507857767"
+      }
+    ]
+  }
+}

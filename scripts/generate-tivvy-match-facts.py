@@ -67,11 +67,17 @@ def render(data):
     # A 0-goal Tivvy match has no Tivvy goal event. Infer the club's
     # incident team ID from a *named Tivvy player's* recorded booking or goal,
     # never by assigning every opponent incident to Tivvy.
-    tivvy_names = {str(p.get("name", "")).strip().lower()
-                   for p in data["starters"] + (data.get("substitutes") or [])}
+    # Official incidents sometimes include middle names that the verified
+    # Tivvy squad does not. Match unique first+last names, not whole strings.
+    def name_key(value):
+        parts = str(value or "").strip().lower().split()
+        return (parts[0], parts[-1]) if len(parts) >= 2 else tuple(parts)
+    tivvy_names = {name_key(p.get("name")) for p in data["starters"] + (data.get("substitutes") or [])}
     identifying_events = (data.get("incidents") or {}).get("goals", []) + (data.get("incidents") or {}).get("yellowCards", []) + (data.get("incidents") or {}).get("redCards", [])
-    tv_team_id = next((x.get("teamId") for x in identifying_events
-                       if x.get("teamId") and str(x.get("player", "")).strip().lower() in tivvy_names), None)
+    tivvy_ids = {x["teamId"] for x in identifying_events
+                 if x.get("teamId") and name_key(x.get("player")) in tivvy_names}
+    # An inconsistent team ID is not safe to guess.
+    tv_team_id = next(iter(tivvy_ids)) if len(tivvy_ids) == 1 else None
     # For this fixture the source event team IDs are present; do not classify any
     # opponent incident without a trustworthy team ID.
     goals = data["incidents"].get("goals") or []
@@ -119,6 +125,8 @@ ul{{list-style:none;padding:0;margin:0 0 32px}}li{{margin:0 0 17px}}.yellow{{col
 <h2>Tiverton disciplinary</h2><ul>{bookings_html(our_bookings)}</ul>
 <h2>{e(data["opponent"])} disciplinary</h2><ul>{bookings_html(their_bookings)}</ul>
 </section></div>
+{('<div class="editorial-links"><a class="cta" href="'+e(data.get("officialReportUrl"))+'" target="_blank" rel="noopener noreferrer">READ DARREN’S MATCH REPORT ↗</a></div>') if data.get("officialReportUrl") else ""}
+{('<div class="editorial-links"><a class="cta" href="'+e(data.get("photoGalleryUrl"))+'" target="_blank" rel="noopener noreferrer">VIEW MATCH PHOTOGRAPHS ↗</a><p class="source">Photos: '+e(data.get("photoCredit") or "credited photographer")+'</p></div>') if data.get("photoGalleryUrl") else ""}
 <details class="replay"><summary>AS IT HAPPENED · MATCH TIMELINE</summary>
 <p>Replay verified Southern League incidents alongside any preserved, attributed matchday commentary.</p>
 <a class="cta replay-link" href="https://nickabull.github.io/Tiverton-Town-Control-Centre/match-replays/{e(date)}.html" target="_blank" rel="noopener noreferrer">EXPLORE THE FULL MATCH TIMELINE ↗</a>

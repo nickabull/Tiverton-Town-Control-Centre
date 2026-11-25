@@ -289,10 +289,11 @@ footer{position:relative;z-index:5;background:#080909;padding:0 .35vw;border-top
 <div class="timelinefoot"><span id="eventFoot">No verified incidents yet</span><span id="pageCount"></span></div>
 </section>
 <div class="demo-ribbon">DEMONSTRATION MODE · NOT LIVE</div><div class="demo-controls"><button id="demoGoalButton" type="button">⚽ REPLAY GOAL GRAPHIC</button><button id="demoXButton" type="button">𝕏 DEMO CLUB POST</button></div><div class="goal-celebration" id="goalCelebration" aria-live="polite"><div class="demo-label">DEMONSTRATION · NOT A NEW GOAL</div><img src="https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tiverton-town-logo.png" alt="Tiverton Town crest"><div class="big">⚽ GOAL!</div><div class="scorer" id="celebrationScorer"></div><div class="details" id="celebrationDetail"></div></div>
-<footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS</strong></span></footer>
+<footer><span id="verified">Official matchday source not yet verified</span><span>FULL-SCREEN · NO INTERACTION REQUIRED · AUTO-UPDATES <strong>EVERY 20 SECONDS IN PLAY</strong></span></footer>
 </main>
+<script src="live/matchday.js"></script>
 <script>
-(function(){
+(async function(){
 "use strict";
 const params=new URLSearchParams(location.search);
 const demoMode=params.get("demo")==="1";
@@ -304,12 +305,11 @@ const replayCutoff=Date.parse("2026-11-21T15:34:59Z");
 if(focusMinute!==null)document.body.classList.add("historical-focus");
 if(demoMode)document.body.classList.add("demo");
 // Keep this default match date in sync with tivvy-live-saturday-test.html when preparing each matchday.
-const date=["2026-11-11","2026-11-14","2026-11-21","2026-11-23"].includes(params.get("date"))?params.get("date"):"2026-11-23";
-const fixtures={"2026-11-11":{home:"Paulton Rovers",away:"Tiverton Town",kickoff:"19:30"},"2026-11-14":{home:"Tiverton Town",away:"Bishops Cleeve",kickoff:"15:00"},"2026-11-21":{home:"Melksham Town",away:"Tiverton Town",kickoff:"15:00"},"2026-11-23":{home:"Swindon Supermarine",away:"Tiverton Town",kickoff:"19:45"}};
-const config=fixtures[date],api="https://tivvy-live-collector.nickabull.workers.dev/live?date="+date;
- const kickoffAt=new Date(date+"T"+config.kickoff+":00Z").getTime();
- const matchDateLabel=new Date(date+"T12:00:00Z").toLocaleDateString("en-GB",{timeZone:"Europe/London",weekday:"long",day:"numeric",month:"long"});
- function prematchLabel(){const remaining=kickoffAt-Date.now();if(remaining<=0)return "AWAITING LIVE FEED";const seconds=Math.max(0,Math.ceil(remaining/1000));const days=Math.floor(seconds/86400),hours=Math.floor(seconds%86400/3600),mins=Math.floor(seconds%3600/60),secs=seconds%60;return "KICK-OFF IN "+(days?days+"D ":"")+String(hours).padStart(2,"0")+"H "+String(mins).padStart(2,"0")+"M "+String(secs).padStart(2,"0")+"S"}
+const matchday=window.TivvyMatchday;
+const config=await matchday.start(),date=config.date;
+ const kickoffAt=matchday.kickoffTime(date,config.kickoff);
+ const matchDateLabel=matchday.matchDateLabel(date);
+ function prematchLabel(){const remaining=kickoffAt-Date.now();if(!Number.isFinite(remaining)||remaining<=0)return "AWAITING LIVE FEED";const seconds=Math.max(0,Math.ceil(remaining/1000));const days=Math.floor(seconds/86400),hours=Math.floor(seconds%86400/3600),mins=Math.floor(seconds%3600/60),secs=seconds%60;return "KICK-OFF IN "+(days?days+"D ":"")+String(hours).padStart(2,"0")+"H "+String(mins).padStart(2,"0")+"M "+String(secs).padStart(2,"0")+"S"}
 const $=id=>document.getElementById(id);
 const uk=t=>t&&Number.isFinite(Date.parse(t))?new Date(t).toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false}):"unknown";
 const abbreviate={"joshua william bissett":"Josh Bissett","jacob robert wellington":"Jacob Wellington","matthew liam wood":"Matt Wood","corey hayden koerner":"Corey Koerner","louis jagger cane":"Louis Jagger Cane","evander marvin grubb":"Evander Grubb","jack william kennell":"Jack Kennell"};
@@ -561,18 +561,18 @@ if(demoMode){
 }
 function updateHeader(){
  const d=payload?.matchday,m=d?.featured;
- $("home").textContent=m?.home||config.home;$("away").textContent=m?.away||config.away;
+ $("home").textContent=m?.home||config.home||"Tiverton Town";$("away").textContent=m?.away||config.away||"Fixture pending";
  const matchStatus=String(m?.status||"");
  const underway=!!m&&(/live|progress|half|playing|second|first|extra|penalt/i.test(matchStatus)||isFinal(matchStatus));
- $("score").textContent=underway&&m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff;
- $("state").textContent=underway?(isFinal(matchStatus)?"FULL TIME":matchStatus.replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase()):prematchLabel();
+ $("score").textContent=underway&&m?.score&&Number.isInteger(m.score.home)&&Number.isInteger(m.score.away)?m.score.home+"–"+m.score.away:config.kickoff||"—";
+ $("state").textContent=underway?(isFinal(matchStatus)?"FULL TIME":matchStatus.replace(/([a-z])([A-Z])/g,"$1 $2").toUpperCase()):/postponed|cancelled|abandoned/i.test(matchStatus)?matchStatus.toUpperCase():prematchLabel();
   if(grubbReplay&&m){
    const earlier=(m.events||[]).filter(e=>Number(e.minute)<=replayMinute&&e.score&&Number.isInteger(e.score.home)&&Number.isInteger(e.score.away)).sort((a,b)=>Number(b.minute)-Number(a.minute));
    const score=earlier[0]?.score;
    if(score)$("score").textContent=score.home+"–"+score.away;
    $("state").textContent="ARCHIVE · 34′";
   }
- $("fixtureText").textContent="SOUTHERN LEAGUE D1 SOUTH · "+config.home.toUpperCase()+" v "+config.away.toUpperCase()+" · "+matchDateLabel.toUpperCase()+" · "+config.kickoff+" KICK-OFF";
+ $("fixtureText").textContent=[config.competition, config.home&&config.home+" v "+config.away, matchDateLabel, config.kickoff&&config.kickoff+" kick-off"].filter(Boolean).join(" · ").toUpperCase();
  const age=d?.checkedAt?Date.now()-Date.parse(d.checkedAt):Infinity;
  const healthy=payload?.status==="ok"&&d?.status==="ok"&&!!m&&age<180000;
  const stale=payload?.status==="ok"&&d?.status==="ok"&&!!m;
@@ -595,12 +595,9 @@ async function refresh(){
    manualFacebookPosts=snapshot.posts.filter(p=>p.source==="facebook-manual");
  }catch(_){/* Preserve last approved manual posts */}
  try{
- const res=await fetch(api+"&t="+Date.now(),{cache:"no-store"});
- if(!res.ok)throw Error("Collector HTTP "+res.status);
- const value=await res.json();
- if(value?.matchday?.date!==date||value?.matchday?.status!=="ok"||!value?.matchday?.featured)throw Error("Official featured fixture not verified");
+ const value=await matchday.live(date);
  const match=value.matchday.featured;
- if(match.home?.toLowerCase()!==config.home.toLowerCase()||match.away?.toLowerCase()!==config.away.toLowerCase())throw Error("Featured fixture mismatch");
+ if(!matchday.sameFixture(config,match))throw Error("Official featured fixture not verified");
  payload=value;lastGood=Date.now();
  const sig=JSON.stringify({match:value.matchday.featured,x:value.x?.posts,facebook:manualFacebookPosts});
  if(sig!==renderSig){drawTimeline();renderSig=sig}
@@ -617,7 +614,11 @@ async function refresh(){
 }
 function clock(){ $("now").textContent=grubbReplay?"Sat 15:34:00 · REPLAY":new Date().toLocaleString("en-GB",{timeZone:"Europe/London",hour12:false,weekday:"short",hour:"2-digit",minute:"2-digit",second:"2-digit"})}
 clock();updateHeader();setInterval(()=>{clock();updateHeader()},1000);
-refresh();setInterval(refresh,20000);
+async function poll(){
+ await refresh();
+ setTimeout(poll,matchday.refreshPeriod(config,payload?.matchday?.featured?.status));
+}
+poll();
 window.addEventListener("resize",()=>{if(payload)drawTimeline()});
 setInterval(()=>{if(celebrationUntil&&Date.now()>celebrationUntil){$("goalCelebration").classList.remove("active");celebrationUntil=0}},250);
 

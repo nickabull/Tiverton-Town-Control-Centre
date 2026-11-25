@@ -5,6 +5,7 @@ on:
     paths:
       - scripts/export-tivvy-programme-postmatch.py
       - scripts/generate-tivvy-match-facts.py
+      - scripts/generate-tivvy-match-replays.py
       - .github/workflows/export-tivvy-programme-postmatch.yml
   schedule:
     - cron: '12,27,42,57 0-17 * * *'
@@ -25,6 +26,8 @@ jobs:
         run: python3 scripts/export-tivvy-programme-postmatch.py
       - name: Generate HTML match-facts embeds from verified full-time exports
         run: python3 scripts/generate-tivvy-match-facts.py
+      - name: Generate permanent dated As It Happened match replays
+        run: python3 scripts/generate-tivvy-match-replays.py
       - name: Validate JSON exports
         run: |
           for f in data/tivvy-programme-postmatch-*.json; do
@@ -34,7 +37,7 @@ jobs:
         run: |
           git config user.name "tivvy-data-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/tivvy-programme-postmatch-*.json match-facts/*.html || true
+          git add data/tivvy-programme-postmatch-*.json match-facts/*.html match-replays/*.html || true
           if ! git diff --cached --quiet; then
             git commit -m "Publish verified Tivvy post-match data and report embeds"
             # Other site edits can land while this scheduled job is running.

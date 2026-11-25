@@ -49,11 +49,12 @@
       return prior ? {date: requested, home: prior[0], away: prior[1], kickoff: prior[2],
         competition: "Southern League D1 South"} : {date: requested};
     }
-    const row = rows.filter(f => f.date >= today && f.competition !== "PSF" &&
-        !/postponed|cancelled|abandoned|rearranged/i.test(f.result || "") &&
-        (f.date === today || !String(f.result || "").trim()))
+    const next = rows.filter(f => f.date >= today && f.competition !== "PSF" &&
+        !String(f.result || "").trim() && !/postponed|cancelled|abandoned|rearranged/i.test(f.status || ""))
       .sort((a, b) => a.date.localeCompare(b.date) || String(a.kickOff).localeCompare(String(b.kickOff)))[0];
-    return row ? configFromFixture(row) : {date: today};
+    if (next) return configFromFixture(next);
+    const completedToday = rows.find(f => f.date === today && /^[WDL]\s+\d/i.test(f.result || ""));
+    return completedToday ? configFromFixture(completedToday) : {date: today};
   }
 
   async function live(date) {

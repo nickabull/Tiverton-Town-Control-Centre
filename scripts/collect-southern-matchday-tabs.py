@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Publish the official Worker matchday snapshot in the existing tab JSON schema."""
 import json
+import subprocess
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode
-from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 COLLECTOR = "https://tivvy-live-collector.nickabull.workers.dev/live"
@@ -48,9 +48,12 @@ def main():
     requested = (date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1
                  else datetime.now(ZoneInfo("Europe/London")).date()).isoformat()
     try:
-        request = Request(COLLECTOR + "?" + urlencode({"date": requested}), headers={"Accept": "application/json"})
-        with urlopen(request, timeout=25) as response:
-            payload = snapshot(requested, json.load(response))
+        url = COLLECTOR + "?" + urlencode({"date": requested})
+        response = subprocess.run(["curl", "--retry", "2", "--max-time", "25", "-fsS", url],
+                                  capture_output=True, text=True)
+        if response.returncode:
+            raise OSError(response.stderr.strip())
+        payload = snapshot(requested, json.loads(response.stdout))
     except Exception as exc:
         payload = {"date": requested, "checkedAt": datetime.now(timezone.utc).isoformat(),
                    "source": "Southern League public match API via Tivvy Live collector",

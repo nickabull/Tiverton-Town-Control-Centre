@@ -133,5 +133,15 @@
     return sinceKickoff >= -1800000 && sinceKickoff <= 12600000 ? 20000 : 60000;
   }
 
-  window.TivvyMatchday = {collector, start, matchDateLabel, kickoffTime, live, sameFixture, midweek, refreshPeriod};
+  async function auditFixtures() {
+    const rows = await loadRegistry();
+    const requested = new URLSearchParams(location.search).get("date");
+    const today = londonDate();
+    const selected = requested && /^20\d{2}-\d{2}-\d{2}$/.test(requested) &&
+      Number.isFinite(Date.parse(requested)) ? requested : chooseMatch(rows, null, today).date;
+    const dates = [...new Set([selected, ...Object.keys(historical), ...rows.map(row => row.date)])].sort().reverse();
+    return {selected, fixtures: dates.map(date => chooseMatch(rows, date, today))};
+  }
+
+  window.TivvyMatchday = {collector, start, matchDateLabel, kickoffTime, live, sameFixture, midweek, refreshPeriod, auditFixtures};
 })();

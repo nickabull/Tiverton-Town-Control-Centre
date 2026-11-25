@@ -237,7 +237,7 @@ export class MatchCache {
   if(url.pathname==="/start"){
    const kickoff=url.searchParams.get("kickoff")||FIXTURES[date]?.kickoff;
    if(inLiveWindow(date,kickoff)){
-    await this.state.storage.put("matchKickoff",kickoff);
+    await this.state.storage.put({matchDate:date,matchKickoff:kickoff});
     // Cloudflare Cron starts the matchday without waiting for any browser.
     const alarm=await this.state.storage.getAlarm();
     if(!alarm)await this.state.storage.setAlarm(Date.now()+1000);
@@ -245,16 +245,20 @@ export class MatchCache {
    }
    return json({status:"ok",scheduled:false,date,reason:"outside-match-window"});
   }
-  if(this.pending)return this.pending.then(value=>json(value));
-  this.pending=this.collect(date).finally(()=>{this.pending=null;});
-  return this.pending.then(value=>json(value)).catch(e=>json({status:"error",message:String(e.message||e)},503));
+  return this.collectOnce(date).then(value=>json(value))
+   .catch(e=>json({status:"error",message:String(e.message||e)},503));
+ }
+ collectOnce(date){
+  if(!this.pending)this.pending=this.collect(date).finally(()=>{this.pending=null;});
+  return this.pending;
  }
  async alarm(){
   const date=await this.state.storage.get("matchDate");
   const kickoff=await this.state.storage.get("matchKickoff");
   if(!validDate(date)||!inLiveWindow(date,kickoff))return;
-  try{await this.collect(date);}
-  finally{if(inLiveWindow(date,kickoff))await this.state.storage.setAlarm(Date.now()+MATCH_POLL_MS);}
+  const startedAt=Date.now();
+  try{await this.collectOnce(date);}
+  finally{if(inLiveWindow(date,kickoff))await this.state.storage.setAlarm(Math.max(Date.now(),startedAt+MATCH_POLL_MS));}
  }
  async collect(date){
   const now=Date.now();
@@ -337,7 +341,7 @@ export default {
   const url=new URL(request.url);
   if(request.method==="OPTIONS")return json({});
   if(request.method!=="GET")return json({error:"method not allowed"},405);
-  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector",version:"2026.11.12-audit20",features:["autonomous-20-second-poll","simultaneous-matches","persistent-log","fixture-discovery","optional-fwp-20-second-crosscheck"]});
+  if(url.pathname==="/health")return json({status:"ok",service:"Tivvy Live collector",version:"2026.11.25-alarm20",features:["autonomous-20-second-poll","simultaneous-matches","persistent-log","fixture-discovery","optional-fwp-20-second-crosscheck"]});
   if(url.pathname!=="/live"&&url.pathname!=="/log")return json({error:"not found"},404);
   const date=url.searchParams.get("date")||"2026-11-11";
   if(!validDate(date))return json({error:"Unsupported matchday"},400);

@@ -4,7 +4,7 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-24T00:13:43.423Z",
+  "sourceCheckedAt": "2026-11-25T08:23:43.397Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1aacce9ef452b61f42e5",
   "competition": "SLD1S",
   "home": "Swindon Supermarine",
@@ -18,7 +18,7 @@
   "incidents": {
     "goals": [
       {
-        "minute": 60,
+        "minute": 59,
         "player": "Zach Rugman",
         "teamId": "6a0adf9eda5d0d0847a02417",
         "score": {
@@ -30,7 +30,7 @@
     ],
     "yellowCards": [
       {
-        "minute": 67,
+        "minute": 66,
         "player": "Olly Case",
         "teamId": "6a0adf9eda5d0d0847a02417",
         "score": {
@@ -106,18 +106,7 @@
         "off": "Aaron Wellington"
       },
       {
-        "minute": 76,
-        "player": "Sal Abubakar",
-        "teamId": "6a0adf9eda5d0d0847a02417",
-        "score": {
-          "home": 1,
-          "away": 0
-        },
-        "eventType": "SUBSTITUTION",
-        "off": "Tyger-J Hall"
-      },
-      {
-        "minute": 76,
+        "minute": 75,
         "player": "Conor Lynch",
         "teamId": "6a0adf9eda5d0d0847a02417",
         "score": {
@@ -126,6 +115,17 @@
         },
         "eventType": "SUBSTITUTION",
         "off": "Dan Warre"
+      },
+      {
+        "minute": 75,
+        "player": "Sal Abubakar",
+        "teamId": "6a0adf9eda5d0d0847a02417",
+        "score": {
+          "home": 1,
+          "away": 0
+        },
+        "eventType": "SUBSTITUTION",
+        "off": "Tyger-J Hall"
       },
       {
         "minute": 82,
@@ -139,7 +139,7 @@
         "off": "Corey Hayden Koerner"
       },
       {
-        "minute": 94,
+        "minute": 92,
         "player": "Jacob Bancroft",
         "teamId": "6a0adf9eda5d0d0847a02417",
         "score": {

@@ -3,17 +3,20 @@
 No Canva/PDF pages or manually edited programme artwork are changed.
 """
 import json
+import re
+import subprocess
 from pathlib import Path
 from datetime import date, datetime, timedelta, timezone
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
+from zoneinfo import ZoneInfo
 
 BASE=Path("data")
 FIXTURES="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-Info/main/match-centre-fixtures-2026-27.json"
 
 def fixture_dates(fixtures):
     """Discover recent Tiverton league matchdays without hard-coded dates."""
-    today=datetime.now(timezone.utc).date()
+    today=datetime.now(ZoneInfo("Europe/London")).date()
     earliest=today-timedelta(days=21)
     dates=set()
     for fixture in fixtures.get("fixtures",[]):
@@ -27,6 +30,12 @@ DETAILS="https://raw.githubusercontent.com/nickabull/Tiverton-Town-Get-Player-In
 FWP_RESULTS="https://nickabull.github.io/Tiverton-Town-Get-Results/data.json"
 
 def get(url):
+    if url.startswith(URL):
+        result=subprocess.run(["curl","--retry","2","--max-time","25","-fsS",url],
+                              capture_output=True,text=True)
+        if result.returncode:
+            raise URLError(result.stderr.strip())
+        return json.loads(result.stdout)
     request=Request(url,headers={"Accept":"application/json","User-Agent":"TivvyProgrammeExporter/1.0"})
     with urlopen(request,timeout=30) as response:return json.load(response)
 
@@ -35,6 +44,15 @@ def save(path,value):
     # because the sourceCheckedAt timestamp changed.
     if path.exists():
         previous=json.loads(path.read_text(encoding="utf-8"))
+        if all(previous.get(key)==value.get(key) for key in ("matchDate","home","away")):
+            for field in ("officialReportUrl","photoGalleryUrl"):
+                if previous.get(field) and not value.get(field):
+                    value[field]=previous[field]
+            if previous.get("lineupsVerified") is True and valid_xi(previous.get("starters",[])) and not value.get("lineupsVerified"):
+                for field in ("lineupsVerified","starters","substitutes"):
+                    value[field]=previous.get(field)
+            if not value.get("kickoff") and previous.get("kickoff"):
+                value["kickoff"]=previous["kickoff"]
         old_content=dict(previous)
         new_content=dict(value)
         old_content.pop("sourceCheckedAt",None)
@@ -46,7 +64,15 @@ def save(path,value):
     path.write_text(payload,encoding="utf-8")
     print("UPDATED",path)
 
-def normal(s):return "".join(c for c in str(s).lower() if c.isalnum())
+def normal(s):
+    club=re.sub(r"\b(?:fc|afc)\b","",str(s).lower())
+    return "".join(c for c in club if c.isalnum())
+
+
+def valid_xi(starters):
+    names=[str(player.get("name") or "").strip().casefold() if isinstance(player,dict) else ""
+           for player in starters]
+    return len(names)==11 and all(names) and len(set(names))==11
 
 def fallback_completed(date, fixtures, published):
     """Completed FWP-backed score only, never fabricated player incidents."""
@@ -59,13 +85,12 @@ def fallback_completed(date, fixtures, published):
     away=fixture.get("opposition") if venue=="H" else "Tiverton Town"
     matching=[m for m in published if m.get("date")==date and normal(m.get("home"))==normal(home) and normal(m.get("away"))==normal(away)]
     if len(matching)!=1:return None
-    import re
     score=re.fullmatch(r"(\\d+)-(\\d+)",str(matching[0].get("score","")))
     if not score:return None
     hg,ag=map(int,score.groups())
     if hg>30 or ag>30:return None
     return {"home":home,"away":away,"status":"fulltime","score":{"home":hg,"away":ag},
-            "events":[],"id":None,"sourceUrl":FWP_RESULTS,
+            "events":[],"id":None,"sourceUrl":FWP_RESULTS,"kickoff":fixture.get("kickOff"),
             "sourceName":"Football Web Pages completed results"}
 
 
@@ -90,7 +115,10 @@ def main():
     except (HTTPError,URLError,TimeoutError,ValueError,KeyError) as e:
         raise RuntimeError("Fixture discovery failed; preserving published post-match data") from e
     if not dates:
-        raise RuntimeError("No recent scheduled league fixtures; check fixture feed")
+        if not fixture_catalogue.get("fixtures"):
+            raise RuntimeError("Fixture schedule is empty; check fixture feed")
+        print("No league fixtures in the recent publication window")
+        return
     for date in dates:
         try:payload=get(URL+date)
         except (HTTPError,URLError,TimeoutError,ValueError) as e:
@@ -129,15 +157,20 @@ def main():
             elif "SUB" in kind:
                 item["off"]=(e.get("personOff") or {}).get("name");stats["substitutions"].append(item)
             else:stats["other"].append(item)
-        detail=next((x for x in details if x.get("date")==date and normal(x.get("opponent"))==normal(opponent)),None)
+        detail=next((x for x in details if x.get("date")==date and x.get("venue")==venue and
+                     normal(x.get("opponent"))==normal(opponent) and valid_xi(x.get("starterDetails") or [])),None)
+        kickoff=str(match.get("kickoff") or "")
+        if not re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d",kickoff):
+            kickoff=None
         result={
             "schemaVersion":1,"matchDate":date,"status":"FullTime","verified":True,
             "source":("Southern League public API through Tivvy Live collector" if official else "Football Web Pages completed results"),
             "sourceCheckedAt":(matchday.get("checkedAt") if official else datetime.now(timezone.utc).isoformat()),
             "sourceMatchUrl":(match.get("sourceUrl") or ("https://www.southern-football-league.co.uk/match/"+str(match.get("id")))),
             "competition":"SLD1S","home":match.get("home"),"away":match.get("away"),
+            "kickoff":kickoff,
             "score":score,"venueForTiverton":venue,"opponent":opponent,"incidents":stats,
-            "lineupsVerified":bool(detail and detail.get("starters")),
+            "lineupsVerified":bool(detail),
             "starters":(detail.get("starterDetails") or []) if detail else [],
             "substitutes":(detail.get("subDetails") or []) if detail else [],
             "editorialReview":{

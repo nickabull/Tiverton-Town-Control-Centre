@@ -115,7 +115,7 @@ def main():
     parser.add_argument("--date", type=date.fromisoformat, help="archive a single verified historical fixture")
     args = parser.parse_args()
     today = datetime.now(LONDON).date()
-    recent = (args.date,) if args.date else tuple(today - timedelta(days=i) for i in range(7))
+    recent = (args.date,) if args.date else tuple(today - timedelta(days=i) for i in range(21))
     failures = []
     for day in recent:
         match_date = day.isoformat()

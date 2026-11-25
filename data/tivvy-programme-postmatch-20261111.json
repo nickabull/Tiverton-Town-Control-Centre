@@ -4,11 +4,12 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-24T00:13:43.530Z",
+  "sourceCheckedAt": "2026-11-25T23:56:26.008Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f44b6",
   "competition": "SLD1S",
   "home": "Paulton Rovers",
   "away": "Tiverton Town",
+  "kickoff": "19:30",
   "score": {
     "home": 0,
     "away": 1

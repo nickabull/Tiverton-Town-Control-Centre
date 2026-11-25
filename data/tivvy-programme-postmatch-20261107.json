@@ -4,11 +4,12 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-24T00:13:42.687Z",
+  "sourceCheckedAt": "2026-11-25T23:56:25.419Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4489",
   "competition": "SLD1S",
   "home": "Tiverton Town",
   "away": "Sporting Club Inkberrow",
+  "kickoff": "15:00",
   "score": {
     "home": 1,
     "away": 2

@@ -4,11 +4,12 @@
   "status": "FullTime",
   "verified": true,
   "source": "Southern League public API through Tivvy Live collector",
-  "sourceCheckedAt": "2026-11-24T00:13:46.639Z",
+  "sourceCheckedAt": "2026-11-25T23:56:28.398Z",
   "sourceMatchUrl": "https://www.southern-football-league.co.uk/match/6a5a1cc3ce9ef452b61f4508",
   "competition": "SLD1S",
   "home": "Melksham Town",
   "away": "Tiverton Town",
+  "kickoff": "15:00",
   "score": {
     "home": 0,
     "away": 3

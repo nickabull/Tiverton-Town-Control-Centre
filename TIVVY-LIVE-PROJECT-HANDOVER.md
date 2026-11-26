@@ -25,7 +25,7 @@
 
 ## 26 November · Swindon photos
 
-Caleb Palmer’s six original photos for **23 November, Swindon Supermarine away** are saved in the club’s Wix Media Manager. The [Match Centre gallery commit](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/commit/1c1e94f3440b5586b92a5d08a79a88de0828e356) records all six permanent media URLs and the credited display. The [deployment run](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/45730110017) is the source for publication status. A live browser check is pending.
+Caleb Palmer’s six original photos for **23 November, Swindon Supermarine away** are saved in the club’s Wix Media Manager. The [Match Centre gallery commit](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/commit/1c1e94f3440b5586b92a5d08a79a88de0828e356) records all six permanent media URLs and the credited display. The [deployment run](https://github.com/nickabull/Tiverton-Town-Get-Player-Info/actions/runs/45730110017) is the source for publication status. The deployment succeeded. A browser check confirmed the [published Match Centre component](https://nickabull.github.io/Tiverton-Town-Get-Player-Info/tivvy-hub-preview.html?v=1c1e94f#fixtures) displayed all six full-resolution images and the credit after opening the Swindon result. The public Wix wrapper was still serving its earlier embedded copy at the last check. The [project page](https://nickabull.github.io/Tiverton-Town-Control-Centre/project-hub.html#handovers) includes the file check in all five restart prompts, and its Tivvy Live copy button was tested.
 
 ## Restart rule
 

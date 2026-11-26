@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bake Off campaign pilot | Willow Tree</title>
+<style>
+:root{color-scheme:light;--ink:#201c29;--muted:#625d6b;--paper:#f8f5ef;--line:#e2dbd2;--plum:#3a2040;--berry:#9a2555;--rose:#f8e7ee}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}a{color:#80204b;text-underline-offset:3px}a:hover{text-decoration-thickness:2px}:focus-visible{outline:3px solid #b95116;outline-offset:3px}
+.shell{width:min(1120px,calc(100% - 36px));margin:auto}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:16px 0;color:var(--muted);font-size:.9rem}.top strong{color:var(--plum)}
+.hero{background:var(--plum);color:white;border-radius:24px;display:grid;grid-template-columns:1fr 145px;gap:24px;align-items:center;padding:clamp(22px,5vw,52px);overflow:hidden}.hero img{width:100%;height:auto;border-radius:9px}.hero h1{font:700 clamp(2.15rem,6vw,4.3rem)/.98 Georgia,serif;letter-spacing:-.045em;margin:.15em 0 .3em;max-width:17ch}.hero p{margin:.45em 0;color:#f4dfeb}.hero a{color:white}.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+section{margin:25px 0;background:#fffdfa;border:1px solid var(--line);border-radius:18px;padding:clamp(16px,3vw,26px)}h2{font:700 clamp(1.45rem,3vw,2rem)/1.16 Georgia,serif;margin:0 0 7px}.muted,.subtitle{color:var(--muted);margin:0 0 14px}.performances{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px}.performances li{border:1px solid var(--line);border-radius:10px;padding:12px}.performances strong,.performances span,.performances a{display:block}.performances span{color:var(--muted);font-size:.88rem;margin:4px 0 8px}.performances a{font-weight:700;font-size:.91rem}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:.85rem;color:var(--muted)}td span{display:block;font-size:.86rem;color:var(--muted)}td.metric{font-variant-numeric:tabular-nums}.table-wrap{overflow-x:auto}table{min-width:460px}button{font:inherit;font-weight:700;padding:8px 12px;border-radius:8px;border:1px solid #b48297;background:#fff;color:#762045;cursor:pointer}.tag{padding:8px 11px;border-radius:8px;background:var(--rose);color:#732148;font-size:.89rem;margin:10px 0}.tag:empty{display:none}.footer{padding:0 0 22px;color:var(--muted);font-size:.88rem}.footer a{display:inline-block;margin-right:15px}
+@media(max-width:510px){.hero{grid-template-columns:1fr 86px;gap:12px}.top{align-items:flex-start}.hero h1{font-size:2.18rem}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><strong>Willow Tree Dance &amp; Theatre Arts</strong><a href="project-hub.html">Project hub</a></header>
+<main>
+<div class="hero">
+  <div><p class="eyebrow">Campaign prototype</p><h1>The Great British Bake Off Musical</h1><p>The New Hall, Tiverton · 9–13 December 2026</p><p><a href="https://willowtreedanceandtheatrearts.com/shows/">Willow Tree Shows page</a></p></div>
+  <img src="https://willowtreedanceandtheatrearts.com/wp-content/uploads/2026/11/Great-British-Bake-Off-Details-For-Programme.png" width="2481" height="3508" alt="Willow Tree’s Bake Off Musical poster">
+</div>
+<section aria-labelledby="performances">
+  <h2 id="performances">Performance availability</h2>
+  <p class="subtitle">Public TicketSource snapshot · 26 November 2026. Open a performance for current availability.</p>
+  <ul class="performances">
+    <li><strong>Wed 9 Dec · 7:30 pm</strong><span>50+ tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIDH" aria-label="Book Wed 9 Dec at 7:30 pm">Book tickets</a></li>
+    <li><strong>Thu 10 Dec · 7:30 pm</strong><span>38 tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIDI" aria-label="Book Thu 10 Dec at 7:30 pm">Book tickets</a></li>
+    <li><strong>Fri 11 Dec · 7:30 pm</strong><span>50+ tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIDK" aria-label="Book Fri 11 Dec at 7:30 pm">Book tickets</a></li>
+    <li><strong>Sat 12 Dec · 2:30 pm</strong><span>50+ tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIDL" aria-label="Book Sat 12 Dec at 2:30 pm">Book tickets</a></li>
+    <li><strong>Sat 12 Dec · 7:30 pm</strong><span>50+ tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIED" aria-label="Book Sat 12 Dec at 7:30 pm">Book tickets</a></li>
+    <li><strong>Sun 13 Dec · 1:30 pm</strong><span>50+ tickets shown available</span><a href="https://www.ticketsource.com/booking/init/GEKEIDM" aria-label="Book Sun 13 Dec at 1:30 pm">Book tickets</a></li>
+  </ul>
+</section>
+<section aria-labelledby="tracking">
+  <h2 id="tracking">Campaign tracking</h2>
+  <p class="subtitle">Use a different link for each channel or post. Compare social reach and link clicks with the bookings TicketSource credits to each link.</p>
+  <button type="button" id="toggle" aria-pressed="false">Show example figures</button>
+  <p class="tag" id="status" role="status">Awaiting TicketSource and social reporting access. Campaign figures are unavailable.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Campaign tracking table">
+  <table aria-describedby="status">
+    <thead><tr><th scope="col">Campaign</th><th scope="col">Reach</th><th scope="col">Link clicks</th><th scope="col">Attributed bookings</th><th scope="col">Booking link</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Facebook<span>Launch post</span></th><td class="metric" data-example="2480">—</td><td class="metric" data-example="112">—</td><td class="metric" data-example="9">—</td><td><a href="https://www.ticketsource.com/willow-tree-dance-theatre-arts?ref=BakeOffFacebook">Open Facebook link</a></td></tr>
+      <tr><th scope="row">Instagram<span>Story link</span></th><td class="metric" data-example="1710">—</td><td class="metric" data-example="86">—</td><td class="metric" data-example="5">—</td><td><a href="https://www.ticketsource.com/willow-tree-dance-theatre-arts?ref=BakeOffInstagram">Open Instagram link</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+<section aria-labelledby="frozen">
+  <h2 id="frozen">What this could tell Lucy for Frozen</h2>
+  <p>Which posts got people to click, which links led to bookings and which performances might benefit from another publicity push. Reach and clicks come from social reporting. TicketSource’s Sales Report can check referral attribution, while the read-only API test will establish whether that step can be automated.</p>
+  <p class="muted">Pilot test · Use one tagged link on a Bake Off post and compare the first attributed booking in the Sales Report with the API response.</p>
+</section>
+</main>
+<footer class="footer"><a href="https://www.ticketsource.com/willow-tree-dance-theatre-arts">TicketSource public listings</a><a href="https://help.ticketsource.com/en/article/reward-affiliates-47qyoy/">How TicketSource tracks referral links</a></footer>
+</div>
+<script>
+const toggle=document.querySelector('#toggle');
+const status=document.querySelector('#status');
+const figures=document.querySelectorAll('[data-example]');
+toggle.addEventListener('click',()=>{
+  const show=toggle.getAttribute('aria-pressed')==='false';
+  toggle.setAttribute('aria-pressed',String(show));
+  toggle.textContent=show?'Hide example figures':'Show example figures';
+  status.textContent=show?'Example figures only. These are fictional and are not Willow Tree’s results.':'Awaiting TicketSource and social reporting access. Campaign figures are unavailable.';
+  for(const figure of figures) figure.textContent=show?Number(figure.dataset.example).toLocaleString('en-GB'):'—';
+});
+</script>
+</body>
+</html>

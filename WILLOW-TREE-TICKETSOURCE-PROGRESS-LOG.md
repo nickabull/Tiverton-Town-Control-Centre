@@ -11,6 +11,7 @@
 | Recorded | Project setup | Created the project brief, restart prompt and this log. |
 | Pending | First API check | Confirm organiser access, set the key server-side, retrieve the six performances and compare aggregate counts against a TicketSource report. |
 | Ready to preview | WordPress booking block | [Paste-ready HTML](WILLOW-TREE-BAKE-OFF-WORDPRESS.html) prepared for the Shows page. All six direct booking links were checked against their performance dates and times. WordPress preview and publication are pending. |
+| Ready to preview | Artwork layout | [Alternate HTML with artwork](WILLOW-TREE-BAKE-OFF-WORDPRESS-WITH-ARTWORK.html) keeps all six booking links and lets the poster sit alongside them on wider screens. Willow Tree’s [TicketSource listing](https://www.ticketsource.com/willow-tree-dance-theatre-arts/the-great-british-bake-off-musical/e-rpzbzr) shows the event artwork. WordPress image upload and preview are pending. |
 | Pending | Dashboard and reporting | The private dashboard and optional summaries are awaiting implementation. |
 
 Reference links are in the [project brief](WILLOW-TREE-TICKETSOURCE-HANDOVER.md).

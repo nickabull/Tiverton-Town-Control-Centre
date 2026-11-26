@@ -10,8 +10,8 @@
 | Verified | Documented integration options | TicketSource provides an official WordPress embed and a documented API for events, performance dates, booking links, and booking records. |
 | Recorded | Project setup | Created the project brief, restart prompt and this log. |
 | Pending | First API check | Confirm organiser access, set the key server-side, retrieve the six performances and compare aggregate counts against a TicketSource report. |
-| Ready to preview | WordPress booking block | [Paste-ready HTML](WILLOW-TREE-BAKE-OFF-WORDPRESS.html) prepared for the Shows page. All six direct booking links were checked against their performance dates and times. WordPress preview and publication are pending. |
-| Ready to preview | Artwork layout | [Alternate HTML with artwork](WILLOW-TREE-BAKE-OFF-WORDPRESS-WITH-ARTWORK.html) keeps all six booking links and lets the poster sit alongside them on wider screens. Willow Tree’s [TicketSource listing](https://www.ticketsource.com/willow-tree-dance-theatre-arts/the-great-british-bake-off-musical/e-rpzbzr) shows the event artwork. WordPress image upload and preview are pending. |
+| Live and verified | WordPress booking block | Nick published the booking section on the [public Shows page](https://willowtreedanceandtheatrearts.com/shows/). The live page serves all six direct TicketSource links, matching the previously verified performance dates and times. |
+| Live and verified | Show artwork | The uploaded poster is displayed alongside the booking links in Nick’s screenshot. The public page references the uploaded PNG, which returned a valid image over HTTPS on retry. [Published layout source](WILLOW-TREE-BAKE-OFF-WORDPRESS-WITH-ARTWORK.html). |
 | Pending | Dashboard and reporting | The private dashboard and optional summaries are awaiting implementation. |
 
 Reference links are in the [project brief](WILLOW-TREE-TICKETSOURCE-HANDOVER.md).

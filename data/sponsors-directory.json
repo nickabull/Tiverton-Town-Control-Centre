@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "season": "2026/27",
-  "updatedAt": "2026-10-30",
+  "updatedAt": "2026-11-27",
   "source": "Sponsor list supplied by Tiverton Town; public business information researched from the sources in each record. Additional 19 entries transcribed from user-supplied Official Sponsors Directory PDF; contact details await sponsor review.",
   "sourceEntryCount": 73,
   "uniqueSponsorCount": 66,
@@ -1886,7 +1886,7 @@
     },
     {
       "name": "All Heat Plumbing & Heating",
-      "website": "https://www.facebook.com/allheatplumbing/",
+      "website": "https://www.allheatsw.co.uk/",
       "summary": "Boiler installations, central heating, emergency repairs, and plumbing services.",
       "categories": [
         "Plumbing & Heating"
@@ -1903,7 +1903,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/allheatplumbing/"
+        "https://www.allheatsw.co.uk/"
       ],
       "confidence": "confirmed",
       "id": "all-heat-plumbing-heating",
@@ -1929,7 +1929,7 @@
       ],
       "phone": "",
       "email": "",
-      "address": "Turley Down Bungalow, Ash Thomas, Tiverton, EX16 4NU",
+      "address": "",
       "serviceArea": "",
       "logoUrl": "",
       "sources": [],
@@ -1940,44 +1940,48 @@
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
       "logo": "",
       "logoTheme": "light"
     },
     {
-      "name": "Briarswood",
-      "website": "https://www.facebook.com/briarswood/",
-      "summary": "Local bespoke construction, residential developments, and carpentry.",
+      "name": "Briarwood Products",
+      "website": "https://www.briarwoodproducts.co.uk/",
+      "summary": "Manufacturer and supplier of fibre cement roofing sheets, metal roofing and cladding products, including agricultural building materials.",
       "categories": [
-        "Building & Trades"
+        "Building & Trades",
+        "Agriculture & Engineering"
       ],
       "keywords": [
-        "construction",
-        "residential developments",
-        "carpentry"
+        "roofing",
+        "cladding",
+        "fibre cement",
+        "metal roofing",
+        "agricultural buildings"
       ],
-      "phone": "",
-      "email": "",
+      "phone": "+44 1934 641446",
+      "email": "sales@briarwoodproducts.co.uk",
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/briarswood/"
+        "https://www.briarwoodproducts.co.uk/"
       ],
       "confidence": "confirmed",
       "id": "briarswood",
-      "searchAliases": [],
+      "searchAliases": [
+        "Briarswood"
+      ],
       "status": "active",
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-11-27",
       "logo": "",
       "logoTheme": "light"
     },
     {
       "name": "C&R Removals & Storage",
-      "website": "http://www.crremovalsnstorage.co.uk",
+      "website": "https://www.facebook.com/CANDRSELFSTORAGE/",
       "summary": "Home and office removals, professional packing, and secure storage.",
       "categories": [
         "Home & Property Services"
@@ -1988,13 +1992,13 @@
         "storage",
         "office moves"
       ],
-      "phone": "+44 1507 343592",
+      "phone": "",
       "email": "",
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "http://www.crremovalsnstorage.co.uk"
+        "https://www.facebook.com/CANDRSELFSTORAGE/"
       ],
       "confidence": "confirmed",
       "id": "c-r-removals-storage",
@@ -2040,7 +2044,7 @@
       "logoTheme": "light"
     },
     {
-      "name": "H2O Plumbing",
+      "name": "H2O Plumbing & Heating",
       "website": "https://www.h20plumbing.co.uk/",
       "summary": "Gas Safe registered boiler replacements, bathroom installs, and general plumbing.",
       "categories": [
@@ -2053,9 +2057,9 @@
         "Gas Safe"
       ],
       "phone": "+44 7984 449661",
-      "email": "",
+      "email": "info@h20plumbing.co.uk",
       "address": "",
-      "serviceArea": "",
+      "serviceArea": "Devon and Somerset, including Tiverton",
       "logoUrl": "",
       "sources": [
         "https://www.h20plumbing.co.uk/"
@@ -2067,13 +2071,13 @@
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
+      "checkedAt": "2026-11-27",
       "logo": "assets/sponsors/h2o-plumbing.png",
       "logoTheme": "light"
     },
     {
       "name": "J Rainey General Building Contractor",
-      "website": "https://www.mybuilder.com/profile/j_rainey_building_contractor",
+      "website": "https://www.instagram.com/jraineybuilders/",
       "summary": "Extensions, new builds, renovations, and project management.",
       "categories": [
         "Building & Trades"
@@ -2090,7 +2094,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.mybuilder.com/profile/j_rainey_building_contractor"
+        "https://www.instagram.com/jraineybuilders/"
       ],
       "confidence": "confirmed",
       "id": "j-rainey-general-building-contractor",
@@ -2105,7 +2109,7 @@
     },
     {
       "name": "Jeffs & Son Traditional Window Cleaners",
-      "website": "https://www.facebook.com/jeffsandsonwindowcleaning/",
+      "website": "https://www.facebook.com/jeffsandsonwindowcleaning/?locale=en_GB",
       "summary": "Traditional hand window cleaning, gutter clearance, and carpet cleaner hire.",
       "categories": [
         "Home & Property Services"
@@ -2121,7 +2125,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/jeffsandsonwindowcleaning/"
+        "https://www.facebook.com/jeffsandsonwindowcleaning/?locale=en_GB"
       ],
       "confidence": "confirmed",
       "id": "jeffs-son-traditional-window-cleaners",
@@ -2167,7 +2171,7 @@
     },
     {
       "name": "Kade’s Construction",
-      "website": "https://www.facebook.com/kadesconstruction/",
+      "website": "https://kadesconstruction.com/",
       "summary": "Local building contractor specialising in domestic extensions and groundworks.",
       "categories": [
         "Building & Trades"
@@ -2183,7 +2187,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/kadesconstruction/"
+        "https://kadesconstruction.com/"
       ],
       "confidence": "confirmed",
       "id": "kade-s-construction",
@@ -2198,7 +2202,7 @@
     },
     {
       "name": "Landscapes R US",
-      "website": "https://www.facebook.com/LandscapesRUS/",
+      "website": "https://www.facebook.com/landscapesrus.s.w/",
       "summary": "Fencing, patios, turfing, and complete residential garden redesign.",
       "categories": [
         "Gardens & Outdoors"
@@ -2215,7 +2219,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/LandscapesRUS/"
+        "https://www.facebook.com/landscapesrus.s.w/"
       ],
       "confidence": "confirmed",
       "id": "landscapes-r-us",
@@ -2229,39 +2233,8 @@
       "logoTheme": "light"
     },
     {
-      "name": "LIFT / Tony Wheeley",
-      "website": "https://www.localindependentsfortiverton.org.uk",
-      "summary": "Local Independents for Tiverton — community-focused business alliance.",
-      "categories": [
-        "Community & Organisations"
-      ],
-      "keywords": [
-        "local independent businesses",
-        "community",
-        "Tiverton"
-      ],
-      "phone": "",
-      "email": "",
-      "address": "",
-      "serviceArea": "",
-      "logoUrl": "",
-      "sources": [
-        "https://www.localindependentsfortiverton.org.uk"
-      ],
-      "confidence": "confirmed",
-      "id": "lift-tony-wheeley",
-      "searchAliases": [],
-      "status": "active",
-      "season": "2026/27",
-      "activeFrom": "",
-      "activeUntil": "",
-      "checkedAt": "2026-10-30",
-      "logo": "assets/sponsors/lift-tony-wheeley.png",
-      "logoTheme": "light"
-    },
-    {
       "name": "MJ Scrap Metals",
-      "website": "https://www.facebook.com/mjscrapmetals/",
+      "website": "https://www.facebook.com/p/Mj-scrap-metals-100034751782249/",
       "summary": "Scrap metal recycling, site clearances, and vehicle recycling extraction.",
       "categories": [
         "Recycling & Waste"
@@ -2278,7 +2251,7 @@
       "serviceArea": "",
       "logoUrl": "",
       "sources": [
-        "https://www.facebook.com/mjscrapmetals/"
+        "https://www.facebook.com/p/Mj-scrap-metals-100034751782249/"
       ],
       "confidence": "confirmed",
       "id": "mj-scrap-metals",
@@ -2292,39 +2265,34 @@
       "logoTheme": "light"
     },
     {
-      "name": "Paul Orchard",
-      "website": "https://www.facebook.com/paulorchardplastering/",
-      "summary": "Professional plastering, rendering, and home decoration specialist.",
+      "name": "Orchard and Bull",
+      "website": "",
+      "summary": "Local business supporting Tiverton Town FC.",
       "categories": [
-        "Building & Trades"
+        "Local Businesses"
       ],
-      "keywords": [
-        "plastering",
-        "rendering",
-        "decoration"
-      ],
+      "keywords": [],
       "phone": "",
       "email": "",
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
-      "sources": [
-        "https://www.facebook.com/paulorchardplastering/"
-      ],
+      "sources": [],
       "confidence": "confirmed",
       "id": "paul-orchard",
-      "searchAliases": [],
+      "searchAliases": [
+        "Paul Orchard"
+      ],
       "status": "active",
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
       "logo": "",
       "logoTheme": "light"
     },
     {
       "name": "R & M Cars",
-      "website": "https://www.facebook.com/rmcarstiverton/",
+      "website": "",
       "summary": "Used car dealership, vehicle sourcing, and automotive sales.",
       "categories": [
         "Motoring"
@@ -2339,9 +2307,7 @@
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
-      "sources": [
-        "https://www.facebook.com/rmcarstiverton/"
-      ],
+      "sources": [],
       "confidence": "confirmed",
       "id": "r-m-cars",
       "searchAliases": [],
@@ -2349,30 +2315,23 @@
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
       "logo": "",
       "logoTheme": "light"
     },
     {
       "name": "R White & Son Ltd",
-      "website": "https://www.rwhiteandson.co.uk",
-      "summary": "Precision engineering, manufacturing, and CNC machining solutions.",
+      "website": "",
+      "summary": "Local business supporting Tiverton Town FC.",
       "categories": [
-        "Agriculture & Engineering"
+        "Local Businesses"
       ],
-      "keywords": [
-        "engineering",
-        "manufacturing",
-        "CNC machining"
-      ],
+      "keywords": [],
       "phone": "",
       "email": "",
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
-      "sources": [
-        "https://www.rwhiteandson.co.uk"
-      ],
+      "sources": [],
       "confidence": "confirmed",
       "id": "r-white-son-ltd",
       "searchAliases": [],
@@ -2380,44 +2339,12 @@
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
-      "logo": "",
-      "logoTheme": "light"
-    },
-    {
-      "name": "Rapid Scaffolding",
-      "website": "https://www.facebook.com/rapidscaffoldingsw/",
-      "summary": "Commercial and domestic scaffolding structures, safety netting, and temporary roofs.",
-      "categories": [
-        "Building & Trades"
-      ],
-      "keywords": [
-        "scaffolding",
-        "safety netting",
-        "temporary roofs"
-      ],
-      "phone": "",
-      "email": "",
-      "address": "",
-      "serviceArea": "",
-      "logoUrl": "",
-      "sources": [
-        "https://www.facebook.com/rapidscaffoldingsw/"
-      ],
-      "confidence": "confirmed",
-      "id": "rapid-scaffolding",
-      "searchAliases": [],
-      "status": "active",
-      "season": "2026/27",
-      "activeFrom": "",
-      "activeUntil": "",
-      "checkedAt": "2026-10-30",
       "logo": "",
       "logoTheme": "light"
     },
     {
       "name": "Rob Barton Farm Buildings and Maintenance",
-      "website": "https://www.facebook.com/robbartonfarmbuildings/",
+      "website": "",
       "summary": "Agricultural steel-framed erections, barn repairs, and farm maintenance.",
       "categories": [
         "Agriculture & Engineering"
@@ -2433,9 +2360,7 @@
       "address": "",
       "serviceArea": "",
       "logoUrl": "",
-      "sources": [
-        "https://www.facebook.com/robbartonfarmbuildings/"
-      ],
+      "sources": [],
       "confidence": "confirmed",
       "id": "rob-barton-farm-buildings-and-maintenance",
       "searchAliases": [],
@@ -2443,41 +2368,9 @@
       "season": "2026/27",
       "activeFrom": "",
       "activeUntil": "",
-      "checkedAt": "2026-10-30",
-      "logo": "",
-      "logoTheme": "light"
-    },
-    {
-      "name": "Yeo PSA Testing",
-      "website": "https://www.yeopsatesting.co.uk",
-      "summary": "Community healthcare initiative raising awareness and offering prostate screening.",
-      "categories": [
-        "Community & Organisations"
-      ],
-      "keywords": [
-        "prostate screening",
-        "PSA testing",
-        "awareness"
-      ],
-      "phone": "",
-      "email": "",
-      "address": "",
-      "serviceArea": "",
-      "logoUrl": "",
-      "sources": [
-        "https://www.yeopsatesting.co.uk"
-      ],
-      "confidence": "confirmed",
-      "id": "yeo-psa-testing",
-      "searchAliases": [],
-      "status": "active",
-      "season": "2026/27",
-      "activeFrom": "",
-      "activeUntil": "",
-      "checkedAt": "2026-10-30",
       "logo": "",
       "logoTheme": "light"
     }
   ],
-  "publishedSponsorCount": 66
+  "publishedSponsorCount": 63
 }

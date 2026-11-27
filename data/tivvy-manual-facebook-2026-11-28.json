@@ -1,5 +1,16 @@
 {
   "schema": "tivvy.manual-facebook.v1",
   "date": "2026-11-28",
-  "posts": []
+  "posts": [
+    {
+      "id": "facebook-manual-22",
+      "source": "facebook-manual",
+      "author": "Darren · Facebook Fans group",
+      "text": "SYSTEM TEST – Tivvy QuickPost. Testing the Facebook commentary relay ahead of Saturday's match at Hartpury. This is not a match update.",
+      "createdAt": "2026-11-28T13:47:00Z",
+      "submittedAt": "2026-11-27T13:47:21Z",
+      "issue": 22,
+      "media": []
+    }
+  ]
 }

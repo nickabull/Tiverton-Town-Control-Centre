@@ -56,6 +56,14 @@ Caleb Palmer’s six original photos for **23 November, Swindon Supermarine away
 - User confirmed the actual LG kitchen television successfully loaded the compatibility ticker at https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv-compat.html after the original ticker failed to initialise. Retain this exact public path permanently for television bookmarks; do not delete or rename it. Candidate commit bb76b1c; Pages deployment a26448d succeeded. Physical user confirmation of successful load, not a full in-play regression or universal TV compatibility guarantee.
 - User plans a Wix redirect at https://www.tivertontownfc.uk/tv to the above permanent destination. Redirect not yet confirmed created or tested. Prefer club-owned short URL over third-party shorteners. Keep both URLs handy in project hub and handover. Original production ticker remains unchanged.
 
+## 27 November · Matchday freeze (20:53 UK)
+
+- User elected to pause WhatsApp publishing development until after Hartpury, 28 November, 15:00. Receive-only webhook remains active; do not connect it to public commentary yet.
+- Matchday manual commentary route: https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-quickpost.html — Hartpury date 2026-11-28. User may perform another explicitly labelled test. Remove all test-only posts before kickoff, preserving real commentary. Issue #22 test previously confirmed in feed and desktop ticker; LG compatibility page subsequently confirmed working by user.
+- Permanent LG page: https://nickabull.github.io/Tiverton-Town-Control-Centre/tivvy-live-tv-compat.html — do not rename/delete. Wix /tv redirect still awaiting user confirmation.
+- Sponsors directory separately updated and Pages deployment succeeded; commercial director review pending via https://www.tivertontownfc.uk/tivvy-sponsors-directory. See SPONSORS-DIRECTORY.md.
+- User mentions a pixel/layout wrinkle; exact location and desired correction not yet identified. Preserve no-scroll 16:9 layout and avoid changes to collector or editorial publishing before matchday.
+
 ## Restart rule
 
 Read this file, confirm the requested scope, then resume at the first open item. If an item depends on attachments, use saved project or Media Manager links and verify that every required file opens. A chat reference or filename does not prove the file is accessible. Before a handover, save project-owned files to the relevant durable location, record the links and record any missing assets explicitly. After a proven change, record the commit, test and remaining limitation here before moving on. Keep dated replay URLs and existing archives. Use the detailed history only when an open item needs it. Never publish keys or report a feed as working from source code alone.

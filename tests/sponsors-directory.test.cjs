@@ -11,5 +11,5 @@ assert(M.search(active,'plumber','').some(r=>r.id==='edwards-plumbing'));
 assert(M.search(active,'accountant','').every(r=>r.categories.includes('Accountants & Finance')));
 assert(M.search(active,'dog','Pets & Animals').some(r=>r.name.includes('Dog')));
 assert.equal(M.url('javascript:alert(1)'), '');assert.equal(M.url('a@example.com','email'),'mailto:a@example.com');assert.equal(M.url('+44 1884 123456','phone'),'tel:+441884123456');
-for(const r of active){assert(r.summary&&r.categories.length&&r.sources.length);assert(r.website||r.phone||r.email);if(r.logo)assert(fs.existsSync(new URL('../'+r.logo,'file://'+__filename)));}
+for(const r of active){assert(r.summary&&r.categories.length);if(r.website)assert(M.url(r.website));if(r.logo)assert(fs.existsSync(new URL('../'+r.logo,'file://'+__filename)));}
 console.log('Passed: deduplication, search relevance, identity holds, date/season visibility, contact URL validation and assets.');

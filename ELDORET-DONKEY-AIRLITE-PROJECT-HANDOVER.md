@@ -1844,3 +1844,7 @@ Home network (DrayTek 2865, 10.0.0.x)
 
 ### 27 Nov 2026 — Nerd Central 2.18 artwork and directory
 - New versioned `nerd-central-v218.html` commit `1e3a0d6432cf3dc7873032f3c469b63b4fcf2456`; stable route promotion `70502b1f3de6e194a2b207f73c3a2868002f3f6c`. Explicit high-specificity artwork references for all eleven modules, lighter overlay, no decorative heading icons, duplicate heading hidden while health status retained, standalone top clearance, directory reduced to nine newer dedicated routes. JS syntax checked; no device logic changes. Live artwork bytes/render and deployment not confirmed. Earlier 2.11 screenshot indicated stale page or bookmark; new filename reduces cache ambiguity. Activity Log requested but not implemented; future design should be transparent household device attribution, persistent command audit with outcomes, never infer individual identity solely from IP. TVs and appliances awaiting design pass; legacy controls remain reachable from tiles. Bulldog reboot verification outstanding.
+
+
+### 27 Nov 2026 — Sky Q 1.3 navigation contrast
+- User approved subtle translucent tint behind all category tabs for readability. Version 1.3 applies consistent dark blue translucent fills, white text and brighter active state; existing artwork, controls, search and keypad unchanged. Page commit `fc3005cb5e0856b1c2b0c56c356f394db7b6e7fa`, stable route commit `083632b19f809d955476c72663d675becc548395`. Live iPad rendering awaiting verification.

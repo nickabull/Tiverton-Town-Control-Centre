@@ -1836,3 +1836,7 @@ Home network (DrayTek 2865, 10.0.0.x)
 
 ### 27 Nov 2026 — Sky Q 1.1 / idle return
 - User confirmed Sky Q 1.0 initial iPad appearance but keypad clipped vertically. Version 1.1 rearranges existing directional pad and numeric keys into two columns with viewport-constrained dialog and short viewport rules. All existing buttons/scripts retained; no commands sent. New page commit `7fe46e730177f6c87257effb275a51d9f70f2b96`, stable route commit `a3e24ce85ded2aef51dc59eca85663163f9adcef`. `kiosk.js` commit `14f00843e3b97983915724a4cbda40422e27103d` changes shared two-minute idle return to Nerd Central; excludes Nerd Central and retains audio/video playback exemption. Sky 1.1 requests kiosk.js?v=3; other cached legacy pages may require refresh. Actual keypad fit and idle navigation awaiting iPad verification. User approved Ariya 1.3 and initial Sky Q 1.0 appearance.
+
+
+### 27 Nov 2026 — Sky Q 1.2 iPad standalone fit
+- User screenshot confirmed 1.1 keypad fully visible but header overlaps iOS status bar in standalone mode and modal close glyph misaligned. 1.2 adds safe-area top padding plus minimum standalone clearance and grid-centred close buttons; no control changes. Page commit `300c0d215d720da0fbe0bf59a6efc4ae580706b0`; stable route commit `46a64000bb6e79292e061c3c2eb97abf4b7a4d73`. Awaiting live visual verification. Bulldog log separately showed Chromium fatal GPU failure 26 Nov 10:08; user instructed to back up kiosk script, add --disable-gpu and 5-second restart loop, syntax check and reboot; post-reboot status not confirmed.

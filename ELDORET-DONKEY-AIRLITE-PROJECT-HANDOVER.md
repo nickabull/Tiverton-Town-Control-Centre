@@ -1848,3 +1848,7 @@ Home network (DrayTek 2865, 10.0.0.x)
 
 ### 27 Nov 2026 — Sky Q 1.3 navigation contrast
 - User approved subtle translucent tint behind all category tabs for readability. Version 1.3 applies consistent dark blue translucent fills, white text and brighter active state; existing artwork, controls, search and keypad unchanged. Page commit `fc3005cb5e0856b1c2b0c56c356f394db7b6e7fa`, stable route commit `083632b19f809d955476c72663d675becc548395`. Live iPad rendering awaiting verification.
+
+
+### 27 Nov 2026 — Nerd Central 2.19 room and appliance navigation
+- New TV and appliance selection menus (`tv-menu-v10.html` c38cd945, `appliance-menu-v10.html` 1d471244), room-specific detail wrapper retaining legacy TV controls (`tv-room-v10.html` 9b624c43), Home Connect read-only individual detail (`appliance-detail-v10.html` 1cc5dfdc). Nerd Central 2.19 f57a73ae; route promotion c9f5abb3. Artwork, refresh, return, standalone header clearance and narrow-screen CSS included; fridge separate. No new device control authorization or API writes. Existing TV controls differ by room, not yet a fully standardized remote. Appliance detail capabilities read only pending discovery and safe control implementation. Inline JS syntax checked; no browser/physical deployment QA yet. User requested universal safe-area pass and laptop/mobile visual QA; outstanding for older pages. Activity log outstanding. Bulldog GPU fatal workaround and restart loop installed by user; reboot verification outstanding.

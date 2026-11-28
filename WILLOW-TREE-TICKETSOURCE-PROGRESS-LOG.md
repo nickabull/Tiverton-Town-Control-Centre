@@ -25,6 +25,8 @@ Reference links are in the [project brief](WILLOW-TREE-TICKETSOURCE-HANDOVER.md)
 
 - [Cloudflare Worker source](willowtree-box-office-worker.mjs) is ready for browser-based setup, with an Access identity requirement and a server-side TicketSource secret. Mock checks covered unauthenticated denial, no-store headers, successful aggregate retrieval and omission of identifiers. Cloudflare deployment and the first authenticated TicketSource call are pending.
 
+- Live Cloudflare deployment verified on 28 November. The Worker uses a two-person Cloudflare Access policy and a deployed secret. The first authenticated snapshot displayed all six Bake Off performances after deploying key whitespace handling and safe API diagnostics. The cause of the initial generic error was not isolated. Campaign attribution still needs a known tagged booking and reconciliation. Lucy's sign-in has not yet been tested.
+
 ## How to keep this log current
 
 Append an entry under the date after each work session. Record the work completed, verification and evidence, links or commits, open decisions or blockers, and the next action. Use aggregate or sanitised examples in this public log.

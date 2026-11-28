@@ -18,6 +18,11 @@
 
 Reference links are in the [project brief](WILLOW-TREE-TICKETSOURCE-HANDOVER.md).
 
+## 28 November 2026
+
+- Organiser key available. The [local Box Office tool](willowtree-box-office.py) prompts privately for it and writes an aggregate-only report on the operator’s computer. Sample checks covered de-duplication, the last-24-hours calculation and the exclusion of personal fields. The first authenticated run and Sales Report reconciliation are pending.
+- [Box Office design preview](https://nickabull.github.io/Tiverton-Town-Control-Centre/willow-tree-box-office-preview.html) uses fictional metrics. A hosted version would use a separate Cloudflare Worker protected by email sign-in, with the key held as a Worker secret. The WordPress page could link to it.
+
 ## How to keep this log current
 
 Append an entry under the date after each work session. Record the work completed, verification and evidence, links or commits, open decisions or blockers, and the next action. Use aggregate or sanitised examples in this public log.

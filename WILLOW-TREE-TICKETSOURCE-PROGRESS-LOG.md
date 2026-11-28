@@ -27,6 +27,8 @@ Reference links are in the [project brief](WILLOW-TREE-TICKETSOURCE-HANDOVER.md)
 
 - Live Cloudflare deployment verified on 28 November. The Worker uses a two-person Cloudflare Access policy and a deployed secret. The first authenticated snapshot displayed all six Bake Off performances after deploying key whitespace handling and safe API diagnostics. The cause of the initial generic error was not isolated. Campaign attribution still needs a known tagged booking and reconciliation. Lucy's sign-in has not yet been tested.
 
+- Live Box Office update verified for all six Bake Off performances. Seven UK calendar days of booking activity appear on the first load. The on-demand scan completed active booked-ticket totals for all six against TicketSource; numbers exclude cancelled places and may include comps. A Sales Report reconciliation and a tagged campaign booking remain open.
+
 ## How to keep this log current
 
 Append an entry under the date after each work session. Record the work completed, verification and evidence, links or commits, open decisions or blockers, and the next action. Use aggregate or sanitised examples in this public log.

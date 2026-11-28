@@ -1,6 +1,6 @@
 {
   "date": "2026-11-28",
-  "checkedAt": "2026-11-28T00:21:48.956Z",
+  "checkedAt": "2026-11-28T19:13:22.919Z",
   "source": "Southern League public match API",
   "status": "ok",
   "matches": [
@@ -9,7 +9,7 @@
       "home": "Hartpury FC",
       "away": "Tiverton Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onesouth"
@@ -19,7 +19,7 @@
       "home": "Anstey Nomads",
       "away": "Stratford Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "premiercentral"
@@ -29,9 +29,9 @@
       "home": "Banbury United",
       "away": "Halesowen Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
       "competition": "premiercentral"
     },
     {
@@ -39,9 +39,9 @@
       "home": "Bishop's Stortford",
       "away": "Peterborough Sports",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 4,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -49,8 +49,8 @@
       "home": "Bromsgrove Sporting",
       "away": "Hitchin Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
       "awayScore": 0,
       "competition": "premiercentral"
     },
@@ -59,9 +59,9 @@
       "home": "Leamington",
       "away": "Alvechurch",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "premiercentral"
     },
     {
@@ -69,8 +69,8 @@
       "home": "Racing Club Warwick",
       "away": "Kettering Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
       "awayScore": 0,
       "competition": "premiercentral"
     },
@@ -79,9 +79,9 @@
       "home": "Real Bedford",
       "away": "Needham Market",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
       "competition": "premiercentral"
     },
     {
@@ -89,9 +89,9 @@
       "home": "Redditch United",
       "away": "Bury Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -99,9 +99,9 @@
       "home": "Stamford",
       "away": "Leighton Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 3,
       "competition": "premiercentral"
     },
     {
@@ -109,9 +109,9 @@
       "home": "Stourbridge FC",
       "away": "Rushall Olympic",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
       "competition": "premiercentral"
     },
     {
@@ -119,9 +119,9 @@
       "home": "Worcester City",
       "away": "Leiston",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "premiercentral"
     },
     {
@@ -129,9 +129,9 @@
       "home": "Basingstoke Town",
       "away": "Gloucester City",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "premiersouth"
     },
     {
@@ -139,9 +139,9 @@
       "home": "Berkhamsted",
       "away": "Evesham United",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -149,8 +149,8 @@
       "home": "Bracknell Town",
       "away": "Wimborne Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
       "awayScore": 0,
       "competition": "premiersouth"
     },
@@ -159,8 +159,8 @@
       "home": "Chichester City",
       "away": "Uxbridge",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
       "awayScore": 0,
       "competition": "premiersouth"
     },
@@ -169,9 +169,9 @@
       "home": "Chippenham Town",
       "away": "Bath City",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 4,
       "competition": "premiersouth"
     },
     {
@@ -179,9 +179,9 @@
       "home": "Hanwell Town",
       "away": "Frome Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -189,9 +189,9 @@
       "home": "Malvern Town",
       "away": "Chertsey Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -199,7 +199,7 @@
       "home": "Plymouth Parkway",
       "away": "Sholing FC",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "premiersouth"
@@ -209,9 +209,9 @@
       "home": "Poole Town",
       "away": "Havant & Waterlooville",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 1,
       "competition": "premiersouth"
     },
     {
@@ -219,7 +219,7 @@
       "home": "Taunton Town",
       "away": "Gosport Borough",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "premiersouth"
@@ -229,9 +229,9 @@
       "home": "Yate Town FC",
       "away": "Hanworth Villa",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "premiersouth"
     },
     {
@@ -239,9 +239,9 @@
       "home": "Aylesbury United",
       "away": "Hadley",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "onecentral"
     },
     {
@@ -249,9 +249,9 @@
       "home": "Biggleswade FC",
       "away": "Waltham Abbey",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 4,
       "competition": "onecentral"
     },
     {
@@ -259,9 +259,9 @@
       "home": "Didcot Town",
       "away": "Ware",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 1,
       "competition": "onecentral"
     },
     {
@@ -269,7 +269,7 @@
       "home": "Flackwell Heath",
       "away": "Milton Keynes Irish",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onecentral"
@@ -279,9 +279,9 @@
       "home": "Leverstock Green",
       "away": "Hertford Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -289,9 +289,9 @@
       "home": "London Lions",
       "away": "Stotfold",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 3,
       "competition": "onecentral"
     },
     {
@@ -299,7 +299,7 @@
       "home": "Marlow",
       "away": "Barton Rovers",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "FullTime",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onecentral"
@@ -309,8 +309,8 @@
       "home": "Potters Bar Town",
       "away": "Royston Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
       "awayScore": 0,
       "competition": "onecentral"
     },
@@ -319,9 +319,9 @@
       "home": "Thame United",
       "away": "Biggleswade Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -329,9 +329,9 @@
       "home": "Welwyn Garden City",
       "away": "Beaconsfield Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 2,
+      "awayScore": 1,
       "competition": "onecentral"
     },
     {
@@ -339,9 +339,9 @@
       "home": "Winslow United",
       "away": "Haringey Borough",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 2,
       "competition": "onecentral"
     },
     {
@@ -349,7 +349,7 @@
       "home": "Barnstaple Town",
       "away": "Melksham Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onesouth"
@@ -359,9 +359,9 @@
       "home": "Dorchester Town",
       "away": "Bishops Cleeve",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 4,
+      "awayScore": 2,
       "competition": "onesouth"
     },
     {
@@ -369,7 +369,7 @@
       "home": "Falmouth Town",
       "away": "Bristol Manor Farm",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onesouth"
@@ -379,8 +379,8 @@
       "home": "Larkhall Athletic",
       "away": "Portland United",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
       "awayScore": 0,
       "competition": "onesouth"
     },
@@ -389,7 +389,7 @@
       "home": "Paulton Rovers",
       "away": "Slimbridge AFC",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onesouth"
@@ -399,7 +399,7 @@
       "home": "Sporting Club Inkberrow",
       "away": "Westbury United",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
+      "status": "Postponed",
       "homeScore": 0,
       "awayScore": 0,
       "competition": "onesouth"
@@ -409,9 +409,9 @@
       "home": "Swindon Supermarine",
       "away": "Bideford AFC",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 3,
+      "awayScore": 2,
       "competition": "onesouth"
     },
     {
@@ -419,8 +419,8 @@
       "home": "Weymouth FC",
       "away": "Hungerford Town",
       "kickoff": "15:00",
-      "status": "FirstHalf",
-      "homeScore": 0,
+      "status": "FullTime",
+      "homeScore": 4,
       "awayScore": 0,
       "competition": "onesouth"
     },
@@ -429,9 +429,9 @@
       "home": "Willand Rovers",
       "away": "Exmouth Town",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 1,
       "competition": "onesouth"
     },
     {
@@ -439,9 +439,9 @@
       "home": "Worcester Raiders",
       "away": "Shaftesbury",
       "kickoff": "15:00",
-      "status": "NotKickedOff",
-      "homeScore": 0,
-      "awayScore": 0,
+      "status": "FullTime",
+      "homeScore": 1,
+      "awayScore": 3,
       "competition": "onesouth"
     }
   ],

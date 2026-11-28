@@ -2,6 +2,10 @@
 
 [Project brief and restart prompt](WILLOW-TREE-TICKETSOURCE-HANDOVER.md) · [Bull’s Project Hub](https://nickabull.github.io/Tiverton-Town-Control-Centre/project-hub.html)
 
+## Current status
+
+The protected box office is live. All six Bake Off performances have verified booking counts, seven-day activity and an on-demand count of active booked tickets. TicketSource Sales Report reconciliation, a tagged referral test and Lucy’s first sign-in are open. The [Worker source](willowtree-box-office-worker.mjs), [design preview](https://nickabull.github.io/Tiverton-Town-Control-Centre/willow-tree-box-office-preview.html) and [campaign prototype](https://nickabull.github.io/Tiverton-Town-Control-Centre/willow-tree-bake-off-campaign-pilot.html) are available here. The protected dashboard link is saved in the private Willow Tree Box Office Links page.
+
 ## 26 November 2026
 
 | Status | Work | Outcome |

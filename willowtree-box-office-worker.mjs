@@ -21,22 +21,35 @@ function reply(body, status = 200, type = 'text/plain') {
   });
 }
 
+class SnapshotError extends Error {}
+
 function api(key) {
   let requestsRemaining = 45;
   return async function records(path) {
+    const endpoint = path === '/events' ? 'event list' : path.endsWith('/dates') ? 'performance list' : 'booking list';
     const results = [];
     for (let page = 1; ; page += 1) {
       if (requestsRemaining === 0) throw new Error('The pilot request limit was reached.');
       requestsRemaining -= 1;
       const url = new URL(path, origin);
       url.search = new URLSearchParams({ page, per_page: 100 }).toString();
-      const response = await fetch(url, {
-        redirect: 'error',
-        headers: { Authorization: 'Bearer ' + key, Accept: 'application/json' },
-      });
-      if (!response.ok) throw new Error('TicketSource returned HTTP ' + response.status + '.');
-      const payload = await response.json();
-      if (!Array.isArray(payload.data)) throw new Error('TicketSource returned an unexpected response.');
+      let response;
+      try {
+        response = await fetch(url, {
+          redirect: 'manual',
+          headers: { Authorization: 'Bearer ' + key, Accept: 'application/json' },
+        });
+      } catch {
+        throw new SnapshotError('TicketSource connection failed while loading the ' + endpoint + '.');
+      }
+      if (!response.ok) throw new SnapshotError('TicketSource returned HTTP ' + response.status + ' for the ' + endpoint + '.');
+      let payload;
+      try {
+        payload = await response.json();
+      } catch {
+        throw new SnapshotError('TicketSource returned a non-JSON response for the ' + endpoint + '.');
+      }
+      if (!Array.isArray(payload?.data)) throw new SnapshotError('TicketSource returned an unexpected response for the ' + endpoint + '.');
       results.push(...payload.data);
       if (!payload.links?.next) return results;
     }
@@ -131,8 +144,10 @@ export default {
     if (request.method !== 'GET') return reply('Method not allowed.', 405);
     if (!env.TICKETSOURCE_API_KEY) return reply('Add TICKETSOURCE_API_KEY as a Worker secret.', 503);
     const now = Date.now();
+    let step = 'reading booking fields';
     try {
-      const result = await snapshot(api(env.TICKETSOURCE_API_KEY), now);
+      const result = await snapshot(api(env.TICKETSOURCE_API_KEY.trim()), now);
+      step = 'formatting the dashboard';
       return reply(dashboard(result, now), 200, 'text/html');
     } catch (error) {
       const safeMessages = new Set([
@@ -142,8 +157,8 @@ export default {
         'No performance dates were returned.',
         'TicketSource returned an invalid performance date.'
       ]);
-      const safe = safeMessages.has(error.message) || /^TicketSource returned HTTP \d{3}\.$/.test(error.message);
-      return reply(safe ? error.message : 'Could not load the TicketSource snapshot.', 502);
+      const safe = error instanceof SnapshotError || safeMessages.has(error.message);
+      return reply(safe ? error.message : 'Could not load the TicketSource snapshot while ' + step + '.', 502);
     }
   },
 };
